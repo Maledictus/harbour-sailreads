@@ -28,18 +28,18 @@ class QQuickView;
 
 namespace SailReads
 {
+	class GoodreadsApi;
 	class LocalStorage;
 	class NetworkAccessManager;
-	class OAuthWrapper;
 
 	class SailreadsManager : public QObject
 	{
 		Q_OBJECT
 
 		QQuickView *MainView_;
+		GoodreadsApi *GoodreadsApi_;
 		LocalStorage *LocalStorage_;
 		NetworkAccessManager *NetworkAccessManager_;
-		OAuthWrapper *OAuthWrapper_;
 
 	public:
 		explicit SailreadsManager (QQuickView *view, QObject *parent = 0);
@@ -48,6 +48,7 @@ namespace SailReads
 
 	private:
 		void AuthorizeApplication ();
+		void RequestUserId ();
 
 	private slots:
 		void handleApplicationAuthorized (bool authorized);

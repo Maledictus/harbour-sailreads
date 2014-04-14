@@ -40,7 +40,7 @@ namespace SailReads
 	{
 	}
 
-	QUrl OAuthWrapper::GetAuthorizeUrl ()
+	QUrl OAuthWrapper::GetAuthorizationUrl ()
 	{
 		const char *requestTokenUri = (BaseUrl_.toString () + "/oauth/request_token").toUtf8 ();
 		char *requestUrl = NULL;

@@ -19,14 +19,16 @@ SOURCES += src/harbour-sailreads.cpp \
     src/localstorage.cpp \
     src/util.cpp \
     src/sailreadsmanager.cpp \
-    src/oauthwrapper.cpp
+    src/oauthwrapper.cpp \
+    src/goodreadsapi.cpp
 
 HEADERS += \
     src/networkaccessmanager.h \
     src/localstorage.h \
     src/util.h \
     src/sailreadsmanager.h \
-    src/oauthwrapper.h
+    src/oauthwrapper.h \
+    src/goodreadsapi.h
 
 LIBS += -loauth
 

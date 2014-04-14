@@ -24,20 +24,18 @@ THE SOFTWARE.
 #include <QQuickItem>
 #include <QQuickView>
 #include <QtDebug>
+#include "goodreadsapi.h"
 #include "localstorage.h"
 #include "networkaccessmanager.h"
-#include "oauthwrapper.h"
 
 namespace SailReads
 {
 	SailreadsManager::SailreadsManager (QQuickView *view, QObject *parent)
 	: QObject (parent)
 	, MainView_ (view)
+	, GoodreadsApi_ (new GoodreadsApi (this))
 	, LocalStorage_ (new LocalStorage (this))
 	, NetworkAccessManager_ (new NetworkAccessManager (this))
-	, OAuthWrapper_ (new OAuthWrapper ("GRGhcLIXU8M8u1NcnoMVFg",
-			"Epo3MYIT3V1JcuC6OkZxptHLEuD8yqUgAj7mLNw", QUrl ("http://www.goodreads.com"),
-			this))
 	{
 	}
 
@@ -52,12 +50,7 @@ namespace SailReads
 		const QString accessTokenSecret = LocalStorage_->GetValue ("AccessTokenSecret");
 
 		if (accessToken.isEmpty () || accessTokenSecret.isEmpty ())
-		{
 			AuthorizeApplication ();
-			return;
-		}
-
-		qDebug () << "Application already authorized";
 	}
 
 	void SailreadsManager::AuthorizeApplication ()
@@ -66,7 +59,7 @@ namespace SailReads
 		QUrl authUrl;
 		while (failTimes && authUrl.isEmpty ())
 		{
-			authUrl = OAuthWrapper_->GetAuthorizeUrl ();
+			authUrl = GoodreadsApi_->GetAuthorizationUrl ();
 			if (authUrl.isEmpty ())
 				--failTimes;
 		}
@@ -88,7 +81,7 @@ namespace SailReads
 	{
 		if (authorized)
 		{
-			const auto& tokens = OAuthWrapper_->GetAccessTokens ();
+			const auto& tokens = GoodreadsApi_->GetAccessTokens ();
 			if (tokens.first.isEmpty () || tokens.second.isEmpty ())
 			{
 				//TODO notification

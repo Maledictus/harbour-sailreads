@@ -20,29 +20,27 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-#pragma once
-
-#include <QObject>
-#include <QUrl>
+#include "goodreadsapi.h"
+#include "oauthwrapper.h"
 
 namespace SailReads
 {
-	class OAuthWrapper : public QObject
+	GoodreadsApi::GoodreadsApi (QObject *parent)
+	: QObject (parent)
+	, ConsumerKey_ ("GRGhcLIXU8M8u1NcnoMVFg")
+	, ConsumerSecret_ ("Epo3MYIT3V1JcuC6OkZxptHLEuD8yqUgAj7mLNw")
+	, BaseUrl_ ("http://www.goodreads.com")
+	, OAuthWrapper_ (new OAuthWrapper (ConsumerKey_, ConsumerSecret_, BaseUrl_, this))
 	{
-		Q_OBJECT
+	}
 
-		const QString ConsumerKey_;
-		const QString ConsumerSecret_;
-		const QUrl BaseUrl_;
-		QString RequestToken_;
-		QString RequestTokenSecret_;
+	QUrl GoodreadsApi::GetAuthorizationUrl ()
+	{
+		return OAuthWrapper_->GetAuthorizationUrl ();
+	}
 
-	public:
-		explicit OAuthWrapper (const QString& consumerKey,
-				const QString& consumerSecret, const QUrl& baseUrl,
-				QObject *parent = 0);
-
-		QUrl GetAuthorizationUrl ();
-		QPair<QString, QString> GetAccessTokens () const;
-	};
+	QPair<QString, QString> GoodreadsApi::GetAccessTokens () const
+	{
+		return OAuthWrapper_->GetAccessTokens ();
+	}
 }
