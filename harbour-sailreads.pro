@@ -12,7 +12,7 @@ TARGET = harbour-sailreads
 
 CONFIG += sailfishapp
 
-QT += webkit sql
+QT += webkit sql xml
 
 SOURCES += src/harbour-sailreads.cpp \
     src/networkaccessmanager.cpp \

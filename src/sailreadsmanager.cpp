@@ -26,7 +26,6 @@ THE SOFTWARE.
 #include <QtDebug>
 #include "goodreadsapi.h"
 #include "localstorage.h"
-#include "networkaccessmanager.h"
 
 namespace SailReads
 {
@@ -35,7 +34,6 @@ namespace SailReads
 	, MainView_ (view)
 	, GoodreadsApi_ (new GoodreadsApi (this))
 	, LocalStorage_ (new LocalStorage (this))
-	, NetworkAccessManager_ (new NetworkAccessManager (this))
 	{
 	}
 
@@ -46,11 +44,13 @@ namespace SailReads
 				this,
 				SLOT (handleApplicationAuthorized (bool)));
 
-		const QString accessToken = LocalStorage_->GetValue ("AccessToken");
-		const QString accessTokenSecret = LocalStorage_->GetValue ("AccessTokenSecret");
+		AccessToken_ = LocalStorage_->GetValue ("AccessToken");
+		AccessTokenSecret_ = LocalStorage_->GetValue ("AccessTokenSecret");
 
-		if (accessToken.isEmpty () || accessTokenSecret.isEmpty ())
+		if (AccessToken_.isEmpty () || AccessTokenSecret_.isEmpty ())
 			AuthorizeApplication ();
+		else
+			RequestUserId ();
 	}
 
 	void SailreadsManager::AuthorizeApplication ()
@@ -77,6 +77,11 @@ namespace SailReads
 				Q_ARG (QVariant, QVariant::fromValue (authUrl)));
 	}
 
+	void SailreadsManager::RequestUserId ()
+	{
+		GoodreadsApi_->RequestUserID (AccessToken_, AccessTokenSecret_);
+	}
+
 	void SailreadsManager::handleApplicationAuthorized (bool authorized)
 	{
 		if (authorized)
@@ -92,6 +97,10 @@ namespace SailReads
 
 			LocalStorage_->SetValue ("AccessToken", tokens.first);
 			LocalStorage_->SetValue ("AccessTokenSecret", tokens.second);
+			AccessToken_ = tokens.first;
+			AccessTokenSecret_ = tokens.second;
+
+			RequestUserId ();
 		}
 	}
 }

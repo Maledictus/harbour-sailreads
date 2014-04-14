@@ -28,6 +28,7 @@ THE SOFTWARE.
 namespace SailReads
 {
 	class OAuthWrapper;
+	class NetworkAccessManager;
 
 	class GoodreadsApi : public QObject
 	{
@@ -37,11 +38,18 @@ namespace SailReads
 		const QString ConsumerSecret_;
 		const QUrl BaseUrl_;
 		OAuthWrapper *OAuthWrapper_;
+		NetworkAccessManager *NetworkAccessManager_;
 
 	public:
 		explicit GoodreadsApi (QObject *parent = 0);
 
 		QUrl GetAuthorizationUrl ();
 		QPair<QString, QString> GetAccessTokens () const;
+
+		void RequestUserID (const QString& accessToken,
+				const QString& accessTokenSecret);
+
+	private slots:
+		void handleRequestUserIDFinished ();
 	};
 }

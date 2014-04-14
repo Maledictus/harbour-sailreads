@@ -27,6 +27,15 @@ THE SOFTWARE.
 
 namespace SailReads
 {
+	struct SignedUrlData
+	{
+		QString ConsumerKey_;
+		QString ConsumerSecret_;
+		QString AccessToken_;
+		QString AccessTokenSecret_;
+		QUrl BaseUrl_;
+	};
+
 	class OAuthWrapper : public QObject
 	{
 		Q_OBJECT
@@ -44,5 +53,7 @@ namespace SailReads
 
 		QUrl GetAuthorizationUrl ();
 		QPair<QString, QString> GetAccessTokens () const;
+
+		QUrl MakeGetSignedUrl (const SignedUrlData& data) const;
 	};
 }

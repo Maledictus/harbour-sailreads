@@ -116,4 +116,12 @@ namespace SailReads
 
 		return QPair<QString, QString> ();
 	}
+
+	QUrl OAuthWrapper::MakeGetSignedUrl (const SignedUrlData& data) const
+	{
+		return QUrl(oauth_sign_url2 (data.BaseUrl_.toString ().toUtf8 (),
+				NULL, OA_HMAC, NULL, data.ConsumerKey_.toUtf8 (),
+				data.ConsumerSecret_.toUtf8 (), data.AccessToken_.toUtf8 (),
+				data.AccessTokenSecret_.toUtf8 ()));
+	}
 }

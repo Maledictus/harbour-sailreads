@@ -30,7 +30,6 @@ namespace SailReads
 {
 	class GoodreadsApi;
 	class LocalStorage;
-	class NetworkAccessManager;
 
 	class SailreadsManager : public QObject
 	{
@@ -39,7 +38,8 @@ namespace SailReads
 		QQuickView *MainView_;
 		GoodreadsApi *GoodreadsApi_;
 		LocalStorage *LocalStorage_;
-		NetworkAccessManager *NetworkAccessManager_;
+		QString AccessToken_;
+		QString AccessTokenSecret_;
 
 	public:
 		explicit SailreadsManager (QQuickView *view, QObject *parent = 0);
