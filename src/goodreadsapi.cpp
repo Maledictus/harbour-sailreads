@@ -42,6 +42,11 @@ namespace SailReads
 	{
 	}
 
+	bool GoodreadsApi::IsRequestInProcess () const
+	{
+		return RequestInProcess_;
+	}
+
 	QUrl GoodreadsApi::GetAuthorizationUrl ()
 	{
 		return OAuthWrapper_->GetAuthorizationUrl ();
@@ -58,11 +63,17 @@ namespace SailReads
 		const auto& url = OAuthWrapper_->MakeGetSignedUrl ({ ConsumerKey_,
 				ConsumerSecret_, accessToken, accessTokenSecret,
 				QUrl ("https://www.goodreads.com/api/auth_user") });
+		RequestInProcess_ = true;
+		emit requestInProcessChanged ();
 		auto reply = NetworkAccessManager_->get (QNetworkRequest (url));
 		connect (reply,
-				 SIGNAL (finished ()),
-				 this,
-				 SLOT (handleRequestAuthUserIDFinished ()));
+				SIGNAL (downloadProgress (qint64, qint64)),
+				this,
+				SLOT (handleDownloadProgress (qint64, qint64)));
+		connect (reply,
+				SIGNAL (finished ()),
+				this,
+				SLOT (handleRequestAuthUserIDFinished ()));
 	}
 
 	void GoodreadsApi::RequestUserInfo (const QString& id)
@@ -70,11 +81,42 @@ namespace SailReads
 		QUrl url (QString ("https://www.goodreads.com/user/show/%1.xml?key=%2")
 				.arg (id)
 				.arg (ConsumerKey_));
+		RequestInProcess_ = true;
+		emit requestInProcessChanged ();
 		auto reply = NetworkAccessManager_->get (QNetworkRequest (url));
 		connect (reply,
-				 SIGNAL (finished ()),
-				 this,
-				 SLOT (handleRequestUserInfoFinished ()));
+				SIGNAL (downloadProgress (qint64, qint64)),
+				this,
+				SLOT (handleDownloadProgress (qint64, qint64)));
+		connect (reply,
+				SIGNAL (finished ()),
+				this,
+				SLOT (handleRequestUserInfoFinished ()));
+	}
+
+	void GoodreadsApi::RequestFriendsUpdates (const QString& accessToken,
+			const QString& accessTokenSecret)
+	{
+		const auto& url = OAuthWrapper_->MakeGetSignedUrl ({ ConsumerKey_,
+				ConsumerSecret_, accessToken, accessTokenSecret,
+				QUrl ("https://www.goodreads.com/updates/friends.xml") });
+		RequestInProcess_ = true;
+		emit requestInProcessChanged ();
+		auto reply = NetworkAccessManager_->get (QNetworkRequest (url));
+		connect (reply,
+				SIGNAL (downloadProgress (qint64, qint64)),
+				this,
+				SLOT (handleDownloadProgress (qint64, qint64)));
+		connect (reply,
+				SIGNAL (finished ()),
+				this,
+				SLOT (handleRequestFriendsUpdatesFinished ()));
+	}
+
+	void GoodreadsApi::handleDownloadProgress(qint64 bytesReceived, qint64 bytesTotal)
+	{
+		RequestInProcess_ = (bytesReceived != bytesTotal);
+		emit requestInProcessChanged ();
 	}
 
 	namespace
@@ -172,11 +214,10 @@ namespace SailReads
 				if (fieldElement.tagName () == "action_text")
 					update.ActionText_ = fieldElement.text ();
 				else if (fieldElement.tagName () == "link")
-					update.Link_ = QUrl (fieldElement.firstChild ()
-							.toCDATASection ().data ());
+					update.Link_ = QUrl (fieldElement.text ());
 				else if (fieldElement.tagName () == "updated_at")
 					update.Date_ = QDateTime::fromString (fieldElement.text (),
-							"ddd, dd MMM yyyy hh:mm:ss -zzz");
+							"ddd, dd MMM yyyy hh:mm:ss zzz");
 				else if (fieldElement.tagName () == "actor")
 				{
 					const auto& actorFieldsList = fieldElement.childNodes ();
@@ -188,7 +229,10 @@ namespace SailReads
 							update.ActorID_ = actorFieldElement.text ();
 						else if (actorFieldElement.tagName () == "name")
 							update.ActorName_ = actorFieldElement.text ();
-						else if (actorFieldElement.tagName () == "id")
+						else if (actorFieldElement.tagName () == "image_url")
+							update.ActorProfileImage_ = QUrl (actorFieldElement.firstChild ()
+									.toCDATASection ().data ());
+						else if (actorFieldElement.tagName () == "link")
 							update.ActorProfileUrl_ = QUrl (actorFieldElement.firstChild ()
 									.toCDATASection ().data ());
 					}
@@ -201,7 +245,11 @@ namespace SailReads
 		UserProfile CreateUserProfile (const QDomDocument& doc)
 		{
 			UserProfile profile;
-			const auto& userElement = doc.firstChildElement ("user");
+			const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
+			if (responseElement.isNull ())
+				return profile;
+
+			const auto& userElement = responseElement.firstChildElement ("user");
 			const auto& fieldsList = userElement.childNodes ();
 			for (int i = 0, fieldsCount = fieldsList.size (); i < fieldsCount; ++i)
 			{
@@ -265,6 +313,25 @@ namespace SailReads
 
 			return profile;
 		}
+
+		Updates_t CreateUpdates (const QDomDocument& doc)
+		{
+			Updates_t updates;
+			const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
+			if (responseElement.isNull ())
+				return updates;
+
+			const auto& updatesElement = responseElement.firstChildElement ("updates");
+			const auto& fieldsList = updatesElement.childNodes ();
+			for (int i = 0, fieldsCount = fieldsList.size (); i < fieldsCount; ++i)
+			{
+				const auto& fieldElement = fieldsList.at (i).toElement ();
+				if (fieldElement.tagName () == "update")
+					updates << CreateUpdate (fieldElement);
+			}
+
+			return updates;
+		}
 	}
 
 	void GoodreadsApi::handleRequestUserInfoFinished ()
@@ -278,19 +345,28 @@ namespace SailReads
 		if (!FillDomDocument (reply->readAll (), document))
 		{
 			qWarning () << Q_FUNC_INFO
-					<< "unable to get auth user id";
+					<< "unable to get user profile";
 			return;
 		}
 
-		try
-		{
-			emit gotUserProfile (CreateUserProfile (document));
-		}
-		catch (const std::runtime_error& error)
+		emit gotUserProfile (CreateUserProfile (document));
+	}
+
+	void GoodreadsApi::handleRequestFriendsUpdatesFinished ()
+	{
+		auto reply = qobject_cast<QNetworkReply*> (sender ());
+		if (!reply)
+			return;
+
+		QDomDocument document;
+		reply->deleteLater ();
+		if (!FillDomDocument (reply->readAll (), document))
 		{
 			qWarning () << Q_FUNC_INFO
-					<< "unable to parse user info:"
-					<< error.what ();
+					<< "unable to get recent updates";
+			return;
 		}
+
+		emit gotRecentUpdates (CreateUpdates (document));
 	}
 }

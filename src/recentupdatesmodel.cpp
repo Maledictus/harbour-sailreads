@@ -20,52 +20,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-#pragma once
-
-#include <QObject>
-#include "structures.h"
-
-class QQuickView;
+#include "recentupdatesmodel.h"
 
 namespace SailReads
 {
-	class GoodreadsApi;
-	class LocalStorage;
-	class RecentUpdatesModel;
-
-	class SailreadsManager : public QObject
+	RecentUpdatesModel::RecentUpdatesModel (QObject *parent)
+	: QStandardItemModel (parent)
 	{
-		Q_OBJECT
+		RoleNames_ [URDate] = "updateDate";
+		RoleNames_ [URLink] = "updateLink";
+		RoleNames_ [URActionText] = "updateActionText";
+		RoleNames_ [URActorID] = "updateActorID";
+		RoleNames_ [URActorName] = "updateActorName";
+		RoleNames_ [URActorPorfileImage] = "updateActorProfileImage";
+		RoleNames_ [URActorProfileUrl] = "updateActorProfileUrl";
+	}
 
-		QQuickView *MainView_;
-		GoodreadsApi *GoodreadsApi_;
-		LocalStorage *LocalStorage_;
+	QHash<int, QByteArray> RecentUpdatesModel::roleNames () const
+	{
+		return RoleNames_;
+	}
 
-		QString AccessToken_;
-		QString AccessTokenSecret_;
-		QString AuthUserID_;
 
-		RecentUpdatesModel *UpdatesModel_;
-
-		Q_PROPERTY (bool requestInProcess READ IsRequestInProcess NOTIFY requestInProcessChanged)
-
-	public:
-		explicit SailreadsManager (QQuickView *view, QObject *parent = 0);
-
-		void Init ();
-		bool IsRequestInProcess () const;
-	private:
-		void AuthorizeApplication ();
-		void RequestAuthUserId ();
-
-	private slots:
-		void handleApplicationAuthorized (bool authorized);
-
-		void handleGotAuthUserID (const QString& id);
-		void handleGotUserProfile (const UserProfile& profile);
-		void handleGotRecentUpdates (const Updates_t& updates);
-
-	signals:
-		void requestInProcessChanged ();
-	};
 }

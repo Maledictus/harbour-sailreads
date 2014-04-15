@@ -25,6 +25,8 @@ import Sailfish.Silica 1.0
 
 ApplicationWindow
 {
+    initialPage: friendsUpdatesPage
+
     signal applicationAuthorized (bool authorized)
 
     AuthManager {
@@ -36,5 +38,10 @@ ApplicationWindow
 
     function authorizeApplication(url) {
         authManager.authorizeApplication(url)
+    }
+
+    FriendsUpdatesPage {
+        id: friendsUpdatesPage
+        loading: manager.requestInProcess
     }
 }

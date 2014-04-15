@@ -21,11 +21,13 @@ THE SOFTWARE.
 */
 
 #include "sailreadsmanager.h"
+#include <QQmlContext>
 #include <QQuickItem>
 #include <QQuickView>
 #include <QtDebug>
 #include "goodreadsapi.h"
 #include "localstorage.h"
+#include "recentupdatesmodel.h"
 
 namespace SailReads
 {
@@ -34,7 +36,12 @@ namespace SailReads
 	, MainView_ (view)
 	, GoodreadsApi_ (new GoodreadsApi (this))
 	, LocalStorage_ (new LocalStorage (this))
+	, UpdatesModel_ (new RecentUpdatesModel (this))
 	{
+		connect (GoodreadsApi_,
+				SIGNAL (requestInProcessChanged ()),
+				this,
+				SIGNAL (requestInProcessChanged ()));
 		connect (GoodreadsApi_,
 				SIGNAL (gotAuthUserID (QString)),
 				this,
@@ -43,6 +50,10 @@ namespace SailReads
 				SIGNAL (gotUserProfile (UserProfile)),
 				this,
 				SLOT (handleGotUserProfile (UserProfile)));
+		connect (GoodreadsApi_,
+				SIGNAL (gotRecentUpdates (Updates_t)),
+				this,
+				SLOT (handleGotRecentUpdates (Updates_t)));
 	}
 
 	void SailreadsManager::Init ()
@@ -52,6 +63,8 @@ namespace SailReads
 				this,
 				SLOT (handleApplicationAuthorized (bool)));
 
+		MainView_->rootContext ()->setContextProperty ("updatesModel", UpdatesModel_);
+
 		AccessToken_ = LocalStorage_->GetValue ("AccessToken");
 		AccessTokenSecret_ = LocalStorage_->GetValue ("AccessTokenSecret");
 
@@ -59,6 +72,11 @@ namespace SailReads
 			AuthorizeApplication ();
 		else
 			RequestAuthUserId ();
+	}
+
+	bool SailreadsManager::IsRequestInProcess () const
+	{
+		return GoodreadsApi_->IsRequestInProcess ();
 	}
 
 	void SailreadsManager::AuthorizeApplication ()
@@ -115,10 +133,33 @@ namespace SailReads
 	void SailreadsManager::handleGotAuthUserID (const QString& id)
 	{
 		AuthUserID_ = id;
-		GoodreadsApi_->RequestUserInfo (id);
+		GoodreadsApi_->RequestFriendsUpdates (AccessToken_, AccessTokenSecret_);
 	}
 
 	void SailreadsManager::handleGotUserProfile (const UserProfile& profile)
 	{
+	}
+
+	void SailreadsManager::handleGotRecentUpdates (const Updates_t& updates)
+	{
+		for (const Update& update : updates)
+		{
+			qDebug () << update.Date_
+					<< update.Link_
+					<< update.ActionText_
+					<< update.ActorID_
+					<< update.ActorName_
+					<< update.ActorProfileImage_
+					<< update.ActorProfileUrl_;
+			QStandardItem *item = new QStandardItem;
+			item->setData (update.Date_, RecentUpdatesModel::URDate);
+			item->setData (update.Link_, RecentUpdatesModel::URLink);
+			item->setData (update.ActionText_, RecentUpdatesModel::URActionText);
+			item->setData (update.ActorID_, RecentUpdatesModel::URActorID);
+			item->setData (update.ActorName_, RecentUpdatesModel::URActorName);
+			item->setData (update.ActorProfileImage_, RecentUpdatesModel::URActorPorfileImage);
+			item->setData (update.ActorProfileUrl_, RecentUpdatesModel::URActorProfileUrl);
+			UpdatesModel_->appendRow (item);
+		}
 	}
 }

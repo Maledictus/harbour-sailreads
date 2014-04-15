@@ -62,6 +62,7 @@ int main(int argc, char *argv[])
 
 	SailReads::SailreadsManager *manager = new SailReads::SailreadsManager (view);
 
+	view->rootContext ()->setContextProperty ("manager", manager);
 	view->setSource (SailfishApp::pathTo ("qml/harbour-sailreads.qml"));
 	view->showFullScreen ();
 

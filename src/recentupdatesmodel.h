@@ -22,53 +22,31 @@ THE SOFTWARE.
 
 #pragma once
 
-#include <QObject>
-#include <QUrl>
-#include "structures.h"
+#include <QStandardItemModel>
 
 namespace SailReads
 {
-	class OAuthWrapper;
-	class NetworkAccessManager;
-
-	class GoodreadsApi : public QObject
+	class RecentUpdatesModel : public QStandardItemModel
 	{
 		Q_OBJECT
 
-		const QString ConsumerKey_;
-		const QString ConsumerSecret_;
-		const QUrl BaseUrl_;
-		OAuthWrapper *OAuthWrapper_;
-		NetworkAccessManager *NetworkAccessManager_;
-
-		bool RequestInProcess_;
+		QHash<int, QByteArray> RoleNames_;
 
 	public:
-		explicit GoodreadsApi (QObject *parent = 0);
+		enum UpdateRoles
+		{
+			URDate = Qt::UserRole + 1,
+			URLink,
+			URActionText,
+			URActorID,
+			URActorName,
+			URActorPorfileImage,
+			URActorProfileUrl
+		};
 
-		bool IsRequestInProcess () const;
 
-		QUrl GetAuthorizationUrl ();
-		QPair<QString, QString> GetAccessTokens () const;
+		explicit RecentUpdatesModel(QObject *parent = 0);
 
-		void RequestAuthUserID (const QString& accessToken,
-				const QString& accessTokenSecret);
-		void RequestUserInfo (const QString& id);
-		void RequestFriendsUpdates (const QString& accessToken,
-				const QString& accessTokenSecret);
-
-	private slots:
-		void handleDownloadProgress (qint64 bytesReceived, qint64 bytesTotal);
-
-		void handleRequestAuthUserIDFinished ();
-		void handleRequestUserInfoFinished ();
-		void handleRequestFriendsUpdatesFinished ();
-
-	signals:
-		void requestInProcessChanged ();
-
-		void gotAuthUserID (const QString& id);
-		void gotUserProfile (const UserProfile& profile);
-		void gotRecentUpdates (const Updates_t& updates);
+		QHash<int, QByteArray> roleNames () const;
 	};
 }
