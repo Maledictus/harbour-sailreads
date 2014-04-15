@@ -21,11 +21,14 @@ THE SOFTWARE.
 */
 
 #include "goodreadsapi.h"
+#include <stdexcept>
 #include <QDomDocument>
+#include <QDomElement>
+#include <QDomNode>
 #include <QNetworkReply>
 #include <QNetworkRequest>
-#include "oauthwrapper.h"
 #include "networkaccessmanager.h"
+#include "oauthwrapper.h"
 
 namespace SailReads
 {
@@ -49,7 +52,7 @@ namespace SailReads
 		return OAuthWrapper_->GetAccessTokens ();
 	}
 
-	void GoodreadsApi::RequestUserID (const QString& accessToken,
+	void GoodreadsApi::RequestAuthUserID (const QString& accessToken,
 			const QString& accessTokenSecret)
 	{
 		const auto& url = OAuthWrapper_->MakeGetSignedUrl ({ ConsumerKey_,
@@ -59,7 +62,19 @@ namespace SailReads
 		connect (reply,
 				 SIGNAL (finished ()),
 				 this,
-				 SLOT (handleRequestUserIDFinished ()));
+				 SLOT (handleRequestAuthUserIDFinished ()));
+	}
+
+	void GoodreadsApi::RequestUserInfo (const QString& id)
+	{
+		QUrl url (QString ("https://www.goodreads.com/user/show/%1.xml?key=%2")
+				.arg (id)
+				.arg (ConsumerKey_));
+		auto reply = NetworkAccessManager_->get (QNetworkRequest (url));
+		connect (reply,
+				 SIGNAL (finished ()),
+				 this,
+				 SLOT (handleRequestUserInfoFinished ()));
 	}
 
 	namespace
@@ -83,7 +98,7 @@ namespace SailReads
 		}
 	}
 
-	void GoodreadsApi::handleRequestUserIDFinished ()
+	void GoodreadsApi::handleRequestAuthUserIDFinished ()
 	{
 		auto reply = qobject_cast<QNetworkReply*> (sender ());
 		if (!reply)
@@ -98,24 +113,184 @@ namespace SailReads
 			return;
 		}
 
-		QString userId;
-		QString userName;
-		QUrl profileUrl;
-
 		const auto& userTags = document.elementsByTagName ("user");
 		if (!userTags.isEmpty ())
 		{
 			const auto& element = userTags.at (0).toElement ();
 			if (element.hasAttribute ("id"))
-				userId = element.attribute ("id");
+			{
+				const auto& userId = element.attribute ("id");
+				if (!userId.isEmpty ())
+					emit gotAuthUserID (userId);
+			}
+		}
+	}
+
+	namespace
+	{
+		Shelf CreateShelf (const QDomElement& shelfElement)
+		{
+			Shelf shelf;
+			const auto& fieldsList = shelfElement.childNodes ();
+			for (int i = 0, fieldsCount = fieldsList.size (); i < fieldsCount; ++i)
+			{
+				const auto& fieldElement = fieldsList.at (i).toElement ();
+				if (fieldElement.tagName () == "id")
+					shelf.ID_ = fieldElement.text ();
+				else if (fieldElement.tagName () == "name")
+					shelf.Name_ = fieldElement.text ();
+				else if (fieldElement.tagName () == "book_count")
+					shelf.BookCount_ = fieldElement.text ().toUInt ();
+				else if (fieldElement.tagName () == "description")
+					shelf.Description_ = fieldElement.text ();
+				else if (fieldElement.tagName () == "display_fields")
+					shelf.Description_ = fieldElement.text ();
+				else if (fieldElement.tagName () == "exclusive_flag")
+					shelf.ExclusiveFlag_ = fieldElement.text () == "true" ? true : false;
+				else if (fieldElement.tagName () == "featured")
+					shelf.Featured_ = fieldElement.text () == "true" ? true : false;
+			}
+
+			return shelf;
 		}
 
-		const auto& nameTags = document.elementsByTagName ("name");
-		if (!nameTags.isEmpty ())
-			userName = nameTags.at (0).toElement ().text ();
+		Update CreateUpdate (const QDomElement& updateElement)
+		{
+			Update update;
+			if (updateElement.hasAttribute ("type"))
+			{
+				if (updateElement.attribute ("type") == "readstatus")
+					update.Type_ = Update::Type::ReadStatus;
+				else if (updateElement.attribute ("type") == "review")
+					update.Type_ = Update::Type::Review;
+			}
 
-		const auto& linkTags = document.elementsByTagName ("link");
-		if (!linkTags.isEmpty ())
-			profileUrl = linkTags.at (0).firstChild ().toCDATASection ().data ();
+			const auto& fieldsList = updateElement.childNodes ();
+			for (int i = 0, fieldsCount = fieldsList.size (); i < fieldsCount; ++i)
+			{
+				const auto& fieldElement = fieldsList.at (i).toElement ();
+				if (fieldElement.tagName () == "action_text")
+					update.ActionText_ = fieldElement.text ();
+				else if (fieldElement.tagName () == "link")
+					update.Link_ = QUrl (fieldElement.firstChild ()
+							.toCDATASection ().data ());
+				else if (fieldElement.tagName () == "updated_at")
+					update.Date_ = QDateTime::fromString (fieldElement.text (),
+							"ddd, dd MMM yyyy hh:mm:ss -zzz");
+				else if (fieldElement.tagName () == "actor")
+				{
+					const auto& actorFieldsList = fieldElement.childNodes ();
+					for (int j = 0, actorFieldsCount = actorFieldsList.size (); j < actorFieldsCount; ++j)
+					{
+						const auto& actorFieldElement = actorFieldsList.at (i)
+								.toElement ();
+						if (actorFieldElement.tagName () == "id")
+							update.ActorID_ = actorFieldElement.text ();
+						else if (actorFieldElement.tagName () == "name")
+							update.ActorName_ = actorFieldElement.text ();
+						else if (actorFieldElement.tagName () == "id")
+							update.ActorProfileUrl_ = QUrl (actorFieldElement.firstChild ()
+									.toCDATASection ().data ());
+					}
+				}
+			}
+
+			return update;
+		}
+
+		UserProfile CreateUserProfile (const QDomDocument& doc)
+		{
+			UserProfile profile;
+			const auto& userElement = doc.firstChildElement ("user");
+			const auto& fieldsList = userElement.childNodes ();
+			for (int i = 0, fieldsCount = fieldsList.size (); i < fieldsCount; ++i)
+			{
+				const auto& fieldElement = fieldsList.at (i).toElement ();
+				if (fieldElement.tagName () == "id")
+					profile.ID_ = fieldElement.text ();
+				else if (fieldElement.tagName () == "name")
+					profile.Name_ = fieldElement.text ();
+				else if (fieldElement.tagName () == "user_name")
+					profile.Nickname_ = fieldElement.text ();
+				else if (fieldElement.tagName () == "link")
+					profile.ProfileUrl_ = QUrl (fieldElement.firstChild ()
+							.toCDATASection ().data ());
+				else if (fieldElement.tagName () == "image_url")
+					profile.ProfileImage_ = QUrl (fieldElement.firstChild ()
+							.toCDATASection ().data ());
+				else if (fieldElement.tagName () == "about")
+					profile.About_ = fieldElement.text ();
+				else if (fieldElement.tagName () == "age")
+					profile.Age_ = fieldElement.text ().toUInt ();
+				else if (fieldElement.tagName () == "gender")
+					profile.Gender_ = fieldElement.text ();
+				else if (fieldElement.tagName () == "location")
+					profile.Location_ = fieldElement.text ();
+				else if (fieldElement.tagName () == "website")
+					profile.WebSite_ = QUrl (fieldElement.firstChild ()
+							.toCDATASection ().data ());
+				else if (fieldElement.tagName () == "interests")
+					profile.Interests_ = fieldElement.text ().split (',',
+							QString::SkipEmptyParts);
+				else if (fieldElement.tagName () == "favorite_books")
+					profile.FavoriteBooks_ = fieldElement.text ();
+				else if (fieldElement.tagName () == "favorite_authors")
+					profile.FavoriteAuthors_ = fieldElement.text ().split (',',
+							QString::SkipEmptyParts);
+				else if (fieldElement.tagName () == "updates_rss_url")
+					profile.UpdatesRSS_ = QUrl (fieldElement.firstChild ()
+							.toCDATASection ().data ());
+				else if (fieldElement.tagName () == "reviews_rss_url")
+					profile.ReviewsRSS_ = QUrl (fieldElement.firstChild ()
+							.toCDATASection ().data ());
+				else if (fieldElement.tagName () == "friends_count")
+					profile.FriendsCount_ = fieldElement.text ().toUInt ();
+				else if (fieldElement.tagName () == "groups_count")
+					profile.GroupsCount_ = fieldElement.text ().toUInt ();
+				else if (fieldElement.tagName () == "reviews_count")
+					profile.ReviewsCount_ = fieldElement.text ().toUInt ();
+				else if (fieldElement.tagName () == "user_shelves")
+				{
+					const auto& shelvesList = fieldElement.childNodes ();
+					for (int j = 0, shelvesCount = shelvesList.size (); j < shelvesCount; ++j)
+						profile.Shelves_ << CreateShelf (shelvesList.at (j).toElement ());
+				}
+				else if (fieldElement.tagName () == "updates")
+				{
+					const auto& updatesList = fieldElement.childNodes ();
+					for (int j = 0, updatesCount = updatesList.size (); j < updatesCount; ++j)
+						profile.Updates_ << CreateUpdate (updatesList.at (j).toElement ());
+				}
+			}
+
+			return profile;
+		}
+	}
+
+	void GoodreadsApi::handleRequestUserInfoFinished ()
+	{
+		auto reply = qobject_cast<QNetworkReply*> (sender ());
+		if (!reply)
+			return;
+
+		QDomDocument document;
+		reply->deleteLater ();
+		if (!FillDomDocument (reply->readAll (), document))
+		{
+			qWarning () << Q_FUNC_INFO
+					<< "unable to get auth user id";
+			return;
+		}
+
+		try
+		{
+			emit gotUserProfile (CreateUserProfile (document));
+		}
+		catch (const std::runtime_error& error)
+		{
+			qWarning () << Q_FUNC_INFO
+					<< "unable to parse user info:"
+					<< error.what ();
+		}
 	}
 }

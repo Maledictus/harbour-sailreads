@@ -23,6 +23,7 @@ THE SOFTWARE.
 #pragma once
 
 #include <QObject>
+#include "structures.h"
 
 class QQuickView;
 
@@ -38,8 +39,10 @@ namespace SailReads
 		QQuickView *MainView_;
 		GoodreadsApi *GoodreadsApi_;
 		LocalStorage *LocalStorage_;
+
 		QString AccessToken_;
 		QString AccessTokenSecret_;
+		QString AuthUserID_;
 
 	public:
 		explicit SailreadsManager (QQuickView *view, QObject *parent = 0);
@@ -48,9 +51,12 @@ namespace SailReads
 
 	private:
 		void AuthorizeApplication ();
-		void RequestUserId ();
+		void RequestAuthUserId ();
 
 	private slots:
 		void handleApplicationAuthorized (bool authorized);
+
+		void handleGotAuthUserID (const QString& id);
+		void handleGotUserProfile (const UserProfile& profile);
 	};
 }

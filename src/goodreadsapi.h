@@ -24,6 +24,7 @@ THE SOFTWARE.
 
 #include <QObject>
 #include <QUrl>
+#include "structures.h"
 
 namespace SailReads
 {
@@ -46,10 +47,16 @@ namespace SailReads
 		QUrl GetAuthorizationUrl ();
 		QPair<QString, QString> GetAccessTokens () const;
 
-		void RequestUserID (const QString& accessToken,
+		void RequestAuthUserID (const QString& accessToken,
 				const QString& accessTokenSecret);
+		void RequestUserInfo (const QString& id);
 
 	private slots:
-		void handleRequestUserIDFinished ();
+		void handleRequestAuthUserIDFinished ();
+		void handleRequestUserInfoFinished ();
+
+	signals:
+		void gotAuthUserID (const QString& id);
+		void gotUserProfile (const UserProfile& profile);
 	};
 }

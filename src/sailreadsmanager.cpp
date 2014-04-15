@@ -35,6 +35,14 @@ namespace SailReads
 	, GoodreadsApi_ (new GoodreadsApi (this))
 	, LocalStorage_ (new LocalStorage (this))
 	{
+		connect (GoodreadsApi_,
+				SIGNAL (gotAuthUserID (QString)),
+				this,
+				SLOT (handleGotAuthUserID (QString)));
+		connect (GoodreadsApi_,
+				SIGNAL (gotUserProfile (UserProfile)),
+				this,
+				SLOT (handleGotUserProfile (UserProfile)));
 	}
 
 	void SailreadsManager::Init ()
@@ -50,7 +58,7 @@ namespace SailReads
 		if (AccessToken_.isEmpty () || AccessTokenSecret_.isEmpty ())
 			AuthorizeApplication ();
 		else
-			RequestUserId ();
+			RequestAuthUserId ();
 	}
 
 	void SailreadsManager::AuthorizeApplication ()
@@ -77,9 +85,9 @@ namespace SailReads
 				Q_ARG (QVariant, QVariant::fromValue (authUrl)));
 	}
 
-	void SailreadsManager::RequestUserId ()
+	void SailreadsManager::RequestAuthUserId ()
 	{
-		GoodreadsApi_->RequestUserID (AccessToken_, AccessTokenSecret_);
+		GoodreadsApi_->RequestAuthUserID (AccessToken_, AccessTokenSecret_);
 	}
 
 	void SailreadsManager::handleApplicationAuthorized (bool authorized)
@@ -100,7 +108,17 @@ namespace SailReads
 			AccessToken_ = tokens.first;
 			AccessTokenSecret_ = tokens.second;
 
-			RequestUserId ();
+			RequestAuthUserId ();
 		}
+	}
+
+	void SailreadsManager::handleGotAuthUserID (const QString& id)
+	{
+		AuthUserID_ = id;
+		GoodreadsApi_->RequestUserInfo (id);
+	}
+
+	void SailreadsManager::handleGotUserProfile (const UserProfile& profile)
+	{
 	}
 }

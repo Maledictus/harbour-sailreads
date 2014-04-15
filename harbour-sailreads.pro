@@ -28,7 +28,8 @@ HEADERS += \
     src/util.h \
     src/sailreadsmanager.h \
     src/oauthwrapper.h \
-    src/goodreadsapi.h
+    src/goodreadsapi.h \
+    src/structures.h
 
 LIBS += -loauth
 
