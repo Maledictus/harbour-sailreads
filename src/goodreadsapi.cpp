@@ -216,25 +216,26 @@ namespace SailReads
 				else if (fieldElement.tagName () == "link")
 					update.Link_ = QUrl (fieldElement.text ());
 				else if (fieldElement.tagName () == "updated_at")
-					update.Date_ = QDateTime::fromString (fieldElement.text (),
-							"ddd, dd MMM yyyy hh:mm:ss zzz");
+				{
+					const auto& dateTime = fieldElement.text().left (25);
+					update.Date_ = QDateTime::fromString (dateTime,
+							"ddd, dd MMM yyyy hh:mm:ss");
+				}
 				else if (fieldElement.tagName () == "actor")
 				{
 					const auto& actorFieldsList = fieldElement.childNodes ();
 					for (int j = 0, actorFieldsCount = actorFieldsList.size (); j < actorFieldsCount; ++j)
 					{
-						const auto& actorFieldElement = actorFieldsList.at (i)
+						const auto& actorFieldElement = actorFieldsList.at (j)
 								.toElement ();
 						if (actorFieldElement.tagName () == "id")
 							update.ActorID_ = actorFieldElement.text ();
 						else if (actorFieldElement.tagName () == "name")
 							update.ActorName_ = actorFieldElement.text ();
 						else if (actorFieldElement.tagName () == "image_url")
-							update.ActorProfileImage_ = QUrl (actorFieldElement.firstChild ()
-									.toCDATASection ().data ());
+							update.ActorProfileImage_ = QUrl (actorFieldElement.text ());
 						else if (actorFieldElement.tagName () == "link")
-							update.ActorProfileUrl_ = QUrl (actorFieldElement.firstChild ()
-									.toCDATASection ().data ());
+							update.ActorProfileUrl_ = QUrl (actorFieldElement.text ());
 					}
 				}
 			}
