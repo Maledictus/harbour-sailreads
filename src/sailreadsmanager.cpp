@@ -62,6 +62,11 @@ namespace SailReads
 				SIGNAL (applicationAuthorized (bool)),
 				this,
 				SLOT (handleApplicationAuthorized (bool)));
+		connect (MainView_->rootObject (),
+				SIGNAL (refreshUpdates ()),
+				this,
+				SLOT (handleRefreshUpdates ()));
+
 
 		MainView_->rootContext ()->setContextProperty ("updatesModel", UpdatesModel_);
 
@@ -130,6 +135,12 @@ namespace SailReads
 		}
 	}
 
+	void SailreadsManager::handleRefreshUpdates ()
+	{
+		UpdatesModel_->Clear();
+		GoodreadsApi_->RequestFriendsUpdates (AccessToken_, AccessTokenSecret_);
+	}
+
 	void SailreadsManager::handleGotAuthUserID (const QString& id)
 	{
 		AuthUserID_ = id;
@@ -142,17 +153,7 @@ namespace SailReads
 
 	void SailreadsManager::handleGotRecentUpdates (const Updates_t& updates)
 	{
-		for (const Update& update : updates)
-		{
-//			QStandardItem *item = new QStandardItem;
-//			item->setData (update.Date_, RecentUpdatesModel::URDate);
-//			item->setData (update.Link_, RecentUpdatesModel::URLink);
-//			item->setData (update.ActionText_, RecentUpdatesModel::URActionText);
-//			item->setData (update.ActorID_, RecentUpdatesModel::URActorID);
-//			item->setData (update.ActorName_, RecentUpdatesModel::URActorName);
-//			item->setData (update.ActorProfileImage_, RecentUpdatesModel::URActorPorfileImage);
-//			item->setData (update.ActorProfileUrl_, RecentUpdatesModel::URActorProfileUrl);
-//			UpdatesModel_->appendRow (item);
-		}
+		UpdatesModel_->Clear ();
+		UpdatesModel_->AddItems (updates);
 	}
 }

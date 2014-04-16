@@ -60,6 +60,7 @@ namespace SailReads
 
 	private slots:
 		void handleApplicationAuthorized (bool authorized);
+		void handleRefreshUpdates ();
 
 		void handleGotAuthUserID (const QString& id);
 		void handleGotUserProfile (const UserProfile& profile);

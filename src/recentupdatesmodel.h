@@ -22,16 +22,19 @@ THE SOFTWARE.
 
 #pragma once
 
-#include <QStandardItemModel>
+#include <QAbstractListModel>
+#include "structures.h"
 
 namespace SailReads
 {
-	class RecentUpdatesModel : public QStandardItemModel
+	class RecentUpdatesModel : public QAbstractListModel
 	{
 		Q_OBJECT
 
 		QHash<int, QByteArray> RoleNames_;
+		QList<Update> Updates_;
 
+		Q_PROPERTY (int count READ rowCount NOTIFY countChanged)
 	public:
 		enum UpdateRoles
 		{
@@ -47,6 +50,15 @@ namespace SailReads
 
 		explicit RecentUpdatesModel(QObject *parent = 0);
 
-		QHash<int, QByteArray> roleNames () const;
+		virtual QHash<int, QByteArray> roleNames () const;
+		virtual int rowCount (const QModelIndex& parent = QModelIndex ()) const;
+		virtual QVariant data (const QModelIndex& index, int role = Qt::DisplayRole) const;
+
+		void AddItems (const Update& update);
+		void AddItems (const Updates_t& updates);
+		void Clear ();
+
+	signals:
+		void countChanged ();
 	};
 }

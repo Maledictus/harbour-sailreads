@@ -58,36 +58,42 @@ Page {
             id: delegate
             height: contentItem.childrenRect.height
 
-            Label {
-                id: actorLabel
+            Image {
+                id: userImage
+
                 anchors.left: parent.left
-                anchors.top: parent.top
                 anchors.leftMargin: Theme.paddingMedium
-                anchors.rightMargin: Theme.paddingMedium
 
-                text: updateActorName
-                color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
+                height: sourceSize.height
+                width: sourceSize.width
+                source: updateActorProfileImage
             }
 
             Label {
-                id: actionTextLabel
-                anchors.left: actorLabel.right
-                anchors.top: parent.top
+                id: updateLabel
+
+                height: contentHeight
+
+                anchors.left: userImage.right
                 anchors.right: parent.right
+                anchors.top: parent.top
                 anchors.leftMargin: Theme.paddingMedium
                 anchors.rightMargin: Theme.paddingMedium
-                textFormat: Text.RichText
-                text: updateActionText
+
+                text: "<strong>" + updateActorName + "</strong> " + updateActionText
                 color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
+                font.pixelSize: Theme.fontSizeSmall
+                wrapMode: Text.WordWrap
             }
 
+            onClicked: console.log (updatesModel.count)
         }
 
         VerticalScrollDecorator {}
     }
 
     BusyIndicator {
-        visible: loading
+        visible: loading && (updatesModel.count === 0)
         running: visible;
         anchors.centerIn: parent;
     }

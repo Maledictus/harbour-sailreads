@@ -25,9 +25,12 @@ import Sailfish.Silica 1.0
 
 ApplicationWindow
 {
+    id: mainWindow
+
     initialPage: friendsUpdatesPage
 
     signal applicationAuthorized (bool authorized)
+    signal refreshUpdates ()
 
     AuthManager {
         id: authManager
@@ -43,5 +46,6 @@ ApplicationWindow
     FriendsUpdatesPage {
         id: friendsUpdatesPage
         loading: manager.requestInProcess
+        onRefreshUpdates: mainWindow.refreshUpdates ()
     }
 }
