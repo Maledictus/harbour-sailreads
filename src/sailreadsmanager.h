@@ -32,6 +32,7 @@ namespace SailReads
 	class GoodreadsApi;
 	class LocalStorage;
 	class RecentUpdatesModel;
+	class UserProfile;
 
 	class SailreadsManager : public QObject
 	{
@@ -61,9 +62,10 @@ namespace SailReads
 	private slots:
 		void handleApplicationAuthorized (bool authorized);
 		void handleRefreshUpdates ();
+		void handleRequestUserProfile (const QString& id);
 
 		void handleGotAuthUserID (const QString& id);
-		void handleGotUserProfile (const UserProfile& profile);
+		void handleGotUserProfile (UserProfile *profile);
 		void handleGotRecentUpdates (const Updates_t& updates);
 
 	signals:

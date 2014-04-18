@@ -25,6 +25,7 @@ THE SOFTWARE.
 #include <QObject>
 #include <QUrl>
 #include "structures.h"
+#include "userprofile.h"
 
 namespace SailReads
 {
@@ -68,7 +69,7 @@ namespace SailReads
 		void requestInProcessChanged ();
 
 		void gotAuthUserID (const QString& id);
-		void gotUserProfile (const UserProfile& profile);
+		void gotUserProfile (UserProfile *profile);
 		void gotRecentUpdates (const Updates_t& updates);
 	};
 }

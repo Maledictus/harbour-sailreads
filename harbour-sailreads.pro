@@ -21,7 +21,8 @@ SOURCES += src/harbour-sailreads.cpp \
     src/sailreadsmanager.cpp \
     src/oauthwrapper.cpp \
     src/goodreadsapi.cpp \
-    src/recentupdatesmodel.cpp
+    src/recentupdatesmodel.cpp \
+    src/userprofile.cpp
 
 HEADERS += \
     src/networkaccessmanager.h \
@@ -31,7 +32,8 @@ HEADERS += \
     src/oauthwrapper.h \
     src/goodreadsapi.h \
     src/structures.h \
-    src/recentupdatesmodel.h
+    src/recentupdatesmodel.h \
+    src/userprofile.h
 
 LIBS += -loauth
 

@@ -71,29 +71,29 @@ namespace SailReads
 
 	typedef QList<Update> Updates_t;
 
-	struct UserProfile
-	{
-		QString ID_;
-		QString Name_;
-		QString Nickname_;
-		QUrl ProfileUrl_;
-		QUrl ProfileImage_;
-		QString About_;
-		quint32 Age_;
-		QString Gender_;
-		QString Location_;
-		QUrl WebSite_;
-		QStringList Interests_;
-		QString FavoriteBooks_;
-		QStringList FavoriteAuthors_;
-		QUrl UpdatesRSS_;
-		QUrl ReviewsRSS_;
-		quint32 FriendsCount_;
-		quint32 GroupsCount_;
-		quint32 ReviewsCount_;
-		QList<Shelf> Shelves_;
-		QList<Update> Updates_;
-	};
+//	struct UserProfile
+//	{
+//		QString ID_;
+//		QString Name_;
+//		QString Nickname_;
+//		QUrl ProfileUrl_;
+//		QUrl ProfileImage_;
+//		QString About_;
+//		quint32 Age_;
+//		QString Gender_;
+//		QString Location_;
+//		QUrl WebSite_;
+//		QStringList Interests_;
+//		QString FavoriteBooks_;
+//		QStringList FavoriteAuthors_;
+//		QUrl UpdatesRSS_;
+//		QUrl ReviewsRSS_;
+//		quint32 FriendsCount_;
+//		quint32 GroupsCount_;
+//		quint32 ReviewsCount_;
+//		QList<Shelf> Shelves_;
+//		QList<Update> Updates_;
+//	};
 }
 
 Q_DECLARE_METATYPE (SailReads::Update)

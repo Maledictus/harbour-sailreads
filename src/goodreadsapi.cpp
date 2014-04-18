@@ -243,9 +243,9 @@ namespace SailReads
 			return update;
 		}
 
-		UserProfile CreateUserProfile (const QDomDocument& doc)
+		UserProfile* CreateUserProfile (const QDomDocument& doc)
 		{
-			UserProfile profile;
+			UserProfile *profile = new UserProfile;
 			const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
 			if (responseElement.isNull ())
 				return profile;
@@ -255,61 +255,62 @@ namespace SailReads
 			for (int i = 0, fieldsCount = fieldsList.size (); i < fieldsCount; ++i)
 			{
 				const auto& fieldElement = fieldsList.at (i).toElement ();
-				if (fieldElement.tagName () == "id")
-					profile.ID_ = fieldElement.text ();
-				else if (fieldElement.tagName () == "name")
-					profile.Name_ = fieldElement.text ();
-				else if (fieldElement.tagName () == "user_name")
-					profile.Nickname_ = fieldElement.text ();
-				else if (fieldElement.tagName () == "link")
-					profile.ProfileUrl_ = QUrl (fieldElement.firstChild ()
-							.toCDATASection ().data ());
-				else if (fieldElement.tagName () == "image_url")
-					profile.ProfileImage_ = QUrl (fieldElement.firstChild ()
-							.toCDATASection ().data ());
-				else if (fieldElement.tagName () == "about")
-					profile.About_ = fieldElement.text ();
-				else if (fieldElement.tagName () == "age")
-					profile.Age_ = fieldElement.text ().toUInt ();
-				else if (fieldElement.tagName () == "gender")
-					profile.Gender_ = fieldElement.text ();
-				else if (fieldElement.tagName () == "location")
-					profile.Location_ = fieldElement.text ();
-				else if (fieldElement.tagName () == "website")
-					profile.WebSite_ = QUrl (fieldElement.firstChild ()
-							.toCDATASection ().data ());
-				else if (fieldElement.tagName () == "interests")
-					profile.Interests_ = fieldElement.text ().split (',',
-							QString::SkipEmptyParts);
-				else if (fieldElement.tagName () == "favorite_books")
-					profile.FavoriteBooks_ = fieldElement.text ();
-				else if (fieldElement.tagName () == "favorite_authors")
-					profile.FavoriteAuthors_ = fieldElement.text ().split (',',
-							QString::SkipEmptyParts);
-				else if (fieldElement.tagName () == "updates_rss_url")
-					profile.UpdatesRSS_ = QUrl (fieldElement.firstChild ()
-							.toCDATASection ().data ());
-				else if (fieldElement.tagName () == "reviews_rss_url")
-					profile.ReviewsRSS_ = QUrl (fieldElement.firstChild ()
-							.toCDATASection ().data ());
-				else if (fieldElement.tagName () == "friends_count")
-					profile.FriendsCount_ = fieldElement.text ().toUInt ();
-				else if (fieldElement.tagName () == "groups_count")
-					profile.GroupsCount_ = fieldElement.text ().toUInt ();
-				else if (fieldElement.tagName () == "reviews_count")
-					profile.ReviewsCount_ = fieldElement.text ().toUInt ();
-				else if (fieldElement.tagName () == "user_shelves")
-				{
-					const auto& shelvesList = fieldElement.childNodes ();
-					for (int j = 0, shelvesCount = shelvesList.size (); j < shelvesCount; ++j)
-						profile.Shelves_ << CreateShelf (shelvesList.at (j).toElement ());
-				}
-				else if (fieldElement.tagName () == "updates")
-				{
-					const auto& updatesList = fieldElement.childNodes ();
-					for (int j = 0, updatesCount = updatesList.size (); j < updatesCount; ++j)
-						profile.Updates_ << CreateUpdate (updatesList.at (j).toElement ());
-				}
+//				if (fieldElement.tagName () == "id")
+//					profile.ID_ = fieldElement.text ();
+//				else if (fieldElement.tagName () == "name")
+//					profile.Name_ = fieldElement.text ();
+//				else if (fieldElement.tagName () == "user_name")
+//					profile.Nickname_ = fieldElement.text ();
+/*				else */
+				if (fieldElement.tagName () == "link")
+					profile->setUserImage (QUrl (fieldElement.firstChild ()
+							.toCDATASection ().data ()));
+//				else if (fieldElement.tagName () == "image_url")
+//					profile.ProfileImage_ = QUrl (fieldElement.firstChild ()
+//							.toCDATASection ().data ());
+//				else if (fieldElement.tagName () == "about")
+//					profile.About_ = fieldElement.text ();
+//				else if (fieldElement.tagName () == "age")
+//					profile.Age_ = fieldElement.text ().toUInt ();
+//				else if (fieldElement.tagName () == "gender")
+//					profile.Gender_ = fieldElement.text ();
+//				else if (fieldElement.tagName () == "location")
+//					profile.Location_ = fieldElement.text ();
+//				else if (fieldElement.tagName () == "website")
+//					profile.WebSite_ = QUrl (fieldElement.firstChild ()
+//							.toCDATASection ().data ());
+//				else if (fieldElement.tagName () == "interests")
+//					profile.Interests_ = fieldElement.text ().split (',',
+//							QString::SkipEmptyParts);
+//				else if (fieldElement.tagName () == "favorite_books")
+//					profile.FavoriteBooks_ = fieldElement.text ();
+//				else if (fieldElement.tagName () == "favorite_authors")
+//					profile.FavoriteAuthors_ = fieldElement.text ().split (',',
+//							QString::SkipEmptyParts);
+//				else if (fieldElement.tagName () == "updates_rss_url")
+//					profile.UpdatesRSS_ = QUrl (fieldElement.firstChild ()
+//							.toCDATASection ().data ());
+//				else if (fieldElement.tagName () == "reviews_rss_url")
+//					profile.ReviewsRSS_ = QUrl (fieldElement.firstChild ()
+//							.toCDATASection ().data ());
+//				else if (fieldElement.tagName () == "friends_count")
+//					profile.FriendsCount_ = fieldElement.text ().toUInt ();
+//				else if (fieldElement.tagName () == "groups_count")
+//					profile.GroupsCount_ = fieldElement.text ().toUInt ();
+//				else if (fieldElement.tagName () == "reviews_count")
+//					profile.ReviewsCount_ = fieldElement.text ().toUInt ();
+//				else if (fieldElement.tagName () == "user_shelves")
+//				{
+//					const auto& shelvesList = fieldElement.childNodes ();
+//					for (int j = 0, shelvesCount = shelvesList.size (); j < shelvesCount; ++j)
+//						profile.Shelves_ << CreateShelf (shelvesList.at (j).toElement ());
+//				}
+//				else if (fieldElement.tagName () == "updates")
+//				{
+//					const auto& updatesList = fieldElement.childNodes ();
+//					for (int j = 0, updatesCount = updatesList.size (); j < updatesCount; ++j)
+//						profile.Updates_ << CreateUpdate (updatesList.at (j).toElement ());
+//				}
 			}
 
 			return profile;

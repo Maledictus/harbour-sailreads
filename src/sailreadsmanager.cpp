@@ -28,6 +28,7 @@ THE SOFTWARE.
 #include "goodreadsapi.h"
 #include "localstorage.h"
 #include "recentupdatesmodel.h"
+#include "userprofile.h"
 
 namespace SailReads
 {
@@ -47,9 +48,9 @@ namespace SailReads
 				this,
 				SLOT (handleGotAuthUserID (QString)));
 		connect (GoodreadsApi_,
-				SIGNAL (gotUserProfile (UserProfile)),
+				SIGNAL (gotUserProfile (UserProfile*)),
 				this,
-				SLOT (handleGotUserProfile (UserProfile)));
+				SLOT (handleGotUserProfile (UserProfile*)));
 		connect (GoodreadsApi_,
 				SIGNAL (gotRecentUpdates (Updates_t)),
 				this,
@@ -66,7 +67,10 @@ namespace SailReads
 				SIGNAL (refreshUpdates ()),
 				this,
 				SLOT (handleRefreshUpdates ()));
-
+		connect (MainView_->rootObject (),
+				SIGNAL (requestUserProfile (QString)),
+				this,
+				SLOT (handleRequestUserProfile (QString)));
 
 		MainView_->rootContext ()->setContextProperty ("updatesModel", UpdatesModel_);
 
@@ -141,14 +145,22 @@ namespace SailReads
 		GoodreadsApi_->RequestFriendsUpdates (AccessToken_, AccessTokenSecret_);
 	}
 
+	void SailreadsManager::handleRequestUserProfile (const QString& id)
+	{
+		GoodreadsApi_->RequestUserInfo (id == "self" ? AuthUserID_ : id);
+	}
+
 	void SailreadsManager::handleGotAuthUserID (const QString& id)
 	{
 		AuthUserID_ = id;
 		GoodreadsApi_->RequestFriendsUpdates (AccessToken_, AccessTokenSecret_);
 	}
 
-	void SailreadsManager::handleGotUserProfile (const UserProfile& profile)
+	void SailreadsManager::handleGotUserProfile (UserProfile *profile)
 	{
+		QMetaObject::invokeMethod (MainView_->rootObject (),
+				"setUserProfile",
+				Q_ARG (QVariant, QVariant::fromValue (static_cast<QObject*> (profile))));
 	}
 
 	void SailreadsManager::handleGotRecentUpdates (const Updates_t& updates)
