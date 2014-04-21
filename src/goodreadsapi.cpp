@@ -130,7 +130,7 @@ namespace SailReads
 		const auto& url = OAuthWrapper_->MakeGetSignedUrl ({ ConsumerKey_,
 				ConsumerSecret_, accessToken, accessTokenSecret,
 				QUrl ("https://www.goodreads.com/notifications?format=xml") });
-		qDebug () << url;
+
 		RequestInProcess_ = true;
 		emit requestInProcessChanged ();
 		auto reply = NetworkAccessManager_->get (QNetworkRequest (url));
@@ -380,6 +380,86 @@ namespace SailReads
 
 			return updates;
 		}
+
+		Notification CreateNotification (const QDomElement& notificationElement)
+		{
+			Notification notification;
+
+			const auto& fieldsList = notificationElement.childNodes ();
+			for (int i = 0, fieldsCount = fieldsList.size (); i < fieldsCount; ++i)
+			{
+				const auto& fieldElement = fieldsList.at (i).toElement ();
+				if (fieldElement.tagName () == "new")
+					notification.Read_ = (fieldElement.text () == "false");
+				else if (fieldElement.tagName () == "created_at")
+				{
+					const auto& dateTime = fieldElement.text().left (18);
+					notification.Date_ = QDateTime::fromString (dateTime,
+							Qt::ISODate);
+				}
+				else if (fieldElement.tagName () == "actors")
+				{
+					const auto& actorFieldsList = fieldElement.childNodes ();
+					for (int j = 0, actorFieldsCount = actorFieldsList.size (); j < actorFieldsCount; ++j)
+					{
+						const auto& actorFieldElement = actorFieldsList.at (j)
+								.toElement ();
+						if (actorFieldElement.tagName () != "user")
+							continue;
+
+						const auto& userFieldsList = actorFieldElement.childNodes ();
+						for (int k = 0, userFieldsCount = userFieldsList.size (); k < userFieldsCount; ++k)
+						{
+							const auto& userFieldElement = userFieldsList.at (k)
+									.toElement ();
+							if (userFieldElement.tagName () == "id")
+								notification.ActorID_ = userFieldElement.text ();
+							else if (userFieldElement.tagName () == "name")
+								notification.ActorName_ = userFieldElement.text ();
+							else if (userFieldElement.tagName () == "image_url")
+								notification.ActorProfileImageUrl_ = QUrl (userFieldElement.firstChild ()
+										.toCDATASection ().data ());
+							else if (userFieldElement.tagName () == "link")
+								notification.ActorProfileUrl_ = QUrl (userFieldElement.firstChild ()
+										.toCDATASection ().data ());
+						}
+					}
+				}
+				else if (fieldElement.tagName () == "body")
+				{
+					const auto& actorFieldsList = fieldElement.childNodes ();
+					for (int j = 0, actorFieldsCount = actorFieldsList.size (); j < actorFieldsCount; ++j)
+					{
+						const auto& actorFieldElement = actorFieldsList.at (j)
+								.toElement ();
+						if (actorFieldElement.tagName () == "html")
+							notification.Text_ = actorFieldElement.firstChild ()
+									.toCDATASection ().data ();
+					}
+				}
+			}
+
+			return notification;
+		}
+
+		Notifications_t CreateNotifications (const QDomDocument& doc)
+		{
+			Notifications_t notifications;
+			const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
+			if (responseElement.isNull ())
+				return notifications;
+
+			const auto& updatesElement = responseElement.firstChildElement ("notifications");
+			const auto& fieldsList = updatesElement.childNodes ();
+			for (int i = 0, fieldsCount = fieldsList.size (); i < fieldsCount; ++i)
+			{
+				const auto& fieldElement = fieldsList.at (i).toElement ();
+				if (fieldElement.tagName () == "notification")
+					notifications << CreateNotification (fieldElement);
+			}
+
+			return notifications;
+		}
 	}
 
 	void GoodreadsApi::handleRequestUserInfoFinished ()
@@ -433,7 +513,6 @@ namespace SailReads
 			return;
 		}
 
-		qDebug () << document.toByteArray ();
-		//emit gotNotifications (CreateNotifications (document));
+		emit gotNotifications (CreateNotifications (document));
 	}
 }

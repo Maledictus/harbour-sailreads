@@ -22,57 +22,44 @@ THE SOFTWARE.
 
 #pragma once
 
-#include <QObject>
+#include <QAbstractListModel>
 #include "structures.h"
-
-class QQuickView;
 
 namespace SailReads
 {
-	class GoodreadsApi;
-	class LocalStorage;
-	class NotificationsModel;
-	class RecentUpdatesModel;
-	class UserProfile;
-
-	class SailreadsManager : public QObject
+	class NotificationsModel : public QAbstractListModel
 	{
 		Q_OBJECT
 
-		QQuickView *MainView_;
-		GoodreadsApi *GoodreadsApi_;
-		LocalStorage *LocalStorage_;
+		QHash<int, QByteArray> RoleNames_;
+		Notifications_t Notifications_;
 
-		QString AccessToken_;
-		QString AccessTokenSecret_;
-		QString AuthUserID_;
-
-		RecentUpdatesModel *UpdatesModel_;
-		NotificationsModel *NotificationsModel_;
-
-		Q_PROPERTY (bool requestInProcess READ IsRequestInProcess NOTIFY requestInProcessChanged)
-
+		Q_PROPERTY (int count READ rowCount NOTIFY countChanged)
 	public:
-		explicit SailreadsManager (QQuickView *view, QObject *parent = 0);
+		enum NotificationRoles
+		{
+			NRDate = Qt::UserRole + 1,
+			NRRead,
+			NRLink,
+			NRText,
+			NRActorID,
+			NRActorName,
+			NRActorPorfileImage,
+			NRActorProfileUrl
+		};
 
-		void Init ();
-		bool IsRequestInProcess () const;
-	private:
-		void AuthorizeApplication ();
-		void RequestAuthUserId ();
 
-	private slots:
-		void handleApplicationAuthorized (bool authorized);
-		void handleRefreshUpdates ();
-		void handleRequestUserProfile (const QString& id);
-		void handleRequestNotifications ();
+		explicit NotificationsModel(QObject *parent = 0);
 
-		void handleGotAuthUserID (const QString& id);
-		void handleGotUserProfile (UserProfile *profile);
-		void handleGotRecentUpdates (const Updates_t& updates);
-		void handleGotNotifications (const Notifications_t& notifications);
+		virtual QHash<int, QByteArray> roleNames () const;
+		virtual int rowCount (const QModelIndex& parent = QModelIndex ()) const;
+		virtual QVariant data (const QModelIndex& index, int role = Qt::DisplayRole) const;
+
+		void AddItems (const Notification& notification);
+		void AddItems (const Notifications_t& notifications);
+		void Clear ();
 
 	signals:
-		void requestInProcessChanged ();
+		void countChanged ();
 	};
 }

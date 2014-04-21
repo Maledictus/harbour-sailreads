@@ -21,12 +21,14 @@ THE SOFTWARE.
 */
 
 #include "sailreadsmanager.h"
+#include <algorithm>
 #include <QQmlContext>
 #include <QQuickItem>
 #include <QQuickView>
 #include <QtDebug>
 #include "goodreadsapi.h"
 #include "localstorage.h"
+#include "notificationsmodel.h"
 #include "recentupdatesmodel.h"
 #include "userprofile.h"
 
@@ -38,6 +40,7 @@ namespace SailReads
 	, GoodreadsApi_ (new GoodreadsApi (this))
 	, LocalStorage_ (new LocalStorage (this))
 	, UpdatesModel_ (new RecentUpdatesModel (this))
+	, NotificationsModel_ (new NotificationsModel (this))
 	{
 		connect (GoodreadsApi_,
 				SIGNAL (requestInProcessChanged ()),
@@ -55,6 +58,10 @@ namespace SailReads
 				SIGNAL (gotRecentUpdates (Updates_t)),
 				this,
 				SLOT (handleGotRecentUpdates (Updates_t)));
+		connect (GoodreadsApi_,
+				SIGNAL (gotNotifications (Notifications_t)),
+				this,
+				SLOT (handleGotNotifications (Notifications_t)));
 	}
 
 	void SailreadsManager::Init ()
@@ -77,6 +84,7 @@ namespace SailReads
 				SLOT (handleRequestNotifications ()));
 
 		MainView_->rootContext ()->setContextProperty ("updatesModel", UpdatesModel_);
+		MainView_->rootContext ()->setContextProperty ("notificationsModel", NotificationsModel_);
 
 		AccessToken_ = LocalStorage_->GetValue ("AccessToken");
 		AccessTokenSecret_ = LocalStorage_->GetValue ("AccessTokenSecret");
@@ -156,6 +164,7 @@ namespace SailReads
 
 	void SailreadsManager::handleRequestNotifications ()
 	{
+		NotificationsModel_->Clear ();
 		GoodreadsApi_->RequestNotifications (AccessToken_, AccessTokenSecret_);
 	}
 
@@ -163,7 +172,7 @@ namespace SailReads
 	{
 		AuthUserID_ = id;
 		GoodreadsApi_->RequestFriendsUpdates (AccessToken_, AccessTokenSecret_);
-		//TODO request notifications
+		GoodreadsApi_->RequestNotifications (AccessToken_, AccessTokenSecret_);
 	}
 
 	void SailreadsManager::handleGotUserProfile (UserProfile *profile)
@@ -177,5 +186,25 @@ namespace SailReads
 	{
 		UpdatesModel_->Clear ();
 		UpdatesModel_->AddItems (updates);
+	}
+
+	void SailreadsManager::handleGotNotifications (const Notifications_t& notifications)
+	{
+		int newNotificationsCount = std::count_if (notifications.begin (), notifications.end (),
+				[] (decltype (notifications.first ()) notification)
+				{
+					return !notification.Read_;
+				});
+		QMetaObject::invokeMethod (MainView_->rootObject (),
+				"setUnreadNotificationsCount",
+				Q_ARG (QVariant, QVariant::fromValue (newNotificationsCount)));
+
+		if (newNotificationsCount)
+		{
+			//TODO make notification
+		}
+
+		NotificationsModel_->Clear ();
+		NotificationsModel_->AddItems (notifications);
 	}
 }

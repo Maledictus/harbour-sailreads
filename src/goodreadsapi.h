@@ -76,5 +76,6 @@ namespace SailReads
 		void gotAuthUserID (const QString& id);
 		void gotUserProfile (UserProfile *profile);
 		void gotRecentUpdates (const Updates_t& updates);
+		void gotNotifications (const Notifications_t& notifications);
 	};
 }

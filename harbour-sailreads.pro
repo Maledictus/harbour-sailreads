@@ -22,7 +22,8 @@ SOURCES += src/harbour-sailreads.cpp \
     src/oauthwrapper.cpp \
     src/goodreadsapi.cpp \
     src/recentupdatesmodel.cpp \
-    src/userprofile.cpp
+	src/userprofile.cpp \
+	src/notificationsmodel.cpp
 
 HEADERS += \
     src/networkaccessmanager.h \
@@ -33,7 +34,8 @@ HEADERS += \
     src/goodreadsapi.h \
     src/structures.h \
     src/recentupdatesmodel.h \
-    src/userprofile.h
+	src/userprofile.h \
+	src/notificationsmodel.h
 
 LIBS += -loauth
 
@@ -43,5 +45,6 @@ OTHER_FILES += rpm/harbour-sailreads.spec \
 	qml/harbour-sailreads.qml \
 	qml/AuthManager.qml \
     qml/FriendsUpdatesPage.qml \
-    qml/ProfilePage.qml
+    qml/ProfilePage.qml \
+    qml/NotificationsPage.qml
 

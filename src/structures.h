@@ -73,7 +73,18 @@ namespace SailReads
 
 	struct Notification
 	{
-		QString ID_;
+		bool Read_;
+		QDateTime Date_;
+		QUrl Link_;
+		QString Text_;
+		QString ActorID_;
+		QString ActorName_;
+		QUrl ActorProfileUrl_;
+		QUrl ActorProfileImageUrl_;
+
+		Notification ()
+		: Read_ (false)
+		{}
 	};
 
 	typedef QList<Notification> Notifications_t;

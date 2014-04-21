@@ -57,6 +57,12 @@ ApplicationWindow
         profilePage.reviewsCount = profile.reviewsCount
     }
 
+    function setUnreadNotificationsCount (count) {
+        if (pageStack.currentPage == profilePage &&
+                profilePage.self)
+            profilePage.notificationsCount = count;
+    }
+
     FriendsUpdatesPage {
         id: friendsUpdatesPage
         loading: manager.requestInProcess
@@ -74,5 +80,15 @@ ApplicationWindow
 
     ProfilePage {
         id: profilePage
+
+        onSwitchToNotifications: {
+            pageStack.push (notificationsPage)
+            notificationsPage.loading = true
+            requestNotifications ();
+        }
+    }
+
+    NotificationsPage {
+        id: notificationsPage
     }
 }
