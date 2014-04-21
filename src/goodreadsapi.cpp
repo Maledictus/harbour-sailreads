@@ -25,7 +25,6 @@ THE SOFTWARE.
 #include <QDomDocument>
 #include <QDomElement>
 #include <QDomNode>
-#include <QNetworkReply>
 #include <QNetworkRequest>
 #include "networkaccessmanager.h"
 #include "oauthwrapper.h"
@@ -71,6 +70,10 @@ namespace SailReads
 				this,
 				SLOT (handleDownloadProgress (qint64, qint64)));
 		connect (reply,
+				SIGNAL (error (QNetworkReply::NetworkError)),
+				this,
+				SLOT (handleReplyError (QNetworkReply::NetworkError)));
+		connect (reply,
 				SIGNAL (finished ()),
 				this,
 				SLOT (handleRequestAuthUserIDFinished ()));
@@ -88,6 +91,10 @@ namespace SailReads
 				SIGNAL (downloadProgress (qint64, qint64)),
 				this,
 				SLOT (handleDownloadProgress (qint64, qint64)));
+		connect (reply,
+				SIGNAL (error (QNetworkReply::NetworkError)),
+				this,
+				SLOT (handleReplyError (QNetworkReply::NetworkError)));
 		connect (reply,
 				SIGNAL (finished ()),
 				this,
@@ -108,15 +115,56 @@ namespace SailReads
 				this,
 				SLOT (handleDownloadProgress (qint64, qint64)));
 		connect (reply,
+				SIGNAL (error (QNetworkReply::NetworkError)),
+				this,
+				SLOT (handleReplyError (QNetworkReply::NetworkError)));
+		connect (reply,
 				SIGNAL (finished ()),
 				this,
 				SLOT (handleRequestFriendsUpdatesFinished ()));
+	}
+
+	void GoodreadsApi::RequestNotifications (const QString& accessToken,
+			const QString& accessTokenSecret)
+	{
+		const auto& url = OAuthWrapper_->MakeGetSignedUrl ({ ConsumerKey_,
+				ConsumerSecret_, accessToken, accessTokenSecret,
+				QUrl ("https://www.goodreads.com/notifications?format=xml") });
+		qDebug () << url;
+		RequestInProcess_ = true;
+		emit requestInProcessChanged ();
+		auto reply = NetworkAccessManager_->get (QNetworkRequest (url));
+		connect (reply,
+				SIGNAL (downloadProgress (qint64, qint64)),
+				this,
+				SLOT (handleDownloadProgress (qint64, qint64)));
+		connect (reply,
+				SIGNAL (error (QNetworkReply::NetworkError)),
+				this,
+				SLOT (handleReplyError (QNetworkReply::NetworkError)));
+		connect (reply,
+				SIGNAL (finished ()),
+				this,
+				SLOT (handleRequestNotificationsFinished ()));
 	}
 
 	void GoodreadsApi::handleDownloadProgress(qint64 bytesReceived, qint64 bytesTotal)
 	{
 		RequestInProcess_ = (bytesReceived != bytesTotal);
 		emit requestInProcessChanged ();
+	}
+
+	void GoodreadsApi::handleReplyError (QNetworkReply::NetworkError error)
+	{
+		auto reply = qobject_cast<QNetworkReply*> (sender ());
+		if (!reply)
+			return;
+
+		reply->deleteLater ();
+		qWarning () << Q_FUNC_INFO
+					<< "Networ error:"
+					<< error
+					<< reply->errorString ();
 	}
 
 	namespace
@@ -255,33 +303,31 @@ namespace SailReads
 			for (int i = 0, fieldsCount = fieldsList.size (); i < fieldsCount; ++i)
 			{
 				const auto& fieldElement = fieldsList.at (i).toElement ();
-//				if (fieldElement.tagName () == "id")
-//					profile.ID_ = fieldElement.text ();
-//				else if (fieldElement.tagName () == "name")
-//					profile.Name_ = fieldElement.text ();
-//				else if (fieldElement.tagName () == "user_name")
-//					profile.Nickname_ = fieldElement.text ();
-/*				else */
-				if (fieldElement.tagName () == "link")
-					profile->setUserImage (QUrl (fieldElement.firstChild ()
+				if (fieldElement.tagName () == "id")
+					profile->setID (fieldElement.text ());
+				else if (fieldElement.tagName () == "name")
+					profile->setName (fieldElement.text ());
+				else if (fieldElement.tagName () == "user_name")
+					profile->setNickname (fieldElement.text ());
+				else if (fieldElement.tagName () == "link")
+					profile->setUserImageUrl(QUrl (fieldElement.firstChild ()
 							.toCDATASection ().data ()));
-//				else if (fieldElement.tagName () == "image_url")
-//					profile.ProfileImage_ = QUrl (fieldElement.firstChild ()
-//							.toCDATASection ().data ());
-//				else if (fieldElement.tagName () == "about")
-//					profile.About_ = fieldElement.text ();
-//				else if (fieldElement.tagName () == "age")
-//					profile.Age_ = fieldElement.text ().toUInt ();
-//				else if (fieldElement.tagName () == "gender")
-//					profile.Gender_ = fieldElement.text ();
-//				else if (fieldElement.tagName () == "location")
-//					profile.Location_ = fieldElement.text ();
-//				else if (fieldElement.tagName () == "website")
-//					profile.WebSite_ = QUrl (fieldElement.firstChild ()
-//							.toCDATASection ().data ());
-//				else if (fieldElement.tagName () == "interests")
-//					profile.Interests_ = fieldElement.text ().split (',',
-//							QString::SkipEmptyParts);
+				else if (fieldElement.tagName () == "image_url")
+					profile->setUserProfileUrl (QUrl (fieldElement.firstChild ()
+							.toCDATASection ().data ()));
+				else if (fieldElement.tagName () == "about")
+					profile->setAbout (fieldElement.text ());
+				else if (fieldElement.tagName () == "age")
+					profile->setAge (fieldElement.text ().toUInt ());
+				else if (fieldElement.tagName () == "gender")
+					profile->setGender (fieldElement.text ());
+				else if (fieldElement.tagName () == "location")
+					profile->setLocation (fieldElement.text ());
+				else if (fieldElement.tagName () == "website")
+					profile->setWebsite (QUrl (fieldElement.firstChild ()
+							.toCDATASection ().data ()));
+				else if (fieldElement.tagName () == "interests")
+					profile->setInterests (fieldElement.text ());
 //				else if (fieldElement.tagName () == "favorite_books")
 //					profile.FavoriteBooks_ = fieldElement.text ();
 //				else if (fieldElement.tagName () == "favorite_authors")
@@ -293,12 +339,12 @@ namespace SailReads
 //				else if (fieldElement.tagName () == "reviews_rss_url")
 //					profile.ReviewsRSS_ = QUrl (fieldElement.firstChild ()
 //							.toCDATASection ().data ());
-//				else if (fieldElement.tagName () == "friends_count")
-//					profile.FriendsCount_ = fieldElement.text ().toUInt ();
-//				else if (fieldElement.tagName () == "groups_count")
-//					profile.GroupsCount_ = fieldElement.text ().toUInt ();
-//				else if (fieldElement.tagName () == "reviews_count")
-//					profile.ReviewsCount_ = fieldElement.text ().toUInt ();
+				else if (fieldElement.tagName () == "friends_count")
+					profile->setFriendsCount (fieldElement.text ().toUInt ());
+				else if (fieldElement.tagName () == "groups_count")
+					profile->setGroupsCount (fieldElement.text ().toUInt ());
+				else if (fieldElement.tagName () == "reviews_count")
+					profile->setReviewsCount (fieldElement.text ().toUInt ());
 //				else if (fieldElement.tagName () == "user_shelves")
 //				{
 //					const auto& shelvesList = fieldElement.childNodes ();
@@ -370,5 +416,24 @@ namespace SailReads
 		}
 
 		emit gotRecentUpdates (CreateUpdates (document));
+	}
+
+	void GoodreadsApi::handleRequestNotificationsFinished ()
+	{
+		auto reply = qobject_cast<QNetworkReply*> (sender ());
+		if (!reply)
+			return;
+
+		QDomDocument document;
+		reply->deleteLater ();
+		if (!FillDomDocument (reply->readAll (), document))
+		{
+			qWarning () << Q_FUNC_INFO
+					<< "unable to get recent updates";
+			return;
+		}
+
+		qDebug () << document.toByteArray ();
+		//emit gotNotifications (CreateNotifications (document));
 	}
 }

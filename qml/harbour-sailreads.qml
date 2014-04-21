@@ -32,6 +32,7 @@ ApplicationWindow
     signal applicationAuthorized (bool authorized)
     signal refreshUpdates ()
     signal requestUserProfile (string id)
+    signal requestNotifications ()
 
     AuthManager {
         id: authManager
@@ -45,15 +46,33 @@ ApplicationWindow
     }
 
     function setUserProfile (profile) {
-        console.log (profile)
-
-        console.log (profile.userImage)
+        profilePage.loading = false
+        profilePage.profilePhotoUrl = profile.userProfileUrl
+        profilePage.userName = profile.name
+        profilePage.userDetails = profile.age + ', ' + profile.gender + ', ' +
+                profile.location
+        profilePage.userInterests = profile.interests
+        profilePage.friendsCount = profile.friendsCount
+        profilePage.groupsCount = profile.groupsCount
+        profilePage.reviewsCount = profile.reviewsCount
     }
 
     FriendsUpdatesPage {
         id: friendsUpdatesPage
         loading: manager.requestInProcess
+
         onRefreshUpdates: mainWindow.refreshUpdates ()
-        onSwitchToMyProfile: requestUserProfile ("self")
+        onSwitchToMyProfile:
+        {
+            profilePage.self = true
+            profilePage.loading = true
+            pageStack.replace (profilePage)
+            requestUserProfile ("self")
+            requestNotifications ()
+        }
+    }
+
+    ProfilePage {
+        id: profilePage
     }
 }

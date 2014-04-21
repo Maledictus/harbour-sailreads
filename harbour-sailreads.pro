@@ -42,5 +42,6 @@ OTHER_FILES += rpm/harbour-sailreads.spec \
 	harbour-sailreads.desktop \
 	qml/harbour-sailreads.qml \
 	qml/AuthManager.qml \
-    qml/FriendsUpdatesPage.qml
+    qml/FriendsUpdatesPage.qml \
+    qml/ProfilePage.qml
 

@@ -23,6 +23,7 @@ THE SOFTWARE.
 #pragma once
 
 #include <QObject>
+#include <QNetworkReply>
 #include <QUrl>
 #include "structures.h"
 #include "userprofile.h"
@@ -57,13 +58,17 @@ namespace SailReads
 		void RequestUserInfo (const QString& id);
 		void RequestFriendsUpdates (const QString& accessToken,
 				const QString& accessTokenSecret);
+		void RequestNotifications (const QString& accessToken,
+				const QString& accessTokenSecret);
 
 	private slots:
 		void handleDownloadProgress (qint64 bytesReceived, qint64 bytesTotal);
+		void handleReplyError (QNetworkReply::NetworkError error);
 
 		void handleRequestAuthUserIDFinished ();
 		void handleRequestUserInfoFinished ();
 		void handleRequestFriendsUpdatesFinished ();
+		void handleRequestNotificationsFinished ();
 
 	signals:
 		void requestInProcessChanged ();

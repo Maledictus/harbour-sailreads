@@ -63,6 +63,7 @@ namespace SailReads
 		void handleApplicationAuthorized (bool authorized);
 		void handleRefreshUpdates ();
 		void handleRequestUserProfile (const QString& id);
+		void handleRequestNotifications ();
 
 		void handleGotAuthUserID (const QString& id);
 		void handleGotUserProfile (UserProfile *profile);

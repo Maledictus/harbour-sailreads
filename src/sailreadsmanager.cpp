@@ -71,6 +71,10 @@ namespace SailReads
 				SIGNAL (requestUserProfile (QString)),
 				this,
 				SLOT (handleRequestUserProfile (QString)));
+		connect (MainView_->rootObject (),
+				SIGNAL (requestNotifications ()),
+				this,
+				SLOT (handleRequestNotifications ()));
 
 		MainView_->rootContext ()->setContextProperty ("updatesModel", UpdatesModel_);
 
@@ -150,17 +154,23 @@ namespace SailReads
 		GoodreadsApi_->RequestUserInfo (id == "self" ? AuthUserID_ : id);
 	}
 
+	void SailreadsManager::handleRequestNotifications ()
+	{
+		GoodreadsApi_->RequestNotifications (AccessToken_, AccessTokenSecret_);
+	}
+
 	void SailreadsManager::handleGotAuthUserID (const QString& id)
 	{
 		AuthUserID_ = id;
 		GoodreadsApi_->RequestFriendsUpdates (AccessToken_, AccessTokenSecret_);
+		//TODO request notifications
 	}
 
 	void SailreadsManager::handleGotUserProfile (UserProfile *profile)
 	{
 		QMetaObject::invokeMethod (MainView_->rootObject (),
 				"setUserProfile",
-				Q_ARG (QVariant, QVariant::fromValue (static_cast<QObject*> (profile))));
+				Q_ARG (QVariant, QVariant::fromValue<QObject*> (profile)));
 	}
 
 	void SailreadsManager::handleGotRecentUpdates (const Updates_t& updates)
