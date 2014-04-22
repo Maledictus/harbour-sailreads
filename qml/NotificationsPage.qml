@@ -83,6 +83,21 @@ Page {
 
                 onLinkActivated: console.log (link)
             }
+
+            Label {
+                id: dateLabel
+                anchors.left: userImage.right
+                anchors.right: parent.right
+                anchors.top: notificationLabel.bottom
+                anchors.leftMargin: Theme.paddingMedium
+                anchors.rightMargin: Theme.paddingMedium
+                anchors.topMargin: Theme.paddingSmall
+
+                text: Qt.formatDateTime (notificationDate)
+                color: Theme.secondaryColor
+                font.pixelSize: Theme.fontSizeTiny
+            }
+
             onClicked: console.log ("clicked")
         }
 
