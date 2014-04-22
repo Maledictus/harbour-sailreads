@@ -86,6 +86,20 @@ Page {
                 wrapMode: Text.WordWrap
             }
 
+            Label {
+                id: dateLabel
+                anchors.left: userImage.right
+                anchors.right: parent.right
+                anchors.top: updateLabel.bottom
+                anchors.leftMargin: Theme.paddingMedium
+                anchors.rightMargin: Theme.paddingMedium
+                anchors.topMargin: Theme.paddingSmall
+
+                text: Qt.formatDateTime (updateDate)
+                color: Theme.secondaryColor
+                font.pixelSize: Theme.fontSizeTiny
+            }
+
             onClicked: console.log (updatesModel.count)
         }
 
