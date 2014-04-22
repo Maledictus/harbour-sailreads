@@ -26,6 +26,7 @@ THE SOFTWARE.
 #include <QQuickItem>
 #include <QQuickView>
 #include <QtDebug>
+#include "friendsmodel.h"
 #include "goodreadsapi.h"
 #include "localstorage.h"
 #include "notificationsmodel.h"
@@ -41,6 +42,7 @@ namespace SailReads
 	, LocalStorage_ (new LocalStorage (this))
 	, UpdatesModel_ (new RecentUpdatesModel (this))
 	, NotificationsModel_ (new NotificationsModel (this))
+	, FriendsModel_ (new FriendsModel (this))
 	{
 		connect (GoodreadsApi_,
 				SIGNAL (requestInProcessChanged ()),
@@ -62,6 +64,10 @@ namespace SailReads
 				SIGNAL (gotNotifications (Notifications_t)),
 				this,
 				SLOT (handleGotNotifications (Notifications_t)));
+		connect (GoodreadsApi_,
+				SIGNAL (gotFriends (Friends_t)),
+				this,
+				SLOT (handleGotFriends (Friends_t)));
 	}
 
 	void SailreadsManager::Init ()
@@ -82,9 +88,14 @@ namespace SailReads
 				SIGNAL (requestNotifications ()),
 				this,
 				SLOT (handleRequestNotifications ()));
+		connect (MainView_->rootObject (),
+				SIGNAL (requestFriendsList (QString)),
+				this,
+				SLOT (handleRequestFriendsList (QString)));
 
 		MainView_->rootContext ()->setContextProperty ("updatesModel", UpdatesModel_);
 		MainView_->rootContext ()->setContextProperty ("notificationsModel", NotificationsModel_);
+		MainView_->rootContext ()->setContextProperty ("friendsModel", FriendsModel_);
 
 		AccessToken_ = LocalStorage_->GetValue ("AccessToken");
 		AccessTokenSecret_ = LocalStorage_->GetValue ("AccessTokenSecret");
@@ -168,11 +179,17 @@ namespace SailReads
 		GoodreadsApi_->RequestNotifications (AccessToken_, AccessTokenSecret_);
 	}
 
+	void SailreadsManager::handleRequestFriendsList (const QString& id)
+	{
+		FriendsModel_->Clear ();
+		GoodreadsApi_->RequestFriends (AccessToken_,
+				AccessTokenSecret_, id == "self" ? AuthUserID_ : id);
+	}
+
 	void SailreadsManager::handleGotAuthUserID (const QString& id)
 	{
 		AuthUserID_ = id;
 		GoodreadsApi_->RequestFriendsUpdates (AccessToken_, AccessTokenSecret_);
-		GoodreadsApi_->RequestNotifications (AccessToken_, AccessTokenSecret_);
 	}
 
 	void SailreadsManager::handleGotUserProfile (UserProfile *profile)
@@ -201,10 +218,17 @@ namespace SailReads
 
 		if (newNotificationsCount)
 		{
-			//TODO make notification
+			//TODO
+			qDebug () << "you have unread notificaion";
 		}
 
 		NotificationsModel_->Clear ();
 		NotificationsModel_->AddItems (notifications);
+	}
+
+	void SailreadsManager::handleGotFriends (const Friends_t& friends)
+	{
+		FriendsModel_->Clear ();
+		FriendsModel_->AddItems (friends);
 	}
 }

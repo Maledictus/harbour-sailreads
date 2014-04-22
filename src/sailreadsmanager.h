@@ -29,6 +29,7 @@ class QQuickView;
 
 namespace SailReads
 {
+	class FriendsModel;
 	class GoodreadsApi;
 	class LocalStorage;
 	class NotificationsModel;
@@ -49,6 +50,7 @@ namespace SailReads
 
 		RecentUpdatesModel *UpdatesModel_;
 		NotificationsModel *NotificationsModel_;
+		FriendsModel *FriendsModel_;
 
 		Q_PROPERTY (bool requestInProcess READ IsRequestInProcess NOTIFY requestInProcessChanged)
 
@@ -66,11 +68,13 @@ namespace SailReads
 		void handleRefreshUpdates ();
 		void handleRequestUserProfile (const QString& id);
 		void handleRequestNotifications ();
+		void handleRequestFriendsList (const QString& id);
 
 		void handleGotAuthUserID (const QString& id);
 		void handleGotUserProfile (UserProfile *profile);
 		void handleGotRecentUpdates (const Updates_t& updates);
 		void handleGotNotifications (const Notifications_t& notifications);
+		void handleGotFriends (const Friends_t& friends);
 
 	signals:
 		void requestInProcessChanged ();

@@ -33,6 +33,7 @@ ApplicationWindow
     signal refreshUpdates ()
     signal requestUserProfile (string id)
     signal requestNotifications ()
+    signal requestFriendsList (string id)
 
     AuthManager {
         id: authManager
@@ -47,6 +48,7 @@ ApplicationWindow
 
     function setUserProfile (profile) {
         profilePage.loading = false
+        profilePage.uid = profile.id
         profilePage.profilePhotoUrl = profile.userProfileUrl
         profilePage.userName = profile.name
         profilePage.userDetails = profile.age + ', ' + profile.gender + ', ' +
@@ -81,14 +83,21 @@ ApplicationWindow
     ProfilePage {
         id: profilePage
 
-        onSwitchToNotifications: {
-            pageStack.push (notificationsPage)
-            notificationsPage.loading = true
-            requestNotifications ();
+        onSwitchToNotifications: pageStack.push (notificationsPage)
+
+        onSwitchToFriends: {
+            pageStack.push (friendsPage)
+            friendsPage.loading = true
+            requestFriendsList (self ? "self" : uid)
         }
     }
 
     NotificationsPage {
         id: notificationsPage
+        onRefreshNotifications: requestNotifications ()
+    }
+
+    FriendsPage {
+        id: friendsPage
     }
 }

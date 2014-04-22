@@ -22,82 +22,38 @@ THE SOFTWARE.
 
 #pragma once
 
-#include <QDateTime>
-#include <QString>
-#include <QStringList>
-#include <QUrl>
+#include <QAbstractListModel>
+#include "structures.h"
 
 namespace SailReads
 {
-	struct Shelf
+	class FriendsModel : public QAbstractListModel
 	{
-		QString ID_;
-		QString Name_;
-		quint32 BookCount_;
-		QString Description_;
-		QString DisplayFields_;
-		bool ExclusiveFlag_;
-		bool Featured_;
+		Q_OBJECT
 
-		Shelf ()
-		: ExclusiveFlag_ (false)
-		, Featured_ (false)
-		{}
-	};
+		QHash<int, QByteArray> RoleNames_;
+		Friends_t Friends_;
 
-	struct Update
-	{
-		enum class Type
+		Q_PROPERTY (int count READ rowCount NOTIFY countChanged)
+	public:
+		enum FriendRoles
 		{
-			NoType,
-			ReadStatus,
-			Review
+			FRID = Qt::UserRole + 1,
+			FRName,
+			FRProfileImageUrl
 		};
 
-		Type Type_;
-		QString ActionText_;
-		QUrl Link_;
-		QDateTime Date_;
+		explicit FriendsModel(QObject *parent = 0);
 
-		QString ActorID_;
-		QString ActorName_;
-		QUrl ActorProfileImage_;
-		QUrl ActorProfileUrl_;
+		virtual QHash<int, QByteArray> roleNames () const;
+		virtual int rowCount (const QModelIndex& parent = QModelIndex ()) const;
+		virtual QVariant data (const QModelIndex& index, int role = Qt::DisplayRole) const;
 
-		Update ()
-		: Type_ (Type::NoType)
-		{}
+		void AddItems (const Friend& friendItem);
+		void AddItems (const Friends_t& friends);
+		void Clear ();
+
+	signals:
+		void countChanged ();
 	};
-
-	typedef QList<Update> Updates_t;
-
-	struct Notification
-	{
-		bool Read_;
-		QDateTime Date_;
-		QUrl Link_;
-		QString Text_;
-		QString ActorID_;
-		QString ActorName_;
-		QUrl ActorProfileUrl_;
-		QUrl ActorProfileImageUrl_;
-
-		Notification ()
-		: Read_ (false)
-		{}
-	};
-
-	typedef QList<Notification> Notifications_t;
-
-	struct Friend
-	{
-		QString ID_;
-		QString Name_;
-		QUrl ProfileImageUrl_;
-	};
-
-	typedef QList<Friend> Friends_t;
 }
-
-Q_DECLARE_METATYPE (SailReads::Update)
-Q_DECLARE_METATYPE (SailReads::Updates_t)

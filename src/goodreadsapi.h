@@ -60,6 +60,8 @@ namespace SailReads
 				const QString& accessTokenSecret);
 		void RequestNotifications (const QString& accessToken,
 				const QString& accessTokenSecret);
+		void RequestFriends (const QString& accessToken,
+				const QString& accessTokenSecret, const QString& id);
 
 	private slots:
 		void handleDownloadProgress (qint64 bytesReceived, qint64 bytesTotal);
@@ -69,6 +71,7 @@ namespace SailReads
 		void handleRequestUserInfoFinished ();
 		void handleRequestFriendsUpdatesFinished ();
 		void handleRequestNotificationsFinished ();
+		void handleRequestFriendsFinished ();
 
 	signals:
 		void requestInProcessChanged ();
@@ -77,5 +80,6 @@ namespace SailReads
 		void gotUserProfile (UserProfile *profile);
 		void gotRecentUpdates (const Updates_t& updates);
 		void gotNotifications (const Notifications_t& notifications);
+		void gotFriends (const Friends_t& friends);
 	};
 }

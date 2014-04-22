@@ -148,6 +148,31 @@ namespace SailReads
 				SLOT (handleRequestNotificationsFinished ()));
 	}
 
+	void GoodreadsApi::RequestFriends (const QString& accessToken,
+			const QString& accessTokenSecret, const QString& id)
+	{
+		const QUrl url (QString ("https://www.goodreads.com/friend/user/%1?format=xml")
+				.arg (id));
+		const auto& signedUrl = OAuthWrapper_->MakeGetSignedUrl ({ ConsumerKey_,
+				ConsumerSecret_, accessToken, accessTokenSecret,
+				url });
+		RequestInProcess_ = true;
+		emit requestInProcessChanged ();
+		auto reply = NetworkAccessManager_->get (QNetworkRequest (signedUrl));
+		connect (reply,
+				SIGNAL (downloadProgress (qint64, qint64)),
+				this,
+				SLOT (handleDownloadProgress (qint64, qint64)));
+		connect (reply,
+				SIGNAL (error (QNetworkReply::NetworkError)),
+				this,
+				SLOT (handleReplyError (QNetworkReply::NetworkError)));
+		connect (reply,
+				SIGNAL (finished ()),
+				this,
+				SLOT (handleRequestFriendsFinished ()));
+	}
+
 	void GoodreadsApi::handleDownloadProgress(qint64 bytesReceived, qint64 bytesTotal)
 	{
 		RequestInProcess_ = (bytesReceived != bytesTotal);
@@ -460,6 +485,44 @@ namespace SailReads
 
 			return notifications;
 		}
+
+		Friend CreateFriend (const QDomElement& friendElement)
+		{
+			Friend friendItem;
+			const auto& fieldsList = friendElement.childNodes ();
+			for (int i = 0, fieldsCount = fieldsList.size (); i < fieldsCount; ++i)
+			{
+				const auto& fieldElement = fieldsList.at (i).toElement ();
+				if (fieldElement.tagName () == "id")
+					friendItem.ID_ = fieldElement.text ();
+				else if (fieldElement.tagName () == "name")
+					friendItem.Name_ = fieldElement.text ();
+				else if (fieldElement.tagName () == "image_url")
+					friendItem.ProfileImageUrl_ = QUrl (fieldElement.firstChild ()
+							.toCDATASection ().data ());
+			}
+
+			return friendItem;
+		}
+
+		Friends_t CreateFriends (const QDomDocument& doc)
+		{
+			Friends_t friends;
+			const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
+			if (responseElement.isNull ())
+				return friends;
+
+			const auto& friendsElement = responseElement.firstChildElement ("friends");
+			const auto& fieldsList = friendsElement.childNodes ();
+			for (int i = 0, fieldsCount = fieldsList.size (); i < fieldsCount; ++i)
+			{
+				const auto& fieldElement = fieldsList.at (i).toElement ();
+				if (fieldElement.tagName () == "user")
+					friends << CreateFriend (fieldElement);
+			}
+
+			return friends;
+		}
 	}
 
 	void GoodreadsApi::handleRequestUserInfoFinished ()
@@ -514,5 +577,23 @@ namespace SailReads
 		}
 
 		emit gotNotifications (CreateNotifications (document));
+	}
+
+	void GoodreadsApi::handleRequestFriendsFinished ()
+	{
+		auto reply = qobject_cast<QNetworkReply*> (sender ());
+		if (!reply)
+			return;
+
+		QDomDocument document;
+		reply->deleteLater ();
+		if (!FillDomDocument (reply->readAll (), document))
+		{
+			qWarning () << Q_FUNC_INFO
+					<< "unable to get recent updates";
+			return;
+		}
+
+		emit gotFriends (CreateFriends (document));
 	}
 }

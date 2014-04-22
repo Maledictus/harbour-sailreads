@@ -18,8 +18,10 @@ PkgConfigBR:
 - Qt5Core
 - sailfishapp >= 0.0.10
 - Qt5Xml
+- Qt5DBus
 Requires:
 - liboauth
+- mlite-qt5
 - sailfishsilica-qt5 >= 0.10.9
 Files:
 - '%{_bindir}'

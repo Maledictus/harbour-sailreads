@@ -30,6 +30,8 @@ Page {
 
     property bool loading
 
+    property string uid
+
     property alias profilePhotoUrl: userPhoto.source
     property alias userName: userNameField.title
     property alias userDetails: userDetails.text
