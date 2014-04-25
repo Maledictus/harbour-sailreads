@@ -90,6 +90,12 @@ ApplicationWindow
             friendsPage.loading = true
             requestFriendsList (self ? "self" : uid)
         }
+
+        onSwitchToRecentUpdates: {
+            pageStack.replace (friendsUpdatesPage)
+            friendsUpdatesPage.loading = true
+            refreshUpdates ()
+        }
     }
 
     NotificationsPage {
@@ -99,5 +105,9 @@ ApplicationWindow
 
     FriendsPage {
         id: friendsPage
+
+        onShowUserProfile: {
+
+        }
     }
 }
