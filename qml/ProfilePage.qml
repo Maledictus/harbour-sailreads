@@ -51,10 +51,21 @@ Page {
     onSelfChanged: { // details should be empty while loading
         userPhoto.source = ""
         userNameField.title = ""
-        userLocation.text = ""
-        friendsCountLabel.text = ""
-        groupsCountLabel.text = ""
-        reviewsCountLabel.text = ""
+        userDetails.text = ""
+        userInterests.text = ""
+        friendsCountLabel.text = 0
+        groupsCountLabel.text = 0
+        reviewsCountLabel.text = 0
+    }
+
+    onUidChanged: {
+        userPhoto.source = ""
+        userNameField.title = ""
+        userDetails.text = ""
+        userInterests.text = ""
+        friendsCountLabel.text = 0
+        groupsCountLabel.text = 0
+        reviewsCountLabel.text = 0
     }
 
     BusyIndicator {
@@ -145,7 +156,7 @@ Page {
                 Image {
                     anchors.fill: userPhoto
                     source: "./images/blank_boy.png"
-                    visible: (userPhoto.status !== Image.Ready)
+                    visible: (userPhoto.status !== Image.Ready) || source === ""
                 }
 
                 Image {

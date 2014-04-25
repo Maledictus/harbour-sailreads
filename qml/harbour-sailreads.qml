@@ -70,12 +70,10 @@ ApplicationWindow
         loading: manager.requestInProcess
 
         onRefreshUpdates: mainWindow.refreshUpdates ()
-        onSwitchToMyProfile:
-        {
+        onSwitchToMyProfile: {
             profilePage.self = true
             profilePage.loading = true
             pageStack.replace (profilePage)
-            requestUserProfile ("self")
             requestNotifications ()
         }
     }
@@ -84,6 +82,12 @@ ApplicationWindow
         id: profilePage
 
         onSwitchToNotifications: pageStack.push (notificationsPage)
+
+        onSwitchToMyProfile: {
+            profilePage.self = true
+            loading = true
+            requestUserProfile ("self")
+        }
 
         onSwitchToFriends: {
             pageStack.push (friendsPage)
@@ -96,6 +100,12 @@ ApplicationWindow
             friendsUpdatesPage.loading = true
             refreshUpdates ()
         }
+
+        onStatusChanged: {
+            if (status === PageStatus.Activating) {
+                requestUserProfile (self ? "self" : uid)
+            }
+        }
     }
 
     NotificationsPage {
@@ -107,7 +117,10 @@ ApplicationWindow
         id: friendsPage
 
         onShowUserProfile: {
-
+            profilePage.self = false
+            profilePage.uid = uid
+            profilePage.loading = true
+            pageStack.pop (profilePage)
         }
     }
 }
