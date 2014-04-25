@@ -45,6 +45,7 @@ namespace SailReads
 		quint32 FriendsCount_;
 		quint32 GroupsCount_;
 		quint32 ReviewsCount_;
+		bool PrivateProfile_;
 
 		Q_PROPERTY (QString id READ getID)
 		Q_PROPERTY (QString name READ getName)
@@ -60,6 +61,7 @@ namespace SailReads
 		Q_PROPERTY (quint32 friendsCount READ getFriendsCount)
 		Q_PROPERTY (quint32 groupsCount READ getGroupsCount)
 		Q_PROPERTY (quint32 reviewsCount READ getReviewsCount)
+		Q_PROPERTY (bool privateProfile READ getPrivateProfile)
 	public:
 		explicit UserProfile(QObject *parent = 0);
 
@@ -91,5 +93,7 @@ namespace SailReads
 		void setGroupsCount (quint32 groupsCount);
 		quint32 getReviewsCount () const;
 		void setReviewsCount (quint32 reviewsCount);
+		bool getPrivateProfile () const;
+		void setPrivateProfile (bool privateProfile);
 	};
 }

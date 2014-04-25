@@ -26,6 +26,11 @@ namespace SailReads
 {
 	UserProfile::UserProfile (QObject *parent)
 	: QObject (parent)
+	, Age_ (0)
+	, FriendsCount_ (0)
+	, GroupsCount_ (0)
+	, ReviewsCount_ (0)
+	, PrivateProfile_ (false)
 	{
 	}
 
@@ -167,5 +172,15 @@ namespace SailReads
 	void UserProfile::setReviewsCount (quint32 reviewsCount)
 	{
 		ReviewsCount_ = reviewsCount;
+	}
+
+	bool UserProfile::getPrivateProfile () const
+	{
+		return PrivateProfile_;
+	}
+
+	void UserProfile::setPrivateProfile (bool privateProfile)
+	{
+		PrivateProfile_ = privateProfile;
 	}
 }
