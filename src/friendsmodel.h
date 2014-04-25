@@ -22,19 +22,13 @@ THE SOFTWARE.
 
 #pragma once
 
-#include <QAbstractListModel>
+#include "objectsmodel.h"
 #include "structures.h"
 
 namespace SailReads
 {
-	class FriendsModel : public QAbstractListModel
+	class FriendsModel : public ObjectsModel<Friend>
 	{
-		Q_OBJECT
-
-		QHash<int, QByteArray> RoleNames_;
-		Friends_t Friends_;
-
-		Q_PROPERTY (int count READ rowCount NOTIFY countChanged)
 	public:
 		enum FriendRoles
 		{
@@ -45,15 +39,6 @@ namespace SailReads
 
 		explicit FriendsModel(QObject *parent = 0);
 
-		virtual QHash<int, QByteArray> roleNames () const;
-		virtual int rowCount (const QModelIndex& parent = QModelIndex ()) const;
 		virtual QVariant data (const QModelIndex& index, int role = Qt::DisplayRole) const;
-
-		void AddItems (const Friend& friendItem);
-		void AddItems (const Friends_t& friends);
-		void Clear ();
-
-	signals:
-		void countChanged ();
 	};
 }

@@ -34,6 +34,7 @@ ApplicationWindow
     signal requestUserProfile (string id)
     signal requestNotifications ()
     signal requestFriendsList (string id)
+    signal requestGroupsList (string id)
 
     AuthManager {
         id: authManager
@@ -101,6 +102,12 @@ ApplicationWindow
             refreshUpdates ()
         }
 
+        onSwitchToGroups: {
+            pageStack.push (groupsPage)
+            groupsPage.loading = true
+            requestGroupsList (self ? "self" : uid)
+        }
+
         onStatusChanged: {
             if (status === PageStatus.Activating) {
                 requestUserProfile (self ? "self" : uid)
@@ -122,5 +129,9 @@ ApplicationWindow
             profilePage.loading = true
             pageStack.pop (profilePage)
         }
+    }
+
+    GroupsPage {
+        id: groupsPage
     }
 }

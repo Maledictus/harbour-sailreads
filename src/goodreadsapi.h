@@ -62,6 +62,7 @@ namespace SailReads
 				const QString& accessTokenSecret);
 		void RequestFriends (const QString& accessToken,
 				const QString& accessTokenSecret, const QString& id);
+		void RequestGroups (const QString& id);
 
 	private slots:
 		void handleDownloadProgress (qint64 bytesReceived, qint64 bytesTotal);
@@ -72,6 +73,7 @@ namespace SailReads
 		void handleRequestFriendsUpdatesFinished ();
 		void handleRequestNotificationsFinished ();
 		void handleRequestFriendsFinished ();
+		void handleRequestGroupsFinished ();
 
 	signals:
 		void requestInProcessChanged ();

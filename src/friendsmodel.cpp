@@ -21,34 +21,23 @@ THE SOFTWARE.
 */
 
 #include "friendsmodel.h"
-#include <QtDebug>
 
 namespace SailReads
 {
 	FriendsModel::FriendsModel (QObject *parent)
-	: QAbstractListModel (parent)
+	: ObjectsModel<Friend> (parent)
 	{
 		RoleNames_ [FRID] = "friendID";
 		RoleNames_ [FRName] = "friendName";
 		RoleNames_ [FRProfileImageUrl] = "friendProfileImageUrl";
 	}
 
-	QHash<int, QByteArray> FriendsModel::roleNames () const
-	{
-		return RoleNames_;
-	}
-
-	int FriendsModel::rowCount(const QModelIndex&) const
-	{
-		return Friends_.count ();
-	}
-
 	QVariant FriendsModel::data (const QModelIndex& index, int role) const
 	{
-		if (index.row () > Friends_.count () - 1 || index.row () < 0)
+		if (index.row () > Objects_.count () - 1 || index.row () < 0)
 			return QVariant ();
 
-		const auto& friendItem = Friends_.at (index.row ());
+		const auto& friendItem = Objects_.at (index.row ());
 		switch (role)
 		{
 		case FRID:
@@ -61,30 +50,4 @@ namespace SailReads
 			return QVariant ();
 		}
 	}
-
-	void FriendsModel::AddItems (const Friend& friendItem)
-	{
-		beginInsertRows (QModelIndex (), rowCount (), rowCount () + 1);
-		Friends_.append (friendItem);
-		endInsertRows ();
-		emit countChanged ();
-	}
-
-	void FriendsModel::AddItems (const Friends_t& friends)
-	{
-		beginInsertRows (QModelIndex (), rowCount (), rowCount () + friends.count ());
-		Friends_.append (friends);
-		endInsertRows ();
-		emit countChanged ();
-	}
-
-	void FriendsModel::Clear ()
-	{
-		beginResetModel ();
-		Friends_.clear ();
-		endResetModel ();
-		emit countChanged ();
-	}
-
-
 }

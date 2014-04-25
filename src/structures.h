@@ -97,6 +97,13 @@ namespace SailReads
 	};
 
 	typedef QList<Friend> Friends_t;
+
+	struct Group
+	{
+
+	};
+
+	typedef QList<Group> Groups_t;
 }
 
 Q_DECLARE_METATYPE (SailReads::Update)

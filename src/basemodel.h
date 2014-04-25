@@ -22,28 +22,28 @@ THE SOFTWARE.
 
 #pragma once
 
-#include "objectsmodel.h"
+#include <QAbstractListModel>
 #include "structures.h"
 
 namespace SailReads
 {
-	class RecentUpdatesModel : public ObjectsModel<Update>
+	class BaseModel : public QAbstractListModel
 	{
+		Q_OBJECT
+
+		Q_PROPERTY (int count READ rowCount NOTIFY countChanged)
+
+	protected:
+		QHash<int, QByteArray> RoleNames_;
+
 	public:
-		enum UpdateRoles
-		{
-			URDate = Qt::UserRole + 1,
-			URLink,
-			URActionText,
-			URActorID,
-			URActorName,
-			URActorPorfileImage,
-			URActorProfileUrl
-		};
+		explicit BaseModel (QObject *parent = 0);
 
+		virtual QHash<int, QByteArray> roleNames () const;
 
-		explicit RecentUpdatesModel(QObject *parent = 0);
+		virtual int rowCount (const QModelIndex& parent = QModelIndex ()) const = 0;
 
-		virtual QVariant data (const QModelIndex& index, int role = Qt::DisplayRole) const;
+	signals:
+		void countChanged ();
 	};
 }

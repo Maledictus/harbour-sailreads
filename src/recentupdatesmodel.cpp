@@ -21,12 +21,11 @@ THE SOFTWARE.
 */
 
 #include "recentupdatesmodel.h"
-#include <QtDebug>
 
 namespace SailReads
 {
 	RecentUpdatesModel::RecentUpdatesModel (QObject *parent)
-	: QAbstractListModel (parent)
+	: ObjectsModel<Update> (parent)
 	{
 		RoleNames_ [URDate] = "updateDate";
 		RoleNames_ [URLink] = "updateLink";
@@ -37,22 +36,12 @@ namespace SailReads
 		RoleNames_ [URActorProfileUrl] = "updateActorProfileUrl";
 	}
 
-	QHash<int, QByteArray> RecentUpdatesModel::roleNames () const
-	{
-		return RoleNames_;
-	}
-
-	int RecentUpdatesModel::rowCount(const QModelIndex&) const
-	{
-		return Updates_.count ();
-	}
-
 	QVariant RecentUpdatesModel::data (const QModelIndex& index, int role) const
 	{
-		if (index.row () > Updates_.count () - 1 || index.row () < 0)
+		if (index.row () > Objects_.count () - 1 || index.row () < 0)
 			return QVariant ();
 
-		const auto& update = Updates_.at (index.row ());
+		const auto& update = Objects_.at (index.row ());
 		switch (role)
 		{
 		case URDate:
@@ -73,30 +62,4 @@ namespace SailReads
 			return QVariant ();
 		}
 	}
-
-	void RecentUpdatesModel::AddItems (const Update& update)
-	{
-		beginInsertRows (QModelIndex (), rowCount (), rowCount () + 1);
-		Updates_.append (update);
-		endInsertRows ();
-		emit countChanged ();
-	}
-
-	void RecentUpdatesModel::AddItems (const Updates_t& updates)
-	{
-		beginInsertRows (QModelIndex (), rowCount (), rowCount () + updates.count ());
-		Updates_.append (updates);
-		endInsertRows ();
-		emit countChanged ();
-	}
-
-	void RecentUpdatesModel::Clear ()
-	{
-		beginResetModel ();
-		Updates_.clear ();
-		endResetModel ();
-		emit countChanged ();
-	}
-
-
 }

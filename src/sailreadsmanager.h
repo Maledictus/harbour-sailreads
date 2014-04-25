@@ -31,6 +31,7 @@ namespace SailReads
 {
 	class FriendsModel;
 	class GoodreadsApi;
+	class GroupsModel;
 	class LocalStorage;
 	class NotificationsModel;
 	class RecentUpdatesModel;
@@ -51,6 +52,7 @@ namespace SailReads
 		RecentUpdatesModel *UpdatesModel_;
 		NotificationsModel *NotificationsModel_;
 		FriendsModel *FriendsModel_;
+		GroupsModel *GroupsModel_;
 
 		Q_PROPERTY (bool requestInProcess READ IsRequestInProcess NOTIFY requestInProcessChanged)
 
@@ -69,6 +71,7 @@ namespace SailReads
 		void handleRequestUserProfile (const QString& id);
 		void handleRequestNotifications ();
 		void handleRequestFriendsList (const QString& id);
+		void handleRequestGroupsList (const QString& id);
 
 		void handleGotAuthUserID (const QString& id);
 		void handleGotUserProfile (UserProfile *profile);

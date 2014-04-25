@@ -28,6 +28,7 @@ THE SOFTWARE.
 #include <QtDebug>
 #include "friendsmodel.h"
 #include "goodreadsapi.h"
+#include "groupsmodel.h"
 #include "localstorage.h"
 #include "notificationsmodel.h"
 #include "recentupdatesmodel.h"
@@ -43,6 +44,7 @@ namespace SailReads
 	, UpdatesModel_ (new RecentUpdatesModel (this))
 	, NotificationsModel_ (new NotificationsModel (this))
 	, FriendsModel_ (new FriendsModel (this))
+	, GroupsModel_ (new GroupsModel (this))
 	{
 		connect (GoodreadsApi_,
 				SIGNAL (requestInProcessChanged ()),
@@ -92,10 +94,15 @@ namespace SailReads
 				SIGNAL (requestFriendsList (QString)),
 				this,
 				SLOT (handleRequestFriendsList (QString)));
+		connect (MainView_->rootObject (),
+				SIGNAL (requestGroupsList (QString)),
+				this,
+				SLOT (handleRequestGroupsList (QString)));
 
 		MainView_->rootContext ()->setContextProperty ("updatesModel", UpdatesModel_);
 		MainView_->rootContext ()->setContextProperty ("notificationsModel", NotificationsModel_);
 		MainView_->rootContext ()->setContextProperty ("friendsModel", FriendsModel_);
+		MainView_->rootContext ()->setContextProperty ("groupsModel", GroupsModel_);
 
 		AccessToken_ = LocalStorage_->GetValue ("AccessToken");
 		AccessTokenSecret_ = LocalStorage_->GetValue ("AccessTokenSecret");
@@ -184,6 +191,11 @@ namespace SailReads
 		FriendsModel_->Clear ();
 		GoodreadsApi_->RequestFriends (AccessToken_,
 				AccessTokenSecret_, id == "self" ? AuthUserID_ : id);
+	}
+
+	void SailreadsManager::handleRequestGroupsList (const QString& id)
+	{
+		GroupsModel_->Clear ();
 	}
 
 	void SailreadsManager::handleGotAuthUserID (const QString& id)

@@ -22,28 +22,47 @@ THE SOFTWARE.
 
 #pragma once
 
-#include "objectsmodel.h"
-#include "structures.h"
+#include "basemodel.h"
 
 namespace SailReads
 {
-	class RecentUpdatesModel : public ObjectsModel<Update>
+	template<typename T> class ObjectsModel : public BaseModel
 	{
+	protected:
+		QList<T> Objects_;
+
 	public:
-		enum UpdateRoles
+		ObjectsModel (QObject *parent = 0)
+		: BaseModel (parent)
+		{}
+
+		virtual int rowCount (const QModelIndex& = QModelIndex ()) const
 		{
-			URDate = Qt::UserRole + 1,
-			URLink,
-			URActionText,
-			URActorID,
-			URActorName,
-			URActorPorfileImage,
-			URActorProfileUrl
-		};
+			return Objects_.count ();
+		}
 
+		void AddItems (const T& object)
+		{
+			beginInsertRows (QModelIndex (), rowCount (), rowCount ());
+			Objects_.append (object);
+			endInsertRows ();
+			emit countChanged ();
+		}
 
-		explicit RecentUpdatesModel(QObject *parent = 0);
+		void AddItems (const QList<T>& objects)
+		{
+			beginInsertRows (QModelIndex (), rowCount (), rowCount () + objects.count ());
+			Objects_.append (objects);
+			endInsertRows ();
+			emit countChanged ();
+		}
 
-		virtual QVariant data (const QModelIndex& index, int role = Qt::DisplayRole) const;
+		void Clear ()
+		{
+			beginResetModel ();
+			Objects_.clear ();
+			endResetModel ();
+			emit countChanged ();
+		}
 	};
 }

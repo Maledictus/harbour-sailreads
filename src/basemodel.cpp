@@ -20,30 +20,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-#pragma once
-
-#include "objectsmodel.h"
-#include "structures.h"
+#include "basemodel.h"
 
 namespace SailReads
 {
-	class RecentUpdatesModel : public ObjectsModel<Update>
+	BaseModel::BaseModel (QObject *parent)
+	: QAbstractListModel (parent)
 	{
-	public:
-		enum UpdateRoles
-		{
-			URDate = Qt::UserRole + 1,
-			URLink,
-			URActionText,
-			URActorID,
-			URActorName,
-			URActorPorfileImage,
-			URActorProfileUrl
-		};
+	}
 
-
-		explicit RecentUpdatesModel(QObject *parent = 0);
-
-		virtual QVariant data (const QModelIndex& index, int role = Qt::DisplayRole) const;
-	};
+	QHash<int, QByteArray> BaseModel::roleNames () const
+	{
+		return RoleNames_;
+	}
 }

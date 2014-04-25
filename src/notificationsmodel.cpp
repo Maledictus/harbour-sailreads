@@ -26,7 +26,7 @@ THE SOFTWARE.
 namespace SailReads
 {
 	NotificationsModel::NotificationsModel (QObject *parent)
-	: QAbstractListModel (parent)
+	:ObjectsModel<Notification> (parent)
 	{
 		RoleNames_ [NRDate] = "notificationDate";
 		RoleNames_ [NRRead] = "notificationRead";
@@ -38,22 +38,12 @@ namespace SailReads
 		RoleNames_ [NRActorProfileUrl] = "notificationActorProfileUrl";
 	}
 
-	QHash<int, QByteArray> NotificationsModel::roleNames () const
-	{
-		return RoleNames_;
-	}
-
-	int NotificationsModel::rowCount (const QModelIndex&) const
-	{
-		return Notifications_.count ();
-	}
-
 	QVariant NotificationsModel::data (const QModelIndex& index, int role) const
 	{
-		if (index.row () > Notifications_.count () - 1 || index.row () < 0)
+		if (index.row () > Objects_.count () - 1 || index.row () < 0)
 			return QVariant ();
 
-		const auto& notification = Notifications_.at (index.row ());
+		const auto& notification = Objects_.at (index.row ());
 		switch (role)
 		{
 		case NRDate:
@@ -76,30 +66,4 @@ namespace SailReads
 			return QVariant ();
 		}
 	}
-
-	void NotificationsModel::AddItems (const Notification& notification)
-	{
-		beginInsertRows (QModelIndex (), rowCount (), rowCount () + 1);
-		Notifications_.append (notification);
-		endInsertRows ();
-		emit countChanged ();
-	}
-
-	void NotificationsModel::AddItems (const Notifications_t& notifications)
-	{
-		beginInsertRows (QModelIndex (), rowCount (), rowCount () + notifications.count ());
-		Notifications_.append (notifications);
-		endInsertRows ();
-		emit countChanged ();
-	}
-
-	void NotificationsModel::Clear ()
-	{
-		beginResetModel ();
-		Notifications_.clear ();
-		endResetModel ();
-		emit countChanged ();
-	}
-
-
 }

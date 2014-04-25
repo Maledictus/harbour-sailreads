@@ -170,7 +170,29 @@ namespace SailReads
 		connect (reply,
 				SIGNAL (finished ()),
 				this,
-				SLOT (handleRequestFriendsFinished ()));
+				 SLOT (handleRequestFriendsFinished ()));
+	}
+
+	void GoodreadsApi::RequestGroups (const QString& id)
+	{
+		QUrl url (QString (" https://www.goodreads.com/group/list/%1.xml?key=%2")
+				.arg (id)
+				.arg (ConsumerKey_));
+		RequestInProcess_ = true;
+		emit requestInProcessChanged ();
+		auto reply = NetworkAccessManager_->get (QNetworkRequest (url));
+		connect (reply,
+				SIGNAL (downloadProgress (qint64, qint64)),
+				this,
+				SLOT (handleDownloadProgress (qint64, qint64)));
+		connect (reply,
+				SIGNAL (error (QNetworkReply::NetworkError)),
+				this,
+				SLOT (handleReplyError (QNetworkReply::NetworkError)));
+		connect (reply,
+				SIGNAL (finished ()),
+				this,
+				SLOT (handleRequestGroupsFinished ()));
 	}
 
 	void GoodreadsApi::handleDownloadProgress(qint64 bytesReceived, qint64 bytesTotal)
@@ -187,9 +209,9 @@ namespace SailReads
 
 		reply->deleteLater ();
 		qWarning () << Q_FUNC_INFO
-					<< "Networ error:"
-					<< error
-					<< reply->errorString ();
+				<< "Networ error:"
+				<< error
+				<< reply->errorString ();
 	}
 
 	namespace
@@ -224,7 +246,7 @@ namespace SailReads
 		if (!FillDomDocument (reply->readAll (), document))
 		{
 			qWarning () << Q_FUNC_INFO
-						<< "unable to get auth user id";
+					<< "unable to get auth user id";
 			return;
 		}
 
@@ -370,6 +392,8 @@ namespace SailReads
 					profile->setGroupsCount (fieldElement.text ().toUInt ());
 				else if (fieldElement.tagName () == "reviews_count")
 					profile->setReviewsCount (fieldElement.text ().toUInt ());
+				else if (fieldElement.tagName () == "private")
+					profile->setPrivateProfile (fieldElement.text () == "true");
 //				else if (fieldElement.tagName () == "user_shelves")
 //				{
 //					const auto& shelvesList = fieldElement.childNodes ();
@@ -595,5 +619,21 @@ namespace SailReads
 		}
 
 		emit gotFriends (CreateFriends (document));
+	}
+
+	void GoodreadsApi::handleRequestGroupsFinished ()
+	{
+		auto reply = qobject_cast<QNetworkReply*> (sender ());
+		if (!reply)
+			return;
+
+		QDomDocument document;
+		reply->deleteLater ();
+		if (!FillDomDocument (reply->readAll (), document))
+		{
+			qWarning () << Q_FUNC_INFO
+					<< "unable to get recent updates";
+			return;
+		}
 	}
 }
