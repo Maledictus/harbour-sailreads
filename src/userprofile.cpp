@@ -29,7 +29,7 @@ namespace SailReads
 	, Age_ (0)
 	, FriendsCount_ (0)
 	, GroupsCount_ (0)
-	, ReviewsCount_ (0)
+	, BooksCount_ (0)
 	, PrivateProfile_ (false)
 	{
 	}
@@ -164,14 +164,14 @@ namespace SailReads
 		GroupsCount_ = groupsCount;
 	}
 
-	quint32 UserProfile::getReviewsCount () const
+	quint32 UserProfile::getBooksCount () const
 	{
-		return ReviewsCount_;
+		return BooksCount_;
 	}
 
-	void UserProfile::setReviewsCount (quint32 reviewsCount)
+	void UserProfile::setBooksCount (quint32 booksCount)
 	{
-		ReviewsCount_ = reviewsCount;
+		BooksCount_ = booksCount;
 	}
 
 	bool UserProfile::getPrivateProfile () const

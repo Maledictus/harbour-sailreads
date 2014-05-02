@@ -33,17 +33,15 @@ namespace SailReads
 	{
 		QString ID_;
 		QString Name_;
-		quint32 BookCount_;
+		quint32 BooksCount_;
 		QString Description_;
-		QString DisplayFields_;
-		bool ExclusiveFlag_;
-		bool Featured_;
 
 		Shelf ()
-		: ExclusiveFlag_ (false)
-		, Featured_ (false)
+		: BooksCount_ (0)
 		{}
 	};
+	typedef QList<Shelf> Shelves_t;
+
 
 	struct Update
 	{
@@ -103,7 +101,7 @@ namespace SailReads
 
 		QString ID_;
 		QString Name_;
-		int UsersCount_;
+		quint32 UsersCount_;
 		QUrl ImageUrl_;
 		bool Public_;
 

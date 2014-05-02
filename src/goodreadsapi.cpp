@@ -195,6 +195,28 @@ namespace SailReads
 				SLOT (handleRequestGroupsFinished ()));
 	}
 
+	void GoodreadsApi::RequestShelves (const QString& id)
+	{
+		QUrl url (QString ("https://www.goodreads.com/shelf/list.xml?key=%1&user_id=%2")
+				.arg (ConsumerKey_)
+				.arg (id));
+		RequestInProcess_ = true;
+		emit requestInProcessChanged ();
+		auto reply = NetworkAccessManager_->get (QNetworkRequest (url));
+		connect (reply,
+				SIGNAL (downloadProgress (qint64, qint64)),
+				this,
+				SLOT (handleDownloadProgress (qint64, qint64)));
+		connect (reply,
+				SIGNAL (error (QNetworkReply::NetworkError)),
+				this,
+				SLOT (handleReplyError (QNetworkReply::NetworkError)));
+		connect (reply,
+				SIGNAL (finished ()),
+				this,
+				SLOT (handleRequestShelvesFinished ()));
+	}
+
 	void GoodreadsApi::handleDownloadProgress(qint64 bytesReceived, qint64 bytesTotal)
 	{
 		RequestInProcess_ = (bytesReceived != bytesTotal);
@@ -277,15 +299,9 @@ namespace SailReads
 				else if (fieldElement.tagName () == "name")
 					shelf.Name_ = fieldElement.text ();
 				else if (fieldElement.tagName () == "book_count")
-					shelf.BookCount_ = fieldElement.text ().toUInt ();
+					shelf.BooksCount_ = fieldElement.text ().toUInt ();
 				else if (fieldElement.tagName () == "description")
 					shelf.Description_ = fieldElement.text ();
-				else if (fieldElement.tagName () == "display_fields")
-					shelf.Description_ = fieldElement.text ();
-				else if (fieldElement.tagName () == "exclusive_flag")
-					shelf.ExclusiveFlag_ = fieldElement.text () == "true" ? true : false;
-				else if (fieldElement.tagName () == "featured")
-					shelf.Featured_ = fieldElement.text () == "true" ? true : false;
 			}
 
 			return shelf;
@@ -391,7 +407,7 @@ namespace SailReads
 				else if (fieldElement.tagName () == "groups_count")
 					profile->setGroupsCount (fieldElement.text ().toUInt ());
 				else if (fieldElement.tagName () == "reviews_count")
-					profile->setReviewsCount (fieldElement.text ().toUInt ());
+					profile->setBooksCount (fieldElement.text ().toUInt ());
 				else if (fieldElement.tagName () == "private")
 					profile->setPrivateProfile (fieldElement.text () == "true");
 //				else if (fieldElement.tagName () == "user_shelves")
@@ -571,6 +587,7 @@ namespace SailReads
 
 			return group;
 		}
+
 		Groups_t CreateGroups (const QDomDocument& doc)
 		{
 			Groups_t groups;
@@ -589,6 +606,25 @@ namespace SailReads
 			}
 
 			return groups;
+		}
+
+		Shelves_t CreateShelves (const QDomDocument& doc)
+		{
+			Shelves_t shelves;
+			const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
+			if (responseElement.isNull ())
+				return shelves;
+
+			const auto& shelvesElement = responseElement.firstChildElement ("shelves");
+			const auto& shelvesList = shelvesElement.childNodes ();
+			for (int i = 0, shelvesCount = shelvesList.size (); i < shelvesCount; ++i)
+			{
+				const auto& shelfElement = shelvesList.at (i).toElement ();
+				if (shelfElement.tagName () == "user_shelf")
+					shelves << CreateShelf (shelfElement);
+			}
+
+			return shelves;
 		}
 	}
 
@@ -639,7 +675,7 @@ namespace SailReads
 		if (!FillDomDocument (reply->readAll (), document))
 		{
 			qWarning () << Q_FUNC_INFO
-					<< "unable to get recent updates";
+					<< "unable to get notifications";
 			return;
 		}
 
@@ -657,7 +693,7 @@ namespace SailReads
 		if (!FillDomDocument (reply->readAll (), document))
 		{
 			qWarning () << Q_FUNC_INFO
-					<< "unable to get recent updates";
+					<< "unable to get friends list";
 			return;
 		}
 
@@ -675,10 +711,28 @@ namespace SailReads
 		if (!FillDomDocument (reply->readAll (), document))
 		{
 			qWarning () << Q_FUNC_INFO
-					<< "unable to get recent updates";
+					<< "unable to get groups list";
 			return;
 		}
 
 		emit gotGroups (CreateGroups (document));
+	}
+
+	void GoodreadsApi::handleRequestShelvesFinished ()
+	{
+		auto reply = qobject_cast<QNetworkReply*> (sender ());
+		if (!reply)
+			return;
+
+		QDomDocument document;
+		reply->deleteLater ();
+		if (!FillDomDocument (reply->readAll (), document))
+		{
+			qWarning () << Q_FUNC_INFO
+					<< "unable to get bookshelves list";
+			return;
+		}
+
+		emit gotShelves (CreateShelves (document));
 	}
 }

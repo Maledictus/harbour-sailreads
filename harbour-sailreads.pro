@@ -26,7 +26,8 @@ SOURCES += src/harbour-sailreads.cpp \
 	src/notificationsmodel.cpp \
 	src/friendsmodel.cpp \
 	src/basemodel.cpp \
-    src/groupsmodel.cpp
+	src/groupsmodel.cpp \
+	src/shelvesmodel.cpp
 
 HEADERS += \
     src/networkaccessmanager.h \
@@ -42,7 +43,8 @@ HEADERS += \
 	src/friendsmodel.h \
 	src/basemodel.h \
     src/objectsmodel.h \
-    src/groupsmodel.h
+	src/groupsmodel.h \
+	src/shelvesmodel.h
 
 LIBS += -loauth
 
@@ -55,5 +57,6 @@ OTHER_FILES += rpm/harbour-sailreads.spec \
     qml/ProfilePage.qml \
     qml/NotificationsPage.qml \
     qml/FriendsPage.qml \
-    qml/GroupsPage.qml
+    qml/GroupsPage.qml \
+    qml/ShelvesPage.qml
 

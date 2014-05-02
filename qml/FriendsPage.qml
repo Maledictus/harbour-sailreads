@@ -99,8 +99,6 @@ Page {
         visible: loading && (friendsModel.count === 0)
         running: visible;
     }
-
-
 }
 
 

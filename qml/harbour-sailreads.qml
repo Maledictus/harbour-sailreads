@@ -35,6 +35,8 @@ ApplicationWindow
     signal requestNotifications ()
     signal requestFriendsList (string id)
     signal requestGroupsList (string id)
+    signal requestShelvesList (string id)
+    signal requestBooksList (string id, string shelfId)
 
     AuthManager {
         id: authManager
@@ -56,7 +58,7 @@ ApplicationWindow
         profilePage.userInterests = profile.interests
         profilePage.friendsCount = profile.friendsCount
         profilePage.groupsCount = profile.groupsCount
-        profilePage.reviewsCount = profile.reviewsCount
+        profilePage.booksCount = profile.booksCount
         profilePage.privateProfile = profile.privateProfile
     }
 
@@ -105,6 +107,12 @@ ApplicationWindow
             requestGroupsList (self ? "self" : uid)
         }
 
+        onSwitchToShelves: {
+            pageStack.push (shelvesPage)
+            shelvesPage.uid = self ? "self" : uid
+            requestShelvesList (self ? "self" : uid)
+        }
+
         onStatusChanged: {
             if (status === PageStatus.Activating) {
                 requestUserProfile (self ? "self" : uid)
@@ -147,5 +155,9 @@ ApplicationWindow
         onRefreshGroups: {
             requestGroupsList (uid)
         }
+    }
+
+    ShelvesPage {
+        id: shelvesPage
     }
 }

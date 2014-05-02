@@ -39,7 +39,7 @@ Page {
     property alias notificationsCount: notificationsCountLabel.text
     property alias friendsCount: friendsCountLabel.text
     property alias groupsCount: groupsCountLabel.text
-    property alias reviewsCount: reviewsCountLabel.text
+    property alias booksCount: booksCountLabel.text
     property bool privateProfile
 
     signal switchToMyProfile ()
@@ -47,7 +47,7 @@ Page {
     signal switchToNotifications ()
     signal switchToFriends ()
     signal switchToGroups ()
-    signal switchToReviews ()
+    signal switchToShelves ()
 
     onSelfChanged: { // details should be empty while loading
         userPhoto.source = ""
@@ -56,7 +56,7 @@ Page {
         userInterests.text = ""
         friendsCountLabel.text = 0
         groupsCountLabel.text = 0
-        reviewsCountLabel.text = 0
+        booksCountLabel.text = 0
     }
 
     onUidChanged: {
@@ -66,7 +66,7 @@ Page {
         userInterests.text = ""
         friendsCountLabel.text = 0
         groupsCountLabel.text = 0
-        reviewsCountLabel.text = 0
+        booksCountLabel.text = 0
     }
 
     BusyIndicator {
@@ -288,12 +288,12 @@ Page {
                     anchors.left: parent.left
                     anchors.right: parent.right
                     anchors.margins: Theme.paddingMedium
-                    text: qsTr ("Reviews")
+                    text: qsTr ("Books")
                     color: parent.highlighted ? Theme.highlightColor : Theme.primaryColor
                 }
 
                 Label {
-                    id: reviewsCountLabel
+                    id: booksCountLabel
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
                     font.pixelSize: Theme.fontSizeMedium
@@ -302,7 +302,7 @@ Page {
 
                 }
 
-                onClicked: switchToReviews ()
+                onClicked: switchToShelves ()
             }
         }
     }

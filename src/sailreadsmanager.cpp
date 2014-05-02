@@ -32,6 +32,7 @@ THE SOFTWARE.
 #include "localstorage.h"
 #include "notificationsmodel.h"
 #include "recentupdatesmodel.h"
+#include "shelvesmodel.h"
 #include "userprofile.h"
 
 namespace SailReads
@@ -45,6 +46,7 @@ namespace SailReads
 	, NotificationsModel_ (new NotificationsModel (this))
 	, FriendsModel_ (new FriendsModel (this))
 	, GroupsModel_ (new GroupsModel (this))
+	, ShelvesModel_ (new ShelvesModel (this))
 	{
 		connect (GoodreadsApi_,
 				SIGNAL (requestInProcessChanged ()),
@@ -74,6 +76,10 @@ namespace SailReads
 				SIGNAL (gotGroups (Groups_t)),
 				this,
 				SLOT (handleGotGroups (Groups_t)));
+		connect (GoodreadsApi_,
+				SIGNAL (gotShelves (Shelves_t)),
+				this,
+				SLOT (handleGotShelves (Shelves_t)));
 	}
 
 	void SailreadsManager::Init ()
@@ -102,11 +108,17 @@ namespace SailReads
 				SIGNAL (requestGroupsList (QString)),
 				this,
 				SLOT (handleRequestGroupsList (QString)));
+		connect (MainView_->rootObject (),
+				SIGNAL (requestShelvesList (QString)),
+				this,
+				SLOT (handleRequestShelvesList (QString)));
+
 
 		MainView_->rootContext ()->setContextProperty ("updatesModel", UpdatesModel_);
 		MainView_->rootContext ()->setContextProperty ("notificationsModel", NotificationsModel_);
 		MainView_->rootContext ()->setContextProperty ("friendsModel", FriendsModel_);
 		MainView_->rootContext ()->setContextProperty ("groupsModel", GroupsModel_);
+		MainView_->rootContext ()->setContextProperty ("shelvesModel", ShelvesModel_);
 
 		AccessToken_ = LocalStorage_->GetValue ("AccessToken");
 		AccessTokenSecret_ = LocalStorage_->GetValue ("AccessTokenSecret");
@@ -203,6 +215,12 @@ namespace SailReads
 		GoodreadsApi_->RequestGroups (id == "self" ? AuthUserID_ : id);
 	}
 
+	void SailreadsManager::handleRequestShelvesList (const QString& id)
+	{
+		ShelvesModel_->Clear ();
+		GoodreadsApi_->RequestShelves (id == "self" ? AuthUserID_ : id);
+	}
+
 	void SailreadsManager::handleGotAuthUserID (const QString& id)
 	{
 		AuthUserID_ = id;
@@ -253,5 +271,11 @@ namespace SailReads
 	{
 		GroupsModel_->Clear ();
 		GroupsModel_->AddItems (groups);
+	}
+
+	void SailreadsManager::handleGotShelves (const Shelves_t& shelves)
+	{
+		ShelvesModel_->Clear ();
+		ShelvesModel_->AddItems (shelves);
 	}
 }
