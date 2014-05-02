@@ -40,6 +40,7 @@ Page {
     property alias friendsCount: friendsCountLabel.text
     property alias groupsCount: groupsCountLabel.text
     property alias reviewsCount: reviewsCountLabel.text
+    property bool privateProfile
 
     signal switchToMyProfile ()
     signal switchToRecentUpdates ()
@@ -102,8 +103,13 @@ Page {
                 anchors.right: parent.right
                 anchors.margins: Theme.paddingMedium
 
+
+
                 Label {
                     id: userDetailsLabel
+
+                    visible: !privateProfile
+
                     anchors.left: userPhoto.right
                     anchors.top: userPhoto.top
                     anchors.margins: Theme.paddingMedium
@@ -116,6 +122,9 @@ Page {
 
                 Label {
                     id: userDetails
+
+                    visible: !privateProfile
+
                     anchors.right: parent.right
                     anchors.left: userDetailsLabel.right
                     anchors.top: userPhoto.top
@@ -129,6 +138,9 @@ Page {
 
                 Label {
                     id: userInterestsLabel
+
+                    visible: !privateProfile
+
                     anchors.left: userPhoto.right
                     anchors.top: parent.verticalCenter
                     anchors.margins: Theme.paddingMedium
@@ -141,6 +153,9 @@ Page {
 
                 Label {
                     id: userInterests
+
+                    visible: !privateProfile
+
                     anchors.right: parent.right
                     anchors.left: userInterestsLabel.right
                     anchors.top: parent.verticalCenter
@@ -151,6 +166,29 @@ Page {
                     font.bold: false
                     font.pixelSize: Theme.fontSizeTiny
                     color: Theme.secondaryColor
+                }
+
+                Label {
+                    id: privateProfileLabel
+                    visible: privateProfile
+
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.top: parent.top
+                    anchors.leftMargin: Theme.paddingMedium
+                    anchors.rightMargin: Theme.paddingMedium
+                    anchors.topMargin: Theme.paddingMedium
+                    color: Theme.highlightColor
+                    text: qsTr ("Private profile")
+                }
+
+                Image {
+                    source: "image://Theme/icon-lock-locked"
+                    visible: privateProfile
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.top: privateProfileLabel.bottom
+                    anchors.margins: Theme.paddingMedium
+                    width: 48
+                    height: 48
                 }
 
                 Image {

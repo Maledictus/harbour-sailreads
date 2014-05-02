@@ -57,6 +57,7 @@ ApplicationWindow
         profilePage.friendsCount = profile.friendsCount
         profilePage.groupsCount = profile.groupsCount
         profilePage.reviewsCount = profile.reviewsCount
+        profilePage.privateProfile = profile.privateProfile
     }
 
     function setUnreadNotificationsCount (count) {
