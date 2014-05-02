@@ -26,10 +26,12 @@ import Sailfish.Silica 1.0
 Page {
     id: page
 
-    property bool loading
-    property string lastError
+    property bool loading: manager.requestInProcess
+    property string uid
 
-    signal showUserProfile(string uid)
+    signal switchToMyProfile ()
+    signal showUserProfile (string uid)
+    signal refreshFriends (string uid)
 
     SilicaListView {
         id: listView
@@ -40,9 +42,23 @@ Page {
             title: qsTr("Friends")
         }
 
+        PullDownMenu {
+            MenuItem {
+                text: qsTr ("My Profile")
+                visible: uid != "self"
+                onClicked: switchToMyProfile ()
+            }
+
+            MenuItem {
+                text: qsTr ("Refresh")
+                onClicked: refreshFriends (uid);
+            }
+        }
+
+
         ViewPlaceholder {
             enabled: !loading && (friendsModel.count === 0)
-            text: (lastError !== "") ? lastError : qsTr ("List of friends is empty")
+            text: qsTr ("List of friends is empty")
         }
 
         delegate: BackgroundItem {
@@ -63,7 +79,7 @@ Page {
 
             Label {
                 id: personNameLabel
-                anchors.top: parent.top;
+                anchors.verticalCenter: personPhoto.verticalCenter
                 anchors.left: personPhoto.right
                 anchors.right: parent.right
                 anchors.leftMargin: Theme.paddingMedium;

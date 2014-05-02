@@ -48,7 +48,6 @@ ApplicationWindow
     }
 
     function setUserProfile (profile) {
-        profilePage.loading = false
         profilePage.uid = profile.id
         profilePage.profilePhotoUrl = profile.userProfileUrl
         profilePage.userName = profile.name
@@ -73,7 +72,6 @@ ApplicationWindow
         onRefreshUpdates: mainWindow.refreshUpdates ()
         onSwitchToMyProfile: {
             profilePage.self = true
-            profilePage.loading = true
             pageStack.replace (profilePage)
             requestNotifications ()
         }
@@ -86,25 +84,23 @@ ApplicationWindow
 
         onSwitchToMyProfile: {
             profilePage.self = true
-            loading = true
             requestUserProfile ("self")
         }
 
         onSwitchToFriends: {
             pageStack.push (friendsPage)
-            friendsPage.loading = true
+            friendsPage.uid = self ? "self" : uid
             requestFriendsList (self ? "self" : uid)
         }
 
         onSwitchToRecentUpdates: {
             pageStack.replace (friendsUpdatesPage)
-            friendsUpdatesPage.loading = true
             refreshUpdates ()
         }
 
         onSwitchToGroups: {
             pageStack.push (groupsPage)
-            groupsPage.loading = true
+            groupsPage.uid = self ? "self" : uid
             requestGroupsList (self ? "self" : uid)
         }
 
@@ -123,15 +119,32 @@ ApplicationWindow
     FriendsPage {
         id: friendsPage
 
+        onSwitchToMyProfile: {
+            profilePage.self = true
+            pageStack.replace (profilePage)
+        }
+
         onShowUserProfile: {
             profilePage.self = false
             profilePage.uid = uid
-            profilePage.loading = true
             pageStack.pop (profilePage)
+        }
+
+        onRefreshFriends: {
+            requestFriendsList (uid)
         }
     }
 
     GroupsPage {
         id: groupsPage
+
+        onSwitchToMyProfile: {
+            profilePage.self = true
+            pageStack.replace (profilePage)
+        }
+
+        onRefreshGroups: {
+            requestGroupsList (uid)
+        }
     }
 }

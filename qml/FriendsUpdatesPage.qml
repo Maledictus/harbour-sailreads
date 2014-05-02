@@ -26,7 +26,7 @@ import Sailfish.Silica 1.0
 Page {
     id: page
 
-    property bool loading;
+    property bool loading: manager.requestInProcess
     property string outputType: "updates"
 
     signal switchToMyProfile ();

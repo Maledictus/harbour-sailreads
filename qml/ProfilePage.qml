@@ -28,7 +28,7 @@ Page {
 
     property bool self: true
 
-    property bool loading
+    property bool loading: manager.requestInProcess
 
     property string uid
 
@@ -105,7 +105,7 @@ Page {
                 Label {
                     id: userDetailsLabel
                     anchors.left: userPhoto.right
-                    anchors.bottom: userPhoto.verticalCenter
+                    anchors.top: userPhoto.top
                     anchors.margins: Theme.paddingMedium
                     wrapMode: Text.WordWrap
                     font.bold: false
@@ -118,9 +118,9 @@ Page {
                     id: userDetails
                     anchors.right: parent.right
                     anchors.left: userDetailsLabel.right
-                    anchors.bottom: userPhoto.verticalCenter
+                    anchors.top: userPhoto.top
                     anchors.leftMargin: Theme.paddingMedium
-                    anchors.bottomMargin: Theme.paddingMedium
+                    anchors.topMargin: Theme.paddingMedium
                     wrapMode: Text.WordWrap
                     font.bold: false
                     font.pixelSize: Theme.fontSizeTiny
@@ -130,7 +130,7 @@ Page {
                 Label {
                     id: userInterestsLabel
                     anchors.left: userPhoto.right
-                    anchors.top: userDetailsLabel.bottom
+                    anchors.top: parent.verticalCenter
                     anchors.margins: Theme.paddingMedium
                     wrapMode: Text.WordWrap
                     font.bold: false
@@ -143,7 +143,7 @@ Page {
                     id: userInterests
                     anchors.right: parent.right
                     anchors.left: userInterestsLabel.right
-                    anchors.top: userDetailsLabel.bottom
+                    anchors.top: parent.verticalCenter
                     anchors.leftMargin: Theme.paddingMedium
                     anchors.rightMargin: Theme.paddingMedium
                     anchors.topMargin: Theme.paddingMedium
@@ -240,7 +240,7 @@ Page {
 
                 }
 
-                onClicked: switchToGrups ()
+                onClicked: switchToGroups ()
             }
 
             BackgroundItem {
