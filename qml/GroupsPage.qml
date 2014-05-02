@@ -26,7 +26,11 @@ import Sailfish.Silica 1.0
 Page {
     id: page
 
-    property bool loading
+    property bool loading: manager.requestInProcess
+    property string uid
+
+    signal switchToMyProfile ()
+    signal refreshGroups (string uid)
 
     SilicaListView {
         id: listView
@@ -35,6 +39,19 @@ Page {
         spacing: Theme.paddingMedium
         header: PageHeader {
             title: qsTr("Groups")
+        }
+
+        PullDownMenu {
+            MenuItem {
+                text: qsTr ("My Profile")
+                visible: uid != "self"
+                onClicked: switchToMyProfile ()
+            }
+
+            MenuItem {
+                text: qsTr ("Refresh")
+                onClicked: refreshGroups (uid);
+            }
         }
 
         ViewPlaceholder {
@@ -49,21 +66,31 @@ Page {
 
             Image {
                 id: groupImage
-                source: ""
+                source: groupImageUrl === undefined ? "" : groupImageUrl
                 anchors.left: parent.left;
-                anchors.top: parent.top;
                 width: 86;
                 height: 86;
             }
 
             Label {
                 id: groupNameLabel
-                anchors.top: parent.top;
-                anchors.left: personPhoto.right
+                anchors.verticalCenter: groupImage.verticalCenter
+                anchors.left: groupImage.right
+                anchors.right: groupUsersCountLabel.left
+                anchors.leftMargin: Theme.paddingMedium;
+                anchors.rightMargin: Theme.paddingMedium
+                text: groupName === undefined ? "" : groupName
+                color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
+                wrapMode: Text.WordWrap
+            }
+
+            Label {
+                id: groupUsersCountLabel
+                anchors.verticalCenter: groupImage.verticalCenter
                 anchors.right: parent.right
                 anchors.leftMargin: Theme.paddingMedium;
                 anchors.rightMargin: Theme.paddingMedium
-                text: ""
+                text: groupUsersCount === undefined ? "" : groupUsersCount
                 color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
             }
         }

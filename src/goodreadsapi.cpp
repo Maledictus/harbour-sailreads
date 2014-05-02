@@ -175,7 +175,7 @@ namespace SailReads
 
 	void GoodreadsApi::RequestGroups (const QString& id)
 	{
-		QUrl url (QString (" https://www.goodreads.com/group/list/%1.xml?key=%2")
+		QUrl url (QString ("https://www.goodreads.com/group/list/%1.xml?key=%2")
 				.arg (id)
 				.arg (ConsumerKey_));
 		RequestInProcess_ = true;
@@ -547,6 +547,49 @@ namespace SailReads
 
 			return friends;
 		}
+
+		Group CreateGroup (const QDomElement& groupElement)
+		{
+			Group group;
+			const auto& fieldsList = groupElement.childNodes ();
+			for (int i = 0, fieldsCount = fieldsList.size (); i < fieldsCount; ++i)
+			{
+				const auto& fieldElement = fieldsList.at (i).toElement ();
+				if (fieldElement.tagName () == "id")
+					group.ID_ = fieldElement.text ();
+				else if (fieldElement.tagName () == "access")
+					group.Public_ = fieldElement.text () == "public";
+				else if (fieldElement.tagName () == "users_count")
+					group.UsersCount_ = fieldElement.text ().toInt ();
+				else if (fieldElement.tagName () == "image_url")
+					group.ImageUrl_ = QUrl (fieldElement.firstChild ()
+							.toCDATASection ().data ());
+				else if (fieldElement.tagName () == "title")
+					group.Name_ = fieldElement.firstChild ()
+							.toCDATASection ().data ();
+			}
+
+			return group;
+		}
+		Groups_t CreateGroups (const QDomDocument& doc)
+		{
+			Groups_t groups;
+			const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
+			if (responseElement.isNull ())
+				return groups;
+
+			const auto& groupsElement = responseElement.firstChildElement ("groups");
+
+			const auto& groupsList = groupsElement.firstChildElement ("list").childNodes ();
+			for (int i = 0, groupsCount = groupsList.size (); i < groupsCount; ++i)
+			{
+				const auto& groupElement = groupsList.at (i).toElement ();
+				if (groupElement.tagName () == "group")
+					groups << CreateGroup (groupElement);
+			}
+
+			return groups;
+		}
 	}
 
 	void GoodreadsApi::handleRequestUserInfoFinished ()
@@ -635,5 +678,7 @@ namespace SailReads
 					<< "unable to get recent updates";
 			return;
 		}
+
+		emit gotGroups (CreateGroups (document));
 	}
 }

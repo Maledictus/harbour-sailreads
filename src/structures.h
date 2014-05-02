@@ -101,6 +101,16 @@ namespace SailReads
 	struct Group
 	{
 
+		QString ID_;
+		QString Name_;
+		int UsersCount_;
+		QUrl ImageUrl_;
+		bool Public_;
+
+		Group ()
+		: UsersCount_ (0)
+		, Public_ (true)
+		{}
 	};
 
 	typedef QList<Group> Groups_t;

@@ -83,5 +83,6 @@ namespace SailReads
 		void gotRecentUpdates (const Updates_t& updates);
 		void gotNotifications (const Notifications_t& notifications);
 		void gotFriends (const Friends_t& friends);
+		void gotGroups (const Groups_t& groups);
 	};
 }

@@ -78,6 +78,7 @@ namespace SailReads
 		void handleGotRecentUpdates (const Updates_t& updates);
 		void handleGotNotifications (const Notifications_t& notifications);
 		void handleGotFriends (const Friends_t& friends);
+		void handleGotGroups (const Groups_t& groups);
 
 	signals:
 		void requestInProcessChanged ();

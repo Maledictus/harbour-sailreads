@@ -70,6 +70,10 @@ namespace SailReads
 				SIGNAL (gotFriends (Friends_t)),
 				this,
 				SLOT (handleGotFriends (Friends_t)));
+		connect (GoodreadsApi_,
+				SIGNAL (gotGroups (Groups_t)),
+				this,
+				SLOT (handleGotGroups (Groups_t)));
 	}
 
 	void SailreadsManager::Init ()
@@ -196,6 +200,7 @@ namespace SailReads
 	void SailreadsManager::handleRequestGroupsList (const QString& id)
 	{
 		GroupsModel_->Clear ();
+		GoodreadsApi_->RequestGroups (id == "self" ? AuthUserID_ : id);
 	}
 
 	void SailreadsManager::handleGotAuthUserID (const QString& id)
@@ -242,5 +247,11 @@ namespace SailReads
 	{
 		FriendsModel_->Clear ();
 		FriendsModel_->AddItems (friends);
+	}
+
+	void SailreadsManager::handleGotGroups (const Groups_t& groups)
+	{
+		GroupsModel_->Clear ();
+		GroupsModel_->AddItems (groups);
 	}
 }
