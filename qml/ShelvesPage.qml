@@ -30,6 +30,8 @@ Page {
     property string uid
 
     signal switchToMyProfile ()
+    signal switchToAddEditShelf (string id, string name, bool exclusive,
+            bool sortable, bool featured)
     signal refreshShelves (string uid)
 
     SilicaListView {
@@ -41,11 +43,19 @@ Page {
             title: qsTr("Bookshelves")
         }
 
+        property Item contextMenu
+
         PullDownMenu {
             MenuItem {
                 text: qsTr ("My Profile")
                 visible: uid != "self"
                 onClicked: switchToMyProfile ()
+            }
+
+            MenuItem {
+                text: qsTr ("Add bookshelf")
+                visible: uid == "self"
+                onClicked: switchToAddEditShelf ("", "", false, false, false);
             }
 
             MenuItem {
@@ -63,13 +73,15 @@ Page {
         delegate: BackgroundItem {
             id: delegate
 
-            height: contentItem.childrenRect.height /*shelfNameLabel.height +
-                    (shelfDescription !== "" ?shelfDescriptionLabel.height + Theme.paddingSmall : 0) +
-                    Theme.paddingMedium * 2*/
+            property bool menuOpen: listView.contextMenu != null &&
+                    listView.contextMenu.parent === delegate
+
+            height: menuOpen ?
+                    listView.contextMenu.height + contentItem.childrenRect.height :
+                    contentItem.childrenRect.height
 
             Label {
                 id: shelfNameLabel
-                anchors.top: parent.top
                 anchors.left: parent.left
                 anchors.leftMargin: Theme.paddingMedium
                 text: shelfName === undefined ? "" : shelfName
@@ -79,13 +91,41 @@ Page {
             Label {
                 id: booksCountLabel
                 anchors.right: parent.right
-                anchors.leftMargin: Theme.paddingMedium;
                 anchors.rightMargin: Theme.paddingMedium
                 text: shelfBooksCount === undefined ? "0" : shelfBooksCount
                 color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
             }
 
             onClicked: console.log (shelfID)
+
+            onPressAndHold: {
+                if (!listView.contextMenu) {
+                    listView.contextMenu = contextMenuComponent.createObject (listView)
+                }
+                listView.contextMenu.shelfId = shelfID;
+                listView.contextMenu.shelfName = shelfName;
+                listView.contextMenu.shelfExclusive = shelfExclusive;
+                listView.contextMenu.shelfSortable = shelfSortable;
+                listView.contextMenu.shelfFeatured = shelfFeatured
+                listView.contextMenu.show (delegate)
+            }
+        }
+
+        Component {
+            id: contextMenuComponent
+            ContextMenu {
+                property string shelfId;
+                property string shelfName;
+                property bool shelfExclusive;
+                property bool shelfSortable;
+                property bool shelfFeatured;
+                MenuItem {
+                    visible: uid == "self"
+                    text: qsTr ("Edit");
+                    onClicked: switchToAddEditShelf (shelfId, shelfName,
+                            shelfExclusive, shelfSortable, shelfFeatured)
+                }
+            }
         }
 
         VerticalScrollDecorator {}

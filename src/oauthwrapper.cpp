@@ -119,7 +119,7 @@ namespace SailReads
 
 	QUrl OAuthWrapper::MakeGetSignedUrl (const SignedUrlData& data) const
 	{
-		return QUrl(oauth_sign_url2 (data.BaseUrl_.toString ().toUtf8 (),
+		return QUrl(oauth_sign_url2 (data.BaseUrl_.toEncoded (),
 				NULL, OA_HMAC, NULL, data.ConsumerKey_.toUtf8 (),
 				data.ConsumerSecret_.toUtf8 (), data.AccessToken_.toUtf8 (),
 				data.AccessTokenSecret_.toUtf8 ()));

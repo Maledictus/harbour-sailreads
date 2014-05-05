@@ -35,7 +35,10 @@ namespace SailReads
 			SRID = Qt::UserRole + 1,
 			SRName,
 			SRBooksCount,
-			SRDescription
+			SRDescription,
+			SRExclusive,
+			SRSortable,
+			SRFeatured
 		};
 
 		explicit ShelvesModel(QObject *parent = 0);

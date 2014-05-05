@@ -58,5 +58,6 @@ OTHER_FILES += rpm/harbour-sailreads.spec \
     qml/NotificationsPage.qml \
     qml/FriendsPage.qml \
     qml/GroupsPage.qml \
-    qml/ShelvesPage.qml
+    qml/ShelvesPage.qml \
+    qml/AddEditShelfPage.qml
 

@@ -35,9 +35,15 @@ namespace SailReads
 		QString Name_;
 		quint32 BooksCount_;
 		QString Description_;
+		bool Sortable_;
+		bool Exclusive_;
+		bool Featured_;
 
 		Shelf ()
 		: BooksCount_ (0)
+		, Sortable_ (false)
+		, Exclusive_ (false)
+		, Featured_ (false)
 		{}
 	};
 	typedef QList<Shelf> Shelves_t;

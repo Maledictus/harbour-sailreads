@@ -63,7 +63,14 @@ namespace SailReads
 		void RequestFriends (const QString& accessToken,
 				const QString& accessTokenSecret, const QString& id);
 		void RequestGroups (const QString& id);
+
 		void RequestShelves (const QString& id);
+		void AddShelf (const QString& name, bool exclusive, bool sortable,
+				bool featured, const QString& accessToken,
+				const QString& accessTokenSecret);
+		void EditShelf (const QString& id, const QString& name, bool exclusive,
+				bool sortable, bool featured, const QString& accessToken,
+				const QString& accessTokenSecret);
 
 	private slots:
 		void handleDownloadProgress (qint64 bytesReceived, qint64 bytesTotal);
@@ -76,6 +83,8 @@ namespace SailReads
 		void handleRequestFriendsFinished ();
 		void handleRequestGroupsFinished ();
 		void handleRequestShelvesFinished ();
+		void handleAddShelfFinished ();
+		void handleEditShelfFinished ();
 
 	signals:
 		void requestInProcessChanged ();

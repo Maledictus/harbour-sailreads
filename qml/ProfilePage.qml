@@ -115,7 +115,7 @@ Page {
                     anchors.margins: Theme.paddingMedium
                     wrapMode: Text.WordWrap
                     font.bold: false
-                    font.pixelSize: Theme.fontSizeTiny
+                    font.pixelSize: Theme.fontSizeSmall
                     color: Theme.secondaryColor
                     text: qsTr ("Details:")
                 }
@@ -132,7 +132,7 @@ Page {
                     anchors.topMargin: Theme.paddingMedium
                     wrapMode: Text.WordWrap
                     font.bold: false
-                    font.pixelSize: Theme.fontSizeTiny
+                    font.pixelSize: Theme.fontSizeSmall
                     color: Theme.secondaryColor
                 }
 
@@ -146,7 +146,7 @@ Page {
                     anchors.margins: Theme.paddingMedium
                     wrapMode: Text.WordWrap
                     font.bold: false
-                    font.pixelSize: Theme.fontSizeTiny
+                    font.pixelSize: Theme.fontSizeSmall
                     color: Theme.secondaryColor
                     text: qsTr ("Interests:")
                 }
@@ -164,7 +164,7 @@ Page {
                     anchors.topMargin: Theme.paddingMedium
                     wrapMode: Text.WordWrap
                     font.bold: false
-                    font.pixelSize: Theme.fontSizeTiny
+                    font.pixelSize: Theme.fontSizeSmall
                     color: Theme.secondaryColor
                 }
 
@@ -223,9 +223,8 @@ Page {
                     id: notificationsCountLabel
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
-                    font.pixelSize: Theme.fontSizeMedium
-                    color: parent.highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor
                     anchors.margins: Theme.paddingMedium
+                    color: parent.highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor
 
                 }
 
@@ -248,9 +247,8 @@ Page {
                     id: friendsCountLabel
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
-                    font.pixelSize: Theme.fontSizeMedium
-                    color: parent.highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor
                     anchors.margins: Theme.paddingMedium
+                    color: parent.highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor
 
                 }
 
@@ -272,9 +270,8 @@ Page {
                     id: groupsCountLabel
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
-                    font.pixelSize: Theme.fontSizeMedium
-                    color: parent.highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor
                     anchors.margins: Theme.paddingMedium
+                    color: parent.highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor
 
                 }
 
@@ -296,9 +293,8 @@ Page {
                     id: booksCountLabel
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
-                    font.pixelSize: Theme.fontSizeMedium
-                    color: parent.highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor
                     anchors.margins: Theme.paddingMedium
+                    color: parent.highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor
 
                 }
 

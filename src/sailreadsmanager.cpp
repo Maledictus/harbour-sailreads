@@ -113,7 +113,14 @@ namespace SailReads
 				SIGNAL (requestShelvesList (QString)),
 				this,
 				SLOT (handleRequestShelvesList (QString)));
-
+		connect (MainView_->rootObject (),
+				SIGNAL (requestAddBooksShelf (QString, bool, bool, bool)),
+				this,
+				SLOT (handleRequestAddBooksShelf (QString, bool, bool, bool)));
+		connect (MainView_->rootObject (),
+				SIGNAL (requestEditBooksShelf (QString, QString, bool, bool, bool)),
+				this,
+				SLOT (handleRequestEditBooksShelf (QString, QString, bool, bool, bool)));
 
 		MainView_->rootContext ()->setContextProperty ("updatesModel", UpdatesModel_);
 		MainView_->rootContext ()->setContextProperty ("notificationsModel", NotificationsModel_);
@@ -220,6 +227,20 @@ namespace SailReads
 	{
 		ShelvesModel_->Clear ();
 		GoodreadsApi_->RequestShelves (id == "self" ? AuthUserID_ : id);
+	}
+
+	void SailreadsManager::handleRequestAddBooksShelf (const QString& name,
+			bool exclusive, bool sortable, bool featured)
+	{
+		GoodreadsApi_->AddShelf (name, exclusive, sortable, featured, AccessToken_,
+				AccessTokenSecret_);
+	}
+
+	void SailreadsManager::handleRequestEditBooksShelf (const QString& id,
+			const QString& name, bool exclusive, bool sortable, bool featured)
+	{
+		GoodreadsApi_->EditShelf (id, name, exclusive, sortable, featured,
+				AccessToken_, AccessTokenSecret_);
 	}
 
 	void SailreadsManager::handleGotAuthUserID (const QString& id)

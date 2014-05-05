@@ -31,6 +31,9 @@ namespace SailReads
 		RoleNames_ [SRName] = "shelfName";
 		RoleNames_ [SRBooksCount] = "shelfBooksCount";
 		RoleNames_ [SRDescription] = "shelfDescription";
+		RoleNames_ [SRExclusive] = "shelfExclusive";
+		RoleNames_ [SRSortable] = "shelfSortable";
+		RoleNames_ [SRFeatured] = "shelfFeatured";
 	}
 
 	QVariant ShelvesModel::data (const QModelIndex& index, int role) const
@@ -49,6 +52,12 @@ namespace SailReads
 			return shelf.BooksCount_;
 		case SRDescription:
 			return shelf.Description_;
+		case SRExclusive:
+			return shelf.Exclusive_;
+		case SRSortable:
+			return shelf.Sortable_;
+		case SRFeatured:
+			return shelf.Featured_;
 		default:
 			return QVariant ();
 		}

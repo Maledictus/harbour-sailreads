@@ -170,7 +170,7 @@ namespace SailReads
 		connect (reply,
 				SIGNAL (finished ()),
 				this,
-				 SLOT (handleRequestFriendsFinished ()));
+				SLOT (handleRequestFriendsFinished ()));
 	}
 
 	void GoodreadsApi::RequestGroups (const QString& id)
@@ -214,7 +214,76 @@ namespace SailReads
 		connect (reply,
 				SIGNAL (finished ()),
 				this,
-				SLOT (handleRequestShelvesFinished ()));
+				 SLOT (handleRequestShelvesFinished ()));
+	}
+
+	void GoodreadsApi::AddShelf (const QString& name, bool exclusive,
+			bool sortable, bool featured, const QString& accessToken,
+			const QString& accessTokenSecret)
+	{
+		const auto& url = OAuthWrapper_->MakeGetSignedUrl ({ ConsumerKey_,
+				ConsumerSecret_, accessToken, accessTokenSecret,
+				QUrl ("https://www.goodreads.com/user_shelves.xml") });
+		RequestInProcess_ = true;
+		emit requestInProcessChanged ();
+
+		QUrlQuery params;
+		params.addQueryItem ("user_shelf[name]", name);
+		params.addQueryItem ("user_shelf[exclusive_flag]", exclusive ? "true" : "false");
+		params.addQueryItem ("user_shelf[sortable_flag]", sortable ? "true" : "false");
+		params.addQueryItem ("user_shelf[featured]", featured ? "true" : "false");
+
+		QNetworkRequest request (url);
+		request.setHeader (QNetworkRequest::ContentTypeHeader,
+				"application/x-www-form-urlencoded");
+		auto reply = NetworkAccessManager_->post (request, params.toString ().toUtf8 ());
+		connect (reply,
+				SIGNAL (downloadProgress (qint64, qint64)),
+				this,
+				SLOT (handleDownloadProgress (qint64, qint64)));
+		connect (reply,
+				SIGNAL (error (QNetworkReply::NetworkError)),
+				this,
+				SLOT (handleReplyError (QNetworkReply::NetworkError)));
+		connect (reply,
+				SIGNAL (finished ()),
+				this,
+				SLOT (handleAddShelfFinished ()));
+	}
+
+	void GoodreadsApi::EditShelf (const QString& id, const QString& name,
+			bool exclusive, bool sortable, bool featured, const QString& accessToken,
+			const QString& accessTokenSecret)
+	{
+		const QUrl url (QString ("https://www.goodreads.com/user_shelves/update.xml?id=%1")
+				.arg (id));
+		const auto& signedUrl = OAuthWrapper_->MakeGetSignedUrl ({ ConsumerKey_,
+				ConsumerSecret_, accessToken, accessTokenSecret,
+				url });
+		qDebug () << signedUrl << accessToken << accessTokenSecret;
+		QUrlQuery params;
+		params.addQueryItem ("name", name);
+		params.addQueryItem ("exclusive_flag", exclusive ? "true" : "false");
+		params.addQueryItem ("sortable_flag", sortable ? "true" : "false");
+		params.addQueryItem ("featured", featured ? "true" : "false");
+		RequestInProcess_ = true;
+		emit requestInProcessChanged ();
+		QNetworkRequest request (signedUrl);
+		request.setHeader (QNetworkRequest::ContentTypeHeader,
+				"application/x-www-form-urlencoded");
+		auto reply = NetworkAccessManager_->post (request, params.toString ().toUtf8 ());
+		connect (reply,
+				SIGNAL (downloadProgress (qint64, qint64)),
+				this,
+				SLOT (handleDownloadProgress (qint64, qint64)));
+		connect (reply,
+				SIGNAL (error (QNetworkReply::NetworkError)),
+				this,
+				SLOT (handleReplyError (QNetworkReply::NetworkError)));
+		connect (reply,
+				SIGNAL (finished ()),
+				this,
+				SLOT (handleEditShelfFinished ()));
 	}
 
 	void GoodreadsApi::handleDownloadProgress(qint64 bytesReceived, qint64 bytesTotal)
@@ -302,6 +371,13 @@ namespace SailReads
 					shelf.BooksCount_ = fieldElement.text ().toUInt ();
 				else if (fieldElement.tagName () == "description")
 					shelf.Description_ = fieldElement.text ();
+				else if (fieldElement.tagName () == "exclusive_flag")
+					shelf.Exclusive_ = fieldElement.text () == "true";
+				else if (fieldElement.tagName () == "featured")
+					shelf.Featured_ = fieldElement.text () == "true";
+				else if (fieldElement.tagName () == "sort")
+					shelf.Sortable_ = !(fieldElement.hasAttribute("nil") &&
+							fieldElement.attribute ("nil") == "true");
 			}
 
 			return shelf;
@@ -736,5 +812,39 @@ namespace SailReads
 		}
 
 		emit gotShelves (CreateShelves (document));
+	}
+
+	void GoodreadsApi::handleAddShelfFinished ()
+	{
+		auto reply = qobject_cast<QNetworkReply*> (sender ());
+		if (!reply)
+			return;
+
+		QDomDocument document;
+		reply->deleteLater ();
+		qDebug () << reply->readAll ();
+//		if (!FillDomDocument (reply->readAll (), document))
+//		{
+//			qWarning () << Q_FUNC_INFO
+//					<< "unable to add bookshelf";
+//			return;
+		//		}
+	}
+
+	void GoodreadsApi::handleEditShelfFinished ()
+	{
+		auto reply = qobject_cast<QNetworkReply*> (sender ());
+		if (!reply)
+			return;
+
+		QDomDocument document;
+		reply->deleteLater ();
+		qDebug () << reply->readAll ();
+//		if (!FillDomDocument (reply->readAll (), document))
+//		{
+//			qWarning () << Q_FUNC_INFO
+//					<< "unable to add bookshelf";
+//			return;
+		//		}
 	}
 }
