@@ -51,7 +51,7 @@ namespace SailReads
 
 		void AddItems (const QList<T>& objects)
 		{
-			beginInsertRows (QModelIndex (), rowCount (), rowCount () + objects.count ());
+			beginInsertRows (QModelIndex (), rowCount (), rowCount () + objects.count () - 1);
 			Objects_.append (objects);
 			endInsertRows ();
 			emit countChanged ();

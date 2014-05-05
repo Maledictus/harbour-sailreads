@@ -183,4 +183,14 @@ namespace SailReads
 	{
 		PrivateProfile_ = privateProfile;
 	}
+
+	Shelves_t UserProfile::getShelves () const
+	{
+		return Shelves_;
+	}
+
+	void UserProfile::setShelves (const Shelves_t& shelves)
+	{
+		Shelves_ = shelves;
+	}
 }

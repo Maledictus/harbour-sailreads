@@ -110,7 +110,7 @@ ApplicationWindow
         onSwitchToShelves: {
             pageStack.push (shelvesPage)
             shelvesPage.uid = self ? "self" : uid
-            requestShelvesList (self ? "self" : uid)
+            //requestShelvesList (self ? "self" : uid)
         }
 
         onStatusChanged: {
@@ -159,5 +159,8 @@ ApplicationWindow
 
     ShelvesPage {
         id: shelvesPage
+
+        onRefreshShelves:
+            requestShelvesList (uid)
     }
 }

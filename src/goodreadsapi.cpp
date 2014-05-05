@@ -410,12 +410,14 @@ namespace SailReads
 					profile->setBooksCount (fieldElement.text ().toUInt ());
 				else if (fieldElement.tagName () == "private")
 					profile->setPrivateProfile (fieldElement.text () == "true");
-//				else if (fieldElement.tagName () == "user_shelves")
-//				{
-//					const auto& shelvesList = fieldElement.childNodes ();
-//					for (int j = 0, shelvesCount = shelvesList.size (); j < shelvesCount; ++j)
-//						profile.Shelves_ << CreateShelf (shelvesList.at (j).toElement ());
-//				}
+				else if (fieldElement.tagName () == "user_shelves")
+				{
+					const auto& shelvesList = fieldElement.childNodes ();
+					Shelves_t shelves;
+					for (int j = 0, shelvesCount = shelvesList.size (); j < shelvesCount; ++j)
+						shelves << CreateShelf (shelvesList.at (j).toElement ());
+					profile->setShelves (shelves);
+				}
 //				else if (fieldElement.tagName () == "updates")
 //				{
 //					const auto& updatesList = fieldElement.childNodes ();

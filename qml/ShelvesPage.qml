@@ -63,44 +63,29 @@ Page {
         delegate: BackgroundItem {
             id: delegate
 
-            height: shelfNameLabel.height +
+            height: contentItem.childrenRect.height /*shelfNameLabel.height +
                     (shelfDescription !== "" ?shelfDescriptionLabel.height + Theme.paddingSmall : 0) +
-                    Theme.paddingMedium * 2
+                    Theme.paddingMedium * 2*/
 
             Label {
                 id: shelfNameLabel
                 anchors.top: parent.top
                 anchors.left: parent.left
                 anchors.leftMargin: Theme.paddingMedium
-                text: shelfName
+                text: shelfName === undefined ? "" : shelfName
                 color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
-            }
-
-            Label {
-                id: shelfDescriptionLabel
-
-                visible: shelfDescription !== ""
-
-                anchors.top: shelfNameLabel.bottom
-                anchors.bottom: parent.bottom
-                anchors.left: parent.left
-                anchors.leftMargin: Theme.paddingMedium
-                anchors.topMargin: Theme.paddingSmall
-                anchors.bottomMargin: Theme.paddingMedium
-                text: shelfDescription
-                color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
-                font.pixelSize: Theme.fontSizeTiny
             }
 
             Label {
                 id: booksCountLabel
-                anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
                 anchors.leftMargin: Theme.paddingMedium;
                 anchors.rightMargin: Theme.paddingMedium
                 text: shelfBooksCount === undefined ? "0" : shelfBooksCount
                 color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
             }
+
+            onClicked: console.log (shelfID)
         }
 
         VerticalScrollDecorator {}

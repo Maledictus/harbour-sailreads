@@ -24,6 +24,7 @@ THE SOFTWARE.
 
 #include <QObject>
 #include <QUrl>
+#include "structures.h"
 
 namespace SailReads
 {
@@ -46,6 +47,7 @@ namespace SailReads
 		quint32 GroupsCount_;
 		quint32 BooksCount_;
 		bool PrivateProfile_;
+		Shelves_t Shelves_;
 
 		Q_PROPERTY (QString id READ getID)
 		Q_PROPERTY (QString name READ getName)
@@ -95,5 +97,7 @@ namespace SailReads
 		void setBooksCount (quint32 booksCount);
 		bool getPrivateProfile () const;
 		void setPrivateProfile (bool privateProfile);
+		Shelves_t getShelves () const;
+		void setShelves (const Shelves_t& shelves);
 	};
 }

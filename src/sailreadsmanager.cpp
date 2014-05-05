@@ -23,6 +23,7 @@ THE SOFTWARE.
 #include "sailreadsmanager.h"
 #include <algorithm>
 #include <QQmlContext>
+#include <QQmlEngine>
 #include <QQuickItem>
 #include <QQuickView>
 #include <QtDebug>
@@ -232,6 +233,9 @@ namespace SailReads
 		QMetaObject::invokeMethod (MainView_->rootObject (),
 				"setUserProfile",
 				Q_ARG (QVariant, QVariant::fromValue<QObject*> (profile)));
+		MainView_->engine ()->setObjectOwnership (profile, QQmlEngine::CppOwnership);
+		handleGotShelves (profile->getShelves ());
+		profile->deleteLater ();
 	}
 
 	void SailreadsManager::handleGotRecentUpdates (const Updates_t& updates)
