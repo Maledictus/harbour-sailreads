@@ -96,5 +96,6 @@ namespace SailReads
 		void gotFriends (const Friends_t& friends);
 		void gotGroups (const Groups_t& groups);
 		void gotShelves (const Shelves_t& shelves);
+		void gotNewShelf (const Shelf& shelf);
 	};
 }

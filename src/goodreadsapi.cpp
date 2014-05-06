@@ -61,7 +61,7 @@ namespace SailReads
 	{
 		const auto& url = OAuthWrapper_->MakeGetSignedUrl ({ ConsumerKey_,
 				ConsumerSecret_, accessToken, accessTokenSecret,
-				QUrl ("https://www.goodreads.com/api/auth_user") });
+				QUrl ("https://www.goodreads.com/api/auth_user"), "GET" });
 		RequestInProcess_ = true;
 		emit requestInProcessChanged ();
 		auto reply = NetworkAccessManager_->get (QNetworkRequest (url));
@@ -106,7 +106,7 @@ namespace SailReads
 	{
 		const auto& url = OAuthWrapper_->MakeGetSignedUrl ({ ConsumerKey_,
 				ConsumerSecret_, accessToken, accessTokenSecret,
-				QUrl ("https://www.goodreads.com/updates/friends.xml") });
+				QUrl ("https://www.goodreads.com/updates/friends.xml"), "GET" });
 		RequestInProcess_ = true;
 		emit requestInProcessChanged ();
 		auto reply = NetworkAccessManager_->get (QNetworkRequest (url));
@@ -129,7 +129,7 @@ namespace SailReads
 	{
 		const auto& url = OAuthWrapper_->MakeGetSignedUrl ({ ConsumerKey_,
 				ConsumerSecret_, accessToken, accessTokenSecret,
-				QUrl ("https://www.goodreads.com/notifications?format=xml") });
+				QUrl ("https://www.goodreads.com/notifications?format=xml"), "GET" });
 
 		RequestInProcess_ = true;
 		emit requestInProcessChanged ();
@@ -155,7 +155,7 @@ namespace SailReads
 				.arg (id));
 		const auto& signedUrl = OAuthWrapper_->MakeGetSignedUrl ({ ConsumerKey_,
 				ConsumerSecret_, accessToken, accessTokenSecret,
-				url });
+				url, "GET" });
 		RequestInProcess_ = true;
 		emit requestInProcessChanged ();
 		auto reply = NetworkAccessManager_->get (QNetworkRequest (signedUrl));
@@ -221,22 +221,26 @@ namespace SailReads
 			bool sortable, bool featured, const QString& accessToken,
 			const QString& accessTokenSecret)
 	{
-		const auto& url = OAuthWrapper_->MakeGetSignedUrl ({ ConsumerKey_,
-				ConsumerSecret_, accessToken, accessTokenSecret,
-				QUrl ("https://www.goodreads.com/user_shelves.xml") });
-		RequestInProcess_ = true;
-		emit requestInProcessChanged ();
-
+		QUrl url ("https://www.goodreads.com/user_shelves.xml");
 		QUrlQuery params;
 		params.addQueryItem ("user_shelf[name]", name);
 		params.addQueryItem ("user_shelf[exclusive_flag]", exclusive ? "true" : "false");
 		params.addQueryItem ("user_shelf[sortable_flag]", sortable ? "true" : "false");
 		params.addQueryItem ("user_shelf[featured]", featured ? "true" : "false");
+		url.setQuery (params);
 
-		QNetworkRequest request (url);
+		char *postargs = NULL;
+		auto signedUrl = OAuthWrapper_->MakeSignedUrl ({ ConsumerKey_,
+				ConsumerSecret_, accessToken, accessTokenSecret,
+				url, "POST" }, &postargs);
+		RequestInProcess_ = true;
+		emit requestInProcessChanged ();
+
+		QNetworkRequest request (signedUrl);
 		request.setHeader (QNetworkRequest::ContentTypeHeader,
 				"application/x-www-form-urlencoded");
-		auto reply = NetworkAccessManager_->post (request, params.toString ().toUtf8 ());
+		auto reply = NetworkAccessManager_->post (request, postargs);
+		free (postargs);
 		connect (reply,
 				SIGNAL (downloadProgress (qint64, qint64)),
 				this,
@@ -255,23 +259,25 @@ namespace SailReads
 			bool exclusive, bool sortable, bool featured, const QString& accessToken,
 			const QString& accessTokenSecret)
 	{
-		const QUrl url (QString ("https://www.goodreads.com/user_shelves/update.xml?id=%1")
-				.arg (id));
-		const auto& signedUrl = OAuthWrapper_->MakeGetSignedUrl ({ ConsumerKey_,
-				ConsumerSecret_, accessToken, accessTokenSecret,
-				url });
-		qDebug () << signedUrl << accessToken << accessTokenSecret;
+		QUrl url (QString ("https://www.goodreads.com/user_shelves/%1.xml").arg (id));
 		QUrlQuery params;
-		params.addQueryItem ("name", name);
-		params.addQueryItem ("exclusive_flag", exclusive ? "true" : "false");
-		params.addQueryItem ("sortable_flag", sortable ? "true" : "false");
-		params.addQueryItem ("featured", featured ? "true" : "false");
+		params.addQueryItem ("user_shelf[name]", name);
+		params.addQueryItem ("user_shelf[exclusive_flag]", exclusive ? "true" : "false");
+		params.addQueryItem ("user_shelf[sortable_flag]", sortable ? "true" : "false");
+		params.addQueryItem ("user_shelf[featured]", featured ? "true" : "false");
+		url.setQuery (params);
+
+		char *postargs = NULL;
+		auto signedUrl = OAuthWrapper_->MakeSignedUrl ({ ConsumerKey_,
+				ConsumerSecret_, accessToken, accessTokenSecret,
+				url, "PUT" }, &postargs);
 		RequestInProcess_ = true;
 		emit requestInProcessChanged ();
+
 		QNetworkRequest request (signedUrl);
 		request.setHeader (QNetworkRequest::ContentTypeHeader,
 				"application/x-www-form-urlencoded");
-		auto reply = NetworkAccessManager_->post (request, params.toString ().toUtf8 ());
+		auto reply = NetworkAccessManager_->put (request, postargs);
 		connect (reply,
 				SIGNAL (downloadProgress (qint64, qint64)),
 				this,
@@ -822,13 +828,17 @@ namespace SailReads
 
 		QDomDocument document;
 		reply->deleteLater ();
-		qDebug () << reply->readAll ();
-//		if (!FillDomDocument (reply->readAll (), document))
-//		{
-//			qWarning () << Q_FUNC_INFO
-//					<< "unable to add bookshelf";
-//			return;
-		//		}
+		if (!FillDomDocument (reply->readAll (), document))
+		{
+			qWarning () << Q_FUNC_INFO
+					<< "unable to add bookshelf";
+			return;
+		}
+		//make rerequest
+		if (document.firstChildElement ("error").text () == "Not found")
+			return;
+
+		emit gotNewShelf (CreateShelf (document.firstChildElement ("user_shelf")));
 	}
 
 	void GoodreadsApi::handleEditShelfFinished ()

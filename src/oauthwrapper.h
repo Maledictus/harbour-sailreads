@@ -24,6 +24,7 @@ THE SOFTWARE.
 
 #include <QObject>
 #include <QUrl>
+#include <QUrlQuery>
 
 namespace SailReads
 {
@@ -34,6 +35,7 @@ namespace SailReads
 		QString AccessToken_;
 		QString AccessTokenSecret_;
 		QUrl BaseUrl_;
+		QString RequestType_;
 	};
 
 	class OAuthWrapper : public QObject
@@ -55,5 +57,6 @@ namespace SailReads
 		QPair<QString, QString> GetAccessTokens () const;
 
 		QUrl MakeGetSignedUrl (const SignedUrlData& data) const;
+		QUrl MakeSignedUrl (const SignedUrlData& data, char **postargs) const;
 	};
 }

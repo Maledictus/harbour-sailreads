@@ -81,6 +81,10 @@ namespace SailReads
 				SIGNAL (gotShelves (Shelves_t)),
 				this,
 				SLOT (handleGotShelves (Shelves_t)));
+		connect (GoodreadsApi_,
+				SIGNAL (gotNewShelf (Shelf)),
+				this,
+				SLOT (handleGotNewShelf (Shelf)));
 	}
 
 	void SailreadsManager::Init ()
@@ -302,5 +306,10 @@ namespace SailReads
 	{
 		ShelvesModel_->Clear ();
 		ShelvesModel_->AddItems (shelves);
+	}
+
+	void SailreadsManager::handleGotNewShelf (const Shelf& shelf)
+	{
+		ShelvesModel_->AddItems (shelf);
 	}
 }

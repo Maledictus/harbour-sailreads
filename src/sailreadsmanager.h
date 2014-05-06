@@ -87,6 +87,7 @@ namespace SailReads
 		void handleGotFriends (const Friends_t& friends);
 		void handleGotGroups (const Groups_t& groups);
 		void handleGotShelves (const Shelves_t& shelves);
+		void handleGotNewShelf (const Shelf& shelf);
 
 	signals:
 		void requestInProcessChanged ();

@@ -30,7 +30,7 @@ Page {
     property string uid
 
     signal switchToMyProfile ()
-    signal switchToAddEditShelf (string id, string name, bool exclusive,
+    signal switchToAddEditShelf (string shelfId, string name, bool exclusive,
             bool sortable, bool featured)
     signal refreshShelves (string uid)
 
@@ -54,7 +54,8 @@ Page {
 
             MenuItem {
                 text: qsTr ("Add bookshelf")
-                visible: uid == "self"
+                // api doesn't work
+                visible: true
                 onClicked: switchToAddEditShelf ("", "", false, false, false);
             }
 
@@ -99,15 +100,15 @@ Page {
             onClicked: console.log (shelfID)
 
             onPressAndHold: {
-                if (!listView.contextMenu) {
-                    listView.contextMenu = contextMenuComponent.createObject (listView)
-                }
-                listView.contextMenu.shelfId = shelfID;
-                listView.contextMenu.shelfName = shelfName;
-                listView.contextMenu.shelfExclusive = shelfExclusive;
-                listView.contextMenu.shelfSortable = shelfSortable;
-                listView.contextMenu.shelfFeatured = shelfFeatured
-                listView.contextMenu.show (delegate)
+//                if (!listView.contextMenu) {
+//                    listView.contextMenu = contextMenuComponent.createObject (listView)
+//                }
+//                listView.contextMenu.shelfId = shelfID;
+//                listView.contextMenu.shelfName = shelfName;
+//                listView.contextMenu.shelfExclusive = shelfExclusive;
+//                listView.contextMenu.shelfSortable = shelfSortable;
+//                listView.contextMenu.shelfFeatured = shelfFeatured
+//                listView.contextMenu.show (delegate)
             }
         }
 
@@ -119,12 +120,12 @@ Page {
                 property bool shelfExclusive;
                 property bool shelfSortable;
                 property bool shelfFeatured;
-                MenuItem {
-                    visible: uid == "self"
-                    text: qsTr ("Edit");
-                    onClicked: switchToAddEditShelf (shelfId, shelfName,
-                            shelfExclusive, shelfSortable, shelfFeatured)
-                }
+//                MenuItem {
+//                    visible: uid == "self"
+//                    text: qsTr ("Edit");
+//                    onClicked: switchToAddEditShelf (shelfId, shelfName,
+//                            shelfExclusive, shelfSortable, shelfFeatured)
+//                }
             }
         }
 

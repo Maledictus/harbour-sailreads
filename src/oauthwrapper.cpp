@@ -124,4 +124,12 @@ namespace SailReads
 				data.ConsumerSecret_.toUtf8 (), data.AccessToken_.toUtf8 (),
 				data.AccessTokenSecret_.toUtf8 ()));
 	}
+
+	QUrl OAuthWrapper::MakeSignedUrl (const SignedUrlData& data, char **params) const
+	{
+		return QUrl (oauth_sign_url2 (data.BaseUrl_.toEncoded (),
+				params, OA_HMAC, data.RequestType_.toUtf8 (),
+				data.ConsumerKey_.toUtf8 (), data.ConsumerSecret_.toUtf8 (),
+				data.AccessToken_.toUtf8 (), data.AccessTokenSecret_.toUtf8 ()));
+	}
 }

@@ -165,7 +165,7 @@ ApplicationWindow
         id: shelvesPage
 
         onSwitchToAddEditShelf: {
-            addEditShelfPage.shelfId = id;
+            addEditShelfPage.shelfId = shelfId;
             addEditShelfPage.shelfName = name;
             addEditShelfPage.exclusive = exclusive
             addEditShelfPage.sortable = sortable
