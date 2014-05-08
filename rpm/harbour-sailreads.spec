@@ -21,15 +21,16 @@ URL:        http://example.org/
 Source0:    %{name}-%{version}.tar.bz2
 Source100:  harbour-sailreads.yaml
 Requires:   liboauth
-Requires:   mlite-qt5
+Requires:   KQOAuth
 Requires:   sailfishsilica-qt5 >= 0.10.9
+BuildRequires:  pkgconfig(KQOAuth)
 BuildRequires:  pkgconfig(Qt5Sql)
 BuildRequires:  pkgconfig(Qt5Quick)
 BuildRequires:  pkgconfig(Qt5Qml)
 BuildRequires:  pkgconfig(Qt5Core)
-BuildRequires:  pkgconfig(sailfishapp) >= 0.0.10
+BuildRequires:  pkgconfig(Qt5Network)
 BuildRequires:  pkgconfig(Qt5Xml)
-BuildRequires:  pkgconfig(Qt5DBus)
+BuildRequires:  pkgconfig(sailfishapp) >= 0.0.10
 BuildRequires:  desktop-file-utils
 
 %description

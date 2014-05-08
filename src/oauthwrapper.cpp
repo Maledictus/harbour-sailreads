@@ -23,6 +23,7 @@ THE SOFTWARE.
 #include <memory>
 #include "oauthwrapper.h"
 #include <QtDebug>
+#include <QtKOAuth/QtKOAuth>
 
 extern "C"
 {
