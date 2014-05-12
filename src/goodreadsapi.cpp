@@ -300,7 +300,6 @@ namespace SailReads
 		RequestInProcess_ = false;
 		emit requestInProcessChanged ();
 
-		qDebug () << Q_FUNC_INFO << data;
 		QDomDocument document;
 		if (!FillDomDocument (data, document))
 		{
