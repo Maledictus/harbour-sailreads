@@ -23,7 +23,9 @@ THE SOFTWARE.
 #pragma once
 
 #include <QObject>
+#include <QDomDocument>
 #include <QNetworkReply>
+#include <QQueue>
 #include <QUrl>
 #include "structures.h"
 #include "userprofile.h"
@@ -42,6 +44,8 @@ namespace SailReads
 		const QUrl BaseUrl_;
 		OAuthWrapper *OAuthWrapper_;
 		NetworkAccessManager *NetworkAccessManager_;
+
+		QQueue<SignedRequests> RequestsQueue_;
 
 		bool RequestInProcess_;
 
@@ -65,16 +69,15 @@ namespace SailReads
 		void RequestGroups (const QString& id);
 
 		void RequestShelves (const QString& id);
-		void AddShelf (const QString& name, bool exclusive, bool sortable,
-				bool featured, const QString& accessToken,
-				const QString& accessTokenSecret);
+		void AddShelf (const QString& name, bool exclusive,
+				const QString& accessToken, const QString& accessTokenSecret);
 		void EditShelf (const QString& id, const QString& name, bool exclusive,
-				bool sortable, bool featured, const QString& accessToken,
-				const QString& accessTokenSecret);
+				const QString& accessToken, const QString& accessTokenSecret);
 
 	private slots:
 		void handleDownloadProgress (qint64 bytesReceived, qint64 bytesTotal);
 		void handleReplyError (QNetworkReply::NetworkError error);
+		void handleSignedRequestReady (const QByteArray& data);
 
 		void handleRequestAuthUserIDFinished ();
 		void handleRequestUserInfoFinished ();
@@ -83,8 +86,8 @@ namespace SailReads
 		void handleRequestFriendsFinished ();
 		void handleRequestGroupsFinished ();
 		void handleRequestShelvesFinished ();
-		void handleAddShelfFinished ();
-		void handleEditShelfFinished ();
+		void handleAddShelfFinished (const QDomDocument& document);
+		void handleEditShelfFinished (const QDomDocument& document);
 
 	signals:
 		void requestInProcessChanged ();

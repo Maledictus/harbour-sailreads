@@ -30,8 +30,7 @@ Page {
     property string uid
 
     signal switchToMyProfile ()
-    signal switchToAddEditShelf (string shelfId, string name, bool exclusive,
-            bool sortable, bool featured)
+    signal switchToAddEditShelf (string shelfId, string name, bool exclusive)
     signal refreshShelves (string uid)
 
     SilicaListView {
@@ -54,9 +53,8 @@ Page {
 
             MenuItem {
                 text: qsTr ("Add bookshelf")
-                // api doesn't work
                 visible: true
-                onClicked: switchToAddEditShelf ("", "", false, false, false);
+                onClicked: switchToAddEditShelf ("", "", false);
             }
 
             MenuItem {
@@ -86,6 +84,7 @@ Page {
                 anchors.left: parent.left
                 anchors.leftMargin: Theme.paddingMedium
                 text: shelfName === undefined ? "" : shelfName
+                font.pixelSize: Theme.fontSizeLarge
                 color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
             }
 
@@ -94,6 +93,7 @@ Page {
                 anchors.right: parent.right
                 anchors.rightMargin: Theme.paddingMedium
                 text: shelfBooksCount === undefined ? "0" : shelfBooksCount
+                font.pixelSize: Theme.fontSizeLarge
                 color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
             }
 
@@ -106,8 +106,6 @@ Page {
 //                listView.contextMenu.shelfId = shelfID;
 //                listView.contextMenu.shelfName = shelfName;
 //                listView.contextMenu.shelfExclusive = shelfExclusive;
-//                listView.contextMenu.shelfSortable = shelfSortable;
-//                listView.contextMenu.shelfFeatured = shelfFeatured
 //                listView.contextMenu.show (delegate)
             }
         }
@@ -123,8 +121,7 @@ Page {
 //                MenuItem {
 //                    visible: uid == "self"
 //                    text: qsTr ("Edit");
-//                    onClicked: switchToAddEditShelf (shelfId, shelfName,
-//                            shelfExclusive, shelfSortable, shelfFeatured)
+//                    onClicked: switchToAddEditShelf (shelfId, shelfName, shelfExclusive)
 //                }
             }
         }

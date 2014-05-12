@@ -23,47 +23,21 @@ THE SOFTWARE.
 #pragma once
 
 #include <QObject>
-#include <QFutureWatcher>
 #include <QUrl>
-#include <QUrlQuery>
 
 namespace SailReads
 {
-	struct SignedUrlData
-	{
-		QString ConsumerKey_;
-		QString ConsumerSecret_;
-		QString AccessToken_;
-		QString AccessTokenSecret_;
-		QUrl BaseUrl_;
-		QString RequestType_;
-	};
-
-	class OAuthWrapper : public QObject
+	class CurlWrapper : public QObject
 	{
 		Q_OBJECT
 
-		const QString ConsumerKey_;
-		const QString ConsumerSecret_;
-		const QUrl BaseUrl_;
-		QString RequestToken_;
-		QString RequestTokenSecret_;
-		QFutureWatcher<QByteArray> Watcher_;
-
 	public:
-		explicit OAuthWrapper (const QString& consumerKey,
-				const QString& consumerSecret, const QUrl& baseUrl,
-				QObject *parent = 0);
+		explicit CurlWrapper (QObject *parent = 0);
 
-		QUrl GetAuthorizationUrl ();
-		QPair<QString, QString> GetAccessTokens () const;
-
-		QUrl MakeGetSignedUrl (const SignedUrlData& data) const;
-		void MakeSignedRequest (const SignedUrlData& data);
-	private slots:
-		void handleSignedRequestFinished ();
-
-	signals:
-		void readReady (const QByteArray& data);
+		static QByteArray Post (const QUrl& url, const QByteArray& data);
+		static QByteArray Put (const QUrl& url, const QByteArray& data);
+	private:
+		static size_t WriteCallback (void *ptr, size_t size, size_t nmemb,
+				void *data);
 	};
 }

@@ -118,13 +118,13 @@ namespace SailReads
 				this,
 				SLOT (handleRequestShelvesList (QString)));
 		connect (MainView_->rootObject (),
-				SIGNAL (requestAddBooksShelf (QString, bool, bool, bool)),
+				SIGNAL (requestAddBooksShelf (QString, bool)),
 				this,
-				SLOT (handleRequestAddBooksShelf (QString, bool, bool, bool)));
+				SLOT (handleRequestAddBooksShelf (QString, bool)));
 		connect (MainView_->rootObject (),
-				SIGNAL (requestEditBooksShelf (QString, QString, bool, bool, bool)),
+				SIGNAL (requestEditBooksShelf (QString, QString, bool)),
 				this,
-				SLOT (handleRequestEditBooksShelf (QString, QString, bool, bool, bool)));
+				SLOT (handleRequestEditBooksShelf (QString, QString, bool)));
 
 		MainView_->rootContext ()->setContextProperty ("updatesModel", UpdatesModel_);
 		MainView_->rootContext ()->setContextProperty ("notificationsModel", NotificationsModel_);
@@ -234,17 +234,16 @@ namespace SailReads
 	}
 
 	void SailreadsManager::handleRequestAddBooksShelf (const QString& name,
-			bool exclusive, bool sortable, bool featured)
+			bool exclusive)
 	{
-		GoodreadsApi_->AddShelf (name, exclusive, sortable, featured, AccessToken_,
-				AccessTokenSecret_);
+		GoodreadsApi_->AddShelf (name, exclusive, AccessToken_, AccessTokenSecret_);
 	}
 
 	void SailreadsManager::handleRequestEditBooksShelf (const QString& id,
-			const QString& name, bool exclusive, bool sortable, bool featured)
+			const QString& name, bool exclusive)
 	{
-		GoodreadsApi_->EditShelf (id, name, exclusive, sortable, featured,
-				AccessToken_, AccessTokenSecret_);
+		GoodreadsApi_->EditShelf (id, name, exclusive, AccessToken_,
+				AccessTokenSecret_);
 	}
 
 	void SailreadsManager::handleGotAuthUserID (const QString& id)

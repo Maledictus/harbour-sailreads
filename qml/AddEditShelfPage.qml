@@ -31,8 +31,6 @@ Dialog {
     property string shelfId
     property alias shelfName: shelfNameTextfield.text
     property alias exclusive: exclusiveSwitch.checked
-    property alias sortable: sortableSwitch.checked
-    property alias featured: featuredSwitch.checked
     property alias dialogHeaderText: dialogHeader.acceptText
 
     Column {
@@ -53,18 +51,6 @@ Dialog {
             id: exclusiveSwitch
             text: "Exclusive"
             description: qsTr ("Book can only be on one of exclusive shelves")
-        }
-
-        TextSwitch {
-            id: sortableSwitch
-            text: "Sortable"
-            description: qsTr ("You can enable shelf sorting to customize the order of your shelves")
-        }
-
-        TextSwitch {
-            id: featuredSwitch
-            text: "Featured"
-            description: qsTr ("You may choose one shelf to feature on the top of your profile")
         }
     }
 }

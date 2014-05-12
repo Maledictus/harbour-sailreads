@@ -68,6 +68,7 @@ Page {
                 id: groupImage
                 source: groupImageUrl === undefined ? "" : groupImageUrl
                 anchors.left: parent.left;
+                anchors.leftMargin: Theme.paddingMedium
                 width: 86;
                 height: 86;
             }

@@ -21,9 +21,8 @@ URL:        http://example.org/
 Source0:    %{name}-%{version}.tar.bz2
 Source100:  harbour-sailreads.yaml
 Requires:   liboauth
-Requires:   KQOAuth
 Requires:   sailfishsilica-qt5 >= 0.10.9
-BuildRequires:  pkgconfig(KQOAuth)
+BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(Qt5Sql)
 BuildRequires:  pkgconfig(Qt5Quick)
 BuildRequires:  pkgconfig(Qt5Qml)

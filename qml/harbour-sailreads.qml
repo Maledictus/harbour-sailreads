@@ -37,10 +37,8 @@ ApplicationWindow
     signal requestGroupsList (string id)
     signal requestShelvesList (string id)
     signal requestBooksList (string id, string shelfId)
-    signal requestAddBooksShelf (string name, bool exclusive, bool sortable,
-            bool featured)
-    signal requestEditBooksShelf (string id, string name, bool exclusive,
-            bool sortable, bool featured)
+    signal requestAddBooksShelf (string name, bool exclusive)
+    signal requestEditBooksShelf (string id, string name, bool exclusive)
 
     AuthManager {
         id: authManager
@@ -168,9 +166,7 @@ ApplicationWindow
             addEditShelfPage.shelfId = shelfId;
             addEditShelfPage.shelfName = name;
             addEditShelfPage.exclusive = exclusive
-            addEditShelfPage.sortable = sortable
-            addEditShelfPage.featured = featured
-            pageStack.push(addEditShelfPage)
+            pageStack.push (addEditShelfPage)
         }
 
         onRefreshShelves:
@@ -182,10 +178,9 @@ ApplicationWindow
 
         onAccepted: {
             if (shelfId !== "")
-                requestEditBooksShelf (shelfId, shelfName, exclusive, sortable,
-                        featured)
+                requestEditBooksShelf (shelfId, shelfName, exclusive)
             else
-                requestAddBooksShelf (shelfName, exclusive, sortable, featured)
+                requestAddBooksShelf (shelfName, exclusive)
         }
     }
 }

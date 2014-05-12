@@ -75,10 +75,9 @@ namespace SailReads
 		void handleRequestFriendsList (const QString& id);
 		void handleRequestGroupsList (const QString& id);
 		void handleRequestShelvesList (const QString& id);
-		void handleRequestAddBooksShelf (const QString& name, bool exclusive,
-				bool sortable, bool featured);
+		void handleRequestAddBooksShelf (const QString& name, bool exclusive);
 		void handleRequestEditBooksShelf (const QString& id, const QString& name,
-				bool exclusive, bool sortable, bool featured);
+				bool exclusive);
 
 		void handleGotAuthUserID (const QString& id);
 		void handleGotUserProfile (UserProfile *profile);

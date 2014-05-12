@@ -20,10 +20,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
+#include <functional>
 #include <memory>
 #include "oauthwrapper.h"
+#include <QFuture>
+#include <QtConcurrent/QtConcurrentRun>
 #include <QtDebug>
-#include <QtKOAuth/QtKOAuth>
+#include "curlwrapper.h"
 
 extern "C"
 {
@@ -39,6 +42,10 @@ namespace SailReads
 	, ConsumerSecret_ (consumerSecret)
 	, BaseUrl_ (baseUrl)
 	{
+		connect (&Watcher_,
+				 SIGNAL (finished ()),
+				 this,
+				 SLOT (handleSignedRequestFinished ()));
 	}
 
 	QUrl OAuthWrapper::GetAuthorizationUrl ()
@@ -126,11 +133,24 @@ namespace SailReads
 				data.AccessTokenSecret_.toUtf8 ()));
 	}
 
-	QUrl OAuthWrapper::MakeSignedUrl (const SignedUrlData& data, char **params) const
+	void OAuthWrapper::MakeSignedRequest (const SignedUrlData& data)
 	{
-		return QUrl (oauth_sign_url2 (data.BaseUrl_.toEncoded (),
-				params, OA_HMAC, data.RequestType_.toUtf8 (),
+		char *params = NULL;
+		QUrl url(oauth_sign_url2 (data.BaseUrl_.toEncoded (),
+				&params, OA_HMAC, data.RequestType_.toUtf8 (),
 				data.ConsumerKey_.toUtf8 (), data.ConsumerSecret_.toUtf8 (),
 				data.AccessToken_.toUtf8 (), data.AccessTokenSecret_.toUtf8 ()));
+		QFuture<QByteArray> future;
+		if (data.RequestType_ == "POST")
+			future = QtConcurrent::run (std::bind (&CurlWrapper::Post, url, params));
+		else if (data.RequestType_ == "PUT")
+			future = QtConcurrent::run (std::bind (&CurlWrapper::Put, url, params));
+
+		Watcher_.setFuture (future);
+	}
+
+	void OAuthWrapper::handleSignedRequestFinished ()
+	{
+		emit readReady (Watcher_.result ());
 	}
 }

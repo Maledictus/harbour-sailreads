@@ -118,6 +118,12 @@ namespace SailReads
 	};
 
 	typedef QList<Group> Groups_t;
+
+	enum class SignedRequests
+	{
+		AddShelf,
+		EditShelf
+	};
 }
 
 Q_DECLARE_METATYPE (SailReads::Update)

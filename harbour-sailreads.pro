@@ -10,7 +10,7 @@ QMAKE_CXXFLAGS += -std=c++0x
 
 TARGET = harbour-sailreads
 
-CONFIG += sailfishapp crypto kqoauth
+CONFIG += sailfishapp
 
 QT += webkit sql xml
 
@@ -27,7 +27,8 @@ SOURCES += src/harbour-sailreads.cpp \
 	src/friendsmodel.cpp \
 	src/basemodel.cpp \
 	src/groupsmodel.cpp \
-	src/shelvesmodel.cpp
+	src/shelvesmodel.cpp \
+    src/curlwrapper.cpp
 
 HEADERS += \
     src/networkaccessmanager.h \
@@ -44,9 +45,10 @@ HEADERS += \
 	src/basemodel.h \
     src/objectsmodel.h \
 	src/groupsmodel.h \
-	src/shelvesmodel.h
+	src/shelvesmodel.h \
+    src/curlwrapper.h
 
-LIBS += -loauth -lkqoauth
+LIBS += -loauth -lcurl
 
 OTHER_FILES += rpm/harbour-sailreads.spec \
     rpm/harbour-sailreads.yaml \

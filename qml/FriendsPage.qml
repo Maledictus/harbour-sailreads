@@ -73,6 +73,7 @@ Page {
                 source: friendProfileImageUrl === undefined ? "" : friendProfileImageUrl
                 anchors.left: parent.left;
                 anchors.top: parent.top;
+                anchors.leftMargin: Theme.paddingMedium
                 width: 86;
                 height: 86;
             }

@@ -35,7 +35,7 @@ Page {
     property alias profilePhotoUrl: userPhoto.source
     property alias userName: userNameField.title
     property alias userDetails: userDetails.text
-    property alias userInterests: userInterests.text
+    property string userInterests
     property alias notificationsCount: notificationsCountLabel.text
     property alias friendsCount: friendsCountLabel.text
     property alias groupsCount: groupsCountLabel.text
@@ -53,7 +53,6 @@ Page {
         userPhoto.source = ""
         userNameField.title = ""
         userDetails.text = ""
-        userInterests.text = ""
         friendsCountLabel.text = 0
         groupsCountLabel.text = 0
         booksCountLabel.text = 0
@@ -63,7 +62,6 @@ Page {
         userPhoto.source = ""
         userNameField.title = ""
         userDetails.text = ""
-        userInterests.text = ""
         friendsCountLabel.text = 0
         groupsCountLabel.text = 0
         booksCountLabel.text = 0
@@ -103,8 +101,6 @@ Page {
                 anchors.right: parent.right
                 anchors.margins: Theme.paddingMedium
 
-
-
                 Label {
                     id: userDetailsLabel
 
@@ -130,38 +126,7 @@ Page {
                     anchors.top: userPhoto.top
                     anchors.leftMargin: Theme.paddingMedium
                     anchors.topMargin: Theme.paddingMedium
-                    wrapMode: Text.WordWrap
-                    font.bold: false
-                    font.pixelSize: Theme.fontSizeSmall
-                    color: Theme.secondaryColor
-                }
-
-                Label {
-                    id: userInterestsLabel
-
-                    visible: !privateProfile
-
-                    anchors.left: userPhoto.right
-                    anchors.top: parent.verticalCenter
-                    anchors.margins: Theme.paddingMedium
-                    wrapMode: Text.WordWrap
-                    font.bold: false
-                    font.pixelSize: Theme.fontSizeSmall
-                    color: Theme.secondaryColor
-                    text: qsTr ("Interests:")
-                }
-
-                Label {
-                    id: userInterests
-
-                    visible: !privateProfile
-
-                    anchors.right: parent.right
-                    anchors.left: userInterestsLabel.right
-                    anchors.top: parent.verticalCenter
-                    anchors.leftMargin: Theme.paddingMedium
-                    anchors.rightMargin: Theme.paddingMedium
-                    anchors.topMargin: Theme.paddingMedium
+                    anchors.bottom: parent.bottom
                     wrapMode: Text.WordWrap
                     font.bold: false
                     font.pixelSize: Theme.fontSizeSmall
