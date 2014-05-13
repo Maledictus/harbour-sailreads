@@ -198,6 +198,28 @@ namespace SailReads
 				SLOT (handleRequestGroupsFinished ()));
 	}
 
+	void GoodreadsApi::RequestSearchGroups (const QString& query)
+	{
+		QUrl url (QString ("https://www.goodreads.com/group/search?format=xml&q=%1&key=%2")
+				.arg (query)
+				.arg (ConsumerKey_));
+		RequestInProcess_ = true;
+		emit requestInProcessChanged ();
+		auto reply = NetworkAccessManager_->get (QNetworkRequest (url));
+		connect (reply,
+				SIGNAL (downloadProgress (qint64, qint64)),
+				this,
+				SLOT (handleDownloadProgress (qint64, qint64)));
+		connect (reply,
+				SIGNAL (error (QNetworkReply::NetworkError)),
+				this,
+				SLOT (handleReplyError (QNetworkReply::NetworkError)));
+		connect (reply,
+				SIGNAL (finished ()),
+				this,
+				SLOT (handleRequestSearchGroupsFinished ()));
+	}
+
 	void GoodreadsApi::RequestShelves (const QString& id)
 	{
 		QUrl url (QString ("https://www.goodreads.com/shelf/list.xml?key=%1&user_id=%2")
@@ -789,6 +811,24 @@ namespace SailReads
 		}
 
 		emit gotGroups (CreateGroups (document));
+	}
+
+	void GoodreadsApi::handleRequestSearchGroupsFinished ()
+	{
+		auto reply = qobject_cast<QNetworkReply*> (sender ());
+		if (!reply)
+			return;
+
+		QDomDocument document;
+		reply->deleteLater ();
+		if (!FillDomDocument (reply->readAll (), document))
+		{
+			qWarning () << Q_FUNC_INFO
+					<< "unable to get groups list";
+			return;
+		}
+
+		emit gotFoundGroups (CreateGroups (document));
 	}
 
 	void GoodreadsApi::handleRequestShelvesFinished ()

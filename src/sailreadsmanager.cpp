@@ -47,6 +47,7 @@ namespace SailReads
 	, NotificationsModel_ (new NotificationsModel (this))
 	, FriendsModel_ (new FriendsModel (this))
 	, GroupsModel_ (new GroupsModel (this))
+	, SearchGroupsModel_ (new GroupsModel (this))
 	, ShelvesModel_ (new ShelvesModel (this))
 	{
 		connect (GoodreadsApi_,
@@ -77,6 +78,10 @@ namespace SailReads
 				SIGNAL (gotGroups (Groups_t)),
 				this,
 				SLOT (handleGotGroups (Groups_t)));
+		connect (GoodreadsApi_,
+				SIGNAL (gotFoundGroups (Groups_t)),
+				this,
+				SLOT (handleGotFoundGroups (Groups_t)));
 		connect (GoodreadsApi_,
 				SIGNAL (gotShelves (Shelves_t)),
 				this,
@@ -118,6 +123,10 @@ namespace SailReads
 				this,
 				SLOT (handleRequestGroupsList (QString)));
 		connect (MainView_->rootObject (),
+				SIGNAL (requestSearchGroups (QString)),
+				this,
+				SLOT (handleRequestSearchGroups (QString)));
+		connect (MainView_->rootObject (),
 				SIGNAL (requestShelvesList (QString)),
 				this,
 				SLOT (handleRequestShelvesList (QString)));
@@ -134,6 +143,7 @@ namespace SailReads
 		MainView_->rootContext ()->setContextProperty ("notificationsModel", NotificationsModel_);
 		MainView_->rootContext ()->setContextProperty ("friendsModel", FriendsModel_);
 		MainView_->rootContext ()->setContextProperty ("groupsModel", GroupsModel_);
+		MainView_->rootContext ()->setContextProperty ("searchGroupsModel", SearchGroupsModel_);
 		MainView_->rootContext ()->setContextProperty ("shelvesModel", ShelvesModel_);
 
 		AccessToken_ = LocalStorage_->GetValue ("AccessToken");
@@ -231,6 +241,12 @@ namespace SailReads
 		GoodreadsApi_->RequestGroups (id == "self" ? AuthUserID_ : id);
 	}
 
+	void SailreadsManager::handleRequestSearchGroups (const QString& query)
+	{
+		SearchGroupsModel_->Clear ();
+		GoodreadsApi_->RequestSearchGroups (query);
+	}
+
 	void SailreadsManager::handleRequestShelvesList (const QString& id)
 	{
 		ShelvesModel_->Clear ();
@@ -303,6 +319,12 @@ namespace SailReads
 	{
 		GroupsModel_->Clear ();
 		GroupsModel_->AddItems (groups);
+	}
+
+	void SailreadsManager::handleGotFoundGroups(const Groups_t& groups)
+	{
+		SearchGroupsModel_->Clear ();
+		SearchGroupsModel_->AddItems (groups);
 	}
 
 	void SailreadsManager::handleGotShelves (const Shelves_t& shelves)

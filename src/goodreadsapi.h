@@ -67,6 +67,7 @@ namespace SailReads
 		void RequestFriends (const QString& accessToken,
 				const QString& accessTokenSecret, const QString& id);
 		void RequestGroups (const QString& id);
+		void RequestSearchGroups (const QString& query);
 
 		void RequestShelves (const QString& id);
 		void AddShelf (const QString& name, bool exclusive,
@@ -85,6 +86,7 @@ namespace SailReads
 		void handleRequestNotificationsFinished ();
 		void handleRequestFriendsFinished ();
 		void handleRequestGroupsFinished ();
+		void handleRequestSearchGroupsFinished ();
 		void handleRequestShelvesFinished ();
 		void handleAddShelfFinished (const QDomDocument& document);
 		void handleEditShelfFinished (const QDomDocument& document);
@@ -98,6 +100,7 @@ namespace SailReads
 		void gotNotifications (const Notifications_t& notifications);
 		void gotFriends (const Friends_t& friends);
 		void gotGroups (const Groups_t& groups);
+		void gotFoundGroups (const Groups_t& groups);
 
 		void gotShelves (const Shelves_t& shelves);
 		void gotNewShelf (const Shelf& shelf);

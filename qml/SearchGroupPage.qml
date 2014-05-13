@@ -29,44 +29,41 @@ Page {
     property bool loading: manager.requestInProcess
     property string uid
 
-    signal switchToMyProfile ()
-    signal switchToSearchGroup ()
-    signal switchToGroupDetail (string id)
-    signal refreshGroups (string uid)
+    signal searchGroups (string query)
 
     SilicaListView {
         id: listView
-        model: groupsModel
+        model: searchGroupsModel
         anchors.fill: parent
         spacing: Theme.paddingMedium
-        header: PageHeader {
-            title: qsTr("Groups")
+
+        property alias searchField: listView.headerItem
+
+        header: SearchField {
+            width: listView.width
+            placeholderText: qsTr ("Search group")
+
+            onTextChanged: searchTimer.restart()
         }
 
-        PullDownMenu {
-            MenuItem {
-                text: qsTr ("My Profile")
-                visible: uid != "self"
-                onClicked: switchToMyProfile ()
-            }
+        Timer {
+            id:  searchTimer
+            running: false
+            //TODO may be need to decrease
+            interval: 1000
 
-            MenuItem {
-                text: qsTr ("Refresh")
-                onClicked: refreshGroups (uid);
-            }
-        }
-
-        PushUpMenu {
-            MenuItem {
-                text: qsTr ("Search")
-                onClicked: switchToSearchGroup ()
+            onTriggered: {
+                if (listView.searchField.text !== "")
+                    searchGroups (listView.searchField.text)
             }
         }
 
         ViewPlaceholder {
             enabled: !loading && (groupsModel.count === 0)
-            text: qsTr ("List of groups is empty")
+            text: qsTr ("There are no groups for this query string")
         }
+
+        currentIndex: -1
 
         delegate: BackgroundItem {
             id: delegate
@@ -103,8 +100,6 @@ Page {
                 text: groupUsersCount === undefined ? "" : groupUsersCount
                 color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
             }
-
-            onClicked: switchToGroupDetail (groupID)
         }
 
         VerticalScrollDecorator {}
@@ -112,14 +107,7 @@ Page {
 
     BusyIndicator {
         anchors.centerIn: parent;
-        visible: loading && (groupsModel.count === 0)
+        visible: loading && (searchGroupsModel.count === 0)
         running: visible;
     }
-
-
 }
-
-
-
-
-

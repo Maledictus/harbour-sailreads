@@ -54,6 +54,7 @@ namespace SailReads
 		NotificationsModel *NotificationsModel_;
 		FriendsModel *FriendsModel_;
 		GroupsModel *GroupsModel_;
+		GroupsModel *SearchGroupsModel_;
 		ShelvesModel *ShelvesModel_;
 
 		Q_PROPERTY (bool requestInProcess READ IsRequestInProcess NOTIFY requestInProcessChanged)
@@ -74,6 +75,7 @@ namespace SailReads
 		void handleRequestNotifications ();
 		void handleRequestFriendsList (const QString& id);
 		void handleRequestGroupsList (const QString& id);
+		void handleRequestSearchGroups (const QString& query);
 		void handleRequestShelvesList (const QString& id);
 		void handleRequestAddBooksShelf (const QString& name, bool exclusive);
 		void handleRequestEditBooksShelf (const QString& id, const QString& name,
@@ -85,6 +87,7 @@ namespace SailReads
 		void handleGotNotifications (const Notifications_t& notifications);
 		void handleGotFriends (const Friends_t& friends);
 		void handleGotGroups (const Groups_t& groups);
+		void handleGotFoundGroups (const Groups_t& groups);
 		void handleGotShelves (const Shelves_t& shelves);
 		void handleGotNewShelf (const Shelf& shelf);
 		void handleShelvesUpdated ();

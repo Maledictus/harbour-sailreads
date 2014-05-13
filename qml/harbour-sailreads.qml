@@ -39,6 +39,7 @@ ApplicationWindow
     signal requestBooksList (string id, string shelfId)
     signal requestAddBooksShelf (string name, bool exclusive)
     signal requestEditBooksShelf (string id, string name, bool exclusive)
+    signal requestSearchGroups (string query)
 
     AuthManager {
         id: authManager
@@ -112,7 +113,6 @@ ApplicationWindow
         onSwitchToShelves: {
             pageStack.push (shelvesPage)
             shelvesPage.uid = self ? "self" : uid
-            //requestShelvesList (self ? "self" : uid)
         }
 
         onStatusChanged: {
@@ -154,9 +154,23 @@ ApplicationWindow
             pageStack.replace (profilePage)
         }
 
+        onSwitchToSearchGroup: {
+            pageStack.push (searchGroupPage)
+        }
+
+        onSwitchToGroupDetail: {
+            pageStack.push ()
+        }
+
         onRefreshGroups: {
             requestGroupsList (uid)
         }
+    }
+
+    SearchGroupPage {
+        id: searchGroupPage
+
+        onSearchGroups: requestSearchGroups (query)
     }
 
     ShelvesPage {
