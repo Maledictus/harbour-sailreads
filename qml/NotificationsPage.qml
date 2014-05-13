@@ -49,13 +49,14 @@ Page {
 
         delegate: BackgroundItem {
             id: delegate
-            height: contentItem.childrenRect.height
+            height: textColumn.height
 
             Image {
                 id: userImage
 
                 anchors.left: parent.left
                 anchors.leftMargin: Theme.paddingMedium
+                anchors.verticalCenter: parent.verticalCenter
 
                 height: sourceSize.height
                 width: sourceSize.width
@@ -64,38 +65,37 @@ Page {
                     notificationActorProfileImage
             }
 
-            Label {
-                id: notificationLabel
-
-                height: contentHeight
+            Column
+            {
+                id: textColumn
 
                 anchors.left: userImage.right
                 anchors.right: parent.right
-                anchors.top: parent.top
                 anchors.leftMargin: Theme.paddingMedium
                 anchors.rightMargin: Theme.paddingMedium
 
-                text: notificationText === undefined ? "" : notificationText
-                font.bold: !notificationRead
-                color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
-                font.pixelSize: Theme.fontSizeSmall
-                wrapMode: Text.WordWrap
+                spacing: Theme.paddingSmall
+                Label {
+                    id: notificationLabel
 
-                onLinkActivated: console.log (link)
-            }
+                    height: contentHeight
 
-            Label {
-                id: dateLabel
-                anchors.left: userImage.right
-                anchors.right: parent.right
-                anchors.top: notificationLabel.bottom
-                anchors.leftMargin: Theme.paddingMedium
-                anchors.rightMargin: Theme.paddingMedium
-                anchors.topMargin: Theme.paddingSmall
+                    anchors.left: parent.left
+                    anchors.right: parent.right
 
-                text: Qt.formatDateTime (notificationDate)
-                color: Theme.secondaryColor
-                font.pixelSize: Theme.fontSizeTiny
+                    text: notificationText === undefined ? "" : notificationText
+                    font.bold: !notificationRead
+                    color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
+                    font.pixelSize: Theme.fontSizeSmall
+                    wrapMode: Text.WordWrap
+                }
+
+                Label {
+                    id: dateLabel
+                    text: Qt.formatDateTime (notificationDate)
+                    color: Theme.secondaryColor
+                    font.pixelSize: Theme.fontSizeTiny
+                }
             }
 
             onClicked: console.log ("clicked")

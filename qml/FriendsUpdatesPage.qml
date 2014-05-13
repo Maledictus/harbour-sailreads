@@ -56,48 +56,49 @@ Page {
 
         delegate: BackgroundItem {
             id: delegate
-            height: contentItem.childrenRect.height
+            height: textColumn.height > userImage.height ?
+                    textColumn.height : userImage.height
+            width: parent.width
 
             Image {
                 id: userImage
 
                 anchors.left: parent.left
                 anchors.leftMargin: Theme.paddingMedium
+                anchors.verticalCenter: parent.verticalCenter
 
-                height: sourceSize.height
-                width: sourceSize.width
+                smooth: true
+                height: sourceSize.height * 1.5
+                width: sourceSize.width * 1.5
+                fillMode: Image.PreserveAspectFit
                 source: updateActorProfileImage
             }
 
-            Label {
-                id: updateLabel
-
-                height: contentHeight
-
+            Column
+            {
+                id: textColumn
+                spacing: Theme.paddingSmall
                 anchors.left: userImage.right
                 anchors.right: parent.right
-                anchors.top: parent.top
                 anchors.leftMargin: Theme.paddingMedium
                 anchors.rightMargin: Theme.paddingMedium
 
-                text: "<strong>" + updateActorName + "</strong> " + updateActionText
-                color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
-                font.pixelSize: Theme.fontSizeSmall
-                wrapMode: Text.WordWrap
-            }
+                Label {
+                    id: updateLabel
+                    text: "<strong>" + updateActorName + "</strong> " + updateActionText
+                    anchors.right: parent.right
+                    anchors.left: parent.left
+                    color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
+                    font.pixelSize: Theme.fontSizeSmall
+                    wrapMode: Text.WordWrap
+                }
 
-            Label {
-                id: dateLabel
-                anchors.left: userImage.right
-                anchors.right: parent.right
-                anchors.top: updateLabel.bottom
-                anchors.leftMargin: Theme.paddingMedium
-                anchors.rightMargin: Theme.paddingMedium
-                anchors.topMargin: Theme.paddingSmall
-
-                text: Qt.formatDateTime (updateDate)
-                color: Theme.secondaryColor
-                font.pixelSize: Theme.fontSizeTiny
+                Label {
+                    id: dateLabel
+                    text: Qt.formatDateTime (updateDate)
+                    color: Theme.secondaryColor
+                    font.pixelSize: Theme.fontSizeTiny
+                }
             }
 
             onClicked: console.log (updatesModel.count)

@@ -824,6 +824,7 @@ namespace SailReads
 //		 </Request>
 //		  shelf updated
 //		</GoodreadsResponse>
+		//TODO use QDomNode
 		QString responseText = document.firstChildElement ("GoodreadsResponse").toElement ().text ().trimmed ();
 		const QString requestText = document.firstChildElement ("GoodreadsResponse").firstChild ().toElement ().text ().trimmed ();
 		responseText.remove (requestText);
