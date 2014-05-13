@@ -69,20 +69,17 @@ Page {
             text: qsTr ("List of shelves is empty")
         }
 
-        delegate: BackgroundItem {
+        delegate: ListItem {
             id: delegate
 
-            property bool menuOpen: listView.contextMenu != null &&
-                    listView.contextMenu.parent === delegate
-
-            height: menuOpen ?
-                    listView.contextMenu.height + contentItem.childrenRect.height :
-                    contentItem.childrenRect.height
+            contentHeight: Theme.itemSizeMedium
+            menu: contextMenuComponent
 
             Label {
                 id: shelfNameLabel
                 anchors.left: parent.left
                 anchors.leftMargin: Theme.paddingMedium
+                anchors.verticalCenter: parent.verticalCenter
                 text: shelfName === undefined ? "" : shelfName
                 font.pixelSize: Theme.fontSizeLarge
                 color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
@@ -92,22 +89,13 @@ Page {
                 id: booksCountLabel
                 anchors.right: parent.right
                 anchors.rightMargin: Theme.paddingMedium
+                anchors.verticalCenter: parent.verticalCenter
                 text: shelfBooksCount === undefined ? "0" : shelfBooksCount
                 font.pixelSize: Theme.fontSizeLarge
                 color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
             }
 
             onClicked: console.log (shelfID)
-
-            onPressAndHold: {
-                if (!listView.contextMenu) {
-                    listView.contextMenu = contextMenuComponent.createObject (listView)
-                }
-                listView.contextMenu.shelfId = shelfID;
-                listView.contextMenu.shelfName = shelfName;
-                listView.contextMenu.shelfExclusive = shelfExclusive;
-                listView.contextMenu.show (delegate)
-            }
         }
 
         Component {
@@ -116,8 +104,6 @@ Page {
                 property string shelfId;
                 property string shelfName;
                 property bool shelfExclusive;
-                property bool shelfSortable;
-                property bool shelfFeatured;
                 MenuItem {
                     visible: uid == "self"
                     text: qsTr ("Edit");
