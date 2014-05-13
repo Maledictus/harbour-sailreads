@@ -100,13 +100,13 @@ Page {
             onClicked: console.log (shelfID)
 
             onPressAndHold: {
-//                if (!listView.contextMenu) {
-//                    listView.contextMenu = contextMenuComponent.createObject (listView)
-//                }
-//                listView.contextMenu.shelfId = shelfID;
-//                listView.contextMenu.shelfName = shelfName;
-//                listView.contextMenu.shelfExclusive = shelfExclusive;
-//                listView.contextMenu.show (delegate)
+                if (!listView.contextMenu) {
+                    listView.contextMenu = contextMenuComponent.createObject (listView)
+                }
+                listView.contextMenu.shelfId = shelfID;
+                listView.contextMenu.shelfName = shelfName;
+                listView.contextMenu.shelfExclusive = shelfExclusive;
+                listView.contextMenu.show (delegate)
             }
         }
 
@@ -118,11 +118,11 @@ Page {
                 property bool shelfExclusive;
                 property bool shelfSortable;
                 property bool shelfFeatured;
-//                MenuItem {
-//                    visible: uid == "self"
-//                    text: qsTr ("Edit");
-//                    onClicked: switchToAddEditShelf (shelfId, shelfName, shelfExclusive)
-//                }
+                MenuItem {
+                    visible: uid == "self"
+                    text: qsTr ("Edit");
+                    onClicked: switchToAddEditShelf (shelfId, shelfName, shelfExclusive)
+                }
             }
         }
 

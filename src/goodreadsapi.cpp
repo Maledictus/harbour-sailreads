@@ -816,6 +816,10 @@ namespace SailReads
 
 	void GoodreadsApi::handleEditShelfFinished (const QDomDocument& document)
 	{
-		qDebug () << document.toByteArray ();
+		QString responseText = document.firstChildElement ("GoodreadsResponse").toElement ().text ().trimmed ();
+		const QString requestText = document.firstChildElement ("GoodreadsResponse").firstChild ().toElement ().text ().trimmed ();
+		responseText.remove (requestText);
+		if (responseText.trimmed () == "shelf updated")
+			emit shelvesUpdated ();
 	}
 }

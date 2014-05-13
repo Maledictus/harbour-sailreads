@@ -98,7 +98,9 @@ namespace SailReads
 		void gotNotifications (const Notifications_t& notifications);
 		void gotFriends (const Friends_t& friends);
 		void gotGroups (const Groups_t& groups);
+
 		void gotShelves (const Shelves_t& shelves);
 		void gotNewShelf (const Shelf& shelf);
+		void shelvesUpdated ();
 	};
 }

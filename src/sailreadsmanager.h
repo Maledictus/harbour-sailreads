@@ -87,6 +87,7 @@ namespace SailReads
 		void handleGotGroups (const Groups_t& groups);
 		void handleGotShelves (const Shelves_t& shelves);
 		void handleGotNewShelf (const Shelf& shelf);
+		void handleShelvesUpdated ();
 
 	signals:
 		void requestInProcessChanged ();

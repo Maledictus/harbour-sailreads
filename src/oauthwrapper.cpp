@@ -137,7 +137,8 @@ namespace SailReads
 	{
 		char *params = NULL;
 		QUrl url(oauth_sign_url2 (data.BaseUrl_.toEncoded (),
-				&params, OA_HMAC, data.RequestType_.toUtf8 (),
+				data.RequestType_ == "POST" ? &params : NULL,
+				OA_HMAC, data.RequestType_.toUtf8 (),
 				data.ConsumerKey_.toUtf8 (), data.ConsumerSecret_.toUtf8 (),
 				data.AccessToken_.toUtf8 (), data.AccessTokenSecret_.toUtf8 ()));
 		QFuture<QByteArray> future;
