@@ -43,16 +43,7 @@ Page {
             width: listView.width
             placeholderText: qsTr ("Search group")
 
-            onTextChanged: searchTimer.restart()
-        }
-
-        Timer {
-            id:  searchTimer
-            running: false
-            //TODO may be need to decrease
-            interval: 1000
-
-            onTriggered: {
+            Keys.onReturnPressed: {
                 if (listView.searchField.text !== "")
                     searchGroups (listView.searchField.text)
             }
