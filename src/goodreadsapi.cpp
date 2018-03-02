@@ -43,6 +43,12 @@ GoodReadsApi::GoodReadsApi(QObject *parent)
 {
 }
 
+void GoodReadsApi::UpdateCredentials(const QString& accessToken, const QString& accessTokenSecret)
+{
+    m_AccessToken = accessToken;
+    m_AccessTokenSecret = accessTokenSecret;
+}
+
 void GoodReadsApi::ObtainRequestToken() const
 {
     QUrl requestTokenUrl = m_OAuthWrapper->GetRequestTokenUrl();
@@ -66,15 +72,26 @@ void GoodReadsApi::RequestAccessToken() const
             &GoodReadsApi::handleRequestAccessToken);
 }
 
-void GoodReadsApi::AuthUser(const QString& accessToken, const QString& accessTokenSecret)
+void GoodReadsApi::AuthUser()
 {
-    const auto& url = m_OAuthWrapper->MakeGetSignedUrl(accessToken, accessTokenSecret,
+    const auto& url = m_OAuthWrapper->MakeGetSignedUrl(m_AccessToken, m_AccessTokenSecret,
             QUrl("https://www.goodreads.com/api/auth_user"));
     auto reply = m_NAM->get(QNetworkRequest(url));
     connect (reply,
              &QNetworkReply::finished,
              this,
              &GoodReadsApi::handleAuthUser);
+}
+
+void GoodReadsApi::GetUserInfo(quint64 id)
+{
+    const QUrl url(QString("https://www.goodreads.com/user/show/%1.xml?key=%2")
+            .arg(id, m_ConsumerKey));
+    auto reply = m_NAM->get(QNetworkRequest(url));
+    connect (reply,
+             &QNetworkReply::finished,
+             this,
+             &GoodReadsApi::handleGetUserInfo);
 }
 
 QByteArray GoodReadsApi::GetReply(QObject *sender, bool& ok)
@@ -176,7 +193,18 @@ void GoodReadsApi::handleAuthUser()
     const QString name(GetQueryResult(query, "/GoodreadsResponse/user/name/text()"));
     const QString link(GetQueryResult(query, "/GoodreadsResponse/user/link/text()"));
 
-    emit gotAuthUserInfo(id, name, link);
+    emit gotAuthUserInfo(id.toLongLong(), name, link);
+}
+
+void GoodReadsApi::handleGetUserInfo()
+{
+    emit requestFinished();
+
+    bool ok = false;
+    QByteArray data = GetReply(sender(), ok);
+    if (!ok || data.isEmpty()) {
+        return;
+    }
 }
 
 

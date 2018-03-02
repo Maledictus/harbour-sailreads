@@ -18,7 +18,8 @@ SOURCES += src/harbour-sailreads.cpp \
     src/sailreadsmanager.cpp \
     src/goodreadsapi.cpp \
     src/settings/accountsettings.cpp \
-    src/oauthwrapper.cpp
+    src/oauthwrapper.cpp \
+    src/userprofile.cpp
 
 HEADERS += src/application.h \
     src/debugmessagehandler.h \
@@ -26,7 +27,8 @@ HEADERS += src/application.h \
     src/sailreadsmanager.h \
     src/goodreadsapi.h \
     src/settings/accountsettings.h \
-    src/oauthwrapper.h
+    src/oauthwrapper.h \
+    src/userprofile.h
 
 DISTFILES += qml/harbour-sailreads.qml \
     qml/cover/CoverPage.qml \

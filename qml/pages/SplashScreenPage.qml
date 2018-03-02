@@ -72,4 +72,23 @@ Page {
         running: sailreadsManager.busy
         visible: running
     }
+
+    Connections {
+        target: sailreadsManager
+        onAuthProgressChanged: {
+            progress.text = progressMessage
+        }
+    }
+
+    Label {
+        id: progress
+
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: Theme.paddingMedium
+        anchors.horizontalCenter: logo.horizontalCenter
+
+        color: Theme.highlightColor
+        font.pixelSize: Theme.fontSizeSmall
+        text: ""
+    }
 }

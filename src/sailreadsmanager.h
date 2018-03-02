@@ -24,11 +24,14 @@ THE SOFTWARE.
 
 #pragma once
 
+#include <memory.h>
+
 #include <QObject>
 
 namespace Sailreads
 {
 class GoodReadsApi;
+class UserProfile;
 
 class SailreadsManager : public QObject
 {
@@ -42,6 +45,8 @@ class SailreadsManager : public QObject
 
     QString m_AccessToken;
     QString m_AccessSecretToken;
+
+    std::shared_ptr<UserProfile> m_spProfile;
 
     Q_PROPERTY(bool busy READ GetBusy NOTIFY busyChanged)
     Q_PROPERTY(bool logged READ GetLogged NOTIFY loggedChanged)
@@ -63,12 +68,15 @@ public slots:
     void requestAccessToken();
 
     void authUser();
+    void getUserInfo(quint64 id);
 
 signals:
     void busyChanged();
     void loggedChanged();
 
     void requestTokenChanged(const QString& requestToken);
+
+    void authProgressChanged(const QString& progressMessage);
 };
 }
 

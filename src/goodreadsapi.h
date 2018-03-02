@@ -44,16 +44,23 @@ class GoodReadsApi : public QObject
     QString m_RequestToken;
     QString m_RequestTokenSecret;
 
+    QString m_AccessToken;
+    QString m_AccessTokenSecret;
+
     QNetworkAccessManager *m_NAM;
     OAuthWrapper *m_OAuthWrapper;
 
 public:
     explicit GoodReadsApi(QObject *parent = 0);
 
+    void UpdateCredentials(const QString& accessToken, const QString& accessTokenSecret);
+
     void ObtainRequestToken() const;
     void RequestAccessToken() const;
 
-    void AuthUser(const QString& accessToken, const QString& accessTokenSecret);
+    void AuthUser();
+    void GetUserInfo(quint64 id);
+
 private:
     QByteArray GetReply(QObject *sender, bool& ok);
 
@@ -62,6 +69,7 @@ private slots:
     void handleRequestAccessToken();
 
     void handleAuthUser();
+    void handleGetUserInfo();
 
 signals:
     void requestFinished();
@@ -69,6 +77,6 @@ signals:
     void requestTokenChanged(const QString& requestToken);
     void accessTokensChanged(const QString& accessToken, const QString& accessTokenSecret);
 
-    void gotAuthUserInfo(const QString& id, const QString& name, const QString& link);
+    void gotAuthUserInfo(quint64 id, const QString& name, const QString& link);
 };
 }

@@ -28,6 +28,7 @@ THE SOFTWARE.
 
 #include "settings/accountsettings.h"
 #include "goodreadsapi.h"
+#include "userprofile.h"
 
 namespace Sailreads
 {
@@ -79,14 +80,18 @@ void SailreadsManager::MakeConnections()
                 AccountSettings::Instance(this)->setValue("access_token_secret", accessTokenSecret);
                 m_AccessToken = accessToken;
                 m_AccessSecretToken = accessTokenSecret;
+                if (!m_AccessToken.isEmpty() && !m_AccessSecretToken.isEmpty()) {
+                    m_Api->UpdateCredentials(m_AccessToken, m_AccessSecretToken);
+                }
                 SetLogged(!accessToken.isEmpty() && !accessTokenSecret.isEmpty());
             });
 
     connect(m_Api, &GoodReadsApi::gotAuthUserInfo,
             this,
-            [=](const QString& id, const QString& name, const QString& link)
+            [=](const quint64& id, const QString& name, const QString& link)
             {
-                qDebug() << id << name << link;
+                m_spProfile.reset(new UserProfile(id, name, link));
+                getUserInfo(id);
             });
 }
 
@@ -105,6 +110,7 @@ void SailreadsManager::SetLogged(bool logged)
 void SailreadsManager::obtainRequestToken()
 {
     SetBusy(true);
+    emit authProgressChanged(tr("Authorization user..."));
     m_Api->ObtainRequestToken();
 }
 
@@ -117,6 +123,14 @@ void SailreadsManager::requestAccessToken()
 void SailreadsManager::authUser()
 {
     SetBusy(true);
-    m_Api->AuthUser(m_AccessToken, m_AccessSecretToken);
+    emit authProgressChanged(tr("Authentication user..."));
+    m_Api->AuthUser();
+}
+
+void SailreadsManager::getUserInfo(quint64 id)
+{
+    SetBusy(true);
+    emit authProgressChanged(tr("Getting user profile..."));
+    m_Api->GetUserInfo(id);
 }
 }
