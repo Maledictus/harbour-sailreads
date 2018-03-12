@@ -2,7 +2,7 @@ TARGET = harbour-sailreads
 
 VERSION = 0.1
 
-QT += network xmlpatterns
+QT += network xmlpatterns xml
 
 CONFIG += link_pkgconfig sailfishapp c++11 sailfishapp_i18n
 PKGCONFIG += mlite5
@@ -19,7 +19,11 @@ SOURCES += src/harbour-sailreads.cpp \
     src/goodreadsapi.cpp \
     src/settings/accountsettings.cpp \
     src/oauthwrapper.cpp \
-    src/userprofile.cpp
+    src/userprofile.cpp \
+    src/rpcutils.cpp \
+    src/userupdate.cpp \
+    src/models/bookshelvesmodel.cpp \
+    src/bookshelf.cpp
 
 HEADERS += src/application.h \
     src/debugmessagehandler.h \
@@ -28,7 +32,12 @@ HEADERS += src/application.h \
     src/goodreadsapi.h \
     src/settings/accountsettings.h \
     src/oauthwrapper.h \
-    src/userprofile.h
+    src/userprofile.h \
+    src/rpcutils.h \
+    src/types.h \
+    src/userupdate.h \
+    src/models/bookshelvesmodel.h \
+    src/bookshelf.h
 
 DISTFILES += qml/harbour-sailreads.qml \
     qml/cover/CoverPage.qml \

@@ -13,6 +13,29 @@
     </message>
 </context>
 <context>
+    <name>BookShelvesPage</name>
+    <message>
+        <source>Bookshelves</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>View Profile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Updates Feed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There are no bookshelves. Pull down to refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CoverPage</name>
     <message>
         <source>My Cover</source>
@@ -22,19 +45,27 @@
 <context>
     <name>ProfilePage</name>
     <message>
-        <source>Logout</source>
+        <source>Interests: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>New entry</source>
+        <source>Favorite books: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Friends Feed</source>
+        <source>About me: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>My Blog</source>
+        <source>Details: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Joined: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last active: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -42,15 +73,49 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Friends groups</source>
+        <source>Groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Messages</source>
+        <source>Bookshelves</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Sailreads::SailreadsManager</name>
+    <message>
+        <source>Authorization user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Notifications</source>
+        <source>Authentication user...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Getting user profile...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>UpdatesPage</name>
+    <message>
+        <source>Updates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There are no updates. Pull down to refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>View Profile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>My Books</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

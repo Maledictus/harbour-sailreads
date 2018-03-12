@@ -27,6 +27,8 @@ THE SOFTWARE.
 #include <QObject>
 #include <QUrl>
 
+#include "userprofile.h"
+
 class QNetworkAccessManager;
 
 namespace Sailreads
@@ -60,9 +62,7 @@ public:
 
     void AuthUser();
     void GetUserInfo(quint64 id);
-
-private:
-    QByteArray GetReply(QObject *sender, bool& ok);
+    void GetUpdates();
 
 private slots:
     void handleObtainRequestToken();
@@ -70,6 +70,7 @@ private slots:
 
     void handleAuthUser();
     void handleGetUserInfo();
+    void handleGetUpdates();
 
 signals:
     void requestFinished();
@@ -78,5 +79,6 @@ signals:
     void accessTokensChanged(const QString& accessToken, const QString& accessTokenSecret);
 
     void gotAuthUserInfo(quint64 id, const QString& name, const QString& link);
+    void gotUserProfile(std::shared_ptr<UserProfile> profile);
 };
 }

@@ -24,9 +24,8 @@ THE SOFTWARE.
 
 #pragma once
 
-#include <memory.h>
-
 #include <QObject>
+#include <QVariantMap>
 
 namespace Sailreads
 {
@@ -46,17 +45,21 @@ class SailreadsManager : public QObject
     QString m_AccessToken;
     QString m_AccessSecretToken;
 
-    std::shared_ptr<UserProfile> m_spProfile;
+    UserProfile *m_Profile;
 
     Q_PROPERTY(bool busy READ GetBusy NOTIFY busyChanged)
     Q_PROPERTY(bool logged READ GetLogged NOTIFY loggedChanged)
+    Q_PROPERTY(UserProfile* userProfile READ GetProfile NOTIFY profileChanged)
 
     explicit SailreadsManager(QObject *parent = 0);
 
 public:
     static SailreadsManager* Instance(QObject *parent = 0);
+
     bool GetBusy() const;
     bool GetLogged() const;
+
+    UserProfile* GetProfile() const;
 
 private:
     void MakeConnections();
@@ -69,10 +72,14 @@ public slots:
 
     void authUser();
     void getUserInfo(quint64 id);
+    void getUpdates();
+    void loadBookShelves();
 
 signals:
     void busyChanged();
     void loggedChanged();
+    void profileChanged();
+    void gotUserProfile();
 
     void requestTokenChanged(const QString& requestToken);
 

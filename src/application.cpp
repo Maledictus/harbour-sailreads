@@ -31,9 +31,11 @@ THE SOFTWARE.
 #include <QtDebug>
 #include <QtQml>
 
+#include "models/bookshelvesmodel.h"
 #include "settings/accountsettings.h"
 #include "settings/applicationsettings.h"
 #include "sailreadsmanager.h"
+#include "userprofile.h"
 
 namespace Sailreads
 {
@@ -72,9 +74,9 @@ void Application::start()
 {
     qmlRegisterUncreatableType<SailreadsManager>("harbour.sailreads", 1, 0,
             "SailreadsManager", "SailreadsManager static uncreatable type");
-/*    qRegisterMetaType<BookmarksModel*>("BookmarksModel*");
-    qRegisterMetaType<FilterProxyModel*>("FilterProxyModel*");
-    qmlRegisterUncreatableType<LinksBag::EnumsProxy>("harbour.linksbag", 1, 0,
+    qRegisterMetaType<UserProfile*>("UserProfile*");
+    qRegisterMetaType<BookShelvesModel*>("BookShelvesModel*");
+/*    qmlRegisterUncreatableType<LinksBag::EnumsProxy>("harbour.linksbag", 1, 0,
             "LinksBag", "This exports otherwise unavailable \
                     LinksBag datatypes to QML");
 */

@@ -22,86 +22,191 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-import QtQuick 2.0
+import QtQuick 2.2
+import QtQml.Models 2.2
 import Sailfish.Silica 1.0
 import harbour.sailreads 1.0
-import "./components"
+
+import "../components"
+import "../utils/Utils.js" as Utils
 
 Page {
     id: profilePage
 
-    RemorsePopup { id: remorse }
-
-    ListModel {
-        id: menusModel
-    }
-
-    SilicaListView {
-        id: menusView
+    SilicaFlickable {
+        id: profileView
 
         anchors.fill: parent
 
-        header: UserHeaderItem {
-            id: headerItem
+        contentHeight: content.height + header.height
 
-            userId: sailreadsManager.userProfile.userId
-            avatarSource: sailreadsManager.userProfile.avatarUrl
-            fullName: sailreadsManager.userProfile.fullName
+        PageHeader{
+            id: header
+            title: sailreadsManager.userProfile.userName
+            description: sailreadsManager.userProfile.nickName
         }
 
-        model: menusModel
+        Column {
+            id: content
 
-        spacing: Theme.paddingMedium
+            anchors {
+                left: parent.left
+                right: parent.right
+                top: header.bottom
+            }
 
-        PullDownMenu {
-            visible: sailreadsManager.logged
+            Row {
+                anchors {
+                    left: parent.left
+                    leftMargin: Theme.horizontalPageMargin
+                    right: parent.right
+                    rightMargin: Theme.horizontalPageMargin
+                }
 
-            MenuItem {
-                text: qsTr("Logout")
-                onClicked: {
+                spacing: Theme.paddingMedium
+
+                Image {
+                    id: avatarImage
+                    width: Theme.iconSizeExtraLarge
+                    height: Theme.iconSizeExtraLarge
+                    source: sailreadsManager.userProfile.avatarUrl
+                }
+
+                Column {
+                    width: parent.width - Theme.iconSizeExtraLarge - Theme.paddingMedium
+                    Label {
+                        font.pixelSize: Theme.fontSizeSmall
+                        width: parent.width
+                        elide: Text.ElideRight
+                        text: qsTr("Details: %1")
+                                .arg(Utils.getDetailsInfoString(sailreadsManager.userProfile.age,
+                                        sailreadsManager.userProfile.gender,
+                                        sailreadsManager.userProfile.location))
+                    }
+                    Label {
+                        font.pixelSize: Theme.fontSizeSmall
+                        width: parent.width
+                        elide: Text.ElideRight
+                        text: qsTr("Joined: %1").arg(sailreadsManager.userProfile.joinedDate)
+                    }
+                    Label {
+                        font.pixelSize: Theme.fontSizeSmall
+                        width: parent.width
+                        elide: Text.ElideRight
+                        text: qsTr("Last active: %1")
+                                .arg(sailreadsManager.userProfile.lastUpdateDate)
+                    }
                 }
             }
-        }
-
-        delegate: ListItem {
-            id: rootDelegateItem
-
-            width: menusView.width
 
             Label {
-                anchors.left: parent.left
-                anchors.leftMargin: Theme.paddingMedium
-                anchors.right: parent.right
-                anchors.rightMargin: Theme.paddingMedium
-                anchors.verticalCenter: parent.verticalCenter
-
-                text: title
-                color: rootDelegateItem.highlighted ? Theme.highlightColor : Theme.primaryColor
+                text: qsTr("Interests: %1").arg(sailreadsManager.userProfile.interests)
+                maximumLineCount: 3
+                wrapMode: Text.WordWrap
+                font.pixelSize: Theme.fontSizeSmall
+                anchors {
+                    left: parent.left
+                    leftMargin: Theme.horizontalPageMargin
+                    right: parent.right
+                    rightMargin: Theme.horizontalPageMargin
+                }
+            }
+            Label {
+                text: qsTr("Favorite books: %1").arg(sailreadsManager.userProfile.favoriteBooksDesc)
+                maximumLineCount: 3
+                wrapMode: Text.WordWrap
+                font.pixelSize: Theme.fontSizeSmall
+                anchors {
+                    left: parent.left
+                    leftMargin: Theme.horizontalPageMargin
+                    right: parent.right
+                    rightMargin: Theme.horizontalPageMargin
+                }
+            }
+            Label {
+                text: qsTr("About me: %1").arg(sailreadsManager.userProfile.about)
+                maximumLineCount: 3
+                wrapMode: Text.WordWrap
+                font.pixelSize: Theme.fontSizeSmall
+                anchors {
+                    left: parent.left
+                    leftMargin: Theme.horizontalPageMargin
+                    right: parent.right
+                    rightMargin: Theme.horizontalPageMargin
+                }
             }
 
-            onClicked: {
-                pageStack.clear()
-                pageStack.push(Qt.resolvedUrl(url), properties)
-                pageStack.navigateForward(PageStackAction.Immediate)
-                pageStack.navigateBack()
+            MoreButton {
+                id: friendsButton
+                width: parent.width
+                height: Theme.itemSizeMedium
+                text: qsTr("Friends")
+                counter: sailreadsManager.userProfile.friendsCount
+            }
+
+            MoreButton {
+                id: groupsButton
+                width: parent.width
+                height: Theme.itemSizeMedium
+                text: qsTr("Groups")
+                counter: sailreadsManager.userProfile.groupsCount
+            }
+
+            MoreButton {
+                id: bookShelvesButton
+                width: parent.width
+                height: Theme.itemSizeMedium
+                text: qsTr("Bookshelves")
+                counter: sailreadsManager.userProfile.bookShelvesModel.rowCount()
+            }
+
+            SilicaListView {
+                id: bookshelvesView
+
+                width: parent.width
+                height: contentHeight
+                model: delegateModel
+            }
+
+            DelegateModel {
+                id: delegateModel
+
+                delegate:  ListItem {
+                    width: parent.width
+                    Label {
+                        anchors {
+                            left: parent.left
+                            leftMargin: Theme.horizontalPageMargin
+                            right: parent.right
+                            rightMargin: Theme.horizontalPageMargin
+                            verticalCenter: parent.verticalCenter
+                        }
+
+                        text: bookShelfName + " (" + bookShelfBooksCount + ")"
+                    }
+                }
+
+                model: sailreadsManager.userProfile.bookShelvesModel
+
+                groups: [
+                    DelegateModelGroup {
+                        includeByDefault: false
+                        name: "exclusive"
+
+                        Component.onCompleted: {
+                            var rowCount = sailreadsManager.userProfile.bookShelvesModel.rowCount();
+                            for (var i = 0;i < rowCount; ++i) {
+                                var entry = sailreadsManager.userProfile.bookShelvesModel.get(i);
+                                if (entry.bookShelfExclusive) {
+                                    insert(entry)
+                                }
+                            }
+                        }
+                    }
+                ]
+
+                filterOnGroup: "exclusive"
             }
         }
-
-        VerticalScrollDecorator {}
-    }
-
-    Component.onCompleted: {
-        menusModel.append ({ title: qsTr("Friends Feed"), name: "0",
-                url: "FriendsPage.qml" })
-        menusModel.append ({ title: qsTr("My Blog"), name: "1",
-                url: "UserJournalPage.qml" })
-        menusModel.append ({ title: qsTr("Friends"), name: "2",
-                url: "FriendsListPage.qml" })
-        menusModel.append ({ title: qsTr("Friends groups"), name: "3",
-                url: "FriendGroupsPage.qml" })
-        menusModel.append ({ title: qsTr ("Messages"), name: "4",
-                url: "MessagesPage.qml" })
-        menusModel.append ({ title: qsTr ("Notifications"), name: "5",
-                url: "NotificationsPage.qml" })
     }
 }

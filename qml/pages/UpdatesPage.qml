@@ -26,72 +26,62 @@ import QtQuick 2.2
 import Sailfish.Silica 1.0
 
 Page {
-    id: splashScreenPage
+    id: updatesPage
 
-    onStatusChanged: {
-        if (status == PageStatus.Active && sailreadsManager.logged) {
-            sailreadsManager.authUser()
+    function loadUpdates() {
+        if (sailreadsManager.logged) {
+            sailreadsManager.getUpdates()
         }
     }
 
-    Label {
-        id: name
-
-        anchors.bottom: logo.top
-        anchors.bottomMargin: Theme.paddingLarge
-        anchors.horizontalCenter: logo.horizontalCenter
-
-        color: Theme.highlightColor
-        font.pixelSize: Theme.fontSizeExtraLarge
-        text: "Sailreads"
+    onStatusChanged: {
+        if (status == PageStatus.Active && sailreadsManager.logged) {
+            loadUpdates()
+        }
     }
 
-    Image {
-        id: logo
+    SilicaListView {
+        id: updatesView
+        anchors.fill: parent
+        header: PageHeader {
+            title: qsTr("Updates")
+        }
 
-        anchors.centerIn: parent
+        ViewPlaceholder {
+            enabled: false //TODO
+            text: qsTr("There are no updates. Pull down to refresh")
+        }
 
-        width: 256
-        height: 256
+        PullDownMenu {
+            MenuItem {
+                text: qsTr("View Profile")
+                onClicked: {
+                    pageStack.push(Qt.resolvedUrl("ProfilePage.qml"))
+                }
+            }
 
-        clip: true
-        smooth: true
-        asynchronous: true
-        fillMode: Image.PreserveAspectFit
+            MenuItem {
+                text: qsTr("My Books")
+                onClicked: {
+                    pageStack.replace(Qt.resolvedUrl("BookShelvesPage.qml"))
+                }
+            }
 
-        sourceSize.width: width
-        sourceSize.height: height
-//        source: "qrc:/images/mnemosy256x256.png"
+            MenuItem {
+                text: qsTr("Refresh")
+                onClicked: {
+                    sailreadsManager.getUpdates()
+                }
+            }
+        }
+
+        VerticalScrollDecorator {}
     }
 
     BusyIndicator {
         size: BusyIndicatorSize.Large
-        anchors.top: logo.bottom
-        anchors.topMargin: Theme.paddingLarge
-        anchors.horizontalCenter: logo.horizontalCenter
+        anchors.centerIn: parent
         running: sailreadsManager.busy
         visible: running
-    }
-
-    Connections {
-        target: sailreadsManager
-        onAuthProgressChanged: {
-            progress.text = progressMessage
-        }
-        onGotUserProfile: {
-            pageStack.replace(Qt.resolvedUrl("UpdatesPage.qml"))
-        }
-    }
-
-    Label {
-        id: progress
-
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: Theme.paddingMedium
-        anchors.horizontalCenter: logo.horizontalCenter
-
-        color: Theme.highlightColor
-        font.pixelSize: Theme.fontSizeSmall
-        text: ""
     }
 }

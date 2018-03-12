@@ -24,12 +24,14 @@ THE SOFTWARE.
 
 #include "goodreadsapi.h"
 
+#include <QDomDocument>
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QXmlQuery>
 
 #include "oauthwrapper.h"
+#include "rpcutils.h"
 
 namespace Sailreads
 {
@@ -86,7 +88,8 @@ void GoodReadsApi::AuthUser()
 void GoodReadsApi::GetUserInfo(quint64 id)
 {
     const QUrl url(QString("https://www.goodreads.com/user/show/%1.xml?key=%2")
-            .arg(id, m_ConsumerKey));
+            .arg(id)
+            .arg(m_ConsumerKey));
     auto reply = m_NAM->get(QNetworkRequest(url));
     connect (reply,
              &QNetworkReply::finished,
@@ -94,7 +97,31 @@ void GoodReadsApi::GetUserInfo(quint64 id)
              &GoodReadsApi::handleGetUserInfo);
 }
 
-QByteArray GoodReadsApi::GetReply(QObject *sender, bool& ok)
+void GoodReadsApi::GetUpdates()
+{
+    const auto& url = m_OAuthWrapper->MakeGetSignedUrl(m_AccessToken, m_AccessTokenSecret,
+            QUrl("https://www.goodreads.com/updates/friends.xml"));
+    auto reply = m_NAM->get(QNetworkRequest(url));
+    connect (reply,
+             &QNetworkReply::finished,
+             this,
+             &GoodReadsApi::handleGetUpdates);
+}
+
+namespace
+{
+QString GetQueryResult(QXmlQuery& query, const QString& request)
+{
+    QString result;
+    query.setQuery(request);
+    if (!query.evaluateTo(&result)) {
+        result = QString();
+    }
+    return result.trimmed();
+}
+
+
+QByteArray GetReply(QObject *sender, bool& ok)
 {
     auto reply = qobject_cast<QNetworkReply*>(sender);
     QByteArray data;
@@ -114,6 +141,42 @@ QByteArray GoodReadsApi::GetReply(QObject *sender, bool& ok)
 
     ok = true;
     return reply->readAll();
+}
+
+QDomDocument ParseDocument(const QByteArray& data, bool& ok)
+{
+    QDomDocument document;
+    QString errorMsg;
+    int errorLine = -1;
+    int errorColumn = -1;
+    if (!document.setContent(data, &errorMsg, &errorLine, &errorColumn))
+    {
+        qWarning() << Q_FUNC_INFO
+                << errorMsg
+                << "in line:"
+                << errorLine
+                << "column:"
+                << errorColumn;
+        ok = false;
+    }
+    else
+    {
+        ok = true;
+    }
+    return document;
+}
+
+QDomDocument GetDocumentFromReply(QObject *sender, bool& ok)
+{
+    QDomDocument doc;
+    QByteArray data = GetReply(sender, ok);
+    if (!ok || data.isEmpty()) {
+        return doc;
+    }
+
+    ok = false;
+    return ParseDocument(data, ok);
+}
 }
 
 void GoodReadsApi::handleObtainRequestToken()
@@ -164,19 +227,6 @@ void GoodReadsApi::handleRequestAccessToken()
     emit accessTokensChanged(accessToken, accessTokenSecret);
 }
 
-namespace
-{
-QString GetQueryResult(QXmlQuery& query, const QString& request)
-{
-    QString result;
-    query.setQuery(request);
-    if (!query.evaluateTo(&result)) {
-        result = QString();
-    }
-    return result.trimmed();
-}
-}
-
 void GoodReadsApi::handleAuthUser()
 {
     emit requestFinished();
@@ -201,10 +251,24 @@ void GoodReadsApi::handleGetUserInfo()
     emit requestFinished();
 
     bool ok = false;
-    QByteArray data = GetReply(sender(), ok);
-    if (!ok || data.isEmpty()) {
+    auto doc = GetDocumentFromReply(sender(), ok);
+    if (!ok) {
         return;
     }
+    emit gotUserProfile(RpcUtils::Parser::ParseUserProfile(doc));
+}
+
+void GoodReadsApi::handleGetUpdates()
+{
+    emit requestFinished();
+
+    bool ok = false;
+    auto doc = GetDocumentFromReply(sender(), ok);
+    if (!ok) {
+        return;
+    }
+
+    //emit gotUserProfile(RpcUtils::Parser::ParseUserProfile(doc));
 }
 
 

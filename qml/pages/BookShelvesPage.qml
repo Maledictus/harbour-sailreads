@@ -26,72 +26,56 @@ import QtQuick 2.2
 import Sailfish.Silica 1.0
 
 Page {
-    id: splashScreenPage
+    id: page
 
     onStatusChanged: {
         if (status == PageStatus.Active && sailreadsManager.logged) {
-            sailreadsManager.authUser()
+            sailreadsManager.loadBookShelves()
         }
     }
 
-    Label {
-        id: name
+    SilicaListView {
+        id: bookShelvesView
+        anchors.fill: parent
+        header: PageHeader {
+            title: qsTr("Bookshelves")
+        }
 
-        anchors.bottom: logo.top
-        anchors.bottomMargin: Theme.paddingLarge
-        anchors.horizontalCenter: logo.horizontalCenter
+        PullDownMenu {
+            MenuItem {
+                text: qsTr("View Profile")
+                onClicked: {
+                    pageStack.push(Qt.resolvedUrl("ProfilePage.qml"))
+                }
+            }
 
-        color: Theme.highlightColor
-        font.pixelSize: Theme.fontSizeExtraLarge
-        text: "Sailreads"
-    }
+            MenuItem {
+                text: qsTr("Updates Feed")
+                onClicked: {
+                    pageStack.replace(Qt.resolvedUrl("UpdatesPage.qml"))
+                }
+            }
 
-    Image {
-        id: logo
+            MenuItem {
+                text: qsTr("Refresh")
+                onClicked: {
+                    sailreadsManager.loadBookShelves()
+                }
+            }
+        }
 
-        anchors.centerIn: parent
+        ViewPlaceholder {
+            enabled: false //TODO
+            text: qsTr ("There are no bookshelves. Pull down to refresh")
+        }
 
-        width: 256
-        height: 256
-
-        clip: true
-        smooth: true
-        asynchronous: true
-        fillMode: Image.PreserveAspectFit
-
-        sourceSize.width: width
-        sourceSize.height: height
-//        source: "qrc:/images/mnemosy256x256.png"
+        VerticalScrollDecorator {}
     }
 
     BusyIndicator {
         size: BusyIndicatorSize.Large
-        anchors.top: logo.bottom
-        anchors.topMargin: Theme.paddingLarge
-        anchors.horizontalCenter: logo.horizontalCenter
+        anchors.centerIn: parent
         running: sailreadsManager.busy
         visible: running
-    }
-
-    Connections {
-        target: sailreadsManager
-        onAuthProgressChanged: {
-            progress.text = progressMessage
-        }
-        onGotUserProfile: {
-            pageStack.replace(Qt.resolvedUrl("UpdatesPage.qml"))
-        }
-    }
-
-    Label {
-        id: progress
-
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: Theme.paddingMedium
-        anchors.horizontalCenter: logo.horizontalCenter
-
-        color: Theme.highlightColor
-        font.pixelSize: Theme.fontSizeSmall
-        text: ""
     }
 }
