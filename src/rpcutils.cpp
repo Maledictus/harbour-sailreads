@@ -24,6 +24,7 @@ THE SOFTWARE.
 
 #include "rpcutils.h"
 
+#include <QRegularExpression>
 #include <QtDebug>
 
 namespace Sailreads
@@ -140,6 +141,40 @@ FavoriteAuthors_t ParseFavoriteAuthors(const QDomElement& faElement)
     return auths;
 }
 
+Group ParseGroup(const QDomElement& element)
+{
+    Group group;
+    const auto& fieldsList = element.childNodes();
+    for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
+        const auto& fieldElement = fieldsList.at (i).toElement ();
+        if (fieldElement.tagName() == "id") {
+            group.SetId(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "title") {
+            group.SetName(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "access") {
+            group.SetIsPublic(fieldElement.text().toLower() == "public");
+        }
+        else if (fieldElement.tagName() == "users_count") {
+            group.SetUsersCount(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "image_url") {
+            group.SetImageUrl(QUrl(fieldElement.text()));
+        }
+        else if (fieldElement.tagName() == "last_activity_at") {
+            QString str = fieldElement.text();
+            str.remove(QRegularExpression(R"((\+|-)\d\d\d\d\s)"));
+            group.SetLastActivity(QDateTime::fromString(str, "ddd MMM dd hh:mm:ss yyyy"));
+        }
+        else if (fieldElement.tagName() == "link") {
+            group.SetUrl(QUrl(fieldElement.text()));
+        }
+    }
+
+    return group;
+}
+
 UserUpdates_t ParseUserUpdates(const QDomElement& element)
 {
     UserUpdates_t updates;
@@ -160,6 +195,21 @@ BookShelves_t ParseBookShelves(const QDomElement& element)
         shelves << ParseBookShelf(elem);
     }
     return shelves;
+}
+
+Groups_t ParseGroups(const QDomElement& element)
+{
+    const auto& groupsListElement = element.firstChildElement("list");
+    if (groupsListElement.isNull()) {
+        return Groups_t();
+    }
+    Groups_t groups;
+    const auto& nodes = groupsListElement.childNodes();
+    for (int i = 0, count = nodes.size(); i < count; ++i) {
+        const auto& elem = nodes.at(i).toElement();
+        groups << ParseGroup(elem);
+    }
+    return groups;
 }
 
 std::shared_ptr<UserProfile> ParseUserProfile(const QDomDocument &doc)
@@ -261,6 +311,16 @@ BookShelves_t ParseBookShelves(const QDomDocument& doc)
     }
 
     return ParseBookShelves(responseElement.firstChildElement("shelves"));
+}
+
+Groups_t ParseGroups(const QDomDocument& doc)
+{
+    const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
+    if (responseElement.isNull()) {
+        return Groups_t();
+    }
+
+    return ParseGroups(responseElement.firstChildElement("groups"));
 }
 }
 }

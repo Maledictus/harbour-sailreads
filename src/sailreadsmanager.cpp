@@ -124,6 +124,10 @@ void SailreadsManager::MakeConnections()
             this, &SailreadsManager::bookShelfAdded);
     connect(m_Api, &GoodReadsApi::bookShelfEdited,
             this, &SailreadsManager::bookShelfEdited);
+    connect(m_Api, &GoodReadsApi::gotUserGroups,
+            this, &SailreadsManager::gotUserGroups);
+    connect(m_Api, &GoodReadsApi::gotUserFriends,
+            this, &SailreadsManager::gotUserFriends);
 }
 
 void SailreadsManager::SetBusy(bool busy)
@@ -192,9 +196,12 @@ void SailreadsManager::editBookShelf(quint64 id, const QString& name, bool exclu
     m_Api->EditBookShelf(id, name, exclusive);
 }
 
-void SailreadsManager::removeBookShelf(quint64 id)
 {
     SetBusy(true);
-    m_Api->RemoveBookShelf(id);
+
+void SailreadsManager::loadGroups(quint64 userId)
+{
+    SetBusy(true);
+    m_Api->GetGroups(userId);
 }
 }

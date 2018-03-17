@@ -173,6 +173,10 @@ Page {
                 text: qsTr("Groups")
                 counter: sailreadsManager.userProfile.groupsCount
                 busy: sailreadsManager.busy
+                onClicked: {
+                    pageStack.push(Qt.resolvedUrl("GroupsPage.qml"),
+                            { userId: sailreadsManager.userProfile.userId })
+                }
             }
 
             MoreButton {
@@ -183,7 +187,7 @@ Page {
                 counter: sailreadsManager.userProfile.bookShelvesCount
                 busy: sailreadsManager.busy
                 onClicked: {
-                    pageStack.push(Qt.resolvedUrl("BOokShelvesPage.qml"),
+                    pageStack.push(Qt.resolvedUrl("BookShelvesPage.qml"),
                             { userId: sailreadsManager.userProfile.userId })
                 }
             }

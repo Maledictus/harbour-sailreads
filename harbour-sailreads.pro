@@ -13,7 +13,6 @@ LIBS += -loauth
 
 SOURCES += src/harbour-sailreads.cpp \
     src/application.cpp \
-    src/bookshelf.cpp \
     src/debugmessagehandler.cpp \
     src/goodreadsapi.cpp \
     src/oauthwrapper.cpp \
@@ -24,11 +23,13 @@ SOURCES += src/harbour-sailreads.cpp \
     src/models/baseproxymodel.cpp \
     src/models/bookshelvesmodel.cpp \
     src/models/bookshelfproxymodel.cpp \
+    src/objects/bookshelf.cpp \
     src/settings/accountsettings.cpp \
-    src/settings/applicationsettings.cpp
+    src/settings/applicationsettings.cpp \
+    src/objects/group.cpp \
+    src/models/groupsmodel.cpp \
 
 HEADERS += src/application.h \
-    src/bookshelf.h \
     src/debugmessagehandler.h \
     src/goodreadsapi.h \
     src/oauthwrapper.h \
@@ -40,8 +41,11 @@ HEADERS += src/application.h \
     src/models/baseproxymodel.h \
     src/models/bookshelfproxymodel.h \
     src/models/bookshelvesmodel.h \
+    src/objects/bookshelf.h \
     src/settings/accountsettings.h \
-    src/settings/applicationsettings.h
+    src/settings/applicationsettings.h \
+    src/objects/group.h \
+    src/models/groupsmodel.h \
 
 DISTFILES += rpm/harbour-sailreads.changes.in \
     rpm/harbour-sailreads.changes.run.in \

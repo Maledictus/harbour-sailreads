@@ -152,6 +152,20 @@ void GoodReadsApi::RemoveBookShelf(quint64)
 {
 }
 
+void GoodReadsApi::GetGroups(quint64 userId)
+{
+    const QUrl url(QString("https://www.goodreads.com/group/list/%1.xml?key=%2")
+            .arg(userId)
+            .arg(m_ConsumerKey));
+    auto reply = m_NAM->get(QNetworkRequest(url));
+    connect(reply,
+            &QNetworkReply::finished,
+            this,
+            [this, userId]() {
+                handleGetGroups(userId);
+            });
+}
+
 namespace
 {
 QString GetQueryResult(QXmlQuery& query, const QString& request)
@@ -355,7 +369,18 @@ void GoodReadsApi::handleEditBookShelf()
     emit bookShelfEdited(RpcUtils::Parser::ParseBookShelf(doc.firstChildElement("user_shelf")));
 }
 
-void GoodReadsApi::handleRemoveBookShelf()
+void GoodReadsApi::handleGetGroups(quint64 userId)
 {
+    emit requestFinished();
+
+    bool ok = false;
+    auto doc = GetDocumentFromReply(sender(), ok);
+    if (!ok) {
+        return;
+    }
+
+    emit gotUserGroups(userId, RpcUtils::Parser::ParseGroups(doc));
+}
+
 }
 }
