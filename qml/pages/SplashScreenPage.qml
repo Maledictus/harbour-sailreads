@@ -79,7 +79,7 @@ Page {
             progress.text = progressMessage
         }
         onGotUserProfile: {
-            pageStack.replace(Qt.resolvedUrl("UpdatesPage.qml"))
+            pageStack.replace(Qt.resolvedUrl("ProfilePage.qml"))
         }
     }
 

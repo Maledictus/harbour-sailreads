@@ -33,6 +33,18 @@ import "../utils/Utils.js" as Utils
 Page {
     id: profilePage
 
+    BookShelfProxyModel {
+        id: bookShelvesModel
+
+        limit: 3
+        filterRole: BookShelvesModel.Exclusive
+        filterRegExp: new RegExp("true")
+        dynamicSortFilter: true
+        sourceModel: BookShelvesModel {
+            userId: sailreadsManager.userProfile.userId
+        }
+    }
+
     SilicaFlickable {
         id: profileView
 
@@ -53,6 +65,15 @@ Page {
                 left: parent.left
                 right: parent.right
                 top: header.bottom
+            }
+
+            PullDownMenu {
+                MenuItem {
+                    text: qsTr("Refresh")
+                    onClicked: {
+                        sailreadsManager.getUserInfo(sailreadsManager.userProfile.userId)
+                    }
+                }
             }
 
             Row {
@@ -142,6 +163,7 @@ Page {
                 height: Theme.itemSizeMedium
                 text: qsTr("Friends")
                 counter: sailreadsManager.userProfile.friendsCount
+                busy: sailreadsManager.busy
             }
 
             MoreButton {
@@ -150,6 +172,7 @@ Page {
                 height: Theme.itemSizeMedium
                 text: qsTr("Groups")
                 counter: sailreadsManager.userProfile.groupsCount
+                busy: sailreadsManager.busy
             }
 
             MoreButton {
@@ -157,7 +180,12 @@ Page {
                 width: parent.width
                 height: Theme.itemSizeMedium
                 text: qsTr("Bookshelves")
-                counter: sailreadsManager.userProfile.bookShelvesModel.rowCount()
+                counter: sailreadsManager.userProfile.bookShelvesCount
+                busy: sailreadsManager.busy
+                onClicked: {
+                    pageStack.push(Qt.resolvedUrl("BOokShelvesPage.qml"),
+                            { userId: sailreadsManager.userProfile.userId })
+                }
             }
 
             SilicaListView {
@@ -165,12 +193,6 @@ Page {
 
                 width: parent.width
                 height: contentHeight
-                model: delegateModel
-            }
-
-            DelegateModel {
-                id: delegateModel
-
                 delegate:  ListItem {
                     width: parent.width
                     Label {
@@ -186,26 +208,14 @@ Page {
                     }
                 }
 
-                model: sailreadsManager.userProfile.bookShelvesModel
+                model: bookShelvesModel
 
-                groups: [
-                    DelegateModelGroup {
-                        includeByDefault: false
-                        name: "exclusive"
-
-                        Component.onCompleted: {
-                            var rowCount = sailreadsManager.userProfile.bookShelvesModel.rowCount();
-                            for (var i = 0;i < rowCount; ++i) {
-                                var entry = sailreadsManager.userProfile.bookShelvesModel.get(i);
-                                if (entry.bookShelfExclusive) {
-                                    insert(entry)
-                                }
-                            }
-                        }
-                    }
-                ]
-
-                filterOnGroup: "exclusive"
+                BusyIndicator {
+                    size: BusyIndicatorSize.Large
+                    anchors.centerIn: parent
+                    running: sailreadsManager.busy
+                    visible: running
+                }
             }
         }
     }

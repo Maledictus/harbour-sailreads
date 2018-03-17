@@ -63,7 +63,8 @@ Page {
             MenuItem {
                 text: qsTr("My Books")
                 onClicked: {
-                    pageStack.replace(Qt.resolvedUrl("BookShelvesPage.qml"))
+                    pageStack.replace(Qt.resolvedUrl("BookShelvesPage.qml"),
+                            {userId: sailreadsManager.userProfile.userId})
                 }
             }
 

@@ -24,13 +24,24 @@ THE SOFTWARE.
 
 import QtQuick 2.2
 import Sailfish.Silica 1.0
+import harbour.sailreads 1.0
 
 Page {
     id: page
 
+    property int userId: 0
+
     onStatusChanged: {
         if (status == PageStatus.Active && sailreadsManager.logged) {
-            sailreadsManager.loadBookShelves()
+            bookShelvesModel.userId = userId
+        }
+    }
+
+    BookShelvesModel {
+        id: bookShelvesModel
+
+        onUserIdChanged: {
+            sailreadsManager.loadBookShelves(userId)
         }
     }
 
@@ -59,14 +70,69 @@ Page {
             MenuItem {
                 text: qsTr("Refresh")
                 onClicked: {
-                    sailreadsManager.loadBookShelves()
+                    sailreadsManager.loadBookShelves(userId)
+                }
+            }
+        }
+
+        PushUpMenu {
+            MenuItem {
+                text: qsTr("Add shelf")
+                onClicked: {
+                    var dialog = pageStack.push("../dialogs/AddEditShelfDialog.qml")
+                    dialog.accepted.connect (function () {
+                        sailreadsManager.addBookShelf(dialog.name, dialog.exclusive)
+                    })
                 }
             }
         }
 
         ViewPlaceholder {
-            enabled: false //TODO
+            enabled: !sailreadsManager.busy && bookShelvesView.count === 0
             text: qsTr ("There are no bookshelves. Pull down to refresh")
+        }
+
+        model: bookShelvesModel
+
+        delegate: ListItem {
+            Label {
+                id: shelfName
+                anchors {
+                    left: parent.left
+                    leftMargin: Theme.horizontalPageMargin
+                    right: shelfCount.left
+                    rightMargin: Theme.paddingMedium
+                    verticalCenter: parent.verticalCenter
+                }
+
+                truncationMode: TruncationMode.Fade
+                text: bookShelfName
+            }
+
+            Label {
+                id: shelfCount
+                anchors {
+                    right: parent.right
+                    rightMargin: Theme.horizontalPageMargin
+                    verticalCenter: parent.verticalCenter
+                }
+                color: Theme.secondaryColor
+                text: bookShelfBooksCount
+            }
+
+            menu: ContextMenu {
+                hasContent: userId === sailreadsManager.userProfile.userId
+                MenuItem {
+                    text: qsTr("Edit")
+                    onClicked: {
+                        var dialog = pageStack.push("../dialogs/AddEditShelfDialog.qml",
+                            { mode: "edit", name: bookShelfName, exclusive: bookShelfExclusive })
+                        dialog.accepted.connect (function () {
+                            sailreadsManager.editBookShelf(bookShelfId, dialog.name, dialog.exclusive)
+                        })
+                    }
+                }
+            }
         }
 
         VerticalScrollDecorator {}
