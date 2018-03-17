@@ -22,11 +22,22 @@ THE SOFTWARE.
 
 #include "bookshelvesmodel.h"
 
+#include "../sailreadsmanager.h"
+#include "../userprofile.h"
+
 namespace Sailreads
 {
 BookShelvesModel::BookShelvesModel(QObject *parent)
 : BaseModel<BookShelf>(parent)
+, m_UserId(0)
 {
+    auto sm = SailreadsManager::Instance();
+    connect(sm, &SailreadsManager::gotUserBookShelves,
+            this, &BookShelvesModel::handleGotUserBookShelves);
+    connect(sm, &SailreadsManager::bookShelfAdded,
+            this, &BookShelvesModel::handleBookShelfAdded);
+    connect(sm, &SailreadsManager::bookShelfEdited,
+            this, &BookShelvesModel::handleBookShelfEdited);
 }
 
 BookShelvesModel::~BookShelvesModel()
@@ -41,19 +52,19 @@ QVariant BookShelvesModel::data(const QModelIndex& index, int role) const
 
     const auto& booksShelf = m_Items.at(index.row());
     switch (role) {
-    case BSRId:
+    case Id:
         return booksShelf.GetId();
-    case BSRName:
+    case Name:
         return booksShelf.GetName();
-    case BSRBooksCount:
+    case BooksCount:
         return booksShelf.GetBooksCount();
-    case BSRDescription:
+    case Description:
         return booksShelf.GetDescription();
-    case BSRExclusive:
+    case Exclusive:
         return booksShelf.GetExclusive();
-    case BSRFeatured:
+    case Featured:
         return booksShelf.GetFeatured();
-    case BSRSortable:
+    case Sortable:
         return booksShelf.GetSortable();
     default:
         return QVariant ();
@@ -63,31 +74,58 @@ QVariant BookShelvesModel::data(const QModelIndex& index, int role) const
 QHash<int, QByteArray> BookShelvesModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
-    roles[BSRId] = "bookShelfId";
-    roles[BSRName] = "bookShelfName";
-    roles[BSRBooksCount] = "bookShelfBooksCount";
-    roles[BSRDescription] = "bookShelfDescription";
-    roles[BSRExclusive] = "bookShelfExclusive";
-    roles[BSRFeatured] = "bookShelfFeatured";
-    roles[BSRSortable] = "bookShelfSortable";
+    roles[Id] = "bookShelfId";
+    roles[Name] = "bookShelfName";
+    roles[BooksCount] = "bookShelfBooksCount";
+    roles[Description] = "bookShelfDescription";
+    roles[Exclusive] = "bookShelfExclusive";
+    roles[Featured] = "bookShelfFeatured";
+    roles[Sortable] = "bookShelfSortable";
     return roles;
 }
 
-QVariantMap BookShelvesModel::get(int index) const
+quint64 BookShelvesModel::GetUserId() const
 {
-    QVariantMap map;
-    if (index > m_Items.count() - 1 || index < 0) {
-        return map;
-    }
-    const auto& booksShelf = m_Items.at(index);
-    map["bookShelfId"] = booksShelf.GetId();
-    map["bookShelfName"] = booksShelf.GetName();
-    map["bookShelfBooksCount"] = booksShelf.GetBooksCount();
-    map["bookShelfDescription"] = booksShelf.GetDescription();
-    map["bookShelfExclusive"] = booksShelf.GetExclusive();
-    map["bookShelfFeatured"] = booksShelf.GetFeatured();
-    map["bookShelfSortable"] = booksShelf.GetSortable();
-    return map;
+    return m_UserId;
 }
 
+void BookShelvesModel::SetUserId(quint64 id)
+{
+    if (m_UserId != id) {
+        m_UserId = id;
+        emit userIdChanged();
+
+        if (SailreadsManager::Instance()->GetProfile()->GetUserID() == m_UserId) {
+            SetItems(SailreadsManager::Instance()->GetProfile()->GetBookShelves());
+        }
+    }
+
+}
+
+void BookShelvesModel::handleGotUserBookShelves(quint64 userId, const BookShelves_t& bookshelves)
+{
+    if (userId != m_UserId) {
+        return;
+    }
+
+    SetItems(bookshelves);
+}
+
+void BookShelvesModel::handleBookShelfAdded(const BookShelf& shelf)
+{
+    AddItems(shelf);
+}
+
+void BookShelvesModel::handleBookShelfEdited(const BookShelf& shelf)
+{
+    auto it = std::find_if(m_Items.begin(), m_Items.end(),
+            [shelf](decltype(m_Items.front()) oldShelf)
+            { return oldShelf.GetId() == shelf.GetId(); });
+    if (it != m_Items.end())
+    {
+        int pos = std::distance(m_Items.begin(), it);
+        m_Items[pos] = shelf;
+        emit dataChanged(index(pos), index(pos));
+    }
+}
 } // namespace Sailreads

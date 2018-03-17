@@ -22,6 +22,8 @@ THE SOFTWARE.
 
 #pragma once
 
+#include <QQmlParserStatus>
+
 #include "basemodel.h"
 #include "../bookshelf.h"
 
@@ -31,24 +33,38 @@ class BookShelvesModel : public BaseModel<BookShelf>
 {
     Q_OBJECT
 
+    Q_ENUMS(BookShelfRoles)
+
+    quint64 m_UserId;
+
+    Q_PROPERTY(quint64 userId READ GetUserId WRITE SetUserId NOTIFY userIdChanged)
+public:
     enum BookShelfRoles
     {
-        BSRId = Qt::UserRole + 1,
-        BSRName,
-        BSRBooksCount,
-        BSRDescription,
-        BSRExclusive,
-        BSRFeatured,
-        BSRSortable
+        Id = Qt::UserRole + 1,
+        Name,
+        BooksCount,
+        Description,
+        Exclusive,
+        Featured,
+        Sortable
     };
 
-public:
     explicit BookShelvesModel(QObject *parent = 0);
     virtual ~BookShelvesModel();
 
-    virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
-    virtual QHash<int, QByteArray> roleNames() const;
+    virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
+    virtual QHash<int, QByteArray> roleNames() const override;
 
-    Q_INVOKABLE QVariantMap get(int index) const;
+    quint64 GetUserId() const;
+    void SetUserId(quint64 id);
+
+private slots:
+    void handleGotUserBookShelves(quint64 userId, const BookShelves_t& bookshelves);
+    void handleBookShelfAdded(const BookShelf& shelf);
+    void handleBookShelfEdited(const BookShelf& shelf);
+
+signals:
+    void userIdChanged();
 };
 } // namespace Sailreads
