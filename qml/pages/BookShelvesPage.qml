@@ -31,17 +31,12 @@ Page {
 
     property int userId: 0
 
-    onStatusChanged: {
-        if (status == PageStatus.Active && sailreadsManager.logged) {
-            bookShelvesModel.userId = userId
-        }
-    }
-
-    BookShelvesModel {
+    BookShelfProxyModel {
         id: bookShelvesModel
 
-        onUserIdChanged: {
-            sailreadsManager.loadBookShelves(userId)
+        dynamicSortFilter: true
+        sourceModel: BookShelvesModel {
+            userId: page.userId
         }
     }
 
@@ -54,35 +49,18 @@ Page {
 
         PullDownMenu {
             MenuItem {
-                text: qsTr("View Profile")
-                onClicked: {
-                    pageStack.push(Qt.resolvedUrl("ProfilePage.qml"))
-                }
-            }
-
-            MenuItem {
-                text: qsTr("Updates Feed")
-                onClicked: {
-                    pageStack.replace(Qt.resolvedUrl("UpdatesPage.qml"))
-                }
-            }
-
-            MenuItem {
-                text: qsTr("Refresh")
-                onClicked: {
-                    sailreadsManager.loadBookShelves(userId)
-                }
-            }
-        }
-
-        PushUpMenu {
-            MenuItem {
                 text: qsTr("Add shelf")
                 onClicked: {
                     var dialog = pageStack.push("../dialogs/AddEditShelfDialog.qml")
                     dialog.accepted.connect (function () {
                         sailreadsManager.addBookShelf(dialog.name, dialog.exclusive)
                     })
+                }
+            }
+            MenuItem {
+                text: qsTr("Refresh")
+                onClicked: {
+                    sailreadsManager.loadBookShelves(userId)
                 }
             }
         }
