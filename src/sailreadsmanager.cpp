@@ -111,12 +111,19 @@ void SailreadsManager::MakeConnections()
                     m_Profile->Update(profile);
                     emit profileChanged();
                     emit gotUserProfile();
+                    emit gotUserBookShelves(m_Profile->GetUserID(), m_Profile->GetBookShelves());
                 }
                 else if (profile) {
                     qDebug() << "User profile got";
                     //TODO
                 }
             });
+    connect(m_Api, &GoodReadsApi::gotUserBookShelves,
+            this, &SailreadsManager::gotUserBookShelves);
+    connect(m_Api, &GoodReadsApi::bookShelfAdded,
+            this, &SailreadsManager::bookShelfAdded);
+    connect(m_Api, &GoodReadsApi::bookShelfEdited,
+            this, &SailreadsManager::bookShelfEdited);
 }
 
 void SailreadsManager::SetBusy(bool busy)
@@ -167,9 +174,27 @@ void SailreadsManager::getUpdates()
     m_Api->GetUpdates();
 }
 
-void SailreadsManager::loadBookShelves()
+void SailreadsManager::loadBookShelves(quint64 id)
 {
     SetBusy(true);
-    m_Api->GetBookShelves();
+    m_Api->GetBookShelves(id);
+}
+
+void SailreadsManager::addBookShelf(const QString& name, bool exclusive)
+{
+    SetBusy(true);
+    m_Api->AddBookShelf(name, exclusive);
+}
+
+void SailreadsManager::editBookShelf(quint64 id, const QString& name, bool exclusive)
+{
+    SetBusy(true);
+    m_Api->EditBookShelf(id, name, exclusive);
+}
+
+void SailreadsManager::removeBookShelf(quint64 id)
+{
+    SetBusy(true);
+    m_Api->RemoveBookShelf(id);
 }
 }

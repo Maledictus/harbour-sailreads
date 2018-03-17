@@ -27,6 +27,8 @@ THE SOFTWARE.
 #include <QObject>
 #include <QVariantMap>
 
+#include "bookshelf.h"
+
 namespace Sailreads
 {
 class GoodReadsApi;
@@ -73,13 +75,22 @@ public slots:
     void authUser();
     void getUserInfo(quint64 id);
     void getUpdates();
-    void loadBookShelves();
+
+    void loadBookShelves(quint64 id);
+    void addBookShelf(const QString& name, bool exclusive);
+    void editBookShelf(quint64 id, const QString& name, bool exclusive);
+    void removeBookShelf(quint64 id);
 
 signals:
     void busyChanged();
     void loggedChanged();
     void profileChanged();
+
     void gotUserProfile();
+
+    void gotUserBookShelves(quint64 userId, const BookShelves_t& shelves);
+    void bookShelfAdded(const BookShelf& shelf);
+    void bookShelfEdited(const BookShelf& shelf);
 
     void requestTokenChanged(const QString& requestToken);
 
