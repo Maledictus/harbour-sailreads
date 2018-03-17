@@ -37,7 +37,7 @@ public:
     : QAbstractListModel(parent)
     {}
 
-    virtual int rowCount(const QModelIndex& = QModelIndex()) const
+    virtual int rowCount(const QModelIndex& = QModelIndex()) const override
     {
         return m_Items.count();
     }
@@ -58,8 +58,10 @@ public:
 
     void SetItems(const QList<T>& items)
     {
-        Clear();
-        AddItems(items);
+        beginResetModel();
+        m_Items.clear();
+        m_Items.append(items);
+        endResetModel();
     }
 
     QList<T> GetItems() const
