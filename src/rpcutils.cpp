@@ -117,8 +117,7 @@ BookShelf ParseBookShelf(const QDomElement& element)
             shelf.SetFeatured(fieldElement.text() == "true");
         }
         else if (fieldElement.tagName() == "sort") {
-            shelf.SetSortable(!(fieldElement.hasAttribute("nil") &&
-                    fieldElement.attribute("nil") == "true"));
+            shelf.SetSortable(fieldElement.text() == "true");
         }
     }
 
@@ -252,6 +251,16 @@ std::shared_ptr<UserProfile> ParseUserProfile(const QDomDocument &doc)
      }
 
     return profile;
+}
+
+BookShelves_t ParseBookShelves(const QDomDocument& doc)
+{
+    const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
+    if (responseElement.isNull()) {
+        return BookShelves_t();
+    }
+
+    return ParseBookShelves(responseElement.firstChildElement("shelves"));
 }
 }
 }

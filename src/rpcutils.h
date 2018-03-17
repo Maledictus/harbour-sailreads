@@ -41,13 +41,14 @@ namespace Parser
 {
 UserUpdate::Actor ParseActor(const QDomElement& element);
 UserUpdate ParseUserUpdate(const QDomElement& element);
-BookShelf ParseBooksShelf(const QDomElement& element);
+BookShelf ParseBookShelf(const QDomElement& element);
 FavoriteAuthors_t ParseFavoriteAuthors(const QDomElement& faElement);
 
 UserUpdates_t ParseUserUpdates(const QDomElement& element);
 BookShelves_t ParseBookShelves(const QDomElement& element);
 
 std::shared_ptr<UserProfile> ParseUserProfile(const QDomDocument& doc);
+BookShelves_t ParseBookShelves(const QDomDocument& doc);
 }
 }
 }
