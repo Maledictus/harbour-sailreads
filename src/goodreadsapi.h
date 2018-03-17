@@ -62,7 +62,13 @@ public:
 
     void AuthUser();
     void GetUserInfo(quint64 id);
+
     void GetUpdates();
+
+    void GetBookShelves(quint64 userId);
+    void AddBookShelf(const QString& name, bool exclusive);
+    void EditBookShelf(quint64 id, const QString& name, bool exclusive);
+    void RemoveBookShelf(quint64 bookShelfId);
 
 private slots:
     void handleObtainRequestToken();
@@ -72,6 +78,11 @@ private slots:
     void handleGetUserInfo();
     void handleGetUpdates();
 
+    void handleGetBookShelves(quint64 userId);
+    void handleAddBookShelf();
+    void handleEditBookShelf();
+    void handleRemoveBookShelf();
+
 signals:
     void requestFinished();
 
@@ -80,5 +91,10 @@ signals:
 
     void gotAuthUserInfo(quint64 id, const QString& name, const QString& link);
     void gotUserProfile(std::shared_ptr<UserProfile> profile);
+//    void gotFriendsUpdates(const & updates);
+
+    void gotUserBookShelves(quint64 userId, const BookShelves_t& shelves);
+    void bookShelfAdded(const BookShelf& shelf);
+    void bookShelfEdited(const BookShelf& shelf);
 };
 }

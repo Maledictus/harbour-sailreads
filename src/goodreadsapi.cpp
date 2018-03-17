@@ -76,9 +76,9 @@ void GoodReadsApi::RequestAccessToken() const
 
 void GoodReadsApi::AuthUser()
 {
-    const auto& url = m_OAuthWrapper->MakeGetSignedUrl(m_AccessToken, m_AccessTokenSecret,
+    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
             QUrl("https://www.goodreads.com/api/auth_user"));
-    auto reply = m_NAM->get(QNetworkRequest(url));
+    auto reply = m_NAM->get(QNetworkRequest(pair.first));
     connect (reply,
              &QNetworkReply::finished,
              this,
@@ -99,13 +99,57 @@ void GoodReadsApi::GetUserInfo(quint64 id)
 
 void GoodReadsApi::GetUpdates()
 {
-    const auto& url = m_OAuthWrapper->MakeGetSignedUrl(m_AccessToken, m_AccessTokenSecret,
+    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
             QUrl("https://www.goodreads.com/updates/friends.xml"));
-    auto reply = m_NAM->get(QNetworkRequest(url));
+    auto reply = m_NAM->get(QNetworkRequest(pair.first));
     connect (reply,
              &QNetworkReply::finished,
              this,
              &GoodReadsApi::handleGetUpdates);
+}
+
+void GoodReadsApi::GetBookShelves(quint64 userId)
+{
+    const QUrl url(QString("https://www.goodreads.com/shelf/list.xml?key=%1&user_id=%2")
+            .arg(m_ConsumerKey)
+            .arg(userId));
+    auto reply = m_NAM->get(QNetworkRequest(url));
+    connect(reply,
+            &QNetworkReply::finished,
+            this,
+            [this, userId]() {
+                handleGetBookShelves(userId);
+            });
+}
+
+void GoodReadsApi::AddBookShelf(const QString& name, bool exclusive)
+{
+    QString urlString = QString("https://www.goodreads.com/user_shelves.xml?user_shelf[name]=%1&"
+            "user_shelf[exclusive_flag]=%2").arg(name).arg(exclusive ? "true" : "false");
+    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
+            QUrl(urlString), "POST");
+    auto reply = m_NAM->post(QNetworkRequest(pair.first), pair.second);
+    connect(reply,
+            &QNetworkReply::finished,
+            this,
+            &GoodReadsApi::handleAddBookShelf);
+}
+
+void GoodReadsApi::EditBookShelf(quint64 id, const QString& name, bool exclusive)
+{
+    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
+            QUrl(QString("https://www.goodreads.com/user_shelves/%1.xml?user_shelf[name]=%2&"
+                    "user_shelf[exclusive_flag]=%3").arg(id).arg(name)
+                        .arg(exclusive ? "true" : "false")), "PUT");
+    auto reply = m_NAM->put(QNetworkRequest(pair.first), QByteArray());
+    connect(reply,
+            &QNetworkReply::finished,
+            this,
+            &GoodReadsApi::handleEditBookShelf);
+}
+
+void GoodReadsApi::RemoveBookShelf(quint64)
+{
 }
 
 namespace
@@ -268,8 +312,50 @@ void GoodReadsApi::handleGetUpdates()
         return;
     }
 
+//    qDebug() << doc.toByteArray();
     //emit gotUserProfile(RpcUtils::Parser::ParseUserProfile(doc));
 }
 
+void GoodReadsApi::handleGetBookShelves(quint64 userId)
+{
+    emit requestFinished();
 
+    bool ok = false;
+    auto doc = GetDocumentFromReply(sender(), ok);
+    if (!ok) {
+        return;
+    }
+
+    emit gotUserBookShelves(userId, RpcUtils::Parser::ParseBookShelves(doc));
+}
+
+void GoodReadsApi::handleAddBookShelf()
+{
+    emit requestFinished();
+
+    bool ok = false;
+    auto doc = GetDocumentFromReply(sender(), ok);
+    if (!ok) {
+        return;
+    }
+
+    emit bookShelfAdded(RpcUtils::Parser::ParseBookShelf(doc.firstChildElement("user_shelf")));
+}
+
+void GoodReadsApi::handleEditBookShelf()
+{
+    emit requestFinished();
+
+    bool ok = false;
+    auto doc = GetDocumentFromReply(sender(), ok);
+    if (!ok) {
+        return;
+    }
+
+    emit bookShelfEdited(RpcUtils::Parser::ParseBookShelf(doc.firstChildElement("user_shelf")));
+}
+
+void GoodReadsApi::handleRemoveBookShelf()
+{
+}
 }
