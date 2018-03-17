@@ -22,10 +22,8 @@ THE SOFTWARE.
 
 #pragma once
 
-#include <QQmlParserStatus>
-
 #include "basemodel.h"
-#include "../bookshelf.h"
+#include "../objects/bookshelf.h"
 
 namespace Sailreads
 {
@@ -50,8 +48,7 @@ public:
         Sortable
     };
 
-    explicit BookShelvesModel(QObject *parent = 0);
-    virtual ~BookShelvesModel();
+    explicit BookShelvesModel(QObject *parent = nullptr);
 
     virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
     virtual QHash<int, QByteArray> roleNames() const override;

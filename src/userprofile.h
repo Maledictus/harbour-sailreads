@@ -31,7 +31,7 @@ THE SOFTWARE.
 #include <QVariantMap>
 #include <QUrl>
 
-#include "bookshelf.h"
+#include "objects/bookshelf.h"
 #include "types.h"
 #include "userupdate.h"
 

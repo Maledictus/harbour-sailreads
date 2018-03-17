@@ -40,14 +40,10 @@ BookShelvesModel::BookShelvesModel(QObject *parent)
             this, &BookShelvesModel::handleBookShelfEdited);
 }
 
-BookShelvesModel::~BookShelvesModel()
-{
-}
-
 QVariant BookShelvesModel::data(const QModelIndex& index, int role) const
 {
     if (index.row() > m_Items.count() - 1 || index.row() < 0) {
-        return QVariant ();
+        return QVariant();
     }
 
     const auto& booksShelf = m_Items.at(index.row());
@@ -67,7 +63,7 @@ QVariant BookShelvesModel::data(const QModelIndex& index, int role) const
     case Sortable:
         return booksShelf.GetSortable();
     default:
-        return QVariant ();
+        return QVariant();
     }
 }
 
@@ -99,7 +95,6 @@ void BookShelvesModel::SetUserId(quint64 id)
             SetItems(SailreadsManager::Instance()->GetProfile()->GetBookShelves());
         }
     }
-
 }
 
 void BookShelvesModel::handleGotUserBookShelves(quint64 userId, const BookShelves_t& bookshelves)
