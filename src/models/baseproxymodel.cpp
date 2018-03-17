@@ -39,8 +39,10 @@ int BaseProxyModel::GetLimit() const
 
 void BaseProxyModel::SetLimit(int limit)
 {
-    m_Limit = limit;
-    emit limitChanged();
+    if (m_Limit != limit) {
+        m_Limit = limit;
+        emit limitChanged();
+    }
     invalidate();
 }
 
