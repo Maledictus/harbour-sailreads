@@ -38,7 +38,6 @@ UserProfile::UserProfile(QObject *parent)
 , m_FriendsCount(0)
 , m_GroupsCount(0)
 , m_BooksCount(0)
-, m_BookShelvesModel(new BookShelvesModel(this))
 {
 }
 
@@ -52,7 +51,6 @@ UserProfile::UserProfile(qint64 id, const QString& name, const QUrl& webUrl, QOb
 , m_FriendsCount(0)
 , m_GroupsCount(0)
 , m_BooksCount(0)
-, m_BookShelvesModel(new BookShelvesModel(this))
 {
 }
 
@@ -68,8 +66,10 @@ quint64 UserProfile::GetUserID() const
 
 void UserProfile::SetUserID(quint64 id)
 {
-    m_UserID = id;
-    emit userIdChanged();
+    if (m_UserID != id) {
+        m_UserID = id;
+        emit userIdChanged();
+    }
 }
 
 QString UserProfile::GetUserName() const
@@ -79,8 +79,10 @@ QString UserProfile::GetUserName() const
 
 void UserProfile::SetUserName(const QString& name)
 {
-    m_UserName = name;
-    emit userNameChanged();
+    if (m_UserName != name) {
+        m_UserName = name;
+        emit userNameChanged();
+    }
 }
 
 QUrl UserProfile::GetWebUrl() const
@@ -90,8 +92,10 @@ QUrl UserProfile::GetWebUrl() const
 
 void UserProfile::SetWebUrl(const QUrl& url)
 {
-    m_WebUrl = url;
-    emit webUrlChanged();
+    if (m_WebUrl != url) {
+        m_WebUrl = url;
+        emit webUrlChanged();
+    }
 }
 
 bool UserProfile::GetPrivate() const
@@ -101,8 +105,10 @@ bool UserProfile::GetPrivate() const
 
 void UserProfile::SetPrivate(bool priv)
 {
-    m_Private = priv;
-    emit isPrivateChanged();
+    if (m_Private != priv) {
+        m_Private = priv;
+        emit isPrivateChanged();
+    }
 }
 
 QString UserProfile::GetNickName() const
@@ -112,8 +118,10 @@ QString UserProfile::GetNickName() const
 
 void UserProfile::SetNickName(const QString& nickName)
 {
-    m_NickName = nickName;
-    emit nickNameChanged();
+    if (m_NickName != nickName) {
+        m_NickName = nickName;
+        emit nickNameChanged();
+    }
 }
 
 QUrl UserProfile::GetAvatarUrl() const
@@ -123,8 +131,10 @@ QUrl UserProfile::GetAvatarUrl() const
 
 void UserProfile::SetAvatarUrl(const QUrl& url)
 {
-    m_AvatarUrl = url;
-    emit avatarUrlChanged();
+    if (m_AvatarUrl != url) {
+        m_AvatarUrl = url;
+        emit avatarUrlChanged();
+    }
 }
 
 QUrl UserProfile::GetSmallAvatarUrl() const
@@ -134,8 +144,10 @@ QUrl UserProfile::GetSmallAvatarUrl() const
 
 void UserProfile::SetSmallAvatarUrl(const QUrl& url)
 {
-    m_SmallAvatarUrl = url;
-    emit smallAvatarUrlChanged();
+    if (m_SmallAvatarUrl != url) {
+        m_SmallAvatarUrl = url;
+        emit smallAvatarUrlChanged();
+    }
 }
 
 QString UserProfile::GetAbout() const
@@ -145,8 +157,10 @@ QString UserProfile::GetAbout() const
 
 void UserProfile::SetAbout(const QString& about)
 {
-    m_About = about;
-    emit aboutChanged();
+    if (m_About != about) {
+        m_About = about;
+        emit aboutChanged();
+    }
 }
 
 quint32 UserProfile::GetAge() const
@@ -156,8 +170,10 @@ quint32 UserProfile::GetAge() const
 
 void UserProfile::SetAge(quint32 age)
 {
-    m_Age = age;
-    emit ageChanged();
+    if (m_Age != age) {
+        m_Age = age;
+        emit ageChanged();
+    }
 }
 
 QString UserProfile::GetGender() const
@@ -167,8 +183,10 @@ QString UserProfile::GetGender() const
 
 void UserProfile::SetGender(const QString& gender)
 {
-    m_Gender = gender;
-    emit genderChanged();
+    if (m_Gender != gender) {
+        m_Gender = gender;
+        emit genderChanged();
+    }
 }
 
 QString UserProfile::GetLocation() const
@@ -178,8 +196,10 @@ QString UserProfile::GetLocation() const
 
 void UserProfile::SetLocation(const QString& location)
 {
-    m_Location = location;
-    emit locationChanged();
+    if (m_Location != location) {
+        m_Location = location;
+        emit locationChanged();
+    }
 }
 
 QUrl UserProfile::GetWebSite() const
@@ -189,8 +209,10 @@ QUrl UserProfile::GetWebSite() const
 
 void UserProfile::SetWebSite(const QUrl& url)
 {
-    m_WebSite = url;
-    emit webSiteChanged();
+    if (m_WebSite != url) {
+        m_WebSite = url;
+        emit webSiteChanged();
+    }
 }
 
 QString UserProfile::GetJoinedDate() const
@@ -200,8 +222,10 @@ QString UserProfile::GetJoinedDate() const
 
 void UserProfile::SetJoinedDate(const QString& date)
 {
-    m_JoinDate = date;
-    emit joinedDateChanged();
+    if (m_JoinDate != date) {
+        m_JoinDate = date;
+        emit joinedDateChanged();
+    }
 }
 
 QString UserProfile::GetLastUpdateDate() const
@@ -211,8 +235,10 @@ QString UserProfile::GetLastUpdateDate() const
 
 void UserProfile::SetLastUpdateDate(const QString& date)
 {
-    m_LastUpdateDate = date;
-    emit lastUpdateDateChanged();
+    if (m_LastUpdateDate != date) {
+        m_LastUpdateDate = date;
+        emit lastUpdateDateChanged();
+    }
 }
 
 QString UserProfile::GetInterests() const
@@ -222,8 +248,10 @@ QString UserProfile::GetInterests() const
 
 void UserProfile::SetInterests(const QString& interests)
 {
-    m_Interests = interests;
-    emit interestsChanged();
+    if (m_Interests != interests) {
+        m_Interests = interests;
+        emit interestsChanged();
+    }
 }
 
 QString UserProfile::GetFavoriteBooksDesc() const
@@ -233,8 +261,10 @@ QString UserProfile::GetFavoriteBooksDesc() const
 
 void UserProfile::SetFavoriteBooksDesc(const QString& booksDesc)
 {
-    m_FavoriteBooksDesc = booksDesc;
-    emit favoriteBooksDescChanged();
+    if (m_FavoriteBooksDesc != booksDesc) {
+        m_FavoriteBooksDesc = booksDesc;
+        emit favoriteBooksDescChanged();
+    }
 }
 
 FavoriteAuthors_t UserProfile::GetFavoritesAuthors() const
@@ -254,8 +284,10 @@ QUrl UserProfile::GetUpdateRSSUrl() const
 
 void UserProfile::SetUpdateRSSUrl(const QUrl& url)
 {
-    m_UpdateRSSUrl = url;
-    emit updateRSSUrlChanged();
+    if (m_UpdateRSSUrl != url) {
+        m_UpdateRSSUrl = url;
+        emit updateRSSUrlChanged();
+    }
 }
 
 QUrl UserProfile::GetReviewRSSUrl() const
@@ -265,8 +297,10 @@ QUrl UserProfile::GetReviewRSSUrl() const
 
 void UserProfile::SetReviewRSSUrl(const QUrl& url)
 {
-    m_ReviewRSSUrl = url;
-    emit reviewRSSUrlChanged();
+    if (m_ReviewRSSUrl != url) {
+        m_ReviewRSSUrl = url;
+        emit reviewRSSUrlChanged();
+    }
 }
 
 quint32 UserProfile::GetFriendsCount() const
@@ -276,8 +310,10 @@ quint32 UserProfile::GetFriendsCount() const
 
 void UserProfile::SetFriendsCount(quint32 count)
 {
-    m_FriendsCount = count;
-    emit friendsCountChanged();
+    if (m_FriendsCount != count) {
+        m_FriendsCount = count;
+        emit friendsCountChanged();
+    }
 }
 
 quint32 UserProfile::GetGroupsCount() const
@@ -287,8 +323,10 @@ quint32 UserProfile::GetGroupsCount() const
 
 void UserProfile::SetGroupsCount(quint32 count)
 {
-    m_GroupsCount = count;
-    emit groupsCountChanged();
+    if (m_GroupsCount != count) {
+        m_GroupsCount = count;
+        emit groupsCountChanged();
+    }
 }
 
 quint32 UserProfile::GetBooksCount() const
@@ -298,26 +336,26 @@ quint32 UserProfile::GetBooksCount() const
 
 void UserProfile::SetBooksCount(quint32 count)
 {
-    m_BooksCount = count;
-    emit booksCountChanged();
+    if (m_BooksCount != count) {
+        m_BooksCount = count;
+        emit booksCountChanged();
+    }
 }
 
 BookShelves_t UserProfile::GetBookShelves() const
 {
-    return m_BookShelvesModel ? m_BookShelvesModel->GetItems() : BookShelves_t();
+    return m_BookShelves;
 }
 
 void UserProfile::SetBookShelves(const BookShelves_t& shelves)
 {
-    if (m_BookShelvesModel) {
-        m_BookShelvesModel->SetItems(shelves);
-        emit bookShelvesModelChanged();
-    }
+    m_BookShelves = shelves;
+    emit bookShelvesCountChanged();
 }
 
-BookShelvesModel *UserProfile::GetBookShelvesModel() const
+quint32 UserProfile::GetBookShelvesCount() const
 {
-    return m_BookShelvesModel;
+    return m_BookShelves.count();
 }
 
 void UserProfile::Update(std::shared_ptr<UserProfile> profile)

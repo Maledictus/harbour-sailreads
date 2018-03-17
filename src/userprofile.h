@@ -66,7 +66,7 @@ class UserProfile : public QObject
     quint32 m_FriendsCount;
     quint32 m_GroupsCount;
     quint32 m_BooksCount;
-    BookShelvesModel *m_BookShelvesModel;
+    BookShelves_t m_BookShelves;
 
     Q_PROPERTY(quint64 userId READ GetUserID NOTIFY userIdChanged)
     Q_PROPERTY(QString userName READ GetUserName NOTIFY userNameChanged)
@@ -89,7 +89,7 @@ class UserProfile : public QObject
     Q_PROPERTY(quint32 friendsCount READ GetFriendsCount NOTIFY friendsCountChanged)
     Q_PROPERTY(quint32 groupsCount READ GetGroupsCount NOTIFY groupsCountChanged)
     Q_PROPERTY(quint32 booksCount READ GetBooksCount NOTIFY booksCountChanged)
-    Q_PROPERTY(BookShelvesModel* bookShelvesModel READ GetBookShelvesModel NOTIFY bookShelvesModelChanged)
+    Q_PROPERTY(quint32 bookShelvesCount READ GetBookShelvesCount NOTIFY bookShelvesCountChanged)
 
 public:
     explicit UserProfile(QObject *parent = 0);
@@ -144,7 +144,8 @@ public:
     void SetBooksCount(quint32 count);
     BookShelves_t GetBookShelves() const;
     void SetBookShelves(const BookShelves_t& shelves);
-    BookShelvesModel *GetBookShelvesModel() const;
+
+    quint32 GetBookShelvesCount() const;
 
     void Update(std::shared_ptr<UserProfile> profile);
 
@@ -170,6 +171,6 @@ signals:
     void friendsCountChanged();
     void groupsCountChanged();
     void booksCountChanged();
-    void bookShelvesModelChanged();
+    void bookShelvesCountChanged();
 };
 } // namespace Sailreads
