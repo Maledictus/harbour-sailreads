@@ -4,7 +4,7 @@ VERSION = 0.1
 
 QT += network xmlpatterns xml
 
-CONFIG += link_pkgconfig sailfishapp c++11 sailfishapp_i18n
+CONFIG += sailfishapp c++11
 PKGCONFIG += mlite5
 
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
@@ -13,37 +13,37 @@ LIBS += -loauth
 
 SOURCES += src/harbour-sailreads.cpp \
     src/application.cpp \
+    src/bookshelf.cpp \
     src/debugmessagehandler.cpp \
-    src/settings/applicationsettings.cpp \
-    src/sailreadsmanager.cpp \
     src/goodreadsapi.cpp \
-    src/settings/accountsettings.cpp \
     src/oauthwrapper.cpp \
-    src/userprofile.cpp \
     src/rpcutils.cpp \
+    src/sailreadsmanager.cpp \
     src/userupdate.cpp \
+    src/userprofile.cpp \
+    src/models/baseproxymodel.cpp \
     src/models/bookshelvesmodel.cpp \
-    src/bookshelf.cpp
+    src/models/bookshelfproxymodel.cpp \
+    src/settings/accountsettings.cpp \
+    src/settings/applicationsettings.cpp
 
 HEADERS += src/application.h \
+    src/bookshelf.h \
     src/debugmessagehandler.h \
-    src/settings/applicationsettings.h \
-    src/sailreadsmanager.h \
     src/goodreadsapi.h \
-    src/settings/accountsettings.h \
     src/oauthwrapper.h \
-    src/userprofile.h \
     src/rpcutils.h \
+    src/sailreadsmanager.h \
     src/types.h \
+    src/userprofile.h \
     src/userupdate.h \
+    src/models/baseproxymodel.h \
+    src/models/bookshelfproxymodel.h \
     src/models/bookshelvesmodel.h \
-    src/bookshelf.h
+    src/settings/accountsettings.h \
+    src/settings/applicationsettings.h
 
-DISTFILES += qml/harbour-sailreads.qml \
-    qml/cover/CoverPage.qml \
-    qml/pages/AuthorizationPage.qml \
-    qml/pages/SplashScreenPage.qml \
-    rpm/harbour-sailreads.changes.in \
+DISTFILES += rpm/harbour-sailreads.changes.in \
     rpm/harbour-sailreads.changes.run.in \
     rpm/harbour-sailreads.spec \
     rpm/harbour-sailreads.yaml \
@@ -54,11 +54,7 @@ RESOURCES += $${TARGET}.qrc
 
 SAILFISHAPP_ICONS = 86x86 108x108 128x128
 
-lupdate_only{
-SOURCES = qml/harbour-sailreads.qml \
-    qml/cover/CoverPage.qml \
-    qml/pages/AuthorizationPage.qml \
-    qml/pages/SplashScreenPage.qml
-}
+CONFIG += sailfishapp_i18n
 
-TRANSLATIONS += translations/harbour-sailreads-ru.ts
+TRANSLATIONS += translations/harbour-sailreads.ts \
+    translations/harbour-sailreads-ru.ts
