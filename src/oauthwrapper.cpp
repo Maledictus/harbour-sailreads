@@ -57,11 +57,18 @@ QUrl OAuthWrapper::GetAccessTokenUrl(const QString& requestToken, const QString&
     return QUrl(requestUrlStr);
 }
 
-QUrl OAuthWrapper::MakeGetSignedUrl(const QString& accessToken, const QString& accessTokenSecret,
-        const QUrl& url)
+QPair<QUrl, QByteArray> OAuthWrapper::MakeSignedUrl(const QString& accessToken, const QString& accessTokenSecret,
+        const QUrl& url, const QString& method)
 {
-    return QUrl(oauth_sign_url2(url.toEncoded(), NULL, OA_HMAC, NULL,
-            m_ConsumerKey.toUtf8(), m_ConsumerSecretKey.toUtf8(),
+    char *params = NULL;
+    QUrl signedUrl(oauth_sign_url2(url.toEncoded(), method.toLower() == "post" ? &params : NULL,
+            OA_HMAC, method.toUtf8(), m_ConsumerKey.toUtf8(), m_ConsumerSecretKey.toUtf8(),
             accessToken.toUtf8(), accessTokenSecret.toUtf8()));
+    QPair<QUrl, QByteArray> result(signedUrl, params);
+    if (params) {
+        free(params);
+    }
+
+    return result;
 }
 }

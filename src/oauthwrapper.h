@@ -48,7 +48,7 @@ public:
     QUrl GetRequestTokenUrl() const;
     QUrl GetAccessTokenUrl(const QString& requestToken, const QString& requestTokenSecret) const;
 
-    QUrl MakeGetSignedUrl(const QString& accessToken, const QString& accessTokenSecret,
-            const QUrl& url);
+    QPair<QUrl, QByteArray> MakeSignedUrl(const QString& accessToken, const QString& accessTokenSecret,
+            const QUrl& url, const QString& method = "GET");
 };
 }
