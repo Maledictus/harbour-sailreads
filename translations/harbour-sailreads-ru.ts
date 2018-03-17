@@ -2,6 +2,33 @@
 <!DOCTYPE TS>
 <TS version="2.1">
 <context>
+    <name>AddEditShelfDialog</name>
+    <message>
+        <source>Add</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shelf name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exclusive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A book can only be on one of the exclisive shelves</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AuthorizationPage</name>
     <message>
         <source>Authorization failed</source>
@@ -31,7 +58,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Add shelf</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>There are no bookshelves. Pull down to refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -39,21 +74,13 @@
     <name>CoverPage</name>
     <message>
         <source>My Cover</source>
-        <translation>Mein Cover</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ProfilePage</name>
     <message>
-        <source>Interests: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Favorite books: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>About me: %1</source>
+        <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -66,6 +93,18 @@
     </message>
     <message>
         <source>Last active: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Interests: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Favorite books: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About me: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
