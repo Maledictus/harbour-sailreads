@@ -405,7 +405,6 @@ void GoodReadsApi::handleGetFriends(quint64 userId)
         return;
     }
 
-    qDebug() << doc.toByteArray();
-    //emit gotUserFriends(userId, RpcUtils::Parser::ParseFriends(doc));
+    emit gotUserFriends(userId, RpcUtils::Parser::ParseFriends(doc));
 }
 }
