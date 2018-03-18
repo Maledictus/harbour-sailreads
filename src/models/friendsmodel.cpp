@@ -47,6 +47,18 @@ QVariant FriendsModel::data(const QModelIndex& index, int role) const
         return friendItem.GetId();
     case Name:
         return friendItem.GetName();
+    case Url:
+        return friendItem.GetUrl();
+    case AvatarImage:
+        return friendItem.GetAvatarUrl();
+    case SmallAvatarImage:
+        return friendItem.GetSmallAvatarUrl();
+    case FriendsCount:
+        return friendItem.GetFriendsCount();
+    case BooksCount:
+        return friendItem.GetBooksCount();
+    case CreatedAt:
+        return friendItem.GetCreatedDate();
     default:
         return QVariant();
     }
@@ -57,7 +69,28 @@ QHash<int, QByteArray> FriendsModel::roleNames() const
     QHash<int, QByteArray> roles;
     roles[Id] = "friendId";
     roles[Name] = "friendName";
+    roles[Url] = "friendUrl";
+    roles[AvatarImage] = "friendAvatarUrl";
+    roles[SmallAvatarImage] = "friendSmallAvatarUrl";
+    roles[FriendsCount] = "friendFriendsCount";
+    roles[BooksCount] = "friendBooksCount";
+    roles[CreatedAt] = "friendCreatedAt";
     return roles;
+}
+
+bool FriendsModel::canFetchMore(const QModelIndex& parent) const
+{
+    return !parent.isValid() ? m_CanFetchMore : false;
+}
+
+void FriendsModel::fetchMore(const QModelIndex& parent)
+{
+    if (parent.isValid()) {
+        return;
+    }
+
+    m_CanFetchMore = false;
+    SailreadsManager::Instance()->loadFriends(m_UserId);
 }
 
 quint64 FriendsModel::GetUserId() const
