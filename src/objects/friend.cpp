@@ -48,4 +48,64 @@ void Friend::SetName(const QString& name)
 {
     m_Name = name;
 }
+
+QUrl Friend::GetUrl() const
+{
+    return m_Url;
+}
+
+void Friend::SetUrl(const QUrl& url)
+{
+    m_Url = url;
+}
+
+QUrl Friend::GetAvatarUrl() const
+{
+    return m_AvatarUrl;
+}
+
+void Friend::SetAvatarUrl(const QUrl& url)
+{
+    m_AvatarUrl = url;
+}
+
+QUrl Friend::GetSmallAvatarUrl() const
+{
+    return m_SmallAvatarUrl;
+}
+
+void Friend::SetSmallAvatarUrl(const QUrl& url)
+{
+    m_SmallAvatarUrl = url;
+}
+
+quint64 Friend::GetFriendsCount() const
+{
+    return m_FriendsCount;
+}
+
+void Friend::SetFriendsCount(quint64 count)
+{
+    m_FriendsCount = count;
+}
+
+quint64 Friend::GetBooksCount() const
+{
+    return m_BooksCount;
+}
+
+void Friend::SetBooksCount(quint64 count)
+{
+    m_BooksCount = count;
+}
+
+QDateTime Friend::GetCreatedDate() const
+{
+    return m_CreatedAt;
+}
+
+void Friend::SetCreatedDate(const QDateTime& dt)
+{
+    m_CreatedAt = dt;
+}
 } // namespace Sailreads

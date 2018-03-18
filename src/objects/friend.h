@@ -22,7 +22,9 @@ THE SOFTWARE.
 
 #pragma once
 
+#include <QDateTime>
 #include <QList>
+#include <QUrl>
 
 namespace Sailreads
 {
@@ -30,6 +32,12 @@ class Friend
 {
     quint64 m_Id;
     QString m_Name;
+    QUrl m_Url;
+    QUrl m_AvatarUrl;
+    QUrl m_SmallAvatarUrl;
+    quint64 m_FriendsCount;
+    quint64 m_BooksCount;
+    QDateTime m_CreatedAt;
 public:
     explicit Friend();
 
@@ -37,6 +45,18 @@ public:
     void SetId(quint64 id);
     QString GetName() const;
     void SetName(const QString& name);
+    QUrl GetUrl() const;
+    void SetUrl(const QUrl& url);
+    QUrl GetAvatarUrl() const;
+    void SetAvatarUrl(const QUrl& url);
+    QUrl GetSmallAvatarUrl() const;
+    void SetSmallAvatarUrl(const QUrl& url);
+    quint64 GetFriendsCount() const;
+    void SetFriendsCount(quint64 count);
+    quint64 GetBooksCount() const;
+    void SetBooksCount(quint64 count);
+    QDateTime GetCreatedDate() const;
+    void SetCreatedDate(const QDateTime& dt);
 };
 typedef QList<Friend> Friends_t;
 } // namespace Sailreads
