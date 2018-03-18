@@ -79,6 +79,7 @@ void Application::start()
             "SailreadsManager", "SailreadsManager static uncreatable type");
     qRegisterMetaType<UserProfile*>("UserProfile*");
 
+    qmlRegisterType<BaseProxyModel>("harbour.sailreads", 1, 0, "BaseProxyModel");
     qmlRegisterType<BookShelvesModel>("harbour.sailreads", 1, 0, "BookShelvesModel");
     qmlRegisterType<BookShelfProxyModel>("harbour.sailreads", 1, 0, "BookShelfProxyModel");
     qmlRegisterType<FriendsModel>("harbour.sailreads", 1, 0, "FriendsModel");
