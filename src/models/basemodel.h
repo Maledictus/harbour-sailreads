@@ -31,10 +31,12 @@ class BaseModel : public QAbstractListModel
 {
 protected:
     QList<T> m_Items;
+    bool m_CanFetchMore;
 
 public:
     BaseModel(QObject *parent = 0)
     : QAbstractListModel(parent)
+    , m_CanFetchMore(true)
     {}
 
     virtual int rowCount(const QModelIndex& = QModelIndex()) const override
