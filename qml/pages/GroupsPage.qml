@@ -26,14 +26,21 @@ import QtQuick 2.2
 import Sailfish.Silica 1.0
 import harbour.sailreads 1.0
 
+import "../utils/Utils.js" as Utils
+
 Page {
     id: groupsPage
 
     property int userId: 0
+    property bool busy: sailreadsManager.busy && groupsPage.status == PageStatus.Active
 
-    GroupsModel {
+    BaseProxyModel {
         id: groupsModel
-        userId: groupsPage.userId
+        sortRole: GroupsModel.LastActivity
+        dynamicSortFilter: true
+        sourceModel: GroupsModel {
+            userId: groupsPage.userId
+        }
     }
 
     SilicaListView {
@@ -59,19 +66,55 @@ Page {
 
         model: groupsModel
 
+        spacing: Theme.paddingSmall
+
         delegate: ListItem {
-            Label {
-                id: groupNameLabel
+            width: groupsView.width
+            contentHeight: Theme.itemSizeLarge
+            clip: true
+
+            Image {
+                id: groupIconImage
                 anchors {
                     left: parent.left
                     leftMargin: Theme.horizontalPageMargin
-                    right: parent.right
-                    rightMargin: Theme.paddingMedium
                     verticalCenter: parent.verticalCenter
                 }
+                source: groupImageUrl
+                height: Theme.iconSizeLarge
+                width: Theme.iconSizeLarge
+                fillMode: Image.PreserveAspectFit
+            }
 
-                truncationMode: TruncationMode.Fade
-                text: groupName
+            Column {
+                id: column
+
+                anchors {
+                    right: parent.right
+                    rightMargin: Theme.horizontalPageMargin
+                    left: groupIconImage.right
+                    leftMargin: Theme.paddingMedium
+                }
+
+                Label {
+                    id: groupNameLabel
+                    font.family: Theme.fontFamilyHeading
+                    truncationMode: TruncationMode.Fade
+                    text: groupName
+                }
+                Label {
+                    id: groupLastActivityLabel
+                    truncationMode: TruncationMode.Fade
+                    font.pixelSize: Theme.fontSizeExtraSmall
+                    text: qsTr("Last activity: %1")
+                            .arg(Utils.generateDateString(groupLastActivity, "dd MMM yyyy hh:mm"))
+                }
+                Label {
+                    id: groupMembersLabel
+                    truncationMode: TruncationMode.Fade
+                    font.pixelSize: Theme.fontSizeExtraSmall
+                    text: qsTr("%1 members").arg(groupUsersCount)
+                }
             }
         }
 
@@ -81,7 +124,7 @@ Page {
     BusyIndicator {
         size: BusyIndicatorSize.Large
         anchors.centerIn: parent
-        running: sailreadsManager.busy
+        running: groupsPage.busy
         visible: running
     }
 }

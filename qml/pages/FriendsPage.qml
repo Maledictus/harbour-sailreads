@@ -30,6 +30,11 @@ Page {
     id: friendsPage
 
     property int userId: 0
+    property bool busy: sailreadsManager.busy && friendsPage.status == PageStatus.Active
+
+    function load() {
+        sailreadsManager.loadFriends(userId)
+    }
 
     FriendsModel {
         id: friendsModel
@@ -60,18 +65,51 @@ Page {
         model: friendsModel
 
         delegate: ListItem {
-            Label {
-                id: friendNameLabel
+            width: friendsView.width
+            contentHeight: Theme.itemSizeLarge
+            clip: true
+
+            Image {
+                id: friendIconImage
                 anchors {
                     left: parent.left
                     leftMargin: Theme.horizontalPageMargin
-                    right: shelfCount.left
-                    rightMargin: Theme.paddingMedium
                     verticalCenter: parent.verticalCenter
                 }
+                source: friendAvatarUrl
+                height: Theme.iconSizeLarge
+                width: Theme.iconSizeLarge
+                fillMode: Image.PreserveAspectFit
+            }
 
-                truncationMode: TruncationMode.Fade
-                text: friendName
+            Column {
+                id: column
+
+                anchors {
+                    right: parent.right
+                    rightMargin: Theme.horizontalPageMargin
+                    left: friendIconImage.right
+                    leftMargin: Theme.paddingMedium
+                }
+
+                Label {
+                    id: friendNameLabel
+                    font.family: Theme.fontFamilyHeading
+                    truncationMode: TruncationMode.Fade
+                    text: friendName
+                }
+                Label {
+                    id: friendBooksCountLabel
+                    truncationMode: TruncationMode.Fade
+                    font.pixelSize: Theme.fontSizeExtraSmall
+                    text: qsTr("%1 books").arg(friendBooksCount)
+                }
+                Label {
+                    id: friendFriendsCountLabel
+                    truncationMode: TruncationMode.Fade
+                    font.pixelSize: Theme.fontSizeExtraSmall
+                    text: qsTr("%1 friends").arg(friendFriendsCount)
+                }
             }
         }
 
@@ -81,7 +119,7 @@ Page {
     BusyIndicator {
         size: BusyIndicatorSize.Large
         anchors.centerIn: parent
-        running: sailreadsManager.busy
+        running: friendsPage.busy
         visible: running
     }
 }

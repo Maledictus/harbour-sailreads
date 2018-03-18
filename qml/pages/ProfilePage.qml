@@ -32,6 +32,7 @@ import "../utils/Utils.js" as Utils
 
 Page {
     id: profilePage
+    property bool busy: sailreadsManager.busy && profilePage.status == PageStatus.Active
 
     BookShelfProxyModel {
         id: bookShelvesModel
@@ -163,7 +164,7 @@ Page {
                 height: Theme.itemSizeMedium
                 text: qsTr("Friends")
                 counter: sailreadsManager.userProfile.friendsCount
-                busy: sailreadsManager.busy
+                busy: profilePage.busy
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("FriendsPage.qml"),
                             { userId: sailreadsManager.userProfile.userId })
@@ -176,7 +177,7 @@ Page {
                 height: Theme.itemSizeMedium
                 text: qsTr("Groups")
                 counter: sailreadsManager.userProfile.groupsCount
-                busy: sailreadsManager.busy
+                busy: profilePage.busy
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("GroupsPage.qml"),
                             { userId: sailreadsManager.userProfile.userId })
@@ -189,7 +190,7 @@ Page {
                 height: Theme.itemSizeMedium
                 text: qsTr("Bookshelves")
                 counter: sailreadsManager.userProfile.bookShelvesCount
-                busy: sailreadsManager.busy
+                busy: profilePage.busy
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("BookShelvesPage.qml"),
                             { userId: sailreadsManager.userProfile.userId })
@@ -221,7 +222,7 @@ Page {
                 BusyIndicator {
                     size: BusyIndicatorSize.Large
                     anchors.centerIn: parent
-                    running: sailreadsManager.busy
+                    running: profilePage.busy
                     visible: running
                 }
             }
