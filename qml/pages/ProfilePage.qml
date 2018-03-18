@@ -164,6 +164,10 @@ Page {
                 text: qsTr("Friends")
                 counter: sailreadsManager.userProfile.friendsCount
                 busy: sailreadsManager.busy
+                onClicked: {
+                    pageStack.push(Qt.resolvedUrl("FriendsPage.qml"),
+                            { userId: sailreadsManager.userProfile.userId })
+                }
             }
 
             MoreButton {

@@ -29,6 +29,7 @@ THE SOFTWARE.
 #include <QPair>
 
 #include "objects/bookshelf.h"
+#include "objects/friend.h"
 #include "objects/group.h"
 #include "types.h"
 #include "userupdate.h"
@@ -45,14 +46,17 @@ UserUpdate ParseUserUpdate(const QDomElement& element);
 BookShelf ParseBookShelf(const QDomElement& element);
 FavoriteAuthors_t ParseFavoriteAuthors(const QDomElement& faElement);
 Group ParseGroup(const QDomElement& element);
+Friend ParseFriend(const QDomElement& element);
 
 UserUpdates_t ParseUserUpdates(const QDomElement& element);
 BookShelves_t ParseBookShelves(const QDomElement& element);
 Groups_t ParseGroups(const QDomElement& element);
+Friends_t ParseFriends(const QDomElement& element);
 
 std::shared_ptr<UserProfile> ParseUserProfile(const QDomDocument& doc);
 BookShelves_t ParseBookShelves(const QDomDocument& doc);
 Groups_t ParseGroups(const QDomDocument& doc);
+Friends_t ParseFriends(const QDomDocument& doc);
 }
 }
 }

@@ -33,6 +33,21 @@ namespace RpcUtils
 {
 namespace Parser
 {
+namespace
+{
+QString PrepareDateTimeString(const QString& str)
+{
+    auto sections = str.split(" ");
+    QString sIso = QString("%1-%2-%3T%4%5")
+            .arg(sections[5])
+            .arg(QLocale(QLocale::English).toDateTime(sections[1], "MMM").date().month(), 2, 10, QChar('0'))
+            .arg(sections[2].toInt(), 2, 10, QChar('0'))
+            .arg(sections[3])
+            .arg(sections[4]);
+    return sIso;
+}
+}
+
 UserUpdate::Actor ParseActor(const QDomElement& element)
 {
     UserUpdate::Actor actor;
@@ -163,9 +178,8 @@ Group ParseGroup(const QDomElement& element)
             group.SetImageUrl(QUrl(fieldElement.text()));
         }
         else if (fieldElement.tagName() == "last_activity_at") {
-            QString str = fieldElement.text();
-            str.remove(QRegularExpression(R"((\+|-)\d\d\d\d\s)"));
-            group.SetLastActivity(QDateTime::fromString(str, "ddd MMM dd hh:mm:ss yyyy"));
+            group.SetLastActivity(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
+                    Qt::ISODate));
         }
         else if (fieldElement.tagName() == "link") {
             group.SetUrl(QUrl(fieldElement.text()));
@@ -173,6 +187,42 @@ Group ParseGroup(const QDomElement& element)
     }
 
     return group;
+}
+
+Friend ParseFriend(const QDomElement& element)
+{
+    Friend fr;
+    const auto& fieldsList = element.childNodes();
+    for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
+        const auto& fieldElement = fieldsList.at (i).toElement ();
+        if (fieldElement.tagName() == "id") {
+            fr.SetId(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "name") {
+            fr.SetName(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "link") {
+            fr.SetUrl(QUrl(fieldElement.text()));
+        }
+        else if (fieldElement.tagName() == "image_url") {
+            fr.SetAvatarUrl(QUrl(fieldElement.text()));
+        }
+        else if (fieldElement.tagName() == "small_image_url") {
+            fr.SetSmallAvatarUrl(QUrl(fieldElement.text()));
+        }
+        else if (fieldElement.tagName() == "friends_count") {
+            fr.SetFriendsCount(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "reviews_count") {
+            fr.SetBooksCount(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "created_at") {
+            fr.SetCreatedDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
+                    Qt::ISODate));
+        }
+    }
+
+    return fr;
 }
 
 UserUpdates_t ParseUserUpdates(const QDomElement& element)
@@ -210,6 +260,17 @@ Groups_t ParseGroups(const QDomElement& element)
         groups << ParseGroup(elem);
     }
     return groups;
+}
+
+Friends_t ParseFriends(const QDomElement& element)
+{
+    Friends_t friends;
+    const auto& nodes = element.childNodes();
+    for (int i = 0, count = nodes.size(); i < count; ++i) {
+        const auto& elem = nodes.at(i).toElement();
+        friends << ParseFriend(elem);
+    }
+    return friends;
 }
 
 std::shared_ptr<UserProfile> ParseUserProfile(const QDomDocument &doc)
@@ -321,6 +382,16 @@ Groups_t ParseGroups(const QDomDocument& doc)
     }
 
     return ParseGroups(responseElement.firstChildElement("groups"));
+}
+
+Friends_t ParseFriends(const QDomDocument& doc)
+{
+    const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
+    if (responseElement.isNull()) {
+        return Friends_t();
+    }
+
+    return ParseFriends(responseElement.firstChildElement("friends"));
 }
 }
 }

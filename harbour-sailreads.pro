@@ -27,7 +27,9 @@ SOURCES += src/harbour-sailreads.cpp \
     src/settings/accountsettings.cpp \
     src/settings/applicationsettings.cpp \
     src/objects/group.cpp \
+    src/objects/friend.cpp \
     src/models/groupsmodel.cpp \
+    src/models/friendsmodel.cpp
 
 HEADERS += src/application.h \
     src/debugmessagehandler.h \
@@ -45,7 +47,9 @@ HEADERS += src/application.h \
     src/settings/accountsettings.h \
     src/settings/applicationsettings.h \
     src/objects/group.h \
+    src/objects/friend.h \
     src/models/groupsmodel.h \
+    src/models/friendsmodel.h
 
 DISTFILES += rpm/harbour-sailreads.changes.in \
     rpm/harbour-sailreads.changes.run.in \

@@ -33,6 +33,7 @@ THE SOFTWARE.
 
 #include "models/bookshelvesmodel.h"
 #include "models/bookshelfproxymodel.h"
+#include "models/friendsmodel.h"
 #include "models/groupsmodel.h"
 #include "settings/accountsettings.h"
 #include "settings/applicationsettings.h"
@@ -80,6 +81,7 @@ void Application::start()
 
     qmlRegisterType<BookShelvesModel>("harbour.sailreads", 1, 0, "BookShelvesModel");
     qmlRegisterType<BookShelfProxyModel>("harbour.sailreads", 1, 0, "BookShelfProxyModel");
+    qmlRegisterType<FriendsModel>("harbour.sailreads", 1, 0, "FriendsModel");
     qmlRegisterType<GroupsModel>("harbour.sailreads", 1, 0, "GroupsModel");
 /*    qmlRegisterUncreatableType<LinksBag::EnumsProxy>("harbour.linksbag", 1, 0,
             "LinksBag", "This exports otherwise unavailable \

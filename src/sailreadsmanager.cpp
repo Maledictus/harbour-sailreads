@@ -196,8 +196,11 @@ void SailreadsManager::editBookShelf(quint64 id, const QString& name, bool exclu
     m_Api->EditBookShelf(id, name, exclusive);
 }
 
+void SailreadsManager::loadFriends(quint64 userId)
 {
     SetBusy(true);
+    m_Api->GetFriends(userId);
+}
 
 void SailreadsManager::loadGroups(quint64 userId)
 {

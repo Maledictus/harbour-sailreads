@@ -29,6 +29,7 @@ THE SOFTWARE.
 
 #include "userprofile.h"
 #include "objects/group.h"
+#include "objects/friend.h"
 
 class QNetworkAccessManager;
 
@@ -73,6 +74,8 @@ public:
 
     void GetGroups(quint64 userId);
 
+    void GetFriends(quint64 userId);
+
 private slots:
     void handleObtainRequestToken();
     void handleRequestAccessToken();
@@ -86,6 +89,8 @@ private slots:
     void handleEditBookShelf();
 
     void handleGetGroups(quint64 userId);
+
+    void handleGetFriends(quint64 userId);
 
 signals:
     void requestFinished();
@@ -102,5 +107,7 @@ signals:
     void bookShelfEdited(const BookShelf& shelf);
 
     void gotUserGroups(quint64 userId, const Groups_t& groops);
+
+    void gotUserFriends(quint64 userId, const Friends_t& friends);
 };
 }

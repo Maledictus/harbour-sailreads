@@ -166,6 +166,19 @@ void GoodReadsApi::GetGroups(quint64 userId)
             });
 }
 
+void GoodReadsApi::GetFriends(quint64 userId)
+{
+    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
+            QUrl(QString("https://www.goodreads.com/friend/user/%1?format=xml").arg(userId)));
+    auto reply = m_NAM->get(QNetworkRequest(pair.first));
+    connect (reply,
+             &QNetworkReply::finished,
+             this,
+             [this, userId]() {
+                 handleGetFriends(userId);
+             });
+}
+
 namespace
 {
 QString GetQueryResult(QXmlQuery& query, const QString& request)
@@ -382,5 +395,17 @@ void GoodReadsApi::handleGetGroups(quint64 userId)
     emit gotUserGroups(userId, RpcUtils::Parser::ParseGroups(doc));
 }
 
+void GoodReadsApi::handleGetFriends(quint64 userId)
+{
+    emit requestFinished();
+
+    bool ok = false;
+    auto doc = GetDocumentFromReply(sender(), ok);
+    if (!ok) {
+        return;
+    }
+
+    qDebug() << doc.toByteArray();
+    //emit gotUserFriends(userId, RpcUtils::Parser::ParseFriends(doc));
 }
 }

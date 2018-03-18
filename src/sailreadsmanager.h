@@ -28,6 +28,7 @@ THE SOFTWARE.
 #include <QVariantMap>
 
 #include "objects/bookshelf.h"
+#include "objects/friend.h"
 #include "objects/group.h"
 
 namespace Sailreads
@@ -81,6 +82,8 @@ public slots:
     void addBookShelf(const QString& name, bool exclusive);
     void editBookShelf(quint64 id, const QString& name, bool exclusive);
 
+    void loadFriends(quint64 userId);
+
     void loadGroups(quint64 userId);
 
 signals:
@@ -93,6 +96,8 @@ signals:
     void gotUserBookShelves(quint64 userId, const BookShelves_t& shelves);
     void bookShelfAdded(const BookShelf& shelf);
     void bookShelfEdited(const BookShelf& shelf);
+
+    void gotUserFriends(quint64 userId, const Friends_t& friends);
 
     void gotUserGroups(quint64 userId, const Groups_t& groups);
 
