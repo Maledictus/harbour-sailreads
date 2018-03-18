@@ -52,6 +52,8 @@ public:
 
     virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
     virtual QHash<int, QByteArray> roleNames() const override;
+    virtual bool canFetchMore(const QModelIndex& parent) const override;
+    virtual void fetchMore(const QModelIndex& parent) override;
 
     quint64 GetUserId() const;
     void SetUserId(quint64 id);

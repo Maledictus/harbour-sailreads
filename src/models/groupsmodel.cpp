@@ -75,6 +75,21 @@ QHash<int, QByteArray> GroupsModel::roleNames() const
     return roles;
 }
 
+bool GroupsModel::canFetchMore(const QModelIndex& parent) const
+{
+    return !parent.isValid() ? m_CanFetchMore : false;
+}
+
+void GroupsModel::fetchMore(const QModelIndex& parent)
+{
+    if (parent.isValid()) {
+        return;
+    }
+
+    m_CanFetchMore = false;
+    SailreadsManager::Instance()->loadGroups(m_UserId);
+}
+
 quint64 GroupsModel::GetUserId() const
 {
     return m_UserId;
