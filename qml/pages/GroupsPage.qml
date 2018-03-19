@@ -36,7 +36,6 @@ Page {
 
     BaseProxyModel {
         id: groupsModel
-        sortRole: GroupsModel.LastActivity
         dynamicSortFilter: true
         sourceModel: GroupsModel {
             userId: groupsPage.userId
@@ -61,7 +60,7 @@ Page {
 
         ViewPlaceholder {
             enabled: !sailreadsManager.busy && groupsView.count === 0
-            text: qsTr ("There are no groups. Pull down to refresh")
+            text: qsTr ("There are no groups.\nPull down to refresh")
         }
 
         model: groupsModel

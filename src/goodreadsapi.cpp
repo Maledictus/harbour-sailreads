@@ -154,7 +154,7 @@ void GoodReadsApi::RemoveBookShelf(quint64)
 
 void GoodReadsApi::GetGroups(quint64 userId)
 {
-    const QUrl url(QString("https://www.goodreads.com/group/list/%1.xml?key=%2")
+    const QUrl url(QString("https://www.goodreads.com/group/list/%1.xml?key=%2&sort=last_activity")
             .arg(userId)
             .arg(m_ConsumerKey));
     auto reply = m_NAM->get(QNetworkRequest(url));
