@@ -23,6 +23,7 @@ THE SOFTWARE.
 #pragma once
 
 #include <QString>
+#include <QUrl>
 
 namespace Sailreads
 {
@@ -32,4 +33,13 @@ struct FavoriteAuthor
     QString m_Name;
 };
 typedef QList<FavoriteAuthor> FavoriteAuthors_t;
+
+struct User
+{
+    quint64 m_Id;
+    QString m_FirstName;
+    QString m_LastName;
+    QString m_NickName;
+    QUrl m_Avatar;
+};
 }
