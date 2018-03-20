@@ -25,6 +25,7 @@ THE SOFTWARE.
 import QtQuick 2.2
 import Sailfish.Silica 1.0
 import harbour.sailreads 1.0
+import "../components"
 
 import "../utils/Utils.js" as Utils
 
@@ -50,6 +51,12 @@ Page {
         }
 
         PullDownMenu {
+            MenuItem {
+                text: qsTr("Search")
+                onClicked: {
+                    sailreadsManager.loadGroups(userId)
+                }
+            }
             MenuItem {
                 text: qsTr("Refresh")
                 onClicked: {
@@ -79,10 +86,17 @@ Page {
                     leftMargin: Theme.horizontalPageMargin
                     verticalCenter: parent.verticalCenter
                 }
-                source: groupImageUrl
+                source: userGroupImageUrl
                 height: Theme.iconSizeLarge
                 width: Theme.iconSizeLarge
                 fillMode: Image.PreserveAspectFit
+
+                BusyIndicator {
+                    size: BusyIndicatorSize.Medium
+                    anchors.centerIn: parent
+                    running: groupIconImage.status == Image.Loading
+                    visible: running
+                }
             }
 
             Column {
@@ -99,21 +113,23 @@ Page {
                     id: groupNameLabel
                     font.family: Theme.fontFamilyHeading
                     truncationMode: TruncationMode.Fade
-                    text: groupName
+                    text: userGroupName
                 }
-                Label {
+                KeyValueLabel {
                     id: groupLastActivityLabel
-                    truncationMode: TruncationMode.Fade
-                    font.pixelSize: Theme.fontSizeExtraSmall
-                    text: qsTr("Last activity: %1")
-                            .arg(Utils.generateDateString(groupLastActivity, "dd MMM yyyy hh:mm"))
+                    key: qsTr("Last activity")
+                    value: Utils.generateDateString(userGroupLastActivity, "dd MMM yyyy hh:mm")
                 }
-                Label {
+                KeyValueLabel {
                     id: groupMembersLabel
-                    truncationMode: TruncationMode.Fade
-                    font.pixelSize: Theme.fontSizeExtraSmall
-                    text: qsTr("%1 members").arg(groupUsersCount)
+                    key: qsTr("Members")
+                    value: userGroupUsersCount
                 }
+            }
+
+            onClicked: {
+                pageStack.push(Qt.resolvedUrl("GroupPage.qml"),
+                        { groupId: userGroupId, groupName: userGroupName })
             }
         }
 
