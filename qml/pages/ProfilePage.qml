@@ -92,69 +92,76 @@ Page {
                     width: Theme.iconSizeExtraLarge
                     height: Theme.iconSizeExtraLarge
                     source: sailreadsManager.userProfile.avatarUrl
+                    fillMode: Image.PreserveAspectFit
+                    BusyIndicator {
+                        anchors.centerIn: parent
+                        size: BusyIndicatorSize.Medium
+                        running: profilePage.busy
+                        visible: running
+                    }
                 }
 
                 Column {
                     width: parent.width - Theme.iconSizeExtraLarge - Theme.paddingMedium
-                    Label {
+                    KeyValueLabel {
                         font.pixelSize: Theme.fontSizeSmall
                         width: parent.width
-                        elide: Text.ElideRight
-                        text: qsTr("Details: %1")
-                                .arg(Utils.getDetailsInfoString(sailreadsManager.userProfile.age,
-                                        sailreadsManager.userProfile.gender,
-                                        sailreadsManager.userProfile.location))
+                        visible: value !== ""
+                        key: qsTr("Details")
+                        value: Utils.getDetailsInfoString(sailreadsManager.userProfile.age,
+                                sailreadsManager.userProfile.gender,
+                                sailreadsManager.userProfile.location)
                     }
-                    Label {
+                    KeyValueLabel {
                         font.pixelSize: Theme.fontSizeSmall
                         width: parent.width
-                        elide: Text.ElideRight
-                        text: qsTr("Joined: %1").arg(sailreadsManager.userProfile.joinedDate)
+                        visible: value !== ""
+                        key: qsTr("Joined")
+                        value: sailreadsManager.userProfile.joinedDate
                     }
-                    Label {
+                    KeyValueLabel {
                         font.pixelSize: Theme.fontSizeSmall
                         width: parent.width
-                        elide: Text.ElideRight
-                        text: qsTr("Last active: %1")
-                                .arg(sailreadsManager.userProfile.lastUpdateDate)
+                        visible: value !== ""
+                        key: qsTr("Last active")
+                        value: sailreadsManager.userProfile.lastUpdateDate
                     }
                 }
             }
 
-            Label {
-                text: qsTr("Interests: %1").arg(sailreadsManager.userProfile.interests)
-                maximumLineCount: 3
-                wrapMode: Text.WordWrap
-                font.pixelSize: Theme.fontSizeSmall
+            Column {
                 anchors {
                     left: parent.left
                     leftMargin: Theme.horizontalPageMargin
                     right: parent.right
                     rightMargin: Theme.horizontalPageMargin
                 }
-            }
-            Label {
-                text: qsTr("Favorite books: %1").arg(sailreadsManager.userProfile.favoriteBooksDesc)
-                maximumLineCount: 3
-                wrapMode: Text.WordWrap
-                font.pixelSize: Theme.fontSizeSmall
-                anchors {
-                    left: parent.left
-                    leftMargin: Theme.horizontalPageMargin
-                    right: parent.right
-                    rightMargin: Theme.horizontalPageMargin
+                KeyValueLabel {
+                    maximumLineCount: 3
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: Theme.fontSizeSmall
+                    width: parent.width
+                    visible: value !== ""
+                    key: qsTr("Interests")
+                    value: sailreadsManager.userProfile.interests
                 }
-            }
-            Label {
-                text: qsTr("About me: %1").arg(sailreadsManager.userProfile.about)
-                maximumLineCount: 3
-                wrapMode: Text.WordWrap
-                font.pixelSize: Theme.fontSizeSmall
-                anchors {
-                    left: parent.left
-                    leftMargin: Theme.horizontalPageMargin
-                    right: parent.right
-                    rightMargin: Theme.horizontalPageMargin
+                KeyValueLabel {
+                    maximumLineCount: 3
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: Theme.fontSizeSmall
+                    width: parent.width
+                    visible: value !== ""
+                    key: qsTr("Favorite books")
+                    value: sailreadsManager.userProfile.favoriteBooksDesc
+                }
+                KeyValueLabel {
+                    maximumLineCount: 3
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: Theme.fontSizeSmall
+                    width: parent.width
+                    visible: value !== ""
+                    key: qsTr("About me")
+                    value: sailreadsManager.userProfile.about
                 }
             }
 
