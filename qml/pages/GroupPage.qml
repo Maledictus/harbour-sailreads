@@ -253,7 +253,7 @@ Page {
                 text: qsTr("Members")
                 busy: groupPage.busy
                 onClicked: {
-                    pageStack.push(Qt.resolvedUrl("GroupMembers.qml"),
+                    pageStack.push(Qt.resolvedUrl("GroupMembersPage.qml"),
                             { groupId: groupPage.groupId })
                 }
             }
