@@ -34,7 +34,11 @@ THE SOFTWARE.
 #include "models/bookshelvesmodel.h"
 #include "models/bookshelfproxymodel.h"
 #include "models/friendsmodel.h"
-#include "models/groupsmodel.h"
+#include "models/usergroupsmodel.h"
+#include "models/foundgroupsmodel.h"
+#include "models/groupfoldersmodel.h"
+#include "models/groupmembersmodel.h"
+#include "objects/group.h"
 #include "settings/accountsettings.h"
 #include "settings/applicationsettings.h"
 #include "sailreadsmanager.h"
@@ -78,18 +82,18 @@ void Application::start()
     qmlRegisterUncreatableType<SailreadsManager>("harbour.sailreads", 1, 0,
             "SailreadsManager", "SailreadsManager static uncreatable type");
     qRegisterMetaType<UserProfile*>("UserProfile*");
+    qRegisterMetaType<Group>("Group");
 
     qmlRegisterType<BaseProxyModel>("harbour.sailreads", 1, 0, "BaseProxyModel");
     qmlRegisterType<BookShelvesModel>("harbour.sailreads", 1, 0, "BookShelvesModel");
     qmlRegisterType<BookShelfProxyModel>("harbour.sailreads", 1, 0, "BookShelfProxyModel");
     qmlRegisterType<FriendsModel>("harbour.sailreads", 1, 0, "FriendsModel");
-    qmlRegisterType<GroupsModel>("harbour.sailreads", 1, 0, "GroupsModel");
-/*    qmlRegisterUncreatableType<LinksBag::EnumsProxy>("harbour.linksbag", 1, 0,
-            "LinksBag", "This exports otherwise unavailable \
-                    LinksBag datatypes to QML");
-*/
+    qmlRegisterType<UserGroupsModel>("harbour.sailreads", 1, 0, "UserGroupsModel");
+    qmlRegisterType<FoundGroupsModel>("harbour.sailreads", 1, 0, "FoundGroupsModel");
+    qmlRegisterType<GroupFoldersModel>("harbour.sailreads", 1, 0, "GroupFoldersModel");
+    qmlRegisterType<GroupMembersModel>("harbour.sailreads", 1, 0, "GroupMembersModel");
 
-   ShowUI();
+    ShowUI();
 }
 
 void Application::handleAboutToQuit()
