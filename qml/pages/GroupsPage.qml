@@ -26,7 +26,6 @@ import QtQuick 2.2
 import Sailfish.Silica 1.0
 import harbour.sailreads 1.0
 import "../components"
-
 import "../utils/Utils.js" as Utils
 
 Page {
@@ -38,7 +37,7 @@ Page {
     BaseProxyModel {
         id: groupsModel
         dynamicSortFilter: true
-        sourceModel: GroupsModel {
+        sourceModel: UserGroupsModel {
             userId: groupsPage.userId
         }
     }
@@ -54,7 +53,7 @@ Page {
             MenuItem {
                 text: qsTr("Search")
                 onClicked: {
-                    sailreadsManager.loadGroups(userId)
+                    pageStack.push(Qt.resolvedUrl("GroupSearchPage.qml"))
                 }
             }
             MenuItem {
@@ -86,7 +85,7 @@ Page {
                     leftMargin: Theme.horizontalPageMargin
                     verticalCenter: parent.verticalCenter
                 }
-                source: userGroupImageUrl
+                source: groupImageUrl
                 height: Theme.iconSizeLarge
                 width: Theme.iconSizeLarge
                 fillMode: Image.PreserveAspectFit
@@ -111,25 +110,26 @@ Page {
 
                 Label {
                     id: groupNameLabel
+                    width: parent.width
                     font.family: Theme.fontFamilyHeading
                     truncationMode: TruncationMode.Fade
-                    text: userGroupName
+                    text: groupName
                 }
                 KeyValueLabel {
                     id: groupLastActivityLabel
                     key: qsTr("Last activity")
-                    value: Utils.generateDateString(userGroupLastActivity, "dd MMM yyyy hh:mm")
+                    value: Utils.generateDateString(groupLastActivity, "dd MMM yyyy hh:mm")
                 }
                 KeyValueLabel {
                     id: groupMembersLabel
                     key: qsTr("Members")
-                    value: userGroupUsersCount
+                    value: groupUsersCount
                 }
             }
 
             onClicked: {
                 pageStack.push(Qt.resolvedUrl("GroupPage.qml"),
-                        { groupId: userGroupId, groupName: userGroupName })
+                        { groupId: groupId, groupName: groupName })
             }
         }
 
