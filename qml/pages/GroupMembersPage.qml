@@ -1,0 +1,177 @@
+/*
+The MIT License (MIT)
+
+Copyright (c) 2018 Oleg Linkin <maledictusdemagog@gmail.com>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+
+import QtQuick 2.2
+import Sailfish.Silica 1.0
+import harbour.sailreads 1.0
+import "../components"
+import "../utils/Utils.js" as Utils
+
+Page {
+    id: groupMembersPage
+
+    property int groupId: 0
+    property bool busy: sailreadsManager.busy && groupMembersPage.status == PageStatus.Active
+
+    GroupMembersModel {
+        id: groupMembersModel
+        groupId: groupMembersPage.groupId
+    }
+
+    SilicaGridView {
+        id: groupMembersView
+        anchors.fill: parent
+        header: PageHeader {
+            title: qsTr("Members")
+        }
+
+        cellHeight: Theme.itemSizeMedium
+        cellWidth: Math.floor(groupMembersPage.width / 2)
+        cacheBuffer: groupMembersPage.height
+
+        model: groupMembersModel
+
+        function fetchMoreIfNeeded() {
+            if (!groupMembersPage.busy &&
+                    groupMembersModel.hasMore &&
+                    indexAt(contentX, contentY + height) > groupMembersModel.rowCount() - 12) {
+                groupMembersModel.fetchMoreContent()
+            }
+        }
+
+        onContentYChanged: fetchMoreIfNeeded()
+
+        delegate: ListItem {
+            width: groupMembersView.cellWidth
+            height: groupMembersView.cellHeight
+            Column {
+                id: column
+
+                anchors {
+                    right: parent.right
+                    rightMargin: Theme.horizontalPageMargin
+                    left: parent.left
+                    leftMargin: Theme.horizontalPageMargin
+                }
+
+                Label {
+                    id: groupMemberNameLabel
+                    width: parent.width
+                    font.family: Theme.fontFamilyHeading
+                    truncationMode: TruncationMode.Fade
+                    text: groupMemberFirstName
+                }
+
+                KeyValueLabel {
+                    font.pixelSize: Theme.fontSizeSmall
+                    width: parent.width
+                    visible: value !== ""
+                    key: qsTr("Comments")
+                    value: groupMemberCommentsCount
+                }
+            }
+
+            onClicked: {
+                //TODO
+            }
+        }
+
+        VerticalScrollDecorator{}
+    }
+
+//    SilicaListView {
+//        id: groupMembersView
+//        anchors.fill: parent
+//        header: PageHeader {
+//            title: qsTr("Members")
+//        }
+
+//        cacheBuffer: groupMembersPage.height
+
+//        ViewPlaceholder {
+//            enabled: !sailreadsManager.busy && groupMembersView.count === 0
+//            text: qsTr ("There are no members in group.\nPull down to refresh")
+//        }
+
+//        function fetchMoreIfNeeded() {
+//            if (!groupMembersPage.busy &&
+//                    groupMembersModel.hasMore &&
+//                    indexAt(contentX, contentY + height) > groupMembersModel.rowCount() - 2) {
+//                groupMembersModel.fetchMoreContent()
+//            }
+//        }
+
+//        onContentYChanged: fetchMoreIfNeeded()
+
+//        model: groupMembersModel
+
+//        spacing: Theme.paddingSmall
+
+//        delegate: ListItem {
+//            width: groupMembersView.width
+//            contentHeight: column.height
+//            clip: true
+
+//            Column {
+//                id: column
+
+//                anchors {
+//                    right: parent.right
+//                    rightMargin: Theme.horizontalPageMargin
+//                    left: parent.left
+//                    leftMargin: Theme.horizontalPageMargin
+//                }
+
+//                Label {
+//                    id: groupMemberNameLabel
+//                    width: parent.width
+//                    font.family: Theme.fontFamilyHeading
+//                    truncationMode: TruncationMode.Fade
+//                    text: groupMemberFirstName
+//                }
+
+//                KeyValueLabel {
+//                    font.pixelSize: Theme.fontSizeSmall
+//                    width: parent.width
+//                    visible: value !== ""
+//                    key: qsTr("Comments")
+//                    value: groupMemberCommentsCount
+//                }
+//            }
+
+//            onClicked: {
+//                //TODO
+//            }
+//        }
+
+//        VerticalScrollDecorator {}
+//    }
+
+    BusyIndicator {
+        size: BusyIndicatorSize.Large
+        anchors.centerIn: parent
+        running: groupMembersPage.busy
+        visible: running
+    }
+}
