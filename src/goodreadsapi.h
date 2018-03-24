@@ -24,6 +24,8 @@ THE SOFTWARE.
 
 #pragma once
 
+#include <functional>
+
 #include <QObject>
 #include <QUrl>
 
@@ -57,6 +59,8 @@ class GoodReadsApi : public QObject
 public:
     explicit GoodReadsApi(QObject *parent = 0);
 
+    void RequestRedirectedUrl(const QUrl& url, const std::function<void(QObject*)>& func);
+
     void UpdateCredentials(const QString& accessToken, const QString& accessTokenSecret);
 
     void ObtainRequestToken() const;
@@ -70,9 +74,11 @@ public:
     void GetBookShelves(quint64 userId);
     void AddBookShelf(const QString& name, bool exclusive);
     void EditBookShelf(quint64 id, const QString& name, bool exclusive);
-    void RemoveBookShelf(quint64 bookShelfId);
 
     void GetGroups(quint64 userId);
+    void GetGroup(quint64 groupId, const QString& groupName);
+    void SearchGroup(const QString& text, int page);
+    void GetGroupMembers(quint64 groupId, int page);
 
     void GetFriends(quint64 userId);
 
@@ -89,6 +95,9 @@ private slots:
     void handleEditBookShelf();
 
     void handleGetGroups(quint64 userId);
+    void handleGetGroup(quint64 groupId, QObject *senderObject = nullptr);
+    void handleSearchGroup();
+    void handleGetGroupMembers(quint64 groupId, QObject *senderObject = nullptr);
 
     void handleGetFriends(quint64 userId);
 
@@ -106,7 +115,10 @@ signals:
     void bookShelfAdded(const BookShelf& shelf);
     void bookShelfEdited(const BookShelf& shelf);
 
-    void gotUserGroups(quint64 userId, const Groups_t& groops);
+    void gotUserGroups(quint64 userId, const Groups& groups);
+    void gotUserGroup(quint64 groupId, const Group& group);
+    void gotFoundGroups(const Groups& groups);
+    void gotGroupMembers(quint64 groupId, const GroupMembers_t& members);
 
     void gotUserFriends(quint64 userId, const Friends_t& friends);
 };

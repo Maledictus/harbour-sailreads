@@ -28,6 +28,7 @@ THE SOFTWARE.
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
 #include <QNetworkReply>
+#include <QRegularExpression>
 #include <QXmlQuery>
 
 #include "oauthwrapper.h"
@@ -45,6 +46,13 @@ GoodReadsApi::GoodReadsApi(QObject *parent)
 {
 }
 
+void GoodReadsApi::RequestRedirectedUrl(const QUrl& url,
+        const std::function<void(QObject*)>& func)
+{
+    QNetworkReply *reply = m_NAM->get(QNetworkRequest(url));
+    connect(reply, &QNetworkReply::finished, [reply, func](){ func(reply); });
+}
+
 void GoodReadsApi::UpdateCredentials(const QString& accessToken, const QString& accessTokenSecret)
 {
     m_AccessToken = accessToken;
@@ -57,10 +65,8 @@ void GoodReadsApi::ObtainRequestToken() const
 
     QNetworkReply *reply = m_NAM->get(QNetworkRequest(requestTokenUrl));
 
-    connect(reply,
-            &QNetworkReply::finished,
-            this,
-            &GoodReadsApi::handleObtainRequestToken);
+    connect(reply, &QNetworkReply::finished,
+            this, &GoodReadsApi::handleObtainRequestToken);
 }
 
 void GoodReadsApi::RequestAccessToken() const
@@ -68,10 +74,8 @@ void GoodReadsApi::RequestAccessToken() const
     QUrl accessTokenUrl = m_OAuthWrapper->GetAccessTokenUrl(m_RequestToken, m_RequestTokenSecret);
     QNetworkReply *reply = m_NAM->get(QNetworkRequest(accessTokenUrl));
 
-    connect(reply,
-            &QNetworkReply::finished,
-            this,
-            &GoodReadsApi::handleRequestAccessToken);
+    connect(reply, &QNetworkReply::finished,
+            this, &GoodReadsApi::handleRequestAccessToken);
 }
 
 void GoodReadsApi::AuthUser()
@@ -79,10 +83,8 @@ void GoodReadsApi::AuthUser()
     const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
             QUrl("https://www.goodreads.com/api/auth_user"));
     auto reply = m_NAM->get(QNetworkRequest(pair.first));
-    connect (reply,
-             &QNetworkReply::finished,
-             this,
-             &GoodReadsApi::handleAuthUser);
+    connect (reply, &QNetworkReply::finished,
+             this, &GoodReadsApi::handleAuthUser);
 }
 
 void GoodReadsApi::GetUserInfo(quint64 id)
@@ -91,10 +93,8 @@ void GoodReadsApi::GetUserInfo(quint64 id)
             .arg(id)
             .arg(m_ConsumerKey));
     auto reply = m_NAM->get(QNetworkRequest(url));
-    connect (reply,
-             &QNetworkReply::finished,
-             this,
-             &GoodReadsApi::handleGetUserInfo);
+    connect (reply, &QNetworkReply::finished,
+             this, &GoodReadsApi::handleGetUserInfo);
 }
 
 void GoodReadsApi::GetUpdates()
@@ -102,10 +102,8 @@ void GoodReadsApi::GetUpdates()
     const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
             QUrl("https://www.goodreads.com/updates/friends.xml"));
     auto reply = m_NAM->get(QNetworkRequest(pair.first));
-    connect (reply,
-             &QNetworkReply::finished,
-             this,
-             &GoodReadsApi::handleGetUpdates);
+    connect (reply, &QNetworkReply::finished,
+             this, &GoodReadsApi::handleGetUpdates);
 }
 
 void GoodReadsApi::GetBookShelves(quint64 userId)
@@ -129,10 +127,8 @@ void GoodReadsApi::AddBookShelf(const QString& name, bool exclusive)
     const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
             QUrl(urlString), "POST");
     auto reply = m_NAM->post(QNetworkRequest(pair.first), pair.second);
-    connect(reply,
-            &QNetworkReply::finished,
-            this,
-            &GoodReadsApi::handleAddBookShelf);
+    connect(reply, &QNetworkReply::finished,
+            this, &GoodReadsApi::handleAddBookShelf);
 }
 
 void GoodReadsApi::EditBookShelf(quint64 id, const QString& name, bool exclusive)
@@ -142,14 +138,8 @@ void GoodReadsApi::EditBookShelf(quint64 id, const QString& name, bool exclusive
                     "user_shelf[exclusive_flag]=%3").arg(id).arg(name)
                         .arg(exclusive ? "true" : "false")), "PUT");
     auto reply = m_NAM->put(QNetworkRequest(pair.first), QByteArray());
-    connect(reply,
-            &QNetworkReply::finished,
-            this,
-            &GoodReadsApi::handleEditBookShelf);
-}
-
-void GoodReadsApi::RemoveBookShelf(quint64)
-{
+    connect(reply, &QNetworkReply::finished,
+            this, &GoodReadsApi::handleEditBookShelf);
 }
 
 void GoodReadsApi::GetGroups(quint64 userId)
@@ -158,11 +148,48 @@ void GoodReadsApi::GetGroups(quint64 userId)
             .arg(userId)
             .arg(m_ConsumerKey));
     auto reply = m_NAM->get(QNetworkRequest(url));
-    connect(reply,
-            &QNetworkReply::finished,
+    connect(reply, &QNetworkReply::finished,
             this,
             [this, userId]() {
                 handleGetGroups(userId);
+            });
+}
+
+void GoodReadsApi::GetGroup(quint64 groupId, const QString&)
+{
+    const QUrl url(QString("https://www.goodreads.com/group/show/%1.xml?key=%2&sort=updated_at")
+                   .arg(groupId)
+                   .arg(m_ConsumerKey));
+    auto reply = m_NAM->get(QNetworkRequest(url));
+    connect(reply, &QNetworkReply::finished,
+            this,
+            [this, groupId]() {
+                handleGetGroup(groupId);
+            });
+}
+
+void GoodReadsApi::SearchGroup(const QString& text, int page)
+{
+    const QUrl url(QString("https://www.goodreads.com/group/search.xml?q=%1&page=%2&key=%3")
+                   .arg(QString(QUrl::toPercentEncoding(text)))
+                   .arg(page)
+                   .arg(m_ConsumerKey));
+    auto reply = m_NAM->get(QNetworkRequest(url));
+    connect(reply, &QNetworkReply::finished,
+            this, &GoodReadsApi::handleSearchGroup);
+}
+
+void GoodReadsApi::GetGroupMembers(quint64 groupId, int page)
+{
+    const QUrl url(QString("https://www.goodreads.com/group/members/%1.xml?page=%2&key=%3&sort=num_comments")
+                   .arg(groupId)
+                   .arg(page)
+                   .arg(m_ConsumerKey));
+    auto reply = m_NAM->get(QNetworkRequest(url));
+    connect(reply, &QNetworkReply::finished,
+            this,
+            [this, groupId] {
+                handleGetGroupMembers(groupId);
             });
 }
 
@@ -171,8 +198,7 @@ void GoodReadsApi::GetFriends(quint64 userId)
     const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
             QUrl(QString("https://www.goodreads.com/friend/user/%1?format=xml").arg(userId)));
     auto reply = m_NAM->get(QNetworkRequest(pair.first));
-    connect (reply,
-             &QNetworkReply::finished,
+    connect (reply, &QNetworkReply::finished,
              this,
              [this, userId]() {
                  handleGetFriends(userId);
@@ -248,15 +274,22 @@ QDomDocument GetDocumentFromReply(QObject *sender, bool& ok)
     ok = false;
     return ParseDocument(data, ok);
 }
+
+QUrl GetRedirectedUrl(const QDomDocument& doc)
+{
+    QXmlQuery query;
+    query.setFocus(doc.toByteArray());
+    const QString url(GetQueryResult(query, "/html/body/a/@href/data(.)"));
+    return QUrl(url);
+}
 }
 
 void GoodReadsApi::handleObtainRequestToken()
 {
-    emit requestFinished();
-
     bool ok = false;
     QByteArray data = GetReply(sender(), ok);
     if (!ok || data.isEmpty()) {
+        emit requestFinished();
         return;
     }
 
@@ -265,22 +298,22 @@ void GoodReadsApi::handleObtainRequestToken()
             !tokens.value(0).contains("oauth_token") ||
             !tokens.value(1).contains("oauth_token_secret")) {
         qWarning() << Q_FUNC_INFO << "Invalid answer";
+        emit requestFinished();
         return;
     }
 
     m_RequestToken = QString::fromUtf8(tokens.value(0).mid(12));
     m_RequestTokenSecret = QString::fromUtf8(tokens.value(1).mid(19));
-
+    emit requestFinished();
     emit requestTokenChanged(m_RequestToken);
 }
 
 void GoodReadsApi::handleRequestAccessToken()
 {
-    emit requestFinished();
-
     bool ok = false;
     QByteArray data = GetReply(sender(), ok);
     if (!ok || data.isEmpty()) {
+        emit requestFinished();
         return;
     }
 
@@ -289,22 +322,23 @@ void GoodReadsApi::handleRequestAccessToken()
             !tokens.value(0).contains("oauth_token") ||
             !tokens.value(1).contains("oauth_token_secret")) {
         qWarning() << Q_FUNC_INFO << "Invalid answer";
+        emit requestFinished();
         return;
     }
 
     QString accessToken = QString::fromUtf8(tokens.value(0).mid(12));
     QString accessTokenSecret = QString::fromUtf8(tokens.value(1).mid(19));
 
+    emit requestFinished();
     emit accessTokensChanged(accessToken, accessTokenSecret);
 }
 
 void GoodReadsApi::handleAuthUser()
 {
-    emit requestFinished();
-
     bool ok = false;
     QByteArray data = GetReply(sender(), ok);
     if (!ok || data.isEmpty()) {
+        emit requestFinished();
         return;
     }
 
@@ -314,97 +348,152 @@ void GoodReadsApi::handleAuthUser()
     const QString name(GetQueryResult(query, "/GoodreadsResponse/user/name/text()"));
     const QString link(GetQueryResult(query, "/GoodreadsResponse/user/link/text()"));
 
+    emit requestFinished();
     emit gotAuthUserInfo(id.toLongLong(), name, link);
 }
 
 void GoodReadsApi::handleGetUserInfo()
 {
-    emit requestFinished();
-
     bool ok = false;
     auto doc = GetDocumentFromReply(sender(), ok);
     if (!ok) {
+        emit requestFinished();
         return;
     }
+
+    emit requestFinished();
     emit gotUserProfile(RpcUtils::Parser::ParseUserProfile(doc));
 }
 
 void GoodReadsApi::handleGetUpdates()
 {
-    emit requestFinished();
-
     bool ok = false;
     auto doc = GetDocumentFromReply(sender(), ok);
     if (!ok) {
+        emit requestFinished();
         return;
     }
 
+    emit requestFinished();
 //    qDebug() << doc.toByteArray();
     //emit gotUserProfile(RpcUtils::Parser::ParseUserProfile(doc));
 }
 
 void GoodReadsApi::handleGetBookShelves(quint64 userId)
 {
-    emit requestFinished();
-
     bool ok = false;
     auto doc = GetDocumentFromReply(sender(), ok);
     if (!ok) {
+        emit requestFinished();
         return;
     }
 
+    emit requestFinished();
     emit gotUserBookShelves(userId, RpcUtils::Parser::ParseBookShelves(doc));
 }
 
 void GoodReadsApi::handleAddBookShelf()
 {
-    emit requestFinished();
-
     bool ok = false;
     auto doc = GetDocumentFromReply(sender(), ok);
     if (!ok) {
+        emit requestFinished();
         return;
     }
 
+    emit requestFinished();
     emit bookShelfAdded(RpcUtils::Parser::ParseBookShelf(doc.firstChildElement("user_shelf")));
 }
 
 void GoodReadsApi::handleEditBookShelf()
 {
-    emit requestFinished();
-
     bool ok = false;
     auto doc = GetDocumentFromReply(sender(), ok);
     if (!ok) {
+        emit requestFinished();
         return;
     }
 
+    emit requestFinished();
     emit bookShelfEdited(RpcUtils::Parser::ParseBookShelf(doc.firstChildElement("user_shelf")));
 }
 
 void GoodReadsApi::handleGetGroups(quint64 userId)
 {
-    emit requestFinished();
-
     bool ok = false;
     auto doc = GetDocumentFromReply(sender(), ok);
     if (!ok) {
+        emit requestFinished();
         return;
     }
 
+    emit requestFinished();
     emit gotUserGroups(userId, RpcUtils::Parser::ParseGroups(doc));
+}
+
+void GoodReadsApi::handleGetGroup(quint64 groupId, QObject *senderObject)
+{
+    bool ok = false;
+    auto doc = GetDocumentFromReply(senderObject ? senderObject : sender(), ok);
+    if (!ok) {
+        emit requestFinished();
+        return;
+    }
+
+    const QUrl& redirectedUrl = GetRedirectedUrl(doc);
+    if (!redirectedUrl.isEmpty()) {
+        RequestRedirectedUrl(redirectedUrl,
+                std::bind(&GoodReadsApi::handleGetGroup, this, groupId, std::placeholders::_1));
+        return;
+    }
+
+    emit requestFinished();
+    emit gotUserGroup(groupId, RpcUtils::Parser::ParseGroup(doc));
+}
+
+void GoodReadsApi::handleSearchGroup()
+{
+    bool ok = false;
+    auto doc = GetDocumentFromReply(sender(), ok);
+    if (!ok) {
+        emit requestFinished();
+        return;
+    }
+
+    emit requestFinished();
+    emit gotFoundGroups(RpcUtils::Parser::ParseGroups(doc));
+}
+
+void GoodReadsApi::handleGetGroupMembers(quint64 groupId, QObject *senderObject)
+{
+    bool ok = false;
+    auto doc = GetDocumentFromReply(senderObject ? senderObject : sender(), ok);
+    if (!ok) {
+        emit requestFinished();
+        return;
+    }
+
+    const QUrl& redirectedUrl = GetRedirectedUrl(doc);
+    if (!redirectedUrl.isEmpty()) {
+        RequestRedirectedUrl(redirectedUrl,
+                std::bind(&GoodReadsApi::handleGetGroupMembers, this, groupId, std::placeholders::_1));
+        return;
+    }
+
+    emit requestFinished();
+    emit gotGroupMembers(groupId, RpcUtils::Parser::ParseGroupMembers(doc));
 }
 
 void GoodReadsApi::handleGetFriends(quint64 userId)
 {
-    emit requestFinished();
-
     bool ok = false;
     auto doc = GetDocumentFromReply(sender(), ok);
     if (!ok) {
+        emit requestFinished();
         return;
     }
 
+    emit requestFinished();
     emit gotUserFriends(userId, RpcUtils::Parser::ParseFriends(doc));
 }
 }
