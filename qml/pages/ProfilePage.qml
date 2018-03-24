@@ -210,17 +210,29 @@ Page {
                 width: parent.width
                 height: contentHeight
                 delegate:  ListItem {
-                    width: parent.width
                     Label {
+                        id: shelfName
                         anchors {
                             left: parent.left
                             leftMargin: Theme.horizontalPageMargin
+                            right: shelfCount.left
+                            rightMargin: Theme.paddingMedium
+                            verticalCenter: parent.verticalCenter
+                        }
+
+                        truncationMode: TruncationMode.Fade
+                        text: bookShelfName
+                    }
+
+                    Label {
+                        id: shelfCount
+                        anchors {
                             right: parent.right
                             rightMargin: Theme.horizontalPageMargin
                             verticalCenter: parent.verticalCenter
                         }
-
-                        text: bookShelfName + " (" + bookShelfBooksCount + ")"
+                        color: Theme.secondaryColor
+                        text: bookShelfBooksCount
                     }
                 }
 
