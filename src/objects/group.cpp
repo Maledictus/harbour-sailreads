@@ -26,6 +26,7 @@ namespace Sailreads
 {
 Group::Group()
 : m_Id(0)
+, m_Flags(NoFlags)
 {
 }
 
@@ -97,6 +98,146 @@ QUrl Group::GetUrl() const
 void Group::SetUrl(const QUrl& url)
 {
     m_Url = url;
+}
+
+QString Group::GetDescription() const
+{
+    return m_Description;
+}
+
+void Group::SetDescription(const QString& description)
+{
+    m_Description = description;
+}
+
+QString Group::GetLocation() const
+{
+    return m_Location;
+}
+
+void Group::SetLocation(const QString& location)
+{
+    m_Location = location;
+}
+
+quint64 Group::GetDisplayFolderCount() const
+{
+    return m_DisplayFolderCount;
+}
+
+void Group::SetDisplayFolderCount(const quint64& displayFolderCount)
+{
+    m_DisplayFolderCount = displayFolderCount;
+}
+
+quint64 Group::GetDisplayTopicsPerFolderCount() const
+{
+    return m_DisplayTopicsPerFolderCount;
+}
+
+void Group::SetDisplayTopicsPerFolderCount(const quint64& displayTopicsPerFolderCount)
+{
+    m_DisplayTopicsPerFolderCount = displayTopicsPerFolderCount;
+}
+
+Group::GroupFlags Group::GetGroupFlags() const
+{
+    return m_Flags;
+}
+
+void Group::SetBookshelvesPublicFlag(bool flag)
+{
+    m_Flags &= flag ? BookshelvesPublic : ~BookshelvesPublic;
+}
+
+void Group::SetAddBookFlag(bool flag)
+{
+    m_Flags &= flag ? AddBook : ~AddBook;
+}
+
+void Group::SetAddEventsFlag(bool flag)
+{
+    m_Flags &= flag ? AddEvents : ~AddEvents;
+}
+
+void Group::SetPollsFlag(bool flag)
+{
+    m_Flags &= flag ? Polls : ~Polls;
+}
+
+void Group::SetDiscussionPublicFlag(bool flag)
+{
+    m_Flags &= flag ? DiscussionPublic : ~DiscussionPublic;
+}
+
+void Group::SetRealWorldFlag(bool flag)
+{
+    m_Flags &= flag ? RealWorld : ~RealWorld;
+}
+
+void Group::SetAcceptingNewMemberFlag(bool flag)
+{
+    m_Flags &= flag ? AcceptNewMembers : ~AcceptNewMembers;
+}
+
+QString Group::GetCategory() const
+{
+    return m_Category;
+}
+
+void Group::SetCategory(const QString& category)
+{
+    m_Category = category;
+}
+
+QString Group::GetSubCategory() const
+{
+    return m_SubCategory;
+}
+
+void Group::SetSubCategory(const QString& subCategory)
+{
+    m_SubCategory = subCategory;
+}
+
+QString Group::GetRules() const
+{
+    return m_Rules;
+}
+
+void Group::SetRules(const QString& rules)
+{
+    m_Rules = rules;
+}
+
+GroupFolders_t Group::GetGroupFolders() const
+{
+    return m_GroupFolders;
+}
+
+void Group::SetGroupFolders(const GroupFolders_t& groupFolders)
+{
+    m_GroupFolders = groupFolders;
+}
+
+GroupMembers_t Group::GetGroupModerators() const
+{
+    return m_GroupModerators;
+}
+
+void Group::SetGroupModerators(const GroupMembers_t& groupModerators)
+{
+    m_GroupModerators = groupModerators;
+}
+
+GroupMembers_t Group::GetGroupMembers() const
+{
+    return m_GroupMembers;
+}
+
+void Group::SetGroupMembers(const GroupMembers_t& groupMembers)
+{
+    m_GroupMembers = groupMembers;
 }
 
 } // namespace Sailreads

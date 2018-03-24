@@ -52,6 +52,7 @@ Page {
             if (inGroupId == groupPage.groupId) {
                 groupPage.group = inGroup
                 groupFoldersModel.handleGotGroup(inGroupId, inGroup)
+                membersButton.counter = inGroup.usersCount
             }
         }
     }
@@ -96,6 +97,12 @@ Page {
                     height: Theme.iconSizeExtraLarge
                     fillMode: Image.PreserveAspectFit
                     source: group !== undefined ? group.imageUrl : ""
+                    BusyIndicator {
+                        size: BusyIndicatorSize.Medium
+                        anchors.centerIn: parent
+                        running: groupImage.status == Image.Loading
+                        visible: running
+                    }
                 }
 
                 Column {
@@ -238,8 +245,19 @@ Page {
                     }
                 }
             }
-        }
 
+            MoreButton {
+                id: membersButton
+                width: parent.width
+                height: Theme.itemSizeMedium
+                text: qsTr("Members")
+                busy: groupPage.busy
+                onClicked: {
+                    pageStack.push(Qt.resolvedUrl("GroupMembers.qml"),
+                            { groupId: groupPage.groupId })
+                }
+            }
+        }
         VerticalScrollDecorator{}
     }
 

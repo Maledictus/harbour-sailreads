@@ -26,10 +26,15 @@ THE SOFTWARE.
 #include <QList>
 #include <QUrl>
 
+#include "groupfolder.h"
+#include "groupmember.h"
+
 namespace Sailreads
 {
 class Group
 {
+    Q_GADGET
+
     quint64 m_Id;
     QString m_Name;
     bool m_IsPublic;
@@ -37,7 +42,47 @@ class Group
     QUrl m_ImageUrl;
     QDateTime m_LastActivity;
     QUrl m_Url;
+    QString m_Description;
+    QString m_Location;
+    quint64 m_DisplayFolderCount;
+    quint64 m_DisplayTopicsPerFolderCount;
+    QString m_Category;
+    QString m_SubCategory;
+    QString m_Rules;
+    GroupFolders_t m_GroupFolders;
+    GroupMembers_t m_GroupModerators;
+    GroupMembers_t m_GroupMembers;
+public:
+    enum GroupFlag
+    {
+        NoFlags = 0,
+        BookshelvesPublic = 1,
+        AddBook = 2,
+        AddEvents = 4,
+        Polls = 8,
+        DiscussionPublic = 16,
+        RealWorld = 32,
+        AcceptNewMembers = 64
+    };
+    Q_DECLARE_FLAGS(GroupFlags, GroupFlag)
+private:
+    GroupFlags m_Flags;
 
+    Q_PROPERTY(quint64 id READ GetId)
+    Q_PROPERTY(QString name READ GetName)
+    Q_PROPERTY(bool isPublic READ GetIsPublic)
+    Q_PROPERTY(quint64 usersCount READ GetUsersCount)
+    Q_PROPERTY(QUrl imageUrl READ GetImageUrl)
+    Q_PROPERTY(QDateTime lastActivity READ GetLastActivity)
+    Q_PROPERTY(QUrl url READ GetUrl)
+    Q_PROPERTY(QString description READ GetDescription)
+    Q_PROPERTY(QString location READ GetLocation)
+    Q_PROPERTY(quint64 displayFolderCount READ GetDisplayFolderCount)
+    Q_PROPERTY(quint64 displayTopicsPerFolderCount READ GetDisplayTopicsPerFolderCount)
+    Q_PROPERTY(QString category READ GetCategory)
+    Q_PROPERTY(QString subCategory READ GetSubCategory)
+    Q_PROPERTY(QString rules READ GetRules)
+    Q_PROPERTY(GroupFlags flags READ GetGroupFlags)
 public:
     Group();
 
@@ -55,7 +100,36 @@ public:
     void SetLastActivity(const QDateTime& dt);
     QUrl GetUrl() const;
     void SetUrl(const QUrl& url);
+    QString GetDescription() const;
+    void SetDescription(const QString& description);
+    QString GetLocation() const;
+    void SetLocation(const QString& location);
+    quint64 GetDisplayFolderCount() const;
+    void SetDisplayFolderCount(const quint64& displayFolderCount);
+    quint64 GetDisplayTopicsPerFolderCount() const;
+    void SetDisplayTopicsPerFolderCount(const quint64& displayTopicsPerFolderCount);
+    GroupFlags GetGroupFlags() const;
+    void SetBookshelvesPublicFlag(bool flag);
+    void SetAddBookFlag(bool flag);
+    void SetAddEventsFlag(bool flag);
+    void SetPollsFlag(bool flag);
+    void SetDiscussionPublicFlag(bool flag);
+    void SetRealWorldFlag(bool flag);
+    void SetAcceptingNewMemberFlag(bool flag);
+    QString GetCategory() const;
+    void SetCategory(const QString& category);
+    QString GetSubCategory() const;
+    void SetSubCategory(const QString& subCategory);
+    QString GetRules() const;
+    void SetRules(const QString& rules);
+    GroupFolders_t GetGroupFolders() const;
+    void SetGroupFolders(const GroupFolders_t& groupFolders);
+    GroupMembers_t GetGroupModerators() const;
+    void SetGroupModerators(const GroupMembers_t& groupModerators);
+    GroupMembers_t GetGroupMembers() const;
+    void SetGroupMembers(const GroupMembers_t& groupMembers);
 };
+Q_DECLARE_OPERATORS_FOR_FLAGS(Group::GroupFlags)
 
 typedef QList<Group> Groups_t;
 } // namespace Sailreads
