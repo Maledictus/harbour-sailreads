@@ -124,10 +124,18 @@ void SailreadsManager::MakeConnections()
             this, &SailreadsManager::bookShelfAdded);
     connect(m_Api, &GoodReadsApi::bookShelfEdited,
             this, &SailreadsManager::bookShelfEdited);
-    connect(m_Api, &GoodReadsApi::gotUserGroups,
-            this, &SailreadsManager::gotUserGroups);
+
     connect(m_Api, &GoodReadsApi::gotUserFriends,
             this, &SailreadsManager::gotUserFriends);
+
+    connect(m_Api, &GoodReadsApi::gotUserGroups,
+            this, &SailreadsManager::gotUserGroups);
+    connect(m_Api, &GoodReadsApi::gotUserGroup,
+            this, &SailreadsManager::gotUserGroup);
+    connect(m_Api, &GoodReadsApi::gotFoundGroups,
+            this, &SailreadsManager::gotFoundGroups);
+    connect(m_Api, &GoodReadsApi::gotGroupMembers,
+            this, &SailreadsManager::gotGroupMembers);
 }
 
 void SailreadsManager::SetBusy(bool busy)
@@ -206,5 +214,23 @@ void SailreadsManager::loadGroups(quint64 userId)
 {
     SetBusy(true);
     m_Api->GetGroups(userId);
+}
+
+void SailreadsManager::loadGroup(quint64 groupId, const QString& groupName)
+{
+    SetBusy(true);
+    m_Api->GetGroup(groupId, groupName);
+}
+
+void SailreadsManager::searchGroup(const QString& text, int page)
+{
+    SetBusy(true);
+    m_Api->SearchGroup(text, page);
+}
+
+void SailreadsManager::loadGroupMembers(quint64 groupId, int page)
+{
+    SetBusy(true);
+    m_Api->GetGroupMembers(groupId, page);
 }
 }

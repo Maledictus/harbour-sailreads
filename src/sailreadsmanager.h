@@ -85,6 +85,9 @@ public slots:
     void loadFriends(quint64 userId);
 
     void loadGroups(quint64 userId);
+    void loadGroup(quint64 groupId, const QString& groupName);
+    void searchGroup(const QString& text, int page = 1);
+    void loadGroupMembers(quint64 groupId, int page = 1);
 
 signals:
     void busyChanged();
@@ -99,7 +102,10 @@ signals:
 
     void gotUserFriends(quint64 userId, const Friends_t& friends);
 
-    void gotUserGroups(quint64 userId, const Groups_t& groups);
+    void gotUserGroups(quint64 userId, const Groups& groups);
+    void gotUserGroup(quint64 inGroupId, const Group& inGroup);
+    void gotFoundGroups(const Groups& groups);
+    void gotGroupMembers(quint64 groupId, const GroupMembers_t& members);
 
     void requestTokenChanged(const QString& requestToken);
 
