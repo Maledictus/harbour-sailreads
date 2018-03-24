@@ -34,6 +34,7 @@ SOURCES += src/harbour-sailreads.cpp \
     src/objects/groupmember.cpp \
     src/models/groupfoldersmodel.cpp \
     src/models/usergroupsmodel.cpp \
+    src/models/foundgroupsmodel.cpp
 
 HEADERS += src/application.h \
     src/debugmessagehandler.h \
@@ -58,6 +59,7 @@ HEADERS += src/application.h \
     src/objects/groupmember.h \
     src/models/groupfoldersmodel.h \
     src/models/usergroupsmodel.h \
+    src/models/foundgroupsmodel.h
 
 DISTFILES += rpm/harbour-sailreads.changes.in \
     rpm/harbour-sailreads.changes.run.in \
