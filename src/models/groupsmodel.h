@@ -32,10 +32,6 @@ class GroupsModel : public BaseModel<Group>
     Q_OBJECT
 
     Q_ENUMS(GroupRoles)
-
-    quint64 m_UserId;
-
-    Q_PROPERTY(quint64 userId READ GetUserId WRITE SetUserId NOTIFY userIdChanged)
 public:
     enum GroupRoles
     {
@@ -52,17 +48,6 @@ public:
 
     virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
     virtual QHash<int, QByteArray> roleNames() const override;
-    virtual bool canFetchMore(const QModelIndex& parent) const override;
-    virtual void fetchMore(const QModelIndex& parent) override;
-
-    quint64 GetUserId() const;
-    void SetUserId(quint64 id);
-
-private slots:
-    void handleGotUserGroups(quint64 userId, const Groups_t& groups);
-
-signals:
-    void userIdChanged();
 };
 
 } // namespace Sailreads

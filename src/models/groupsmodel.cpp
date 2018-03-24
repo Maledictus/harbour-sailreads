@@ -22,17 +22,11 @@ THE SOFTWARE.
 
 #include "groupsmodel.h"
 
-#include "../sailreadsmanager.h"
-
 namespace Sailreads
 {
 GroupsModel::GroupsModel(QObject *parent)
 : BaseModel<Group>(parent)
-, m_UserId(0)
 {
-    auto sm = SailreadsManager::Instance();
-    connect(sm, &SailreadsManager::gotUserGroups,
-            this, &GroupsModel::handleGotUserGroups);
 }
 
 QVariant GroupsModel::data(const QModelIndex& index, int role) const
@@ -74,42 +68,4 @@ QHash<int, QByteArray> GroupsModel::roleNames() const
     roles[Url] = "groupUrl";
     return roles;
 }
-
-bool GroupsModel::canFetchMore(const QModelIndex& parent) const
-{
-    return !parent.isValid() ? m_CanFetchMore : false;
-}
-
-void GroupsModel::fetchMore(const QModelIndex& parent)
-{
-    if (parent.isValid()) {
-        return;
-    }
-
-    m_CanFetchMore = false;
-    SailreadsManager::Instance()->loadGroups(m_UserId);
-}
-
-quint64 GroupsModel::GetUserId() const
-{
-    return m_UserId;
-}
-
-void GroupsModel::SetUserId(quint64 id)
-{
-    if (m_UserId != id) {
-        m_UserId = id;
-        emit userIdChanged();
-    }
-}
-
-void GroupsModel::handleGotUserGroups(quint64 userId, const Groups_t& groups)
-{
-    if (userId != m_UserId) {
-        return;
-    }
-
-    SetItems(groups);
-}
-
 } // namespace Sailreads
