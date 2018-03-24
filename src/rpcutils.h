@@ -42,12 +42,17 @@ namespace RpcUtils
 namespace Parser
 {
 UserUpdate::Actor ParseActor(const QDomElement& element);
+User ParseUser(const QDomElement& element);
 UserUpdate ParseUserUpdate(const QDomElement& element);
 BookShelf ParseBookShelf(const QDomElement& element);
 FavoriteAuthors_t ParseFavoriteAuthors(const QDomElement& faElement);
+GroupMember ParseGroupMember(const QDomElement& element);
+GroupFolder ParseGroupFolder(const QDomElement& element);
 Group ParseGroup(const QDomElement& element);
 Friend ParseFriend(const QDomElement& element);
 
+GroupMembers_t ParseGroupMembers(const QDomElement& element);
+GroupFolders_t ParseGroupFolders(const QDomElement& element);
 UserUpdates_t ParseUserUpdates(const QDomElement& element);
 BookShelves_t ParseBookShelves(const QDomElement& element);
 Groups_t ParseGroups(const QDomElement& element);
@@ -55,8 +60,10 @@ Friends_t ParseFriends(const QDomElement& element);
 
 std::shared_ptr<UserProfile> ParseUserProfile(const QDomDocument& doc);
 BookShelves_t ParseBookShelves(const QDomDocument& doc);
-Groups_t ParseGroups(const QDomDocument& doc);
+Groups ParseGroups(const QDomDocument& doc);
 Friends_t ParseFriends(const QDomDocument& doc);
+Group ParseGroup(const QDomDocument& doc);
+GroupMembers_t ParseGroupMembers(const QDomDocument& doc);
 }
 }
 }
