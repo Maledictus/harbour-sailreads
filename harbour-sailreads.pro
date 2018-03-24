@@ -33,6 +33,7 @@ SOURCES += src/harbour-sailreads.cpp \
     src/objects/groupfolder.cpp \
     src/objects/groupmember.cpp \
     src/models/groupfoldersmodel.cpp \
+    src/models/groupmembersmodel.cpp \
     src/models/usergroupsmodel.cpp \
     src/models/foundgroupsmodel.cpp
 
@@ -58,6 +59,7 @@ HEADERS += src/application.h \
     src/objects/groupfolder.h \
     src/objects/groupmember.h \
     src/models/groupfoldersmodel.h \
+    src/models/groupmembersmodel.h \
     src/models/usergroupsmodel.h \
     src/models/foundgroupsmodel.h
 
