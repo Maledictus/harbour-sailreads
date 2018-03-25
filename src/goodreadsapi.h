@@ -115,10 +115,11 @@ signals:
     void bookShelfAdded(const BookShelf& shelf);
     void bookShelfEdited(const BookShelf& shelf);
 
-    void gotUserGroups(quint64 userId, const Groups& groups);
+    void gotUserGroups(quint64 userId, const CountedItems<Group>& groups);
     void gotUserGroup(quint64 groupId, const Group& group);
-    void gotFoundGroups(const Groups& groups);
+    void gotFoundGroups(const CountedItems<Group>& groups);
     void gotGroupMembers(quint64 groupId, const GroupMembers_t& members);
+    void gotGroupFolderTopics(quint64 groupFolderId, const GroupFolders_t& folders);
 
     void gotUserFriends(quint64 userId, const Friends_t& friends);
 };

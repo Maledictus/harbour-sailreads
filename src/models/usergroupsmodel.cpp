@@ -63,7 +63,7 @@ void UserGroupsModel::SetUserId(quint64 id)
     }
 }
 
-void UserGroupsModel::handleGotUserGroups(quint64 userId, const Groups& groups)
+void UserGroupsModel::handleGotUserGroups(quint64 userId, const CountedItems<Group>& groups)
 {
     if (userId != m_UserId) {
         return;
@@ -71,10 +71,10 @@ void UserGroupsModel::handleGotUserGroups(quint64 userId, const Groups& groups)
 
     m_CanFetchMore = groups.m_EndIndex != groups.m_Count;
     if (groups.m_BeginIndex == 1) {
-        SetItems(groups.m_Groups);
+        SetItems(groups.m_Items);
     }
     else {
-        AddItems(groups.m_Groups);
+        AddItems(groups.m_Items);
     }
 }
 

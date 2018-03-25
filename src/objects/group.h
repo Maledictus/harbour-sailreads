@@ -132,19 +132,4 @@ public:
 Q_DECLARE_OPERATORS_FOR_FLAGS(Group::GroupFlags)
 
 typedef QList<Group> Groups_t;
-
-struct Groups
-{
-    quint64 m_BeginIndex;
-    quint64 m_EndIndex;
-    quint64 m_Count;
-    Groups_t m_Groups;
-
-    Groups()
-    : m_BeginIndex(0)
-    , m_EndIndex(0)
-    , m_Count(0)
-    {}
-};
-
 } // namespace Sailreads

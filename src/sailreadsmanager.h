@@ -102,9 +102,9 @@ signals:
 
     void gotUserFriends(quint64 userId, const Friends_t& friends);
 
-    void gotUserGroups(quint64 userId, const Groups& groups);
+    void gotUserGroups(quint64 userId, const CountedItems<Group>& groups);
     void gotUserGroup(quint64 inGroupId, const Group& inGroup);
-    void gotFoundGroups(const Groups& groups);
+    void gotFoundGroups(const CountedItems<Group>& groups);
     void gotGroupMembers(quint64 groupId, const GroupMembers_t& members);
 
     void requestTokenChanged(const QString& requestToken);

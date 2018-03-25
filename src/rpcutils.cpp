@@ -518,28 +518,28 @@ BookShelves_t ParseBookShelves(const QDomDocument& doc)
     return ParseBookShelves(responseElement.firstChildElement("shelves"));
 }
 
-Groups ParseGroups(const QDomDocument& doc)
+CountedItems<Group> ParseGroups(const QDomDocument& doc)
 {
     const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
     if (responseElement.isNull()) {
-        return Groups();
+        return CountedItems<Group>();
     }
 
     const auto& groupsElement = responseElement.firstChildElement("groups");
     if (groupsElement.isNull()) {
-        return Groups();
+        return CountedItems<Group>();
     }
 
     const auto& groupsListElement = groupsElement.firstChildElement("list");
     if (groupsListElement.isNull()) {
-        return Groups();
+        return CountedItems<Group>();
     }
 
-    Groups groups;
+    CountedItems<Group> groups;
     groups.m_BeginIndex = groupsListElement.attribute("start").toULongLong();
     groups.m_EndIndex = groupsListElement.attribute("end").toULongLong();
     groups.m_Count = groupsListElement.attribute("total").toULongLong();
-    groups.m_Groups = ParseGroups(groupsListElement);
+    groups.m_Items = ParseGroups(groupsListElement);
     return groups;
 }
 

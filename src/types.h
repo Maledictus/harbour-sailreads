@@ -42,4 +42,19 @@ struct User
     QString m_NickName;
     QUrl m_Avatar;
 };
+
+template<typename T>
+struct CountedItems
+{
+    quint64 m_BeginIndex;
+    quint64 m_EndIndex;
+    quint64 m_Count;
+    QList<T> m_Items;
+
+    CountedItems()
+    : m_BeginIndex(0)
+    , m_EndIndex(0)
+    , m_Count(0)
+    {}
+};
 }

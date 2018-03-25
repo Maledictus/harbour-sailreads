@@ -60,9 +60,10 @@ Friends_t ParseFriends(const QDomElement& element);
 
 std::shared_ptr<UserProfile> ParseUserProfile(const QDomDocument& doc);
 BookShelves_t ParseBookShelves(const QDomDocument& doc);
-Groups ParseGroups(const QDomDocument& doc);
+CountedItems<Group> ParseGroups(const QDomDocument& doc);
 Friends_t ParseFriends(const QDomDocument& doc);
 Group ParseGroup(const QDomDocument& doc);
+GroupMembers_t ParseGroupMembers(const QDomDocument& doc);
 GroupMembers_t ParseGroupMembers(const QDomDocument& doc);
 }
 }

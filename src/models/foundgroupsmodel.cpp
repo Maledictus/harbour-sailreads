@@ -22,8 +22,6 @@ THE SOFTWARE.
 
 #include "foundgroupsmodel.h"
 
-#include <QtDebug>
-
 #include "../sailreadsmanager.h"
 
 namespace Sailreads
@@ -64,15 +62,15 @@ void FoundGroupsModel::fetchMoreContent(const QString& text)
     SailreadsManager::Instance()->searchGroup(text, m_CurrentPage);
 }
 
-void FoundGroupsModel::handleGotFoundGroups(const Groups& groups)
+void FoundGroupsModel::handleGotFoundGroups(const CountedItems<Group>& groups)
 {
     SetHasMore(groups.m_EndIndex != groups.m_Count);
     m_CurrentPage++;
     if (groups.m_BeginIndex == 1) {
-        SetItems(groups.m_Groups);
+        SetItems(groups.m_Items);
     }
     else {
-        AddItems(groups.m_Groups);
+        AddItems(groups.m_Items);
     }
 }
 
