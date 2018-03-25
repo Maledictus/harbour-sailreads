@@ -243,6 +243,12 @@ Page {
                             value: groupFolderItemsCount
                         }
                     }
+
+                    onClicked: {
+                        pageStack.push(Qt.resolvedUrl("GroupFolderPage.qml"),
+                                { folderId: groupFolderId, groupId: groupPage.groupId,
+                                    folderName: groupFolderName.replace("&amp;", "&") })
+                    }
                 }
             }
 

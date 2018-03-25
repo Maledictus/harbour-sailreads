@@ -30,6 +30,7 @@ THE SOFTWARE.
 #include "objects/bookshelf.h"
 #include "objects/friend.h"
 #include "objects/group.h"
+#include "objects/topic.h"
 
 namespace Sailreads
 {
@@ -88,6 +89,7 @@ public slots:
     void loadGroup(quint64 groupId, const QString& groupName);
     void searchGroup(const QString& text, int page = 1);
     void loadGroupMembers(quint64 groupId, int page = 1);
+    void loadGroupFolderTopics(quint64 groupFolderId, quint64 groupId, int page = 1);
 
 signals:
     void busyChanged();
@@ -106,6 +108,8 @@ signals:
     void gotUserGroup(quint64 inGroupId, const Group& inGroup);
     void gotFoundGroups(const CountedItems<Group>& groups);
     void gotGroupMembers(quint64 groupId, const GroupMembers_t& members);
+    void gotGroupFolderTopics(quint64 groupFolderId, quint64 groupId,
+            const CountedItems<Topic>& topics);
 
     void requestTokenChanged(const QString& requestToken);
 

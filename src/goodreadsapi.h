@@ -32,6 +32,7 @@ THE SOFTWARE.
 #include "userprofile.h"
 #include "objects/group.h"
 #include "objects/friend.h"
+#include "objects/topic.h"
 
 class QNetworkAccessManager;
 
@@ -79,6 +80,7 @@ public:
     void GetGroup(quint64 groupId, const QString& groupName);
     void SearchGroup(const QString& text, int page);
     void GetGroupMembers(quint64 groupId, int page);
+    void GetGroupFolderTopics(quint64 groupFolderId, quint64 groupId, int page);
 
     void GetFriends(quint64 userId);
 
@@ -98,6 +100,7 @@ private slots:
     void handleGetGroup(quint64 groupId, QObject *senderObject = nullptr);
     void handleSearchGroup();
     void handleGetGroupMembers(quint64 groupId, QObject *senderObject = nullptr);
+    void handleGetGroupFolderTopics(quint64 groupFolderId, quint64 groupId);
 
     void handleGetFriends(quint64 userId);
 
@@ -119,7 +122,8 @@ signals:
     void gotUserGroup(quint64 groupId, const Group& group);
     void gotFoundGroups(const CountedItems<Group>& groups);
     void gotGroupMembers(quint64 groupId, const GroupMembers_t& members);
-    void gotGroupFolderTopics(quint64 groupFolderId, const GroupFolders_t& folders);
+    void gotGroupFolderTopics(quint64 groupFolderId, quint64 groupId,
+            const CountedItems<Topic>& topics);
 
     void gotUserFriends(quint64 userId, const Friends_t& friends);
 };

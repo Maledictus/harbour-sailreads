@@ -136,6 +136,8 @@ void SailreadsManager::MakeConnections()
             this, &SailreadsManager::gotFoundGroups);
     connect(m_Api, &GoodReadsApi::gotGroupMembers,
             this, &SailreadsManager::gotGroupMembers);
+    connect(m_Api, &GoodReadsApi::gotGroupFolderTopics,
+            this, &SailreadsManager::gotGroupFolderTopics);
 }
 
 void SailreadsManager::SetBusy(bool busy)
@@ -232,5 +234,11 @@ void SailreadsManager::loadGroupMembers(quint64 groupId, int page)
 {
     SetBusy(true);
     m_Api->GetGroupMembers(groupId, page);
+}
+
+void SailreadsManager::loadGroupFolderTopics(quint64 groupFolderId, quint64 groupId, int page)
+{
+    SetBusy(true);
+    m_Api->GetGroupFolderTopics(groupFolderId, groupId, page);
 }
 }

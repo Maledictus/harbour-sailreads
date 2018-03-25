@@ -38,6 +38,7 @@ THE SOFTWARE.
 #include "models/foundgroupsmodel.h"
 #include "models/groupfoldersmodel.h"
 #include "models/groupmembersmodel.h"
+#include "models/groupfoldertopicsmodel.h"
 #include "objects/group.h"
 #include "settings/accountsettings.h"
 #include "settings/applicationsettings.h"
@@ -92,6 +93,7 @@ void Application::start()
     qmlRegisterType<FoundGroupsModel>("harbour.sailreads", 1, 0, "FoundGroupsModel");
     qmlRegisterType<GroupFoldersModel>("harbour.sailreads", 1, 0, "GroupFoldersModel");
     qmlRegisterType<GroupMembersModel>("harbour.sailreads", 1, 0, "GroupMembersModel");
+    qmlRegisterType<GroupFolderTopicsModel>("harbour.sailreads", 1, 0, "GroupFolderTopicsModel");
 
     ShowUI();
 }

@@ -172,6 +172,7 @@ Page {
                 text: qsTr("Friends")
                 counter: sailreadsManager.userProfile.friendsCount
                 busy: profilePage.busy
+                enabled: !busy
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("FriendsPage.qml"),
                             { userId: sailreadsManager.userProfile.userId })
@@ -185,6 +186,7 @@ Page {
                 text: qsTr("Groups")
                 counter: sailreadsManager.userProfile.groupsCount
                 busy: profilePage.busy
+                enabled: !busy
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("GroupsPage.qml"),
                             { userId: sailreadsManager.userProfile.userId })
@@ -198,6 +200,7 @@ Page {
                 text: qsTr("Bookshelves")
                 counter: sailreadsManager.userProfile.bookShelvesCount
                 busy: profilePage.busy
+                enabled: !busy
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("BookShelvesPage.qml"),
                             { userId: sailreadsManager.userProfile.userId })

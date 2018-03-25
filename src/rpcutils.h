@@ -31,6 +31,7 @@ THE SOFTWARE.
 #include "objects/bookshelf.h"
 #include "objects/friend.h"
 #include "objects/group.h"
+#include "objects/topic.h"
 #include "types.h"
 #include "userupdate.h"
 #include "userprofile.h"
@@ -50,6 +51,7 @@ GroupMember ParseGroupMember(const QDomElement& element);
 GroupFolder ParseGroupFolder(const QDomElement& element);
 Group ParseGroup(const QDomElement& element);
 Friend ParseFriend(const QDomElement& element);
+Topic ParseTopic(const QDomElement& element);
 
 GroupMembers_t ParseGroupMembers(const QDomElement& element);
 GroupFolders_t ParseGroupFolders(const QDomElement& element);
@@ -57,6 +59,7 @@ UserUpdates_t ParseUserUpdates(const QDomElement& element);
 BookShelves_t ParseBookShelves(const QDomElement& element);
 Groups_t ParseGroups(const QDomElement& element);
 Friends_t ParseFriends(const QDomElement& element);
+Topics_t ParseTopics(const QDomElement& element);
 
 std::shared_ptr<UserProfile> ParseUserProfile(const QDomDocument& doc);
 BookShelves_t ParseBookShelves(const QDomDocument& doc);
@@ -64,7 +67,7 @@ CountedItems<Group> ParseGroups(const QDomDocument& doc);
 Friends_t ParseFriends(const QDomDocument& doc);
 Group ParseGroup(const QDomDocument& doc);
 GroupMembers_t ParseGroupMembers(const QDomDocument& doc);
-GroupMembers_t ParseGroupMembers(const QDomDocument& doc);
+CountedItems<Topic> ParseGroupFolderTopics(const QDomDocument& doc);
 }
 }
 }

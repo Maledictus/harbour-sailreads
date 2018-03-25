@@ -351,6 +351,41 @@ Friend ParseFriend(const QDomElement& element)
     return fr;
 }
 
+Topic ParseTopic(const QDomElement& element)
+{
+    Topic topic;
+    const auto& fieldsList = element.childNodes();
+    for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
+        const auto& fieldElement = fieldsList.at (i).toElement ();
+        if (fieldElement.tagName() == "id") {
+            topic.SetId(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "title") {
+            topic.SetTitle(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "comments_count") {
+            topic.SetCommentsCount(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "last_comment_at" && !fieldElement.text().isEmpty()) {
+            topic.SetLastCommentDate(QDateTime::fromString(fieldElement.text(), Qt::ISODate));
+        }
+        else if (fieldElement.tagName() == "context_type") {
+            topic.SetContextType(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "context_id") {
+            topic.SetContextId(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "author_user") {
+            topic.SetAuthor(ParseUser(fieldElement));
+        }
+        else if (fieldElement.tagName() == "folder") {
+            topic.SetGroupFolder(ParseGroupFolder(fieldElement));
+        }
+    }
+
+    return topic;
+}
+
 GroupMembers_t ParseGroupMembers(const QDomElement& element)
 {
     GroupMembers_t members;
@@ -415,6 +450,17 @@ Friends_t ParseFriends(const QDomElement& element)
         friends << ParseFriend(elem);
     }
     return friends;
+}
+
+Topics_t ParseTopics(const QDomElement& element)
+{
+    Topics_t topics;
+    const auto& nodes = element.childNodes();
+    for (int i = 0, count = nodes.size(); i < count; ++i) {
+        const auto& elem = nodes.at(i).toElement();
+        topics << ParseTopic(elem);
+    }
+    return topics;
 }
 
 std::shared_ptr<UserProfile> ParseUserProfile(const QDomDocument &doc)
@@ -571,6 +617,31 @@ GroupMembers_t ParseGroupMembers(const QDomDocument& doc)
     }
 
     return ParseGroupMembers(responseElement.firstChildElement("group_users"));
+}
+
+CountedItems<Topic> ParseGroupFolderTopics(const QDomDocument& doc)
+{
+    const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
+    if (responseElement.isNull()) {
+        return CountedItems<Topic>();
+    }
+
+    const auto& groupFolderElement = responseElement.firstChildElement("group_folder");
+    if (groupFolderElement.isNull()) {
+        return CountedItems<Topic>();
+    }
+
+    const auto& topicsListElement = groupFolderElement.firstChildElement("topics");
+    if (topicsListElement.isNull()) {
+        return CountedItems<Topic>();
+    }
+
+    CountedItems<Topic> topics;
+    topics.m_BeginIndex = topicsListElement.attribute("start").toULongLong();
+    topics.m_EndIndex = topicsListElement.attribute("end").toULongLong();
+    topics.m_Count = topicsListElement.attribute("total").toULongLong();
+    topics.m_Items = ParseTopics(topicsListElement);
+    return topics;
 }
 }
 }
