@@ -30,6 +30,7 @@ THE SOFTWARE.
 #include <QUrl>
 
 #include "userprofile.h"
+#include "objects/comment.h"
 #include "objects/group.h"
 #include "objects/friend.h"
 #include "objects/topic.h"
@@ -81,6 +82,7 @@ public:
     void SearchGroup(const QString& text, int page);
     void GetGroupMembers(quint64 groupId, int page);
     void GetGroupFolderTopics(quint64 groupFolderId, quint64 groupId, int page);
+    void GetGroupFolderTopic(quint64 topicId, int page);
 
     void GetFriends(quint64 userId);
 
@@ -101,6 +103,7 @@ private slots:
     void handleSearchGroup();
     void handleGetGroupMembers(quint64 groupId, QObject *senderObject = nullptr);
     void handleGetGroupFolderTopics(quint64 groupFolderId, quint64 groupId);
+    void handleGetGroupFolderTopic();
 
     void handleGetFriends(quint64 userId);
 
@@ -124,6 +127,7 @@ signals:
     void gotGroupMembers(quint64 groupId, const GroupMembers_t& members);
     void gotGroupFolderTopics(quint64 groupFolderId, quint64 groupId,
             const CountedItems<Topic>& topics);
+    void gotGroupFolderTopic(const Topic& topic);
 
     void gotUserFriends(quint64 userId, const Friends_t& friends);
 };

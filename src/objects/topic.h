@@ -25,13 +25,18 @@ THE SOFTWARE.
 #include <QDateTime>
 #include <QString>
 
+#include "comment.h"
+#include "group.h"
 #include "groupfolder.h"
+#include "user.h"
 #include "../types.h"
 
 namespace Sailreads
 {
 class Topic
 {
+    Q_GADGET
+
     quint64 m_Id;
     QString m_Title;
     quint64 m_CommentsCount;
@@ -40,6 +45,23 @@ class Topic
     quint64 m_ContextId;
     User m_Author;
     GroupFolder m_GroupFolder;
+
+    quint64 m_NewCommentsCount;
+    quint64 m_CommentsPerPage;
+    QDateTime m_UpdatedAt;
+    QString m_SubjectType;
+    Group m_Group;
+    CountedItems<Comment> m_Comments;
+
+    Q_PROPERTY(quint64 id READ GetId)
+    Q_PROPERTY(QString title READ GetTitle())
+    Q_PROPERTY(quint64 commentsCount READ GetCommentsCount)
+    Q_PROPERTY(quint64 newCommentsCount READ GetNewCommentsCount)
+    Q_PROPERTY(QDateTime updatedAt READ GetUpdateAt)
+    Q_PROPERTY(QDateTime lastCommentDate READ GetLastCommentDate)
+    Q_PROPERTY(User author READ GetAuthor)
+    Q_PROPERTY(GroupFolder folder READ GetGroupFolder)
+    Q_PROPERTY(Group group READ GetGroup)
 
 public:
     Topic();
@@ -60,6 +82,19 @@ public:
     void SetAuthor(const User& user);
     GroupFolder GetGroupFolder() const;
     void SetGroupFolder(const GroupFolder& folder);
+
+    quint64 GetNewCommentsCount() const;
+    void SetNewCommentsCount(quint64 count);
+    quint64 GetCommentsPerPage() const;
+    void SetCommentsPerPage(quint64 count);
+    QDateTime GetUpdateAt() const;
+    void SetUpdatedAt(const QDateTime& dt);
+    QString GetSubjectType() const;
+    void SetSubjectType(const QString& title);
+    Group GetGroup() const;
+    void SetGroup(const Group& group);
+    CountedItems<Comment> GetComments() const;
+    void SetComments(const CountedItems<Comment>& comments);
 };
 typedef QList<Topic> Topics_t;
 } // namespace Sailreads

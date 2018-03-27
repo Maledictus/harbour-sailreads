@@ -135,7 +135,7 @@ void GroupFolderTopicsModel::fetchMoreContent()
 void GroupFolderTopicsModel::handleGotGroupFolderTopics(quint64 groupdFolderId,
         quint64 groupId, const CountedItems<Topic>& topics)
 {
-    if (m_GroupId != groupId && m_GroupFolderId != groupdFolderId) {
+    if (m_GroupId != groupId || m_GroupFolderId != groupdFolderId) {
         return;
     }
 

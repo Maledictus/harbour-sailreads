@@ -38,6 +38,9 @@ namespace
 QString PrepareDateTimeString(const QString& str)
 {
     auto sections = str.split(" ");
+    if (sections.count() != 5) {
+        return str;
+    }
     QString sIso = QString("%1-%2-%3T%4%5")
             .arg(sections[5])
             .arg(QLocale(QLocale::English).toDateTime(sections[1], "MMM").date().month(), 2, 10, QChar('0'))
@@ -368,7 +371,8 @@ Topic ParseTopic(const QDomElement& element)
             topic.SetCommentsCount(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "last_comment_at" && !fieldElement.text().isEmpty()) {
-            topic.SetLastCommentDate(QDateTime::fromString(fieldElement.text(), Qt::ISODate));
+            topic.SetLastCommentDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
+                    Qt::ISODate));
         }
         else if (fieldElement.tagName() == "context_type") {
             topic.SetContextType(fieldElement.text());
@@ -382,9 +386,65 @@ Topic ParseTopic(const QDomElement& element)
         else if (fieldElement.tagName() == "folder") {
             topic.SetGroupFolder(ParseGroupFolder(fieldElement));
         }
+        else if (fieldElement.tagName() == "author_user_id") {
+            User author = topic.GetAuthor();
+            author.SetId(fieldElement.text().toULongLong());
+            topic.SetAuthor(author);
+        }
+        else if (fieldElement.tagName() == "author_user_name") {
+            User author = topic.GetAuthor();
+            author.SetFirstName(fieldElement.text());
+            topic.SetAuthor(author);
+        }
+        else if (fieldElement.tagName() == "new_comments_count") {
+            topic.SetNewCommentsCount(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "comments_per_page") {
+            topic.SetCommentsPerPage(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "updated_at" && !fieldElement.text().isEmpty()) {
+            topic.SetUpdatedAt(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
+                    Qt::ISODate));
+        }
+        else if (fieldElement.tagName() == "subject_type") {
+            topic.SetSubjectType(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "group") {
+            topic.SetGroup(ParseGroup(fieldElement));
+        }
+        else if (fieldElement.tagName() == "comments") {
+            topic.SetComments(ParseComments(fieldElement));
+        }
     }
 
     return topic;
+}
+
+Comment ParseComment(const QDomElement& element)
+{
+    Comment comment;
+    const auto& fieldsList = element.childNodes();
+    for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
+        const auto& fieldElement = fieldsList.at (i).toElement ();
+        if (fieldElement.tagName() == "id") {
+            comment.SetId(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "body") {
+            comment.SetBody(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "user") {
+            comment.SetAuthor(ParseUser(fieldElement));
+        }
+        else if (fieldElement.tagName() == "updated_at" && !fieldElement.text().isEmpty()) {
+            comment.SetUpdateAtDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
+                    Qt::ISODate));
+        }
+        else if (fieldElement.tagName() == "can_delete") {
+            comment.SetCanDelete(fieldElement.text() == "true");
+        }
+    }
+
+    return comment;
 }
 
 GroupMembers_t ParseGroupMembers(const QDomElement& element)
@@ -462,6 +522,20 @@ Topics_t ParseTopics(const QDomElement& element)
         topics << ParseTopic(elem);
     }
     return topics;
+}
+
+CountedItems<Comment> ParseComments(const QDomElement& element)
+{
+    CountedItems<Comment> comments;
+    comments.m_BeginIndex = element.attribute("start").toULongLong();
+    comments.m_EndIndex = element.attribute("end").toULongLong();
+    comments.m_Count = element.attribute("total").toULongLong();
+    const auto& nodes = element.childNodes();
+    for (int i = 0, count = nodes.size(); i < count; ++i) {
+        const auto& elem = nodes.at(i).toElement();
+        comments.m_Items << ParseComment(elem);
+    }
+    return comments;
 }
 
 std::shared_ptr<UserProfile> ParseUserProfile(const QDomDocument &doc)
@@ -643,6 +717,16 @@ CountedItems<Topic> ParseGroupFolderTopics(const QDomDocument& doc)
     topics.m_Count = topicsListElement.attribute("total").toULongLong();
     topics.m_Items = ParseTopics(topicsListElement);
     return topics;
+}
+
+Topic ParseGroupFolderTopic(const QDomDocument& doc)
+{
+    const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
+    if (responseElement.isNull()) {
+        return Topic();
+    }
+
+    return ParseTopic(responseElement.firstChildElement("topic"));
 }
 }
 }

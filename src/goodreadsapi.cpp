@@ -208,6 +208,17 @@ void GoodReadsApi::GetGroupFolderTopics(quint64 groupFolderId, quint64 groupId, 
             });
 }
 
+void GoodReadsApi::GetGroupFolderTopic(quint64 topicId, int page)
+{
+    const QUrl url(QString("https://www.goodreads.com/topic/show.xml?id=%1&page=%2&key=%3")
+                   .arg(topicId)
+                   .arg(page)
+                   .arg(m_ConsumerKey));
+    auto reply = m_NAM->get(QNetworkRequest(url));
+    connect(reply, &QNetworkReply::finished,
+            this, &GoodReadsApi::handleGetGroupFolderTopic);
+}
+
 void GoodReadsApi::GetFriends(quint64 userId)
 {
     const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
@@ -509,6 +520,18 @@ void GoodReadsApi::handleGetGroupFolderTopics(quint64 groupFolderId, quint64 gro
     }
     emit requestFinished();
     emit gotGroupFolderTopics(groupFolderId, groupId, RpcUtils::Parser::ParseGroupFolderTopics(doc));
+}
+
+void GoodReadsApi::handleGetGroupFolderTopic()
+{
+    bool ok = false;
+    auto doc = GetDocumentFromReply(sender(), ok);
+    if (!ok) {
+        emit requestFinished();
+        return;
+    }
+    emit requestFinished();
+    emit gotGroupFolderTopic(RpcUtils::Parser::ParseGroupFolderTopic(doc));
 }
 
 void GoodReadsApi::handleGetFriends(quint64 userId)

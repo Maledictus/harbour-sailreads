@@ -38,6 +38,7 @@ SOURCES += src/harbour-sailreads.cpp \
     src/models/foundgroupsmodel.cpp \
     src/objects/topic.cpp \
     src/models/groupfoldertopicsmodel.cpp \
+    src/objects/comment.cpp \
     src/objects/user.cpp
 
 HEADERS += src/application.h \
@@ -67,6 +68,7 @@ HEADERS += src/application.h \
     src/models/foundgroupsmodel.h \
     src/objects/topic.h \
     src/models/groupfoldertopicsmodel.h \
+    src/objects/comment.h \
     src/objects/user.h
 
 DISTFILES += rpm/harbour-sailreads.changes.in \

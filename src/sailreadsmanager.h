@@ -90,6 +90,7 @@ public slots:
     void searchGroup(const QString& text, int page = 1);
     void loadGroupMembers(quint64 groupId, int page = 1);
     void loadGroupFolderTopics(quint64 groupFolderId, quint64 groupId, int page = 1);
+    void loadGroupFolderTopic(quint64 topicId, int page = 1);
 
 signals:
     void busyChanged();
@@ -110,6 +111,7 @@ signals:
     void gotGroupMembers(quint64 groupId, const GroupMembers_t& members);
     void gotGroupFolderTopics(quint64 groupFolderId, quint64 groupId,
             const CountedItems<Topic>& topics);
+    void gotGroupFolderTopic(const Topic& topic);
 
     void requestTokenChanged(const QString& requestToken);
 
