@@ -22,6 +22,7 @@ THE SOFTWARE.
 
 #pragma once
 
+#include <QObject>
 #include <QList>
 #include <QDateTime>
 
@@ -29,11 +30,19 @@ namespace Sailreads
 {
 class GroupFolder
 {
+    Q_GADGET
+
     quint64 m_Id;
     QString m_Name;
     quint64 m_ItemsCount;
     quint64 m_SubItemsCount;
     QDateTime m_UpdatedAt;
+
+    Q_PROPERTY(quint64 id READ GetId)
+    Q_PROPERTY(QString name READ GetName)
+    Q_PROPERTY(quint64 itemsCount READ GetItemsCount)
+    Q_PROPERTY(quint64 subItemssCount READ GetSubItemsCount)
+    Q_PROPERTY(QDateTime updatedAt READ GetUpdatedAt)
 public:
     GroupFolder();
 

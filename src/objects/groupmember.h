@@ -23,7 +23,7 @@ THE SOFTWARE.
 #pragma once
 
 #include <QList>
-#include "../types.h"
+#include "user.h"
 
 namespace Sailreads {
 

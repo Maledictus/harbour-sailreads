@@ -23,6 +23,7 @@ THE SOFTWARE.
 #pragma once
 
 #include "groupsmodel.h"
+#include "../types.h"
 
 namespace Sailreads
 {

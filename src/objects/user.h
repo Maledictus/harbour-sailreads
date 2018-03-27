@@ -22,36 +22,39 @@ THE SOFTWARE.
 
 #pragma once
 
-#include "groupsmodel.h"
-#include "../types.h"
+#include <QObject>
+#include <QUrl>
 
 namespace Sailreads
 {
-class FoundGroupsModel : public GroupsModel
+class User
 {
-    Q_OBJECT
+    Q_GADGET
 
-    bool m_HasMore;
-    quint64 m_CurrentPage;
-    QString m_LastSearch;
+    quint64 m_Id;
+    QString m_FirstName;
+    QString m_LastName;
+    QString m_NickName;
+    QUrl m_Avatar;
 
-    Q_PROPERTY(bool hasMore READ GetHasMore WRITE SetHasMore NOTIFY hasMoreChanged)
-
+    Q_PROPERTY(quint64 id READ GetId)
+    Q_PROPERTY(QString firstName READ GetFirstName)
+    Q_PROPERTY(QString lastName READ GetLastName)
+    Q_PROPERTY(QString nickName READ GetNickName)
+    Q_PROPERTY(QUrl avatar READ GetAvatar)
 public:
-    explicit FoundGroupsModel(QObject *parent = nullptr);
+    User();
 
-    bool GetHasMore() const;
-    void SetHasMore(bool has);
-
-public slots:
-    void fetchMoreContent(const QString& text);
-private slots:
-    void handleGotFoundGroups(const CountedItems<Group>& groups);
-
-signals:
-    void hasMoreChanged();
+    quint64 GetId() const;
+    void SetId(quint64 id);
+    QString GetFirstName() const;
+    void SetFirstName(const QString& name);
+    QString GetLastName() const;
+    void SetLastName(const QString& name);
+    QString GetNickName() const;
+    void SetNickName(const QString& name);
+    QUrl GetAvatar() const;
+    void SetAvatar(const QUrl& url);
 };
 
 } // namespace Sailreads
-
-

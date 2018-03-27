@@ -32,6 +32,7 @@ THE SOFTWARE.
 #include "objects/friend.h"
 #include "objects/group.h"
 #include "objects/topic.h"
+#include "objects/user.h"
 #include "types.h"
 #include "userupdate.h"
 #include "userprofile.h"

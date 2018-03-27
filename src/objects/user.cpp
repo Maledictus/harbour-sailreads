@@ -20,38 +20,63 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-#pragma once
-
-#include "groupsmodel.h"
-#include "../types.h"
+#include "user.h"
 
 namespace Sailreads
 {
-class FoundGroupsModel : public GroupsModel
+User::User()
+: m_Id(0)
 {
-    Q_OBJECT
+}
 
-    bool m_HasMore;
-    quint64 m_CurrentPage;
-    QString m_LastSearch;
+quint64 User::GetId() const
+{
+    return m_Id;
+}
 
-    Q_PROPERTY(bool hasMore READ GetHasMore WRITE SetHasMore NOTIFY hasMoreChanged)
+void User::SetId(quint64 id)
+{
+    m_Id = id;
+}
 
-public:
-    explicit FoundGroupsModel(QObject *parent = nullptr);
+QString User::GetFirstName() const
+{
+    return m_FirstName;
+}
 
-    bool GetHasMore() const;
-    void SetHasMore(bool has);
+void User::SetFirstName(const QString& name)
+{
+    m_FirstName = name;
+}
 
-public slots:
-    void fetchMoreContent(const QString& text);
-private slots:
-    void handleGotFoundGroups(const CountedItems<Group>& groups);
+QString User::GetLastName() const
+{
+    return m_LastName;
+}
 
-signals:
-    void hasMoreChanged();
-};
+void User::SetLastName(const QString& name)
+{
+    m_LastName = name;
+}
+
+QString User::GetNickName() const
+{
+    return m_NickName;
+}
+
+void User::SetNickName(const QString& name)
+{
+    m_NickName = name;
+}
+
+QUrl User::GetAvatar() const
+{
+    return m_Avatar;
+}
+
+void User::SetAvatar(const QUrl& url)
+{
+    m_Avatar = url;
+}
 
 } // namespace Sailreads
-
-

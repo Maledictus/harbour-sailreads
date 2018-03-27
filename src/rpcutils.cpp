@@ -78,20 +78,21 @@ User ParseUser(const QDomElement& element)
     for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
         const auto& fieldElement = fieldsList.at (i).toElement ();
         if (fieldElement.tagName() == "id") {
-            user.m_Id = fieldElement.text().toULongLong();
+            user.SetId(fieldElement.text().toULongLong());
         }
-        else if (fieldElement.tagName() == "first_name") {
-            user.m_FirstName = fieldElement.text();
+        else if (fieldElement.tagName() == "first_name" ||
+                fieldElement.tagName() == "name") {
+            user.SetFirstName(fieldElement.text());
         }
         else if (fieldElement.tagName() == "last_name") {
-            user.m_LastName = fieldElement.text();
+            user.SetLastName(fieldElement.text());
         }
         else if (fieldElement.tagName() == "user_name") {
-            user.m_NickName = fieldElement.text();
+            user.SetNickName(fieldElement.text());
         }
         else if (fieldElement.tagName() == "p2_image_url" ||
                 fieldElement.tagName() == "small_image_url") {
-            user.m_Avatar = QUrl(fieldElement.text());
+            user.SetAvatar(QUrl(fieldElement.text()));
         }
     }
 
@@ -249,7 +250,7 @@ Group ParseGroup(const QDomElement& element)
                 fieldElement.tagName() == "group_users_count") {
             group.SetUsersCount(fieldElement.text().toULongLong());
         }
-        else if (fieldElement.tagName() == "image_url") {
+        else if (fieldElement.tagName() == "image_url" || fieldElement.tagName() == "p1_image_url") {
             group.SetImageUrl(QUrl(fieldElement.text()));
         }
         else if (fieldElement.tagName() == "last_activity_at" && !fieldElement.text().isEmpty()) {

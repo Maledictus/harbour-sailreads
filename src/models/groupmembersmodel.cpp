@@ -46,17 +46,17 @@ QVariant GroupMembersModel::data(const QModelIndex& index, int role) const
     const auto& groupMember = m_Items.at(index.row());
     switch (role) {
     case Id:
-        return groupMember.GetUser().m_Id;
+        return groupMember.GetUser().GetId();
     case Title:
         return groupMember.GetTitle();
     case FirstName:
-        return groupMember.GetUser().m_FirstName;
+        return groupMember.GetUser().GetFirstName();
     case LastName:
-        return groupMember.GetUser().m_LastName;
+        return groupMember.GetUser().GetLastName();
     case NickName:
-        return groupMember.GetUser().m_NickName;
+        return groupMember.GetUser().GetNickName();
     case AvatarImage:
-        return groupMember.GetUser().m_Avatar;
+        return groupMember.GetUser().GetAvatar();
     case CommentsCount:
         return groupMember.GetCommentsCount();
     default:

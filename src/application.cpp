@@ -40,6 +40,9 @@ THE SOFTWARE.
 #include "models/groupmembersmodel.h"
 #include "models/groupfoldertopicsmodel.h"
 #include "objects/group.h"
+#include "objects/groupfolder.h"
+#include "objects/topic.h"
+#include "objects/user.h"
 #include "settings/accountsettings.h"
 #include "settings/applicationsettings.h"
 #include "sailreadsmanager.h"
@@ -84,6 +87,9 @@ void Application::start()
             "SailreadsManager", "SailreadsManager static uncreatable type");
     qRegisterMetaType<UserProfile*>("UserProfile*");
     qRegisterMetaType<Group>("Group");
+    qRegisterMetaType<GroupFolder>("GroupFolder");
+    qRegisterMetaType<Topic>("Topic");
+    qRegisterMetaType<Topic>("User");
 
     qmlRegisterType<BaseProxyModel>("harbour.sailreads", 1, 0, "BaseProxyModel");
     qmlRegisterType<BookShelvesModel>("harbour.sailreads", 1, 0, "BookShelvesModel");

@@ -34,15 +34,6 @@ struct FavoriteAuthor
 };
 typedef QList<FavoriteAuthor> FavoriteAuthors_t;
 
-struct User
-{
-    quint64 m_Id;
-    QString m_FirstName;
-    QString m_LastName;
-    QString m_NickName;
-    QUrl m_Avatar;
-};
-
 template<typename T>
 struct CountedItems
 {
