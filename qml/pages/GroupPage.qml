@@ -35,7 +35,6 @@ Page {
     property string groupName
     property bool busy: sailreadsManager.busy && groupPage.status == PageStatus.Active
     property variant group
-    property bool ready: false
 
     Component.onCompleted: {
         sailreadsManager.loadGroup(groupId, groupName)

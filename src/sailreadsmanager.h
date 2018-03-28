@@ -92,6 +92,10 @@ public slots:
     void loadGroupFolderTopics(quint64 groupFolderId, quint64 groupId, int page = 1);
     void loadGroupFolderTopic(quint64 topicId, int page = 1);
 
+    void addNewTopic(const QString& topic, const QString& subject, quint64 subjectId, quint64 folderId,
+            bool question, bool updateFeed, bool digest, const QString& comment);
+
+    void addNewComment(const QString& type, quint64 resourceId, const QString& comment);
 signals:
     void busyChanged();
     void loggedChanged();
@@ -111,7 +115,8 @@ signals:
     void gotGroupMembers(quint64 groupId, const GroupMembers_t& members);
     void gotGroupFolderTopics(quint64 groupFolderId, quint64 groupId,
             const CountedItems<Topic>& topics);
-    void gotGroupFolderTopic(const Topic& topic);
+    void gotGroupFolderTopic(const Topic& inTopic);
+    void gotNewGroupFolderTopic(const Topic& inTopic);
 
     void requestTokenChanged(const QString& requestToken);
 

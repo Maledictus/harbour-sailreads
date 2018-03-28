@@ -249,4 +249,17 @@ void SailreadsManager::loadGroupFolderTopic(quint64 topicId, int page)
     SetBusy(true);
     m_Api->GetGroupFolderTopic(topicId, page);
 }
+
+void SailreadsManager::addNewTopic(const QString& topic, const QString& subject, quint64 subjectId,
+        quint64 folderId, bool question, bool updateFeed, bool digest, const QString& comment)
+{
+    SetBusy(true);
+    m_Api->AddNewTopic(topic, subject, subjectId, folderId, question, updateFeed, digest, comment);
+}
+
+void SailreadsManager::addNewComment(const QString& type, quint64 resourceId, const QString& comment)
+{
+    SetBusy(true);
+    m_Api->AddNewComment(type, resourceId, comment);
+}
 }

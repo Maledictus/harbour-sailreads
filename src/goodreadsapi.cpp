@@ -120,13 +120,24 @@ void GoodReadsApi::GetBookShelves(quint64 userId)
             });
 }
 
+namespace
+{
+QNetworkRequest PreparePostRequest(const QUrl& url)
+{
+    QNetworkRequest request(url);
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
+    return request;
+}
+}
+
 void GoodReadsApi::AddBookShelf(const QString& name, bool exclusive)
 {
     QString urlString = QString("https://www.goodreads.com/user_shelves.xml?user_shelf[name]=%1&"
             "user_shelf[exclusive_flag]=%2").arg(name).arg(exclusive ? "true" : "false");
     const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
             QUrl(urlString), "POST");
-    auto reply = m_NAM->post(QNetworkRequest(pair.first), pair.second);
+
+    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
     connect(reply, &QNetworkReply::finished,
             this, &GoodReadsApi::handleAddBookShelf);
 }
@@ -217,6 +228,33 @@ void GoodReadsApi::GetGroupFolderTopic(quint64 topicId, int page)
     auto reply = m_NAM->get(QNetworkRequest(url));
     connect(reply, &QNetworkReply::finished,
             this, &GoodReadsApi::handleGetGroupFolderTopic);
+}
+
+void GoodReadsApi::AddNewTopic(const QString& topic, const QString& subject, quint64 subjectId,
+        quint64 folderId, bool question, bool updateFeed, bool digest, const QString& comment)
+{
+    QString url = QString("https://www.goodreads.com/topic.xml?topic[subject_type]=%1&"
+            "topic[subject_id]=%2&topic[folder_id]=%3&topic[title]=%4&topic[question_flag]=%5&"
+            "update_feed=%6&digest=%7&comment[body_usertext]=%8").arg(subject)
+                    .arg(subjectId).arg(folderId).arg(topic)
+                    .arg(question ? "1" : "0").arg(updateFeed ? "1" : "0")
+                    .arg(digest ? "1" : "0").arg(comment);
+    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
+            QUrl(url), "POST");
+    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
+    connect (reply, &QNetworkReply::finished,
+             this, &GoodReadsApi::handleTopicAdded);
+}
+
+void GoodReadsApi::AddNewComment(const QString& type, quint64 resourceId, const QString& comment)
+{
+    QString url = QString("https://www.goodreads.com/comment.xml?type=%1&"
+            "id=%2&comment[body]=%3").arg(type).arg(resourceId).arg(comment);
+    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
+            QUrl(url), "POST");
+    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
+    connect (reply, &QNetworkReply::finished,
+             this, &GoodReadsApi::handleNewCommentAdded);
 }
 
 void GoodReadsApi::GetFriends(quint64 userId)
@@ -532,6 +570,30 @@ void GoodReadsApi::handleGetGroupFolderTopic()
     }
     emit requestFinished();
     emit gotGroupFolderTopic(RpcUtils::Parser::ParseGroupFolderTopic(doc));
+}
+
+void GoodReadsApi::handleTopicAdded()
+{
+    bool ok = false;
+    auto doc = GetDocumentFromReply(sender(), ok);
+    if (!ok) {
+        emit requestFinished();
+        return;
+    }
+    emit requestFinished();
+    emit gotNewGroupFolderTopic(RpcUtils::Parser::ParseGroupFolderTopic(doc));
+}
+
+void GoodReadsApi::handleNewCommentAdded()
+{
+    bool ok = false;
+    auto doc = GetDocumentFromReply(sender(), ok);
+    if (!ok) {
+        emit requestFinished();
+        return;
+    }
+    emit requestFinished();
+    emit newCommentAdded(RpcUtils::Parser::ParseComment(doc));
 }
 
 void GoodReadsApi::handleGetFriends(quint64 userId)

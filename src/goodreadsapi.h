@@ -83,6 +83,10 @@ public:
     void GetGroupMembers(quint64 groupId, int page);
     void GetGroupFolderTopics(quint64 groupFolderId, quint64 groupId, int page);
     void GetGroupFolderTopic(quint64 topicId, int page);
+    void AddNewTopic(const QString& topic, const QString& subject, quint64 subjectId,
+            quint64 folderId, bool question, bool updateFeed, bool digest, const QString& comment);
+
+    void AddNewComment(const QString& type, quint64 resourceId, const QString& comment);
 
     void GetFriends(quint64 userId);
 
@@ -104,6 +108,10 @@ private slots:
     void handleGetGroupMembers(quint64 groupId, QObject *senderObject = nullptr);
     void handleGetGroupFolderTopics(quint64 groupFolderId, quint64 groupId);
     void handleGetGroupFolderTopic();
+
+    void handleTopicAdded();
+
+    void handleNewCommentAdded();
 
     void handleGetFriends(quint64 userId);
 
@@ -128,6 +136,9 @@ signals:
     void gotGroupFolderTopics(quint64 groupFolderId, quint64 groupId,
             const CountedItems<Topic>& topics);
     void gotGroupFolderTopic(const Topic& topic);
+    void gotNewGroupFolderTopic(const Topic& topic);
+
+    void newCommentAdded(const Comment& comment);
 
     void gotUserFriends(quint64 userId, const Friends_t& friends);
 };

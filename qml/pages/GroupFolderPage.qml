@@ -55,8 +55,20 @@ Page {
 
         PullDownMenu {
             MenuItem {
+                text: qsTr("Refresh")
+                onClicked: {
+                    sailreadsManager.loadGroupFolderTopics(folderPage.folderId, folderPage.groupId)
+                }
+            }
+            MenuItem {
                 text: qsTr("Add new topic")
                 onClicked: {
+                    var dialog = pageStack.push("../dialogs/AddGroupFolderTopicDialog.qml")
+                    dialog.accepted.connect (function () {
+                        sailreadsManager.addNewTopic(dialog.topic, 'Group', folderPage.groupId,
+                                folderPage.folderId, dialog.question, dialog.updateFeed,
+                                dialog.digest, dialog.topicComment)
+                    })
                 }
             }
         }
@@ -120,6 +132,13 @@ Page {
                 }
                 color: Theme.secondaryColor
                 text: topicCommentsCount
+            }
+
+            onClicked: {
+                pageStack.push(Qt.resolvedUrl("GroupFolderTopicPage.qml"),
+                        { groupId: folderPage.groupId,
+                            groupFolderId: folderPage.folderId,
+                            topicId: topicId })
             }
         }
 

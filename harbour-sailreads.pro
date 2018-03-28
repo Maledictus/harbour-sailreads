@@ -39,7 +39,8 @@ SOURCES += src/harbour-sailreads.cpp \
     src/objects/topic.cpp \
     src/models/groupfoldertopicsmodel.cpp \
     src/objects/comment.cpp \
-    src/objects/user.cpp
+    src/objects/user.cpp \
+    src/models/commentsmodel.cpp
 
 HEADERS += src/application.h \
     src/debugmessagehandler.h \
@@ -69,7 +70,8 @@ HEADERS += src/application.h \
     src/objects/topic.h \
     src/models/groupfoldertopicsmodel.h \
     src/objects/comment.h \
-    src/objects/user.h
+    src/objects/user.h \
+    src/models/commentsmodel.h
 
 DISTFILES += rpm/harbour-sailreads.changes.in \
     rpm/harbour-sailreads.changes.run.in \

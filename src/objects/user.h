@@ -56,5 +56,5 @@ public:
     QUrl GetAvatar() const;
     void SetAvatar(const QUrl& url);
 };
-
 } // namespace Sailreads
+Q_DECLARE_METATYPE(Sailreads::User)

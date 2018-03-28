@@ -41,7 +41,7 @@ public:
 
     quint64 GetId() const;
     void SetId(quint64 id);
-    QString GeBody() const;
+    QString GetBody() const;
     void SetBody(const QString& body);
     QDateTime GetUpdateAtDate() const;
     void SetUpdateAtDate(const QDateTime& dt);

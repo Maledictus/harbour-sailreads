@@ -20,64 +20,54 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-#include "comment.h"
+#pragma once
+
+#include "basemodel.h"
+#include "../objects/comment.h"
+#include "../objects/topic.h"
 
 namespace Sailreads
 {
-Comment::Comment()
-: m_Id(0)
-, m_CanDelete(false)
+class CommentsModel: public BaseModel<Comment>
 {
-}
+    Q_OBJECT
 
-quint64 Comment::GetId() const
-{
-    return m_Id;
-}
+    Q_ENUMS(CommentRoles)
 
-void Comment::SetId(quint64 id)
-{
-    m_Id = id;
-}
+    quint64 m_TopicId;
+    bool m_HasMore;
+    quint64 m_CurrentPage;
 
-QString Comment::GetBody() const
-{
-    return m_Body;
-}
+    Q_PROPERTY(quint64 topicId READ GetTopicId WRITE SetTopicId NOTIFY topicIdChanged)
+    Q_PROPERTY(bool hasMore READ GetHasMore WRITE SetHasMore NOTIFY hasMoreChanged)
+public:
+    enum GroupRoles
+    {
+        Id = Qt::UserRole + 1,
+        Body,
+        UpdateDate,
+        Author,
+        CanDelete
+    };
 
-void Comment::SetBody(const QString& body)
-{
-    m_Body = body;
-}
+    explicit CommentsModel(QObject *parent = nullptr);
 
-QDateTime Comment::GetUpdateAtDate() const
-{
-    return m_UpdatedAt;
-}
+    virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
+    virtual QHash<int, QByteArray> roleNames() const override;
 
-void Comment::SetUpdateAtDate(const QDateTime& dt)
-{
-    m_UpdatedAt = dt;
-}
+    quint64 GetTopicId() const;
+    void SetTopicId(quint64 id);
+    bool GetHasMore() const;
+    void SetHasMore(bool has);
 
-User Comment::GetAuthor() const
-{
-    return m_Author;
-}
+public slots:
+    void fetchMoreContent();
+private slots:
+    void handleGotGroupFolderTopic(const Topic& topic);
 
-void Comment::SetAuthor(const User& user)
-{
-    m_Author = user;
-}
-
-bool Comment::GetCanDelete() const
-{
-    return m_CanDelete;
-}
-
-void Comment::SetCanDelete(bool can)
-{
-    m_CanDelete = can;
-}
+signals:
+    void topicIdChanged();
+    void hasMoreChanged();
+};
 
 } // namespace Sailreads

@@ -1,8 +1,10 @@
 /*
+The MIT License(MIT)
+
 Copyright (c) 2018 Oleg Linkin <maledictusdemagog@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
+of this software and associated documentation files(the "Software"), to deal
 in the Software without restriction, including without limitation the rights
 to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, and to permit persons to whom the Software is
@@ -20,64 +22,38 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-#include "comment.h"
+import QtQuick 2.0
+import Sailfish.Silica 1.0
 
-namespace Sailreads
-{
-Comment::Comment()
-: m_Id(0)
-, m_CanDelete(false)
-{
+Dialog {
+    id: addCommentDialog
+
+    property alias comment: commentArea.text
+
+    SilicaFlickable {
+        anchors.fill: parent
+        contentHeight: column.height + Theme.paddingSmall
+        clip: true
+
+        Column {
+            id: column
+            width: parent.width
+            clip: true
+            spacing: Theme.paddingMedium
+
+            DialogHeader {
+                acceptText: qsTr("Add")
+                cancelText: qsTr("Cancel")
+            }
+
+            TextArea {
+                id: commentArea
+                width: parent.width
+                placeholderText: qsTr("Comment")
+            }
+        }
+        VerticalScrollDecorator{}
+    }
+
+    canAccept: commentArea.text !== ""
 }
-
-quint64 Comment::GetId() const
-{
-    return m_Id;
-}
-
-void Comment::SetId(quint64 id)
-{
-    m_Id = id;
-}
-
-QString Comment::GetBody() const
-{
-    return m_Body;
-}
-
-void Comment::SetBody(const QString& body)
-{
-    m_Body = body;
-}
-
-QDateTime Comment::GetUpdateAtDate() const
-{
-    return m_UpdatedAt;
-}
-
-void Comment::SetUpdateAtDate(const QDateTime& dt)
-{
-    m_UpdatedAt = dt;
-}
-
-User Comment::GetAuthor() const
-{
-    return m_Author;
-}
-
-void Comment::SetAuthor(const User& user)
-{
-    m_Author = user;
-}
-
-bool Comment::GetCanDelete() const
-{
-    return m_CanDelete;
-}
-
-void Comment::SetCanDelete(bool can)
-{
-    m_CanDelete = can;
-}
-
-} // namespace Sailreads

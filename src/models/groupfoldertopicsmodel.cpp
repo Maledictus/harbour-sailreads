@@ -148,5 +148,4 @@ void GroupFolderTopicsModel::handleGotGroupFolderTopics(quint64 groupdFolderId,
         AddItems(topics.m_Items);
     }
 }
-
 } // namespace Sailreads

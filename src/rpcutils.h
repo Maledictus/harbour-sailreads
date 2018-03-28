@@ -72,6 +72,7 @@ Group ParseGroup(const QDomDocument& doc);
 GroupMembers_t ParseGroupMembers(const QDomDocument& doc);
 CountedItems<Topic> ParseGroupFolderTopics(const QDomDocument& doc);
 Topic ParseGroupFolderTopic(const QDomDocument& doc);
+Comment ParseComment(const QDomDocument& doc);
 }
 }
 }

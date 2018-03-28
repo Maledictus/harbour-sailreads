@@ -38,7 +38,7 @@ namespace
 QString PrepareDateTimeString(const QString& str)
 {
     auto sections = str.split(" ");
-    if (sections.count() != 5) {
+    if (sections.count() != 6) {
         return str;
     }
     QString sIso = QString("%1-%2-%3T%4%5")
@@ -407,7 +407,7 @@ Topic ParseTopic(const QDomElement& element)
                     Qt::ISODate));
         }
         else if (fieldElement.tagName() == "subject_type") {
-            topic.SetSubjectType(fieldElement.text());
+           topic.SetSubjectType(fieldElement.text());
         }
         else if (fieldElement.tagName() == "group") {
             topic.SetGroup(ParseGroup(fieldElement));
@@ -727,6 +727,16 @@ Topic ParseGroupFolderTopic(const QDomDocument& doc)
     }
 
     return ParseTopic(responseElement.firstChildElement("topic"));
+}
+
+Comment ParseComment(const QDomDocument& doc)
+{
+    const auto& commentElement = doc.firstChildElement("comment");
+    if (commentElement.isNull()) {
+        return Comment();
+    }
+
+    return ParseComment(commentElement);
 }
 }
 }
