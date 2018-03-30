@@ -93,7 +93,7 @@ Page {
             }
 
             onClicked: {
-                //TODO
+                //TODO go to profile page
             }
         }
 

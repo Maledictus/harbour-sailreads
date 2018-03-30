@@ -148,6 +148,10 @@ Page {
                     posterName: commentAuthor.firstName
                     postDate: Utils.generateDateString(commentUpdateDate, "dd MMM yyyy hh:mm")
                     posterAvatar: commentAuthor.avatar
+
+                    onClicked: {
+                        //TODO go to profile page
+                    }
                 }
 
                 Label {

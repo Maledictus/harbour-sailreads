@@ -111,6 +111,10 @@ Page {
                     text: qsTr("%1 friends").arg(friendFriendsCount)
                 }
             }
+
+            onClicked: {
+                //TODO go to profile page
+            }
         }
 
         VerticalScrollDecorator {}

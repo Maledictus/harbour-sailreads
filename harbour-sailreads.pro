@@ -1,11 +1,13 @@
 TEMPLATE = subdirs
 
 SUBDIRS = \
-	liboauth \
+    liboauth \
     sailreads \
     $${NULL}
 
 OTHER_FILES = \
-	rpm/sailreads.changes.in \
-	rpm/sailreads.changes.run.in \
-    rpm/sailreads.yaml
+    rpm/harbour-sailreads.changes.in \
+    rpm/harbour-sailreads.changes.run.in \
+    rpm/harbour-sailreads.spec \
+    rpm/harbour-sailreads.yaml \
+    .qmake.conf

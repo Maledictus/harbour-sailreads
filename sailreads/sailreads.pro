@@ -4,12 +4,11 @@ VERSION = 0.1
 
 QT += network xmlpatterns xml
 
-CONFIG += sailfishapp c++11
+CONFIG += sailfishapp c++11 sailfishapp_i18n
+
 PKGCONFIG += mlite5
 
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
-
-LIBS += -loauth
 
 SOURCES += src/harbour-sailreads.cpp \
     src/application.cpp \
@@ -73,17 +72,28 @@ HEADERS += src/application.h \
     src/objects/user.h \
     src/models/commentsmodel.h
 
-DISTFILES += rpm/harbour-sailreads.changes.in \
-    rpm/harbour-sailreads.changes.run.in \
-    rpm/harbour-sailreads.spec \
-    rpm/harbour-sailreads.yaml \
-    translations/*.ts \
-    harbour-sailreads.desktop
+DISTFILES += translations/*.ts \
+    sailreads.desktop
 
-RESOURCES += $${TARGET}.qrc
+QML_SOURCES = \
+        qml/*.qml \
+        qml/pages/*.qml \
+        qml/cover/*.qml \
+        qml/components/*.qml \
+        qml/dialogs/*.qml \
+        qml/utils/*.js
+
+RESOURCES += sailreads.qrc
 
 SAILFISHAPP_ICONS = 86x86 108x108 128x128
 
-CONFIG += sailfishapp_i18n
-
 TRANSLATIONS += translations/harbour-sailreads-ru.ts
+
+QMAKE_RPATHDIR += $$CURRENT_RPATH_DIR
+
+LIBS += -L../liboauth -loauth
+INCLUDEPATH += ../liboauth/src/
+
+lupdate_only {
+SOURCES += $$QML_SOURCES
+}
