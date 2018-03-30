@@ -418,17 +418,17 @@ Pull down to refresh</source>
 <context>
     <name>Sailreads::SailreadsManager</name>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="165"/>
+        <location filename="../src/sailreadsmanager.cpp" line="163"/>
         <source>Authorization user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="178"/>
+        <location filename="../src/sailreadsmanager.cpp" line="176"/>
         <source>Authentication user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="185"/>
+        <location filename="../src/sailreadsmanager.cpp" line="183"/>
         <source>Getting user profile...</source>
         <translation type="unfinished"></translation>
     </message>
