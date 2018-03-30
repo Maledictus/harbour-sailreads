@@ -1,0 +1,3 @@
+[submodule "liboauth"]
+	path = liboauth
+	url = https://github.com/x42/liboauth.git
