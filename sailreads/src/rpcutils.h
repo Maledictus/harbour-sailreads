@@ -28,9 +28,11 @@ THE SOFTWARE.
 #include <QDomElement>
 #include <QPair>
 
+#include "objects/book.h"
 #include "objects/bookshelf.h"
 #include "objects/friend.h"
 #include "objects/group.h"
+#include "objects/review.h"
 #include "objects/topic.h"
 #include "objects/user.h"
 #include "types.h"
@@ -54,6 +56,9 @@ Group ParseGroup(const QDomElement& element);
 Friend ParseFriend(const QDomElement& element);
 Topic ParseTopic(const QDomElement& element);
 Comment ParseComment(const QDomElement& element);
+Book ParseBook(const QDomElement& element);
+Review ParseReview(const QDomElement& element);
+Author ParseAuthor(const QDomElement& element);
 
 GroupMembers_t ParseGroupMembers(const QDomElement& element);
 GroupFolders_t ParseGroupFolders(const QDomElement& element);
@@ -62,7 +67,9 @@ BookShelves_t ParseBookShelves(const QDomElement& element);
 Groups_t ParseGroups(const QDomElement& element);
 Friends_t ParseFriends(const QDomElement& element);
 Topics_t ParseTopics(const QDomElement& element);
+Authors_t ParseAuthors(const QDomElement& element);
 CountedItems<Comment> ParseComments(const QDomElement& element);
+CountedItems<Review> ParseReviews(const QDomElement& element);
 
 std::shared_ptr<UserProfile> ParseUserProfile(const QDomDocument& doc);
 BookShelves_t ParseBookShelves(const QDomDocument& doc);
@@ -73,6 +80,7 @@ GroupMembers_t ParseGroupMembers(const QDomDocument& doc);
 CountedItems<Topic> ParseGroupFolderTopics(const QDomDocument& doc);
 Topic ParseGroupFolderTopic(const QDomDocument& doc);
 Comment ParseComment(const QDomDocument& doc);
+QPair<quint64, CountedItems<Review>> ParseReviews(const QDomDocument& doc);
 }
 }
 }

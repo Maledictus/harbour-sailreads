@@ -447,6 +447,194 @@ Comment ParseComment(const QDomElement& element)
     return comment;
 }
 
+Book ParseBook(const QDomElement& element)
+{
+    Book book;
+    const auto& fieldsList = element.childNodes();
+    for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
+        const auto& fieldElement = fieldsList.at (i).toElement ();
+        if (fieldElement.tagName() == "id") {
+            book.SetId(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "isbn") {
+            book.SetISBN(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "isbn13") {
+            book.SetISBN13(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "text_reviews_count") {
+            book.SetTextReviewsCount(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "title") {
+            book.SetTitle(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "title_without_series") {
+            book.SetTitleWithoutSeries(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "image_url") {
+            book.SetImageUrl(QUrl(fieldElement.text()));
+        }
+        else if (fieldElement.tagName() == "small_image_url") {
+            book.SetSmallImageUrl(QUrl(fieldElement.text()));
+        }
+        else if (fieldElement.tagName() == "large_image_url") {
+            book.SetLargeImageUrl(QUrl(fieldElement.text()));
+        }
+        else if (fieldElement.tagName() == "link") {
+            book.SetLink(QUrl(fieldElement.text()));
+        }
+        else if (fieldElement.tagName() == "num_pages") {
+            book.SetNumPages(fieldElement.text().toInt());
+        }
+        else if (fieldElement.tagName() == "format") {
+            book.SetFormat(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "edition_information") {
+            book.SetEditionInformation(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "publisher") {
+            book.SetPublisher(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "publication_day") {
+            book.SetPublicationDay(fieldElement.text().toInt());
+        }
+        else if (fieldElement.tagName() == "publication_year") {
+            book.SetPublicationYear(fieldElement.text().toInt());
+        }
+        else if (fieldElement.tagName() == "publication_month") {
+            book.SetPublicationMonth(fieldElement.text().toInt());
+        }
+        else if (fieldElement.tagName() == "average_rating") {
+            book.SetAverageRating(fieldElement.text().toDouble());
+        }
+        else if (fieldElement.tagName() == "ratings_count") {
+            book.SetRatingsCount(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "description") {
+            book.SetDescription(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "published") {
+            book.SetPublishedYear(fieldElement.text().toInt());
+        }
+        else if (fieldElement.tagName() == "authors") {
+            book.SetAuthors(ParseAuthors(fieldElement));
+        }
+        else if (fieldElement.tagName() == "work") {
+            const auto& workList = fieldElement.childNodes();
+            for (int i = 0, cnt = workList.size(); i < cnt; ++i) {
+                const auto& workElement = workList.at (i).toElement ();
+                if (workElement.tagName() == "id") {
+                    book.SetWorkId(workElement.text().toULongLong());
+                    break;
+                }
+            }
+        }
+    }
+
+    return book;
+}
+
+Review ParseReview(const QDomElement& element)
+{
+    Review review;
+    const auto& fieldsList = element.childNodes();
+    for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
+        const auto& fieldElement = fieldsList.at (i).toElement ();
+        if (fieldElement.tagName() == "id") {
+            review.SetId(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "book") {
+            review.SetBook(ParseBook(fieldElement));
+        }
+        else if (fieldElement.tagName() == "rating") {
+            review.SetRating(fieldElement.text().toInt());
+        }
+        else if (fieldElement.tagName() == "votes") {
+            review.SetVotes(fieldElement.text().toInt());
+        }
+        else if (fieldElement.tagName() == "shelves") {
+            BookShelves_t shelves;
+            const auto& shelvesLits = fieldElement.childNodes();
+            for (int i = 0, shelvesCount = shelvesLits.size(); i < shelvesCount; ++i) {
+                const auto& shelfElement = shelvesLits.at (i).toElement ();
+                BookShelf shelf;
+                shelf.SetId(shelfElement.attribute("id").toULongLong());
+                shelf.SetName(shelfElement.attribute("name"));
+                shelves << shelf;
+            }
+            review.SetShelves(shelves);
+        }
+        else if (fieldElement.tagName() == "date_added" && !fieldElement.text().isEmpty()) {
+            review.SetAddedDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
+                    Qt::ISODate));
+        }
+        else if (fieldElement.tagName() == "date_updated" && !fieldElement.text().isEmpty()) {
+            review.SetUpdatedDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
+                    Qt::ISODate));
+        }
+        else if (fieldElement.tagName() == "date_read" && !fieldElement.text().isEmpty()) {
+            review.SetReadDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
+                    Qt::ISODate));
+        }
+        else if (fieldElement.tagName() == "started_at" && !fieldElement.text().isEmpty()) {
+            review.SetStartedDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
+                    Qt::ISODate));
+        }
+        else if (fieldElement.tagName() == "read_count") {
+            review.SetReadCount(fieldElement.text().toInt());
+        }
+        else if (fieldElement.tagName() == "body") {
+            review.SetBody(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "comments_count") {
+            review.SetCommentsCount(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "url") {
+            review.SetUrl(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "owned") {
+            review.SetOwned(fieldElement.text().toULongLong());
+        }
+    }
+
+    return review;
+}
+
+Author ParseAuthor(const QDomElement& element)
+{
+    Author author;
+    const auto& fieldsList = element.childNodes();
+    for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
+        const auto& fieldElement = fieldsList.at (i).toElement ();
+        if (fieldElement.tagName() == "id") {
+            author.SetId(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "name") {
+            author.SetName(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "image_url") {
+            author.SetImageUrl(QUrl(fieldElement.text()));
+        }
+        else if (fieldElement.tagName() == "small_image_url") {
+            author.SetSmallImageUrl(QUrl(fieldElement.text()));
+        }
+        else if (fieldElement.tagName() == "link") {
+            author.SetLink(QUrl(fieldElement.text()));
+        }
+        else if (fieldElement.tagName() == "average_rating") {
+            author.SetAverageRating(fieldElement.text().toDouble());
+        }
+        else if (fieldElement.tagName() == "ratings_count") {
+            author.SetRatingsCount(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "text_reviews_count") {
+            author.SetTextReviewsCount(fieldElement.text().toULongLong());
+        }
+    }
+
+    return author;
+}
+
 GroupMembers_t ParseGroupMembers(const QDomElement& element)
 {
     GroupMembers_t members;
@@ -524,6 +712,17 @@ Topics_t ParseTopics(const QDomElement& element)
     return topics;
 }
 
+Authors_t ParseAuthors(const QDomElement& element)
+{
+    Authors_t authors;
+    const auto& nodes = element.childNodes();
+    for (int i = 0, count = nodes.size(); i < count; ++i) {
+        const auto& elem = nodes.at(i).toElement();
+        authors << ParseAuthor(elem);
+    }
+    return authors;
+}
+
 CountedItems<Comment> ParseComments(const QDomElement& element)
 {
     CountedItems<Comment> comments;
@@ -536,6 +735,20 @@ CountedItems<Comment> ParseComments(const QDomElement& element)
         comments.m_Items << ParseComment(elem);
     }
     return comments;
+}
+
+CountedItems<Review> ParseReviews(const QDomElement& element)
+{
+    CountedItems<Review> reviews;
+    reviews.m_BeginIndex = element.attribute("start").toULongLong();
+    reviews.m_EndIndex = element.attribute("end").toULongLong();
+    reviews.m_Count = element.attribute("total").toULongLong();
+    const auto& nodes = element.childNodes();
+    for (int i = 0, count = nodes.size(); i < count; ++i) {
+        const auto& elem = nodes.at(i).toElement();
+        reviews.m_Items << ParseReview(elem);
+    }
+    return reviews;
 }
 
 std::shared_ptr<UserProfile> ParseUserProfile(const QDomDocument &doc)
@@ -737,6 +950,28 @@ Comment ParseComment(const QDomDocument& doc)
     }
 
     return ParseComment(commentElement);
+}
+
+QPair<quint64, CountedItems<Review>> ParseReviews(const QDomDocument& doc)
+{
+    const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
+    if (responseElement.isNull()) {
+        return QPair<quint64, CountedItems<Review>>();
+    }
+
+    const auto& shelfElement = responseElement.firstChildElement("shelf");
+    if (shelfElement.isNull()) {
+        return QPair<quint64, CountedItems<Review>>();
+    }
+
+    const quint64 shelfId = shelfElement.attribute("id").toULong();
+
+    const auto& reviewsListElement = responseElement.firstChildElement("reviews");
+    if (reviewsListElement.isNull()) {
+        return qMakePair(shelfId, CountedItems<Review>());
+    }
+
+    return qMakePair(shelfId, ParseReviews(reviewsListElement));
 }
 }
 }
