@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/images">
-        <file>images/gra_small.png</file>
+        <file alias="gra_small.png">images/gra_small.png</file>
+        <file alias="icon-m-favorite-half.svg">images/icon-m-favorite-half.svg</file>
     </qresource>
 </RCC>
