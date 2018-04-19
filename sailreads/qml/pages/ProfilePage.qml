@@ -250,6 +250,12 @@ Page {
                         color: Theme.secondaryColor
                         text: bookShelfBooksCount
                     }
+
+                    onClicked: {
+                        pageStack.push(Qt.resolvedUrl("ReviewsPage.qml"),
+                                { userId: profilePage.userId, bookShelfId: bookShelfId,
+                                    bookShelf: bookShelfName })
+                    }
                 }
 
                 model: bookShelvesModel

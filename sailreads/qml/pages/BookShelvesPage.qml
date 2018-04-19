@@ -119,6 +119,11 @@ Page {
                 }
             }
 
+            onClicked: {
+                pageStack.push(Qt.resolvedUrl("ReviewsPage.qml"),
+                        { userId: userId, bookShelfId: bookShelfId, bookShelf: bookShelfName })
+            }
+        }
         VerticalScrollDecorator {}
     }
 

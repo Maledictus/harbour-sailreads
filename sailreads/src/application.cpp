@@ -31,6 +31,7 @@ THE SOFTWARE.
 #include <QtDebug>
 #include <QtQml>
 
+#include "models/reviewsmodel.h"
 #include "models/bookshelvesmodel.h"
 #include "models/bookshelfproxymodel.h"
 #include "models/commentsmodel.h"
@@ -91,6 +92,7 @@ void Application::start()
     qRegisterMetaType<GroupFolder>("GroupFolder");
     qRegisterMetaType<Topic>("Topic");
     qRegisterMetaType<User>("User");
+    qRegisterMetaType<Book>("Book");
 
     qmlRegisterType<BaseProxyModel>("harbour.sailreads", 1, 0, "BaseProxyModel");
     qmlRegisterType<BookShelvesModel>("harbour.sailreads", 1, 0, "BookShelvesModel");
@@ -102,6 +104,7 @@ void Application::start()
     qmlRegisterType<GroupMembersModel>("harbour.sailreads", 1, 0, "GroupMembersModel");
     qmlRegisterType<GroupFolderTopicsModel>("harbour.sailreads", 1, 0, "GroupFolderTopicsModel");
     qmlRegisterType<CommentsModel>("harbour.sailreads", 1, 0, "CommentsModel");
+    qmlRegisterType<ReviewsModel>("harbour.sailreads", 1, 0, "ReviewsModel");
 
     ShowUI();
 }
