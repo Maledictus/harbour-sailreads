@@ -34,6 +34,13 @@ Page {
     property int groupId: 0
     property bool busy: sailreadsManager.busy && groupMembersPage.status == PageStatus.Active
 
+    function attachPage() {
+        if (pageStack._currentContainer.attachedContainer === null
+                && sailreadsManager.logged) {
+            pageStack.pushAttached(Qt.resolvedUrl("StatusPage.qml"))
+        }
+    }
+
     GroupMembersModel {
         id: groupMembersModel
         groupId: groupMembersPage.groupId

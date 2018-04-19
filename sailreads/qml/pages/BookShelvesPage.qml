@@ -31,6 +31,13 @@ Page {
 
     property int userId: 0
 
+    function attachPage() {
+        if (pageStack._currentContainer.attachedContainer === null
+                && sailreadsManager.logged) {
+            pageStack.pushAttached(Qt.resolvedUrl("StatusPage.qml"))
+        }
+    }
+
     BookShelfProxyModel {
         id: bookShelvesModel
 
@@ -67,7 +74,7 @@ Page {
 
         ViewPlaceholder {
             enabled: !sailreadsManager.busy && bookShelvesView.count === 0
-            text: qsTr ("There are no bookshelves. Pull down to refresh")
+            text: qsTr("There are no bookshelves. Pull down to refresh")
         }
 
         model: bookShelvesModel
@@ -103,17 +110,12 @@ Page {
                 MenuItem {
                     text: qsTr("Edit")
                     onClicked: {
-                        var dialog = pageStack.push("../dialogs/AddEditShelfDialog.qml",
-                            { mode: "edit", name: bookShelfName, exclusive: bookShelfExclusive })
-                        dialog.accepted.connect (function () {
-                            sailreadsManager.editBookShelf(bookShelfId, dialog.name, dialog.exclusive)
                         })
                     }
                 }
             }
         }
 
-        VerticalScrollDecorator {}
     }
 
     BusyIndicator {

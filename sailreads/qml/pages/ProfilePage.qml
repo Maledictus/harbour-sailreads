@@ -32,7 +32,16 @@ import "../utils/Utils.js" as Utils
 
 Page {
     id: profilePage
+
+    property int userId
     property bool busy: sailreadsManager.busy && profilePage.status == PageStatus.Active
+
+    function attachPage() {
+        if (pageStack._currentContainer.attachedContainer === null
+                && sailreadsManager.logged) {
+            pageStack.pushAttached(Qt.resolvedUrl("StatusPage.qml"))
+        }
+    }
 
     BookShelfProxyModel {
         id: bookShelvesModel

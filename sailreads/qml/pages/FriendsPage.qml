@@ -30,7 +30,13 @@ Page {
     id: friendsPage
 
     property int userId: 0
-    property bool busy: sailreadsManager.busy && friendsPage.status == PageStatus.Active
+
+    function attachPage() {
+        if (pageStack._currentContainer.attachedContainer === null
+                && sailreadsManager.logged) {
+            pageStack.pushAttached(Qt.resolvedUrl("StatusPage.qml"))
+        }
+    }
 
     function load() {
         sailreadsManager.loadFriends(userId)
@@ -59,7 +65,7 @@ Page {
 
         ViewPlaceholder {
             enabled: !sailreadsManager.busy && friendsView.count === 0
-            text: qsTr ("There are no friends. Pull down to refresh")
+            text: qsTr("There are no friends. Pull down to refresh")
         }
 
         model: friendsModel

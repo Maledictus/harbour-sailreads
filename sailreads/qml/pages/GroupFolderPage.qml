@@ -38,6 +38,13 @@ Page {
     property string folderName
     property bool busy: sailreadsManager.busy && folderPage.status == PageStatus.Active
 
+    function attachPage() {
+        if (pageStack._currentContainer.attachedContainer === null
+                && sailreadsManager.logged) {
+            pageStack.pushAttached(Qt.resolvedUrl("StatusPage.qml"))
+        }
+    }
+
     GroupFolderTopicsModel {
         id: topicsModel
         groupId: folderPage.groupId

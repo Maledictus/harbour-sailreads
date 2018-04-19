@@ -37,6 +37,13 @@ Page {
     property variant topic
     property bool busy: sailreadsManager.busy && groupFodlerTopicPage.status == PageStatus.Active
 
+    function attachPage() {
+        if (pageStack._currentContainer.attachedContainer === null
+                && sailreadsManager.logged) {
+            pageStack.pushAttached(Qt.resolvedUrl("StatusPage.qml"))
+        }
+    }
+
     Connections {
         target: sailreadsManager
         onGotGroupFolderTopic: {

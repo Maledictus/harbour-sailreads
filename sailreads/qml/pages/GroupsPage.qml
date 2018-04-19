@@ -34,6 +34,13 @@ Page {
     property int userId: 0
     property bool busy: sailreadsManager.busy && groupsPage.status == PageStatus.Active
 
+    function attachPage() {
+        if (pageStack._currentContainer.attachedContainer === null
+                && sailreadsManager.logged) {
+            pageStack.pushAttached(Qt.resolvedUrl("StatusPage.qml"))
+        }
+    }
+
     BaseProxyModel {
         id: groupsModel
         dynamicSortFilter: true
