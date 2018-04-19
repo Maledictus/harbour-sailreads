@@ -51,7 +51,7 @@ Page {
         filterRegExp: new RegExp("true")
         dynamicSortFilter: true
         sourceModel: BookShelvesModel {
-            userId: sailreadsManager.userProfile.userId
+            userId: profilePage.userId
         }
     }
 
@@ -62,7 +62,7 @@ Page {
 
         contentHeight: content.height + header.height
 
-        PageHeader{
+        PageHeader {
             id: header
             title: sailreadsManager.userProfile.userName
             description: sailreadsManager.userProfile.nickName
@@ -81,7 +81,7 @@ Page {
                 MenuItem {
                     text: qsTr("Refresh")
                     onClicked: {
-                        sailreadsManager.getUserInfo(sailreadsManager.userProfile.userId)
+                        sailreadsManager.getUserInfo(profilePage.userId)
                     }
                 }
             }
@@ -117,9 +117,10 @@ Page {
                         width: parent.width
                         visible: value !== ""
                         key: qsTr("Details")
-                        value: Utils.getDetailsInfoString(sailreadsManager.userProfile.age,
-                                sailreadsManager.userProfile.gender,
-                                sailreadsManager.userProfile.location)
+                        value: Utils.getDetailsInfoString(
+                                   sailreadsManager.userProfile.age,
+                                   sailreadsManager.userProfile.gender,
+                                   sailreadsManager.userProfile.location)
                     }
                     KeyValueLabel {
                         font.pixelSize: Theme.fontSizeSmall
@@ -183,8 +184,9 @@ Page {
                 busy: profilePage.busy
                 enabled: !busy
                 onClicked: {
-                    pageStack.push(Qt.resolvedUrl("FriendsPage.qml"),
-                            { userId: sailreadsManager.userProfile.userId })
+                    pageStack.push(Qt.resolvedUrl("FriendsPage.qml"), {
+                        userId: profilePage.userId
+                   })
                 }
             }
 
@@ -197,8 +199,9 @@ Page {
                 busy: profilePage.busy
                 enabled: !busy
                 onClicked: {
-                    pageStack.push(Qt.resolvedUrl("GroupsPage.qml"),
-                            { userId: sailreadsManager.userProfile.userId })
+                    pageStack.push(Qt.resolvedUrl("GroupsPage.qml"), {
+                        userId: profilePage.userId
+                    })
                 }
             }
 
@@ -211,8 +214,9 @@ Page {
                 busy: profilePage.busy
                 enabled: !busy
                 onClicked: {
-                    pageStack.push(Qt.resolvedUrl("BookShelvesPage.qml"),
-                            { userId: sailreadsManager.userProfile.userId })
+                    pageStack.push(Qt.resolvedUrl("BookShelvesPage.qml"), {
+                        userId: profilePage.userId
+                    })
                 }
             }
 
@@ -221,7 +225,7 @@ Page {
 
                 width: parent.width
                 height: contentHeight
-                delegate:  ListItem {
+                delegate: ListItem {
                     Label {
                         id: shelfName
                         anchors {

@@ -79,7 +79,8 @@ Page {
             progress.text = progressMessage
         }
         onGotUserProfile: {
-            pageStack.replace(Qt.resolvedUrl("ProfilePage.qml"))
+            pageStack.replace(Qt.resolvedUrl("ProfilePage.qml"),
+                    { userId: sailreadsManager.userProfile.userId })
         }
     }
 
