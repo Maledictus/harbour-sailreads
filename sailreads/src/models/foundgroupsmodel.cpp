@@ -65,7 +65,10 @@ void FoundGroupsModel::fetchMoreContent(const QString& text)
 void FoundGroupsModel::handleGotFoundGroups(const CountedItems<Group>& groups)
 {
     SetHasMore(groups.m_EndIndex != groups.m_Count);
-    m_CurrentPage++;
+    if (m_HasMore) {
+        ++m_CurrentPage;
+    }
+
     if (groups.m_BeginIndex == 1) {
         SetItems(groups.m_Items);
     }

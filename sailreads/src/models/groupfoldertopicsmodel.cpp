@@ -140,7 +140,10 @@ void GroupFolderTopicsModel::handleGotGroupFolderTopics(quint64 groupdFolderId,
     }
 
     SetHasMore(topics.m_EndIndex != topics.m_Count);
-    m_CurrentPage++;
+    if (m_HasMore) {
+        ++m_CurrentPage;
+    }
+
     if (topics.m_BeginIndex == 1) {
         SetItems(topics.m_Items);
     }

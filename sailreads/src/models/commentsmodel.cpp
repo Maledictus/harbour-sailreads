@@ -106,7 +106,9 @@ void CommentsModel::handleGotGroupFolderTopic(const Topic& topic)
 {
     const auto& comments = topic.GetComments();
     SetHasMore(comments.m_EndIndex != comments.m_Count);
-    m_CurrentPage++;
+    if (m_HasMore) {
+        ++m_CurrentPage;
+    }
     if (comments.m_BeginIndex == 1) {
         SetItems(comments.m_Items);
     }
