@@ -110,12 +110,16 @@ Page {
                 MenuItem {
                     text: qsTr("Edit")
                     onClicked: {
-                        })
-                    }
+                        var dialog = pageStack.push("../dialogs/AddEditShelfDialog.qml",
+                            { mode: "edit", name: bookShelfName, exclusive: bookShelfExclusive })
+                        dialog.accepted.connect(function () {
+                            sailreadsManager.editBookShelf(bookShelfId, dialog.name, dialog.exclusive)
+                            })
+                     }
                 }
             }
-        }
 
+        VerticalScrollDecorator {}
     }
 
     BusyIndicator {
