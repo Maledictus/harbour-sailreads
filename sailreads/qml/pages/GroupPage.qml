@@ -156,7 +156,7 @@ Page {
                     visible: value !== ""
                     font.pixelSize: Theme.fontSizeSmall
                     key: qsTr("Members")
-                    value: group !== undefined ? group.usersCount : 0
+                    value: group !== undefined ? Number(group.usersCount).toFixed() : 0
                 }
             }
 
