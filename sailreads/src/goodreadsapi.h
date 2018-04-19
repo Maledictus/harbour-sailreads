@@ -30,9 +30,11 @@ THE SOFTWARE.
 #include <QUrl>
 
 #include "userprofile.h"
+#include "objects/book.h"
 #include "objects/comment.h"
 #include "objects/group.h"
 #include "objects/friend.h"
+#include "objects/review.h"
 #include "objects/topic.h"
 
 class QNetworkAccessManager;
@@ -77,6 +79,9 @@ public:
     void AddBookShelf(const QString& name, bool exclusive);
     void EditBookShelf(quint64 id, const QString& name, bool exclusive);
 
+    void GetReviews(quint64 userId, const QString& bookShelf, const QString& sortField = "position",
+            Qt::SortOrder order = Qt::AscendingOrder, int page = 1);
+
     void GetGroups(quint64 userId);
     void GetGroup(quint64 groupId, const QString& groupName);
     void SearchGroup(const QString& text, int page);
@@ -101,6 +106,8 @@ private slots:
     void handleGetBookShelves(quint64 userId);
     void handleAddBookShelf();
     void handleEditBookShelf();
+
+    void handleGetReviews();
 
     void handleGetGroups(quint64 userId);
     void handleGetGroup(quint64 groupId, QObject *senderObject = nullptr);
@@ -128,6 +135,8 @@ signals:
     void gotUserBookShelves(quint64 userId, const BookShelves_t& shelves);
     void bookShelfAdded(const BookShelf& shelf);
     void bookShelfEdited(const BookShelf& shelf);
+
+    void gotReviews(quint64 bookShelfId, const CountedItems<Review>& reviews);
 
     void gotUserGroups(quint64 userId, const CountedItems<Group>& groups);
     void gotUserGroup(quint64 groupId, const Group& group);

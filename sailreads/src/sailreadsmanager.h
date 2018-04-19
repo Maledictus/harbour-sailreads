@@ -27,9 +27,11 @@ THE SOFTWARE.
 #include <QObject>
 #include <QVariantMap>
 
+#include "objects/book.h"
 #include "objects/bookshelf.h"
 #include "objects/friend.h"
 #include "objects/group.h"
+#include "objects/review.h"
 #include "objects/topic.h"
 
 namespace Sailreads
@@ -83,6 +85,9 @@ public slots:
     void addBookShelf(const QString& name, bool exclusive);
     void editBookShelf(quint64 id, const QString& name, bool exclusive);
 
+    void loadReviews(quint64 userId, const QString& bookShelf, int page = 1,
+            Qt::SortOrder order = Qt::AscendingOrder, const QString& sortField = "position");
+
     void loadFriends(quint64 userId);
 
     void loadGroups(quint64 userId);
@@ -106,6 +111,8 @@ signals:
     void gotUserBookShelves(quint64 userId, const BookShelves_t& shelves);
     void bookShelfAdded(const BookShelf& shelf);
     void bookShelfEdited(const BookShelf& shelf);
+
+    void gotReviews(quint64 bookShelfId, const CountedItems<Review>& reviews);
 
     void gotUserFriends(quint64 userId, const Friends_t& friends);
 

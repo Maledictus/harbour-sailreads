@@ -125,6 +125,9 @@ void SailreadsManager::MakeConnections()
     connect(m_Api, &GoodReadsApi::bookShelfEdited,
             this, &SailreadsManager::bookShelfEdited);
 
+    connect(m_Api, &GoodReadsApi::gotReviews,
+            this, &SailreadsManager::gotReviews);
+
     connect(m_Api, &GoodReadsApi::gotUserFriends,
             this, &SailreadsManager::gotUserFriends);
 
@@ -206,6 +209,13 @@ void SailreadsManager::editBookShelf(quint64 id, const QString& name, bool exclu
 {
     SetBusy(true);
     m_Api->EditBookShelf(id, name, exclusive);
+}
+
+void SailreadsManager::loadReviews(quint64 userId, const QString& bookShelf, int page,
+        Qt::SortOrder order, const QString& sortField)
+{
+    SetBusy(true);
+    m_Api->GetReviews(userId, bookShelf, sortField, order, page);
 }
 
 void SailreadsManager::loadFriends(quint64 userId)

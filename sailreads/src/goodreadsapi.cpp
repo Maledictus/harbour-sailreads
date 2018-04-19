@@ -153,6 +153,19 @@ void GoodReadsApi::EditBookShelf(quint64 id, const QString& name, bool exclusive
             this, &GoodReadsApi::handleEditBookShelf);
 }
 
+void GoodReadsApi::GetReviews(quint64 userId, const QString& bookShelf, const QString& sortField,
+        Qt::SortOrder order, int page)
+{
+    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
+            QUrl(QString("https://www.goodreads.com/review/list/%1.xml?v=2&shelf=%2&page=%3&"
+                         "per_page=200&sort=%4&order=%5")
+                 .arg(userId).arg(bookShelf).arg(page).arg(sortField)
+                 .arg(order == Qt::AscendingOrder ? "a" : "d")), "GET");
+    auto reply = m_NAM->get(QNetworkRequest(pair.first));
+    connect(reply, &QNetworkReply::finished,
+            this, &GoodReadsApi::handleGetReviews);
+}
+
 void GoodReadsApi::GetGroups(quint64 userId)
 {
     const QUrl url(QString("https://www.goodreads.com/group/list/%1.xml?key=%2&sort=last_activity")
@@ -480,6 +493,20 @@ void GoodReadsApi::handleEditBookShelf()
 
     emit requestFinished();
     emit bookShelfEdited(RpcUtils::Parser::ParseBookShelf(doc.firstChildElement("user_shelf")));
+}
+
+void GoodReadsApi::handleGetReviews()
+{
+    bool ok = false;
+    auto doc = GetDocumentFromReply(sender(), ok);
+    if (!ok) {
+        emit requestFinished();
+        return;
+    }
+
+    emit requestFinished();
+    const auto& pair = RpcUtils::Parser::ParseReviews(doc);
+    emit gotReviews(pair.first, pair.second);
 }
 
 void GoodReadsApi::handleGetGroups(quint64 userId)
