@@ -39,7 +39,11 @@ SOURCES += src/harbour-sailreads.cpp \
     src/models/groupfoldertopicsmodel.cpp \
     src/objects/comment.cpp \
     src/objects/user.cpp \
-    src/models/commentsmodel.cpp
+    src/models/commentsmodel.cpp \
+    src/objects/book.cpp \
+    src/models/reviewsmodel.cpp \
+    src/objects/review.cpp \
+    src/objects/author.cpp
 
 HEADERS += src/application.h \
     src/debugmessagehandler.h \
@@ -70,7 +74,11 @@ HEADERS += src/application.h \
     src/models/groupfoldertopicsmodel.h \
     src/objects/comment.h \
     src/objects/user.h \
-    src/models/commentsmodel.h
+    src/models/commentsmodel.h \
+    src/objects/book.h \
+    src/models/reviewsmodel.h \
+    src/objects/review.h \
+    src/objects/author.h
 
 DISTFILES += translations/*.ts \
     sailreads.desktop
