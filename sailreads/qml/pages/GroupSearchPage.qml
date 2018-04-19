@@ -77,12 +77,15 @@ Page {
                 anchors {
                     left: parent.left
                     leftMargin: Theme.horizontalPageMargin
-                    verticalCenter: parent.verticalCenter
+                    top: column.top
+                    topMargin: Theme.paddingSmall
                 }
                 source: groupImageUrl
                 height: Theme.iconSizeLarge
-                width: Theme.iconSizeLarge
+                width: Theme.iconSizeMedium
                 fillMode: Image.PreserveAspectFit
+                horizontalAlignment: Image.AlignLeft
+                verticalAlignment: Image.AlignTop
 
                 BusyIndicator {
                     size: BusyIndicatorSize.Medium
@@ -117,7 +120,7 @@ Page {
                 KeyValueLabel {
                     id: groupMembersLabel
                     key: qsTr("Members")
-                    value: groupUsersCount
+                    value: Number(groupUsersCount).toFixed()
                 }
             }
 

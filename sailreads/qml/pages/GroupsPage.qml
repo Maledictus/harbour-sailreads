@@ -82,7 +82,7 @@ Page {
 
         delegate: ListItem {
             width: groupsView.width
-            contentHeight: Theme.itemSizeLarge
+            contentHeight: Math.max(groupIconImage.height, column.height) + 2* Theme.paddingSmall
             clip: true
 
             Image {
@@ -90,12 +90,15 @@ Page {
                 anchors {
                     left: parent.left
                     leftMargin: Theme.horizontalPageMargin
-                    verticalCenter: parent.verticalCenter
+                    top: column.top
+                    topMargin: Theme.paddingSmall
                 }
                 source: groupImageUrl
                 height: Theme.iconSizeLarge
-                width: Theme.iconSizeLarge
+                width: Theme.iconSizeMedium
                 fillMode: Image.PreserveAspectFit
+                horizontalAlignment: Image.AlignLeft
+                verticalAlignment: Image.AlignTop
 
                 BusyIndicator {
                     size: BusyIndicatorSize.Medium
