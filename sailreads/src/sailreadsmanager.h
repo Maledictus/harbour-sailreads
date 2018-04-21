@@ -52,11 +52,11 @@ class SailreadsManager : public QObject
     QString m_AccessToken;
     QString m_AccessSecretToken;
 
-    UserProfile *m_Profile;
+    User m_AuthUser;
 
     Q_PROPERTY(bool busy READ GetBusy NOTIFY busyChanged)
     Q_PROPERTY(bool logged READ GetLogged NOTIFY loggedChanged)
-    Q_PROPERTY(UserProfile* userProfile READ GetProfile NOTIFY profileChanged)
+    Q_PROPERTY(User authUser READ GetAuthUser NOTIFY authUserChanged)
 
     explicit SailreadsManager(QObject *parent = 0);
 
@@ -66,7 +66,7 @@ public:
     bool GetBusy() const;
     bool GetLogged() const;
 
-    UserProfile* GetProfile() const;
+    User GetAuthUser() const;
 
 private:
     void MakeConnections();
@@ -77,7 +77,7 @@ public slots:
     void obtainRequestToken();
     void requestAccessToken();
 
-    void authUser();
+    void authenticateUser();
     void getUserInfo(quint64 id);
     void getUpdates();
 
@@ -104,9 +104,10 @@ public slots:
 signals:
     void busyChanged();
     void loggedChanged();
-    void profileChanged();
+    void authUserChanged();
 
-    void gotUserProfile();
+    void gotAuthUserId(quint64 authUserId);
+    void gotUserProfile(const User& userProfile);
 
     void gotUserBookShelves(quint64 userId, const BookShelves_t& shelves);
     void bookShelfAdded(const BookShelf& shelf);

@@ -120,7 +120,8 @@ Page {
             }
 
             onClicked: {
-                //TODO go to profile page
+                pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
+                        { userId: friendId })
             }
         }
 

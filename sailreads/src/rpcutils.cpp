@@ -78,13 +78,15 @@ User ParseUser(const QDomElement& element)
 {
     User user;
     const auto& fieldsList = element.childNodes();
-    for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
-        const auto& fieldElement = fieldsList.at (i).toElement ();
+    for (int i = 0, count = fieldsList.size(); i < count; ++i) {
+        const auto& fieldElement = fieldsList.at(i).toElement();
         if (fieldElement.tagName() == "id") {
             user.SetId(fieldElement.text().toULongLong());
         }
-        else if (fieldElement.tagName() == "first_name" ||
-                fieldElement.tagName() == "name") {
+        else if (fieldElement.tagName() == "name") {
+            user.SetUserName(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "first_name") {
             user.SetFirstName(fieldElement.text());
         }
         else if (fieldElement.tagName() == "last_name") {
@@ -93,12 +95,71 @@ User ParseUser(const QDomElement& element)
         else if (fieldElement.tagName() == "user_name") {
             user.SetNickName(fieldElement.text());
         }
-        else if (fieldElement.tagName() == "p2_image_url" ||
-                fieldElement.tagName() == "small_image_url") {
-            user.SetAvatar(QUrl(fieldElement.text()));
+        else if (fieldElement.tagName() == "link") {
+            user.SetWebUrl(QUrl(fieldElement.text()));
         }
-    }
-
+        else if (fieldElement.tagName() == "image_url" || fieldElement.tagName() == "p2_image_url") {
+            user.SetAvatarUrl(QUrl(fieldElement.text()));
+        }
+        else if (fieldElement.tagName() == "small_image_url") {
+            user.SetSmallAvatarUrl(QUrl(fieldElement.text()));
+        }
+        else if (fieldElement.tagName() == "about") {
+            user.SetAbout(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "age") {
+            user.SetAge(fieldElement.text().toUInt());
+        }
+        else if (fieldElement.tagName() == "gender") {
+            user.SetGender(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "location") {
+            user.SetLocation(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "website") {
+            user.SetWebSite(QUrl(fieldElement.text()));
+        }
+        else if (fieldElement.tagName() == "joined") {
+            user.SetJoinedDate(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "last_active") {
+            user.SetLastUpdateDate(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "interests") {
+            user.SetInterests(fieldElement.text ());
+        }
+        else if (fieldElement.tagName() == "favorite_books") {
+            user.SetFavoriteBooksDesc(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "favorite_authors") {
+            user.SetFavoriteAuthors(ParseFavoriteAuthors(fieldElement));
+        }
+        else if (fieldElement.tagName() == "updates_rss_url") {
+            user.SetUpdateRSSUrl(QUrl(fieldElement.text()));
+        }
+        else if (fieldElement.tagName() == "reviews_rss_url") {
+            user.SetReviewRSSUrl(QUrl(fieldElement.text()));
+        }
+        else if (fieldElement.tagName() == "friends_count") {
+            user.SetFriendsCount(fieldElement.text().toUInt());
+        }
+        else if (fieldElement.tagName() == "groups_count") {
+            user.SetGroupsCount(fieldElement.text().toUInt());
+        }
+        else if (fieldElement.tagName() == "reviews_count") {
+            user.SetBooksCount(fieldElement.text().toUInt());
+        }
+        else if (fieldElement.tagName() == "private") {
+            user.SetPrivate(fieldElement.text() == "true");
+        }
+        else if (fieldElement.tagName() == "user_shelves") {
+            user.SetBookShelves(ParseBookShelves(fieldElement));
+        }
+        //TODO updates later
+//        else if (fieldElement.tagName() == "updates") {
+//            user.SetUserUpdates(ParseUserUpdates(fieldElement));
+//        }
+     }
     return user;
 }
 
@@ -751,95 +812,14 @@ CountedItems<Review> ParseReviews(const QDomElement& element)
     return reviews;
 }
 
-std::shared_ptr<UserProfile> ParseUserProfile(const QDomDocument &doc)
+User ParseUser(const QDomDocument &doc)
 {
-    std::shared_ptr<UserProfile> profile;
     const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
     if (responseElement.isNull()) {
-        return profile;
+        return User();
     }
 
-    profile.reset(new UserProfile());
-    const auto& userElement = responseElement.firstChildElement("user");
-    const auto& fieldsList = userElement.childNodes();
-    for (int i = 0, count = fieldsList.size(); i < count; ++i) {
-        const auto& fieldElement = fieldsList.at(i).toElement();
-        if (fieldElement.tagName() == "id") {
-            profile->SetUserID(fieldElement.text().toULongLong());
-        }
-        else if (fieldElement.tagName() == "name") {
-            profile->SetUserName(fieldElement.text());
-        }
-        else if (fieldElement.tagName() == "user_name") {
-            profile->SetNickName(fieldElement.text());
-        }
-        else if (fieldElement.tagName() == "link") {
-            profile->SetWebUrl(QUrl(fieldElement.text()));
-        }
-        else if (fieldElement.tagName() == "image_url") {
-            profile->SetAvatarUrl(QUrl(fieldElement.text()));
-        }
-        else if (fieldElement.tagName() == "small_image_url") {
-            profile->SetSmallAvatarUrl(QUrl(fieldElement.text()));
-        }
-        else if (fieldElement.tagName() == "about") {
-            profile->SetAbout(fieldElement.text());
-        }
-        else if (fieldElement.tagName() == "age") {
-            profile->SetAge(fieldElement.text().toUInt());
-        }
-        else if (fieldElement.tagName() == "gender") {
-            profile->SetGender(fieldElement.text());
-        }
-        else if (fieldElement.tagName() == "location") {
-            profile->SetLocation(fieldElement.text());
-        }
-        else if (fieldElement.tagName() == "website") {
-            profile->SetWebSite(QUrl(fieldElement.text()));
-        }
-        else if (fieldElement.tagName() == "joined") {
-            profile->SetJoinedDate(fieldElement.text());
-        }
-        else if (fieldElement.tagName() == "last_active") {
-            profile->SetLastUpdateDate(fieldElement.text());
-        }
-        else if (fieldElement.tagName() == "interests") {
-            profile->SetInterests(fieldElement.text ());
-        }
-        else if (fieldElement.tagName() == "favorite_books") {
-            profile->SetFavoriteBooksDesc(fieldElement.text());
-        }
-        else if (fieldElement.tagName() == "favorite_authors") {
-            profile->SetFavoriteAuthors(ParseFavoriteAuthors(fieldElement));
-        }
-        else if (fieldElement.tagName() == "updates_rss_url") {
-            profile->SetUpdateRSSUrl(QUrl(fieldElement.text()));
-        }
-        else if (fieldElement.tagName() == "reviews_rss_url") {
-            profile->SetReviewRSSUrl(QUrl(fieldElement.text()));
-        }
-        else if (fieldElement.tagName() == "friends_count") {
-            profile->SetFriendsCount(fieldElement.text().toUInt());
-        }
-        else if (fieldElement.tagName() == "groups_count") {
-            profile->SetGroupsCount(fieldElement.text().toUInt());
-        }
-        else if (fieldElement.tagName() == "reviews_count") {
-            profile->SetBooksCount(fieldElement.text().toUInt());
-        }
-        else if (fieldElement.tagName() == "private") {
-            profile->SetPrivate(fieldElement.text() == "true");
-        }
-        else if (fieldElement.tagName() == "user_shelves") {
-            profile->SetBookShelves(ParseBookShelves(fieldElement));
-        }
-        //TODO updates later
-//        else if (fieldElement.tagName() == "updates") {
-//            profile->SetUserUpdates(ParseUserUpdates(fieldElement));
-//        }
-     }
-
-    return profile;
+    return ParseUser(responseElement.firstChildElement("user"));
 }
 
 BookShelves_t ParseBookShelves(const QDomDocument& doc)

@@ -37,7 +37,6 @@ SailreadsManager::SailreadsManager(QObject *parent)
 , m_Api(new GoodReadsApi(this))
 , m_IsBusy(false)
 , m_IsLogged(false)
-, m_Profile(new UserProfile(this))
 {
     MakeConnections();
 
@@ -66,9 +65,9 @@ bool SailreadsManager::GetLogged() const
     return m_IsLogged;
 }
 
-UserProfile* SailreadsManager::GetProfile() const
+User SailreadsManager::GetAuthUser() const
 {
-    return m_Profile;
+    return m_AuthUser;
 }
 
 void SailreadsManager::MakeConnections()
@@ -93,30 +92,21 @@ void SailreadsManager::MakeConnections()
 
     connect(m_Api, &GoodReadsApi::gotAuthUserInfo,
             this,
-            [=](const quint64& id, const QString& name, const QString& link) {
-                if (!m_Profile) {
-                    qWarning() << Q_FUNC_INFO << "Invalid profile";
-                    return;
-                }
-                m_Profile->SetUserID(id);
-                m_Profile->SetUserName(name);
-                m_Profile->SetWebUrl(link);
-                getUserInfo(id);
+            [=](const quint64& id, const QString&, const QString&) {
+                m_AuthUser.SetId(id);
+                emit authUserChanged();
+                emit gotAuthUserId(m_AuthUser.GetId());
             });
     connect(m_Api, &GoodReadsApi::gotUserProfile,
             this,
-            [=](std::shared_ptr<UserProfile> profile) {
-                if (profile && m_Profile && profile->GetUserID() == m_Profile->GetUserID()) {
-                    qDebug() << "Authenticated profile got";
-                    m_Profile->Update(profile);
-                    emit profileChanged();
-                    emit gotUserProfile();
-                    emit gotUserBookShelves(m_Profile->GetUserID(), m_Profile->GetBookShelves());
+            [=](const User& profile) {
+                if (profile.GetId() == m_AuthUser.GetId()) {
+                    qDebug() << "Authenticated profile updated";
+                    m_AuthUser = profile;
+                    emit authUserChanged();
                 }
-                else if (profile) {
-                    qDebug() << "User profile got";
-                    //TODO
-                }
+                emit gotUserProfile(profile);
+                emit gotUserBookShelves(profile.GetId(), profile.GetBookShelves());
             });
     connect(m_Api, &GoodReadsApi::gotUserBookShelves,
             this, &SailreadsManager::gotUserBookShelves);
@@ -173,7 +163,7 @@ void SailreadsManager::requestAccessToken()
     m_Api->RequestAccessToken();
 }
 
-void SailreadsManager::authUser()
+void SailreadsManager::authenticateUser()
 {
     SetBusy(true);
     emit authProgressChanged(tr("Authentication user..."));

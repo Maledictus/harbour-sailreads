@@ -439,7 +439,7 @@ void GoodReadsApi::handleGetUserInfo()
     }
 
     emit requestFinished();
-    emit gotUserProfile(RpcUtils::Parser::ParseUserProfile(doc));
+    emit gotUserProfile(RpcUtils::Parser::ParseUser(doc));
 }
 
 void GoodReadsApi::handleGetUpdates()

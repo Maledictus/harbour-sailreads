@@ -78,8 +78,6 @@ Page {
 
         model: groupsModel
 
-        spacing: Theme.paddingSmall
-
         delegate: ListItem {
             width: groupsView.width
             contentHeight: Math.max(groupIconImage.height, column.height) + 2* Theme.paddingSmall

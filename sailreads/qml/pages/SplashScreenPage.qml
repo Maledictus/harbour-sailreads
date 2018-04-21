@@ -30,7 +30,7 @@ Page {
 
     onStatusChanged: {
         if (status == PageStatus.Active && sailreadsManager.logged) {
-            sailreadsManager.authUser()
+            sailreadsManager.authenticateUser()
         }
     }
 
@@ -78,9 +78,9 @@ Page {
         onAuthProgressChanged: {
             progress.text = progressMessage
         }
-        onGotUserProfile: {
+        onGotAuthUserId: {
             pageStack.replace(Qt.resolvedUrl("ProfilePage.qml"),
-                    { userId: sailreadsManager.userProfile.userId })
+                    { userId: authUserId })
         }
     }
 

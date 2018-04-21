@@ -56,7 +56,7 @@ QVariant GroupMembersModel::data(const QModelIndex& index, int role) const
     case NickName:
         return groupMember.GetUser().GetNickName();
     case AvatarImage:
-        return groupMember.GetUser().GetAvatar();
+        return groupMember.GetUser().GetAvatarUrl();
     case CommentsCount:
         return groupMember.GetCommentsCount();
     default:

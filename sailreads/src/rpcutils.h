@@ -71,7 +71,7 @@ Authors_t ParseAuthors(const QDomElement& element);
 CountedItems<Comment> ParseComments(const QDomElement& element);
 CountedItems<Review> ParseReviews(const QDomElement& element);
 
-std::shared_ptr<UserProfile> ParseUserProfile(const QDomDocument& doc);
+User ParseUser(const QDomDocument& doc);
 BookShelves_t ParseBookShelves(const QDomDocument& doc);
 CountedItems<Group> ParseGroups(const QDomDocument& doc);
 Friends_t ParseFriends(const QDomDocument& doc);

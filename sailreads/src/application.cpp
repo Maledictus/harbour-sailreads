@@ -87,7 +87,6 @@ void Application::start()
 {
     qmlRegisterUncreatableType<SailreadsManager>("harbour.sailreads", 1, 0,
             "SailreadsManager", "SailreadsManager static uncreatable type");
-    qRegisterMetaType<UserProfile*>("UserProfile*");
     qRegisterMetaType<Group>("Group");
     qRegisterMetaType<GroupFolder>("GroupFolder");
     qRegisterMetaType<Topic>("Topic");
@@ -105,6 +104,7 @@ void Application::start()
     qmlRegisterType<GroupFolderTopicsModel>("harbour.sailreads", 1, 0, "GroupFolderTopicsModel");
     qmlRegisterType<CommentsModel>("harbour.sailreads", 1, 0, "CommentsModel");
     qmlRegisterType<ReviewsModel>("harbour.sailreads", 1, 0, "ReviewsModel");
+    qmlRegisterType<UserProfile>("harbour.sailreads", 1, 0, "UserProfile");
 
     ShowUI();
 }

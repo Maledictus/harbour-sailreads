@@ -78,7 +78,7 @@ Page {
 
             KeyValueLabel {
                 key: qsTr("Author")
-                value: topic !== undefined ? topic.author.firstName : ""
+                value: topic !== undefined ? topic.author.userName : ""
                 truncationMode: TruncationMode.Fade
                 font.pixelSize: Theme.fontSizeSmall
             }
@@ -152,12 +152,13 @@ Page {
 
                 PosterHeaderItem {
                     width: parent.width
-                    posterName: commentAuthor.firstName
+                    posterName: commentAuthor.userName
                     postDate: Utils.generateDateString(commentUpdateDate, "dd MMM yyyy hh:mm")
-                    posterAvatar: commentAuthor.avatar
+                    posterAvatar: commentAuthor.avatarUrl
 
                     onClicked: {
-                        //TODO go to profile page
+                        pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
+                                { userId: commentAuthor.id })
                     }
                 }
 

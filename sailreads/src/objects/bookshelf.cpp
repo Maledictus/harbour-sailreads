@@ -106,4 +106,15 @@ void BookShelf::SetSortable(bool sortable)
 {
     m_Sortable = sortable;
 }
+
+bool BookShelf::operator ==(const BookShelf& shelf) const
+{
+    return m_Id == shelf.GetId() &&
+        m_Name == shelf.GetName() &&
+        m_BooksCount == shelf.GetBooksCount() &&
+        m_Description == shelf.GetDescription() &&
+        m_Exclusive == shelf.GetExclusive() &&
+        m_Featured == shelf.GetFeatured() &&
+        m_Sortable == shelf.GetSortable();
+}
 } // namespace Sailreads

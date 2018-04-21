@@ -54,6 +54,8 @@ public:
     void SetFeatured(bool featured);
     bool GetSortable() const;
     void SetSortable(bool sortable);
+
+    bool operator ==(const BookShelf& shelf) const;
 };
 
 typedef QList<BookShelf> BookShelves_t;

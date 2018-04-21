@@ -31,6 +31,10 @@ struct FavoriteAuthor
 {
     quint64 m_Id;
     QString m_Name;
+    bool operator ==(const FavoriteAuthor& author)
+    {
+        return m_Id == author.m_Id && m_Name == author.m_Name;
+    }
 };
 typedef QList<FavoriteAuthor> FavoriteAuthors_t;
 
