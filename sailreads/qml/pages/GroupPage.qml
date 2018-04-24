@@ -160,17 +160,7 @@ Page {
                 }
             }
 
-            Label {
-                anchors {
-                    left: parent.left
-                    leftMargin: Theme.horizontalPageMargin
-                    right: parent.right
-                    rightMargin: Theme.horizontalPageMargin
-                }
-
-                color: Theme.highlightColor
-                horizontalAlignment: Text.AlignRight
-                font.pixelSize: Theme.fontSizeSmall
+            SectionHeader {
                 text: qsTr("Description")
                 visible: group !== undefined && group.description !== ""
             }
@@ -186,17 +176,8 @@ Page {
                 text: group !== undefined ? group.description : ""
             }
 
-            Label {
-                anchors {
-                    left: parent.left
-                    leftMargin: Theme.horizontalPageMargin
-                    right: parent.right
-                    rightMargin: Theme.horizontalPageMargin
-                }
+            SectionHeader {
                 text: qsTr("Rules")
-                horizontalAlignment: Text.AlignRight
-                font.pixelSize: Theme.fontSizeSmall
-                color: Theme.highlightColor
                 visible: group !== undefined && group.rules !== ""
             }
 
@@ -211,17 +192,9 @@ Page {
                 text: group !== undefined ? group.rules : ""
             }
 
-            Label {
-                anchors {
-                    left: parent.left
-                    leftMargin: Theme.horizontalPageMargin
-                    right: parent.right
-                    rightMargin: Theme.horizontalPageMargin
-                }
+            SectionHeader {
                 text: qsTr("Folders")
-                horizontalAlignment: Text.AlignRight
-                font.pixelSize: Theme.fontSizeSmall
-                color: Theme.highlightColor
+                visible: group !== undefined && group.rules !== ""
             }
 
             SilicaListView {

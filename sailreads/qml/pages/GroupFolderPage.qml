@@ -96,7 +96,7 @@ Page {
 
         delegate: ListItem {
             width: topicsView.width
-            contentHeight: column.height
+            contentHeight: column.height + separator.height + Theme.paddingMedium
             clip: true
             Column {
                 id: column
@@ -111,6 +111,8 @@ Page {
                     width: parent.width
                     truncationMode: TruncationMode.Fade
                     text: topicTitle
+                    wrapMode: Text.WordWrap
+                    maximumLineCount: 2
                 }
                 KeyValueLabel {
                     font.pixelSize: Theme.fontSizeSmall
@@ -139,6 +141,18 @@ Page {
                 }
                 color: Theme.secondaryColor
                 text: topicCommentsCount
+            }
+
+            Separator {
+                id: separator
+                anchors {
+                    top: column.bottom
+                    topMargin: Theme.paddingMedium
+                }
+
+                width: parent.width
+                color: Theme.primaryColor
+                horizontalAlignment: Qt.AlignHCenter
             }
 
             onClicked: {

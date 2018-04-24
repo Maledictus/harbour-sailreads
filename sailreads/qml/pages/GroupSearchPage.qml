@@ -69,7 +69,8 @@ Page {
 
         delegate: ListItem {
             width: groupsView.width
-            contentHeight: Theme.itemSizeLarge
+            contentHeight: Math.max(groupIconImage.height, column.height) + separator.height +
+                    Theme.paddingMedium
             clip: true
 
             Image {
@@ -122,6 +123,18 @@ Page {
                     key: qsTr("Members")
                     value: Number(groupUsersCount).toFixed()
                 }
+            }
+
+            Separator {
+                id: separator
+                anchors {
+                    top: column.bottom
+                    topMargin: Theme.paddingMedium
+                }
+
+                width: parent.width
+                color: Theme.primaryColor
+                horizontalAlignment: Qt.AlignHCenter
             }
 
             onClicked: {

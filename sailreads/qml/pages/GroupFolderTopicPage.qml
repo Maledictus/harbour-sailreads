@@ -139,7 +139,7 @@ Page {
 
         delegate: ListItem {
             width: parent.width
-            contentHeight: column.height + Theme.paddingSmall
+            contentHeight: column.height + separator.height + Theme.paddingMedium
             clip: true
             Column {
                 id: column
@@ -147,7 +147,7 @@ Page {
                     left: parent.left
                     leftMargin: Theme.horizontalPageMargin
                     right: parent.right
-                    rightMargin: Theme.paddingMedium
+                    rightMargin: Theme.horizontalPageMargin
                 }
 
                 PosterHeaderItem {
@@ -168,6 +168,18 @@ Page {
                     wrapMode: Text.WordWrap
                     text: commentBody
                 }
+            }
+
+            Separator {
+                id: separator
+                anchors {
+                    top: column.bottom
+                    topMargin: Theme.paddingMedium
+                }
+
+                width: parent.width
+                color: Theme.primaryColor
+                horizontalAlignment: Qt.AlignHCenter
             }
         }
         VerticalScrollDecorator{}
