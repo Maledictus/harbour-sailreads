@@ -34,7 +34,6 @@ Book::Book()
 , m_AverageRating(0)
 , m_RatingsCount(0)
 , m_PublishedYear(0)
-, m_WorkId(0)
 {
 }
 
@@ -66,6 +65,56 @@ QString Book::GetISBN13() const
 void Book::SetISBN13(const QString& isbn13)
 {
     m_ISBN13 = isbn13;
+}
+
+QString Book::GetASIN() const
+{
+    return m_ASIN;
+}
+
+void Book::SetASIN(const QString& asin)
+{
+    m_ASIN = asin;
+}
+
+QString Book::GetKindleASIN() const
+{
+    return m_KindleASIN;
+}
+
+void Book::SetKindleASIN(const QString& kindleAsin)
+{
+    m_KindleASIN = kindleAsin;
+}
+
+QString Book::GetMarketplaceId() const
+{
+    return m_MarketplaceId;
+}
+
+void Book::SetMarketplaceId(const QString& marketplaceId)
+{
+    m_MarketplaceId = marketplaceId;
+}
+
+QString Book::GetCountryCode() const
+{
+    return m_CountryCode;
+}
+
+void Book::SetCountryCode(const QString& countryCode)
+{
+    m_CountryCode = countryCode;
+}
+
+QString Book::GetLanguage() const
+{
+    return m_Language;
+}
+
+void Book::SetLanguage(const QString& lang)
+{
+    m_Language = lang;
 }
 
 quint64 Book::GetTextReviewsCount() const
@@ -238,21 +287,24 @@ void Book::SetDescription(const QString& description)
     m_Description = description;
 }
 
-Authors_t Book::GetAuthors() const
+QVariantList Book::GetAuthors() const
 {
     return m_Authors;
 }
 
 void Book::SetAuthors(const Authors_t& authors)
 {
-    m_Authors = authors;
+    std::transform(authors.begin(), authors.end(),
+            std::back_inserter(m_Authors),
+            [](decltype(authors.front()) author)
+            { return QVariant::fromValue(author); });
 }
 
 QString Book::GetAuthorsString() const
 {
     QString result;
     for (int i = 0, count = m_Authors.size(); i < count; ++i) {
-        result += m_Authors[i].GetName();
+        result += m_Authors[i].value<Author>().GetName();
         if (i + 1 < count) {
             result += ", ";
         }
@@ -270,14 +322,53 @@ void Book::SetPublishedYear(int publishedYear)
     m_PublishedYear = publishedYear;
 }
 
-quint64 Book::GetWorkId() const
+bool Book::GetIsEBook() const
 {
-    return m_WorkId;
+    return m_IsEBook;
 }
 
-void Book::SetWorkId(const quint64& workId)
+void Book::SetIsEBook(bool ebook)
 {
-    m_WorkId = workId;
+    m_IsEBook = ebook;
 }
 
+QString Book::GetReviewsWidgetContent() const
+{
+    return m_ReviewsWidgetContent;
+}
+
+void Book::SetReviewsWidgetContent(const QString& content)
+{
+    m_ReviewsWidgetContent = content;
+}
+
+Books_t Book::GetSimilarBooks() const
+{
+    return m_SimilarBooks;
+}
+
+void Book::SetSimilarBooks(const Books_t& books)
+{
+    m_SimilarBooks = books;
+}
+
+Work Book::GetWork() const
+{
+    return m_Work;
+}
+
+void Book::SetWork(const Work& work)
+{
+    m_Work = work;
+}
+
+SeriesWorks_t Book::GetSeriesWorks() const
+{
+    return m_SeriesWorks;
+}
+
+void Book::SetSeriesWorks(const SeriesWorks_t& seriesWorks)
+{
+    m_SeriesWorks = seriesWorks;
+}
 } // namespace Sailreads

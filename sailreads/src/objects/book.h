@@ -25,11 +25,17 @@ THE SOFTWARE.
 #include <QObject>
 #include <QDateTime>
 #include <QString>
+#include <QVariantList>
 
 #include "author.h"
+#include "work.h"
+#include "serieswork.h"
 
 namespace Sailreads
 {
+class Book;
+typedef QList<Book> Books_t;
+
 class Book
 {
     Q_GADGET
@@ -37,6 +43,11 @@ class Book
     quint64 m_Id;
     QString m_ISBN;
     QString m_ISBN13;
+    QString m_ASIN;
+    QString m_KindleASIN;
+    QString m_MarketplaceId;
+    QString m_CountryCode;
+    QString m_Language;
     quint64 m_TextReviewsCount;
     QString m_Title;
     QString m_TitleWithoutSeries;
@@ -54,13 +65,22 @@ class Book
     qreal m_AverageRating;
     quint64 m_RatingsCount;
     QString m_Description;
-    Authors_t m_Authors;
+    QVariantList m_Authors;
     int m_PublishedYear;
-    quint64 m_WorkId;
+    bool m_IsEBook;
+    QString m_ReviewsWidgetContent;
+    Books_t m_SimilarBooks;
+    Work m_Work;
+    SeriesWorks_t m_SeriesWorks;
 
     Q_PROPERTY(quint64 id READ GetId)
     Q_PROPERTY(QString isbn READ GetISBN)
     Q_PROPERTY(QString isbn13 READ GetISBN13)
+    Q_PROPERTY(QString asin READ GetASIN)
+    Q_PROPERTY(QString kindleAsin READ GetKindleASIN)
+    Q_PROPERTY(QString marketplaceId READ GetMarketplaceId)
+    Q_PROPERTY(QString countryCode READ GetCountryCode)
+    Q_PROPERTY(QString language READ GetLanguage)
     Q_PROPERTY(quint64 textReviewsCount READ GetTextReviewsCount)
     Q_PROPERTY(QString title READ GetTitle)
     Q_PROPERTY(QString titleWithoutSeries READ GetTitleWithoutSeries)
@@ -78,9 +98,12 @@ class Book
     Q_PROPERTY(qreal averageRating READ GetAverageRating)
     Q_PROPERTY(quint64 ratingsCount READ GetRatingsCount)
     Q_PROPERTY(QString description READ GetDescription)
-    Q_PROPERTY(QString authors READ GetAuthorsString)
+    Q_PROPERTY(QVariantList authors READ GetAuthors)
+    Q_PROPERTY(QString authorsString READ GetAuthorsString)
     Q_PROPERTY(int publishedYear READ GetPublishedYear)
-    Q_PROPERTY(quint64 workId READ GetWorkId)
+    Q_PROPERTY(bool isEBook READ GetIsEBook)
+    Q_PROPERTY(QString reviewsWidgetContent READ GetReviewsWidgetContent)
+    Q_PROPERTY(Work work READ GetWork)
 
 public:
     Book();
@@ -91,6 +114,16 @@ public:
     void SetISBN(const QString& isbn);
     QString GetISBN13() const;
     void SetISBN13(const QString& isbn13);
+    QString GetASIN() const;
+    void SetASIN(const QString& asin);
+    QString GetKindleASIN() const;
+    void SetKindleASIN(const QString& kindleAsin);
+    QString GetMarketplaceId() const;
+    void SetMarketplaceId(const QString& marketplaceId);
+    QString GetCountryCode() const;
+    void SetCountryCode(const QString& countryCode);
+    QString GetLanguage() const;
+    void SetLanguage(const QString& lang);
     quint64 GetTextReviewsCount() const;
     void SetTextReviewsCount(const quint64& textReviewsCount);
     QString GetTitle() const;
@@ -125,13 +158,21 @@ public:
     void SetRatingsCount(const quint64& ratingsCount);
     QString GetDescription() const;
     void SetDescription(const QString& description);
-    Authors_t GetAuthors() const;
+    QVariantList GetAuthors() const;
     void SetAuthors(const Authors_t& authors);
     QString GetAuthorsString() const;
     int GetPublishedYear() const;
     void SetPublishedYear(int publishedYear);
-    quint64 GetWorkId() const;
-    void SetWorkId(const quint64& workId);
+    bool GetIsEBook() const;
+    void SetIsEBook(bool ebook);
+    QString GetReviewsWidgetContent() const;
+    void SetReviewsWidgetContent(const QString& content);
+    Books_t GetSimilarBooks() const;
+    void SetSimilarBooks(const Books_t& books);
+    Work GetWork() const;
+    void SetWork(const Work& work);
+    SeriesWorks_t GetSeriesWorks() const;
+    void SetSeriesWorks(const SeriesWorks_t& seriesWorks);
 };
 } // namespace Sailreads
 Q_DECLARE_METATYPE(Sailreads::Book)
