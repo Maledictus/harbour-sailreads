@@ -79,8 +79,10 @@ public:
     void AddBookShelf(const QString& name, bool exclusive);
     void EditBookShelf(quint64 id, const QString& name, bool exclusive);
 
-    void GetReviews(quint64 userId, const QString& bookShelf, const QString& sortField = "position",
-            Qt::SortOrder order = Qt::AscendingOrder, int page = 1);
+    void GetReviews(quint64 userId, const QString& bookShelf, const QString& sortField = "date_added",
+            Qt::SortOrder order = Qt::DescendingOrder, int page = 1);
+
+    void GetBook(quint64 bookId);
 
     void GetGroups(quint64 userId);
     void GetGroup(quint64 groupId, const QString& groupName);
@@ -108,6 +110,8 @@ private slots:
     void handleEditBookShelf();
 
     void handleGetReviews();
+
+    void handleGetBook();
 
     void handleGetGroups(quint64 userId);
     void handleGetGroup(quint64 groupId, QObject *senderObject = nullptr);
@@ -137,6 +141,8 @@ signals:
     void bookShelfEdited(const BookShelf& shelf);
 
     void gotReviews(quint64 bookShelfId, const CountedItems<Review>& reviews);
+
+    void gotBook(const Book& book);
 
     void gotUserGroups(quint64 userId, const CountedItems<Group>& groups);
     void gotUserGroup(quint64 groupId, const Group& group);

@@ -166,6 +166,15 @@ void GoodReadsApi::GetReviews(quint64 userId, const QString& bookShelf, const QS
             this, &GoodReadsApi::handleGetReviews);
 }
 
+void GoodReadsApi::GetBook(quint64 bookId)
+{
+    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
+            QUrl(QString("https://www.goodreads.com/book/show.xml?id=%1").arg(bookId)), "GET");
+    auto reply = m_NAM->get(QNetworkRequest(pair.first));
+    connect(reply, &QNetworkReply::finished,
+            this, &GoodReadsApi::handleGetBook);
+}
+
 void GoodReadsApi::GetGroups(quint64 userId)
 {
     const QUrl url(QString("https://www.goodreads.com/group/list/%1.xml?key=%2&sort=last_activity")
@@ -507,6 +516,19 @@ void GoodReadsApi::handleGetReviews()
     emit requestFinished();
     const auto& pair = RpcUtils::Parser::ParseReviews(doc);
     emit gotReviews(pair.first, pair.second);
+}
+
+void GoodReadsApi::handleGetBook()
+{
+    bool ok = false;
+    auto doc = GetDocumentFromReply(sender(), ok);
+    if (!ok) {
+        emit requestFinished();
+        return;
+    }
+
+    emit requestFinished();
+    emit gotBook(RpcUtils::Parser::ParseBook(doc));
 }
 
 void GoodReadsApi::handleGetGroups(quint64 userId)

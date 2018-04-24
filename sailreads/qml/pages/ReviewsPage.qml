@@ -92,7 +92,7 @@ Page {
                     top: column.top
                     topMargin: Theme.paddingSmall
                 }
-                source: reviewBook.imageUrl
+                source: reviewBook.smallImageUrl
                 height: Theme.iconSizeLarge
                 width: Theme.iconSizeMedium
                 fillMode: Image.PreserveAspectFit
@@ -131,7 +131,7 @@ Page {
                     width: parent.width
                     truncationMode: TruncationMode.Fade
                     font.pixelSize: Theme.fontSizeTiny
-                    text: qsTr("by %1").arg(reviewBook.authors)
+                    text: qsTr("by %1").arg(reviewBook.authorsString)
                 }
 
                 Row {
@@ -146,6 +146,10 @@ Page {
                                 .arg(Number(reviewBook.ratingsCount).toFixed())
                     }
                 }
+            }
+            onClicked: {
+                pageStack.push(Qt.resolvedUrl("BookPage.qml"),
+                        { review: reviewReview, bookId: reviewBook.id })
             }
         }
 

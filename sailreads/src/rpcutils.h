@@ -59,6 +59,9 @@ Comment ParseComment(const QDomElement& element);
 Book ParseBook(const QDomElement& element);
 Review ParseReview(const QDomElement& element);
 Author ParseAuthor(const QDomElement& element);
+Work ParseWork(const QDomElement& element);
+Series ParseSeries(const QDomElement& element);
+SeriesWork ParseSeriesWork(const QDomElement& element);
 
 GroupMembers_t ParseGroupMembers(const QDomElement& element);
 GroupFolders_t ParseGroupFolders(const QDomElement& element);
@@ -70,6 +73,7 @@ Topics_t ParseTopics(const QDomElement& element);
 Authors_t ParseAuthors(const QDomElement& element);
 CountedItems<Comment> ParseComments(const QDomElement& element);
 CountedItems<Review> ParseReviews(const QDomElement& element);
+SeriesWorks_t ParseSeriesWorks(const QDomElement& element);
 
 User ParseUser(const QDomDocument& doc);
 BookShelves_t ParseBookShelves(const QDomDocument& doc);
@@ -81,6 +85,7 @@ CountedItems<Topic> ParseGroupFolderTopics(const QDomDocument& doc);
 Topic ParseGroupFolderTopic(const QDomDocument& doc);
 Comment ParseComment(const QDomDocument& doc);
 QPair<quint64, CountedItems<Review>> ParseReviews(const QDomDocument& doc);
+Book ParseBook(const QDomDocument& doc);
 }
 }
 }

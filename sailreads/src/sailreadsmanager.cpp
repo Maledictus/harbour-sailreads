@@ -133,6 +133,8 @@ void SailreadsManager::MakeConnections()
             this, &SailreadsManager::gotGroupFolderTopics);
     connect(m_Api, &GoodReadsApi::gotGroupFolderTopic,
             this, &SailreadsManager::gotGroupFolderTopic);
+    connect(m_Api, &GoodReadsApi::gotBook,
+            this, &SailreadsManager::gotBook);
 }
 
 void SailreadsManager::SetBusy(bool busy)
@@ -206,6 +208,12 @@ void SailreadsManager::loadReviews(quint64 userId, const QString& bookShelf, int
 {
     SetBusy(true);
     m_Api->GetReviews(userId, bookShelf, sortField, order, page);
+}
+
+void SailreadsManager::loadBook(quint64 bookId)
+{
+    SetBusy(true);
+    m_Api->GetBook(bookId);
 }
 
 void SailreadsManager::loadFriends(quint64 userId)

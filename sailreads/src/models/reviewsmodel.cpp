@@ -126,6 +126,8 @@ QVariant ReviewsModel::data(const QModelIndex& index, int role) const
         return review.GetOwned();
     case Url:
         return review.GetUrl();
+    case ReviewItem:
+        return QVariant::fromValue(review);
     default:
         return QVariant();
     }
@@ -148,6 +150,7 @@ QHash<int, QByteArray> ReviewsModel::roleNames() const
     roles[CommentsCount] = "reviewCommentsCount";
     roles[OwnedCount] = "reviewOwnedCount";
     roles[Url] = "reviewUrl";
+    roles[ReviewItem] = "reviewReview";
     return roles;
 }
 

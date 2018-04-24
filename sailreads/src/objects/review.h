@@ -49,6 +49,20 @@ class Review
     quint64 m_Owned;
     QUrl m_Url;
 
+    Q_PROPERTY(quint64 id READ GetId)
+    Q_PROPERTY(Book book READ GetBook)
+    Q_PROPERTY(int rating READ GetRating)
+    Q_PROPERTY(int votes READ GetVotes)
+    Q_PROPERTY(QDateTime addedDate READ GetAddedDate)
+    Q_PROPERTY(QDateTime updatedDate READ GetUpdatedDate)
+    Q_PROPERTY(QDateTime readDate READ GetReadDate)
+    Q_PROPERTY(QDateTime startedDate READ GetStartedDate)
+    Q_PROPERTY(int readCount READ GetReadCount)
+    Q_PROPERTY(QString body READ GetBody)
+    Q_PROPERTY(quint64 commentsCount READ GetCommentsCount)
+    Q_PROPERTY(quint64 owned READ GetOwned)
+    Q_PROPERTY(QUrl url READ GetUrl)
+
 public:
     Review();
 
@@ -85,3 +99,4 @@ public:
 
 typedef QList<Review> Reviews_t;
 } // namespace Sailreads
+Q_DECLARE_METATYPE(Sailreads::Review)

@@ -86,7 +86,9 @@ public slots:
     void editBookShelf(quint64 id, const QString& name, bool exclusive);
 
     void loadReviews(quint64 userId, const QString& bookShelf, int page = 1,
-            Qt::SortOrder order = Qt::AscendingOrder, const QString& sortField = "position");
+            Qt::SortOrder order = Qt::DescendingOrder, const QString& sortField = "date_added");
+
+    void loadBook(quint64 bookId);
 
     void loadFriends(quint64 userId);
 
@@ -114,6 +116,8 @@ signals:
     void bookShelfEdited(const BookShelf& shelf);
 
     void gotReviews(quint64 bookShelfId, const CountedItems<Review>& reviews);
+
+    void gotBook(const Book& book);
 
     void gotUserFriends(quint64 userId, const Friends_t& friends);
 

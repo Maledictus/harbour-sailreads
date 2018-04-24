@@ -60,7 +60,8 @@ public:
         Body,
         CommentsCount,
         OwnedCount,
-        Url
+        Url,
+        ReviewItem
     };
 
     ReviewsModel(QObject *parent = nullptr);

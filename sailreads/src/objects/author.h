@@ -22,6 +22,7 @@ THE SOFTWARE.
 
 #pragma once
 
+#include <QObject>
 #include <QString>
 #include <QUrl>
 
@@ -29,6 +30,8 @@ namespace Sailreads
 {
 class Author
 {
+    Q_GADGET
+
     quint64 m_Id;
     QString m_Name;
     QUrl m_ImageUrl;
@@ -37,6 +40,16 @@ class Author
     qreal m_AverageRating;
     quint64 m_RatingsCount;
     quint64 m_TextReviewsCount;
+
+    Q_PROPERTY(quint64 id READ GetId)
+    Q_PROPERTY(QString name READ GetName)
+    Q_PROPERTY(QUrl imageUrl READ GetImageUrl)
+    Q_PROPERTY(QUrl smallImageUrl READ GetSmallImageUrl)
+    Q_PROPERTY(QUrl link READ GetLink)
+    Q_PROPERTY(qreal averageRating READ GetAverageRating)
+    Q_PROPERTY(quint64 ratingsCount READ GetRatingsCount)
+    Q_PROPERTY(quint64 textReviewsCount READ GetTextReviewsCount)
+
 public:
     Author();
 
@@ -57,6 +70,6 @@ public:
     quint64 GetTextReviewsCount() const;
     void SetTextReviewsCount(const quint64& textReviewsCount);
 };
-
 typedef QList<Author> Authors_t;
 } // namespace Sailreads
+Q_DECLARE_METATYPE(Sailreads::Author)
