@@ -106,7 +106,7 @@ Page {
             }
 
             menu: ContextMenu {
-                hasContent: userId === sailreadsManager.userProfile.userId
+                hasContent: userId === sailreadsManager.authUser.id
                 MenuItem {
                     text: qsTr("Edit")
                     onClicked: {
