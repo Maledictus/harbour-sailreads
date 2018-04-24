@@ -43,7 +43,10 @@ SOURCES += src/harbour-sailreads.cpp \
     src/objects/book.cpp \
     src/models/reviewsmodel.cpp \
     src/objects/review.cpp \
-    src/objects/author.cpp
+    src/objects/author.cpp \
+    src/objects/work.cpp \
+    src/objects/serieswork.cpp \
+    src/objects/series.cpp
 
 HEADERS += src/application.h \
     src/debugmessagehandler.h \
@@ -78,7 +81,10 @@ HEADERS += src/application.h \
     src/objects/book.h \
     src/models/reviewsmodel.h \
     src/objects/review.h \
-    src/objects/author.h
+    src/objects/author.h \
+    src/objects/work.h \
+    src/objects/serieswork.h \
+    src/objects/series.h
 
 DISTFILES += translations/*.ts \
     sailreads.desktop
