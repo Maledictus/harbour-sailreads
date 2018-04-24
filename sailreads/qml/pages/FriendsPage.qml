@@ -73,50 +73,68 @@ Page {
 
         delegate: ListItem {
             width: friendsView.width
-            contentHeight: Theme.itemSizeLarge
+            contentHeight: row.height + separator.height +
+                    Theme.paddingMedium
             clip: true
 
-            Image {
-                id: friendIconImage
+            Row {
+                id: row
+                spacing: Theme.paddingMedium
+                height: Math.max(friendIconImage.height, column.height)
                 anchors {
                     left: parent.left
                     leftMargin: Theme.horizontalPageMargin
-                    verticalCenter: parent.verticalCenter
-                }
-                source: friendAvatarUrl
-                height: Theme.iconSizeLarge
-                width: Theme.iconSizeLarge
-                fillMode: Image.PreserveAspectFit
-            }
-
-            Column {
-                id: column
-
-                anchors {
                     right: parent.right
                     rightMargin: Theme.horizontalPageMargin
-                    left: friendIconImage.right
-                    leftMargin: Theme.paddingMedium
+                }
+                Image {
+                    id: friendIconImage
+                    anchors {
+                        top: column.top
+                        topMargin: Theme.paddingSmall
+                    }
+                    source: friendAvatarUrl
+                    height: sourceSize.height
+                    width: sourceSize.width
+                    fillMode: Image.PreserveAspectFit
+                    horizontalAlignment: Image.AlignLeft
+                    verticalAlignment: Image.AlignTop
                 }
 
-                Label {
-                    id: friendNameLabel
-                    font.family: Theme.fontFamilyHeading
-                    truncationMode: TruncationMode.Fade
-                    text: friendName
+                Column {
+                    id: column
+                    width: parent.width - friendIconImage.width - Theme.paddingMedium
+                    Label {
+                        id: friendNameLabel
+                        font.family: Theme.fontFamilyHeading
+                        truncationMode: TruncationMode.Fade
+                        text: friendName
+                    }
+                    Label {
+                        id: friendBooksCountLabel
+                        truncationMode: TruncationMode.Fade
+                        font.pixelSize: Theme.fontSizeExtraSmall
+                        text: qsTr("%1 books").arg(friendBooksCount)
+                    }
+                    Label {
+                        id: friendFriendsCountLabel
+                        truncationMode: TruncationMode.Fade
+                        font.pixelSize: Theme.fontSizeExtraSmall
+                        text: qsTr("%1 friends").arg(friendFriendsCount)
+                    }
                 }
-                Label {
-                    id: friendBooksCountLabel
-                    truncationMode: TruncationMode.Fade
-                    font.pixelSize: Theme.fontSizeExtraSmall
-                    text: qsTr("%1 books").arg(friendBooksCount)
+            }
+
+            Separator {
+                id: separator
+                anchors {
+                    top: row.bottom
+                    topMargin: Theme.paddingMedium
                 }
-                Label {
-                    id: friendFriendsCountLabel
-                    truncationMode: TruncationMode.Fade
-                    font.pixelSize: Theme.fontSizeExtraSmall
-                    text: qsTr("%1 friends").arg(friendFriendsCount)
-                }
+
+                width: parent.width
+                color: Theme.primaryColor
+                horizontalAlignment: Qt.AlignHCenter
             }
 
             onClicked: {

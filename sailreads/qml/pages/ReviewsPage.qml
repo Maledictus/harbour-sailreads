@@ -81,72 +81,88 @@ Page {
 
         delegate: ListItem {
             width: reviewsView.width
-            contentHeight: Math.max(bookImage.height, column.height) + 2* Theme.paddingSmall
+            contentHeight: row.height + separator.height + Theme.paddingMedium
             clip: true
 
-            Image {
-                id: bookImage
+            Row {
+                id: row
+                spacing: Theme.paddingMedium
+                height: Math.max(bookImage.height, column.height)
                 anchors {
                     left: parent.left
                     leftMargin: Theme.horizontalPageMargin
-                    top: column.top
-                    topMargin: Theme.paddingSmall
-                }
-                source: reviewBook.smallImageUrl
-                height: Theme.iconSizeLarge
-                width: Theme.iconSizeMedium
-                fillMode: Image.PreserveAspectFit
-                horizontalAlignment: Image.AlignLeft
-                verticalAlignment: Image.AlignTop
-
-                BusyIndicator {
-                    size: BusyIndicatorSize.Medium
-                    anchors.centerIn: parent
-                    running: bookImage.status == Image.Loading
-                    visible: running
-                }
-            }
-
-            Column {
-                id: column
-
-                anchors {
                     right: parent.right
                     rightMargin: Theme.horizontalPageMargin
-                    left: bookImage.right
-                    leftMargin: Theme.paddingMedium
+                }
+                Image {
+                    id: bookImage
+                    anchors {
+                        top: column.top
+                        topMargin: Theme.paddingSmall
+                    }
+
+                    source: reviewBook.imageUrl
+                    height: sourceSize.height
+                    width: 100
+                    horizontalAlignment: Image.AlignLeft
+                    verticalAlignment: Image.AlignTop
+
+                    BusyIndicator {
+                        size: BusyIndicatorSize.Medium
+                        anchors.centerIn: parent
+                        running: bookImage.status == Image.Loading
+                        visible: running
+                    }
                 }
 
-                Label {
-                    id: bookNameLabel
-                    width: parent.width
-                    wrapMode: Text.WordWrap
-                    maximumLineCount: 2
-                    font.pixelSize: Theme.fontSizeSmall
-                    text: reviewBook.title
-                }
-
-                Label {
-                    id: authorsLabe
-                    width: parent.width
-                    truncationMode: TruncationMode.Fade
-                    font.pixelSize: Theme.fontSizeTiny
-                    text: qsTr("by %1").arg(reviewBook.authorsString)
-                }
-
-                Row {
-                    spacing: Theme.paddingSmall
-                    RatingBox {
-                        rating: reviewBook.averageRating
+                Column {
+                    id: column
+                    width: parent.width - bookImage.width - Theme.paddingMedium
+                    Label {
+                        id: bookNameLabel
+                        width: parent.width
+                        wrapMode: Text.WordWrap
+                        maximumLineCount: 2
+                        font.family: Theme.fontFamilyHeading
+                        font.pixelSize: Theme.fontSizeSmall
+                        text: reviewBook.title
                     }
 
                     Label {
-                        font.pixelSize: Theme.fontSizeExtraSmall
-                        text: qsTr("%1/%2 ratings").arg(reviewBook.averageRating)
-                                .arg(Number(reviewBook.ratingsCount).toFixed())
+                        id: authorsLabe
+                        width: parent.width
+                        truncationMode: TruncationMode.Fade
+                        font.pixelSize: Theme.fontSizeTiny
+                        text: qsTr("by %1").arg(reviewBook.authorsString)
+                    }
+
+                    Row {
+                        spacing: Theme.paddingSmall
+                        RatingBox {
+                            rating: reviewBook.averageRating
+                        }
+
+                        Label {
+                            font.pixelSize: Theme.fontSizeExtraSmall
+                            text: qsTr("%1/%2 ratings").arg(reviewBook.averageRating)
+                                    .arg(Number(reviewBook.ratingsCount).toFixed())
+                        }
                     }
                 }
             }
+
+            Separator {
+                id: separator
+                anchors {
+                    top: row.bottom
+                    topMargin: Theme.paddingMedium
+                }
+
+                width: parent.width
+                color: Theme.primaryColor
+                horizontalAlignment: Qt.AlignHCenter
+            }
+
             onClicked: {
                 pageStack.push(Qt.resolvedUrl("BookPage.qml"),
                         { review: reviewReview, bookId: reviewBook.id })
