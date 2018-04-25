@@ -73,8 +73,8 @@ MouseArea {
         anchors.rightMargin: Theme.paddingSmall
         anchors.verticalCenter: parent.verticalCenter
 
-        font.pixelSize: Theme.fontSizeSmall
         font.bold: true
+        font.family: Theme.fontFamilyHeading
         elide: Text.ElideRight
         textFormat: Text.StyledText
 

@@ -156,7 +156,7 @@ Page {
 
                 PosterHeaderItem {
                     width: parent.width
-                    posterName: commentAuthor.userName
+                    posterName: commentAuthor.userName.toUpperCase()
                     postDate: Utils.generateDateString(commentUpdateDate, "dd MMM yyyy hh:mm")
                     posterAvatar: commentAuthor.avatarUrl
 
@@ -170,6 +170,7 @@ Page {
                     id: label
                     width: parent.width
                     wrapMode: Text.WordWrap
+                    font.pixelSize: Theme.fontSizeSmall
                     text: commentBody
                 }
             }
