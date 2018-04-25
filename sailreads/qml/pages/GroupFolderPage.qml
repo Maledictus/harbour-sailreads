@@ -45,6 +45,10 @@ Page {
         }
     }
 
+    Component.onDestruction: {
+        sailreadsManager.abortRequest()
+    }
+
     GroupFolderTopicsModel {
         id: topicsModel
         groupId: folderPage.groupId

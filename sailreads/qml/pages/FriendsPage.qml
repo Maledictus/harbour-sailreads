@@ -39,8 +39,8 @@ Page {
         }
     }
 
-    function load() {
-        sailreadsManager.loadFriends(userId)
+    Component.onDestruction: {
+        sailreadsManager.abortRequest()
     }
 
     FriendsModel {

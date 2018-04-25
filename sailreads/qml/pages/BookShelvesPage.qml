@@ -38,6 +38,10 @@ Page {
         }
     }
 
+    Component.onDestruction: {
+        sailreadsManager.abortRequest()
+    }
+
     BookShelfProxyModel {
         id: bookShelvesModel
 

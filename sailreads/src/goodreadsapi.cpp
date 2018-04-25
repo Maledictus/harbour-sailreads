@@ -24,7 +24,6 @@ THE SOFTWARE.
 
 #include "goodreadsapi.h"
 
-#include <QDomDocument>
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
 #include <QNetworkReply>
@@ -44,6 +43,13 @@ GoodReadsApi::GoodReadsApi(QObject *parent)
 , m_NAM(new QNetworkAccessManager(this))
 , m_OAuthWrapper(new OAuthWrapper(m_ConsumerKey, m_ConsumerSecretKey, m_BaseUrl, this))
 {
+}
+
+void GoodReadsApi::AbortRequest()
+{
+    if (m_CurrentReply) {
+        m_CurrentReply->abort();
+    }
 }
 
 void GoodReadsApi::RequestRedirectedUrl(const QUrl& url,
@@ -93,6 +99,7 @@ void GoodReadsApi::GetUserInfo(quint64 id)
             .arg(id)
             .arg(m_ConsumerKey));
     auto reply = m_NAM->get(QNetworkRequest(url));
+    m_CurrentReply = reply;
     connect (reply, &QNetworkReply::finished,
              this, &GoodReadsApi::handleGetUserInfo);
 }
@@ -102,6 +109,7 @@ void GoodReadsApi::GetUpdates()
     const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
             QUrl("https://www.goodreads.com/updates/friends.xml"));
     auto reply = m_NAM->get(QNetworkRequest(pair.first));
+    m_CurrentReply = reply;
     connect (reply, &QNetworkReply::finished,
              this, &GoodReadsApi::handleGetUpdates);
 }
@@ -112,6 +120,7 @@ void GoodReadsApi::GetBookShelves(quint64 userId)
             .arg(m_ConsumerKey)
             .arg(userId));
     auto reply = m_NAM->get(QNetworkRequest(url));
+    m_CurrentReply = reply;
     connect(reply,
             &QNetworkReply::finished,
             this,
@@ -162,6 +171,7 @@ void GoodReadsApi::GetReviews(quint64 userId, const QString& bookShelf, const QS
                  .arg(userId).arg(bookShelf).arg(page).arg(sortField)
                  .arg(order == Qt::AscendingOrder ? "a" : "d")), "GET");
     auto reply = m_NAM->get(QNetworkRequest(pair.first));
+    m_CurrentReply = reply;
     connect(reply, &QNetworkReply::finished,
             this, &GoodReadsApi::handleGetReviews);
 }
@@ -171,6 +181,7 @@ void GoodReadsApi::GetBook(quint64 bookId)
     const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
             QUrl(QString("https://www.goodreads.com/book/show.xml?id=%1").arg(bookId)), "GET");
     auto reply = m_NAM->get(QNetworkRequest(pair.first));
+    m_CurrentReply = reply;
     connect(reply, &QNetworkReply::finished,
             this, &GoodReadsApi::handleGetBook);
 }
@@ -181,6 +192,7 @@ void GoodReadsApi::GetGroups(quint64 userId)
             .arg(userId)
             .arg(m_ConsumerKey));
     auto reply = m_NAM->get(QNetworkRequest(url));
+    m_CurrentReply = reply;
     connect(reply, &QNetworkReply::finished,
             this,
             [this, userId]() {
@@ -194,6 +206,7 @@ void GoodReadsApi::GetGroup(quint64 groupId, const QString&)
                    .arg(groupId)
                    .arg(m_ConsumerKey));
     auto reply = m_NAM->get(QNetworkRequest(url));
+    m_CurrentReply = reply;
     connect(reply, &QNetworkReply::finished,
             this,
             [this, groupId]() {
@@ -208,6 +221,7 @@ void GoodReadsApi::SearchGroup(const QString& text, int page)
                    .arg(page)
                    .arg(m_ConsumerKey));
     auto reply = m_NAM->get(QNetworkRequest(url));
+    m_CurrentReply = reply;
     connect(reply, &QNetworkReply::finished,
             this, &GoodReadsApi::handleSearchGroup);
 }
@@ -219,6 +233,7 @@ void GoodReadsApi::GetGroupMembers(quint64 groupId, int page)
                    .arg(page)
                    .arg(m_ConsumerKey));
     auto reply = m_NAM->get(QNetworkRequest(url));
+    m_CurrentReply = reply;
     connect(reply, &QNetworkReply::finished,
             this,
             [this, groupId] {
@@ -234,6 +249,7 @@ void GoodReadsApi::GetGroupFolderTopics(quint64 groupFolderId, quint64 groupId, 
                    .arg(page)
                    .arg(m_ConsumerKey));
     auto reply = m_NAM->get(QNetworkRequest(url));
+    m_CurrentReply = reply;
     connect(reply, &QNetworkReply::finished,
             this,
             [this, groupFolderId, groupId] {
@@ -248,6 +264,7 @@ void GoodReadsApi::GetGroupFolderTopic(quint64 topicId, int page)
                    .arg(page)
                    .arg(m_ConsumerKey));
     auto reply = m_NAM->get(QNetworkRequest(url));
+    m_CurrentReply = reply;
     connect(reply, &QNetworkReply::finished,
             this, &GoodReadsApi::handleGetGroupFolderTopic);
 }
@@ -284,6 +301,7 @@ void GoodReadsApi::GetFriends(quint64 userId)
     const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
             QUrl(QString("https://www.goodreads.com/friend/user/%1?format=xml").arg(userId)));
     auto reply = m_NAM->get(QNetworkRequest(pair.first));
+    m_CurrentReply = reply;
     connect (reply, &QNetworkReply::finished,
              this,
              [this, userId]() {
@@ -301,29 +319,6 @@ QString GetQueryResult(QXmlQuery& query, const QString& request)
         result = QString();
     }
     return result.trimmed();
-}
-
-
-QByteArray GetReply(QObject *sender, bool& ok)
-{
-    auto reply = qobject_cast<QNetworkReply*>(sender);
-    QByteArray data;
-    if (!reply) {
-        qWarning() << "Invalid reply";
-        ok = false;
-        return data;
-    }
-    reply->deleteLater();
-
-    if (reply->error() != QNetworkReply::NoError) {
-        qWarning() << Q_FUNC_INFO << "There is network error: "
-                << reply->error() << reply->errorString();
-        ok = false;
-        return data;
-    }
-
-    ok = true;
-    return reply->readAll();
 }
 
 QDomDocument ParseDocument(const QByteArray& data, bool& ok)
@@ -349,7 +344,46 @@ QDomDocument ParseDocument(const QByteArray& data, bool& ok)
     return document;
 }
 
-QDomDocument GetDocumentFromReply(QObject *sender, bool& ok)
+QUrl GetRedirectedUrl(const QDomDocument& doc)
+{
+    QXmlQuery query;
+    query.setFocus(doc.toByteArray());
+    const QString url(GetQueryResult(query, "/html/body/a/@href/data(.)"));
+    return QUrl(url);
+}
+}
+
+QByteArray GoodReadsApi::GetReply(QObject *sender, bool& ok)
+{
+    auto reply = qobject_cast<QNetworkReply*>(sender);
+    QByteArray data;
+    if (!reply) {
+        qWarning() << "Invalid reply";
+        ok = false;
+        return data;
+    }
+    reply->deleteLater();
+    m_CurrentReply.clear();
+
+    if (reply->error() != QNetworkReply::NoError &&
+            reply->error() != QNetworkReply::OperationCanceledError) {
+        qWarning() << Q_FUNC_INFO << "There is network error: "
+                << reply->error() << reply->errorString();
+        ok = false;
+        return data;
+    }
+
+    //Disable warning on request cancel
+    if (reply->error() == QNetworkReply::OperationCanceledError) {
+        ok = true;
+        return data;
+    }
+
+    ok = true;
+    return reply->readAll();
+}
+
+QDomDocument GoodReadsApi::GetDocumentFromReply(QObject *sender, bool& ok)
 {
     QDomDocument doc;
     QByteArray data = GetReply(sender, ok);
@@ -361,14 +395,6 @@ QDomDocument GetDocumentFromReply(QObject *sender, bool& ok)
     return ParseDocument(data, ok);
 }
 
-QUrl GetRedirectedUrl(const QDomDocument& doc)
-{
-    QXmlQuery query;
-    query.setFocus(doc.toByteArray());
-    const QString url(GetQueryResult(query, "/html/body/a/@href/data(.)"));
-    return QUrl(url);
-}
-}
 
 void GoodReadsApi::handleObtainRequestToken()
 {

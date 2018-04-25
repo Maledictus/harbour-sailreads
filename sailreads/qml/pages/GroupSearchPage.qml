@@ -39,6 +39,10 @@ Page {
         }
     }
 
+    Component.onDestruction: {
+        sailreadsManager.abortRequest()
+    }
+
     FoundGroupsModel {
         id: groupsModel
     }

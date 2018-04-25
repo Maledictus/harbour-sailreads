@@ -42,6 +42,10 @@ Page {
         }
     }
 
+    Component.onDestruction: {
+        sailreadsManager.abortRequest()
+    }
+
     ReviewsModel {
         id: reviewsModel
     }

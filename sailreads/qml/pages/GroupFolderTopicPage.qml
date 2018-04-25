@@ -44,6 +44,10 @@ Page {
         }
     }
 
+    Component.onDestruction: {
+        sailreadsManager.abortRequest()
+    }
+
     Connections {
         target: sailreadsManager
         onGotGroupFolderTopic: {

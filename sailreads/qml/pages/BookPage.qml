@@ -46,6 +46,10 @@ Page {
         sailreadsManager.loadBook(bookId)
     }
 
+    Component.onDestruction: {
+        sailreadsManager.abortRequest()
+    }
+
     Connections {
         target: sailreadsManager
         onGotBook: {

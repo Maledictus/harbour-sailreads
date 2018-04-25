@@ -26,8 +26,10 @@ THE SOFTWARE.
 
 #include <functional>
 
+#include <QDomDocument>
 #include <QObject>
 #include <QUrl>
+#include <QPointer>
 
 #include "userprofile.h"
 #include "objects/book.h"
@@ -38,6 +40,7 @@ THE SOFTWARE.
 #include "objects/topic.h"
 
 class QNetworkAccessManager;
+class QNetworkReply;
 
 namespace Sailreads
 {
@@ -60,8 +63,12 @@ class GoodReadsApi : public QObject
     QNetworkAccessManager *m_NAM;
     OAuthWrapper *m_OAuthWrapper;
 
+    QPointer<QNetworkReply> m_CurrentReply;
+
 public:
     explicit GoodReadsApi(QObject *parent = 0);
+
+    void AbortRequest();
 
     void RequestRedirectedUrl(const QUrl& url, const std::function<void(QObject*)>& func);
 
@@ -96,6 +103,9 @@ public:
     void AddNewComment(const QString& type, quint64 resourceId, const QString& comment);
 
     void GetFriends(quint64 userId);
+private:
+    QDomDocument GetDocumentFromReply(QObject *sender, bool& ok);
+    QByteArray GetReply(QObject *sender, bool& ok);
 
 private slots:
     void handleObtainRequestToken();

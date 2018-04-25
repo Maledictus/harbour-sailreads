@@ -41,6 +41,10 @@ Page {
         }
     }
 
+    Component.onDestruction: {
+        sailreadsManager.abortRequest()
+    }
+
     BaseProxyModel {
         id: groupsModel
         dynamicSortFilter: true

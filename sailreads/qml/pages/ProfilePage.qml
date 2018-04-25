@@ -43,6 +43,10 @@ Page {
         }
     }
 
+    Component.onDestruction: {
+        sailreadsManager.abortRequest()
+    }
+
     UserProfile {
         id: userProfile
     }

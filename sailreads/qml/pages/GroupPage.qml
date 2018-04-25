@@ -47,6 +47,10 @@ Page {
         sailreadsManager.loadGroup(groupId, groupName)
     }
 
+    Component.onDestruction: {
+        sailreadsManager.abortRequest()
+    }
+
     GroupFoldersModel {
         id: groupFoldersModel
         groupId: groupPage.groupId

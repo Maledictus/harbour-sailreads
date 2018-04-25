@@ -77,6 +77,8 @@ public slots:
     void obtainRequestToken();
     void requestAccessToken();
 
+    void abortRequest();
+
     void authenticateUser();
     void getUserInfo(quint64 id);
     void getUpdates();

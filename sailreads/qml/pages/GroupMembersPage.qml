@@ -41,6 +41,10 @@ Page {
         }
     }
 
+    Component.onDestruction: {
+        sailreadsManager.abortRequest()
+    }
+
     GroupMembersModel {
         id: groupMembersModel
         groupId: groupMembersPage.groupId

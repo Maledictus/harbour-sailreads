@@ -165,6 +165,11 @@ void SailreadsManager::requestAccessToken()
     m_Api->RequestAccessToken();
 }
 
+void SailreadsManager::abortRequest()
+{
+    m_Api->AbortRequest();
+}
+
 void SailreadsManager::authenticateUser()
 {
     SetBusy(true);

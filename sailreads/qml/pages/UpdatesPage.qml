@@ -34,6 +34,10 @@ Page {
         }
     }
 
+    Component.onDestruction: {
+        sailreadsManager.abortRequest()
+    }
+
     onStatusChanged: {
         if (status == PageStatus.Active && sailreadsManager.logged) {
             loadUpdates()
