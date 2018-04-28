@@ -26,6 +26,8 @@ import QtQuick 2.2
 import Sailfish.Silica 1.0
 import harbour.sailreads 1.0
 
+import "../components"
+
 Page {
     id: friendsPage
 
@@ -87,15 +89,15 @@ Page {
                     right: parent.right
                     rightMargin: Theme.horizontalPageMargin
                 }
-                Image {
+                BaseImage {
                     id: friendIconImage
                     anchors {
                         top: column.top
                         topMargin: Theme.paddingSmall
                     }
-                    source: friendAvatarUrl
                     height: sourceSize.height
                     width: sourceSize.width
+                    source: friendAvatarUrl
                     fillMode: Image.PreserveAspectFit
                     horizontalAlignment: Image.AlignLeft
                     verticalAlignment: Image.AlignTop

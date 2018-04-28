@@ -38,30 +38,20 @@ MouseArea {
     property bool down: pressed && containsMouse
     property bool highlighted: down
 
-    Image {
+    BaseImage {
         id: posterAvatarImage
-
         anchors.left: parent.left
         anchors.verticalCenter: parent.verticalCenter
-
         width: Theme.iconSizeMedium
         height: Theme.iconSizeMedium
         fillMode: Image.PreserveAspectFit
-
         source: posterAvatar.length > 0 ? posterAvatar : posterDefaultAvatar
-
         onStatusChanged: {
-            if (status === Image.Error) {
-                source = posterDefaultAvatar
+            if (image.status === Image.Error) {
+                image.source = posterDefaultAvatar
             }
         }
-
-        BusyIndicator {
-            size: BusyIndicatorSize.Small
-            anchors.centerIn: parent
-            running: posterAvatarImage.status == Image.Loading
-            visible: running
-        }
+        indicator.size: BusyIndicatorSize.Small
     }
 
     Label {

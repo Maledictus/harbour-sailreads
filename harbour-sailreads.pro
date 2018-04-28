@@ -11,3 +11,4 @@ OTHER_FILES = \
     rpm/harbour-sailreads.spec \
     rpm/harbour-sailreads.yaml \
     .qmake.conf
+

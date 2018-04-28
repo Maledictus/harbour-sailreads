@@ -27,14 +27,17 @@ import Sailfish.Silica 1.0
 
 Row {
     property real rating: 0
+    property real iconWidth: Theme.iconSizeSmall
+    property real iconHeight: Theme.iconSizeSmall
 
     Repeater {
         id: ratingBox
         model: 5
 
         Image {
-            width: Theme.iconSizeSmall
-            height: Theme.iconSizeSmall
+            id: starIcon
+            width: iconWidth
+            height: iconHeight
             source: {
                 if (rating - index < 0.5) {
                     return "image://theme/icon-m-favorite"

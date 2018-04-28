@@ -88,7 +88,7 @@ Page {
                     Theme.paddingMedium
             clip: true
 
-            Image {
+            BaseImage {
                 id: groupIconImage
                 anchors {
                     left: parent.left
@@ -102,13 +102,7 @@ Page {
                 fillMode: Image.PreserveAspectFit
                 horizontalAlignment: Image.AlignLeft
                 verticalAlignment: Image.AlignTop
-
-                BusyIndicator {
-                    size: BusyIndicatorSize.Medium
-                    anchors.centerIn: parent
-                    running: groupIconImage.status == Image.Loading
-                    visible: running
-                }
+                indicator.size: BusyIndicatorSize.Medium
             }
 
             Column {

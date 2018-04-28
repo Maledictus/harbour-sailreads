@@ -98,7 +98,7 @@ Page {
                     right: parent.right
                     rightMargin: Theme.horizontalPageMargin
                 }
-                Image {
+                BaseImage {
                     id: bookImage
                     anchors {
                         top: column.top
@@ -106,17 +106,11 @@ Page {
                     }
 
                     source: reviewBook.imageUrl
-                    height: sourceSize.height
-                    width: 100
+                    height: 1.5 * width
+                    width: Theme.iconSizeLarge
                     horizontalAlignment: Image.AlignLeft
                     verticalAlignment: Image.AlignTop
-
-                    BusyIndicator {
-                        size: BusyIndicatorSize.Medium
-                        anchors.centerIn: parent
-                        running: bookImage.status == Image.Loading
-                        visible: running
-                    }
+                    indicator.size: BusyIndicatorSize.Medium
                 }
 
                 Column {

@@ -101,18 +101,13 @@ Page {
 
                 spacing: Theme.paddingMedium
 
-                Image {
+                BaseImage {
                     id: groupImage
                     width: Theme.iconSizeExtraLarge
                     height: Theme.iconSizeExtraLarge
                     fillMode: Image.PreserveAspectFit
                     source: group !== undefined ? group.imageUrl : ""
-                    BusyIndicator {
-                        size: BusyIndicatorSize.Medium
-                        anchors.centerIn: parent
-                        running: groupImage.status == Image.Loading
-                        visible: running
-                    }
+                    indicator.size: BusyIndicatorSize.Medium
                 }
 
                 Column {

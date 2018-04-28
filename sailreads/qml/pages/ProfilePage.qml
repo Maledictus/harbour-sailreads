@@ -104,18 +104,13 @@ Page {
 
                 spacing: Theme.paddingMedium
 
-                Image {
+                BaseImage {
                     id: avatarImage
                     width: Theme.iconSizeExtraLarge
                     height: Theme.iconSizeExtraLarge
                     source: userProfile.user.avatarUrl
                     fillMode: Image.PreserveAspectFit
-                    BusyIndicator {
-                        anchors.centerIn: parent
-                        size: BusyIndicatorSize.Medium
-                        running: profilePage.busy
-                        visible: running
-                    }
+                    indicator.size: BusyIndicatorSize.Medium
                 }
 
                 Column {
