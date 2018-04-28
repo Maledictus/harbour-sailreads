@@ -26,6 +26,7 @@ import QtQuick 2.2
 import Sailfish.Silica 1.0
 
 Row {
+    property int rating: 0
     property int userVote: 0
 
     Repeater {
@@ -34,7 +35,7 @@ Row {
 
         Image {
             readonly property int _vote: (index + 1)
-            readonly property bool _selected: _vote <= userVote
+            readonly property bool _selected: userVote > 0 ? _vote <= userVote : _vote <= rating
 
             width: Theme.iconSizeMedium
             height: Theme.iconSizeMedium

@@ -200,6 +200,7 @@ Page {
                 }
 
                 VotingBox {
+                    rating: review ? review.rating : 0
                     anchors {
                         horizontalCenter: parent.horizontalCenter
                     }
