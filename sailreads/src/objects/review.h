@@ -62,6 +62,7 @@ class Review
     Q_PROPERTY(quint64 commentsCount READ GetCommentsCount)
     Q_PROPERTY(quint64 owned READ GetOwned)
     Q_PROPERTY(QUrl url READ GetUrl)
+    Q_PROPERTY(QStringList shelvesList READ GetShelvesList)
 
 public:
     Review();

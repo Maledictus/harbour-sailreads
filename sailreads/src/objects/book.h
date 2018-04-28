@@ -69,7 +69,7 @@ class Book
     int m_PublishedYear;
     bool m_IsEBook;
     QString m_ReviewsWidgetContent;
-    Books_t m_SimilarBooks;
+    QVariantList m_SimilarBooks;
     Work m_Work;
     SeriesWorks_t m_SeriesWorks;
 
@@ -104,6 +104,7 @@ class Book
     Q_PROPERTY(bool isEBook READ GetIsEBook)
     Q_PROPERTY(QString reviewsWidgetContent READ GetReviewsWidgetContent)
     Q_PROPERTY(Work work READ GetWork)
+    Q_PROPERTY(QVariantList similarBooks READ GetSimilarBooks)
 
 public:
     Book();
@@ -167,7 +168,7 @@ public:
     void SetIsEBook(bool ebook);
     QString GetReviewsWidgetContent() const;
     void SetReviewsWidgetContent(const QString& content);
-    Books_t GetSimilarBooks() const;
+    QVariantList GetSimilarBooks() const;
     void SetSimilarBooks(const Books_t& books);
     Work GetWork() const;
     void SetWork(const Work& work);

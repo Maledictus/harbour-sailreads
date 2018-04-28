@@ -342,14 +342,17 @@ void Book::SetReviewsWidgetContent(const QString& content)
     m_ReviewsWidgetContent = content;
 }
 
-Books_t Book::GetSimilarBooks() const
+QVariantList Book::GetSimilarBooks() const
 {
     return m_SimilarBooks;
 }
 
 void Book::SetSimilarBooks(const Books_t& books)
 {
-    m_SimilarBooks = books;
+    std::transform(books.begin(), books.end(),
+            std::back_inserter(m_SimilarBooks),
+            [](decltype(books.front()) book)
+            { return QVariant::fromValue(book); });
 }
 
 Work Book::GetWork() const
