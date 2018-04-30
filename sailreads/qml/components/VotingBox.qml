@@ -49,6 +49,9 @@ Row {
                     if (userVote !== parent._vote) {
                         userVote = parent._vote
                     }
+                    else {
+                        --userVote
+                    }
                 }
             }
         }
