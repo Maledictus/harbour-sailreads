@@ -115,9 +115,10 @@ Page {
             Flow {
                 spacing: Theme.paddingMedium
                 anchors {
-                    leftMargin: 3 * Theme.horizontalPageMargin
-                    rightMargin: 3 * Theme.horizontalPageMargin
-                    horizontalCenter: parent.horizontalCenter
+                    left: parent.left
+                    leftMargin: Theme.horizontalPageMargin
+                    right: parent.right
+                    rightMargin: Theme.horizontalPageMargin
                 }
 
                 Label {
@@ -275,7 +276,9 @@ Page {
                 contentWidth: row.width
                 anchors {
                     left: parent.left
+                    leftMargin: Theme.horizontalPageMargin
                     right: parent.right
+                    rightMargin: Theme.horizontalPageMargin
                 }
 
                 Row {
