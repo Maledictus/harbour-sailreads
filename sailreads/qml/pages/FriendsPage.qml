@@ -95,8 +95,8 @@ Page {
                         top: column.top
                         topMargin: Theme.paddingSmall
                     }
-                    height: sourceSize.height
-                    width: sourceSize.width
+                    height: Theme.iconSizeLarge
+                    width: Theme.iconSizeMedium
                     source: friendAvatarUrl
                     fillMode: Image.PreserveAspectFit
                     horizontalAlignment: Image.AlignLeft
