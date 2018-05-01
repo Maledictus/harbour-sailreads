@@ -107,7 +107,7 @@ Page {
 
                     source: reviewBook.imageUrl
                     height: 1.5 * width
-                    width: Theme.iconSizeLarge
+                    width: Theme.iconSizeMedium
                     horizontalAlignment: Image.AlignLeft
                     verticalAlignment: Image.AlignTop
                     indicator.size: BusyIndicatorSize.Medium
