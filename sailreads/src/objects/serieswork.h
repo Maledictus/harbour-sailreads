@@ -23,6 +23,7 @@ THE SOFTWARE.
 #pragma once
 
 #include <QList>
+#include <QObject>
 
 #include "series.h"
 
@@ -30,9 +31,15 @@ namespace Sailreads
 {
 class SeriesWork
 {
+    Q_GADGET
+
     quint64 m_Id;
     int m_Position;
     Series m_Series;
+
+    Q_PROPERTY(quint64 id READ GetId)
+    Q_PROPERTY(int position READ GetPosition)
+    Q_PROPERTY(Series series READ GetSeries)
 
 public:
     SeriesWork();
@@ -46,3 +53,4 @@ public:
 };
 typedef QList<SeriesWork> SeriesWorks_t;
 } // namespace Sailreads
+Q_DECLARE_METATYPE(Sailreads::SeriesWork)

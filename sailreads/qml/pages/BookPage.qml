@@ -57,8 +57,44 @@ Page {
         onGotBook: {
             if (bookPage.bookId === book.id) {
                 bookPage.book = book
+                authorsLabel.text = generateAuthorsString()
+                seriesValueLabel.text = generateSeriesString()
             }
         }
+    }
+
+    function generateAuthorsString() {
+        if (book === undefined || book.authors.length === 0) {
+            return "";
+        }
+
+        var result = qsTr("<style>a:link{color:" + Theme.highlightColor + ";}</style>by ")
+        for (var i = 0; i < book.authors.length; ++i) {
+            result += "<a href=\"%1\" style=\"text-decoration:none;\">%2</a>"
+                    .arg(book.authors[i].id)
+                    .arg(book.authors[i].name)
+            if (i +1 < book.authors.length) {
+                result += ", "
+            }
+        }
+        return result
+    }
+
+    function generateSeriesString() {
+        if (book === undefined || book.seriesWorks.length === 0) {
+            return "";
+        }
+
+        var result = qsTr("<style>a:link{color:" + Theme.highlightColor + ";}</style>")
+        for (var i = 0; i < book.seriesWorks.length; ++i) {
+            result += "<a href=\"%1\" style=\"text-decoration:none;\">%2</a>"
+                    .arg(book.seriesWorks[i].series.id)
+                    .arg(book.seriesWorks[i].series.title)
+            if (i +1 < book.seriesWorks.length) {
+                result += ", "
+            }
+        }
+        return result
     }
 
     SilicaFlickable {
@@ -112,31 +148,21 @@ Page {
                 font.family: Theme.fontFamilyHeading
             }
 
-            Flow {
-                spacing: Theme.paddingMedium
+            Label {
+                id: authorsLabel
                 anchors {
                     left: parent.left
                     leftMargin: Theme.horizontalPageMargin
                     right: parent.right
                     rightMargin: Theme.horizontalPageMargin
                 }
-
-                Label {
-                    font.pixelSize: Theme.fontSizeExtraSmall
-                    text: qsTr("by")
-                }
-
-                Repeater {
-                    model: book ? book.authors.length : 0
-                    ClickableLabel {
-                        label.text: book.authors[index].name
-                        label.font.pixelSize: Theme.fontSizeExtraSmall
-                        label.horizontalAlignment: Qt.AlignLeft
-                        width: label.implicitWidth
-                        onClicked: {
-                            //TODO open author page
-                        }
-                    }
+                textFormat: Text.RichText
+                font.pixelSize: Theme.fontSizeExtraSmall
+                wrapMode: Text.WordWrap
+                horizontalAlignment: height < 2 * font.pixelSize ? Text.AlignHCenter : Text.AlignJustify
+                Component.onCompleted: text = generateAuthorsString()
+                onLinkActivated: {
+                    //TODO open author page
                 }
             }
 
@@ -206,7 +232,7 @@ Page {
                         horizontalCenter: parent.horizontalCenter
                     }
                     onUserVoteChanged: {
-                        //TODO
+                        //TODO send vote
                         console.log(userVote)
                     }
                 }
@@ -222,6 +248,32 @@ Page {
                     leftMargin: Theme.horizontalPageMargin
                     right: parent.right
                     rightMargin: Theme.horizontalPageMargin
+                }
+
+                Row {
+                    width: parent.width
+                    height: seriesValueLabel.height
+                    spacing: Theme.paddingSmall
+
+                    Label {
+                        id: seriesKeyLabel
+                        font.pixelSize: Theme.fontSizeSmall
+                        textFormat: Text.StyledText
+                        visible: seriesValueLabel.text !== ""
+                        text: "<font color=\"" + Theme.secondaryHighlightColor + "\">" +
+                              qsTr("Series") + "</font>"
+                    }
+                    Label {
+                        id: seriesValueLabel
+                        width: parent.width - seriesKeyLabel.width - Theme.paddingSmall
+                        textFormat: Text.RichText
+                        font.pixelSize: Theme.fontSizeSmall
+                        wrapMode: Text.WordWrap
+                        Component.onCompleted: text = generateSeriesString()
+                        onLinkActivated: {
+                            //TODO open series page
+                        }
+                    }
                 }
 
                 KeyValueLabel {

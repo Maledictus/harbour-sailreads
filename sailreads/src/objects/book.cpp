@@ -365,13 +365,16 @@ void Book::SetWork(const Work& work)
     m_Work = work;
 }
 
-SeriesWorks_t Book::GetSeriesWorks() const
+QVariantList Book::GetSeriesWorks() const
 {
     return m_SeriesWorks;
 }
 
 void Book::SetSeriesWorks(const SeriesWorks_t& seriesWorks)
 {
-    m_SeriesWorks = seriesWorks;
+    std::transform(seriesWorks.begin(), seriesWorks.end(),
+            std::back_inserter(m_SeriesWorks),
+            [](decltype(seriesWorks.front()) seriesWork)
+            { return QVariant::fromValue(seriesWork); });
 }
 } // namespace Sailreads

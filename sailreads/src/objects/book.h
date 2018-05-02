@@ -71,7 +71,7 @@ class Book
     QString m_ReviewsWidgetContent;
     QVariantList m_SimilarBooks;
     Work m_Work;
-    SeriesWorks_t m_SeriesWorks;
+    QVariantList m_SeriesWorks;
 
     Q_PROPERTY(quint64 id READ GetId)
     Q_PROPERTY(QString isbn READ GetISBN)
@@ -105,6 +105,7 @@ class Book
     Q_PROPERTY(QString reviewsWidgetContent READ GetReviewsWidgetContent)
     Q_PROPERTY(Work work READ GetWork)
     Q_PROPERTY(QVariantList similarBooks READ GetSimilarBooks)
+    Q_PROPERTY(QVariantList seriesWorks READ GetSeriesWorks)
 
 public:
     Book();
@@ -172,7 +173,7 @@ public:
     void SetSimilarBooks(const Books_t& books);
     Work GetWork() const;
     void SetWork(const Work& work);
-    SeriesWorks_t GetSeriesWorks() const;
+    QVariantList GetSeriesWorks() const;
     void SetSeriesWorks(const SeriesWorks_t& seriesWorks);
 };
 } // namespace Sailreads

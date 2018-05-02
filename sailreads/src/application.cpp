@@ -93,6 +93,8 @@ void Application::start()
     qRegisterMetaType<User>("User");
     qRegisterMetaType<Book>("Book");
     qRegisterMetaType<Book>("Review");
+    qRegisterMetaType<SeriesWork>("SeriesWork");
+    qRegisterMetaType<Series>("Series");
 
     qmlRegisterType<BaseProxyModel>("harbour.sailreads", 1, 0, "BaseProxyModel");
     qmlRegisterType<BookShelvesModel>("harbour.sailreads", 1, 0, "BookShelvesModel");
