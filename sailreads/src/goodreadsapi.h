@@ -246,9 +246,9 @@ signals:
     void gotFoundGroups(const CountedItems<GroupPtr>& groups);
     void gotGroupMembers(quint64 groupId, const GroupMembers_t& members);
     void gotGroupFolderTopics(quint64 groupFolderId, quint64 groupId,
-            const CountedItems<Topic>& topics);
-    void gotGroupFolderTopic(const Topic& topic);
-    void gotNewGroupFolderTopic(const Topic& topic);
+            const CountedItems<TopicPtr>& topics);
+    void gotGroupFolderTopic(const TopicPtr& topic);
+    void gotNewGroupFolderTopic(const TopicPtr& topic);
 
     void newCommentAdded(const Comment& comment);
 

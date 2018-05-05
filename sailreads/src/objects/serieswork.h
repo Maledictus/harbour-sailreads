@@ -43,6 +43,7 @@ class SeriesWork: public QObject
 
 public:
     SeriesWork(QObject *parent = nullptr);
+    ~SeriesWork();
 
     quint64 GetId() const;
     void SetId(quint64 id);

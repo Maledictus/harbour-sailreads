@@ -22,18 +22,27 @@ THE SOFTWARE.
 
 #include "topic.h"
 
+#include <QtDebug>
+
 #include "group.h"
 #include "user.h"
 
 namespace Sailreads
 {
-Topic::Topic()
-: m_Id(0)
+Topic::Topic(QObject *parent)
+:QObject(parent)
+, m_Id(0)
 , m_CommentsCount(0)
 , m_ContextId(0)
 , m_NewCommentsCount(0)
 , m_CommentsPerPage(0)
 {
+    qDebug() << this << "CONSTRUCTED";
+}
+
+Topic::~Topic()
+{
+    qDebug() << this << "DESTRUCTED";
 }
 
 quint64 Topic::GetId() const
@@ -99,6 +108,11 @@ void Topic::SetContextId(quint64 id)
 User* Topic::GetAuthor() const
 {
     return m_Author.get();
+}
+
+UserPtr Topic::GetAuthorPtr() const
+{
+    return m_Author;
 }
 
 void Topic::SetAuthor(const UserPtr& user)

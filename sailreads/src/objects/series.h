@@ -49,6 +49,7 @@ class Series : public QObject
 
 public:
     Series(QObject *parent = nullptr);
+    ~Series();
 
     quint64 GetId() const;
     void SetId(quint64 id);

@@ -67,6 +67,7 @@ class Review: public QObject
 
 public:
     Review(QObject *parent = nullptr);
+    ~Review();
 
     quint64 GetId() const;
     void SetId(quint64 id);

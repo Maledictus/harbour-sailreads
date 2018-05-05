@@ -24,13 +24,14 @@ THE SOFTWARE.
 
 #include <QtDebug>
 
+#include "../objects/topic.h"
 #include "../objects/user.h"
 #include "../sailreadsmanager.h"
 
 namespace Sailreads {
 
 GroupFolderTopicsModel::GroupFolderTopicsModel(QObject *parent)
-: BaseModel<Topic>(parent)
+: BaseModel<TopicPtr>(parent)
 , m_GroupId(0)
 , m_GroupFolderId(0)
 , m_HasMore(true)
@@ -47,28 +48,28 @@ QVariant GroupFolderTopicsModel::data(const QModelIndex& index, int role) const
     }
 
     const auto& topic = m_Items.at(index.row());
-    auto author = topic.GetAuthor();
+    auto author = topic->GetAuthor();
     switch (role) {
     case Id:
-        return topic.GetId();
+        return topic->GetId();
     case Title:
-        return topic.GetTitle();
+        return topic->GetTitle();
     case CommentsCount:
-        return topic.GetCommentsCount();
+        return topic->GetCommentsCount();
     case LastCommentDate:
-        return topic.GetLastCommentDate();
+        return topic->GetLastCommentDate();
     case ContextType:
-        return topic.GetContextType();
+        return topic->GetContextType();
     case ContextId:
-        return topic.GetContextId();
+        return topic->GetContextId();
     case AuthorId:
         return author ? author->GetId() : 0;
     case AuthorName:
         return author ? author->GetFirstName() : "";
     case FolderId:
-        return topic.GetGroupFolder().GetId();
+        return topic->GetGroupFolder().GetId();
     case FolderName:
-        return topic.GetGroupFolder().GetName();
+        return topic->GetGroupFolder().GetName();
     default:
         return QVariant();
     }
@@ -135,7 +136,7 @@ void GroupFolderTopicsModel::fetchMoreContent()
 }
 
 void GroupFolderTopicsModel::handleGotGroupFolderTopics(quint64 groupdFolderId,
-        quint64 groupId, const CountedItems<Topic>& topics)
+        quint64 groupId, const CountedItems<TopicPtr> &topics)
 {
     if (m_GroupId != groupId || m_GroupFolderId != groupdFolderId) {
         return;

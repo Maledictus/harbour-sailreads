@@ -19,7 +19,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
+
 #include "series.h"
+
+#include <QtDebug>
 
 namespace Sailreads
 {
@@ -30,6 +33,12 @@ Series::Series(QObject *parent)
 , m_PrimaryWorkCount(0)
 , m_Numbered(false)
 {
+    qDebug() << this << "CONSTRUCTED";
+}
+
+Series::~Series()
+{
+    qDebug() << this << "DESTRUCTED";
 }
 
 quint64 Series::GetId() const

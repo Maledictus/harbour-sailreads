@@ -22,6 +22,8 @@ THE SOFTWARE.
 
 #include "serieswork.h"
 
+#include <QtDebug>
+
 #include "series.h"
 
 namespace Sailreads
@@ -31,6 +33,12 @@ SeriesWork::SeriesWork(QObject *parent)
 , m_Id(0)
 , m_Position(0)
 {
+    qDebug() << this << "CONSTRUCTED";
+}
+
+SeriesWork::~SeriesWork()
+{
+    qDebug() << this << "DESTRUCTED";
 }
 
 quint64 SeriesWork::GetId() const

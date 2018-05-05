@@ -22,6 +22,8 @@ THE SOFTWARE.
 
 #include "review.h"
 
+#include <QtDebug>
+
 #include "book.h"
 
 namespace Sailreads
@@ -35,6 +37,12 @@ Review::Review(QObject *parent)
 , m_CommentsCount(0)
 , m_Owned(0)
 {
+    qDebug() << this << "CONSTRUCTED";
+}
+
+Review::~Review()
+{
+    qDebug() << this << "DESTRUCTED";
 }
 
 quint64 Review::GetId() const

@@ -81,4 +81,8 @@ typedef QList<SeriesPtr> Series_t;
 class SeriesWork;
 typedef std::shared_ptr<SeriesWork> SeriesWorkPtr;
 typedef QList<SeriesWorkPtr> SeriesWorks_t;
+
+class Topic;
+typedef std::shared_ptr<Topic> TopicPtr;
+typedef QList<TopicPtr> Topics_t;
 }

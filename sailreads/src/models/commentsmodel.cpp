@@ -23,6 +23,7 @@ THE SOFTWARE.
 
 #include <QtDebug>
 
+#include "../objects/topic.h"
 #include "../objects/user.h"
 #include "../sailreadsmanager.h"
 
@@ -103,9 +104,12 @@ void CommentsModel::fetchMoreContent()
     SailreadsManager::Instance()->loadGroupFolderTopic(m_TopicId, m_CurrentPage);
 }
 
-void CommentsModel::handleGotGroupFolderTopic(const Topic& topic)
+void CommentsModel::handleGotGroupFolderTopic(const TopicPtr& topic)
 {
-    const auto& comments = topic.GetComments();
+    if (!topic) {
+        return;
+    }
+    const auto& comments = topic->GetComments();
     SetHasMore(comments.m_EndIndex != comments.m_Count);
     if (m_HasMore) {
         ++m_CurrentPage;

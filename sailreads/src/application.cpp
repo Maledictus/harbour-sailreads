@@ -105,6 +105,8 @@ void Application::start()
             "Series provides attached properties and can't be instantiated");
     qmlRegisterUncreatableType<SeriesWork>("harbour.sailreads", 1, 0, "SeriesWork",
             "SeSeriesWork provides attached properties and can't be instantiated");
+    qmlRegisterUncreatableType<Topic>("harbour.sailreads", 1, 0, "Topic",
+            "Topic provids attached properties and can't be instantiated");
     qmlRegisterUncreatableType<User>("harbour.sailreads", 1, 0, "User",
             "User provids attached properties and can't be instantiated");
 
@@ -114,10 +116,10 @@ void Application::start()
     qRegisterMetaType<Review*>("Review*");
     qRegisterMetaType<Series*>("Series*");
     qRegisterMetaType<SeriesWork*>("SeriesWork*");
+    qRegisterMetaType<Topic*>("Topic*");
     qRegisterMetaType<User*>("User*");
 
     qRegisterMetaType<GroupFolder>("GroupFolder");
-    qRegisterMetaType<Topic>("Topic");
 
     qmlRegisterType<BaseProxyModel>("harbour.sailreads", 1, 0, "BaseProxyModel");
     qmlRegisterType<BookShelvesModel>("harbour.sailreads", 1, 0, "BookShelvesModel");

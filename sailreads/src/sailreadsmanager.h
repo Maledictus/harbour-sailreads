@@ -29,18 +29,15 @@ THE SOFTWARE.
 #include <QObject>
 #include <QVariantMap>
 
-#include "objects/book.h"
 #include "objects/bookshelf.h"
 #include "objects/friend.h"
-#include "objects/group.h"
-#include "objects/review.h"
-#include "objects/topic.h"
+#include "objects/groupmember.h"
+#include "types.h"
 
 namespace Sailreads
 {
 class GoodReadsApi;
 class UserProfile;
-class User;
 
 class SailreadsManager : public QObject
 {
@@ -131,9 +128,9 @@ signals:
     void gotFoundGroups(const CountedItems<GroupPtr>& groups);
     void gotGroupMembers(quint64 groupId, const GroupMembers_t& members);
     void gotGroupFolderTopics(quint64 groupFolderId, quint64 groupId,
-            const CountedItems<Topic>& topics);
-    void gotGroupFolderTopic(const Topic& inTopic);
-    void gotNewGroupFolderTopic(const Topic& inTopic);
+            const CountedItems<TopicPtr>& topics);
+    void gotGroupFolderTopic(const TopicPtr& inTopic);
+    void gotNewGroupFolderTopic(const TopicPtr& inTopic);
 
     void requestTokenChanged(const QString& requestToken);
 

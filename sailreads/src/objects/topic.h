@@ -24,6 +24,7 @@ THE SOFTWARE.
 
 #include <QDateTime>
 #include <QString>
+#include <QObject>
 
 #include "comment.h"
 #include "groupfolder.h"
@@ -32,9 +33,9 @@ THE SOFTWARE.
 
 namespace Sailreads
 {
-class Topic
+class Topic : public QObject
 {
-    Q_GADGET
+    Q_OBJECT
 
     quint64 m_Id;
     QString m_Title;
@@ -52,18 +53,19 @@ class Topic
     GroupPtr m_Group;
     CountedItems<Comment> m_Comments;
 
-    Q_PROPERTY(quint64 id READ GetId)
-    Q_PROPERTY(QString title READ GetTitle())
-    Q_PROPERTY(quint64 commentsCount READ GetCommentsCount)
-    Q_PROPERTY(quint64 newCommentsCount READ GetNewCommentsCount)
-    Q_PROPERTY(QDateTime updatedAt READ GetUpdateAt)
-    Q_PROPERTY(QDateTime lastCommentDate READ GetLastCommentDate)
-    Q_PROPERTY(User* author READ GetAuthor)
-    Q_PROPERTY(GroupFolder folder READ GetGroupFolder)
-    Q_PROPERTY(Group* group READ GetGroup)
+    Q_PROPERTY(quint64 id READ GetId NOTIFY idChanged)
+    Q_PROPERTY(QString title READ GetTitle NOTIFY titleChanged)
+    Q_PROPERTY(quint64 commentsCount READ GetCommentsCount NOTIFY commentsCountChanged)
+    Q_PROPERTY(quint64 newCommentsCount READ GetNewCommentsCount NOTIFY newCommentsCountChanged)
+    Q_PROPERTY(QDateTime updatedAt READ GetUpdateAt NOTIFY updatedAtChanged)
+    Q_PROPERTY(QDateTime lastCommentDate READ GetLastCommentDate NOTIFY lastCommentDateChanged)
+    Q_PROPERTY(User* author READ GetAuthor NOTIFY authorChanged)
+    Q_PROPERTY(GroupFolder folder READ GetGroupFolder NOTIFY folderChanged)
+    Q_PROPERTY(Group* group READ GetGroup NOTIFY groupChanged)
 
 public:
-    Topic();
+    Topic(QObject *parent = nullptr);
+    ~Topic();
 
     quint64 GetId() const;
     void SetId(quint64 id);
@@ -78,6 +80,7 @@ public:
     quint64 GetContextId() const;
     void SetContextId(quint64 id);
     User* GetAuthor() const;
+    UserPtr GetAuthorPtr() const;
     void SetAuthor(const UserPtr& user);
     GroupFolder GetGroupFolder() const;
     void SetGroupFolder(const GroupFolder& folder);
@@ -94,6 +97,16 @@ public:
     void SetGroup(const GroupPtr& group);
     CountedItems<Comment> GetComments() const;
     void SetComments(const CountedItems<Comment>& comments);
+
+signals:
+    void idChanged();
+    void titleChanged();
+    void commentsCountChanged();
+    void newCommentsCountChanged();
+    void updatedAtChanged();
+    void lastCommentDateChanged();
+    void authorChanged();
+    void folderChanged();
+    void groupChanged();
 };
-typedef QList<Topic> Topics_t;
 } // namespace Sailreads

@@ -23,11 +23,11 @@ THE SOFTWARE.
 #pragma once
 
 #include "basemodel.h"
-#include "../objects/topic.h"
+#include "../types.h"
 
 namespace Sailreads
 {
-class GroupFolderTopicsModel : public BaseModel<Topic>
+class GroupFolderTopicsModel : public BaseModel<TopicPtr>
 {
     Q_OBJECT
     Q_ENUMS(TopicRoles)
@@ -71,7 +71,7 @@ public slots:
     void fetchMoreContent();
 private slots:
     void handleGotGroupFolderTopics(quint64 groupdFolderId, quint64 groupId,
-            const CountedItems<Topic>& topics);
+            const CountedItems<TopicPtr>& topics);
 
 signals:
     void groupIdChanged();

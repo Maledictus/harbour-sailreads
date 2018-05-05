@@ -24,7 +24,7 @@ THE SOFTWARE.
 
 #include "basemodel.h"
 #include "../objects/comment.h"
-#include "../objects/topic.h"
+#include "../types.h"
 
 namespace Sailreads
 {
@@ -63,7 +63,7 @@ public:
 public slots:
     void fetchMoreContent();
 private slots:
-    void handleGotGroupFolderTopic(const Topic& topic);
+    void handleGotGroupFolderTopic(const TopicPtr& topic);
 
 signals:
     void topicIdChanged();
