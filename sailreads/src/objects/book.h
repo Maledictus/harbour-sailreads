@@ -34,12 +34,9 @@ THE SOFTWARE.
 
 namespace Sailreads
 {
-class Book;
-typedef QList<Book> Books_t;
-
-class Book
+class Book : public QObject
 {
-    Q_GADGET
+    Q_OBJECT
 
     quint64 m_Id;
     QString m_ISBN;
@@ -70,48 +67,49 @@ class Book
     int m_PublishedYear;
     bool m_IsEBook;
     QString m_ReviewsWidgetContent;
-    QVariantList m_SimilarBooks;
+    Books_t m_SimilarBooks;
     Work m_Work;
     QVariantList m_SeriesWorks;
     //Review m_Review;
 
-    Q_PROPERTY(quint64 id READ GetId)
-    Q_PROPERTY(QString isbn READ GetISBN)
-    Q_PROPERTY(QString isbn13 READ GetISBN13)
-    Q_PROPERTY(QString asin READ GetASIN)
-    Q_PROPERTY(QString kindleAsin READ GetKindleASIN)
-    Q_PROPERTY(QString marketplaceId READ GetMarketplaceId)
-    Q_PROPERTY(QString countryCode READ GetCountryCode)
-    Q_PROPERTY(QString language READ GetLanguage)
-    Q_PROPERTY(quint64 textReviewsCount READ GetTextReviewsCount)
-    Q_PROPERTY(QString title READ GetTitle)
-    Q_PROPERTY(QString titleWithoutSeries READ GetTitleWithoutSeries)
-    Q_PROPERTY(QUrl imageUrl READ GetImageUrl)
-    Q_PROPERTY(QUrl smallImageUrl READ GetSmallImageUrl)
-    Q_PROPERTY(QUrl largeImageUrl READ GetLargeImageUrl)
-    Q_PROPERTY(QUrl link READ GetLink)
-    Q_PROPERTY(int numPages READ GetNumPages)
-    Q_PROPERTY(QString format READ GetFormat)
-    Q_PROPERTY(QString editionInformation READ GetEditionInformation)
-    Q_PROPERTY(QString publisher READ GetPublisher)
-    Q_PROPERTY(int publicationYear READ GetPublicationYear)
-    Q_PROPERTY(int publicationMonth READ GetPublicationMonth)
-    Q_PROPERTY(int publicationDay READ GetPublicationDay)
-    Q_PROPERTY(qreal averageRating READ GetAverageRating)
-    Q_PROPERTY(quint64 ratingsCount READ GetRatingsCount)
-    Q_PROPERTY(QString description READ GetDescription)
-    Q_PROPERTY(QObjectList authors READ GetAuthors)
-    Q_PROPERTY(QString authorsString READ GetAuthorsString)
-    Q_PROPERTY(int publishedYear READ GetPublishedYear)
-    Q_PROPERTY(bool isEBook READ GetIsEBook)
-    Q_PROPERTY(QString reviewsWidgetContent READ GetReviewsWidgetContent)
-    Q_PROPERTY(Work work READ GetWork)
-    Q_PROPERTY(QVariantList similarBooks READ GetSimilarBooks)
-    Q_PROPERTY(QVariantList seriesWorks READ GetSeriesWorks)
+    Q_PROPERTY(quint64 id READ GetId NOTIFY idChanged)
+    Q_PROPERTY(QString isbn READ GetISBN NOTIFY isbnChanged)
+    Q_PROPERTY(QString isbn13 READ GetISBN13 NOTIFY isbn13Changed)
+    Q_PROPERTY(QString asin READ GetASIN NOTIFY asinChanged)
+    Q_PROPERTY(QString kindleAsin READ GetKindleASIN NOTIFY kindleAsinChanged)
+    Q_PROPERTY(QString marketplaceId READ GetMarketplaceId NOTIFY marketplaceIdChanged)
+    Q_PROPERTY(QString countryCode READ GetCountryCode NOTIFY countryCodeChanged)
+    Q_PROPERTY(QString language READ GetLanguage NOTIFY languageChanged)
+    Q_PROPERTY(quint64 textReviewsCount READ GetTextReviewsCount NOTIFY textReviewsCountChanged)
+    Q_PROPERTY(QString title READ GetTitle NOTIFY titleChanged)
+    Q_PROPERTY(QString titleWithoutSeries READ GetTitleWithoutSeries NOTIFY titleWithoutSeriesChanged)
+    Q_PROPERTY(QUrl imageUrl READ GetImageUrl NOTIFY imageUrlChanged)
+    Q_PROPERTY(QUrl smallImageUrl READ GetSmallImageUrl NOTIFY smallImageUrlChanged)
+    Q_PROPERTY(QUrl largeImageUrl READ GetLargeImageUrl NOTIFY largeImageUrlChanged)
+    Q_PROPERTY(QUrl link READ GetLink NOTIFY linkChanged)
+    Q_PROPERTY(int numPages READ GetNumPages NOTIFY numPagesChanged)
+    Q_PROPERTY(QString format READ GetFormat NOTIFY formatChanged)
+    Q_PROPERTY(QString editionInformation READ GetEditionInformation NOTIFY editionInformationChanged)
+    Q_PROPERTY(QString publisher READ GetPublisher NOTIFY publisherChanged)
+    Q_PROPERTY(int publicationYear READ GetPublicationYear NOTIFY publicationYearChanged)
+    Q_PROPERTY(int publicationMonth READ GetPublicationMonth NOTIFY publicationMonthChanged)
+    Q_PROPERTY(int publicationDay READ GetPublicationDay NOTIFY publicationDayChanged)
+    Q_PROPERTY(qreal averageRating READ GetAverageRating NOTIFY averageRatingChanged)
+    Q_PROPERTY(quint64 ratingsCount READ GetRatingsCount NOTIFY ratingsCountChanged)
+    Q_PROPERTY(QString description READ GetDescription NOTIFY descriptionChanged)
+    Q_PROPERTY(QObjectList authors READ GetAuthors NOTIFY authorsChanged)
+    Q_PROPERTY(QString authorsString READ GetAuthorsString NOTIFY authorsStringChanged)
+    Q_PROPERTY(int publishedYear READ GetPublishedYear NOTIFY publishedYearChanged)
+    Q_PROPERTY(bool isEBook READ GetIsEBook NOTIFY isEBookChanged)
+    Q_PROPERTY(QString reviewsWidgetContent READ GetReviewsWidgetContent NOTIFY reviewsWidgetContentChanged)
+    Q_PROPERTY(Work work READ GetWork NOTIFY workChanged)
+    Q_PROPERTY(QObjectList similarBooks READ GetSimilarBooks NOTIFY  similarBooksChanged)
+    Q_PROPERTY(QVariantList seriesWorks READ GetSeriesWorks NOTIFY seriesWorksChanged)
     //Q_PROPERTY(Review review READ GetReview)
 
 public:
-    Book();
+    Book(QObject *parent = nullptr);
+    ~Book();
 
     quint64 GetId() const;
     void SetId(quint64 id);
@@ -172,14 +170,47 @@ public:
     void SetIsEBook(bool ebook);
     QString GetReviewsWidgetContent() const;
     void SetReviewsWidgetContent(const QString& content);
-    QVariantList GetSimilarBooks() const;
+    QObjectList GetSimilarBooks() const;
     void SetSimilarBooks(const Books_t& books);
     Work GetWork() const;
     void SetWork(const Work& work);
     QVariantList GetSeriesWorks() const;
     void SetSeriesWorks(const SeriesWorks_t& seriesWorks);
 //    Review GetReview() const;
-//    void SetReview(const Review& review);
+    //    void SetReview(const Review& review);
+signals:
+    void idChanged();
+    void isbnChanged();
+    void isbn13Changed();
+    void asinChanged();
+    void kindleAsinChanged();
+    void marketplaceIdChanged();
+    void countryCodeChanged();
+    void languageChanged();
+    void textReviewsCountChanged();
+    void titleChanged();
+    void titleWithoutSeriesChanged();
+    void imageUrlChanged();
+    void smallImageUrlChanged();
+    void largeImageUrlChanged();
+    void linkChanged();
+    void numPagesChanged();
+    void formatChanged();
+    void editionInformationChanged();
+    void publisherChanged();
+    void publicationYearChanged();
+    void publicationMonthChanged();
+    void publicationDayChanged();
+    void averageRatingChanged();
+    void ratingsCountChanged();
+    void descriptionChanged();
+    void authorsChanged();
+    void authorsStringChanged();
+    void publishedYearChanged();
+    void isEBookChanged();
+    void reviewsWidgetContentChanged();
+    void workChanged();
+    void similarBooksChanged();
+    void seriesWorksChanged();
 };
 } // namespace Sailreads
-Q_DECLARE_METATYPE(Sailreads::Book)

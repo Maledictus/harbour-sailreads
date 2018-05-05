@@ -25,19 +25,17 @@ THE SOFTWARE.
 #include <QDateTime>
 #include <QString>
 
-#include "book.h"
 #include "bookshelf.h"
+#include "../types.h"
 
 namespace Sailreads
 {
-class Book;
-
 class Review
 {
     Q_GADGET
 
     quint64 m_Id;
-    Book m_Book;
+    BookPtr m_Book;
     int m_Rating;
     int m_Votes;
     BookShelves_t m_Shelves;
@@ -52,7 +50,7 @@ class Review
     QUrl m_Url;
 
     Q_PROPERTY(quint64 id READ GetId)
-    Q_PROPERTY(Book book READ GetBook)
+    Q_PROPERTY(Book* book READ GetBook)
     Q_PROPERTY(int rating READ GetRating)
     Q_PROPERTY(int votes READ GetVotes)
     Q_PROPERTY(QDateTime addedDate READ GetAddedDate)
@@ -71,8 +69,8 @@ public:
 
     quint64 GetId() const;
     void SetId(quint64 id);
-    Book GetBook() const;
-    void SetBook(const Book& book);
+    Book* GetBook() const;
+    void SetBook(const BookPtr& book);
     int GetRating() const;
     void SetRating(int rating);
     int GetVotes() const;
@@ -102,4 +100,3 @@ public:
 
 typedef QList<Review> Reviews_t;
 } // namespace Sailreads
-Q_DECLARE_METATYPE(Sailreads::Review)

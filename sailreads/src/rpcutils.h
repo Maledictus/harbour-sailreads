@@ -28,12 +28,13 @@ THE SOFTWARE.
 #include <QDomElement>
 #include <QPair>
 
-#include "objects/book.h"
 #include "objects/bookshelf.h"
 #include "objects/friend.h"
 #include "objects/group.h"
 #include "objects/review.h"
 #include "objects/topic.h"
+#include "objects/work.h"
+#include "objects/serieswork.h"
 #include "types.h"
 #include "userupdate.h"
 #include "userprofile.h"
@@ -55,7 +56,7 @@ Group ParseGroup(const QDomElement& element);
 Friend ParseFriend(const QDomElement& element);
 Topic ParseTopic(const QDomElement& element);
 Comment ParseComment(const QDomElement& element);
-Book ParseBook(const QDomElement& element);
+BookPtr ParseBook(const QDomElement& element);
 Review ParseReview(const QDomElement& element);
 AuthorPtr ParseAuthor(const QDomElement& element);
 Work ParseWork(const QDomElement& element);
@@ -84,7 +85,7 @@ CountedItems<Topic> ParseGroupFolderTopics(const QDomDocument& doc);
 Topic ParseGroupFolderTopic(const QDomDocument& doc);
 Comment ParseComment(const QDomDocument& doc);
 QPair<quint64, CountedItems<Review>> ParseReviews(const QDomDocument& doc);
-Book ParseBook(const QDomDocument& doc);
+BookPtr ParseBook(const QDomDocument& doc);
 }
 }
 }

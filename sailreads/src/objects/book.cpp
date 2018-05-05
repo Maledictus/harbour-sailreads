@@ -22,12 +22,15 @@ THE SOFTWARE.
 
 #include "book.h"
 
+#include <QtDebug>
+
 #include "author.h"
 
 namespace Sailreads
 {
-Book::Book()
-: m_Id(0)
+Book::Book(QObject *parent)
+: QObject(parent)
+, m_Id(0)
 , m_TextReviewsCount(0)
 , m_NumPages(0)
 , m_PublicationYear(0)
@@ -37,6 +40,12 @@ Book::Book()
 , m_RatingsCount(0)
 , m_PublishedYear(0)
 {
+    qDebug() << this << "CONSTRUCTED";
+}
+
+Book::~Book()
+{
+    qDebug() << this << "DESTRUCTED";
 }
 
 quint64 Book::GetId() const
@@ -348,17 +357,18 @@ void Book::SetReviewsWidgetContent(const QString& content)
     m_ReviewsWidgetContent = content;
 }
 
-QVariantList Book::GetSimilarBooks() const
+QObjectList Book::GetSimilarBooks() const
 {
-    return m_SimilarBooks;
+    QObjectList objList;
+    for (const auto& book : m_SimilarBooks) {
+        objList << book.get();
+    }
+    return objList;
 }
 
 void Book::SetSimilarBooks(const Books_t& books)
 {
-    std::transform(books.begin(), books.end(),
-            std::back_inserter(m_SimilarBooks),
-            [](decltype(books.front()) book)
-            { return QVariant::fromValue(book); });
+    m_SimilarBooks = books;
 }
 
 Work Book::GetWork() const

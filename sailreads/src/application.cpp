@@ -41,10 +41,11 @@ THE SOFTWARE.
 #include "models/groupfoldersmodel.h"
 #include "models/groupmembersmodel.h"
 #include "models/groupfoldertopicsmodel.h"
-#include "objects/group.h"
+#include "objects/author.h"
+#include "objects/book.h"
+#include "objects/user.h"
 #include "objects/groupfolder.h"
 #include "objects/topic.h"
-#include "objects/user.h"
 #include "settings/accountsettings.h"
 #include "settings/applicationsettings.h"
 #include "sailreadsmanager.h"
@@ -87,16 +88,21 @@ void Application::start()
 {
     qmlRegisterUncreatableType<SailreadsManager>("harbour.sailreads", 1, 0, "SailreadsManager",
             "SailreadsManager static uncreatable type");
+    qmlRegisterUncreatableType<Author>("harbour.sailreads", 1, 0, "Author",
+            "Author provids attached properties and can't be instantiated");
+    qmlRegisterUncreatableType<Book>("harbour.sailreads", 1, 0, "Book",
+            "Book provids attached properties and can't be instantiated");
     qmlRegisterUncreatableType<User>("harbour.sailreads", 1, 0, "User",
             "User provids attached properties and can't be instantiated");
 
+    qRegisterMetaType<Author*>("Author*");
+    qRegisterMetaType<Book*>("Book*");
     qRegisterMetaType<User*>("User*");
 
     qRegisterMetaType<Group>("Group");
     qRegisterMetaType<GroupFolder>("GroupFolder");
     qRegisterMetaType<Topic>("Topic");
-    qRegisterMetaType<Book>("Book");
-    qRegisterMetaType<Book>("Review");
+    qRegisterMetaType<Review>("Review");
     qRegisterMetaType<SeriesWork>("SeriesWork");
     qRegisterMetaType<Series>("Series");
 

@@ -28,6 +28,7 @@ THE SOFTWARE.
 #include <QtDebug>
 
 #include "objects/author.h"
+#include "objects/book.h"
 #include "objects/user.h"
 
 namespace Sailreads
@@ -511,101 +512,101 @@ Comment ParseComment(const QDomElement& element)
     return comment;
 }
 
-Book ParseBook(const QDomElement& element)
+BookPtr ParseBook(const QDomElement& element)
 {
-    Book book;
+    BookPtr book = std::make_shared<Book>();
     const auto& fieldsList = element.childNodes();
     for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
         const auto& fieldElement = fieldsList.at (i).toElement ();
         if (fieldElement.tagName() == "id") {
-            book.SetId(fieldElement.text().toULongLong());
+            book->SetId(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "isbn") {
-            book.SetISBN(fieldElement.text());
+            book->SetISBN(fieldElement.text());
         }
         else if (fieldElement.tagName() == "isbn13") {
-            book.SetISBN13(fieldElement.text());
+            book->SetISBN13(fieldElement.text());
         }
         else if (fieldElement.tagName() == "asin") {
-            book.SetASIN(fieldElement.text());
+            book->SetASIN(fieldElement.text());
         }
         else if (fieldElement.tagName() == "kindle_asin") {
-            book.SetKindleASIN(fieldElement.text());
+            book->SetKindleASIN(fieldElement.text());
         }
         else if (fieldElement.tagName() == "marketplace_id") {
-            book.SetMarketplaceId(fieldElement.text());
+            book->SetMarketplaceId(fieldElement.text());
         }
         else if (fieldElement.tagName() == "country_code") {
-            book.SetCountryCode(fieldElement.text());
+            book->SetCountryCode(fieldElement.text());
         }
         else if (fieldElement.tagName() == "text_reviews_count") {
-            book.SetTextReviewsCount(fieldElement.text().toULongLong());
+            book->SetTextReviewsCount(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "title") {
-            book.SetTitle(fieldElement.text());
+            book->SetTitle(fieldElement.text());
         }
         else if (fieldElement.tagName() == "title_without_series") {
-            book.SetTitleWithoutSeries(fieldElement.text());
+            book->SetTitleWithoutSeries(fieldElement.text());
         }
         else if (fieldElement.tagName() == "image_url") {
-            book.SetImageUrl(QUrl(fieldElement.text()));
+            book->SetImageUrl(QUrl(fieldElement.text()));
         }
         else if (fieldElement.tagName() == "small_image_url") {
-            book.SetSmallImageUrl(QUrl(fieldElement.text()));
+            book->SetSmallImageUrl(QUrl(fieldElement.text()));
         }
         else if (fieldElement.tagName() == "large_image_url") {
-            book.SetLargeImageUrl(QUrl(fieldElement.text()));
+            book->SetLargeImageUrl(QUrl(fieldElement.text()));
         }
         else if (fieldElement.tagName() == "link") {
-            book.SetLink(QUrl(fieldElement.text()));
+            book->SetLink(QUrl(fieldElement.text()));
         }
         else if (fieldElement.tagName() == "num_pages") {
-            book.SetNumPages(fieldElement.text().toInt());
+            book->SetNumPages(fieldElement.text().toInt());
         }
         else if (fieldElement.tagName() == "format") {
-            book.SetFormat(fieldElement.text());
+            book->SetFormat(fieldElement.text());
         }
         else if (fieldElement.tagName() == "edition_information") {
-            book.SetEditionInformation(fieldElement.text());
+            book->SetEditionInformation(fieldElement.text());
         }
         else if (fieldElement.tagName() == "publisher") {
-            book.SetPublisher(fieldElement.text());
+            book->SetPublisher(fieldElement.text());
         }
         else if (fieldElement.tagName() == "publication_day") {
-            book.SetPublicationDay(fieldElement.text().toInt());
+            book->SetPublicationDay(fieldElement.text().toInt());
         }
         else if (fieldElement.tagName() == "publication_year") {
-            book.SetPublicationYear(fieldElement.text().toInt());
+            book->SetPublicationYear(fieldElement.text().toInt());
         }
         else if (fieldElement.tagName() == "publication_month") {
-            book.SetPublicationMonth(fieldElement.text().toInt());
+            book->SetPublicationMonth(fieldElement.text().toInt());
         }
         else if (fieldElement.tagName() == "average_rating") {
-            book.SetAverageRating(fieldElement.text().toDouble());
+            book->SetAverageRating(fieldElement.text().toDouble());
         }
         else if (fieldElement.tagName() == "ratings_count") {
-            book.SetRatingsCount(fieldElement.text().toULongLong());
+            book->SetRatingsCount(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "description") {
-            book.SetDescription(fieldElement.text());
+            book->SetDescription(fieldElement.text());
         }
         else if (fieldElement.tagName() == "published") {
-            book.SetPublishedYear(fieldElement.text().toInt());
+            book->SetPublishedYear(fieldElement.text().toInt());
         }
         else if (fieldElement.tagName() == "authors") {
-            book.SetAuthors(ParseAuthors(fieldElement));
+            book->SetAuthors(ParseAuthors(fieldElement));
         }
         else if (fieldElement.tagName() == "work") {
-            book.SetWork(ParseWork(fieldElement));
+            book->SetWork(ParseWork(fieldElement));
         }
         else if (fieldElement.tagName() == "language") {
-            book.SetLanguage(fieldElement.text());
+            book->SetLanguage(fieldElement.text());
         }
         else if (fieldElement.tagName() == "is_ebook") {
-            book.SetIsEBook(fieldElement.text() == "true");
+            book->SetIsEBook(fieldElement.text() == "true");
         }
         else if (fieldElement.tagName() == "reviews_widget") {
-            book.SetReviewsWidgetContent(fieldElement.text());
+            book->SetReviewsWidgetContent(fieldElement.text());
         }
         else if (fieldElement.tagName() == "similar_books") {
             const auto& similarBooksList = fieldElement.childNodes();
@@ -613,13 +614,13 @@ Book ParseBook(const QDomElement& element)
             for (int i = 0, cnt = similarBooksList.size(); i < cnt; ++i) {
                 books << ParseBook(similarBooksList.at (i).toElement());
             }
-            book.SetSimilarBooks(books);
+            book->SetSimilarBooks(books);
         }
         else if (fieldElement.tagName() == "series_works") {
-            book.SetSeriesWorks(ParseSeriesWorks(fieldElement));
+            book->SetSeriesWorks(ParseSeriesWorks(fieldElement));
         }
         else if (fieldElement.tagName() == "my_review") {
-            //book.SetReview(ParseReview(fieldElement));
+            //book->SetReview(ParseReview(fieldElement));
         }
     }
 
@@ -1096,11 +1097,11 @@ QPair<quint64, CountedItems<Review>> ParseReviews(const QDomDocument& doc)
     return qMakePair(shelfId, ParseReviews(reviewsListElement));
 }
 
-Book ParseBook(const QDomDocument& doc)
+BookPtr ParseBook(const QDomDocument& doc)
 {
     const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
     if (responseElement.isNull()) {
-        return Book();
+        return BookPtr();
     }
 
     return ParseBook(responseElement.firstChildElement("book"));

@@ -122,7 +122,7 @@ signals:
 
     void gotReviews(quint64 bookShelfId, const CountedItems<Review>& reviews);
 
-    void gotBook(const Book& book);
+    void gotBook(const BookPtr& book);
 
     void gotUserFriends(quint64 userId, const Friends_t& friends);
 

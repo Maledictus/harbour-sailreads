@@ -61,4 +61,8 @@ typedef std::shared_ptr<User> UserPtr;
 class Author;
 typedef std::shared_ptr<Author> AuthorPtr;
 typedef QList<AuthorPtr> Authors_t;
+
+class Book;
+typedef std::shared_ptr<Book> BookPtr;
+typedef QList<BookPtr> Books_t;
 }

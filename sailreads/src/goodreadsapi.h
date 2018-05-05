@@ -239,7 +239,7 @@ signals:
 
     void gotReviews(quint64 bookShelfId, const CountedItems<Review>& reviews);
 
-    void gotBook(const Book& book);
+    void gotBook(const BookPtr& book);
 
     void gotUserGroups(quint64 userId, const CountedItems<Group>& groups);
     void gotUserGroup(quint64 groupId, const Group& group);

@@ -22,6 +22,8 @@ THE SOFTWARE.
 
 #include "review.h"
 
+#include "book.h"
+
 namespace Sailreads
 {
 Review::Review()
@@ -44,12 +46,12 @@ void Review::SetId(quint64 id)
     m_Id = id;
 }
 
-Book Review::GetBook() const
+Book* Review::GetBook() const
 {
-    return m_Book;
+    return m_Book.get();
 }
 
-void Review::SetBook(const Book& book)
+void Review::SetBook(const BookPtr& book)
 {
     m_Book = book;
 }
