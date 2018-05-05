@@ -230,7 +230,7 @@ signals:
     void accessTokensChanged(const QString& accessToken, const QString& accessTokenSecret);
 
     void gotAuthUserInfo(quint64 id, const QString& name, const QString& link);
-    void gotUserProfile(const std::shared_ptr<User>& profile);
+    void gotUserProfile(const UserPtr& profile);
 //    void gotFriendsUpdates(const & updates);
 
     void gotUserBookShelves(quint64 userId, const BookShelves_t& shelves);

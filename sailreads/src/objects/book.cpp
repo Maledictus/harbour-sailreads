@@ -22,6 +22,8 @@ THE SOFTWARE.
 
 #include "book.h"
 
+#include "author.h"
+
 namespace Sailreads
 {
 Book::Book()
@@ -287,24 +289,28 @@ void Book::SetDescription(const QString& description)
     m_Description = description;
 }
 
-QVariantList Book::GetAuthors() const
+QObjectList Book::GetAuthors() const
 {
-    return m_Authors;
+    QObjectList objList;
+    for (const auto& author : m_Authors) {
+        objList << author.get();
+    }
+    return objList;
 }
 
 void Book::SetAuthors(const Authors_t& authors)
 {
-    std::transform(authors.begin(), authors.end(),
-            std::back_inserter(m_Authors),
-            [](decltype(authors.front()) author)
-            { return QVariant::fromValue(author); });
+    m_Authors = authors;
 }
 
 QString Book::GetAuthorsString() const
 {
     QString result;
     for (int i = 0, count = m_Authors.size(); i < count; ++i) {
-        result += m_Authors[i].value<Author>().GetName();
+        if (!m_Authors[i]) {
+            continue;
+        }
+        result += m_Authors[i]->GetName();
         if (i + 1 < count) {
             result += ", ";
         }

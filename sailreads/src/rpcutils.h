@@ -34,7 +34,6 @@ THE SOFTWARE.
 #include "objects/group.h"
 #include "objects/review.h"
 #include "objects/topic.h"
-#include "objects/user.h"
 #include "types.h"
 #include "userupdate.h"
 #include "userprofile.h"
@@ -46,7 +45,7 @@ namespace RpcUtils
 namespace Parser
 {
 UserUpdate::Actor ParseActor(const QDomElement& element);
-std::shared_ptr<User> ParseUser(const QDomElement& element);
+UserPtr ParseUser(const QDomElement& element);
 UserUpdate ParseUserUpdate(const QDomElement& element);
 BookShelf ParseBookShelf(const QDomElement& element);
 FavoriteAuthors_t ParseFavoriteAuthors(const QDomElement& faElement);
@@ -58,7 +57,7 @@ Topic ParseTopic(const QDomElement& element);
 Comment ParseComment(const QDomElement& element);
 Book ParseBook(const QDomElement& element);
 Review ParseReview(const QDomElement& element);
-Author ParseAuthor(const QDomElement& element);
+AuthorPtr ParseAuthor(const QDomElement& element);
 Work ParseWork(const QDomElement& element);
 Series ParseSeries(const QDomElement& element);
 SeriesWork ParseSeriesWork(const QDomElement& element);
@@ -75,7 +74,7 @@ CountedItems<Comment> ParseComments(const QDomElement& element);
 CountedItems<Review> ParseReviews(const QDomElement& element);
 SeriesWorks_t ParseSeriesWorks(const QDomElement& element);
 
-std::shared_ptr<User> ParseUser(const QDomDocument& doc);
+UserPtr ParseUser(const QDomDocument& doc);
 BookShelves_t ParseBookShelves(const QDomDocument& doc);
 CountedItems<Group> ParseGroups(const QDomDocument& doc);
 Friends_t ParseFriends(const QDomDocument& doc);

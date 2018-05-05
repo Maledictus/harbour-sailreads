@@ -22,14 +22,23 @@ THE SOFTWARE.
 
 #include "author.h"
 
+#include <QtDebug>
+
 namespace Sailreads
 {
-Author::Author()
-: m_Id(0)
+Author::Author(QObject *parent)
+: QObject(parent)
+, m_Id(0)
 , m_AverageRating(0)
 , m_RatingsCount(0)
 , m_TextReviewsCount(0)
 {
+    qDebug() << this << "CONSTRUCTED";
+}
+
+Author::~Author()
+{
+    qDebug() << this << "DESTRUCTED";
 }
 
 quint64 Author::GetId() const

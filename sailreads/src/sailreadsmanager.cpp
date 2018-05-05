@@ -103,7 +103,7 @@ void SailreadsManager::MakeConnections()
             });
     connect(m_Api, &GoodReadsApi::gotUserProfile,
             this,
-            [=](const std::shared_ptr<User>& profile) {
+            [=](const UserPtr& profile) {
                 if (!profile) {
                     return;
                 }

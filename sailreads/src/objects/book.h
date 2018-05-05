@@ -27,9 +27,10 @@ THE SOFTWARE.
 #include <QString>
 #include <QVariantList>
 
-#include "author.h"
 #include "work.h"
 #include "serieswork.h"
+
+#include "../types.h"
 
 namespace Sailreads
 {
@@ -65,7 +66,7 @@ class Book
     qreal m_AverageRating;
     quint64 m_RatingsCount;
     QString m_Description;
-    QVariantList m_Authors;
+    Authors_t m_Authors;
     int m_PublishedYear;
     bool m_IsEBook;
     QString m_ReviewsWidgetContent;
@@ -99,7 +100,7 @@ class Book
     Q_PROPERTY(qreal averageRating READ GetAverageRating)
     Q_PROPERTY(quint64 ratingsCount READ GetRatingsCount)
     Q_PROPERTY(QString description READ GetDescription)
-    Q_PROPERTY(QVariantList authors READ GetAuthors)
+    Q_PROPERTY(QObjectList authors READ GetAuthors)
     Q_PROPERTY(QString authorsString READ GetAuthorsString)
     Q_PROPERTY(int publishedYear READ GetPublishedYear)
     Q_PROPERTY(bool isEBook READ GetIsEBook)
@@ -162,7 +163,7 @@ public:
     void SetRatingsCount(const quint64& ratingsCount);
     QString GetDescription() const;
     void SetDescription(const QString& description);
-    QVariantList GetAuthors() const;
+    QObjectList GetAuthors() const;
     void SetAuthors(const Authors_t& authors);
     QString GetAuthorsString() const;
     int GetPublishedYear() const;

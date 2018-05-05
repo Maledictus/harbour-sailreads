@@ -55,7 +55,7 @@ class SailreadsManager : public QObject
     QString m_AccessToken;
     QString m_AccessSecretToken;
 
-    std::shared_ptr<User> m_AuthUser;
+    UserPtr m_AuthUser;
 
     Q_PROPERTY(bool busy READ GetBusy NOTIFY busyChanged)
     Q_PROPERTY(bool logged READ GetLogged NOTIFY loggedChanged)
@@ -114,7 +114,7 @@ signals:
     void authUserChanged();
 
     void gotAuthUserId(quint64 authUserId);
-    void gotUserProfile(const std::shared_ptr<User>& userProfile);
+    void gotUserProfile(const UserPtr& userProfile);
 
     void gotUserBookShelves(quint64 userId, const BookShelves_t& shelves);
     void bookShelfAdded(const BookShelf& shelf);

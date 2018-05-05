@@ -27,6 +27,9 @@ THE SOFTWARE.
 #include <QRegularExpression>
 #include <QtDebug>
 
+#include "objects/author.h"
+#include "objects/user.h"
+
 namespace Sailreads
 {
 namespace RpcUtils
@@ -74,7 +77,7 @@ UserUpdate::Actor ParseActor(const QDomElement& element)
     return actor;
 }
 
-std::shared_ptr<User> ParseUser(const QDomElement& element)
+UserPtr ParseUser(const QDomElement& element)
 {
     auto user = std::make_shared<User>();
     const auto& fieldsList = element.childNodes();
@@ -689,35 +692,35 @@ Review ParseReview(const QDomElement& element)
     return review;
 }
 
-Author ParseAuthor(const QDomElement& element)
+AuthorPtr ParseAuthor(const QDomElement& element)
 {
-    Author author;
+    AuthorPtr author = std::make_shared<Author>();
     const auto& fieldsList = element.childNodes();
     for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
         const auto& fieldElement = fieldsList.at (i).toElement ();
         if (fieldElement.tagName() == "id") {
-            author.SetId(fieldElement.text().toULongLong());
+            author->SetId(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "name") {
-            author.SetName(fieldElement.text());
+            author->SetName(fieldElement.text());
         }
         else if (fieldElement.tagName() == "image_url") {
-            author.SetImageUrl(QUrl(fieldElement.text()));
+            author->SetImageUrl(QUrl(fieldElement.text()));
         }
         else if (fieldElement.tagName() == "small_image_url") {
-            author.SetSmallImageUrl(QUrl(fieldElement.text()));
+            author->SetSmallImageUrl(QUrl(fieldElement.text()));
         }
         else if (fieldElement.tagName() == "link") {
-            author.SetLink(QUrl(fieldElement.text()));
+            author->SetLink(QUrl(fieldElement.text()));
         }
         else if (fieldElement.tagName() == "average_rating") {
-            author.SetAverageRating(fieldElement.text().toDouble());
+            author->SetAverageRating(fieldElement.text().toDouble());
         }
         else if (fieldElement.tagName() == "ratings_count") {
-            author.SetRatingsCount(fieldElement.text().toULongLong());
+            author->SetRatingsCount(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "text_reviews_count") {
-            author.SetTextReviewsCount(fieldElement.text().toULongLong());
+            author->SetTextReviewsCount(fieldElement.text().toULongLong());
         }
     }
 
@@ -951,11 +954,11 @@ SeriesWorks_t ParseSeriesWorks(const QDomElement& element)
 }
 
 
-std::shared_ptr<User> ParseUser(const QDomDocument& doc)
+UserPtr ParseUser(const QDomDocument& doc)
 {
     const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
     if (responseElement.isNull()) {
-        return std::shared_ptr<User>();
+        return UserPtr();
     }
 
     return ParseUser(responseElement.firstChildElement("user"));

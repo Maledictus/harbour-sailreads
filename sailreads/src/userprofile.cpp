@@ -58,7 +58,7 @@ User* UserProfile::GetUser() const
     return m_User.get();
 }
 
-void UserProfile::SetUser(const std::shared_ptr<User>& user)
+void UserProfile::SetUser(const UserPtr& user)
 {
     if (m_User != user) {
         m_User = user;
@@ -66,7 +66,7 @@ void UserProfile::SetUser(const std::shared_ptr<User>& user)
     }
 }
 
-void UserProfile::handleGotUser(const std::shared_ptr<User>& user)
+void UserProfile::handleGotUser(const UserPtr& user)
 {
     if (!user || user->GetId() != m_UserId) {
         return;

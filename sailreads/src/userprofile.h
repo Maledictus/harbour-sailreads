@@ -31,6 +31,8 @@ THE SOFTWARE.
 #include <QVariantMap>
 #include <QUrl>
 
+#include "types.h"
+
 namespace Sailreads
 {
 class BookShelvesModel;
@@ -41,7 +43,7 @@ class UserProfile : public QObject
     Q_OBJECT
 
     quint64 m_UserId;
-    std::shared_ptr<User> m_User;
+    UserPtr m_User;
 
     Q_PROPERTY(quint64 userId READ GetUserID WRITE SetUserID NOTIFY userIdChanged)
     Q_PROPERTY(User* user READ GetUser NOTIFY userChanged)
@@ -52,10 +54,10 @@ public:
     quint64 GetUserID() const;
     void SetUserID(quint64 id);
     User* GetUser() const;
-    void SetUser(const std::shared_ptr<User>& user);
+    void SetUser(const UserPtr& user);
 
 private slots:
-    void handleGotUser(const std::shared_ptr<User>& user);
+    void handleGotUser(const UserPtr& user);
 public slots:
     void updateProfile();
 

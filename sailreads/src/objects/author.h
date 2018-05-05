@@ -22,15 +22,19 @@ THE SOFTWARE.
 
 #pragma once
 
+#include <memory>
+
 #include <QObject>
 #include <QString>
 #include <QUrl>
 
+#include "../types.h"
+
 namespace Sailreads
 {
-class Author
+class Author: public QObject
 {
-    Q_GADGET
+    Q_OBJECT
 
     quint64 m_Id;
     QString m_Name;
@@ -41,17 +45,18 @@ class Author
     quint64 m_RatingsCount;
     quint64 m_TextReviewsCount;
 
-    Q_PROPERTY(quint64 id READ GetId)
-    Q_PROPERTY(QString name READ GetName)
-    Q_PROPERTY(QUrl imageUrl READ GetImageUrl)
-    Q_PROPERTY(QUrl smallImageUrl READ GetSmallImageUrl)
-    Q_PROPERTY(QUrl link READ GetLink)
-    Q_PROPERTY(qreal averageRating READ GetAverageRating)
-    Q_PROPERTY(quint64 ratingsCount READ GetRatingsCount)
-    Q_PROPERTY(quint64 textReviewsCount READ GetTextReviewsCount)
+    Q_PROPERTY(quint64 id READ GetId NOTIFY idChanged)
+    Q_PROPERTY(QString name READ GetName NOTIFY nameChanged)
+    Q_PROPERTY(QUrl imageUrl READ GetImageUrl NOTIFY imageUrlChanged)
+    Q_PROPERTY(QUrl smallImageUrl READ GetSmallImageUrl NOTIFY smallImageUrlChanged)
+    Q_PROPERTY(QUrl link READ GetLink NOTIFY linkChanged)
+    Q_PROPERTY(qreal averageRating READ GetAverageRating NOTIFY averageRatingChanged)
+    Q_PROPERTY(quint64 ratingsCount READ GetRatingsCount NOTIFY ratingsCountChanged)
+    Q_PROPERTY(quint64 textReviewsCount READ GetTextReviewsCount NOTIFY textReviewsCountChanged)
 
 public:
-    Author();
+    Author(QObject *parent = nullptr);
+    ~Author();
 
     quint64 GetId() const;
     void SetId(const quint64& id);
@@ -69,7 +74,14 @@ public:
     void SetRatingsCount(const quint64& ratingsCount);
     quint64 GetTextReviewsCount() const;
     void SetTextReviewsCount(const quint64& textReviewsCount);
+signals:
+    void idChanged();
+    void nameChanged();
+    void imageUrlChanged();
+    void smallImageUrlChanged();
+    void linkChanged();
+    void averageRatingChanged();
+    void ratingsCountChanged();
+    void textReviewsCountChanged();
 };
-typedef QList<Author> Authors_t;
 } // namespace Sailreads
-Q_DECLARE_METATYPE(Sailreads::Author)
