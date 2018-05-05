@@ -29,7 +29,7 @@ Page {
     id: splashScreenPage
 
     onStatusChanged: {
-        if (status == PageStatus.Active && sailreadsManager.logged) {
+        if (status === PageStatus.Active && sailreadsManager.logged) {
             sailreadsManager.authenticateUser()
         }
     }

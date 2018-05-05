@@ -36,7 +36,7 @@ Page {
     property int groupId
     property int folderId
     property string folderName
-    property bool busy: sailreadsManager.busy && folderPage.status == PageStatus.Active
+    property bool busy: sailreadsManager.busy && folderPage.status === PageStatus.Active
 
     function attachPage() {
         if (pageStack._currentContainer.attachedContainer === null

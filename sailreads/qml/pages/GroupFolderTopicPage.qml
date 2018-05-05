@@ -34,8 +34,8 @@ Page {
     property int groupId: 0
     property int groupFolderId: 0
     property int topicId: 0
-    property variant topic
-    property bool busy: sailreadsManager.busy && groupFodlerTopicPage.status == PageStatus.Active
+    property var topic
+    property bool busy: sailreadsManager.busy && groupFodlerTopicPage.status === PageStatus.Active
 
     function attachPage() {
         if (pageStack._currentContainer.attachedContainer === null

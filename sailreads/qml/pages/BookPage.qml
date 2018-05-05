@@ -33,9 +33,9 @@ Page {
     id: bookPage
 
     property int bookId
-    property variant review
-    property variant book
-    property bool busy: sailreadsManager.busy && bookPage.status == PageStatus.Active
+    property var review
+    property var book
+    property bool busy: sailreadsManager.busy && bookPage.status === PageStatus.Active
 
     function attachPage() {
         if (pageStack._currentContainer.attachedContainer === null
@@ -315,48 +315,54 @@ Page {
                 width: parent.width
                 height: Theme.itemSizeMedium
                 text: qsTr("Similar Books")
+                counter: book ? book.similarBooks.length : 0
                 busy: bookPage.busy
                 enabled: !busy
                 visible: book ? book.similarBooks.length > 0 : false
                 onClicked: {
-                    //TODO open page with similar books
+                    pageStack.push(Qt.resolvedUrl("BooksPage.qml"),
+                        { books: book.similarBooks, title: qsTr("Similar Books") })
                 }
             }
 
-            SilicaFlickable {
-                height: row.height
-                contentWidth: row.width
+            SilicaListView {
+                orientation: Qt.Horizontal
+                height: Theme.iconSizeLarge * 1.5
                 anchors {
                     left: parent.left
                     leftMargin: Theme.horizontalPageMargin
                     right: parent.right
                     rightMargin: Theme.horizontalPageMargin
                 }
-
-                Row {
-                    id: row
-                    spacing: Theme.paddingSmall
-                    Repeater {
-                        model: book ? book.similarBooks.length : 0
-                        BaseImage {
-                            height: 1.5 * width
-                            width: Theme.iconSizeLarge
-                            source: book.similarBooks[index].imageUrl
-                            indicator.size: BusyIndicatorSize.Medium
-                            onClicked:  {
-                                pageStack.push(Qt.resolvedUrl("BookPage.qml"),
-                                        { bookId: book.similarBooks[index].id,
-                                            book: book.similarBooks[index] })
-                            }
-                        }
+                clip: true
+                model: book ? book.similarBooks : undefined
+                spacing: Theme.paddingSmall
+                delegate: BaseImage {
+                    height: 1.5 * width
+                    width: Theme.iconSizeLarge
+                    source: modelData.imageUrl
+                    indicator.size: BusyIndicatorSize.Medium
+                    onClicked:  {
+                        pageStack.push(Qt.resolvedUrl("BookPage.qml"),
+                                { bookId: book.similarBooks[index].id,
+                                    book: book.similarBooks[index] })
                     }
                 }
-                HorizontalScrollDecorator{}
             }
 
-            //Add to shelf
-            //Similar books
-            //More button on reviews
+//TODO
+//            MoreButton {
+//                width: parent.width
+//                height: Theme.itemSizeMedium
+//                text: qsTr("Community Reviews")
+//                busy: bookPage.busy
+//                enabled: !busy
+//                visible: book ? book.reviewsWidgetContent !== "" : false
+//                onClicked: {
+//                    pageStack.push(Qt.resolvedUrl("CommunityReviewsPage.qml"),
+//                            { content: book.reviewsWidgetContent })
+//                }
+//            }
         }
     }
 

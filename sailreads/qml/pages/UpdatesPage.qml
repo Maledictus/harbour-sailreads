@@ -39,7 +39,7 @@ Page {
     }
 
     onStatusChanged: {
-        if (status == PageStatus.Active && sailreadsManager.logged) {
+        if (status === PageStatus.Active && sailreadsManager.logged) {
             loadUpdates()
         }
     }

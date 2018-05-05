@@ -32,7 +32,7 @@ Page {
     id: groupMembersPage
 
     property int groupId: 0
-    property bool busy: sailreadsManager.busy && groupMembersPage.status == PageStatus.Active
+    property bool busy: sailreadsManager.busy && groupMembersPage.status === PageStatus.Active
 
     function attachPage() {
         if (pageStack._currentContainer.attachedContainer === null

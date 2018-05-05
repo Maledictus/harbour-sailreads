@@ -33,8 +33,8 @@ Page {
 
     property int groupId: 0
     property string groupName
-    property bool busy: sailreadsManager.busy && groupPage.status == PageStatus.Active
-    property variant group
+    property bool busy: sailreadsManager.busy && groupPage.status === PageStatus.Active
+    property var group
 
     function attachPage() {
         if (pageStack._currentContainer.attachedContainer === null
@@ -59,7 +59,7 @@ Page {
     Connections {
         target: sailreadsManager
         onGotUserGroup: {
-            if (inGroupId == groupPage.groupId) {
+            if (inGroupId === groupPage.groupId) {
                 groupPage.group = inGroup
                 groupFoldersModel.handleGotGroup(inGroupId, inGroup)
                 membersButton.counter = inGroup.usersCount

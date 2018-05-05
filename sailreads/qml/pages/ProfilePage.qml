@@ -34,7 +34,7 @@ Page {
     id: profilePage
 
     property alias userId: userProfile.userId
-    property bool busy: sailreadsManager.busy && profilePage.status == PageStatus.Active
+    property bool busy: sailreadsManager.busy && profilePage.status === PageStatus.Active
 
     function attachPage() {
         if (pageStack._currentContainer.attachedContainer === null

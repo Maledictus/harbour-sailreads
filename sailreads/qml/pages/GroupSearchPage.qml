@@ -30,7 +30,7 @@ import "../utils/Utils.js" as Utils
 
 Page {
     id: groupSearchPage
-    property bool busy: sailreadsManager.busy && groupSearchPage.status == PageStatus.Active
+    property bool busy: sailreadsManager.busy && groupSearchPage.status === PageStatus.Active
 
     function attachPage() {
         if (pageStack._currentContainer.attachedContainer === null

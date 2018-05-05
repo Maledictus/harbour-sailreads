@@ -32,7 +32,7 @@ Image {
     BusyIndicator {
         id: busyIndicator
         anchors.centerIn: image
-        running: image.status == Image.Loading
+        running: image.status === Image.Loading
         visible: running
     }
 
