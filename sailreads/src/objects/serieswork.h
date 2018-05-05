@@ -25,32 +25,30 @@ THE SOFTWARE.
 #include <QList>
 #include <QObject>
 
-#include "series.h"
+#include "../types.h"
 
 namespace Sailreads
 {
-class SeriesWork
+class SeriesWork: public QObject
 {
-    Q_GADGET
+    Q_OBJECT
 
     quint64 m_Id;
     int m_Position;
-    Series m_Series;
+    SeriesPtr m_Series;
 
     Q_PROPERTY(quint64 id READ GetId)
     Q_PROPERTY(int position READ GetPosition)
-    Q_PROPERTY(Series series READ GetSeries)
+    Q_PROPERTY(Series* series READ GetSeries)
 
 public:
-    SeriesWork();
+    SeriesWork(QObject *parent = nullptr);
 
     quint64 GetId() const;
     void SetId(quint64 id);
     int GetPosition() const;
     void SetPosition(int position);
-    Series GetSeries() const;
-    void SetSeries(const Series& series);
+    Series* GetSeries() const;
+    void SetSeries(const SeriesPtr& series);
 };
-typedef QList<SeriesWork> SeriesWorks_t;
 } // namespace Sailreads
-Q_DECLARE_METATYPE(Sailreads::SeriesWork)

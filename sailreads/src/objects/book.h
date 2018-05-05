@@ -69,7 +69,7 @@ class Book : public QObject
     QString m_ReviewsWidgetContent;
     Books_t m_SimilarBooks;
     Work m_Work;
-    QVariantList m_SeriesWorks;
+    SeriesWorks_t m_SeriesWorks;
     //Review m_Review;
 
     Q_PROPERTY(quint64 id READ GetId NOTIFY idChanged)
@@ -104,7 +104,7 @@ class Book : public QObject
     Q_PROPERTY(QString reviewsWidgetContent READ GetReviewsWidgetContent NOTIFY reviewsWidgetContentChanged)
     Q_PROPERTY(Work work READ GetWork NOTIFY workChanged)
     Q_PROPERTY(QObjectList similarBooks READ GetSimilarBooks NOTIFY  similarBooksChanged)
-    Q_PROPERTY(QVariantList seriesWorks READ GetSeriesWorks NOTIFY seriesWorksChanged)
+    Q_PROPERTY(QObjectList seriesWorks READ GetSeriesWorks NOTIFY seriesWorksChanged)
     //Q_PROPERTY(Review review READ GetReview)
 
 public:
@@ -174,7 +174,7 @@ public:
     void SetSimilarBooks(const Books_t& books);
     Work GetWork() const;
     void SetWork(const Work& work);
-    QVariantList GetSeriesWorks() const;
+    QObjectList GetSeriesWorks() const;
     void SetSeriesWorks(const SeriesWorks_t& seriesWorks);
 //    Review GetReview() const;
     //    void SetReview(const Review& review);

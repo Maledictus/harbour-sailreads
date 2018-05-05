@@ -381,17 +381,18 @@ void Book::SetWork(const Work& work)
     m_Work = work;
 }
 
-QVariantList Book::GetSeriesWorks() const
+QObjectList Book::GetSeriesWorks() const
 {
-    return m_SeriesWorks;
+    QObjectList objList;
+    for (const auto& seriesWork : m_SeriesWorks) {
+        objList << seriesWork.get();
+    }
+    return objList;
 }
 
 void Book::SetSeriesWorks(const SeriesWorks_t& seriesWorks)
 {
-    std::transform(seriesWorks.begin(), seriesWorks.end(),
-            std::back_inserter(m_SeriesWorks),
-            [](decltype(seriesWorks.front()) seriesWork)
-    { return QVariant::fromValue(seriesWork); });
+    m_SeriesWorks = seriesWorks;
 }
 
 //Review Book::GetReview() const

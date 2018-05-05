@@ -29,6 +29,10 @@ THE SOFTWARE.
 
 #include "objects/author.h"
 #include "objects/book.h"
+#include "objects/group.h"
+#include "objects/review.h"
+#include "objects/series.h"
+#include "objects/serieswork.h"
 #include "objects/user.h"
 
 namespace Sailreads
@@ -775,52 +779,52 @@ Work ParseWork(const QDomElement& element)
     return work;
 }
 
-Series ParseSeries(const QDomElement& element)
+SeriesPtr ParseSeries(const QDomElement& element)
 {
-    Series series;
+    SeriesPtr series = std::make_shared<Series>();
     const auto& fieldsList = element.childNodes();
     for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
         const auto& fieldElement = fieldsList.at (i).toElement ();
         if (fieldElement.tagName() == "id") {
-            series.SetId(fieldElement.text().toULongLong());
+            series->SetId(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "title") {
-            series.SetTitle(fieldElement.text());
+            series->SetTitle(fieldElement.text());
         }
         else if (fieldElement.tagName() == "description") {
-            series.SetDescription(fieldElement.text());
+            series->SetDescription(fieldElement.text());
         }
         else if (fieldElement.tagName() == "note") {
-            series.SetNote(fieldElement.text());
+            series->SetNote(fieldElement.text());
         }
         else if (fieldElement.tagName() == "series_works_count") {
-            series.SetSeriesWorksCount(fieldElement.text().toInt());
+            series->SetSeriesWorksCount(fieldElement.text().toInt());
         }
         else if (fieldElement.tagName() == "primary_work_count") {
-            series.SetPrimaryWorkCount(fieldElement.text().toInt());
+            series->SetPrimaryWorkCount(fieldElement.text().toInt());
         }
         else if (fieldElement.tagName() == "numbered") {
-            series.SetNumbered(fieldElement.text() == "true");
+            series->SetNumbered(fieldElement.text() == "true");
         }
     }
 
     return series;
 }
 
-SeriesWork ParseSeriesWork(const QDomElement& element)
+SeriesWorkPtr ParseSeriesWork(const QDomElement& element)
 {
-    SeriesWork seriesWork;
+    SeriesWorkPtr seriesWork = std::make_shared<SeriesWork>();
     const auto& fieldsList = element.childNodes();
     for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
         const auto& fieldElement = fieldsList.at (i).toElement ();
         if (fieldElement.tagName() == "id") {
-            seriesWork.SetId(fieldElement.text().toULongLong());
+            seriesWork->SetId(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "user_position") {
-            seriesWork.SetPosition(fieldElement.text().toInt());
+            seriesWork->SetPosition(fieldElement.text().toInt());
         }
         else if (fieldElement.tagName() == "series") {
-            seriesWork.SetSeries(ParseSeries(fieldElement));
+            seriesWork->SetSeries(ParseSeries(fieldElement));
         }
     }
 

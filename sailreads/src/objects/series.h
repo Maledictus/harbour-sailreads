@@ -27,9 +27,9 @@ THE SOFTWARE.
 
 namespace Sailreads
 {
-class Series
+class Series : public QObject
 {
-    Q_GADGET
+    Q_OBJECT
 
     quint64 m_Id;
     QString m_Title;
@@ -39,15 +39,16 @@ class Series
     int m_PrimaryWorkCount;
     bool m_Numbered;
 
-    Q_PROPERTY(quint64 id READ GetId)
-    Q_PROPERTY(QString title READ GetTitle)
-    Q_PROPERTY(QString description READ GetDescription)
-    Q_PROPERTY(QString note READ GetNote)
-    Q_PROPERTY(int seriesWorksCount READ GetSeriesWorksCount)
-    Q_PROPERTY(int primaryWorkCount READ GetPrimaryWorkCount)
-    Q_PROPERTY(bool numbered READ GetNumbered)
+    Q_PROPERTY(quint64 id READ GetId NOTIFY idChanged)
+    Q_PROPERTY(QString title READ GetTitle NOTIFY titleChanged)
+    Q_PROPERTY(QString description READ GetDescription NOTIFY descriptionChanged)
+    Q_PROPERTY(QString note READ GetNote NOTIFY noteChanged)
+    Q_PROPERTY(int seriesWorksCount READ GetSeriesWorksCount NOTIFY seriesWorksCountChanged)
+    Q_PROPERTY(int primaryWorkCount READ GetPrimaryWorkCount NOTIFY primaryWorkCountChanged)
+    Q_PROPERTY(bool numbered READ GetNumbered NOTIFY numberedChanged)
+
 public:
-    Series();
+    Series(QObject *parent = nullptr);
 
     quint64 GetId() const;
     void SetId(quint64 id);
@@ -63,6 +64,14 @@ public:
     void SetPrimaryWorkCount(int primaryWorkCount);
     bool GetNumbered() const;
     void SetNumbered(bool numbered);
+
+signals:
+    void idChanged();
+    void titleChanged();
+    void descriptionChanged();
+    void noteChanged();
+    void seriesWorksCountChanged();
+    void primaryWorkCountChanged();
+    void numberedChanged();
 };
 } // namespace Sailreads
-Q_DECLARE_METATYPE(Sailreads::Series)

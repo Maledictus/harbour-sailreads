@@ -22,11 +22,13 @@ THE SOFTWARE.
 
 #include "serieswork.h"
 
+#include "series.h"
+
 namespace Sailreads
 {
-
-SeriesWork::SeriesWork()
-: m_Id(0)
+SeriesWork::SeriesWork(QObject *parent)
+: QObject(parent)
+, m_Id(0)
 , m_Position(0)
 {
 }
@@ -51,15 +53,13 @@ void SeriesWork::SetPosition(int position)
     m_Position = position;
 }
 
-Series SeriesWork::GetSeries() const
+Series* SeriesWork::GetSeries() const
 {
-    return m_Series;
+    return m_Series.get();
 }
 
-void SeriesWork::SetSeries(const Series& series)
+void SeriesWork::SetSeries(const SeriesPtr& series)
 {
     m_Series = series;
 }
-
-
 } // namespace Sailreads

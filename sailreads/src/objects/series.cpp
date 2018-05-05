@@ -23,8 +23,9 @@ THE SOFTWARE.
 
 namespace Sailreads
 {
-Series::Series()
-: m_Id(0)
+Series::Series(QObject *parent)
+: QObject(parent)
+, m_Id(0)
 , m_SeriesWorksCount(0)
 , m_PrimaryWorkCount(0)
 , m_Numbered(false)

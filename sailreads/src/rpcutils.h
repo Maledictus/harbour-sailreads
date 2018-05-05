@@ -30,11 +30,9 @@ THE SOFTWARE.
 
 #include "objects/bookshelf.h"
 #include "objects/friend.h"
-#include "objects/group.h"
-#include "objects/review.h"
+#include "objects/groupmember.h"
 #include "objects/topic.h"
 #include "objects/work.h"
-#include "objects/serieswork.h"
 #include "types.h"
 #include "userupdate.h"
 #include "userprofile.h"
@@ -60,8 +58,8 @@ BookPtr ParseBook(const QDomElement& element);
 ReviewPtr ParseReview(const QDomElement& element);
 AuthorPtr ParseAuthor(const QDomElement& element);
 Work ParseWork(const QDomElement& element);
-Series ParseSeries(const QDomElement& element);
-SeriesWork ParseSeriesWork(const QDomElement& element);
+SeriesPtr ParseSeries(const QDomElement& element);
+SeriesWorkPtr ParseSeriesWork(const QDomElement& element);
 
 GroupMembers_t ParseGroupMembers(const QDomElement& element);
 GroupFolders_t ParseGroupFolders(const QDomElement& element);
