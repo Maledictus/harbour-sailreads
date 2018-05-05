@@ -615,6 +615,9 @@ Book ParseBook(const QDomElement& element)
         else if (fieldElement.tagName() == "series_works") {
             book.SetSeriesWorks(ParseSeriesWorks(fieldElement));
         }
+        else if (fieldElement.tagName() == "my_review") {
+            //book.SetReview(ParseReview(fieldElement));
+        }
     }
 
     return book;

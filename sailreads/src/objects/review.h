@@ -30,6 +30,8 @@ THE SOFTWARE.
 
 namespace Sailreads
 {
+class Book;
+
 class Review
 {
     Q_GADGET
