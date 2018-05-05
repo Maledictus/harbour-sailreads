@@ -77,10 +77,10 @@ void GroupFoldersModel::SetGroupId(quint64 id)
     }
 }
 
-void GroupFoldersModel::handleGotGroup(quint64 groupId, const Group& group)
+void GroupFoldersModel::handleGotGroup(quint64 groupId, const GroupPtr& group)
 {
-    if (m_GroupId == groupId) {
-        SetItems(group.GetGroupFolders());
+    if (group && m_GroupId == groupId) {
+        SetItems(group->GetGroupFolders());
     }
 }
 } // namespace Sailreads

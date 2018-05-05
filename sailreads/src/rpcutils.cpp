@@ -299,85 +299,85 @@ GroupFolder ParseGroupFolder(const QDomElement& element)
     return gf;
 }
 
-Group ParseGroup(const QDomElement& element)
+GroupPtr ParseGroup(const QDomElement& element)
 {
-    Group group;
+    GroupPtr group = std::make_shared<Group>();
     const auto& fieldsList = element.childNodes();
     for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
         const auto& fieldElement = fieldsList.at (i).toElement ();
         if (fieldElement.tagName() == "id") {
-            group.SetId(fieldElement.text().toULongLong());
+            group->SetId(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "title") {
-            group.SetName(fieldElement.text());
+            group->SetName(fieldElement.text());
         }
         else if (fieldElement.tagName() == "access") {
-            group.SetIsPublic(fieldElement.text().toLower() == "public");
+            group->SetIsPublic(fieldElement.text().toLower() == "public");
         }
         else if (fieldElement.tagName() == "users_count" ||
                 fieldElement.tagName() == "group_users_count") {
-            group.SetUsersCount(fieldElement.text().toULongLong());
+            group->SetUsersCount(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "image_url" || fieldElement.tagName() == "p1_image_url") {
-            group.SetImageUrl(QUrl(fieldElement.text()));
+            group->SetImageUrl(QUrl(fieldElement.text()));
         }
         else if (fieldElement.tagName() == "last_activity_at" && !fieldElement.text().isEmpty()) {
-            group.SetLastActivity(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
+            group->SetLastActivity(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
                     Qt::ISODate));
         }
         else if (fieldElement.tagName() == "link") {
-            group.SetUrl(QUrl(fieldElement.text()));
+            group->SetUrl(QUrl(fieldElement.text()));
         }
         else if (fieldElement.tagName() == "description") {
-            group.SetDescription(fieldElement.text());
+            group->SetDescription(fieldElement.text());
         }
         else if (fieldElement.tagName() == "location") {
-            group.SetLocation(fieldElement.text());
+            group->SetLocation(fieldElement.text());
         }
         else if (fieldElement.tagName() == "display_folder_count") {
-            group.SetDisplayFolderCount(fieldElement.text().toULongLong());
+            group->SetDisplayFolderCount(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "display_topics_per_folder") {
-            group.SetDisplayTopicsPerFolderCount(fieldElement.text().toULongLong());
+            group->SetDisplayTopicsPerFolderCount(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "bookshelves_public_flag") {
-            group.SetBookshelvesPublicFlag(fieldElement.text() == "true");
+            group->SetBookshelvesPublicFlag(fieldElement.text() == "true");
         }
         else if (fieldElement.tagName() == "add_book_flag") {
-            group.SetAddBookFlag(fieldElement.text() == "true");
+            group->SetAddBookFlag(fieldElement.text() == "true");
         }
         else if (fieldElement.tagName() == "add_events_flag") {
-            group.SetAddEventsFlag(fieldElement.text() == "true");
+            group->SetAddEventsFlag(fieldElement.text() == "true");
         }
         else if (fieldElement.tagName() == "polls_flag") {
-            group.SetPollsFlag(fieldElement.text() == "true");
+            group->SetPollsFlag(fieldElement.text() == "true");
         }
         else if (fieldElement.tagName() == "discussion_public_flag") {
-            group.SetDiscussionPublicFlag(fieldElement.text() == "true");
+            group->SetDiscussionPublicFlag(fieldElement.text() == "true");
         }
         else if (fieldElement.tagName() == "real_world_flag") {
-            group.SetRealWorldFlag(fieldElement.text() == "true");
+            group->SetRealWorldFlag(fieldElement.text() == "true");
         }
         else if (fieldElement.tagName() == "accepting_new_members_flag") {
-            group.SetAcceptingNewMemberFlag(fieldElement.text() == "true");
+            group->SetAcceptingNewMemberFlag(fieldElement.text() == "true");
         }
         else if (fieldElement.tagName() == "category") {
-            group.SetCategory(fieldElement.text());
+            group->SetCategory(fieldElement.text());
         }
         else if (fieldElement.tagName() == "subcategory") {
-            group.SetSubCategory(fieldElement.text());
+            group->SetSubCategory(fieldElement.text());
         }
         else if (fieldElement.tagName() == "rules") {
-            group.SetRules(fieldElement.text());
+            group->SetRules(fieldElement.text());
         }
         else if (fieldElement.tagName() == "folders") {
-            group.SetGroupFolders(ParseGroupFolders(fieldElement));
+            group->SetGroupFolders(ParseGroupFolders(fieldElement));
         }
         else if (fieldElement.tagName() == "moderators") {
-            group.SetGroupModerators(ParseGroupMembers(fieldElement));
+            group->SetGroupModerators(ParseGroupMembers(fieldElement));
         }
         else if (fieldElement.tagName() == "members") {
-            group.SetGroupMembers(ParseGroupMembers(fieldElement));
+            group->SetGroupMembers(ParseGroupMembers(fieldElement));
         }
     }
 
@@ -975,24 +975,24 @@ BookShelves_t ParseBookShelves(const QDomDocument& doc)
     return ParseBookShelves(responseElement.firstChildElement("shelves"));
 }
 
-CountedItems<Group> ParseGroups(const QDomDocument& doc)
+CountedItems<GroupPtr> ParseGroups(const QDomDocument& doc)
 {
     const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
     if (responseElement.isNull()) {
-        return CountedItems<Group>();
+        return CountedItems<GroupPtr>();
     }
 
     const auto& groupsElement = responseElement.firstChildElement("groups");
     if (groupsElement.isNull()) {
-        return CountedItems<Group>();
+        return CountedItems<GroupPtr>();
     }
 
     const auto& groupsListElement = groupsElement.firstChildElement("list");
     if (groupsListElement.isNull()) {
-        return CountedItems<Group>();
+        return CountedItems<GroupPtr>();
     }
 
-    CountedItems<Group> groups;
+    CountedItems<GroupPtr> groups;
     groups.m_BeginIndex = groupsListElement.attribute("start").toULongLong();
     groups.m_EndIndex = groupsListElement.attribute("end").toULongLong();
     groups.m_Count = groupsListElement.attribute("total").toULongLong();
@@ -1010,11 +1010,11 @@ Friends_t ParseFriends(const QDomDocument& doc)
     return ParseFriends(responseElement.firstChildElement("friends"));
 }
 
-Group ParseGroup(const QDomDocument& doc)
+GroupPtr ParseGroup(const QDomDocument& doc)
 {
     const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
     if (responseElement.isNull()) {
-        return Group();
+        return GroupPtr();
     }
 
     return ParseGroup(responseElement.firstChildElement("group"));

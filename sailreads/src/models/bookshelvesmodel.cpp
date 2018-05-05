@@ -22,6 +22,7 @@ THE SOFTWARE.
 
 #include "bookshelvesmodel.h"
 
+#include "../objects/user.h"
 #include "../sailreadsmanager.h"
 #include "../userprofile.h"
 

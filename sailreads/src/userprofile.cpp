@@ -27,6 +27,7 @@ THE SOFTWARE.
 #include <QtDebug>
 
 #include "models/bookshelvesmodel.h"
+#include "objects/user.h"
 #include "sailreadsmanager.h"
 
 namespace Sailreads

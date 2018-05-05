@@ -65,4 +65,8 @@ typedef QList<AuthorPtr> Authors_t;
 class Book;
 typedef std::shared_ptr<Book> BookPtr;
 typedef QList<BookPtr> Books_t;
+
+class Group;
+typedef std::shared_ptr<Group> GroupPtr;
+typedef QList<GroupPtr> Groups_t;
 }

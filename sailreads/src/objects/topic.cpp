@@ -22,6 +22,7 @@ THE SOFTWARE.
 
 #include "topic.h"
 
+#include "group.h"
 #include "user.h"
 
 namespace Sailreads
@@ -155,12 +156,12 @@ void Topic::SetSubjectType(const QString& type)
     m_SubjectType = type;
 }
 
-Group Topic::GetGroup() const
+Group* Topic::GetGroup() const
 {
-    return m_Group;
+    return m_Group.get();
 }
 
-void Topic::SetGroup(const Group& group)
+void Topic::SetGroup(const GroupPtr& group)
 {
     m_Group = group;
 }

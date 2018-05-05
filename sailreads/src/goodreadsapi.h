@@ -241,9 +241,9 @@ signals:
 
     void gotBook(const BookPtr& book);
 
-    void gotUserGroups(quint64 userId, const CountedItems<Group>& groups);
-    void gotUserGroup(quint64 groupId, const Group& group);
-    void gotFoundGroups(const CountedItems<Group>& groups);
+    void gotUserGroups(quint64 userId, const CountedItems<GroupPtr>& groups);
+    void gotUserGroup(quint64 groupId, const GroupPtr& group);
+    void gotFoundGroups(const CountedItems<GroupPtr>& groups);
     void gotGroupMembers(quint64 groupId, const GroupMembers_t& members);
     void gotGroupFolderTopics(quint64 groupFolderId, quint64 groupId,
             const CountedItems<Topic>& topics);

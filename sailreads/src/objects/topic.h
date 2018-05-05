@@ -26,9 +26,8 @@ THE SOFTWARE.
 #include <QString>
 
 #include "comment.h"
-#include "group.h"
 #include "groupfolder.h"
-#include "user.h"
+
 #include "../types.h"
 
 namespace Sailreads
@@ -50,7 +49,7 @@ class Topic
     quint64 m_CommentsPerPage;
     QDateTime m_UpdatedAt;
     QString m_SubjectType;
-    Group m_Group;
+    GroupPtr m_Group;
     CountedItems<Comment> m_Comments;
 
     Q_PROPERTY(quint64 id READ GetId)
@@ -61,7 +60,7 @@ class Topic
     Q_PROPERTY(QDateTime lastCommentDate READ GetLastCommentDate)
     Q_PROPERTY(User* author READ GetAuthor)
     Q_PROPERTY(GroupFolder folder READ GetGroupFolder)
-    Q_PROPERTY(Group group READ GetGroup)
+    Q_PROPERTY(Group* group READ GetGroup)
 
 public:
     Topic();
@@ -91,8 +90,8 @@ public:
     void SetUpdatedAt(const QDateTime& dt);
     QString GetSubjectType() const;
     void SetSubjectType(const QString& title);
-    Group GetGroup() const;
-    void SetGroup(const Group& group);
+    Group* GetGroup() const;
+    void SetGroup(const GroupPtr& group);
     CountedItems<Comment> GetComments() const;
     void SetComments(const CountedItems<Comment>& comments);
 };

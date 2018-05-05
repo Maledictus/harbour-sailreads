@@ -31,9 +31,9 @@ THE SOFTWARE.
 
 namespace Sailreads
 {
-class Group
+class Group: public QObject
 {
-    Q_GADGET
+    Q_OBJECT
 
     quint64 m_Id;
     QString m_Name;
@@ -68,23 +68,25 @@ public:
 private:
     GroupFlags m_Flags;
 
-    Q_PROPERTY(quint64 id READ GetId)
-    Q_PROPERTY(QString name READ GetName)
-    Q_PROPERTY(bool isPublic READ GetIsPublic)
-    Q_PROPERTY(quint64 usersCount READ GetUsersCount)
-    Q_PROPERTY(QUrl imageUrl READ GetImageUrl)
-    Q_PROPERTY(QDateTime lastActivity READ GetLastActivity)
-    Q_PROPERTY(QUrl url READ GetUrl)
-    Q_PROPERTY(QString description READ GetDescription)
-    Q_PROPERTY(QString location READ GetLocation)
-    Q_PROPERTY(quint64 displayFolderCount READ GetDisplayFolderCount)
-    Q_PROPERTY(quint64 displayTopicsPerFolderCount READ GetDisplayTopicsPerFolderCount)
-    Q_PROPERTY(QString category READ GetCategory)
-    Q_PROPERTY(QString subCategory READ GetSubCategory)
-    Q_PROPERTY(QString rules READ GetRules)
-    Q_PROPERTY(GroupFlags flags READ GetGroupFlags)
+    Q_PROPERTY(quint64 id READ GetId NOTIFY idChanged)
+    Q_PROPERTY(QString name READ GetName NOTIFY nameChanged)
+    Q_PROPERTY(bool isPublic READ GetIsPublic NOTIFY isPublicChanged)
+    Q_PROPERTY(quint64 usersCount READ GetUsersCount NOTIFY usersCountChanged)
+    Q_PROPERTY(QUrl imageUrl READ GetImageUrl NOTIFY imageUrlChanged)
+    Q_PROPERTY(QDateTime lastActivity READ GetLastActivity NOTIFY lastActivityChanged)
+    Q_PROPERTY(QUrl url READ GetUrl NOTIFY urlChanged)
+    Q_PROPERTY(QString description READ GetDescription NOTIFY descriptionChanged)
+    Q_PROPERTY(QString location READ GetLocation NOTIFY locationChanged)
+    Q_PROPERTY(quint64 displayFolderCount READ GetDisplayFolderCount NOTIFY displayFolderCountChanged)
+    Q_PROPERTY(quint64 displayTopicsPerFolderCount READ GetDisplayTopicsPerFolderCount NOTIFY displayTopicsPerFolderCountChanged)
+    Q_PROPERTY(QString category READ GetCategory NOTIFY categoryChanged)
+    Q_PROPERTY(QString subCategory READ GetSubCategory NOTIFY subCategoryChanged)
+    Q_PROPERTY(QString rules READ GetRules NOTIFY rulesChanged)
+    Q_PROPERTY(GroupFlags flags READ GetGroupFlags NOTIFY groupFlagsChanged)
+
 public:
-    Group();
+    Group(QObject *parent = nullptr);
+    ~Group();
 
     quint64 GetId() const;
     void SetId(quint64 id);
@@ -128,8 +130,23 @@ public:
     void SetGroupModerators(const GroupMembers_t& groupModerators);
     GroupMembers_t GetGroupMembers() const;
     void SetGroupMembers(const GroupMembers_t& groupMembers);
+
+signals:
+    void idChanged();
+    void nameChanged();
+    void isPublicChanged();
+    void usersCountChanged();
+    void imageUrlChanged();
+    void lastActivityChanged();
+    void urlChanged();
+    void descriptionChanged();
+    void locationChanged();
+    void displayFolderCountChanged();
+    void displayTopicsPerFolderCountChanged();
+    void categoryChanged();
+    void subCategoryChanged();
+    void rulesChanged();
+    void groupFlagsChanged();
 };
 Q_DECLARE_OPERATORS_FOR_FLAGS(Group::GroupFlags)
-
-typedef QList<Group> Groups_t;
 } // namespace Sailreads

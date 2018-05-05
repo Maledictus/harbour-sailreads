@@ -22,6 +22,7 @@ THE SOFTWARE.
 
 #include "groupmembersmodel.h"
 
+#include "../objects/user.h"
 #include "../sailreadsmanager.h"
 
 namespace Sailreads

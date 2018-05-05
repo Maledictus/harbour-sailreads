@@ -63,7 +63,7 @@ void UserGroupsModel::SetUserId(quint64 id)
     }
 }
 
-void UserGroupsModel::handleGotUserGroups(quint64 userId, const CountedItems<Group>& groups)
+void UserGroupsModel::handleGotUserGroups(quint64 userId, const CountedItems<GroupPtr>& groups)
 {
     if (userId != m_UserId) {
         return;

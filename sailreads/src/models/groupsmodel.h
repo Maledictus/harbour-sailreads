@@ -23,11 +23,11 @@ THE SOFTWARE.
 #pragma once
 
 #include "basemodel.h"
-#include "../objects/group.h"
+#include "../types.h"
 
 namespace Sailreads
 {
-class GroupsModel : public BaseModel<Group>
+class GroupsModel : public BaseModel<GroupPtr>
 {
     Q_OBJECT
 

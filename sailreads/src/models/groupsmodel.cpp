@@ -22,10 +22,12 @@ THE SOFTWARE.
 
 #include "groupsmodel.h"
 
+#include "../objects/group.h"
+
 namespace Sailreads
 {
 GroupsModel::GroupsModel(QObject *parent)
-: BaseModel<Group>(parent)
+: BaseModel<GroupPtr>(parent)
 {
 }
 
@@ -38,19 +40,19 @@ QVariant GroupsModel::data(const QModelIndex& index, int role) const
     const auto& group = m_Items.at(index.row());
     switch (role) {
     case Id:
-        return group.GetId();
+        return group->GetId();
     case Name:
-        return group.GetName();
+        return group->GetName();
     case Public:
-        return group.GetIsPublic();
+        return group->GetIsPublic();
     case UsersCount:
-        return group.GetUsersCount();
+        return group->GetUsersCount();
     case ImageUrl:
-        return group.GetImageUrl();
+        return group->GetImageUrl();
     case LastActivity:
-        return group.GetLastActivity();
+        return group->GetLastActivity();
     case Url:
-        return group.GetUrl();
+        return group->GetUrl();
     default:
         return QVariant();
     }

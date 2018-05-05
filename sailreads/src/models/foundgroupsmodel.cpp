@@ -62,7 +62,7 @@ void FoundGroupsModel::fetchMoreContent(const QString& text)
     SailreadsManager::Instance()->searchGroup(text, m_CurrentPage);
 }
 
-void FoundGroupsModel::handleGotFoundGroups(const CountedItems<Group>& groups)
+void FoundGroupsModel::handleGotFoundGroups(const CountedItems<GroupPtr>& groups)
 {
     SetHasMore(groups.m_EndIndex != groups.m_Count);
     if (m_HasMore) {

@@ -46,7 +46,7 @@ public:
 public slots:
     void fetchMoreContent(const QString& text);
 private slots:
-    void handleGotFoundGroups(const CountedItems<Group>& groups);
+    void handleGotFoundGroups(const CountedItems<GroupPtr>& groups);
 
 signals:
     void hasMoreChanged();

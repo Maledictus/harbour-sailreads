@@ -43,7 +43,7 @@ public:
     virtual void fetchMore(const QModelIndex& parent) override;
 
 private slots:
-    void handleGotUserGroups(quint64 userId, const CountedItems<Group>& groups);
+    void handleGotUserGroups(quint64 userId, const CountedItems<GroupPtr>& groups);
 
 signals:
     void userIdChanged();

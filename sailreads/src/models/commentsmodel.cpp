@@ -23,6 +23,7 @@ THE SOFTWARE.
 
 #include <QtDebug>
 
+#include "../objects/user.h"
 #include "../sailreadsmanager.h"
 
 namespace Sailreads

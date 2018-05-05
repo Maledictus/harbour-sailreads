@@ -43,7 +43,9 @@ THE SOFTWARE.
 #include "models/groupfoldertopicsmodel.h"
 #include "objects/author.h"
 #include "objects/book.h"
+#include "objects/group.h"
 #include "objects/user.h"
+
 #include "objects/groupfolder.h"
 #include "objects/topic.h"
 #include "settings/accountsettings.h"
@@ -92,14 +94,16 @@ void Application::start()
             "Author provids attached properties and can't be instantiated");
     qmlRegisterUncreatableType<Book>("harbour.sailreads", 1, 0, "Book",
             "Book provids attached properties and can't be instantiated");
+    qmlRegisterUncreatableType<Group>("harbour.sailreads", 1, 0, "Group",
+            "Group provids attached properties and can't be instantiated");
     qmlRegisterUncreatableType<User>("harbour.sailreads", 1, 0, "User",
             "User provids attached properties and can't be instantiated");
 
     qRegisterMetaType<Author*>("Author*");
     qRegisterMetaType<Book*>("Book*");
+    qRegisterMetaType<Group*>("Group*");
     qRegisterMetaType<User*>("User*");
 
-    qRegisterMetaType<Group>("Group");
     qRegisterMetaType<GroupFolder>("GroupFolder");
     qRegisterMetaType<Topic>("Topic");
     qRegisterMetaType<Review>("Review");

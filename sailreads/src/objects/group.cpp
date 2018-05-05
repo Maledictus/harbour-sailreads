@@ -22,12 +22,21 @@ THE SOFTWARE.
 
 #include "group.h"
 
+#include <QtDebug>
+
 namespace Sailreads
 {
-Group::Group()
-: m_Id(0)
+Group::Group(QObject *parent)
+: QObject(parent)
+, m_Id(0)
 , m_Flags(NoFlags)
 {
+    qDebug() << this << "CONSTRUCTED";
+}
+
+Group::~Group()
+{
+    qDebug() << this << "DESTRUCTED";
 }
 
 quint64 Group::GetId() const
