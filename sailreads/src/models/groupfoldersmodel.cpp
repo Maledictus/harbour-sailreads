@@ -77,6 +77,13 @@ void GroupFoldersModel::SetGroupId(quint64 id)
     }
 }
 
+void GroupFoldersModel::handleGotGroup(quint64 groupId, Group *group)
+{
+    if (group && m_GroupId == groupId) {
+        SetItems(group->GetGroupFolders());
+    }
+}
+
 void GroupFoldersModel::handleGotGroup(quint64 groupId, const GroupPtr& group)
 {
     if (group && m_GroupId == groupId) {

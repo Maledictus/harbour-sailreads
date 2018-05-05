@@ -37,12 +37,16 @@ Review::Review(QObject *parent)
 , m_CommentsCount(0)
 , m_Owned(0)
 {
+#ifdef QT_DEBUG
     qDebug() << this << "CONSTRUCTED";
+#endif
 }
 
 Review::~Review()
 {
+#ifdef QT_DEBUG
     qDebug() << this << "DESTRUCTED";
+#endif
 }
 
 quint64 Review::GetId() const

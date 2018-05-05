@@ -37,12 +37,16 @@ Topic::Topic(QObject *parent)
 , m_NewCommentsCount(0)
 , m_CommentsPerPage(0)
 {
+#ifdef QT_DEBUG
     qDebug() << this << "CONSTRUCTED";
+#endif
 }
 
 Topic::~Topic()
 {
+#ifdef QT_DEBUG
     qDebug() << this << "DESTRUCTED";
+#endif
 }
 
 quint64 Topic::GetId() const

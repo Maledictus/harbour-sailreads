@@ -42,12 +42,16 @@ Book::Book(QObject *parent)
 , m_RatingsCount(0)
 , m_PublishedYear(0)
 {
+#ifdef QT_DEBUG
     qDebug() << this << "CONSTRUCTED";
+#endif
 }
 
 Book::~Book()
 {
+#ifdef QT_DEBUG
     qDebug() << this << "DESTRUCTED";
+#endif
 }
 
 quint64 Book::GetId() const

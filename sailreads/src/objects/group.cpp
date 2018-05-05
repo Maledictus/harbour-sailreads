@@ -31,12 +31,16 @@ Group::Group(QObject *parent)
 , m_Id(0)
 , m_Flags(NoFlags)
 {
+#ifdef QT_DEBUG
     qDebug() << this << "CONSTRUCTED";
+#endif
 }
 
 Group::~Group()
 {
+#ifdef QT_DEBUG
     qDebug() << this << "DESTRUCTED";
+#endif
 }
 
 quint64 Group::GetId() const
@@ -248,5 +252,4 @@ void Group::SetGroupMembers(const GroupMembers_t& groupMembers)
 {
     m_GroupMembers = groupMembers;
 }
-
 } // namespace Sailreads

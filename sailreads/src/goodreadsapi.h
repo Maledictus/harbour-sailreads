@@ -117,7 +117,7 @@ public:
     void ShowAuthorFollowingInformation(quint64 authorFollowingId);
 
     void GetGroups(quint64 userId);
-    void GetGroup(quint64 groupId, const QString& groupName);
+    void GetGroup(quint64 groupId);
     void JoinGroup(quint64 groupId);
     void SearchGroup(const QString& text, int page);
     void GetGroupMembers(quint64 groupId, int page);

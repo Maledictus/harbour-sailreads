@@ -33,12 +33,16 @@ Series::Series(QObject *parent)
 , m_PrimaryWorkCount(0)
 , m_Numbered(false)
 {
+#ifdef QT_DEBUG
     qDebug() << this << "CONSTRUCTED";
+#endif
 }
 
 Series::~Series()
 {
+#ifdef QT_DEBUG
     qDebug() << this << "DESTRUCTED";
+#endif
 }
 
 quint64 Series::GetId() const

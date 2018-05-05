@@ -429,7 +429,7 @@ void GoodReadsApi::GetGroups(quint64 userId)
             });
 }
 
-void GoodReadsApi::GetGroup(quint64 groupId, const QString&)
+void GoodReadsApi::GetGroup(quint64 groupId)
 {
     const QUrl url(QString("https://www.goodreads.com/group/show/%1.xml?key=%2&sort=updated_at")
                    .arg(groupId)

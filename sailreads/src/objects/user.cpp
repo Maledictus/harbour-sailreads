@@ -35,12 +35,16 @@ User::User(QObject *parent)
 , m_GroupsCount(0)
 , m_BooksCount(0)
 {
+#ifdef QT_DEBUG
     qDebug() << this << "CONSTRUCTED";
+#endif
 }
 
 User::~User()
 {
+#ifdef QT_DEBUG
     qDebug() << this << "DESTRUCTED";
+#endif
 }
 
 quint64 User::GetId() const

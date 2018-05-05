@@ -33,12 +33,16 @@ Author::Author(QObject *parent)
 , m_RatingsCount(0)
 , m_TextReviewsCount(0)
 {
+#ifdef QT_DEBUG
     qDebug() << this << "CONSTRUCTED";
+#endif
 }
 
 Author::~Author()
 {
+#ifdef QT_DEBUG
     qDebug() << this << "DESTRUCTED";
+#endif
 }
 
 quint64 Author::GetId() const

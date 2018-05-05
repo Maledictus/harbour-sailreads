@@ -51,6 +51,7 @@ THE SOFTWARE.
 
 #include "objects/groupfolder.h"
 #include "objects/topic.h"
+#include "qmltypes/groupitem.h"
 #include "qmltypes/userprofile.h"
 #include "settings/accountsettings.h"
 #include "settings/applicationsettings.h"
@@ -118,7 +119,6 @@ void Application::start()
     qRegisterMetaType<SeriesWork*>("SeriesWork*");
     qRegisterMetaType<Topic*>("Topic*");
     qRegisterMetaType<User*>("User*");
-
     qRegisterMetaType<GroupFolder>("GroupFolder");
 
     qmlRegisterType<BaseProxyModel>("harbour.sailreads", 1, 0, "BaseProxyModel");
@@ -133,7 +133,7 @@ void Application::start()
     qmlRegisterType<CommentsModel>("harbour.sailreads", 1, 0, "CommentsModel");
     qmlRegisterType<ReviewsModel>("harbour.sailreads", 1, 0, "ReviewsModel");
     qmlRegisterType<UserProfile>("harbour.sailreads", 1, 0, "UserProfile");
-
+    qmlRegisterType<GroupItem>("harbour.sailreads", 1, 0, "GroupItem");
     ShowUI();
 }
 
@@ -142,3 +142,4 @@ void Application::handleAboutToQuit()
 //    LinksBagManager::Instance(this)->saveBookmarks();
 }
 } // namespace Sailreads
+
