@@ -627,23 +627,23 @@ BookPtr ParseBook(const QDomElement& element)
     return book;
 }
 
-Review ParseReview(const QDomElement& element)
+ReviewPtr ParseReview(const QDomElement& element)
 {
-    Review review;
+    ReviewPtr review = std::make_shared<Review>();
     const auto& fieldsList = element.childNodes();
     for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
         const auto& fieldElement = fieldsList.at (i).toElement ();
         if (fieldElement.tagName() == "id") {
-            review.SetId(fieldElement.text().toULongLong());
+            review->SetId(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "book") {
-            review.SetBook(ParseBook(fieldElement));
+            review->SetBook(ParseBook(fieldElement));
         }
         else if (fieldElement.tagName() == "rating") {
-            review.SetRating(fieldElement.text().toInt());
+            review->SetRating(fieldElement.text().toInt());
         }
         else if (fieldElement.tagName() == "votes") {
-            review.SetVotes(fieldElement.text().toInt());
+            review->SetVotes(fieldElement.text().toInt());
         }
         else if (fieldElement.tagName() == "shelves") {
             BookShelves_t shelves;
@@ -655,38 +655,38 @@ Review ParseReview(const QDomElement& element)
                 shelf.SetName(shelfElement.attribute("name"));
                 shelves << shelf;
             }
-            review.SetShelves(shelves);
+            review->SetShelves(shelves);
         }
         else if (fieldElement.tagName() == "date_added" && !fieldElement.text().isEmpty()) {
-            review.SetAddedDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
+            review->SetAddedDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
                     Qt::ISODate));
         }
         else if (fieldElement.tagName() == "date_updated" && !fieldElement.text().isEmpty()) {
-            review.SetUpdatedDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
+            review->SetUpdatedDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
                     Qt::ISODate));
         }
         else if (fieldElement.tagName() == "date_read" && !fieldElement.text().isEmpty()) {
-            review.SetReadDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
+            review->SetReadDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
                     Qt::ISODate));
         }
         else if (fieldElement.tagName() == "started_at" && !fieldElement.text().isEmpty()) {
-            review.SetStartedDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
+            review->SetStartedDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
                     Qt::ISODate));
         }
         else if (fieldElement.tagName() == "read_count") {
-            review.SetReadCount(fieldElement.text().toInt());
+            review->SetReadCount(fieldElement.text().toInt());
         }
         else if (fieldElement.tagName() == "body") {
-            review.SetBody(fieldElement.text());
+            review->SetBody(fieldElement.text());
         }
         else if (fieldElement.tagName() == "comments_count") {
-            review.SetCommentsCount(fieldElement.text().toULongLong());
+            review->SetCommentsCount(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "url") {
-            review.SetUrl(fieldElement.text());
+            review->SetUrl(fieldElement.text());
         }
         else if (fieldElement.tagName() == "owned") {
-            review.SetOwned(fieldElement.text().toULongLong());
+            review->SetOwned(fieldElement.text().toULongLong());
         }
     }
 
@@ -929,9 +929,9 @@ CountedItems<Comment> ParseComments(const QDomElement& element)
     return comments;
 }
 
-CountedItems<Review> ParseReviews(const QDomElement& element)
+CountedItems<ReviewPtr> ParseReviews(const QDomElement& element)
 {
-    CountedItems<Review> reviews;
+    CountedItems<ReviewPtr> reviews;
     reviews.m_BeginIndex = element.attribute("start").toULongLong();
     reviews.m_EndIndex = element.attribute("end").toULongLong();
     reviews.m_Count = element.attribute("total").toULongLong();
@@ -1075,23 +1075,23 @@ Comment ParseComment(const QDomDocument& doc)
     return ParseComment(commentElement);
 }
 
-QPair<quint64, CountedItems<Review>> ParseReviews(const QDomDocument& doc)
+QPair<quint64, CountedItems<ReviewPtr>> ParseReviews(const QDomDocument& doc)
 {
     const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
     if (responseElement.isNull()) {
-        return QPair<quint64, CountedItems<Review>>();
+        return QPair<quint64, CountedItems<ReviewPtr>>();
     }
 
     const auto& shelfElement = responseElement.firstChildElement("shelf");
     if (shelfElement.isNull()) {
-        return QPair<quint64, CountedItems<Review>>();
+        return QPair<quint64, CountedItems<ReviewPtr>>();
     }
 
     const quint64 shelfId = shelfElement.attribute("id").toULong();
 
     const auto& reviewsListElement = responseElement.firstChildElement("reviews");
     if (reviewsListElement.isNull()) {
-        return qMakePair(shelfId, CountedItems<Review>());
+        return qMakePair(shelfId, CountedItems<ReviewPtr>());
     }
 
     return qMakePair(shelfId, ParseReviews(reviewsListElement));

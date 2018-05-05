@@ -26,8 +26,9 @@ THE SOFTWARE.
 
 namespace Sailreads
 {
-Review::Review()
-: m_Id(0)
+Review::Review(QObject *parent)
+: QObject(parent)
+, m_Id(0)
 , m_Rating(0)
 , m_Votes(0)
 , m_ReadCount(0)

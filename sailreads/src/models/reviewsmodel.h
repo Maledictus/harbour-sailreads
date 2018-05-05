@@ -23,12 +23,11 @@ THE SOFTWARE.
 #pragma once
 
 #include "basemodel.h"
-#include "../objects/review.h"
 #include "../types.h"
 
 namespace Sailreads
 {
-class ReviewsModel : public BaseModel<Review>
+class ReviewsModel : public BaseModel<ReviewPtr>
 {
     Q_OBJECT
     Q_ENUMS(ReviewRoles)
@@ -81,7 +80,7 @@ public:
 public slots:
     void fetchMoreContent();
 private slots:
-    void handleGotReviews(quint64 booksShelfId, const CountedItems<Review>& reviews);
+    void handleGotReviews(quint64 booksShelfId, const CountedItems<ReviewPtr>& reviews);
 
 signals:
     void userIdChanged();

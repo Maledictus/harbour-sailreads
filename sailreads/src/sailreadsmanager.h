@@ -120,7 +120,7 @@ signals:
     void bookShelfAdded(const BookShelf& shelf);
     void bookShelfEdited(const BookShelf& shelf);
 
-    void gotReviews(quint64 bookShelfId, const CountedItems<Review>& reviews);
+    void gotReviews(quint64 bookShelfId, const CountedItems<ReviewPtr>& reviews);
 
     void gotBook(const BookPtr& book);
 

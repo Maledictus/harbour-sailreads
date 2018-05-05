@@ -25,10 +25,13 @@ THE SOFTWARE.
 
 #include <QtDebug>
 
+#include "../objects/book.h"
+#include "../objects/review.h"
+
 namespace Sailreads
 {
 ReviewsModel::ReviewsModel(QObject *parent)
-: BaseModel<Review>(parent)
+: BaseModel<ReviewPtr>(parent)
 , m_UserId(0)
 , m_BookShelfId(0)
 , m_HasMore(true)
@@ -99,35 +102,35 @@ QVariant ReviewsModel::data(const QModelIndex& index, int role) const
     const auto& review = m_Items.at(index.row());
     switch (role) {
     case Id:
-        return review.GetId();
+        return review->GetId();
     case Book:
-        return QVariant::fromValue(review.GetBook());
+        return QVariant::fromValue(review->GetBook());
     case Rating:
-        return review.GetRating();
+        return review->GetRating();
     case Votes:
-        return review.GetVotes();
+        return review->GetVotes();
     case Shelves:
-        return review.GetShelvesList();
+        return review->GetShelvesList();
     case AddedDate:
-        return review.GetAddedDate();
+        return review->GetAddedDate();
     case UpdatedDate:
-        return review.GetUpdatedDate();
+        return review->GetUpdatedDate();
     case ReadDate:
-        return review.GetReadDate();
+        return review->GetReadDate();
     case StartedDate:
-        return review.GetStartedDate();
+        return review->GetStartedDate();
     case ReadCount:
-        return review.GetReadCount();
+        return review->GetReadCount();
     case Body:
-        return review.GetBody();
+        return review->GetBody();
     case CommentsCount:
-        return review.GetCommentsCount();
+        return review->GetCommentsCount();
     case OwnedCount:
-        return review.GetOwned();
+        return review->GetOwned();
     case Url:
-        return review.GetUrl();
+        return review->GetUrl();
     case ReviewItem:
-        return QVariant::fromValue(review);
+        return QVariant::fromValue(review.get());
     default:
         return QVariant();
     }
@@ -164,7 +167,7 @@ void ReviewsModel::fetchMoreContent()
     SailreadsManager::Instance()->loadReviews(m_UserId, m_BookShelf, m_CurrentPage);
 }
 
-void ReviewsModel::handleGotReviews(quint64 booksShelfId, const CountedItems<Review>& reviews)
+void ReviewsModel::handleGotReviews(quint64 booksShelfId, const CountedItems<ReviewPtr>& reviews)
 {
     if (m_BookShelfId != booksShelfId) {
         return;

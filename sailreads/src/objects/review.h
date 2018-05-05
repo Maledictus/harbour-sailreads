@@ -23,6 +23,7 @@ THE SOFTWARE.
 #pragma once
 
 #include <QDateTime>
+#include <QObject>
 #include <QString>
 
 #include "bookshelf.h"
@@ -30,9 +31,9 @@ THE SOFTWARE.
 
 namespace Sailreads
 {
-class Review
+class Review: public QObject
 {
-    Q_GADGET
+    Q_OBJECT
 
     quint64 m_Id;
     BookPtr m_Book;
@@ -65,7 +66,7 @@ class Review
     Q_PROPERTY(QStringList shelvesList READ GetShelvesList)
 
 public:
-    Review();
+    Review(QObject *parent = nullptr);
 
     quint64 GetId() const;
     void SetId(quint64 id);
@@ -97,6 +98,4 @@ public:
     QUrl GetUrl() const;
     void SetUrl(const QUrl& url);
 };
-
-typedef QList<Review> Reviews_t;
 } // namespace Sailreads
