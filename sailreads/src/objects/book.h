@@ -70,7 +70,7 @@ class Book : public QObject
     Books_t m_SimilarBooks;
     Work m_Work;
     SeriesWorks_t m_SeriesWorks;
-    //Review m_Review;
+    ReviewPtr m_Review;
 
     Q_PROPERTY(quint64 id READ GetId NOTIFY idChanged)
     Q_PROPERTY(QString isbn READ GetISBN NOTIFY isbnChanged)
@@ -105,7 +105,7 @@ class Book : public QObject
     Q_PROPERTY(Work work READ GetWork NOTIFY workChanged)
     Q_PROPERTY(QObjectList similarBooks READ GetSimilarBooks NOTIFY  similarBooksChanged)
     Q_PROPERTY(QObjectList seriesWorks READ GetSeriesWorks NOTIFY seriesWorksChanged)
-    //Q_PROPERTY(Review review READ GetReview)
+    Q_PROPERTY(Review* review READ GetReview NOTIFY reviewChanged)
 
 public:
     Book(QObject *parent = nullptr);
@@ -176,8 +176,9 @@ public:
     void SetWork(const Work& work);
     QObjectList GetSeriesWorks() const;
     void SetSeriesWorks(const SeriesWorks_t& seriesWorks);
-//    Review GetReview() const;
-    //    void SetReview(const Review& review);
+    Review* GetReview() const;
+    void SetReview(const ReviewPtr& review);
+
 signals:
     void idChanged();
     void isbnChanged();
@@ -212,5 +213,6 @@ signals:
     void workChanged();
     void similarBooksChanged();
     void seriesWorksChanged();
+    void reviewChanged();
 };
 } // namespace Sailreads

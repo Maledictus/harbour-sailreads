@@ -25,6 +25,7 @@ THE SOFTWARE.
 #include <QtDebug>
 
 #include "author.h"
+#include "review.h"
 
 namespace Sailreads
 {
@@ -395,13 +396,13 @@ void Book::SetSeriesWorks(const SeriesWorks_t& seriesWorks)
     m_SeriesWorks = seriesWorks;
 }
 
-//Review Book::GetReview() const
-//{
-//    return m_Review;
-//}
+Review* Book::GetReview() const
+{
+    return m_Review.get();
+}
 
-//void Book::SetRewiew(const Review& review)
-//{
-//    m_Review = review;
-//}
+void Book::SetReview(const ReviewPtr& review)
+{
+    m_Review = review;
+}
 } // namespace Sailreads
