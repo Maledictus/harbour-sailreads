@@ -469,6 +469,7 @@ TopicPtr ParseTopic(const QDomElement& element)
             if (!author) {
                 author = std::make_shared<User>();
             }
+            author->SetUserName(fieldElement.text());
             topic->SetAuthor(author);
         }
         else if (fieldElement.tagName() == "new_comments_count") {

@@ -33,8 +33,7 @@ Page {
 
     property int groupId: 0
     property int groupFolderId: 0
-    property int topicId: 0
-    property var topic
+    property alias topicId: topicItem.topicId
     property bool busy: sailreadsManager.busy && groupFodlerTopicPage.status === PageStatus.Active
 
     function attachPage() {
@@ -44,17 +43,12 @@ Page {
         }
     }
 
-    Component.onDestruction: {
-        sailreadsManager.abortRequest()
+    TopicItem {
+        id: topicItem
     }
 
-    Connections {
-        target: sailreadsManager
-        onGotGroupFolderTopic: {
-            if (groupFodlerTopicPage.topicId === inTopic.id) {
-                groupFodlerTopicPage.topic = inTopic
-            }
-        }
+    Component.onDestruction: {
+        sailreadsManager.abortRequest()
     }
 
     CommentsModel {
@@ -69,7 +63,7 @@ Page {
 
         PageHeader {
             id: pageHeader
-            title: topic !== undefined ? topic.title : qsTr("Topic")
+            title: topicItem.topic ? topicItem.topic.title : qsTr("Topic")
         }
 
         Column {
@@ -82,18 +76,18 @@ Page {
 
             KeyValueLabel {
                 key: qsTr("Author")
-                value: topic !== undefined ? topic.author.userName : ""
+                value: topicItem.topic ? topicItem.topic.author.userName : ""
                 truncationMode: TruncationMode.Fade
                 font.pixelSize: Theme.fontSizeSmall
             }
             KeyValueLabel {
                 key: qsTr("Group")
-                value: topic !== undefined ? topic.group.name : ""
+                value: topicItem.topic ? topicItem.topic.group.name : ""
                 truncationMode: TruncationMode.Fade
             }
             KeyValueLabel {
                 key: qsTr("Folder")
-                value: topic !== undefined ? topic.folder.name : ""
+                value: topicItem.topic ? topicItem.topic.folder.name : ""
                 truncationMode: TruncationMode.Fade
             }
         }
@@ -111,7 +105,7 @@ Page {
             MenuItem {
                 text: qsTr("Refresh")
                 onClicked: {
-                    sailreadsManager.loadGroupFolderTopic(groupFodlerTopicPage.topicId)
+                    topicItem.updateTopic()
                 }
             }
             MenuItem {

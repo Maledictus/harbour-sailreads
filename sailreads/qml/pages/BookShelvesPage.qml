@@ -30,6 +30,7 @@ Page {
     id: page
 
     property int userId: 0
+    property bool busy: sailreadsManager.busy && page.status === PageStatus.Active
 
     function attachPage() {
         if (pageStack._currentContainer.attachedContainer === null
@@ -134,7 +135,7 @@ Page {
     BusyIndicator {
         size: BusyIndicatorSize.Large
         anchors.centerIn: parent
-        running: sailreadsManager.busy
+        running: page.busy
         visible: running
     }
 }

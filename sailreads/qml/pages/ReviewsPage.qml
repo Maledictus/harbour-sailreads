@@ -34,6 +34,7 @@ Page {
     property alias userId: reviewsModel.userId
     property alias bookShelfId: reviewsModel.bookShelfId
     property alias bookShelf: reviewsModel.bookShelf
+property bool busy: sailreadsManager.busy && reviewsPage.status === PageStatus.Active
 
     function attachPage() {
         if (pageStack._currentContainer.attachedContainer === null
@@ -173,7 +174,7 @@ Page {
     BusyIndicator {
         size: BusyIndicatorSize.Large
         anchors.centerIn: parent
-        running: sailreadsManager.busy
+        running: reviewsPage.busy
         visible: running
     }
 }

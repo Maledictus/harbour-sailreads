@@ -52,6 +52,7 @@ THE SOFTWARE.
 #include "objects/groupfolder.h"
 #include "objects/topic.h"
 #include "qmltypes/groupitem.h"
+#include "qmltypes/topicitem.h"
 #include "qmltypes/userprofile.h"
 #include "settings/accountsettings.h"
 #include "settings/applicationsettings.h"
@@ -134,6 +135,8 @@ void Application::start()
     qmlRegisterType<ReviewsModel>("harbour.sailreads", 1, 0, "ReviewsModel");
     qmlRegisterType<UserProfile>("harbour.sailreads", 1, 0, "UserProfile");
     qmlRegisterType<GroupItem>("harbour.sailreads", 1, 0, "GroupItem");
+    qmlRegisterType<TopicItem>("harbour.sailreads", 1, 0, "TopicItem");
+
     ShowUI();
 }
 
