@@ -33,6 +33,7 @@ THE SOFTWARE.
 #include "objects/review.h"
 #include "objects/series.h"
 #include "objects/serieswork.h"
+#include "objects/topic.h"
 #include "objects/user.h"
 
 namespace Sailreads
@@ -59,28 +60,28 @@ QString PrepareDateTimeString(const QString& str)
 }
 }
 
-UserUpdate::Actor ParseActor(const QDomElement& element)
-{
-    UserUpdate::Actor actor;
-    const auto& fieldsList = element.childNodes();
-    for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
-        const auto& fieldElement = fieldsList.at (i).toElement ();
-        if (fieldElement.tagName() == "id") {
-            actor.m_Id = fieldElement.text().toULongLong();
-        }
-        else if (fieldElement.tagName() == "name") {
-            actor.m_Name = fieldElement.text();
-        }
-        else if (fieldElement.tagName() == "image_url") {
-            actor.m_AvatarUrl = QUrl(fieldElement.text());
-        }
-        else if (fieldElement.tagName() == "link") {
-            actor.m_ProfileUrl = QUrl(fieldElement.text());
-        }
-    }
+//UserUpdate::Actor ParseActor(const QDomElement& element)
+//{
+//    UserUpdate::Actor actor;
+//    const auto& fieldsList = element.childNodes();
+//    for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
+//        const auto& fieldElement = fieldsList.at (i).toElement ();
+//        if (fieldElement.tagName() == "id") {
+//            actor.m_Id = fieldElement.text().toULongLong();
+//        }
+//        else if (fieldElement.tagName() == "name") {
+//            actor.m_Name = fieldElement.text();
+//        }
+//        else if (fieldElement.tagName() == "image_url") {
+//            actor.m_AvatarUrl = QUrl(fieldElement.text());
+//        }
+//        else if (fieldElement.tagName() == "link") {
+//            actor.m_ProfileUrl = QUrl(fieldElement.text());
+//        }
+//    }
 
-    return actor;
-}
+//    return actor;
+//}
 
 UserPtr ParseUser(const QDomElement& element)
 {
@@ -171,42 +172,42 @@ UserPtr ParseUser(const QDomElement& element)
     return user;
 }
 
-UserUpdate ParseUserUpdate(const QDomElement&)
-{
-    //TODO
-    return UserUpdate();
-}
+//UserUpdate ParseUserUpdate(const QDomElement&)
+//{
+//    //TODO
+//    return UserUpdate();
+//}
 
 
-UserUpdate::Type GetType(const QString& typeStr)
-{
-    if (typeStr == "readstatus") {
-        return UserUpdate::Type::ReadStatus;
-    }
+//UserUpdate::Type GetType(const QString& typeStr)
+//{
+//    if (typeStr == "readstatus") {
+//        return UserUpdate::Type::ReadStatus;
+//    }
 
-    if (typeStr == "userstatus") {
-        return UserUpdate::Type::UserStatus;
-    }
+//    if (typeStr == "userstatus") {
+//        return UserUpdate::Type::UserStatus;
+//    }
 
-    if (typeStr == "review") {
-        return UserUpdate::Type::Review;
-    }
+//    if (typeStr == "review") {
+//        return UserUpdate::Type::Review;
+//    }
 
-    if (typeStr == "userchallenge") {
-        return UserUpdate::Type::UserChallenge;
-    }
+//    if (typeStr == "userchallenge") {
+//        return UserUpdate::Type::UserChallenge;
+//    }
 
-    return UserUpdate::Type::NoType;
-}
+//    return UserUpdate::Type::NoType;
+//}
 
-UserUpdate::ActionType GetActionType(const QString& typeStr)
-{
-    if (typeStr == "rating") {
-        return UserUpdate::ActionType::Rating;
-    }
+//UserUpdate::ActionType GetActionType(const QString& typeStr)
+//{
+//    if (typeStr == "rating") {
+//        return UserUpdate::ActionType::Rating;
+//    }
 
-    return UserUpdate::ActionType::NoType;
-}
+//    return UserUpdate::ActionType::NoType;
+//}
 
 BookShelf ParseBookShelf(const QDomElement& element)
 {
@@ -858,16 +859,16 @@ GroupFolders_t ParseGroupFolders(const QDomElement& element)
     return folders;
 }
 
-UserUpdates_t ParseUserUpdates(const QDomElement& element)
-{
-    UserUpdates_t updates;
-    const auto& nodes = element.childNodes();
-    for (int i = 0, count = nodes.size(); i < count; ++i) {
-        const auto& elem = nodes.at(i).toElement();
-        updates << ParseUserUpdate(elem);
-    }
-    return updates;
-}
+//UserUpdates_t ParseUserUpdates(const QDomElement& element)
+//{
+//    UserUpdates_t updates;
+//    const auto& nodes = element.childNodes();
+//    for (int i = 0, count = nodes.size(); i < count; ++i) {
+//        const auto& elem = nodes.at(i).toElement();
+//        updates << ParseUserUpdate(elem);
+//    }
+//    return updates;
+//}
 
 BookShelves_t ParseBookShelves(const QDomElement& element)
 {

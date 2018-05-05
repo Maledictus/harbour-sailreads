@@ -29,7 +29,6 @@ THE SOFTWARE.
 #include "objects/user.h"
 #include "settings/accountsettings.h"
 #include "goodreadsapi.h"
-#include "userprofile.h"
 
 namespace Sailreads
 {

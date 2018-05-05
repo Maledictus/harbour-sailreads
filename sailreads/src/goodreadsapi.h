@@ -32,13 +32,12 @@ THE SOFTWARE.
 #include <QUrl>
 #include <QPointer>
 
-#include "userprofile.h"
-#include "objects/book.h"
+#include "objects/bookshelf.h"
 #include "objects/comment.h"
-#include "objects/group.h"
 #include "objects/friend.h"
-#include "objects/review.h"
-#include "objects/topic.h"
+#include "objects/groupfolder.h"
+#include "objects/groupmember.h"
+#include "types.h"
 
 class QNetworkAccessManager;
 class QNetworkReply;

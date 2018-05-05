@@ -18,7 +18,7 @@ SOURCES += src/harbour-sailreads.cpp \
     src/rpcutils.cpp \
     src/sailreadsmanager.cpp \
     src/userupdate.cpp \
-    src/userprofile.cpp \
+    src/qmltypes/userprofile.cpp \
     src/models/baseproxymodel.cpp \
     src/models/bookshelvesmodel.cpp \
     src/models/bookshelfproxymodel.cpp \
@@ -55,7 +55,7 @@ HEADERS += src/application.h \
     src/rpcutils.h \
     src/sailreadsmanager.h \
     src/types.h \
-    src/userprofile.h \
+    src/qmltypes/userprofile.h \
     src/userupdate.h \
     src/models/baseproxymodel.h \
     src/models/bookshelfproxymodel.h \

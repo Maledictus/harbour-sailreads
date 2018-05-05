@@ -29,13 +29,12 @@ THE SOFTWARE.
 #include <QPair>
 
 #include "objects/bookshelf.h"
+#include "objects/comment.h"
 #include "objects/friend.h"
+#include "objects/groupfolder.h"
 #include "objects/groupmember.h"
-#include "objects/topic.h"
 #include "objects/work.h"
 #include "types.h"
-#include "userupdate.h"
-#include "userprofile.h"
 
 namespace Sailreads
 {
@@ -43,9 +42,9 @@ namespace RpcUtils
 {
 namespace Parser
 {
-UserUpdate::Actor ParseActor(const QDomElement& element);
+//UserUpdate::Actor ParseActor(const QDomElement& element);
 UserPtr ParseUser(const QDomElement& element);
-UserUpdate ParseUserUpdate(const QDomElement& element);
+//UserUpdate ParseUserUpdate(const QDomElement& element);
 BookShelf ParseBookShelf(const QDomElement& element);
 FavoriteAuthors_t ParseFavoriteAuthors(const QDomElement& faElement);
 GroupMember ParseGroupMember(const QDomElement& element);
@@ -63,7 +62,7 @@ SeriesWorkPtr ParseSeriesWork(const QDomElement& element);
 
 GroupMembers_t ParseGroupMembers(const QDomElement& element);
 GroupFolders_t ParseGroupFolders(const QDomElement& element);
-UserUpdates_t ParseUserUpdates(const QDomElement& element);
+//UserUpdates_t ParseUserUpdates(const QDomElement& element);
 BookShelves_t ParseBookShelves(const QDomElement& element);
 Groups_t ParseGroups(const QDomElement& element);
 Friends_t ParseFriends(const QDomElement& element);

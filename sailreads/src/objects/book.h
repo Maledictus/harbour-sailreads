@@ -28,8 +28,6 @@ THE SOFTWARE.
 #include <QVariantList>
 
 #include "work.h"
-#include "serieswork.h"
-
 #include "../types.h"
 
 namespace Sailreads

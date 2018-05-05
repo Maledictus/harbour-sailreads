@@ -51,10 +51,10 @@ THE SOFTWARE.
 
 #include "objects/groupfolder.h"
 #include "objects/topic.h"
+#include "qmltypes/userprofile.h"
 #include "settings/accountsettings.h"
 #include "settings/applicationsettings.h"
 #include "sailreadsmanager.h"
-#include "userprofile.h"
 
 namespace Sailreads
 {

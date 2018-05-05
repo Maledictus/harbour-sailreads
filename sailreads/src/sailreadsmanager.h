@@ -37,7 +37,6 @@ THE SOFTWARE.
 namespace Sailreads
 {
 class GoodReadsApi;
-class UserProfile;
 
 class SailreadsManager : public QObject
 {

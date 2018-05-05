@@ -26,6 +26,7 @@ THE SOFTWARE.
 
 #include "author.h"
 #include "review.h"
+#include "serieswork.h"
 
 namespace Sailreads
 {
