@@ -375,6 +375,16 @@ void Book::SetSeriesWorks(const SeriesWorks_t& seriesWorks)
     std::transform(seriesWorks.begin(), seriesWorks.end(),
             std::back_inserter(m_SeriesWorks),
             [](decltype(seriesWorks.front()) seriesWork)
-            { return QVariant::fromValue(seriesWork); });
+    { return QVariant::fromValue(seriesWork); });
 }
+
+//Review Book::GetReview() const
+//{
+//    return m_Review;
+//}
+
+//void Book::SetRewiew(const Review& review)
+//{
+//    m_Review = review;
+//}
 } // namespace Sailreads

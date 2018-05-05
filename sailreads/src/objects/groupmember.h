@@ -23,20 +23,21 @@ THE SOFTWARE.
 #pragma once
 
 #include <QList>
-#include "user.h"
 
-namespace Sailreads {
+#include "../types.h"
 
+namespace Sailreads
+{
 class GroupMember
 {
-    User m_User;
+    UserPtr m_User;
     QString m_Title;
     quint64 m_CommentsCount;
 public:
     GroupMember();
 
-    User GetUser() const;
-    void SetUser(const User& user);
+    UserPtr GetUser() const;
+    void SetUser(const UserPtr& user);
     QString GetTitle() const;
     void SetTitle(const QString& title);
     quint64 GetCommentsCount() const;

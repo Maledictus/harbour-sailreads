@@ -53,12 +53,12 @@ void UserProfile::SetUserID(quint64 id)
     }
 }
 
-User UserProfile::GetUser() const
+User* UserProfile::GetUser() const
 {
-    return m_User;
+    return m_User.get();
 }
 
-void UserProfile::SetUser(const User& user)
+void UserProfile::SetUser(const std::shared_ptr<User>& user)
 {
     if (m_User != user) {
         m_User = user;
@@ -66,9 +66,9 @@ void UserProfile::SetUser(const User& user)
     }
 }
 
-void UserProfile::handleGotUser(const User& user)
+void UserProfile::handleGotUser(const std::shared_ptr<User>& user)
 {
-    if (user.GetId() != m_UserId) {
+    if (!user || user->GetId() != m_UserId) {
         return;
     }
     SetUser(user);

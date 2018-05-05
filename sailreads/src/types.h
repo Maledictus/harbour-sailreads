@@ -22,6 +22,8 @@ THE SOFTWARE.
 
 #pragma once
 
+#include <memory>
+
 #include <QString>
 #include <QUrl>
 
@@ -52,4 +54,7 @@ struct CountedItems
     , m_Count(0)
     {}
 };
+
+class User;
+typedef std::shared_ptr<User> UserPtr;
 }

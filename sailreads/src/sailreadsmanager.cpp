@@ -26,6 +26,7 @@ THE SOFTWARE.
 
 #include <QtDebug>
 
+#include "objects/user.h"
 #include "settings/accountsettings.h"
 #include "goodreadsapi.h"
 #include "userprofile.h"
@@ -65,9 +66,9 @@ bool SailreadsManager::GetLogged() const
     return m_IsLogged;
 }
 
-User SailreadsManager::GetAuthUser() const
+User* SailreadsManager::GetAuthUser() const
 {
-    return m_AuthUser;
+    return m_AuthUser.get();
 }
 
 void SailreadsManager::MakeConnections()
@@ -93,20 +94,26 @@ void SailreadsManager::MakeConnections()
     connect(m_Api, &GoodReadsApi::gotAuthUserInfo,
             this,
             [=](const quint64& id, const QString&, const QString&) {
-                m_AuthUser.SetId(id);
+                if (!m_AuthUser) {
+                    m_AuthUser = std::make_shared<User>();
+                }
+                m_AuthUser->SetId(id);
                 emit authUserChanged();
-                emit gotAuthUserId(m_AuthUser.GetId());
+                emit gotAuthUserId(m_AuthUser->GetId());
             });
     connect(m_Api, &GoodReadsApi::gotUserProfile,
             this,
-            [=](const User& profile) {
-                if (profile.GetId() == m_AuthUser.GetId()) {
+            [=](const std::shared_ptr<User>& profile) {
+                if (!profile) {
+                    return;
+                }
+                if (m_AuthUser && profile->GetId() == m_AuthUser->GetId()) {
                     qDebug() << "Authenticated profile updated";
                     m_AuthUser = profile;
                     emit authUserChanged();
                 }
                 emit gotUserProfile(profile);
-                emit gotUserBookShelves(profile.GetId(), profile.GetBookShelves());
+                emit gotUserBookShelves(profile->GetId(), profile->GetBookShelves());
             });
     connect(m_Api, &GoodReadsApi::gotUserBookShelves,
             this, &SailreadsManager::gotUserBookShelves);

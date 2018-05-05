@@ -46,6 +46,7 @@ QVariant GroupFolderTopicsModel::data(const QModelIndex& index, int role) const
     }
 
     const auto& topic = m_Items.at(index.row());
+    auto author = topic.GetAuthor();
     switch (role) {
     case Id:
         return topic.GetId();
@@ -60,9 +61,9 @@ QVariant GroupFolderTopicsModel::data(const QModelIndex& index, int role) const
     case ContextId:
         return topic.GetContextId();
     case AuthorId:
-        return topic.GetAuthor().GetId();
+        return author ? author->GetId() : 0;
     case AuthorName:
-        return topic.GetAuthor().GetFirstName();
+        return author ? author->GetFirstName() : "";
     case FolderId:
         return topic.GetGroupFolder().GetId();
     case FolderName:

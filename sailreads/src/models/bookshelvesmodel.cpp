@@ -91,8 +91,9 @@ void BookShelvesModel::SetUserId(quint64 id)
         m_UserId = id;
         emit userIdChanged();
 
-        if (SailreadsManager::Instance()->GetAuthUser().GetId() == m_UserId) {
-            SetItems(SailreadsManager::Instance()->GetAuthUser().GetBookShelves());
+        auto authUser = SailreadsManager::Instance()->GetAuthUser();
+        if (authUser && authUser->GetId() == m_UserId) {
+            SetItems(authUser->GetBookShelves());
         }
     }
 }

@@ -32,9 +32,9 @@ THE SOFTWARE.
 
 namespace Sailreads
 {
-class User
+class User : public QObject
 {
-    Q_GADGET
+    Q_OBJECT
 
     quint64 m_Id;
     QUrl m_WebUrl;
@@ -63,34 +63,34 @@ class User
     quint32 m_BooksCount;
     BookShelves_t m_BookShelves;
 
-    Q_PROPERTY(quint64 id READ GetId)
-    Q_PROPERTY(QString userName READ GetUserName)
-    Q_PROPERTY(QString firstName READ GetFirstName)
-    Q_PROPERTY(QString lastName READ GetLastName)
-    Q_PROPERTY(QString nickName READ GetNickName)
-    Q_PROPERTY(QUrl webUrl READ GetWebUrl)
-    Q_PROPERTY(bool isPrivate READ GetPrivate)
-    Q_PROPERTY(QUrl avatarUrl READ GetAvatarUrl)
-    Q_PROPERTY(QUrl smallAvatarUrl READ GetSmallAvatarUrl)
-    Q_PROPERTY(QString about READ GetAbout)
-    Q_PROPERTY(quint32 age READ GetAge)
-    Q_PROPERTY(QString gender READ GetGender)
-    Q_PROPERTY(QString location READ GetLocation)
-    Q_PROPERTY(QUrl webSite READ GetWebSite)
-    Q_PROPERTY(QString joinedDate READ GetJoinedDate)
-    Q_PROPERTY(QString lastUpdateDate READ GetLastUpdateDate)
-    Q_PROPERTY(QString interests READ GetInterests)
-    Q_PROPERTY(QString favoriteBooksDesc READ GetFavoriteBooksDesc)
-    Q_PROPERTY(QUrl updateRSSUrl READ GetUpdateRSSUrl)
-    Q_PROPERTY(QUrl reviewRSSUrl READ GetReviewRSSUrl)
-    Q_PROPERTY(quint32 friendsCount READ GetFriendsCount)
-    Q_PROPERTY(quint32 groupsCount READ GetGroupsCount)
-    Q_PROPERTY(quint32 booksCount READ GetBooksCount)
-    Q_PROPERTY(quint32 bookShelvesCount READ GetBookShelvesCount)
+    Q_PROPERTY(quint64 id READ GetId NOTIFY idChanged)
+    Q_PROPERTY(QString userName READ GetUserName NOTIFY userNameChanged)
+    Q_PROPERTY(QString firstName READ GetFirstName NOTIFY firstNameChanged)
+    Q_PROPERTY(QString lastName READ GetLastName NOTIFY lastNameChanged)
+    Q_PROPERTY(QString nickName READ GetNickName NOTIFY nickNameChanged)
+    Q_PROPERTY(QUrl webUrl READ GetWebUrl NOTIFY webUrlChanged)
+    Q_PROPERTY(bool isPrivate READ GetPrivate NOTIFY isPrivateChanged)
+    Q_PROPERTY(QUrl avatarUrl READ GetAvatarUrl NOTIFY avatarUrlChanged)
+    Q_PROPERTY(QUrl smallAvatarUrl READ GetSmallAvatarUrl NOTIFY smallAvatarUrlChanged)
+    Q_PROPERTY(QString about READ GetAbout NOTIFY aboutChanged)
+    Q_PROPERTY(quint32 age READ GetAge NOTIFY ageChanged)
+    Q_PROPERTY(QString gender READ GetGender NOTIFY genderChanged)
+    Q_PROPERTY(QString location READ GetLocation NOTIFY locationChanged)
+    Q_PROPERTY(QUrl webSite READ GetWebSite NOTIFY webSiteChanged)
+    Q_PROPERTY(QString joinedDate READ GetJoinedDate NOTIFY joinedDateChanged)
+    Q_PROPERTY(QString lastUpdateDate READ GetLastUpdateDate NOTIFY lastUpdateDateChanged)
+    Q_PROPERTY(QString interests READ GetInterests NOTIFY interestsChanged)
+    Q_PROPERTY(QString favoriteBooksDesc READ GetFavoriteBooksDesc NOTIFY favoriteBooksDescChanged)
+    Q_PROPERTY(QUrl updateRSSUrl READ GetUpdateRSSUrl NOTIFY updateRSSUrlChanged)
+    Q_PROPERTY(QUrl reviewRSSUrl READ GetReviewRSSUrl NOTIFY reviewRSSUrlChanged)
+    Q_PROPERTY(quint32 friendsCount READ GetFriendsCount NOTIFY friendsCountChanged)
+    Q_PROPERTY(quint32 groupsCount READ GetGroupsCount NOTIFY groupsCountChanged)
+    Q_PROPERTY(quint32 booksCount READ GetBooksCount NOTIFY booksCountChanged)
+    Q_PROPERTY(quint32 bookShelvesCount READ GetBookShelvesCount NOTIFY bookShelvesCountChanged)
+
 public:
-    User();
-    ~User();
-    User(const User&) = default;
+    User(QObject *parent = nullptr);
+    virtual ~User();
 
     quint64 GetId() const;
     void SetId(quint64 id);
@@ -145,6 +145,30 @@ public:
     quint32 GetBookShelvesCount() const;
 
     bool operator !=(const User& user) const;
+signals:
+    void idChanged();
+    void userNameChanged();
+    void firstNameChanged();
+    void lastNameChanged();
+    void nickNameChanged();
+    void webUrlChanged();
+    void isPrivateChanged();
+    void avatarUrlChanged();
+    void smallAvatarUrlChanged();
+    void aboutChanged();
+    void ageChanged();
+    void genderChanged();
+    void locationChanged();
+    void webSiteChanged();
+    void joinedDateChanged();
+    void lastUpdateDateChanged();
+    void interestsChanged();
+    void favoriteBooksDescChanged();
+    void updateRSSUrlChanged();
+    void reviewRSSUrlChanged();
+    void friendsCountChanged();
+    void groupsCountChanged();
+    void booksCountChanged();
+    void bookShelvesCountChanged();
 };
 } // namespace Sailreads
-Q_DECLARE_METATYPE(Sailreads::User)

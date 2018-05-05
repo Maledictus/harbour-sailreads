@@ -24,7 +24,7 @@ THE SOFTWARE.
 
 #include <QDateTime>
 
-#include "user.h"
+#include "../types.h"
 
 namespace Sailreads
 {
@@ -33,7 +33,7 @@ class Comment
     quint64 m_Id;
     QString m_Body;
     QDateTime m_UpdatedAt;
-    User m_Author;
+    UserPtr m_Author;
     bool m_CanDelete;
 
 public:
@@ -45,8 +45,8 @@ public:
     void SetBody(const QString& body);
     QDateTime GetUpdateAtDate() const;
     void SetUpdateAtDate(const QDateTime& dt);
-    User GetAuthor() const;
-    void SetAuthor(const User& user);
+    User* GetAuthor() const;
+    void SetAuthor(const UserPtr& user);
     bool GetCanDelete() const;
     void SetCanDelete(bool can);
 };

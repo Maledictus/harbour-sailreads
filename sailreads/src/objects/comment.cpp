@@ -22,6 +22,8 @@ THE SOFTWARE.
 
 #include "comment.h"
 
+#include "user.h"
+
 namespace Sailreads
 {
 Comment::Comment()
@@ -60,12 +62,12 @@ void Comment::SetUpdateAtDate(const QDateTime& dt)
     m_UpdatedAt = dt;
 }
 
-User Comment::GetAuthor() const
+User* Comment::GetAuthor() const
 {
-    return m_Author;
+    return m_Author.get();
 }
 
-void Comment::SetAuthor(const User& user)
+void Comment::SetAuthor(const UserPtr& user)
 {
     m_Author = user;
 }

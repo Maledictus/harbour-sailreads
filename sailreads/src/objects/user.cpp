@@ -22,20 +22,25 @@ THE SOFTWARE.
 
 #include "user.h"
 
+#include <QtDebug>
+
 namespace Sailreads
 {
-User::User()
-: m_Id(0)
+User::User(QObject *parent)
+: QObject(parent)
+, m_Id(0)
 , m_Private(false)
 , m_Age(0)
 , m_FriendsCount(0)
 , m_GroupsCount(0)
 , m_BooksCount(0)
 {
+    qDebug() << this << "CONSTRUCTED";
 }
 
 User::~User()
 {
+    qDebug() << this << "DESTRUCTED";
 }
 
 quint64 User::GetId() const

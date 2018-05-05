@@ -24,6 +24,8 @@ THE SOFTWARE.
 
 #pragma once
 
+#include <memory>
+
 #include <QObject>
 #include <QVariantMap>
 
@@ -38,6 +40,7 @@ namespace Sailreads
 {
 class GoodReadsApi;
 class UserProfile;
+class User;
 
 class SailreadsManager : public QObject
 {
@@ -52,11 +55,11 @@ class SailreadsManager : public QObject
     QString m_AccessToken;
     QString m_AccessSecretToken;
 
-    User m_AuthUser;
+    std::shared_ptr<User> m_AuthUser;
 
     Q_PROPERTY(bool busy READ GetBusy NOTIFY busyChanged)
     Q_PROPERTY(bool logged READ GetLogged NOTIFY loggedChanged)
-    Q_PROPERTY(User authUser READ GetAuthUser NOTIFY authUserChanged)
+    Q_PROPERTY(User* authUser READ GetAuthUser NOTIFY authUserChanged)
 
     explicit SailreadsManager(QObject *parent = 0);
 
@@ -66,7 +69,7 @@ public:
     bool GetBusy() const;
     bool GetLogged() const;
 
-    User GetAuthUser() const;
+    User* GetAuthUser() const;
 
 private:
     void MakeConnections();
@@ -111,7 +114,7 @@ signals:
     void authUserChanged();
 
     void gotAuthUserId(quint64 authUserId);
-    void gotUserProfile(const User& userProfile);
+    void gotUserProfile(const std::shared_ptr<User>& userProfile);
 
     void gotUserBookShelves(quint64 userId, const BookShelves_t& shelves);
     void bookShelfAdded(const BookShelf& shelf);

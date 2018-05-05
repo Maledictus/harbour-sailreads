@@ -74,90 +74,90 @@ UserUpdate::Actor ParseActor(const QDomElement& element)
     return actor;
 }
 
-User ParseUser(const QDomElement& element)
+std::shared_ptr<User> ParseUser(const QDomElement& element)
 {
-    User user;
+    auto user = std::make_shared<User>();
     const auto& fieldsList = element.childNodes();
     for (int i = 0, count = fieldsList.size(); i < count; ++i) {
         const auto& fieldElement = fieldsList.at(i).toElement();
         if (fieldElement.tagName() == "id") {
-            user.SetId(fieldElement.text().toULongLong());
+            user->SetId(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "name") {
-            user.SetUserName(fieldElement.text());
+            user->SetUserName(fieldElement.text());
         }
         else if (fieldElement.tagName() == "first_name") {
-            user.SetFirstName(fieldElement.text());
+            user->SetFirstName(fieldElement.text());
         }
         else if (fieldElement.tagName() == "last_name") {
-            user.SetLastName(fieldElement.text());
+            user->SetLastName(fieldElement.text());
         }
         else if (fieldElement.tagName() == "user_name") {
-            user.SetNickName(fieldElement.text());
+            user->SetNickName(fieldElement.text());
         }
         else if (fieldElement.tagName() == "link") {
-            user.SetWebUrl(QUrl(fieldElement.text()));
+            user->SetWebUrl(QUrl(fieldElement.text()));
         }
         else if (fieldElement.tagName() == "image_url" || fieldElement.tagName() == "p2_image_url") {
-            user.SetAvatarUrl(QUrl(fieldElement.text()));
+            user->SetAvatarUrl(QUrl(fieldElement.text()));
         }
         else if (fieldElement.tagName() == "small_image_url") {
-            user.SetSmallAvatarUrl(QUrl(fieldElement.text()));
+            user->SetSmallAvatarUrl(QUrl(fieldElement.text()));
         }
         else if (fieldElement.tagName() == "about") {
-            user.SetAbout(fieldElement.text());
+            user->SetAbout(fieldElement.text());
         }
         else if (fieldElement.tagName() == "age") {
-            user.SetAge(fieldElement.text().toUInt());
+            user->SetAge(fieldElement.text().toUInt());
         }
         else if (fieldElement.tagName() == "gender") {
-            user.SetGender(fieldElement.text());
+            user->SetGender(fieldElement.text());
         }
         else if (fieldElement.tagName() == "location") {
-            user.SetLocation(fieldElement.text());
+            user->SetLocation(fieldElement.text());
         }
         else if (fieldElement.tagName() == "website") {
-            user.SetWebSite(QUrl(fieldElement.text()));
+            user->SetWebSite(QUrl(fieldElement.text()));
         }
         else if (fieldElement.tagName() == "joined") {
-            user.SetJoinedDate(fieldElement.text());
+            user->SetJoinedDate(fieldElement.text());
         }
         else if (fieldElement.tagName() == "last_active") {
-            user.SetLastUpdateDate(fieldElement.text());
+            user->SetLastUpdateDate(fieldElement.text());
         }
         else if (fieldElement.tagName() == "interests") {
-            user.SetInterests(fieldElement.text ());
+            user->SetInterests(fieldElement.text ());
         }
         else if (fieldElement.tagName() == "favorite_books") {
-            user.SetFavoriteBooksDesc(fieldElement.text());
+            user->SetFavoriteBooksDesc(fieldElement.text());
         }
         else if (fieldElement.tagName() == "favorite_authors") {
-            user.SetFavoriteAuthors(ParseFavoriteAuthors(fieldElement));
+            user->SetFavoriteAuthors(ParseFavoriteAuthors(fieldElement));
         }
         else if (fieldElement.tagName() == "updates_rss_url") {
-            user.SetUpdateRSSUrl(QUrl(fieldElement.text()));
+            user->SetUpdateRSSUrl(QUrl(fieldElement.text()));
         }
         else if (fieldElement.tagName() == "reviews_rss_url") {
-            user.SetReviewRSSUrl(QUrl(fieldElement.text()));
+            user->SetReviewRSSUrl(QUrl(fieldElement.text()));
         }
         else if (fieldElement.tagName() == "friends_count") {
-            user.SetFriendsCount(fieldElement.text().toUInt());
+            user->SetFriendsCount(fieldElement.text().toUInt());
         }
         else if (fieldElement.tagName() == "groups_count") {
-            user.SetGroupsCount(fieldElement.text().toUInt());
+            user->SetGroupsCount(fieldElement.text().toUInt());
         }
         else if (fieldElement.tagName() == "reviews_count") {
-            user.SetBooksCount(fieldElement.text().toUInt());
+            user->SetBooksCount(fieldElement.text().toUInt());
         }
         else if (fieldElement.tagName() == "private") {
-            user.SetPrivate(fieldElement.text() == "true");
+            user->SetPrivate(fieldElement.text() == "true");
         }
         else if (fieldElement.tagName() == "user_shelves") {
-            user.SetBookShelves(ParseBookShelves(fieldElement));
+            user->SetBookShelves(ParseBookShelves(fieldElement));
         }
         //TODO updates later
 //        else if (fieldElement.tagName() == "updates") {
-//            user.SetUserUpdates(ParseUserUpdates(fieldElement));
+//            user->SetUserUpdates(ParseUserUpdates(fieldElement));
 //        }
      }
     return user;
@@ -261,7 +261,7 @@ GroupMember ParseGroupMember(const QDomElement& element)
             gm.SetTitle(fieldElement.text());
         }
         else if (fieldElement.tagName() == "user") {
-            gm.SetUser(ParseUser(fieldElement));
+            //gm.SetUser(ParseUser(fieldElement));
         }
     }
 
@@ -442,20 +442,20 @@ Topic ParseTopic(const QDomElement& element)
             topic.SetContextId(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "author_user") {
-            topic.SetAuthor(ParseUser(fieldElement));
+            //topic.SetAuthor(ParseUser(fieldElement));
         }
         else if (fieldElement.tagName() == "folder") {
             topic.SetGroupFolder(ParseGroupFolder(fieldElement));
         }
         else if (fieldElement.tagName() == "author_user_id") {
-            User author = topic.GetAuthor();
-            author.SetId(fieldElement.text().toULongLong());
-            topic.SetAuthor(author);
+//            User author = topic.GetAuthor();
+//            author.SetId(fieldElement.text().toULongLong());
+//            topic.SetAuthor(author);
         }
         else if (fieldElement.tagName() == "author_user_name") {
-            User author = topic.GetAuthor();
-            author.SetFirstName(fieldElement.text());
-            topic.SetAuthor(author);
+//            User author = topic.GetAuthor();
+//            author.SetFirstName(fieldElement.text());
+//            topic.SetAuthor(author);
         }
         else if (fieldElement.tagName() == "new_comments_count") {
             topic.SetNewCommentsCount(fieldElement.text().toULongLong());
@@ -494,7 +494,7 @@ Comment ParseComment(const QDomElement& element)
             comment.SetBody(fieldElement.text());
         }
         else if (fieldElement.tagName() == "user") {
-            comment.SetAuthor(ParseUser(fieldElement));
+            //comment.SetAuthor(ParseUser(fieldElement));
         }
         else if (fieldElement.tagName() == "updated_at" && !fieldElement.text().isEmpty()) {
             comment.SetUpdateAtDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
@@ -951,11 +951,11 @@ SeriesWorks_t ParseSeriesWorks(const QDomElement& element)
 }
 
 
-User ParseUser(const QDomDocument &doc)
+std::shared_ptr<User> ParseUser(const QDomDocument& doc)
 {
     const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
     if (responseElement.isNull()) {
-        return User();
+        return std::shared_ptr<User>();
     }
 
     return ParseUser(responseElement.firstChildElement("user"));

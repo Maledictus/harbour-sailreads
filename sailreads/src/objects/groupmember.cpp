@@ -22,19 +22,20 @@ THE SOFTWARE.
 
 #include "groupmember.h"
 
+#include "user.h"
+
 namespace Sailreads
 {
 GroupMember::GroupMember()
 {
-
 }
 
-User GroupMember::GetUser() const
+UserPtr GroupMember::GetUser() const
 {
     return m_User;
 }
 
-void GroupMember::SetUser(const User& user)
+void GroupMember::SetUser(const UserPtr& user)
 {
     m_User = user;
 }

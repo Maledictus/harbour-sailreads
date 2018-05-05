@@ -22,6 +22,8 @@ THE SOFTWARE.
 
 #include "topic.h"
 
+#include "user.h"
+
 namespace Sailreads
 {
 Topic::Topic()
@@ -93,12 +95,12 @@ void Topic::SetContextId(quint64 id)
     m_ContextId = id;
 }
 
-User Topic::GetAuthor() const
+User* Topic::GetAuthor() const
 {
-    return m_Author;
+    return m_Author.get();
 }
 
-void Topic::SetAuthor(const User& user)
+void Topic::SetAuthor(const UserPtr& user)
 {
     m_Author = user;
 }

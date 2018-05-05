@@ -46,7 +46,7 @@ namespace RpcUtils
 namespace Parser
 {
 UserUpdate::Actor ParseActor(const QDomElement& element);
-User ParseUser(const QDomElement& element);
+std::shared_ptr<User> ParseUser(const QDomElement& element);
 UserUpdate ParseUserUpdate(const QDomElement& element);
 BookShelf ParseBookShelf(const QDomElement& element);
 FavoriteAuthors_t ParseFavoriteAuthors(const QDomElement& faElement);
@@ -75,7 +75,7 @@ CountedItems<Comment> ParseComments(const QDomElement& element);
 CountedItems<Review> ParseReviews(const QDomElement& element);
 SeriesWorks_t ParseSeriesWorks(const QDomElement& element);
 
-User ParseUser(const QDomDocument& doc);
+std::shared_ptr<User> ParseUser(const QDomDocument& doc);
 BookShelves_t ParseBookShelves(const QDomDocument& doc);
 CountedItems<Group> ParseGroups(const QDomDocument& doc);
 Friends_t ParseFriends(const QDomDocument& doc);

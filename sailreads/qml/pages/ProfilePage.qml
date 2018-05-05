@@ -59,7 +59,7 @@ Page {
         filterRegExp: new RegExp("true")
         dynamicSortFilter: true
         sourceModel: BookShelvesModel {
-            userId: userProfile.user.id
+            userId: userProfile.user ? userProfile.user.id : 0
         }
     }
 
@@ -72,8 +72,8 @@ Page {
 
         PageHeader {
             id: header
-            title: userProfile.user.userName
-            description: userProfile.user.nickName
+            title: userProfile.user ? userProfile.user.userName : ""
+            description: userProfile.user ? userProfile.user.nickName : ""
         }
 
         Column {
@@ -108,7 +108,7 @@ Page {
                     id: avatarImage
                     width: Theme.iconSizeExtraLarge
                     height: Theme.iconSizeExtraLarge
-                    source: userProfile.user.avatarUrl
+                    source: userProfile.user ? userProfile.user.avatarUrl : ""
                     fillMode: Image.PreserveAspectFit
                     indicator.size: BusyIndicatorSize.Medium
                 }
@@ -121,23 +121,23 @@ Page {
                         visible: value !== ""
                         key: qsTr("Details")
                         value: Utils.getDetailsInfoString(
-                                   userProfile.user.age,
-                                   userProfile.user.gender,
-                                   userProfile.user.location)
+                                   userProfile.user ? userProfile.user.age : 0,
+                                   userProfile.user ? userProfile.user.gender : "",
+                                   userProfile.user ? userProfile.user.location : "")
                     }
                     KeyValueLabel {
                         font.pixelSize: Theme.fontSizeSmall
                         width: parent.width
                         visible: value !== ""
                         key: qsTr("Joined")
-                        value: userProfile.user.joinedDate
+                        value: userProfile.user ? userProfile.user.joinedDate : ""
                     }
                     KeyValueLabel {
                         font.pixelSize: Theme.fontSizeSmall
                         width: parent.width
                         visible: value !== ""
                         key: qsTr("Last active")
-                        value: userProfile.user.lastUpdateDate
+                        value: userProfile.user ? userProfile.user.lastUpdateDate : ""
                     }
                 }
             }
@@ -156,7 +156,7 @@ Page {
                     width: parent.width
                     visible: value !== ""
                     key: qsTr("Interests")
-                    value: userProfile.user.interests
+                    value: userProfile.user ? userProfile.user.interests : ""
                 }
                 KeyValueLabel {
                     maximumLineCount: 3
@@ -165,7 +165,7 @@ Page {
                     width: parent.width
                     visible: value !== ""
                     key: qsTr("Favorite books")
-                    value: userProfile.user.favoriteBooksDesc
+                    value: userProfile.user ? userProfile.user.favoriteBooksDesc : 0
                 }
                 KeyValueLabel {
                     maximumLineCount: 3
@@ -174,7 +174,7 @@ Page {
                     width: parent.width
                     visible: value !== ""
                     key: qsTr("About me")
-                    value: userProfile.user.about
+                    value: userProfile.user ? userProfile.user.about : ""
                 }
             }
 
@@ -183,13 +183,13 @@ Page {
                 width: parent.width
                 height: Theme.itemSizeMedium
                 text: qsTr("Friends")
-                counter: userProfile.user.friendsCount
+                counter: userProfile.user ? userProfile.user.friendsCount : 0
                 busy: profilePage.busy
                 enabled: !busy
-                visible: userProfile.user.friendsCount > 0
+                visible: userProfile.user ? userProfile.user.friendsCount > 0 : false
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("FriendsPage.qml"), {
-                        userId: userProfile.user.id
+                        userId: userProfile.user ? userProfile.user.id : 0
                    })
                 }
             }
@@ -199,13 +199,13 @@ Page {
                 width: parent.width
                 height: Theme.itemSizeMedium
                 text: qsTr("Groups")
-                counter: userProfile.user.groupsCount
+                counter: userProfile.user ? userProfile.user.groupsCount : 0
                 busy: profilePage.busy
                 enabled: !busy
-                visible: userProfile.user.groupsCount > 0
+                visible: userProfile.user ? userProfile.user.groupsCount > 0 : false
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("GroupsPage.qml"), {
-                        userId: userProfile.user.id
+                        userId: userProfile.user ? userProfile.user.id : 0
                     })
                 }
             }
@@ -215,12 +215,12 @@ Page {
                 width: parent.width
                 height: Theme.itemSizeMedium
                 text: qsTr("Bookshelves")
-                counter: userProfile.user.bookShelvesCount
+                counter: userProfile.user ? userProfile.user.bookShelvesCount : 0
                 busy: profilePage.busy
                 enabled: !busy
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("BookShelvesPage.qml"), {
-                        userId: userProfile.user.id
+                        userId: userProfile.user ? userProfile.user.id : 0
                     })
                 }
             }

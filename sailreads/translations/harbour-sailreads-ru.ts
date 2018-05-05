@@ -90,6 +90,45 @@
     </message>
 </context>
 <context>
+    <name>BookPage</name>
+    <message>
+        <source>%1 ratings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Description</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Published</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rate this book:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add to Bookshelves</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Want to Read</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Similar Books</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Series</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>BookShelvesPage</name>
     <message>
         <source>Bookshelves</source>
@@ -109,6 +148,24 @@
     </message>
     <message>
         <source>Edit</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>BooksPage</name>
+    <message>
+        <source>by %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1/%2 ratings</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>CommunityReviewsPage</name>
+    <message>
+        <source>Community Reviews</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -337,6 +394,25 @@ Pull down to refresh</source>
     </message>
     <message>
         <source>About me</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ReviewsPage</name>
+    <message>
+        <source>Refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There are no books reviews. Pull down to refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>by %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1/%2 ratings</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

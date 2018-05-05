@@ -85,12 +85,16 @@ void Application::ShowUI()
 
 void Application::start()
 {
-    qmlRegisterUncreatableType<SailreadsManager>("harbour.sailreads", 1, 0,
-            "SailreadsManager", "SailreadsManager static uncreatable type");
+    qmlRegisterUncreatableType<SailreadsManager>("harbour.sailreads", 1, 0, "SailreadsManager",
+            "SailreadsManager static uncreatable type");
+    qmlRegisterUncreatableType<User>("harbour.sailreads", 1, 0, "User",
+            "User provids attached properties and can't be instantiated");
+
+    qRegisterMetaType<User*>("User*");
+
     qRegisterMetaType<Group>("Group");
     qRegisterMetaType<GroupFolder>("GroupFolder");
     qRegisterMetaType<Topic>("Topic");
-    qRegisterMetaType<User>("User");
     qRegisterMetaType<Book>("Book");
     qRegisterMetaType<Book>("Review");
     qRegisterMetaType<SeriesWork>("SeriesWork");

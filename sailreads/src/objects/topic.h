@@ -43,7 +43,7 @@ class Topic
     QDateTime m_LastCommentDate;
     QString m_ContextType;
     quint64 m_ContextId;
-    User m_Author;
+    UserPtr m_Author;
     GroupFolder m_GroupFolder;
 
     quint64 m_NewCommentsCount;
@@ -59,7 +59,7 @@ class Topic
     Q_PROPERTY(quint64 newCommentsCount READ GetNewCommentsCount)
     Q_PROPERTY(QDateTime updatedAt READ GetUpdateAt)
     Q_PROPERTY(QDateTime lastCommentDate READ GetLastCommentDate)
-    Q_PROPERTY(User author READ GetAuthor)
+    Q_PROPERTY(User* author READ GetAuthor)
     Q_PROPERTY(GroupFolder folder READ GetGroupFolder)
     Q_PROPERTY(Group group READ GetGroup)
 
@@ -78,8 +78,8 @@ public:
     void SetContextType(const QString& ctxType);
     quint64 GetContextId() const;
     void SetContextId(quint64 id);
-    User GetAuthor() const;
-    void SetAuthor(const User& user);
+    User* GetAuthor() const;
+    void SetAuthor(const UserPtr& user);
     GroupFolder GetGroupFolder() const;
     void SetGroupFolder(const GroupFolder& folder);
 

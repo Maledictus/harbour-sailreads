@@ -24,37 +24,38 @@ THE SOFTWARE.
 
 #pragma once
 
+#include <memory>
+
 #include <QObject>
 #include <QString>
 #include <QVariantMap>
 #include <QUrl>
 
-#include "objects/user.h"
-
 namespace Sailreads
 {
 class BookShelvesModel;
+class User;
 
 class UserProfile : public QObject
 {
     Q_OBJECT
 
     quint64 m_UserId;
-    User m_User;
+    std::shared_ptr<User> m_User;
 
     Q_PROPERTY(quint64 userId READ GetUserID WRITE SetUserID NOTIFY userIdChanged)
-    Q_PROPERTY(User user READ GetUser WRITE SetUser NOTIFY userChanged)
+    Q_PROPERTY(User* user READ GetUser NOTIFY userChanged)
 
 public:
     explicit UserProfile(QObject *parent = nullptr);
 
     quint64 GetUserID() const;
     void SetUserID(quint64 id);
-    User GetUser() const;
-    void SetUser(const User& user);
+    User* GetUser() const;
+    void SetUser(const std::shared_ptr<User>& user);
 
 private slots:
-    void handleGotUser(const User& user);
+    void handleGotUser(const std::shared_ptr<User>& user);
 public slots:
     void updateProfile();
 
