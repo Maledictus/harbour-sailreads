@@ -79,8 +79,12 @@ public:
 
     void AuthUser();
     void GetUserInfo(quint64 id);
+    void CompareBooks(quint64 userId);
+    void GetUserFollowers(quint64 userId, int page);
+    void GetUserFollowings(quint64 userId, int page);
 
     void GetUpdates();
+    void GetNotifications(int page);
 
     void GetBookShelves(quint64 userId);
     void AddBookShelf(const QString& name, bool exclusive);
@@ -88,11 +92,33 @@ public:
 
     void GetReviews(quint64 userId, const QString& bookShelf, const QString& sortField = "date_added",
             Qt::SortOrder order = Qt::DescendingOrder, int page = 1);
+    void GetReview(quint64 reviewId, int page);
+    void AddReview(quint64 bookId, const QString& review, int rating, const QDateTime& readAt,
+            const QString& shelf);
+    void EditReview(quint64 reviewId, const QString& review, int rating, const QDateTime& readAt,
+            bool finished, const QString& shelf);
+    void DeleteReview(quint64 reviewId);
 
     void GetBook(quint64 bookId);
+    void SearchBooks(const QString& query, const QString& key, int page);
+
+    void GetSeries(quint64 seriesId);
+    void GetAuthorSeries(quint64 authorId);
+    void GetWorkSeries(quint64 workId);
+
+    void AddBookToShelf(quint64 bookId, const QString& shelfName);
+    void AddBooksToShelves(QList<quint64>& bookIds, const QStringList& shelvesName);
+    void RemoveBookFromShelf(quint64 bookId, const QString& shelfName);
+
+    void GetAuthor(quint64 authorId);
+    void GetAuthorBooks(quint64 authorId, int page);
+    void FollowAuthor(quint64 authorId);
+    void UnfollowAuthor(quint64 authorFollowingId);
+    void ShowAuthorFollowingInformation(quint64 authorFollowingId);
 
     void GetGroups(quint64 userId);
     void GetGroup(quint64 groupId, const QString& groupName);
+    void JoinGroup(quint64 groupId);
     void SearchGroup(const QString& text, int page);
     void GetGroupMembers(quint64 groupId, int page);
     void GetGroupFolderTopics(quint64 groupFolderId, quint64 groupId, int page);
@@ -103,6 +129,25 @@ public:
     void AddNewComment(const QString& type, quint64 resourceId, const QString& comment);
 
     void GetFriends(quint64 userId);
+    void GetFriendRequests(int page);
+    void ConfirmFriendRequest(quint64 friendRequestId);
+    void DeclineFriendRequest(quint64 friendRequestId);
+    void ConfirmFriendRecommendation(quint64 friendRecommendationId);
+    void DeclineFriendRecommendation(quint64 friendRecommendationId);
+    void AddFriend(quint64 userId);
+    void FollowUser(quint64 userId);
+    void UnfollowUser(quint64 userId);
+
+    void AddQuote(const QString& authorName, quint64 authorId, quint64 bookId, const QString& quote,
+        const QStringList& tags);
+
+    void GetReadStatus(quint64 readStatusId);
+
+    void GetRecentUserStatuses();
+    void GetUserStatus(quint64 userStatusId);
+    void UpdateUserStatus(quint64 bookId, const QString& body, int percent, int page = -1);
+    void DeleteUserStatus(quint64 userStatusId);
+
 private:
     QDomDocument GetDocumentFromReply(QObject *sender, bool& ok);
     QByteArray GetReply(QObject *sender, bool& ok);
@@ -113,28 +158,69 @@ private slots:
 
     void handleAuthUser();
     void handleGetUserInfo();
+    void handleCompareBooks();
+    void handleGetUserFollowers();
+    void handleGetUserFollowings();
+
     void handleGetUpdates();
+    void handleGetNotifications();
 
     void handleGetBookShelves(quint64 userId);
     void handleAddBookShelf();
     void handleEditBookShelf();
 
     void handleGetReviews();
+    void handleGetReview();
+    void handleAddReview();
+    void handleEditReview();
+    void handleDeleteReview();
 
     void handleGetBook();
+    void handleSearchBook();
+
+    void handleGetSeries();
+    void handleGetAuthorSeries();
+    void handleGetWorkSeries();
+
+    void handleAddBookToShelf();
+    void handleAddBooksToShelves();
+    void handleRemoveBookFromShelf();
+
+    void handleGetAuthor();
+    void handleGetAuthorBooks();
+    void handleFollowAuthor();
+    void handleUnfollowAuthor();
+    void handleShowAuthorFollowingInformation();
 
     void handleGetGroups(quint64 userId);
     void handleGetGroup(quint64 groupId, QObject *senderObject = nullptr);
+    void handleJoinGroup();
     void handleSearchGroup();
     void handleGetGroupMembers(quint64 groupId, QObject *senderObject = nullptr);
     void handleGetGroupFolderTopics(quint64 groupFolderId, quint64 groupId);
     void handleGetGroupFolderTopic();
-
     void handleTopicAdded();
 
     void handleNewCommentAdded();
 
     void handleGetFriends(quint64 userId);
+    void handleGetFriendRequests();
+    void handleConfirmFriendRequest();
+    void handleDeclineFriendRequest();
+    void handleConfirmFriendRecommendation();
+    void handleDeclineFriendRecommendation();
+    void handleAddFriend();
+    void handleFollowUser();
+    void handleUnfollowUser();
+
+    void handleAddQuote();
+
+    void handleGetReadStatus();
+
+    void handleGetRecentUserStatuses();
+    void handleGetUserStatus();
+    void handleUpdateUserStatus();
+    void handleDeleteUserStatus();
 
 signals:
     void requestFinished();
