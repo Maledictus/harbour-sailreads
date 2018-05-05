@@ -18,35 +18,37 @@ SOURCES += src/harbour-sailreads.cpp \
     src/rpcutils.cpp \
     src/sailreadsmanager.cpp \
     src/userupdate.cpp \
-    src/qmltypes/userprofile.cpp \
     src/models/baseproxymodel.cpp \
-    src/models/bookshelvesmodel.cpp \
     src/models/bookshelfproxymodel.cpp \
-    src/objects/bookshelf.cpp \
-    src/settings/accountsettings.cpp \
-    src/settings/applicationsettings.cpp \
-    src/objects/group.cpp \
-    src/objects/friend.cpp \
-    src/models/groupsmodel.cpp \
+    src/models/bookshelvesmodel.cpp \
+    src/models/commentsmodel.cpp \
+    src/models/foundgroupsmodel.cpp \
     src/models/friendsmodel.cpp \
+    src/models/groupfoldersmodel.cpp \
+    src/models/groupfoldertopicsmodel.cpp \
+    src/models/groupsmodel.cpp \
+    src/models/groupmembersmodel.cpp \
+    src/models/reviewsmodel.cpp \
+    src/models/usergroupsmodel.cpp \
+    src/objects/author.cpp \
+    src/objects/book.cpp \
+    src/objects/bookshelf.cpp \
+    src/objects/comment.cpp \
+    src/objects/friend.cpp \
+    src/objects/group.cpp \
     src/objects/groupfolder.cpp \
     src/objects/groupmember.cpp \
-    src/models/groupfoldersmodel.cpp \
-    src/models/groupmembersmodel.cpp \
-    src/models/usergroupsmodel.cpp \
-    src/models/foundgroupsmodel.cpp \
-    src/objects/topic.cpp \
-    src/models/groupfoldertopicsmodel.cpp \
-    src/objects/comment.cpp \
-    src/objects/user.cpp \
-    src/models/commentsmodel.cpp \
-    src/objects/book.cpp \
-    src/models/reviewsmodel.cpp \
     src/objects/review.cpp \
-    src/objects/author.cpp \
-    src/objects/work.cpp \
+    src/objects/series.cpp \
     src/objects/serieswork.cpp \
-    src/objects/series.cpp
+    src/objects/topic.cpp \
+    src/objects/user.cpp \
+    src/objects/work.cpp \
+    src/qmltypes/userprofile.cpp \
+    src/qmltypes/groupitem.cpp \
+    src/settings/accountsettings.cpp \
+    src/settings/applicationsettings.cpp \
+
 
 HEADERS += src/application.h \
     src/debugmessagehandler.h \
@@ -55,36 +57,37 @@ HEADERS += src/application.h \
     src/rpcutils.h \
     src/sailreadsmanager.h \
     src/types.h \
-    src/qmltypes/userprofile.h \
     src/userupdate.h \
     src/models/baseproxymodel.h \
     src/models/bookshelfproxymodel.h \
     src/models/bookshelvesmodel.h \
-    src/objects/bookshelf.h \
-    src/settings/accountsettings.h \
-    src/settings/applicationsettings.h \
-    src/objects/group.h \
-    src/objects/friend.h \
-    src/models/groupsmodel.h \
+    src/models/commentsmodel.h \
+    src/models/foundgroupsmodel.h \
     src/models/friendsmodel.h \
+    src/models/groupfoldersmodel.h \
+    src/models/groupfoldertopicsmodel.h \
+    src/models/groupsmodel.h \
+    src/models/groupmembersmodel.h \
+    src/models/reviewsmodel.h \
+    src/models/usergroupsmodel.h \
+    src/objects/author.h \
+    src/objects/book.h \
+    src/objects/bookshelf.h \
+    src/objects/comment.h \
+    src/objects/friend.h \
+    src/objects/group.h \
     src/objects/groupfolder.h \
     src/objects/groupmember.h \
-    src/models/groupfoldersmodel.h \
-    src/models/groupmembersmodel.h \
-    src/models/usergroupsmodel.h \
-    src/models/foundgroupsmodel.h \
-    src/objects/topic.h \
-    src/models/groupfoldertopicsmodel.h \
-    src/objects/comment.h \
-    src/objects/user.h \
-    src/models/commentsmodel.h \
-    src/objects/book.h \
-    src/models/reviewsmodel.h \
     src/objects/review.h \
-    src/objects/author.h \
-    src/objects/work.h \
+    src/objects/series.h \
     src/objects/serieswork.h \
-    src/objects/series.h
+    src/objects/topic.h \
+    src/objects/user.h \
+    src/objects/work.h \
+    src/qmltypes/userprofile.h \
+    src/qmltypes/groupitem.h \
+    src/settings/accountsettings.h \
+    src/settings/applicationsettings.h \
 
 DISTFILES += translations/*.ts \
     sailreads.desktop
