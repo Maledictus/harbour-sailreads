@@ -31,10 +31,9 @@ import "../utils/Utils.js" as Utils
 Page {
     id: groupPage
 
-    property int groupId: 0
+    property alias groupId: groupItem.groupId
     property string groupName
     property bool busy: sailreadsManager.busy && groupPage.status === PageStatus.Active
-    property var group
 
     function attachPage() {
         if (pageStack._currentContainer.attachedContainer === null
@@ -43,8 +42,12 @@ Page {
         }
     }
 
-    Component.onCompleted: {
-        sailreadsManager.loadGroup(groupId, groupName)
+    GroupItem {
+        id: groupItem
+        onGroupChanged: {
+            groupFoldersModel.handleGotGroup(groupId, group)
+            membersButton.counter = group.usersCount
+        }
     }
 
     Component.onDestruction: {
@@ -54,17 +57,6 @@ Page {
     GroupFoldersModel {
         id: groupFoldersModel
         groupId: groupPage.groupId
-    }
-
-    Connections {
-        target: sailreadsManager
-        onGotUserGroup: {
-            if (inGroupId === groupPage.groupId) {
-                groupPage.group = inGroup
-                groupFoldersModel.handleGotGroup(inGroupId, inGroup)
-                membersButton.counter = inGroup.usersCount
-            }
-        }
     }
 
     SilicaFlickable {
@@ -79,14 +71,14 @@ Page {
             width: parent.width
 
             PageHeader {
-                title: group !== undefined ? group.name : ""
+                title: groupItem.group ? groupItem.group.name : ""
             }
 
             PullDownMenu {
                 MenuItem {
                     text: qsTr("Refresh")
                     onClicked: {
-                        sailreadsManager.loadGroup(groupId, groupName)
+                        groupItem.updateGroup()
                     }
                 }
             }
@@ -106,7 +98,7 @@ Page {
                     width: Theme.iconSizeExtraLarge
                     height: Theme.iconSizeExtraLarge
                     fillMode: Image.PreserveAspectFit
-                    source: group !== undefined ? group.imageUrl : ""
+                    source: groupItem.group ? groupItem.group.imageUrl : ""
                     indicator.size: BusyIndicatorSize.Medium
                 }
 
@@ -118,20 +110,20 @@ Page {
                         visible: value !== ""
                         font.pixelSize: Theme.fontSizeSmall
                         key: qsTr("Category")
-                        value: group !== undefined ? group.category : ""
+                        value: groupItem.group ? groupItem.group.category : ""
                     }
                     KeyValueLabel {
                         visible: value !== ""
                         font.pixelSize: Theme.fontSizeSmall
                         key: qsTr("Subcategory")
-                        value: group !== undefined ? group.subCategory : ""
+                        value: groupItem.group ? groupItem.group.subCategory : ""
                     }
                     KeyValueLabel {
                         visible: value !== ""
                         font.pixelSize: Theme.fontSizeSmall
                         key: qsTr("Last activity")
-                        value: group !== undefined ?
-                                Utils.generateDateString(group.lastActivity, "dd MMM yyyy hh:mm") :
+                        value: groupItem.group ?
+                                Utils.generateDateString(groupItem.group.lastActivity, "dd MMM yyyy hh:mm") :
                                 ""
                     }
                 }
@@ -148,20 +140,20 @@ Page {
                     visible: value !== ""
                     font.pixelSize: Theme.fontSizeSmall
                     key: qsTr("Access")
-                    value: group !== undefined ?
-                            (group.isPublic ? qsTr("public") : qsTr("private")) : ""
+                    value: groupItem.group ?
+                            (groupItem.group.isPublic ? qsTr("public") : qsTr("private")) : ""
                 }
                 KeyValueLabel {
                     visible: value !== ""
                     font.pixelSize: Theme.fontSizeSmall
                     key: qsTr("Members")
-                    value: group !== undefined ? Number(group.usersCount).toFixed() : 0
+                    value: groupItem.group ? Number(groupItem.group.usersCount).toFixed() : 0
                 }
             }
 
             SectionHeader {
                 text: qsTr("Description")
-                visible: group !== undefined && group.description !== ""
+                visible: groupItem.group && groupItem.group.description !== ""
             }
 
             CollapsedLabel {
@@ -171,13 +163,13 @@ Page {
                     right: parent.right
                     rightMargin: Theme.horizontalPageMargin
                 }
-                visible: group !== undefined && group.description !== ""
-                text: group !== undefined ? group.description : ""
+                visible: groupItem.group && groupItem.group.description !== ""
+                text: groupItem.group ? groupItem.group.description : ""
             }
 
             SectionHeader {
                 text: qsTr("Rules")
-                visible: group !== undefined && group.rules !== ""
+                visible: groupItem.group && groupItem.group.rules !== ""
             }
 
             CollapsedLabel {
@@ -187,13 +179,13 @@ Page {
                     right: parent.right
                     rightMargin: Theme.horizontalPageMargin
                 }
-                visible: group !== undefined && group.rules !== ""
-                text: group !== undefined ? group.rules : ""
+                visible: groupItem.group && groupItem.group.rules !== ""
+                text: groupItem.group ? groupItem.group.rules : ""
             }
 
             SectionHeader {
                 text: qsTr("Folders")
-                visible: group !== undefined && group.rules !== ""
+                visible: groupItem.group && groupItem.group.rules !== ""
             }
 
             SilicaListView {
