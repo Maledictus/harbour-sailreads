@@ -47,8 +47,8 @@ MouseArea {
         fillMode: Image.PreserveAspectFit
         source: posterAvatar.length > 0 ? posterAvatar : posterDefaultAvatar
         onStatusChanged: {
-            if (image.status === Image.Error) {
-                image.source = posterDefaultAvatar
+            if (status === Image.Error) {
+                source = posterDefaultAvatar
             }
         }
         indicator.size: BusyIndicatorSize.Small

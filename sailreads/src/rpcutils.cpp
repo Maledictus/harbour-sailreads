@@ -270,7 +270,7 @@ GroupMember ParseGroupMember(const QDomElement& element)
             gm.SetTitle(fieldElement.text());
         }
         else if (fieldElement.tagName() == "user") {
-            //gm.SetUser(ParseUser(fieldElement));
+            gm.SetUser(ParseUser(fieldElement));
         }
     }
 
@@ -508,7 +508,7 @@ Comment ParseComment(const QDomElement& element)
             comment.SetBody(fieldElement.text());
         }
         else if (fieldElement.tagName() == "user") {
-            //comment.SetAuthor(ParseUser(fieldElement));
+            comment.SetAuthor(ParseUser(fieldElement));
         }
         else if (fieldElement.tagName() == "updated_at" && !fieldElement.text().isEmpty()) {
             comment.SetUpdateAtDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
@@ -630,7 +630,7 @@ BookPtr ParseBook(const QDomElement& element)
             book->SetSeriesWorks(ParseSeriesWorks(fieldElement));
         }
         else if (fieldElement.tagName() == "my_review") {
-            //book->SetReview(ParseReview(fieldElement));
+            book->SetReview(ParseReview(fieldElement));
         }
     }
 
