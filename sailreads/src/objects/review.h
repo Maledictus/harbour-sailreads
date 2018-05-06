@@ -50,20 +50,20 @@ class Review: public QObject
     quint64 m_Owned;
     QUrl m_Url;
 
-    Q_PROPERTY(quint64 id READ GetId)
-    Q_PROPERTY(Book* book READ GetBook)
-    Q_PROPERTY(int rating READ GetRating)
-    Q_PROPERTY(int votes READ GetVotes)
-    Q_PROPERTY(QDateTime addedDate READ GetAddedDate)
-    Q_PROPERTY(QDateTime updatedDate READ GetUpdatedDate)
-    Q_PROPERTY(QDateTime readDate READ GetReadDate)
-    Q_PROPERTY(QDateTime startedDate READ GetStartedDate)
-    Q_PROPERTY(int readCount READ GetReadCount)
-    Q_PROPERTY(QString body READ GetBody)
-    Q_PROPERTY(quint64 commentsCount READ GetCommentsCount)
-    Q_PROPERTY(quint64 owned READ GetOwned)
-    Q_PROPERTY(QUrl url READ GetUrl)
-    Q_PROPERTY(QStringList shelvesList READ GetShelvesList)
+    Q_PROPERTY(quint64 id READ GetId NOTIFY idChanged)
+    Q_PROPERTY(Book* book READ GetBook NOTIFY bookChanged)
+    Q_PROPERTY(int rating READ GetRating NOTIFY ratingChanged)
+    Q_PROPERTY(int votes READ GetVotes NOTIFY votesChanged)
+    Q_PROPERTY(QDateTime addedDate READ GetAddedDate NOTIFY addedDateChanged)
+    Q_PROPERTY(QDateTime updatedDate READ GetUpdatedDate NOTIFY updatedDateChanged)
+    Q_PROPERTY(QDateTime readDate READ GetReadDate NOTIFY readDateChanged)
+    Q_PROPERTY(QDateTime startedDate READ GetStartedDate NOTIFY startedDateChanged)
+    Q_PROPERTY(int readCount READ GetReadCount NOTIFY readCountChanged)
+    Q_PROPERTY(QString body READ GetBody NOTIFY bodyChanged)
+    Q_PROPERTY(quint64 commentsCount READ GetCommentsCount NOTIFY commentsCountChanged)
+    Q_PROPERTY(quint64 owned READ GetOwned NOTIFY ownedChanged)
+    Q_PROPERTY(QUrl url READ GetUrl NOTIFY urlChanged)
+    Q_PROPERTY(QStringList shelvesList READ GetShelvesList NOTIFY shelvesListChanged)
 
 public:
     Review(QObject *parent = nullptr);
@@ -98,5 +98,21 @@ public:
     void SetOwned(const quint64& owned);
     QUrl GetUrl() const;
     void SetUrl(const QUrl& url);
+
+signals:
+    void idChanged();
+    void bookChanged();
+    void ratingChanged();
+    void votesChanged();
+    void addedDateChanged();
+    void updatedDateChanged();
+    void readDateChanged();
+    void startedDateChanged();
+    void readCountChanged();
+    void bodyChanged();
+    void commentsCountChanged();
+    void ownedChanged();
+    void urlChanged();
+    void shelvesListChanged();
 };
 } // namespace Sailreads
