@@ -32,9 +32,10 @@ Page {
     id: reviewsPage
 
     property alias userId: reviewsModel.userId
+    property var userProfile
     property alias bookShelfId: reviewsModel.bookShelfId
     property alias bookShelf: reviewsModel.bookShelf
-property bool busy: sailreadsManager.busy && reviewsPage.status === PageStatus.Active
+    property bool busy: sailreadsManager.busy && reviewsPage.status === PageStatus.Active
 
     function attachPage() {
         if (pageStack._currentContainer.attachedContainer === null
@@ -55,7 +56,10 @@ property bool busy: sailreadsManager.busy && reviewsPage.status === PageStatus.A
         id: reviewsView
         anchors.fill: parent
         header: PageHeader {
-            title: bookShelf
+            title: {
+                userProfile === null ? bookShelf
+                        : "%1: %2".arg(userProfile.userName).arg(bookShelf)
+            }
         }
 
         PullDownMenu {
@@ -163,8 +167,13 @@ property bool busy: sailreadsManager.busy && reviewsPage.status === PageStatus.A
             }
 
             onClicked: {
-                pageStack.push(Qt.resolvedUrl("BookPage.qml"),
-                        { review: reviewReview, bookId: reviewBook.id })
+                if (userId === sailreadsManager.authUser.id) {
+                    pageStack.push(Qt.resolvedUrl("BookPage.qml"),
+                            { review: reviewReview, bookId: reviewBook.id })
+                } else {
+                    pageStack.push(Qt.resolvedUrl("ReviewPage.qml"),
+                            { reviewId: reviewId })
+                }
             }
         }
 

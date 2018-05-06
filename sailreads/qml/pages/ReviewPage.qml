@@ -32,6 +32,7 @@ import "../components"
 Page {
     id: reviewPage
 
+    property int reviewId
     property bool busy: sailreadsManager.busy && reviewPage.status === PageStatus.Active
 
     function attachPage() {
