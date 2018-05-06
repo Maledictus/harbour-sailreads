@@ -51,6 +51,7 @@ THE SOFTWARE.
 
 #include "objects/groupfolder.h"
 #include "objects/topic.h"
+#include "qmltypes/bookitem.h"
 #include "qmltypes/groupitem.h"
 #include "qmltypes/topicitem.h"
 #include "qmltypes/userprofile.h"
@@ -112,6 +113,7 @@ void Application::start()
     qmlRegisterUncreatableType<User>("harbour.sailreads", 1, 0, "User",
             "User provids attached properties and can't be instantiated");
 
+    qRegisterMetaType<QObjectList>("QObjectList");
     qRegisterMetaType<Author*>("Author*");
     qRegisterMetaType<Book*>("Book*");
     qRegisterMetaType<Group*>("Group*");
@@ -136,6 +138,7 @@ void Application::start()
     qmlRegisterType<UserProfile>("harbour.sailreads", 1, 0, "UserProfile");
     qmlRegisterType<GroupItem>("harbour.sailreads", 1, 0, "GroupItem");
     qmlRegisterType<TopicItem>("harbour.sailreads", 1, 0, "TopicItem");
+    qmlRegisterType<BookItem>("harbour.sailreads", 1, 0, "BookItem");
 
     ShowUI();
 }
