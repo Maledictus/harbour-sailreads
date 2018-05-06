@@ -164,7 +164,9 @@ Page {
                     id: label
                     width: parent.width
                     wrapMode: Text.WordWrap
+                    textFormat: Text.RichText
                     font.pixelSize: Theme.fontSizeSmall
+                    linkColor: Theme.highlightColor
                     text: commentBody
                 }
             }
