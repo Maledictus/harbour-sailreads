@@ -32,9 +32,8 @@ import "../components"
 Page {
     id: bookPage
 
-    property int bookId
+    property alias bookId: bookItem.bookId
     property var review
-    property var book
     property bool busy: sailreadsManager.busy && bookPage.status === PageStatus.Active
 
     function attachPage() {
@@ -44,36 +43,29 @@ Page {
         }
     }
 
-    Component.onCompleted: {
-        sailreadsManager.loadBook(bookId)
+    BookItem {
+        id: bookItem
+        onBookChanged: {
+            authorsLabel.text = generateAuthorsString()
+            seriesValueLabel.text = generateSeriesString()
+        }
     }
 
     Component.onDestruction: {
         sailreadsManager.abortRequest()
     }
 
-    Connections {
-        target: sailreadsManager
-        onGotBook: {
-            if (bookPage.bookId === book.id) {
-                bookPage.book = book
-                authorsLabel.text = generateAuthorsString()
-                seriesValueLabel.text = generateSeriesString()
-            }
-        }
-    }
-
     function generateAuthorsString() {
-        if (book === undefined || book.authors.length === 0) {
+        if (bookItem.book === null || bookItem.book.authors.length === 0) {
             return "";
         }
 
         var result = qsTr("<style>a:link{color:" + Theme.highlightColor + ";}</style>by ")
-        for (var i = 0; i < book.authors.length; ++i) {
+        for (var i = 0; i < bookItem.book.authors.length; ++i) {
             result += "<a href=\"%1\" style=\"text-decoration:none;\">%2</a>"
-                    .arg(book.authors[i].id)
-                    .arg(book.authors[i].name)
-            if (i +1 < book.authors.length) {
+                    .arg(bookItem.book.authors[i].id)
+                    .arg(bookItem.book.authors[i].name)
+            if (i +1 < bookItem.book.authors.length) {
                 result += ", "
             }
         }
@@ -81,16 +73,16 @@ Page {
     }
 
     function generateSeriesString() {
-        if (book === undefined || book.seriesWorks.length === 0) {
+        if (bookItem.book === null || bookItem.book.seriesWorks.length === 0) {
             return "";
         }
 
         var result = qsTr("<style>a:link{color:" + Theme.highlightColor + ";}</style>")
-        for (var i = 0; i < book.seriesWorks.length; ++i) {
+        for (var i = 0; i < bookItem.book.seriesWorks.length; ++i) {
             result += "<a href=\"%1\" style=\"text-decoration:none;\">%2</a>"
-                    .arg(book.seriesWorks[i].series.id)
-                    .arg(book.seriesWorks[i].series.title)
-            if (i +1 < book.seriesWorks.length) {
+                    .arg(bookItem.book.seriesWorks[i].series.id)
+                    .arg(bookItem.book.seriesWorks[i].series.title)
+            if (i +1 < bookItem.book.seriesWorks.length) {
                 result += ", "
             }
         }
@@ -120,12 +112,12 @@ Page {
             }
 
             PageHeader {
-                title: review ? review.book.title : (book ? book.title : "")
-                description: review ? (review.shelvesList.length > 0 ? review.shelvesList[0] : "") : ""
+                title: review ? review.book.title : (bookItem.book ? bookItem.book.title : "")
+                description: review && review.shelvesList.length > 0 ? review.shelvesList[0] : ""
             }
 
             BaseImage {
-                source: review ? review.book.imageUrl : (book ? book.imageUrl : "")
+                source: review ? review.book.imageUrl : (bookItem.book ? bookItem.book.imageUrl : "")
                 anchors.horizontalCenter: parent.horizontalCenter
                 height: Theme.coverSizeSmall.height
                 width: Theme.coverSizeSmall.width
@@ -135,7 +127,7 @@ Page {
             Label {
                 id: titleLabel
                 width: parent.width
-                text: review ? review.book.title : (book ? book.title : "")
+                text: review ? review.book.title : (bookItem.book ? bookItem.book.title : "")
                 wrapMode: Text.WordWrap
                 maximumLineCount: 2
                 anchors {
@@ -162,7 +154,8 @@ Page {
                 horizontalAlignment: height < 2 * font.pixelSize ? Text.AlignHCenter : Text.AlignJustify
                 Component.onCompleted: text = generateAuthorsString()
                 onLinkActivated: {
-                    //TODO open author page
+                    pageStack.push(Qt.resolvedUrl("AuthorPage.qml"),
+                            { authorId: link })
                 }
             }
 
@@ -182,13 +175,14 @@ Page {
 
                 RatingBox {
                     Layout.alignment: Qt.AlignLeft
-                    rating: review ? review.book.averageRating : (book ? book.averageRating : 0)
+                    rating: review ? review.book.averageRating :
+                            (bookItem.book ? bookItem.book.averageRating : 0)
                 }
 
                 Label {
                     Layout.alignment: Qt.AlignLeft
-                    text: Number(review ? review.book.averageRating : (book ? book.averageRating : 0))
-                            .toFixed(2)
+                    text: Number(review ? review.book.averageRating : (bookItem.book ?
+                            bookItem.book.averageRating : 0)).toFixed(2)
                     Layout.fillWidth: true
                     horizontalAlignment: Text.AlignLeft
                 }
@@ -198,7 +192,7 @@ Page {
                     font.pixelSize: Theme.fontSizeSmall
                     text: qsTr("%1 ratings")
                             .arg(Number(review ? review.book.ratingsCount :
-                                        (book ? book.ratingsCount : 0)).toFixed())
+                                        (bookItem.book ? bookItem.book.ratingsCount : 0)).toFixed())
                 }
             }
 
@@ -271,7 +265,8 @@ Page {
                         wrapMode: Text.WordWrap
                         Component.onCompleted: text = generateSeriesString()
                         onLinkActivated: {
-                            //TODO open series page
+                            pageStack.push(Qt.resolvedUrl("SeriesPage.qml"),
+                                    { seriesId: link })
                         }
                     }
                 }
@@ -279,35 +274,35 @@ Page {
                 KeyValueLabel {
                     font.pixelSize: Theme.fontSizeSmall
                     key: qsTr("Pages")
-                    value: book ? book.numPages : 0
-                    visible: book ? book.numPages > 0 : false
+                    value: bookItem.book ? bookItem.book.numPages : 0
+                    visible: bookItem.book ? bookItem.book.numPages > 0 : false
                 }
 
                 KeyValueLabel {
                     font.pixelSize: Theme.fontSizeSmall
                     key: qsTr("Published")
-                    value: book ? (book.publishedYear > 0 ? book.publishedYear : book.publicationYear) : 0
-                    visible: book ? (book.publishedYear > 0 || book.publicationYear > 0) : false
+                    value: bookItem.book ? (bookItem.book.publishedYear > 0 ? bookItem.book.publishedYear : bookItem.book.publicationYear) : 0
+                    visible: bookItem.book ? (bookItem.book.publishedYear > 0 || bookItem.book.publicationYear > 0) : false
                 }
 
                 KeyValueLabel {
                     font.pixelSize: Theme.fontSizeSmall
                     key: "ISBN"
-                    value: book ? book.isbn : ""
-                    visible: book ? (book.isbn !== "") : false
+                    value: bookItem.book ? bookItem.book.isbn : ""
+                    visible: bookItem.book ? (bookItem.book.isbn !== "") : false
                 }
 
                 KeyValueLabel {
                     font.pixelSize: Theme.fontSizeSmall
                     key: "ISBN13"
-                    value: book ? book.isbn13 : 0
-                    visible: book ? (book.isbn13 !== "") : false
+                    value: bookItem.book ? bookItem.book.isbn13 : 0
+                    visible: bookItem.book ? (bookItem.book.isbn13 !== "") : false
                 }
 
                 Item { height: Theme.paddingMedium }
 
                 CollapsedLabel {
-                    text: book ? book.description : ""
+                    text: bookItem.book ? bookItem.book.description : ""
                 }
             }
 
@@ -315,13 +310,13 @@ Page {
                 width: parent.width
                 height: Theme.itemSizeMedium
                 text: qsTr("Similar Books")
-                counter: book ? book.similarBooks.length : 0
+                counter: bookItem.book ? bookItem.book.similarBooks.length : 0
                 busy: bookPage.busy
                 enabled: !busy
-                visible: book ? book.similarBooks.length > 0 : false
+                visible: bookItem.book ? bookItem.book.similarBooks.length > 0 : false
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("BooksPage.qml"),
-                        { books: book.similarBooks, title: qsTr("Similar Books") })
+                        { books: bookItem.book.similarBooks, title: qsTr("Similar Books") })
                 }
             }
 
@@ -335,7 +330,7 @@ Page {
                     rightMargin: Theme.horizontalPageMargin
                 }
                 clip: true
-                model: book ? book.similarBooks : undefined
+                model: bookItem.book ? bookItem.book.similarBooks : undefined
                 spacing: Theme.paddingSmall
                 delegate: BaseImage {
                     height: 1.5 * width
@@ -344,8 +339,8 @@ Page {
                     indicator.size: BusyIndicatorSize.Medium
                     onClicked:  {
                         pageStack.push(Qt.resolvedUrl("BookPage.qml"),
-                                { bookId: book.similarBooks[index].id,
-                                    book: book.similarBooks[index] })
+                                { bookId: bookItem.book.similarBooks[index].id,
+                                    book: bookItem.book.similarBooks[index] })
                     }
                 }
             }
@@ -370,7 +365,7 @@ Page {
     BusyIndicator {
         size: BusyIndicatorSize.Large
         anchors.centerIn: parent
-        running: sailreadsManager.busy
+        running: bookPage.busy
         visible: running
     }
 }
