@@ -303,6 +303,9 @@ Page {
 
                 CollapsedLabel {
                     text: bookItem.book ? bookItem.book.description : ""
+                    onLinkActivated: {
+                        Qt.openUrlExternally(link)
+                    }
                 }
             }
 

@@ -27,6 +27,8 @@ import harbour.sailreads 1.0
 MouseArea {
     id: detailsBackground
 
+    signal linkActivated(url link)
+
     property alias text: contentLabel.text
 
     property real _ellipsisDisplacement: detailsBox.opened ? 0 : Theme.paddingLarge
@@ -74,6 +76,9 @@ MouseArea {
             font.pixelSize: Theme.fontSizeSmall
             textFormat: Text.RichText
             wrapMode: Text.WordWrap
+            onLinkActivated: {
+                detailsBackground.linkActivated(link)
+            }
         }
     }
 

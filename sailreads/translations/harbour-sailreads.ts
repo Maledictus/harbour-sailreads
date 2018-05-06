@@ -111,48 +111,48 @@
 <context>
     <name>BookPage</name>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="113"/>
+        <location filename="../qml/pages/BookPage.qml" line="105"/>
         <source>Add to Bookshelves</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="118"/>
+        <location filename="../qml/pages/BookPage.qml" line="110"/>
         <source>Want to Read</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="199"/>
+        <location filename="../qml/pages/BookPage.qml" line="193"/>
         <source>%1 ratings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="226"/>
+        <location filename="../qml/pages/BookPage.qml" line="220"/>
         <source>Rate this book:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="242"/>
+        <location filename="../qml/pages/BookPage.qml" line="236"/>
         <source>Description</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="264"/>
+        <location filename="../qml/pages/BookPage.qml" line="258"/>
         <source>Series</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="281"/>
+        <location filename="../qml/pages/BookPage.qml" line="276"/>
         <source>Pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="288"/>
+        <location filename="../qml/pages/BookPage.qml" line="283"/>
         <source>Published</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="317"/>
-        <location filename="../qml/pages/BookPage.qml" line="324"/>
+        <location filename="../qml/pages/BookPage.qml" line="315"/>
+        <location filename="../qml/pages/BookPage.qml" line="322"/>
         <source>Similar Books</source>
         <translation type="unfinished"></translation>
     </message>
@@ -160,27 +160,27 @@
 <context>
     <name>BookShelvesPage</name>
     <message>
-        <location filename="../qml/pages/BookShelvesPage.qml" line="58"/>
+        <location filename="../qml/pages/BookShelvesPage.qml" line="59"/>
         <source>Bookshelves</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookShelvesPage.qml" line="63"/>
+        <location filename="../qml/pages/BookShelvesPage.qml" line="64"/>
         <source>Add shelf</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookShelvesPage.qml" line="72"/>
+        <location filename="../qml/pages/BookShelvesPage.qml" line="73"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookShelvesPage.qml" line="81"/>
+        <location filename="../qml/pages/BookShelvesPage.qml" line="82"/>
         <source>There are no bookshelves. Pull down to refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookShelvesPage.qml" line="115"/>
+        <location filename="../qml/pages/BookShelvesPage.qml" line="116"/>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -268,32 +268,32 @@
 <context>
     <name>GroupFolderTopicPage</name>
     <message>
-        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="72"/>
+        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="66"/>
         <source>Topic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="84"/>
+        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="78"/>
         <source>Author</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="90"/>
+        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="84"/>
         <source>Group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="95"/>
+        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="89"/>
         <source>Folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="112"/>
+        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="106"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="118"/>
+        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="112"/>
         <source>Add comment</source>
         <translation type="unfinished"></translation>
     </message>
@@ -314,48 +314,48 @@
 <context>
     <name>GroupPage</name>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="87"/>
+        <location filename="../qml/pages/GroupPage.qml" line="79"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="120"/>
+        <location filename="../qml/pages/GroupPage.qml" line="112"/>
         <source>Category</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="126"/>
+        <location filename="../qml/pages/GroupPage.qml" line="118"/>
         <source>Subcategory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="132"/>
+        <location filename="../qml/pages/GroupPage.qml" line="124"/>
         <source>Last activity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="150"/>
+        <location filename="../qml/pages/GroupPage.qml" line="142"/>
         <source>Access</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="152"/>
+        <location filename="../qml/pages/GroupPage.qml" line="144"/>
         <source>public</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="152"/>
+        <location filename="../qml/pages/GroupPage.qml" line="144"/>
         <source>private</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="157"/>
-        <location filename="../qml/pages/GroupPage.qml" line="237"/>
+        <location filename="../qml/pages/GroupPage.qml" line="149"/>
+        <location filename="../qml/pages/GroupPage.qml" line="240"/>
         <source>Members</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="163"/>
+        <location filename="../qml/pages/GroupPage.qml" line="155"/>
         <source>Description</source>
         <translation type="unfinished"></translation>
     </message>
@@ -365,12 +365,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="195"/>
+        <location filename="../qml/pages/GroupPage.qml" line="198"/>
         <source>Folders</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="220"/>
+        <location filename="../qml/pages/GroupPage.qml" line="223"/>
         <source>Topics</source>
         <translation type="unfinished"></translation>
     </message>
@@ -488,22 +488,22 @@ Pull down to refresh</source>
 <context>
     <name>ReviewsPage</name>
     <message>
-        <location filename="../qml/pages/ReviewsPage.qml" line="62"/>
+        <location filename="../qml/pages/ReviewsPage.qml" line="67"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ReviewsPage.qml" line="71"/>
+        <location filename="../qml/pages/ReviewsPage.qml" line="76"/>
         <source>There are no books reviews. Pull down to refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ReviewsPage.qml" line="134"/>
+        <location filename="../qml/pages/ReviewsPage.qml" line="139"/>
         <source>by %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ReviewsPage.qml" line="145"/>
+        <location filename="../qml/pages/ReviewsPage.qml" line="150"/>
         <source>%1/%2 ratings</source>
         <translation type="unfinished"></translation>
     </message>
@@ -511,17 +511,17 @@ Pull down to refresh</source>
 <context>
     <name>Sailreads::SailreadsManager</name>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="165"/>
+        <location filename="../src/sailreadsmanager.cpp" line="164"/>
         <source>Authorization user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="183"/>
+        <location filename="../src/sailreadsmanager.cpp" line="182"/>
         <source>Authentication user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="190"/>
+        <location filename="../src/sailreadsmanager.cpp" line="189"/>
         <source>Getting user profile...</source>
         <translation type="unfinished"></translation>
     </message>

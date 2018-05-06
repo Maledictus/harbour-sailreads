@@ -156,6 +156,11 @@ Page {
                 visible: groupItem.group && groupItem.group.description !== ""
             }
 
+            property string _style: "<style>" +
+                    "a:link { color:" + Theme.highlightColor + "; }" +
+                    "p { color:" + Theme.primaryColor + "; }" +
+                    "</style>"
+
             CollapsedLabel {
                 anchors {
                     left: parent.left
@@ -164,7 +169,10 @@ Page {
                     rightMargin: Theme.horizontalPageMargin
                 }
                 visible: groupItem.group && groupItem.group.description !== ""
-                text: groupItem.group ? groupItem.group.description : ""
+                text: groupItem.group ? (column._style + groupItem.group.description) : ""
+                onLinkActivated: {
+                    Qt.openUrlExternally(link)
+                }
             }
 
             SectionHeader {
@@ -180,7 +188,10 @@ Page {
                     rightMargin: Theme.horizontalPageMargin
                 }
                 visible: groupItem.group && groupItem.group.rules !== ""
-                text: groupItem.group ? groupItem.group.rules : ""
+                text: groupItem.group ? (column._style + groupItem.group.rules) : ""
+                onLinkActivated: {
+                    Qt.openUrlExternally(link)
+                }
             }
 
             SectionHeader {

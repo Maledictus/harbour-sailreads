@@ -160,6 +160,11 @@ Page {
                     }
                 }
 
+                property string _style: "<style>" +
+                        "a:link { color:" + Theme.highlightColor + "; }" +
+                        "p { color:" + Theme.primaryColor + "; }" +
+                        "</style>"
+
                 Label {
                     id: label
                     width: parent.width
@@ -167,7 +172,10 @@ Page {
                     textFormat: Text.RichText
                     font.pixelSize: Theme.fontSizeSmall
                     linkColor: Theme.highlightColor
-                    text: commentBody
+                    text: column._style + commentBody
+                    onLinkActivated: {
+                        Qt.openUrlExternally(link)
+                    }
                 }
             }
 
