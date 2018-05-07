@@ -301,7 +301,7 @@ void GoodReadsApi::SearchBooks(const QString& query, const QString& key, int pag
 
 void GoodReadsApi::GetSeries(quint64 seriesId)
 {
-    const QUrl url(QString("https://www.goodreads.com/series/show/%1.xmlkey=%2")
+    const QUrl url(QString("https://www.goodreads.com/series/show/%1.xml?key=%2")
             .arg(seriesId).arg(m_ConsumerKey));
     auto reply = m_NAM->get(QNetworkRequest(url));
     m_CurrentReply = reply;
@@ -1079,8 +1079,7 @@ void GoodReadsApi::handleGetSeries()
     }
 
     emit requestFinished();
-    //TODO
-    qDebug() << doc.toByteArray();
+    emit gotSeries(RpcUtils::Parser::ParseSeries(doc));
 }
 
 void GoodReadsApi::handleGetAuthorSeries()

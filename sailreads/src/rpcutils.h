@@ -33,7 +33,6 @@ THE SOFTWARE.
 #include "objects/friend.h"
 #include "objects/groupfolder.h"
 #include "objects/groupmember.h"
-#include "objects/work.h"
 #include "types.h"
 
 namespace Sailreads
@@ -56,7 +55,7 @@ Comment ParseComment(const QDomElement& element);
 BookPtr ParseBook(const QDomElement& element);
 ReviewPtr ParseReview(const QDomElement& element);
 AuthorPtr ParseAuthor(const QDomElement& element);
-Work ParseWork(const QDomElement& element);
+WorkPtr ParseWork(const QDomElement& element);
 SeriesPtr ParseSeries(const QDomElement& element);
 SeriesWorkPtr ParseSeriesWork(const QDomElement& element);
 
@@ -71,6 +70,7 @@ Authors_t ParseAuthors(const QDomElement& element);
 CountedItems<Comment> ParseComments(const QDomElement& element);
 CountedItems<ReviewPtr> ParseReviews(const QDomElement& element);
 SeriesWorks_t ParseSeriesWorks(const QDomElement& element);
+Series_t ParseSeriesFromSeriesWorks(const QDomElement& element);
 
 UserPtr ParseUser(const QDomDocument& doc);
 BookShelves_t ParseBookShelves(const QDomDocument& doc);
@@ -83,6 +83,7 @@ TopicPtr ParseGroupFolderTopic(const QDomDocument& doc);
 Comment ParseComment(const QDomDocument& doc);
 QPair<quint64, CountedItems<ReviewPtr>> ParseReviews(const QDomDocument& doc);
 BookPtr ParseBook(const QDomDocument& doc);
+SeriesPtr ParseSeries(const QDomDocument& doc);
 }
 }
 }

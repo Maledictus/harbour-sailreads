@@ -91,6 +91,8 @@ public slots:
 
     void loadBook(quint64 bookId);
 
+    void loadSeries(quint64 seriesId);
+
     void loadFriends(quint64 userId);
 
     void loadGroups(quint64 userId);
@@ -119,6 +121,8 @@ signals:
     void gotReviews(quint64 bookShelfId, const CountedItems<ReviewPtr>& reviews);
 
     void gotBook(const BookPtr& book);
+
+    void gotSeries(const SeriesPtr& series);
 
     void gotUserFriends(quint64 userId, const Friends_t& friends);
 

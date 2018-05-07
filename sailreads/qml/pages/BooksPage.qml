@@ -79,7 +79,7 @@ Page {
 
                     source: modelData.imageUrl
                     height: 1.5 * width
-                    width: Theme.iconSizeMedium
+                    width: Theme.iconSizeLarge
                     horizontalAlignment: Image.AlignLeft
                     verticalAlignment: Image.AlignTop
                     indicator.size: BusyIndicatorSize.Medium
@@ -114,7 +114,7 @@ Page {
 
                         Label {
                             font.pixelSize: Theme.fontSizeExtraSmall
-                            text: qsTr("%1/%2 ratings").arg(modelData.averageRating)
+                            text: qsTr("%1/%2 ratings").arg(Number(modelData.averageRating).toFixed(2))
                                     .arg(Number(modelData.ratingsCount).toFixed())
                         }
                     }

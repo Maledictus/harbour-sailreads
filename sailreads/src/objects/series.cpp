@@ -24,6 +24,8 @@ THE SOFTWARE.
 
 #include <QtDebug>
 
+#include "serieswork.h"
+
 namespace Sailreads
 {
 Series::Series(QObject *parent)
@@ -113,5 +115,19 @@ bool Series::GetNumbered() const
 void Series::SetNumbered(bool numbered)
 {
     m_Numbered = numbered;
+}
+
+QObjectList Series::GetSeriesWorks() const
+{
+    QObjectList objList;
+    for (const auto& seriesWork : m_SeriesWorks) {
+        objList << seriesWork.get();
+    }
+    return objList;
+}
+
+void Series::SetSeriesWorks(const SeriesWorks_t& seriesWorks)
+{
+    m_SeriesWorks = seriesWorks;
 }
 } // namespace Sailreads

@@ -23,8 +23,9 @@ THE SOFTWARE.
 
 namespace Sailreads
 {
-Work::Work()
-: m_Id(0)
+Work::Work(QObject *parent)
+: QObject(parent)
+, m_Id(0)
 , m_BooksCount(0)
 , m_BestBooksId(0)
 , m_ReviewsCount(0)
@@ -34,10 +35,16 @@ Work::Work()
 , m_OriginalPublicationMonth(0)
 , m_OriginalPublicationDay(0)
 {
+#ifdef QT_DEBUG
+    qDebug() << this << "CONSTRUCTED";
+#endif
 }
 
 Work::~Work()
 {
+#ifdef QT_DEBUG
+    qDebug() << this << "DESTRUCTED";
+#endif
 }
 
 quint64 Work::GetId() const
@@ -158,5 +165,20 @@ QString Work::GetRatingDist() const
 void Work::SetRatingDist(const QString& ratingDist)
 {
     m_RatingDist = ratingDist;
+}
+
+qreal Work::GetAverageRating() const
+{
+    return m_RatingCount > 0 ? static_cast<qreal>(m_RatingSum) / m_RatingCount : 0;
+}
+
+Book *Work::GetBestBook() const
+{
+    return m_BestBook.get();
+}
+
+void Work::SetBestBook(const BookPtr& book)
+{
+    m_BestBook = book;
 }
 } // namespace Sailreads

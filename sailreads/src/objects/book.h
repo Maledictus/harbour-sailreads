@@ -27,7 +27,6 @@ THE SOFTWARE.
 #include <QString>
 #include <QVariantList>
 
-#include "work.h"
 #include "../types.h"
 
 namespace Sailreads
@@ -66,8 +65,8 @@ class Book : public QObject
     bool m_IsEBook;
     QString m_ReviewsWidgetContent;
     Books_t m_SimilarBooks;
-    Work m_Work;
-    SeriesWorks_t m_SeriesWorks;
+    WorkPtr m_Work;
+    Series_t m_SeriesList;
     ReviewPtr m_Review;
 
     Q_PROPERTY(quint64 id READ GetId NOTIFY idChanged)
@@ -100,9 +99,9 @@ class Book : public QObject
     Q_PROPERTY(int publishedYear READ GetPublishedYear NOTIFY publishedYearChanged)
     Q_PROPERTY(bool isEBook READ GetIsEBook NOTIFY isEBookChanged)
     Q_PROPERTY(QString reviewsWidgetContent READ GetReviewsWidgetContent NOTIFY reviewsWidgetContentChanged)
-    Q_PROPERTY(Work work READ GetWork NOTIFY workChanged)
+    Q_PROPERTY(Work* work READ GetWork NOTIFY workChanged)
     Q_PROPERTY(QObjectList similarBooks READ GetSimilarBooks NOTIFY  similarBooksChanged)
-    Q_PROPERTY(QObjectList seriesWorks READ GetSeriesWorks NOTIFY seriesWorksChanged)
+    Q_PROPERTY(QObjectList seriesList READ GetSeriesList NOTIFY seriesListChanged)
     Q_PROPERTY(Review* review READ GetReview NOTIFY reviewChanged)
 
 public:
@@ -170,10 +169,10 @@ public:
     void SetReviewsWidgetContent(const QString& content);
     QObjectList GetSimilarBooks() const;
     void SetSimilarBooks(const Books_t& books);
-    Work GetWork() const;
-    void SetWork(const Work& work);
-    QObjectList GetSeriesWorks() const;
-    void SetSeriesWorks(const SeriesWorks_t& seriesWorks);
+    Work* GetWork() const;
+    void SetWork(const WorkPtr& work);
+    QObjectList GetSeriesList() const;
+    void SetSeriesList(const Series_t& seriesList);
     Review* GetReview() const;
     void SetReview(const ReviewPtr& review);
 
@@ -210,7 +209,7 @@ signals:
     void reviewsWidgetContentChanged();
     void workChanged();
     void similarBooksChanged();
-    void seriesWorksChanged();
+    void seriesListChanged();
     void reviewChanged();
 };
 } // namespace Sailreads

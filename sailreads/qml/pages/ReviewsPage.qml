@@ -112,7 +112,7 @@ Page {
 
                     source: reviewBook.imageUrl
                     height: 1.5 * width
-                    width: Theme.iconSizeMedium
+                    width: Theme.iconSizeLarge
                     horizontalAlignment: Image.AlignLeft
                     verticalAlignment: Image.AlignTop
                     indicator.size: BusyIndicatorSize.Medium
@@ -147,7 +147,7 @@ Page {
 
                         Label {
                             font.pixelSize: Theme.fontSizeExtraSmall
-                            text: qsTr("%1/%2 ratings").arg(reviewBook.averageRating)
+                            text: qsTr("%1/%2 ratings").arg(Number(reviewBook.averageRating).toFixed(2))
                                     .arg(Number(reviewBook.ratingsCount).toFixed())
                         }
                     }

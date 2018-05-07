@@ -23,14 +23,20 @@ THE SOFTWARE.
 #pragma once
 
 #include <QString>
+#include <QObject>
+
+#include "../types.h"
 
 namespace Sailreads
 {
-class Work
+class Work: public QObject
 {
+    Q_OBJECT
+
     quint64 m_Id;
     int m_BooksCount;
     quint64 m_BestBooksId;
+    BookPtr m_BestBook;
     quint64 m_ReviewsCount;
     quint64 m_RatingSum;
     quint64 m_RatingCount;
@@ -41,10 +47,24 @@ class Work
     QString m_OriginalTitle;
     QString m_RatingDist;
 
+    Q_PROPERTY(quint64 id READ GetId NOTIFY idChanged)
+    Q_PROPERTY(int booksCount READ GetBooksCount NOTIFY booksCountChanged)
+    Q_PROPERTY(quint64 bestBooksId READ GetBestBooksId NOTIFY bestBookIdChanged)
+    Q_PROPERTY(Book* bestBook READ GetBestBook NOTIFY bestBookChanged)
+    Q_PROPERTY(quint64 reviewsCount READ GetReviewsCount NOTIFY reviewsCountChanged)
+    Q_PROPERTY(quint64 ratingSum READ GetRatingSum NOTIFY ratingSumChanged)
+    Q_PROPERTY(quint64 ratingCount READ GetRatingCount NOTIFY ratingCountChanged)
+    Q_PROPERTY(quint64 textReviewsCount READ GetTextReviewsCount NOTIFY textReviewsCountChanged)
+    Q_PROPERTY(int originalPublicationYear READ GetOriginalPublicationYear NOTIFY originalPublicationYearChanged)
+    Q_PROPERTY(int originalPublicationMonth READ GetOriginalPublicationMonth NOTIFY originalPublicationMonthChanged)
+    Q_PROPERTY(int originalPublicationDay READ GetOriginalPublicationDay NOTIFY originalPublicationDayChanged)
+    Q_PROPERTY(QString originalTitle READ GetOriginalTitle NOTIFY originalTitleChanged)
+    Q_PROPERTY(QString ratingDist READ GetRatingDist NOTIFY ratingDistChanged)
+    Q_PROPERTY(qreal averageRating READ GetAverageRating NOTIFY averageRatingChanged)
+
 public:
-    Work();
+    Work(QObject *parent = nullptr);
     ~Work();
-    Work(const Work&) = default;
 
     quint64 GetId() const;
     void SetId(quint64 id);
@@ -70,6 +90,25 @@ public:
     void SetOriginalTitle(const QString& originalTitle);
     QString GetRatingDist() const;
     void SetRatingDist(const QString& ratingDist);
+    qreal GetAverageRating() const;
+    Book* GetBestBook() const;
+    void SetBestBook(const BookPtr& book);
+
+signals:
+    void idChanged();
+    void booksCountChanged();
+    void bestBookIdChanged();
+    void reviewsCountChanged();
+    void ratingSumChanged();
+    void ratingCountChanged();
+    void textReviewsCountChanged();
+    void originalPublicationYearChanged();
+    void originalPublicationMonthChanged();
+    void originalPublicationDayChanged();
+    void originalTitleChanged();
+    void ratingDistChanged();
+    void averageRatingChanged();
+    void bestBookChanged();
 };
 
 } // namespace Sailreads

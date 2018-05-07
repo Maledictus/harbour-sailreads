@@ -22,39 +22,38 @@ THE SOFTWARE.
 
 #pragma once
 
-#include <QList>
 #include <QObject>
 
 #include "../types.h"
 
 namespace Sailreads
 {
-class SeriesWork: public QObject
+class SeriesItem : public QObject
 {
     Q_OBJECT
 
-    quint64 m_Id;
-    int m_Position;
-    WorkPtr m_Work;
+    quint64 m_SeriesId;
+    SeriesPtr m_Series;
 
-    Q_PROPERTY(quint64 id READ GetId NOTIFY idChanged)
-    Q_PROPERTY(int position READ GetPosition NOTIFY positionChanged)
-    Q_PROPERTY(Work* work READ GetWork NOTIFY workChanged)
-
+    Q_PROPERTY(quint64 seriesId READ GetSeriesId WRITE SetSeriesId NOTIFY seriesIdChanged)
+    Q_PROPERTY(Series* series READ GetSeries NOTIFY seriesChanged)
 public:
-    SeriesWork(QObject *parent = nullptr);
-    ~SeriesWork();
+    explicit SeriesItem(QObject *parent = nullptr);
 
-    quint64 GetId() const;
-    void SetId(quint64 id);
-    int GetPosition() const;
-    void SetPosition(int position);
-    Work* GetWork() const;
-    void SetWork(const WorkPtr& work);
+    quint64 GetSeriesId() const;
+    void SetSeriesId(quint64 seriesId);
+    Series* GetSeries() const;
+    void SetSeries(const SeriesPtr& series);
+
+private slots:
+    void handleGotSeries(const SeriesPtr& series);
+public slots:
+    void updateSeries();
 
 signals:
-    void idChanged();
-    void positionChanged();
-    void workChanged();
+    void seriesIdChanged();
+    void seriesChanged();
 };
+
 } // namespace Sailreads
+

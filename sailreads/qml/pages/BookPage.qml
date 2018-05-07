@@ -73,16 +73,16 @@ Page {
     }
 
     function generateSeriesString() {
-        if (bookItem.book === null || bookItem.book.seriesWorks.length === 0) {
+        if (bookItem.book === null || bookItem.book.seriesList.length === 0) {
             return "";
         }
 
         var result = qsTr("<style>a:link{color:" + Theme.highlightColor + ";}</style>")
-        for (var i = 0; i < bookItem.book.seriesWorks.length; ++i) {
+        for (var i = 0; i < bookItem.book.seriesList.length; ++i) {
             result += "<a href=\"%1\" style=\"text-decoration:none;\">%2</a>"
-                    .arg(bookItem.book.seriesWorks[i].series.id)
-                    .arg(bookItem.book.seriesWorks[i].series.title)
-            if (i +1 < bookItem.book.seriesWorks.length) {
+                    .arg(bookItem.book.seriesList[i].id)
+                    .arg(bookItem.book.seriesList[i].title)
+            if (i +1 < bookItem.book.seriesList.length) {
                 result += ", "
             }
         }

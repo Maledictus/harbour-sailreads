@@ -32,13 +32,206 @@ import "../components"
 Page {
     id: seriesPage
 
-    property int seriesId
+    property alias seriesId : seriesItem.seriesId
     property bool busy: sailreadsManager.busy && seriesPage.status === PageStatus.Active
 
     function attachPage() {
         if (pageStack._currentContainer.attachedContainer === null
                 && sailreadsManager.logged) {
             pageStack.pushAttached(Qt.resolvedUrl("StatusPage.qml"))
+        }
+    }
+
+    SeriesItem {
+        id: seriesItem
+    }
+
+    SilicaListView {
+        id: seriesView
+        anchors.fill: parent
+        cacheBuffer: seriesPage.height
+
+        model: seriesItem.series !== null ? seriesItem.series.seriesWorks : null
+        clip: true
+
+        header: Item {
+            width: seriesView.width
+            height: headerBox.height
+        }
+
+        delegate: ListItem {
+            width: seriesView.width
+            contentHeight: row.height + separator.height + Theme.paddingMedium
+            clip: true
+
+            Row {
+                id: row
+                spacing: Theme.paddingMedium
+                height: Math.max(bookImage.height, column.height)
+                anchors {
+                    left: parent.left
+                    leftMargin: Theme.horizontalPageMargin
+                    right: parent.right
+                    rightMargin: Theme.horizontalPageMargin
+                }
+                BaseImage {
+                    id: bookImage
+                    anchors {
+                        top: column.top
+                        topMargin: Theme.paddingSmall
+                    }
+
+                    source: modelData.work !== null && modelData.work.bestBook !== null ?
+                            modelData.work.bestBook.imageUrl : ""
+                    height: 1.5 * width
+                    width: Theme.iconSizeLarge
+                    horizontalAlignment: Image.AlignLeft
+                    verticalAlignment: Image.AlignTop
+                    indicator.size: BusyIndicatorSize.Medium
+                }
+
+                Column {
+                    id: column
+                    width: parent.width - bookImage.width - Theme.paddingMedium
+                    Label {
+                        id: bookNameLabel
+                        width: parent.width
+                        wrapMode: Text.WordWrap
+                        maximumLineCount: 2
+                        font.family: Theme.fontFamilyHeading
+                        font.pixelSize: Theme.fontSizeSmall
+                        text: modelData.work !== null && modelData.work.bestBook !== null ?
+                                modelData.work.bestBook.title : ""
+                    }
+
+                    Label {
+                        id: authorsLabe
+                        width: parent.width
+                        truncationMode: TruncationMode.Fade
+                        font.pixelSize: Theme.fontSizeTiny
+                        text: qsTr("by %1").arg(modelData.work !== null &&
+                                    modelData.work.bestBook !== null ?
+                                modelData.work.bestBook.authorsString : "")
+                    }
+
+                    Row {
+                        spacing: Theme.paddingSmall
+                        RatingBox {
+                            rating: modelData.work !== null ? modelData.work.averageRating : 0
+                        }
+
+                        Label {
+                            font.pixelSize: Theme.fontSizeExtraSmall
+                            text: qsTr("%1/%2 ratings")
+                                    .arg(modelData.work !== null ?
+                                            Number(modelData.work.averageRating).toFixed(2) : 0)
+                                    .arg(Number(modelData.work !== null ?
+                                            modelData.work.ratingCount : 0).toFixed())
+                        }
+                    }
+                }
+            }
+
+            Separator {
+                id: separator
+                anchors {
+                    top: row.bottom
+                    topMargin: Theme.paddingMedium
+                }
+
+                width: parent.width
+                color: Theme.primaryColor
+                horizontalAlignment: Qt.AlignHCenter
+            }
+
+            onClicked: {
+                pageStack.push(Qt.resolvedUrl("BookPage.qml"),
+                        { bookId: (modelData.work !== null && modelData.work.bestBook !== null ?
+                                modelData.work.bestBook.id : 0) })
+            }
+        }
+
+        VerticalScrollDecorator {}
+    }
+
+    Column {
+        id: headerBox
+        parent:seriesView.headerItem ? seriesView.headerItem : seriesPage
+        width: parent.width
+
+        spacing: Theme.paddingSmall
+
+        PageHeader {
+            id: pageHeader
+            title: seriesItem.series !== null ? seriesItem.series.title : qsTr("Series")
+        }
+
+        Label {
+            anchors {
+                left: parent.left
+                leftMargin: Theme.horizontalPageMargin
+                right: parent.right
+                rightMargin: Theme.horizontalPageMargin
+            }
+            wrapMode: Text.WordWrap
+            color: Theme.highlightColor
+            font.family: Theme.fontFamilyHeading
+            font.pixelSize: Theme.fontSizeMedium
+            text: {
+                console.log(seriesItem.series !== null ? seriesItem.series.title : "")
+                return seriesItem.series !== null ? seriesItem.series.title : ""
+            }
+        }
+
+        Label {
+            anchors {
+                left: parent.left
+                leftMargin: Theme.horizontalPageMargin
+                right: parent.right
+                rightMargin: Theme.horizontalPageMargin
+            }
+            font.pixelSize: Theme.fontSizeTiny
+            width: parent.width
+            wrapMode: Text.WordWrap
+            color: Theme.highlightColor
+            visible: seriesItem.series !== null
+            text: qsTr("%1 works, %2 primary works")
+                    .arg(seriesItem.series !== null ? seriesItem.series.seriesWorksCount : "")
+                    .arg(seriesItem.series !== null ? seriesItem.series.primaryWorkCount : "")
+        }
+
+        Item {
+            width: parent.width
+            height: Theme.paddingLarge
+        }
+
+        property string _style: "<style>" +
+                "a:link { color:" + Theme.highlightColor + "; }" +
+                "p { color:" + Theme.primaryColor + "; }" +
+                "</style>"
+
+        Label {
+            anchors {
+                left: parent.left
+                leftMargin: Theme.horizontalPageMargin
+                right: parent.right
+                rightMargin: Theme.horizontalPageMargin
+            }
+            width: parent.width
+            linkColor: Theme.highlightColor
+            font.pixelSize: Theme.fontSizeSmall
+            textFormat: Text.RichText
+            wrapMode: Text.WordWrap
+            color: Theme.highlightColor
+            text: seriesItem.series !== null ? (headerBox._style + seriesItem.series.description) : ""
+            onLinkActivated: {
+                Qt.openUrlExternally(link)
+            }
+        }
+
+        Item {
+            width: parent.width
+            height: Theme.paddingLarge
         }
     }
 

@@ -240,6 +240,10 @@ signals:
 
     void gotBook(const BookPtr& book);
 
+    void gotSeries(const SeriesPtr& series);
+    void gotAuthorSeries(const Series_t& seriesList);
+    void gotWorkSeries(const Series_t& seriesList);
+
     void gotUserGroups(quint64 userId, const CountedItems<GroupPtr>& groups);
     void gotUserGroup(quint64 groupId, const GroupPtr& group);
     void gotFoundGroups(const CountedItems<GroupPtr>& groups);

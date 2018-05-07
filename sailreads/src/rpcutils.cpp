@@ -35,6 +35,7 @@ THE SOFTWARE.
 #include "objects/serieswork.h"
 #include "objects/topic.h"
 #include "objects/user.h"
+#include "objects/work.h"
 
 namespace Sailreads
 {
@@ -73,10 +74,10 @@ QString PrepareDateTimeString(const QString& str)
 //            actor.m_Name = fieldElement.text();
 //        }
 //        else if (fieldElement.tagName() == "image_url") {
-//            actor.m_AvatarUrl = QUrl(fieldElement.text());
+//            actor.m_AvatarUrl = QUrl(fieldElement.text().trimmed());
 //        }
 //        else if (fieldElement.tagName() == "link") {
-//            actor.m_ProfileUrl = QUrl(fieldElement.text());
+//            actor.m_ProfileUrl = QUrl(fieldElement.text().trimmed());
 //        }
 //    }
 
@@ -93,16 +94,16 @@ UserPtr ParseUser(const QDomElement& element)
             user->SetId(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "name") {
-            user->SetUserName(fieldElement.text());
+            user->SetUserName(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "first_name") {
-            user->SetFirstName(fieldElement.text());
+            user->SetFirstName(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "last_name") {
-            user->SetLastName(fieldElement.text());
+            user->SetLastName(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "user_name") {
-            user->SetNickName(fieldElement.text());
+            user->SetNickName(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "link") {
             user->SetWebUrl(QUrl(fieldElement.text()));
@@ -114,31 +115,31 @@ UserPtr ParseUser(const QDomElement& element)
             user->SetSmallAvatarUrl(QUrl(fieldElement.text()));
         }
         else if (fieldElement.tagName() == "about") {
-            user->SetAbout(fieldElement.text());
+            user->SetAbout(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "age") {
             user->SetAge(fieldElement.text().toUInt());
         }
         else if (fieldElement.tagName() == "gender") {
-            user->SetGender(fieldElement.text());
+            user->SetGender(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "location") {
-            user->SetLocation(fieldElement.text());
+            user->SetLocation(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "website") {
             user->SetWebSite(QUrl(fieldElement.text()));
         }
         else if (fieldElement.tagName() == "joined") {
-            user->SetJoinedDate(fieldElement.text());
+            user->SetJoinedDate(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "last_active") {
-            user->SetLastUpdateDate(fieldElement.text());
+            user->SetLastUpdateDate(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "interests") {
             user->SetInterests(fieldElement.text ());
         }
         else if (fieldElement.tagName() == "favorite_books") {
-            user->SetFavoriteBooksDesc(fieldElement.text());
+            user->SetFavoriteBooksDesc(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "favorite_authors") {
             user->SetFavoriteAuthors(ParseFavoriteAuthors(fieldElement));
@@ -219,13 +220,13 @@ BookShelf ParseBookShelf(const QDomElement& element)
             shelf.SetId(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "name") {
-            shelf.SetName(fieldElement.text());
+            shelf.SetName(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "book_count") {
             shelf.SetBooksCount(fieldElement.text().toUInt());
         }
         else if (fieldElement.tagName() == "description") {
-            shelf.SetDescription(fieldElement.text());
+            shelf.SetDescription(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "exclusive_flag") {
             shelf.SetExclusive(fieldElement.text() == "true");
@@ -267,7 +268,7 @@ GroupMember ParseGroupMember(const QDomElement& element)
             gm.SetCommentsCount(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "title") {
-            gm.SetTitle(fieldElement.text());
+            gm.SetTitle(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "user") {
             gm.SetUser(ParseUser(fieldElement));
@@ -287,7 +288,7 @@ GroupFolder ParseGroupFolder(const QDomElement& element)
             gf.SetId(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "name") {
-            gf.SetName(fieldElement.text());
+            gf.SetName(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "items_count") {
             gf.SetItemsCount(fieldElement.text().toULongLong());
@@ -314,7 +315,7 @@ GroupPtr ParseGroup(const QDomElement& element)
             group->SetId(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "title") {
-            group->SetName(fieldElement.text());
+            group->SetName(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "access") {
             group->SetIsPublic(fieldElement.text().toLower() == "public");
@@ -334,10 +335,10 @@ GroupPtr ParseGroup(const QDomElement& element)
             group->SetUrl(QUrl(fieldElement.text()));
         }
         else if (fieldElement.tagName() == "description") {
-            group->SetDescription(fieldElement.text());
+            group->SetDescription(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "location") {
-            group->SetLocation(fieldElement.text());
+            group->SetLocation(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "display_folder_count") {
             group->SetDisplayFolderCount(fieldElement.text().toULongLong());
@@ -367,13 +368,13 @@ GroupPtr ParseGroup(const QDomElement& element)
             group->SetAcceptingNewMemberFlag(fieldElement.text() == "true");
         }
         else if (fieldElement.tagName() == "category") {
-            group->SetCategory(fieldElement.text());
+            group->SetCategory(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "subcategory") {
-            group->SetSubCategory(fieldElement.text());
+            group->SetSubCategory(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "rules") {
-            group->SetRules(fieldElement.text());
+            group->SetRules(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "folders") {
             group->SetGroupFolders(ParseGroupFolders(fieldElement));
@@ -399,7 +400,7 @@ Friend ParseFriend(const QDomElement& element)
             fr.SetId(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "name") {
-            fr.SetName(fieldElement.text());
+            fr.SetName(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "link") {
             fr.SetUrl(QUrl(fieldElement.text()));
@@ -435,7 +436,7 @@ TopicPtr ParseTopic(const QDomElement& element)
             topic->SetId(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "title") {
-            topic->SetTitle(fieldElement.text());
+            topic->SetTitle(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "comments_count") {
             topic->SetCommentsCount(fieldElement.text().toULongLong());
@@ -445,7 +446,7 @@ TopicPtr ParseTopic(const QDomElement& element)
                     Qt::ISODate));
         }
         else if (fieldElement.tagName() == "context_type") {
-            topic->SetContextType(fieldElement.text());
+            topic->SetContextType(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "context_id") {
             topic->SetContextId(fieldElement.text().toULongLong());
@@ -469,7 +470,7 @@ TopicPtr ParseTopic(const QDomElement& element)
             if (!author) {
                 author = std::make_shared<User>();
             }
-            author->SetUserName(fieldElement.text());
+            author->SetUserName(fieldElement.text().trimmed());
             topic->SetAuthor(author);
         }
         else if (fieldElement.tagName() == "new_comments_count") {
@@ -483,7 +484,7 @@ TopicPtr ParseTopic(const QDomElement& element)
                     Qt::ISODate));
         }
         else if (fieldElement.tagName() == "subject_type") {
-           topic->SetSubjectType(fieldElement.text());
+           topic->SetSubjectType(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "group") {
             topic->SetGroup(ParseGroup(fieldElement));
@@ -506,7 +507,7 @@ Comment ParseComment(const QDomElement& element)
             comment.SetId(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "body") {
-            comment.SetBody(fieldElement.text());
+            comment.SetBody(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "user") {
             comment.SetAuthor(ParseUser(fieldElement));
@@ -533,31 +534,31 @@ BookPtr ParseBook(const QDomElement& element)
             book->SetId(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "isbn") {
-            book->SetISBN(fieldElement.text());
+            book->SetISBN(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "isbn13") {
-            book->SetISBN13(fieldElement.text());
+            book->SetISBN13(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "asin") {
-            book->SetASIN(fieldElement.text());
+            book->SetASIN(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "kindle_asin") {
-            book->SetKindleASIN(fieldElement.text());
+            book->SetKindleASIN(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "marketplace_id") {
-            book->SetMarketplaceId(fieldElement.text());
+            book->SetMarketplaceId(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "country_code") {
-            book->SetCountryCode(fieldElement.text());
+            book->SetCountryCode(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "text_reviews_count") {
             book->SetTextReviewsCount(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "title") {
-            book->SetTitle(fieldElement.text());
+            book->SetTitle(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "title_without_series") {
-            book->SetTitleWithoutSeries(fieldElement.text());
+            book->SetTitleWithoutSeries(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "image_url") {
             book->SetImageUrl(QUrl(fieldElement.text()));
@@ -575,13 +576,13 @@ BookPtr ParseBook(const QDomElement& element)
             book->SetNumPages(fieldElement.text().toInt());
         }
         else if (fieldElement.tagName() == "format") {
-            book->SetFormat(fieldElement.text());
+            book->SetFormat(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "edition_information") {
-            book->SetEditionInformation(fieldElement.text());
+            book->SetEditionInformation(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "publisher") {
-            book->SetPublisher(fieldElement.text());
+            book->SetPublisher(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "publication_day") {
             book->SetPublicationDay(fieldElement.text().toInt());
@@ -599,7 +600,7 @@ BookPtr ParseBook(const QDomElement& element)
             book->SetRatingsCount(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "description") {
-            book->SetDescription(fieldElement.text());
+            book->SetDescription(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "published") {
             book->SetPublishedYear(fieldElement.text().toInt());
@@ -607,17 +608,20 @@ BookPtr ParseBook(const QDomElement& element)
         else if (fieldElement.tagName() == "authors") {
             book->SetAuthors(ParseAuthors(fieldElement));
         }
+        else if (fieldElement.tagName() == "author") {
+            book->SetAuthors({ ParseAuthor(fieldElement) });
+        }
         else if (fieldElement.tagName() == "work") {
             book->SetWork(ParseWork(fieldElement));
         }
         else if (fieldElement.tagName() == "language") {
-            book->SetLanguage(fieldElement.text());
+            book->SetLanguage(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "is_ebook") {
             book->SetIsEBook(fieldElement.text() == "true");
         }
         else if (fieldElement.tagName() == "reviews_widget") {
-            book->SetReviewsWidgetContent(fieldElement.text());
+            book->SetReviewsWidgetContent(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "similar_books") {
             const auto& similarBooksList = fieldElement.childNodes();
@@ -628,7 +632,7 @@ BookPtr ParseBook(const QDomElement& element)
             book->SetSimilarBooks(books);
         }
         else if (fieldElement.tagName() == "series_works") {
-            book->SetSeriesWorks(ParseSeriesWorks(fieldElement));
+            book->SetSeriesList(ParseSeriesFromSeriesWorks(fieldElement));
         }
         else if (fieldElement.tagName() == "my_review") {
             book->SetReview(ParseReview(fieldElement));
@@ -688,13 +692,13 @@ ReviewPtr ParseReview(const QDomElement& element)
             review->SetReadCount(fieldElement.text().toInt());
         }
         else if (fieldElement.tagName() == "body") {
-            review->SetBody(fieldElement.text());
+            review->SetBody(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "comments_count") {
             review->SetCommentsCount(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "url") {
-            review->SetUrl(fieldElement.text());
+            review->SetUrl(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "owned") {
             review->SetOwned(fieldElement.text().toULongLong());
@@ -714,7 +718,7 @@ AuthorPtr ParseAuthor(const QDomElement& element)
             author->SetId(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "name") {
-            author->SetName(fieldElement.text());
+            author->SetName(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "image_url") {
             author->SetImageUrl(QUrl(fieldElement.text()));
@@ -739,47 +743,50 @@ AuthorPtr ParseAuthor(const QDomElement& element)
     return author;
 }
 
-Work ParseWork(const QDomElement& element)
+WorkPtr ParseWork(const QDomElement& element)
 {
-    Work work;
+    WorkPtr work = std::make_shared<Work>();
     const auto& fieldsList = element.childNodes();
     for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
         const auto& fieldElement = fieldsList.at (i).toElement ();
         if (fieldElement.tagName() == "id") {
-            work.SetId(fieldElement.text().toULongLong());
+            work->SetId(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "books_count") {
-            work.SetBooksCount(fieldElement.text().toInt());
+            work->SetBooksCount(fieldElement.text().toInt());
         }
         else if (fieldElement.tagName() == "best_book_id") {
-            work.SetBestBooksId(fieldElement.text().toULongLong());
+            work->SetBestBooksId(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "reviews_count") {
-            work.SetReviewsCount(fieldElement.text().toULongLong());
+            work->SetReviewsCount(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "ratings_sum") {
-            work.SetRatingSum(fieldElement.text().toULongLong());
+            work->SetRatingSum(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "ratings_count") {
-            work.SetRatingCount(fieldElement.text().toULongLong());
+            work->SetRatingCount(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "text_reviews_count") {
-            work.SetTextReviewsCount(fieldElement.text().toULongLong());
+            work->SetTextReviewsCount(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "original_publication_year") {
-            work.SetOriginalPublicationYear(fieldElement.text().toInt());
+            work->SetOriginalPublicationYear(fieldElement.text().toInt());
         }
         else if (fieldElement.tagName() == "original_publication_month") {
-            work.SetOriginalPublicationMonth(fieldElement.text().toInt());
+            work->SetOriginalPublicationMonth(fieldElement.text().toInt());
         }
         else if (fieldElement.tagName() == "original_publication_day") {
-            work.SetOriginalPublicationDay(fieldElement.text().toInt());
+            work->SetOriginalPublicationDay(fieldElement.text().toInt());
         }
         else if (fieldElement.tagName() == "original_title") {
-            work.SetOriginalTitle(fieldElement.text());
+            work->SetOriginalTitle(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "rating_dist") {
-            work.SetRatingDist(fieldElement.text());
+            work->SetRatingDist(fieldElement.text().trimmed());
+        }
+        else if (fieldElement.tagName() == "best_book") {
+            work->SetBestBook(ParseBook(fieldElement));
         }
     }
 
@@ -796,13 +803,13 @@ SeriesPtr ParseSeries(const QDomElement& element)
             series->SetId(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "title") {
-            series->SetTitle(fieldElement.text());
+            series->SetTitle(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "description") {
-            series->SetDescription(fieldElement.text());
+            series->SetDescription(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "note") {
-            series->SetNote(fieldElement.text());
+            series->SetNote(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "series_works_count") {
             series->SetSeriesWorksCount(fieldElement.text().toInt());
@@ -812,6 +819,9 @@ SeriesPtr ParseSeries(const QDomElement& element)
         }
         else if (fieldElement.tagName() == "numbered") {
             series->SetNumbered(fieldElement.text() == "true");
+        }
+        else if (fieldElement.tagName() == "series_works") {
+            series->SetSeriesWorks(ParseSeriesWorks(fieldElement));
         }
     }
 
@@ -830,8 +840,8 @@ SeriesWorkPtr ParseSeriesWork(const QDomElement& element)
         else if (fieldElement.tagName() == "user_position") {
             seriesWork->SetPosition(fieldElement.text().toInt());
         }
-        else if (fieldElement.tagName() == "series") {
-            seriesWork->SetSeries(ParseSeries(fieldElement));
+        else if (fieldElement.tagName() == "work") {
+            seriesWork->SetWork(ParseWork(fieldElement));
         }
     }
 
@@ -965,6 +975,23 @@ SeriesWorks_t ParseSeriesWorks(const QDomElement& element)
     return seriesWorks;
 }
 
+Series_t ParseSeriesFromSeriesWorks(const QDomElement& element)
+{
+    Series_t series;
+    const auto& nodes = element.childNodes();
+    for (int i = 0, count = nodes.size(); i < count; ++i) {
+        const auto& elem = nodes.at(i).toElement();
+        const auto& fieldsList = elem.childNodes();
+        for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
+            const auto& fieldElement = fieldsList.at (i).toElement ();
+            if (fieldElement.tagName() == "series") {
+                series << ParseSeries(fieldElement);
+                break;
+            }
+        }
+    }
+    return series;
+}
 
 UserPtr ParseUser(const QDomDocument& doc)
 {
@@ -1116,6 +1143,16 @@ BookPtr ParseBook(const QDomDocument& doc)
     }
 
     return ParseBook(responseElement.firstChildElement("book"));
+}
+
+SeriesPtr ParseSeries(const QDomDocument& doc)
+{
+    const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
+    if (responseElement.isNull()) {
+        return SeriesPtr();
+    }
+
+    return ParseSeries(responseElement.firstChildElement("series"));
 }
 }
 }

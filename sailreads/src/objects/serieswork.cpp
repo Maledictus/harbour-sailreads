@@ -24,8 +24,6 @@ THE SOFTWARE.
 
 #include <QtDebug>
 
-#include "series.h"
-
 namespace Sailreads
 {
 SeriesWork::SeriesWork(QObject *parent)
@@ -65,13 +63,13 @@ void SeriesWork::SetPosition(int position)
     m_Position = position;
 }
 
-Series* SeriesWork::GetSeries() const
+Work *SeriesWork::GetWork() const
 {
-    return m_Series.get();
+    return m_Work.get();
 }
 
-void SeriesWork::SetSeries(const SeriesPtr& series)
+void SeriesWork::SetWork(const WorkPtr& work)
 {
-    m_Series = series;
+    m_Work = work;
 }
 } // namespace Sailreads

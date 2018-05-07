@@ -26,7 +26,8 @@ THE SOFTWARE.
 
 #include "author.h"
 #include "review.h"
-#include "serieswork.h"
+#include "series.h"
+#include "work.h"
 
 namespace Sailreads
 {
@@ -377,28 +378,28 @@ void Book::SetSimilarBooks(const Books_t& books)
     m_SimilarBooks = books;
 }
 
-Work Book::GetWork() const
+Work* Book::GetWork() const
 {
-    return m_Work;
+    return m_Work.get();
 }
 
-void Book::SetWork(const Work& work)
+void Book::SetWork(const WorkPtr& work)
 {
     m_Work = work;
 }
 
-QObjectList Book::GetSeriesWorks() const
+QObjectList Book::GetSeriesList() const
 {
     QObjectList objList;
-    for (const auto& seriesWork : m_SeriesWorks) {
-        objList << seriesWork.get();
+    for (const auto& series : m_SeriesList) {
+        objList << series.get();
     }
     return objList;
 }
 
-void Book::SetSeriesWorks(const SeriesWorks_t& seriesWorks)
+void Book::SetSeriesList(const Series_t& series)
 {
-    m_SeriesWorks = seriesWorks;
+    m_SeriesList = series;
 }
 
 Review* Book::GetReview() const

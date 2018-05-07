@@ -141,6 +141,8 @@ void SailreadsManager::MakeConnections()
             this, &SailreadsManager::gotGroupFolderTopic);
     connect(m_Api, &GoodReadsApi::gotBook,
             this, &SailreadsManager::gotBook);
+    connect(m_Api, &GoodReadsApi::gotSeries,
+            this, &SailreadsManager::gotSeries);
 }
 
 void SailreadsManager::SetBusy(bool busy)
@@ -225,6 +227,12 @@ void SailreadsManager::loadBook(quint64 bookId)
 {
     SetBusy(true);
     m_Api->GetBook(bookId);
+}
+
+void SailreadsManager::loadSeries(quint64 seriesId)
+{
+    SetBusy(true);
+    m_Api->GetSeries(seriesId);
 }
 
 void SailreadsManager::loadFriends(quint64 userId)

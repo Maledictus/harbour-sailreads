@@ -20,41 +20,63 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-#pragma once
+#include "seriesitem.h"
 
-#include <QList>
-#include <QObject>
-
-#include "../types.h"
+#include "../objects/series.h"
+#include "../sailreadsmanager.h"
 
 namespace Sailreads
 {
-class SeriesWork: public QObject
+SeriesItem::SeriesItem(QObject *parent)
+: QObject(parent)
+, m_SeriesId(0)
 {
-    Q_OBJECT
+    connect(SailreadsManager::Instance(), &SailreadsManager::gotSeries,
+            this, &SeriesItem::handleGotSeries);
+}
 
-    quint64 m_Id;
-    int m_Position;
-    WorkPtr m_Work;
+quint64 SeriesItem::GetSeriesId() const
+{
+    return m_SeriesId;
+}
 
-    Q_PROPERTY(quint64 id READ GetId NOTIFY idChanged)
-    Q_PROPERTY(int position READ GetPosition NOTIFY positionChanged)
-    Q_PROPERTY(Work* work READ GetWork NOTIFY workChanged)
+void SeriesItem::SetSeriesId(quint64 seriesId)
+{
+    if (m_SeriesId == seriesId) {
+        return;
+    }
 
-public:
-    SeriesWork(QObject *parent = nullptr);
-    ~SeriesWork();
+    m_SeriesId = seriesId;
+    updateSeries();
+    emit seriesIdChanged();
+}
 
-    quint64 GetId() const;
-    void SetId(quint64 id);
-    int GetPosition() const;
-    void SetPosition(int position);
-    Work* GetWork() const;
-    void SetWork(const WorkPtr& work);
+Series* SeriesItem::GetSeries() const
+{
+    return m_Series.get();
+}
 
-signals:
-    void idChanged();
-    void positionChanged();
-    void workChanged();
-};
+void SeriesItem::SetSeries(const SeriesPtr& series)
+{
+    if (!series) {
+        return;
+    }
+
+    m_Series = series;
+    emit seriesChanged();
+}
+
+void SeriesItem::handleGotSeries(const SeriesPtr& series)
+{
+    if (!series || m_SeriesId != series->GetId()) {
+        return;
+    }
+    SetSeries(series);
+}
+
+void SeriesItem::updateSeries()
+{
+    SailreadsManager::Instance()->loadSeries(m_SeriesId);
+}
+
 } // namespace Sailreads

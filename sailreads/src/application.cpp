@@ -48,11 +48,13 @@ THE SOFTWARE.
 #include "objects/series.h"
 #include "objects/serieswork.h"
 #include "objects/user.h"
+#include "objects/work.h"
 
 #include "objects/groupfolder.h"
 #include "objects/topic.h"
 #include "qmltypes/bookitem.h"
 #include "qmltypes/groupitem.h"
+#include "qmltypes/seriesitem.h"
 #include "qmltypes/topicitem.h"
 #include "qmltypes/userprofile.h"
 #include "settings/accountsettings.h"
@@ -107,11 +109,13 @@ void Application::start()
     qmlRegisterUncreatableType<Series>("harbour.sailreads", 1, 0, "Series",
             "Series provides attached properties and can't be instantiated");
     qmlRegisterUncreatableType<SeriesWork>("harbour.sailreads", 1, 0, "SeriesWork",
-            "SeSeriesWork provides attached properties and can't be instantiated");
+            "SeriesWork provides attached properties and can't be instantiated");
     qmlRegisterUncreatableType<Topic>("harbour.sailreads", 1, 0, "Topic",
             "Topic provids attached properties and can't be instantiated");
     qmlRegisterUncreatableType<User>("harbour.sailreads", 1, 0, "User",
             "User provids attached properties and can't be instantiated");
+    qmlRegisterUncreatableType<Work>("harbour.sailreads", 1, 0, "Work",
+            "Work provides attached properties and can't be instantiated");
 
     qRegisterMetaType<QObjectList>("QObjectList");
     qRegisterMetaType<Author*>("Author*");
@@ -122,6 +126,7 @@ void Application::start()
     qRegisterMetaType<SeriesWork*>("SeriesWork*");
     qRegisterMetaType<Topic*>("Topic*");
     qRegisterMetaType<User*>("User*");
+    qRegisterMetaType<Work*>("Work*");
     qRegisterMetaType<GroupFolder>("GroupFolder");
 
     qmlRegisterType<BaseProxyModel>("harbour.sailreads", 1, 0, "BaseProxyModel");
@@ -139,6 +144,7 @@ void Application::start()
     qmlRegisterType<GroupItem>("harbour.sailreads", 1, 0, "GroupItem");
     qmlRegisterType<TopicItem>("harbour.sailreads", 1, 0, "TopicItem");
     qmlRegisterType<BookItem>("harbour.sailreads", 1, 0, "BookItem");
+    qmlRegisterType<SeriesItem>("harbour.sailreads", 1, 0, "SeriesItem");
 
     ShowUI();
 }

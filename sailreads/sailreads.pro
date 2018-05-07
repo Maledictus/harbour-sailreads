@@ -46,6 +46,7 @@ SOURCES += src/harbour-sailreads.cpp \
     src/objects/work.cpp \
     src/qmltypes/bookitem.cpp \
     src/qmltypes/groupitem.cpp \
+    src/qmltypes/seriesitem.cpp \
     src/qmltypes/topicitem.cpp \
     src/qmltypes/userprofile.cpp \
     src/settings/accountsettings.cpp \
@@ -88,6 +89,7 @@ HEADERS += src/application.h \
     src/objects/work.h \
     src/qmltypes/groupitem.h \
     src/qmltypes/bookitem.h \
+    src/qmltypes/seriesitem.h \
     src/qmltypes/topicitem.h \
     src/qmltypes/userprofile.h \
     src/settings/accountsettings.h \

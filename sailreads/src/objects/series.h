@@ -25,6 +25,8 @@ THE SOFTWARE.
 #include <QString>
 #include <QObject>
 
+#include "../types.h"
+
 namespace Sailreads
 {
 class Series : public QObject
@@ -38,6 +40,7 @@ class Series : public QObject
     int m_SeriesWorksCount;
     int m_PrimaryWorkCount;
     bool m_Numbered;
+    SeriesWorks_t m_SeriesWorks;
 
     Q_PROPERTY(quint64 id READ GetId NOTIFY idChanged)
     Q_PROPERTY(QString title READ GetTitle NOTIFY titleChanged)
@@ -46,6 +49,7 @@ class Series : public QObject
     Q_PROPERTY(int seriesWorksCount READ GetSeriesWorksCount NOTIFY seriesWorksCountChanged)
     Q_PROPERTY(int primaryWorkCount READ GetPrimaryWorkCount NOTIFY primaryWorkCountChanged)
     Q_PROPERTY(bool numbered READ GetNumbered NOTIFY numberedChanged)
+    Q_PROPERTY(QObjectList seriesWorks READ GetSeriesWorks NOTIFY seriesWorksChanged)
 
 public:
     Series(QObject *parent = nullptr);
@@ -65,6 +69,8 @@ public:
     void SetPrimaryWorkCount(int primaryWorkCount);
     bool GetNumbered() const;
     void SetNumbered(bool numbered);
+    QObjectList GetSeriesWorks() const;
+    void SetSeriesWorks(const SeriesWorks_t& seriesWorks);
 
 signals:
     void idChanged();
@@ -74,5 +80,6 @@ signals:
     void seriesWorksCountChanged();
     void primaryWorkCountChanged();
     void numberedChanged();
+    void seriesWorksChanged();
 };
 } // namespace Sailreads
