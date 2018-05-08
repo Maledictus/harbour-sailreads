@@ -60,7 +60,7 @@ Page {
             return "";
         }
 
-        var result = qsTr("<style>a:link{color:" + Theme.highlightColor + ";}</style>by ")
+        var result = qsTr("<style>a:link{color:" + Theme.primaryColor + ";}</style>by ")
         for (var i = 0; i < bookItem.book.authors.length; ++i) {
             result += "<a href=\"%1\" style=\"text-decoration:none;\">%2</a>"
                     .arg(bookItem.book.authors[i].id)
@@ -77,7 +77,7 @@ Page {
             return "";
         }
 
-        var result = qsTr("<style>a:link{color:" + Theme.highlightColor + ";}</style>")
+        var result = qsTr("<style>a:link{color:" + Theme.primaryColor + ";}</style>")
         for (var i = 0; i < bookItem.book.seriesList.length; ++i) {
             result += "<a href=\"%1\" style=\"text-decoration:none;\">%2</a>"
                     .arg(bookItem.book.seriesList[i].id)
@@ -136,6 +136,7 @@ Page {
                     right: parent.right
                     rightMargin: Theme.horizontalPageMargin
                 }
+                color: Theme.highlightColor
                 horizontalAlignment: Text.AlignHCenter
                 font.family: Theme.fontFamilyHeading
             }
@@ -181,6 +182,7 @@ Page {
 
                 Label {
                     Layout.alignment: Qt.AlignLeft
+                    color: Theme.highlightColor
                     text: Number(review ? review.book.averageRating : (bookItem.book ?
                             bookItem.book.averageRating : 0)).toFixed(2)
                     Layout.fillWidth: true
@@ -188,6 +190,7 @@ Page {
                 }
 
                 Label {
+                    color: Theme.highlightColor
                     Layout.alignment: Qt.AlignRight
                     font.pixelSize: Theme.fontSizeSmall
                     text: qsTr("%1 ratings")
@@ -215,6 +218,7 @@ Page {
                         horizontalCenter: parent.horizontalCenter
                     }
 
+                    color: Theme.highlightColor
                     font.pixelSize: Theme.fontSizeMedium
                     horizontalAlignment: Text.AlignHCenter
                     text: qsTr("Rate this book:")

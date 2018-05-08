@@ -210,19 +210,14 @@ Page {
                 "p { color:" + Theme.primaryColor + "; }" +
                 "</style>"
 
-        Label {
+
+        CollapsedLabel {
             anchors {
                 left: parent.left
                 leftMargin: Theme.horizontalPageMargin
                 right: parent.right
                 rightMargin: Theme.horizontalPageMargin
             }
-            width: parent.width
-            linkColor: Theme.highlightColor
-            font.pixelSize: Theme.fontSizeSmall
-            textFormat: Text.RichText
-            wrapMode: Text.WordWrap
-            color: Theme.highlightColor
             text: seriesItem.series !== null ? (headerBox._style + seriesItem.series.description) : ""
             onLinkActivated: {
                 Qt.openUrlExternally(link)
