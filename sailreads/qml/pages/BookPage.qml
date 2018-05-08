@@ -60,7 +60,7 @@ Page {
             return "";
         }
 
-        var result = qsTr("<style>a:link{color:" + Theme.primaryColor + ";}</style>by ")
+        var result = qsTr("<style>a:link{color:" + Theme.primaryColor + ";}</style>")
         for (var i = 0; i < bookItem.book.authors.length; ++i) {
             result += "<a href=\"%1\" style=\"text-decoration:none;\">%2</a>"
                     .arg(bookItem.book.authors[i].id)
@@ -176,6 +176,7 @@ Page {
 
                 RatingBox {
                     Layout.alignment: Qt.AlignLeft
+                    color: Theme.highlightColor
                     rating: review ? review.book.averageRating :
                             (bookItem.book ? bookItem.book.averageRating : 0)
                 }
@@ -184,7 +185,7 @@ Page {
                     Layout.alignment: Qt.AlignLeft
                     color: Theme.highlightColor
                     text: Number(review ? review.book.averageRating : (bookItem.book ?
-                            bookItem.book.averageRating : 0)).toFixed(2)
+                            bookItem.book.averageRating : 0)).toLocaleString()
                     Layout.fillWidth: true
                     horizontalAlignment: Text.AlignLeft
                 }
@@ -193,9 +194,9 @@ Page {
                     color: Theme.highlightColor
                     Layout.alignment: Qt.AlignRight
                     font.pixelSize: Theme.fontSizeSmall
-                    text: qsTr("%1 ratings")
-                            .arg(Number(review ? review.book.ratingsCount :
-                                        (bookItem.book ? bookItem.book.ratingsCount : 0)).toFixed())
+                    text: qsTr("%1 ratings").arg(Number(review ? review.book.ratingsCount :
+                                (bookItem.book ? bookItem.book.ratingsCount : 0))
+                                    .toLocaleString(Qt.locale(), 'f', 0))
                 }
             }
 

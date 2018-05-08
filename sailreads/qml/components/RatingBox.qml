@@ -29,6 +29,7 @@ Row {
     property real rating: 0
     property real iconWidth: Theme.iconSizeSmall
     property real iconHeight: Theme.iconSizeSmall
+    property color color: Theme.primaryColor
 
     Repeater {
         id: ratingBox
@@ -39,14 +40,14 @@ Row {
             width: iconWidth
             height: iconHeight
             source: {
-                if (rating - index < 0.5) {
-                    return "image://theme/icon-m-favorite"
+                if (rating - index < 1) {
+                    return "image://theme/icon-m-favorite?" + color
                 }
-                else if (rating - index < 1) {
-                    return "qrc:/images/icon-m-favorite-half.svg"
-                }
+//                else if (rating - index < 1) {
+//                    return "qrc:/images/icon-m-favorite-half.svg"
+//                }
                 else {
-                    return "image://theme/icon-m-favorite-selected"
+                    return "image://theme/icon-m-favorite-selected?" + color
                 }
             }
         }

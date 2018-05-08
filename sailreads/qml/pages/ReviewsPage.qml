@@ -32,7 +32,7 @@ Page {
     id: reviewsPage
 
     property alias userId: reviewsModel.userId
-    property var userProfile
+    property string userName
     property alias bookShelfId: reviewsModel.bookShelfId
     property alias bookShelf: reviewsModel.bookShelf
     property bool busy: sailreadsManager.busy && reviewsPage.status === PageStatus.Active
@@ -56,10 +56,7 @@ Page {
         id: reviewsView
         anchors.fill: parent
         header: PageHeader {
-            title: {
-                userProfile === null ? bookShelf
-                        : "%1: %2".arg(userProfile.userName).arg(bookShelf)
-            }
+            title: "%1: %2".arg(userName).arg(bookShelf)
         }
 
         PullDownMenu {
@@ -136,7 +133,7 @@ Page {
                         width: parent.width
                         truncationMode: TruncationMode.Fade
                         font.pixelSize: Theme.fontSizeTiny
-                        text: qsTr("by %1").arg(reviewBook.authorsString)
+                        text: reviewBook.authorsString
                     }
 
                     Row {
@@ -147,8 +144,10 @@ Page {
 
                         Label {
                             font.pixelSize: Theme.fontSizeExtraSmall
-                            text: qsTr("%1/%2 ratings").arg(Number(reviewBook.averageRating).toFixed(2))
-                                    .arg(Number(reviewBook.ratingsCount).toFixed())
+                            text: qsTr("%1/%2 ratings").arg(Number(reviewBook.averageRating)
+                                        .toLocaleString())
+                                    .arg(Number(reviewBook.ratingsCount)
+                                        .toLocaleString(Qt.locale(), 'f', 0))
                         }
                     }
                 }

@@ -109,9 +109,8 @@ Page {
                         width: parent.width
                         truncationMode: TruncationMode.Fade
                         font.pixelSize: Theme.fontSizeTiny
-                        text: qsTr("by %1").arg(modelData.work !== null &&
-                                    modelData.work.bestBook !== null ?
-                                modelData.work.bestBook.authorsString : "")
+                        text: modelData.work !== null && modelData.work.bestBook !== null ?
+                                modelData.work.bestBook.authorsString : ""
                     }
 
                     Row {
@@ -122,11 +121,12 @@ Page {
 
                         Label {
                             font.pixelSize: Theme.fontSizeExtraSmall
-                            text: qsTr("%1/%2 ratings")
-                                    .arg(modelData.work !== null ?
-                                            Number(modelData.work.averageRating).toFixed(2) : 0)
+                            text: qsTr("%1/%2 ratings").arg(modelData.work !== null ?
+                                        Number(modelData.work.averageRating).toLocaleString()
+                                        : 0)
                                     .arg(Number(modelData.work !== null ?
-                                            modelData.work.ratingCount : 0).toFixed())
+                                        modelData.work.ratingCount : 0)
+                                            .toLocaleString(Qt.locale(), 'f', 0))
                         }
                     }
                 }

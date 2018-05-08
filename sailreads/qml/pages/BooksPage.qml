@@ -103,7 +103,7 @@ Page {
                         width: parent.width
                         truncationMode: TruncationMode.Fade
                         font.pixelSize: Theme.fontSizeTiny
-                        text: qsTr("by %1").arg(modelData.authorsString)
+                        text: modelData.authorsString
                     }
 
                     Row {
@@ -114,8 +114,10 @@ Page {
 
                         Label {
                             font.pixelSize: Theme.fontSizeExtraSmall
-                            text: qsTr("%1/%2 ratings").arg(Number(modelData.averageRating).toFixed(2))
-                                    .arg(Number(modelData.ratingsCount).toFixed())
+                            text: qsTr("%1/%2 ratings").arg(Number(modelData.averageRating)
+                                        .toLocaleString())
+                                    .arg(Number(modelData.ratingsCount)
+                                        .toLocaleString(Qt.locale(), 'f', 0))
                         }
                     }
                 }

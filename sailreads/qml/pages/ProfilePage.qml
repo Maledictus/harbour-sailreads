@@ -220,7 +220,8 @@ Page {
                 enabled: !busy
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("BookShelvesPage.qml"), {
-                        userId: userProfile.user ? userProfile.user.id : 0
+                        userId: userProfile.user ? userProfile.user.id : 0,
+                        userName: userProfile.user ? userProfile.user.userName : "",
                     })
                 }
             }
@@ -258,7 +259,7 @@ Page {
 
                     onClicked: {
                         pageStack.push(Qt.resolvedUrl("ReviewsPage.qml"),
-                                { userId: userProfile.user.id, userProfile: userProfile.user,
+                                { userId: userProfile.user.id, userName: userProfile.user.userName,
                                     bookShelfId: bookShelfId, bookShelf: bookShelfName })
                     }
                 }

@@ -119,7 +119,7 @@ Page {
                 KeyValueLabel {
                     id: groupMembersLabel
                     key: qsTr("Members")
-                    value: Number(groupUsersCount).toFixed()
+                    value: Number(groupUsersCount).toLocaleString(Qt.locale(), 'f', 0)
                 }
             }
 

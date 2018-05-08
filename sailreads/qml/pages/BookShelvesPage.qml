@@ -30,6 +30,7 @@ Page {
     id: page
 
     property int userId: 0
+    property string userName
     property bool busy: sailreadsManager.busy && page.status === PageStatus.Active
 
     function attachPage() {
@@ -126,7 +127,8 @@ Page {
 
             onClicked: {
                 pageStack.push(Qt.resolvedUrl("ReviewsPage.qml"),
-                        { userId: userId, bookShelfId: bookShelfId, bookShelf: bookShelfName })
+                        { userId: userId, userName: userName,
+                        bookShelfId: bookShelfId, bookShelf: bookShelfName })
             }
         }
         VerticalScrollDecorator {}
