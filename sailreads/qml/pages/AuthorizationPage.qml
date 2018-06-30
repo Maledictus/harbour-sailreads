@@ -34,7 +34,7 @@ Page {
         anchors.fill: parent
 
         experimental.preferences.navigatorQtObjectEnabled: true
-        experimental.preferences.privateBrowsingEnabled: true
+        experimental.userAgent: "Mozilla/5.0 (Maemo; Linux; U; Sailfish; Mobile; rv:38.0) Gecko/38.0 Firefox/38.0"
 
         onLoadingChanged: {
             if (loadRequest.status !== WebView.LoadSucceededStatus) {
