@@ -206,7 +206,7 @@ void GoodReadsApi::GetReviews(quint64 userId, const QString& bookShelf, const QS
 {
     const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
             QUrl(QString("https://www.goodreads.com/review/list/%1.xml?v=2&shelf=%2&page=%3&"
-                         "per_page=200&sort=%4&order=%5")
+                         "per_page=50&sort=%4&order=%5")
                  .arg(userId).arg(bookShelf).arg(page).arg(sortField)
                  .arg(order == Qt::AscendingOrder ? "a" : "d")), "GET");
     auto reply = m_NAM->get(QNetworkRequest(pair.first));
@@ -217,7 +217,7 @@ void GoodReadsApi::GetReviews(quint64 userId, const QString& bookShelf, const QS
 
 void GoodReadsApi::GetReview(quint64 reviewId, int page)
 {
-    QString url = QString("https://www.goodreads.com/review/show.xml?id=%1&key=%2&page=3")
+    QString url = QString("https://www.goodreads.com/review/show.xml?id=%1&key=%2&page=%3")
             .arg(reviewId).arg(m_ConsumerKey).arg(page);
     auto reply = m_NAM->get(QNetworkRequest(url));
     connect(reply, &QNetworkReply::finished,
@@ -311,7 +311,7 @@ void GoodReadsApi::GetSeries(quint64 seriesId)
 
 void GoodReadsApi::GetAuthorSeries(quint64 authorId)
 {
-    const QUrl url(QString("https://www.goodreads.com/list/%1.xmlkey=%2")
+    const QUrl url(QString("https://www.goodreads.com/list/%1.xml?key=%2")
             .arg(authorId).arg(m_ConsumerKey));
     auto reply = m_NAM->get(QNetworkRequest(url));
     m_CurrentReply = reply;
