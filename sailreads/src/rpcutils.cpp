@@ -114,6 +114,9 @@ UserPtr ParseUser(const QDomElement& element)
         else if (fieldElement.tagName() == "small_image_url") {
             user->SetSmallAvatarUrl(QUrl(fieldElement.text()));
         }
+        else if (fieldElement.tagName() == "is_following") {
+            //TODOuser->SetIsFollowing(fieldElement.text() == "true");
+        }
         else if (fieldElement.tagName() == "about") {
             user->SetAbout(fieldElement.text().trimmed());
         }
@@ -144,6 +147,12 @@ UserPtr ParseUser(const QDomElement& element)
         else if (fieldElement.tagName() == "favorite_authors") {
             user->SetFavoriteAuthors(ParseFavoriteAuthors(fieldElement));
         }
+        else if (fieldElement.tagName() == "friend") {
+            //TODOuser->SetFriend(fieldElement.text() == "true");
+        }
+        else if (fieldElement.tagName() == "friend_status") {
+            //TODOuser->SetFriendStatus();
+        }
         else if (fieldElement.tagName() == "updates_rss_url") {
             user->SetUpdateRSSUrl(QUrl(fieldElement.text()));
         }
@@ -159,16 +168,18 @@ UserPtr ParseUser(const QDomElement& element)
         else if (fieldElement.tagName() == "reviews_count") {
             user->SetBooksCount(fieldElement.text().toUInt());
         }
-        else if (fieldElement.tagName() == "private") {
-            user->SetPrivate(fieldElement.text() == "true");
-        }
         else if (fieldElement.tagName() == "user_shelves") {
             user->SetBookShelves(ParseBookShelves(fieldElement));
         }
-        //TODO updates later
-//        else if (fieldElement.tagName() == "updates") {
-//            user->SetUserUpdates(ParseUserUpdates(fieldElement));
-//        }
+        else if (fieldElement.tagName() == "private") {
+            user->SetPrivate(fieldElement.text() == "true");
+        }
+        else if (fieldElement.tagName() == "updates") {
+            //TODOuser->SetUserUpdates(ParseUserUpdates(fieldElement));
+        }
+        else if (fieldElement.tagName() == "user_statuses") {
+            // No any sense to implement this
+        }
      }
     return user;
 }
@@ -225,17 +236,17 @@ BookShelf ParseBookShelf(const QDomElement& element)
         else if (fieldElement.tagName() == "book_count") {
             shelf.SetBooksCount(fieldElement.text().toUInt());
         }
-        else if (fieldElement.tagName() == "description") {
-            shelf.SetDescription(fieldElement.text().trimmed());
-        }
         else if (fieldElement.tagName() == "exclusive_flag") {
             shelf.SetExclusive(fieldElement.text() == "true");
         }
-        else if (fieldElement.tagName() == "featured") {
-            shelf.SetFeatured(fieldElement.text() == "true");
+        else if (fieldElement.tagName() == "description") {
+            shelf.SetDescription(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "sort") {
             shelf.SetSortable(fieldElement.text() == "true");
+        }
+        else if (fieldElement.tagName() == "featured") {
+            shelf.SetFeatured(fieldElement.text() == "true");
         }
     }
 
@@ -334,6 +345,9 @@ GroupPtr ParseGroup(const QDomElement& element)
         else if (fieldElement.tagName() == "link") {
             group->SetUrl(QUrl(fieldElement.text()));
         }
+        else if (fieldElement.tagName() == "is_member") {
+            //TODO set is member
+        }
         else if (fieldElement.tagName() == "description") {
             group->SetDescription(fieldElement.text().trimmed());
         }
@@ -378,6 +392,9 @@ GroupPtr ParseGroup(const QDomElement& element)
         }
         else if (fieldElement.tagName() == "folders") {
             group->SetGroupFolders(ParseGroupFolders(fieldElement));
+        }
+        else if (fieldElement.tagName() == "currently_reading") {
+            //TODO currently reading group books
         }
         else if (fieldElement.tagName() == "moderators") {
             group->SetGroupModerators(ParseGroupMembers(fieldElement));
@@ -450,6 +467,9 @@ TopicPtr ParseTopic(const QDomElement& element)
         }
         else if (fieldElement.tagName() == "context_id") {
             topic->SetContextId(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "unread_count") {
+            //TODO
         }
         else if (fieldElement.tagName() == "author_user") {
             topic->SetAuthor(ParseUser(fieldElement));
@@ -660,6 +680,12 @@ ReviewPtr ParseReview(const QDomElement& element)
         else if (fieldElement.tagName() == "votes") {
             review->SetVotes(fieldElement.text().toInt());
         }
+        else if (fieldElement.tagName() == "spoiler_flag") {
+            //TODO
+        }
+        else if (fieldElement.tagName() == "spoilers_state") {
+            //TODO
+        }
         else if (fieldElement.tagName() == "shelves") {
             BookShelves_t shelves;
             const auto& shelvesLits = fieldElement.childNodes();
@@ -672,6 +698,20 @@ ReviewPtr ParseReview(const QDomElement& element)
             }
             review->SetShelves(shelves);
         }
+        else if (fieldElement.tagName() == "recommended_for") {
+            //TODO
+        }
+        else if (fieldElement.tagName() == "recommended_by") {
+            //TODO
+        }
+        else if (fieldElement.tagName() == "started_at" && !fieldElement.text().isEmpty()) {
+            review->SetStartedDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
+                    Qt::ISODate));
+        }
+        else if (fieldElement.tagName() == "read_at" && !fieldElement.text().isEmpty()) {
+            //TODO review->SetReadDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
+            //        Qt::ISODate));
+        }
         else if (fieldElement.tagName() == "date_added" && !fieldElement.text().isEmpty()) {
             review->SetAddedDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
                     Qt::ISODate));
@@ -682,10 +722,6 @@ ReviewPtr ParseReview(const QDomElement& element)
         }
         else if (fieldElement.tagName() == "date_read" && !fieldElement.text().isEmpty()) {
             review->SetReadDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
-                    Qt::ISODate));
-        }
-        else if (fieldElement.tagName() == "started_at" && !fieldElement.text().isEmpty()) {
-            review->SetStartedDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
                     Qt::ISODate));
         }
         else if (fieldElement.tagName() == "read_count") {
@@ -719,6 +755,9 @@ AuthorPtr ParseAuthor(const QDomElement& element)
         }
         else if (fieldElement.tagName() == "name") {
             author->SetName(fieldElement.text().trimmed());
+        }
+        else if (fieldElement.tagName() == "role") {
+            //TODO
         }
         else if (fieldElement.tagName() == "image_url") {
             author->SetImageUrl(QUrl(fieldElement.text()));
