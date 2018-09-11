@@ -207,16 +207,17 @@ void SailreadsManager::loadBookShelves(quint64 id)
     m_Api->GetBookShelves(id);
 }
 
-void SailreadsManager::addBookShelf(const QString& name, bool exclusive)
+void SailreadsManager::addBookShelf(const QString& name, bool exclusive, bool sortable, bool featured)
 {
     SetBusy(true);
-    m_Api->AddBookShelf(name, exclusive);
+    m_Api->AddBookShelf(name, exclusive, sortable, featured);
 }
 
-void SailreadsManager::editBookShelf(quint64 id, const QString& name, bool exclusive)
+void SailreadsManager::editBookShelf(quint64 id, const QString& name, bool exclusive,
+        bool sortable, bool featured)
 {
     SetBusy(true);
-    m_Api->EditBookShelf(id, name, exclusive);
+    m_Api->EditBookShelf(id, name, exclusive, sortable, featured);
 }
 
 void SailreadsManager::loadReviews(quint64 userId, const QString& bookShelf, int page,

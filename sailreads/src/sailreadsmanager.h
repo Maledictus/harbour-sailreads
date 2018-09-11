@@ -83,8 +83,8 @@ public slots:
     void getUpdates();
 
     void loadBookShelves(quint64 id);
-    void addBookShelf(const QString& name, bool exclusive);
-    void editBookShelf(quint64 id, const QString& name, bool exclusive);
+    void addBookShelf(const QString& name, bool exclusive, bool sortable, bool featured);
+    void editBookShelf(quint64 id, const QString& name, bool exclusive, bool sortable, bool featured);
 
     void loadReviews(quint64 userId, const QString& bookShelf, int page = 1,
             Qt::SortOrder order = Qt::DescendingOrder, const QString& sortField = "date_added");

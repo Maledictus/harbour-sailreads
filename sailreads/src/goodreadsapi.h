@@ -87,8 +87,8 @@ public:
     void GetNotifications(int page);
 
     void GetBookShelves(quint64 userId);
-    void AddBookShelf(const QString& name, bool exclusive);
-    void EditBookShelf(quint64 id, const QString& name, bool exclusive);
+    void AddBookShelf(const QString& name, bool exclusive, bool sortable, bool featured);
+    void EditBookShelf(quint64 id, const QString& name, bool exclusive, bool sortable, bool featured);
 
     void GetReviews(quint64 userId, const QString& bookShelf, const QString& sortField = "date_added",
             Qt::SortOrder order = Qt::DescendingOrder, int page = 1);

@@ -66,7 +66,8 @@ Page {
                 onClicked: {
                     var dialog = pageStack.push("../dialogs/AddEditShelfDialog.qml")
                     dialog.accepted.connect (function () {
-                        sailreadsManager.addBookShelf(dialog.name, dialog.exclusive)
+                        sailreadsManager.addBookShelf(dialog.name, dialog.exclusive,
+                                dialog.sortable, dialog.featured)
                     })
                 }
             }
@@ -117,9 +118,11 @@ Page {
                     text: qsTr("Edit")
                     onClicked: {
                         var dialog = pageStack.push("../dialogs/AddEditShelfDialog.qml",
-                            { mode: "edit", name: bookShelfName, exclusive: bookShelfExclusive })
+                            { mode: "edit", name: bookShelfName, exclusive: bookShelfExclusive,
+                                sortable: bookShelfSortable, featured: bookShelfFeatured })
                         dialog.accepted.connect(function () {
-                            sailreadsManager.editBookShelf(bookShelfId, dialog.name, dialog.exclusive)
+                            sailreadsManager.editBookShelf(bookShelfId, dialog.name, dialog.exclusive,
+                                    dialog.sortable, dialog.featured)
                             })
                      }
                 }

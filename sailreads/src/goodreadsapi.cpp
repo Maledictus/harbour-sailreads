@@ -177,10 +177,12 @@ QNetworkRequest PreparePostRequest(const QUrl& url)
 }
 }
 
-void GoodReadsApi::AddBookShelf(const QString& name, bool exclusive)
+void GoodReadsApi::AddBookShelf(const QString& name, bool exclusive, bool sortable, bool featured)
 {
     QString urlString = QString("https://www.goodreads.com/user_shelves.xml?user_shelf[name]=%1&"
-            "user_shelf[exclusive_flag]=%2").arg(name).arg(exclusive ? "true" : "false");
+            "user_shelf[exclusive_flag]=%2&user_shelf[sortable_flag]=%3&user_shelf[featured]=%4")
+            .arg(name).arg(exclusive ? "true" : "false")
+            .arg(sortable ? "true" : "false").arg(featured ? "true" : "false");
     const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
             QUrl(urlString), "POST");
 
@@ -189,12 +191,16 @@ void GoodReadsApi::AddBookShelf(const QString& name, bool exclusive)
             this, &GoodReadsApi::handleAddBookShelf);
 }
 
-void GoodReadsApi::EditBookShelf(quint64 id, const QString& name, bool exclusive)
+void GoodReadsApi::EditBookShelf(quint64 id, const QString& name, bool exclusive,
+        bool sortable, bool featured)
 {
     const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
             QUrl(QString("https://www.goodreads.com/user_shelves/%1.xml?user_shelf[name]=%2&"
-                    "user_shelf[exclusive_flag]=%3").arg(id).arg(name)
-                        .arg(exclusive ? "true" : "false")), "PUT");
+                        "user_shelf[exclusive_flag]=%3&user_shelf[sortable_flag]=%4"
+                        "&user_shelf[featured]=%5")
+                    .arg(id).arg(name)
+                    .arg(exclusive ? "true" : "false").arg(sortable ? "true" : "false")
+                    .arg(featured ? "true" : "false")), "PUT");
     auto reply = m_NAM->put(QNetworkRequest(pair.first), QByteArray());
     connect(reply, &QNetworkReply::finished,
             this, &GoodReadsApi::handleEditBookShelf);
@@ -734,6 +740,7 @@ QDomDocument ParseDocument(const QByteArray& data, bool& ok)
     {
         ok = true;
     }
+    qDebug() << document.toByteArray();
     return document;
 }
 
