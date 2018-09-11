@@ -75,6 +75,9 @@ void SailreadsManager::MakeConnections()
     connect(m_Api, &GoodReadsApi::requestFinished,
             this, [=](){ SetBusy(false); });
 
+    connect(m_Api, &GoodReadsApi::authenticationFailed,
+            this, [=](){ SetLogged(false); });
+
     connect(m_Api, &GoodReadsApi::requestTokenChanged,
             this, &SailreadsManager::requestTokenChanged);
     connect(m_Api, &GoodReadsApi::accessTokensChanged,

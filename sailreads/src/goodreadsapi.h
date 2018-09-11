@@ -225,6 +225,8 @@ private slots:
 signals:
     void requestFinished();
 
+    void authenticationFailed();
+
     void requestTokenChanged(const QString& requestToken);
     void accessTokensChanged(const QString& accessToken, const QString& accessTokenSecret);
 

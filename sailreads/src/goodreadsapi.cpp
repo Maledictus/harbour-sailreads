@@ -105,6 +105,7 @@ void GoodReadsApi::GetUserInfo(quint64 id)
 
 void GoodReadsApi::CompareBooks(quint64 userId)
 {
+    //TODO make simple request
     const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
             QUrl(QString("https://www.goodreads.com/user/compare/%1.xml").arg(userId)), "GET");
     auto reply = m_NAM->get(QNetworkRequest(pair.first));
@@ -280,6 +281,7 @@ void GoodReadsApi::DeleteReview(quint64 reviewId)
 
 void GoodReadsApi::GetBook(quint64 bookId)
 {
+    //TODO make simple request
     const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
             QUrl(QString("https://www.goodreads.com/book/show.xml?id=%1").arg(bookId)), "GET");
     auto reply = m_NAM->get(QNetworkRequest(pair.first));
@@ -290,6 +292,7 @@ void GoodReadsApi::GetBook(quint64 bookId)
 
 void GoodReadsApi::SearchBooks(const QString& query, const QString& key, int page)
 {
+    //TODO make simple request
     const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
             QUrl(QString("https://www.goodreads.com/search/index.xml?q=%1&search[field]=%2&page=%3")
                  .arg(query).arg(key).arg(page)), "GET");
@@ -301,6 +304,7 @@ void GoodReadsApi::SearchBooks(const QString& query, const QString& key, int pag
 
 void GoodReadsApi::GetSeries(quint64 seriesId)
 {
+    //TODO make simple request
     const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
             QUrl(QString("https://www.goodreads.com/series/show/%1.xml").arg(seriesId)), "GET");
     auto reply = m_NAM->get(QNetworkRequest(pair.first));
@@ -311,6 +315,7 @@ void GoodReadsApi::GetSeries(quint64 seriesId)
 
 void GoodReadsApi::GetAuthorSeries(quint64 authorId)
 {
+    //TODO make simple request
     const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
             QUrl(QString("https://www.goodreads.com/list/%1.xml").arg(authorId)), "GET");
     auto reply = m_NAM->get(QNetworkRequest(pair.first));
@@ -321,6 +326,7 @@ void GoodReadsApi::GetAuthorSeries(quint64 authorId)
 
 void GoodReadsApi::GetWorkSeries(quint64 workId)
 {
+    //TODO make simple request
     const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
             QUrl(QString("https://www.goodreads.com/work/%1/series?format=xml").arg(workId)), "GET");
     auto reply = m_NAM->get(QNetworkRequest(pair.first));
@@ -377,6 +383,7 @@ void GoodReadsApi::GetAuthor(quint64 authorId)
 
 void GoodReadsApi::GetAuthorBooks(quint64 authorId, int page)
 {
+    //TODO make simple request
     const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
             QUrl(QString("https://www.goodreads.com/author/show/%1.xml?page=%2")
                  .arg(authorId).arg(page)), "GET");
@@ -456,6 +463,7 @@ void GoodReadsApi::JoinGroup(quint64 groupId)
 
 void GoodReadsApi::SearchGroup(const QString& text, int page)
 {
+    //TODO make simple request
     const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
             QUrl(QString("https://www.goodreads.com/group/search.xml?q=%1&page=%2")
                  .arg(QString(QUrl::toPercentEncoding(text))).arg(page)), "GET");
@@ -495,6 +503,7 @@ void GoodReadsApi::GetGroupFolderTopics(quint64 groupFolderId, quint64 groupId, 
 
 void GoodReadsApi::GetGroupFolderTopic(quint64 topicId, int page)
 {
+    //TODO make simple request
     const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
             QUrl(QString("https://www.goodreads.com/topic/show.xml?id=%1&page=%2")
                  .arg(topicId).arg(page)), "GET");
@@ -750,7 +759,8 @@ QByteArray GoodReadsApi::GetReply(QObject *sender, bool& ok)
     m_CurrentReply.clear();
 
     if (reply->error() != QNetworkReply::NoError &&
-            reply->error() != QNetworkReply::OperationCanceledError) {
+            reply->error() != QNetworkReply::OperationCanceledError &&
+            reply->error() != QNetworkReply::AuthenticationRequiredError) {
         qWarning() << Q_FUNC_INFO << "There is network error: "
                 << reply->error() << reply->errorString();
         ok = false;
@@ -760,6 +770,12 @@ QByteArray GoodReadsApi::GetReply(QObject *sender, bool& ok)
     //Disable warning on request cancel
     if (reply->error() == QNetworkReply::OperationCanceledError) {
         ok = true;
+        return data;
+    }
+
+    if (reply->error() == QNetworkReply::AuthenticationRequiredError) {
+        ok = false;
+        emit authenticationFailed();
         return data;
     }
 
