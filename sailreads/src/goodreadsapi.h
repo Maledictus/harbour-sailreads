@@ -194,7 +194,7 @@ private slots:
 
     void handleGetGroups(quint64 userId);
     void handleGetGroup(quint64 groupId, QObject *senderObject = nullptr);
-    void handleJoinGroup();
+    void handleJoinGroup(quint64 groupId);
     void handleSearchGroup();
     void handleGetGroupMembers(quint64 groupId, QObject *senderObject = nullptr);
     void handleGetGroupFolderTopics(quint64 groupFolderId, quint64 groupId);

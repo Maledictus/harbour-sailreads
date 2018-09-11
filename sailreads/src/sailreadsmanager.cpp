@@ -257,6 +257,12 @@ void SailreadsManager::loadGroup(quint64 groupId)
     m_Api->GetGroup(groupId);
 }
 
+void SailreadsManager::joinGroup(quint64 groupId)
+{
+    SetBusy(true);
+    m_Api->JoinGroup(groupId);
+}
+
 void SailreadsManager::searchGroup(const QString& text, int page)
 {
     SetBusy(true);

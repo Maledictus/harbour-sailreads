@@ -29,6 +29,11 @@ namespace Sailreads
 Group::Group(QObject *parent)
 : QObject(parent)
 , m_Id(0)
+, m_IsPublic(false)
+, m_UsersCount(0)
+, m_DisplayFolderCount(0)
+, m_DisplayTopicsPerFolderCount(0)
+, m_IsMember(false)
 , m_Flags(NoFlags)
 {
 #ifdef QT_DEBUG
@@ -251,5 +256,16 @@ GroupMembers_t Group::GetGroupMembers() const
 void Group::SetGroupMembers(const GroupMembers_t& groupMembers)
 {
     m_GroupMembers = groupMembers;
+}
+
+bool Group::GetIsMember() const
+{
+    return m_IsMember;
+}
+
+void Group::SetIsMember(bool set)
+{
+    m_IsMember = set;
+    emit isMemberChanged();
 }
 } // namespace Sailreads

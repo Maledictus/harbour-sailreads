@@ -464,16 +464,17 @@ void GoodReadsApi::JoinGroup(quint64 groupId)
                  .arg(groupId)), "POST");
     auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
     connect(reply, &QNetworkReply::finished,
-            this, &GoodReadsApi::handleJoinGroup);
+            this,
+            [this, groupId] {
+                handleJoinGroup(groupId);
+            });
 }
 
 void GoodReadsApi::SearchGroup(const QString& text, int page)
 {
-    //TODO make simple request
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/group/search.xml?q=%1&page=%2")
-                 .arg(QString(QUrl::toPercentEncoding(text))).arg(page)), "GET");
-    auto reply = m_NAM->get(QNetworkRequest(pair.first));
+    QUrl url(QString("https://www.goodreads.com/group/search.xml?q=%1&page=%2&key=%3")
+         .arg(QString(QUrl::toPercentEncoding(text))).arg(page).arg(m_ConsumerKey));
+    auto reply = m_NAM->get(QNetworkRequest(url));
     m_CurrentReply = reply;
     connect(reply, &QNetworkReply::finished,
             this, &GoodReadsApi::handleSearchGroup);
@@ -496,7 +497,8 @@ void GoodReadsApi::GetGroupMembers(quint64 groupId, int page)
 void GoodReadsApi::GetGroupFolderTopics(quint64 groupFolderId, quint64 groupId, int page)
 {
     const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/topic/group_folder/%1?group_id=%2&page=%3&sort=updated_at")
+            QUrl(QString("https://www.goodreads.com/topic/group_folder/%1?group_id=%2&page=%3&"
+                         "sort=updated_at&format=xml")
                  .arg(groupFolderId).arg(groupId).arg(page)), "GET");
     auto reply = m_NAM->get(QNetworkRequest(pair.first));
     m_CurrentReply = reply;
@@ -1276,7 +1278,7 @@ void GoodReadsApi::handleGetGroup(quint64 groupId, QObject *senderObject)
     emit gotUserGroup(groupId, RpcUtils::Parser::ParseGroup(doc));
 }
 
-void GoodReadsApi::handleJoinGroup()
+void GoodReadsApi::handleJoinGroup(quint64 groupId)
 {
     bool ok = false;
     auto doc = GetDocumentFromReply(sender(), ok);
@@ -1286,8 +1288,7 @@ void GoodReadsApi::handleJoinGroup()
     }
 
     emit requestFinished();
-    //TODO
-    qDebug() << doc.toByteArray();
+    emit gotUserGroup(groupId, RpcUtils::Parser::ParseGroup(doc));
 }
 
 void GoodReadsApi::handleSearchGroup()

@@ -52,6 +52,7 @@ class Group: public QObject
     GroupFolders_t m_GroupFolders;
     GroupMembers_t m_GroupModerators;
     GroupMembers_t m_GroupMembers;
+    bool m_IsMember;
 public:
     enum GroupFlag
     {
@@ -83,6 +84,7 @@ private:
     Q_PROPERTY(QString subCategory READ GetSubCategory NOTIFY subCategoryChanged)
     Q_PROPERTY(QString rules READ GetRules NOTIFY rulesChanged)
     Q_PROPERTY(GroupFlags flags READ GetGroupFlags NOTIFY groupFlagsChanged)
+    Q_PROPERTY(bool isMember READ GetIsMember NOTIFY isMemberChanged)
 
 public:
     Group(QObject *parent = nullptr);
@@ -130,6 +132,8 @@ public:
     void SetGroupModerators(const GroupMembers_t& groupModerators);
     GroupMembers_t GetGroupMembers() const;
     void SetGroupMembers(const GroupMembers_t& groupMembers);
+    bool GetIsMember() const;
+    void SetIsMember(bool set);
 
 signals:
     void idChanged();
@@ -147,6 +151,7 @@ signals:
     void subCategoryChanged();
     void rulesChanged();
     void groupFlagsChanged();
+    void isMemberChanged();
 };
 Q_DECLARE_OPERATORS_FOR_FLAGS(Group::GroupFlags)
 } // namespace Sailreads

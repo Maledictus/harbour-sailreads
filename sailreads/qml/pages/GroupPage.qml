@@ -76,6 +76,14 @@ Page {
 
             PullDownMenu {
                 MenuItem {
+                    text: qsTr("Join a group")
+                    visible: groupItem.group ? !groupItem.group.isMember : false
+                    onClicked: {
+                        sailreadsManager.joinGroup(groupId)
+                    }
+                }
+
+                MenuItem {
                     text: qsTr("Refresh")
                     onClicked: {
                         groupItem.updateGroup()

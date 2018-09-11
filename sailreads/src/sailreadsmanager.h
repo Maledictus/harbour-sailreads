@@ -97,6 +97,7 @@ public slots:
 
     void loadGroups(quint64 userId);
     void loadGroup(quint64 groupId);
+    void joinGroup(quint64 groupId);
     void searchGroup(const QString& text, int page = 1);
     void loadGroupMembers(quint64 groupId, int page = 1);
     void loadGroupFolderTopics(quint64 groupFolderId, quint64 groupId, int page = 1);

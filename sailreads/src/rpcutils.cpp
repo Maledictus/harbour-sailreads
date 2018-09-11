@@ -346,7 +346,7 @@ GroupPtr ParseGroup(const QDomElement& element)
             group->SetUrl(QUrl(fieldElement.text()));
         }
         else if (fieldElement.tagName() == "is_member") {
-            //TODO set is member
+            group->SetIsMember(fieldElement.text() == "true");
         }
         else if (fieldElement.tagName() == "description") {
             group->SetDescription(fieldElement.text().trimmed());
