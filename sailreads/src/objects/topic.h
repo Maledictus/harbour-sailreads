@@ -52,6 +52,7 @@ class Topic : public QObject
     QString m_SubjectType;
     GroupPtr m_Group;
     CountedItems<Comment> m_Comments;
+    int m_UnreadCount;
 
     Q_PROPERTY(quint64 id READ GetId NOTIFY idChanged)
     Q_PROPERTY(QString title READ GetTitle NOTIFY titleChanged)
@@ -62,6 +63,7 @@ class Topic : public QObject
     Q_PROPERTY(User* author READ GetAuthor NOTIFY authorChanged)
     Q_PROPERTY(GroupFolder folder READ GetGroupFolder NOTIFY folderChanged)
     Q_PROPERTY(Group* group READ GetGroup NOTIFY groupChanged)
+    Q_PROPERTY(int unreadCount READ GetUnreadCount NOTIFY unreadCountChanged)
 
 public:
     Topic(QObject *parent = nullptr);
@@ -97,6 +99,8 @@ public:
     void SetGroup(const GroupPtr& group);
     CountedItems<Comment> GetComments() const;
     void SetComments(const CountedItems<Comment>& comments);
+    int GetUnreadCount() const;
+    void SetUnreadCount(int count);
 
 signals:
     void idChanged();
@@ -108,5 +112,6 @@ signals:
     void authorChanged();
     void folderChanged();
     void groupChanged();
+    void unreadCountChanged();
 };
 } // namespace Sailreads

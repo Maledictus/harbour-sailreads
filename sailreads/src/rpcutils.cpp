@@ -469,7 +469,7 @@ TopicPtr ParseTopic(const QDomElement& element)
             topic->SetContextId(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "unread_count") {
-            //TODO
+            topic->SetUnreadCount(fieldElement.text().toInt());
         }
         else if (fieldElement.tagName() == "author_user") {
             topic->SetAuthor(ParseUser(fieldElement));
@@ -494,7 +494,7 @@ TopicPtr ParseTopic(const QDomElement& element)
             topic->SetAuthor(author);
         }
         else if (fieldElement.tagName() == "new_comments_count") {
-            topic->SetNewCommentsCount(fieldElement.text().toULongLong());
+            topic->SetUnreadCount(fieldElement.text().toInt());
         }
         else if (fieldElement.tagName() == "comments_per_page") {
             topic->SetCommentsPerPage(fieldElement.text().toULongLong());

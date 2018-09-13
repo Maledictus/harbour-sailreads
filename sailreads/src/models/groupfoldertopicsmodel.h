@@ -52,7 +52,8 @@ public:
         AuthorId,
         AuthorName,
         FolderId,
-        FolderName
+        FolderName,
+        UnreadCount
     };
 
     GroupFolderTopicsModel(QObject *parent = nullptr);
@@ -72,6 +73,7 @@ public slots:
 private slots:
     void handleGotGroupFolderTopics(quint64 groupdFolderId, quint64 groupId,
             const CountedItems<TopicPtr>& topics);
+    void handleGotGroupFolderTopic(const TopicPtr& topic);
 
 signals:
     void groupIdChanged();

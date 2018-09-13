@@ -193,4 +193,15 @@ void Topic::SetComments(const CountedItems<Comment>& comments)
 {
     m_Comments = comments;
 }
+
+int Topic::GetUnreadCount() const
+{
+    return m_UnreadCount;
+}
+
+void Topic::SetUnreadCount(int count)
+{
+    m_UnreadCount = count;
+    emit unreadCountChanged();
+}
 } // namespace Sailreads

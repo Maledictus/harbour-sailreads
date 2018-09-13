@@ -117,6 +117,7 @@ Page {
                     text: topicTitle
                     wrapMode: Text.WordWrap
                     maximumLineCount: 2
+                    font.bold: topicUnreadCount > 0
                 }
                 KeyValueLabel {
                     font.pixelSize: Theme.fontSizeSmall
@@ -125,6 +126,7 @@ Page {
                     visible: value !== ""
                     key: qsTr("Author")
                     value: topicAuthorName
+                    font.bold: topicUnreadCount > 0
                 }
                 KeyValueLabel {
                     font.pixelSize: Theme.fontSizeSmall
@@ -133,6 +135,7 @@ Page {
                     visible: value !== ""
                     key: qsTr("Last update")
                     value: Utils.generateDateString(topicLastCommentDate, "dd MMM yyyy hh:mm")
+                    font.bold: topicUnreadCount > 0
                 }
             }
 
@@ -145,6 +148,7 @@ Page {
                 }
                 color: Theme.secondaryColor
                 text: topicCommentsCount
+                font.bold: topicUnreadCount > 0
             }
 
             Separator {
