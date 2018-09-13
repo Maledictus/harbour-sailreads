@@ -33,12 +33,12 @@ class GroupFolderTopicsModel : public BaseModel<TopicPtr>
     Q_ENUMS(TopicRoles)
 
     quint64 m_GroupId;
-    quint64 m_GroupFolderId;
+    QString m_GroupFolderId;
     bool m_HasMore;
     quint64 m_CurrentPage;
 
     Q_PROPERTY(quint64 groupId READ GetGroupId WRITE SetGroupId NOTIFY groupIdChanged)
-    Q_PROPERTY(quint64 groupFolderId READ GetGroupFolderId WRITE SetGroupFolderId NOTIFY groupFolderIdChanged)
+    Q_PROPERTY(QString groupFolderId READ GetGroupFolderId WRITE SetGroupFolderId NOTIFY groupFolderIdChanged)
     Q_PROPERTY(bool hasMore READ GetHasMore WRITE SetHasMore NOTIFY hasMoreChanged)
 public:
     enum TopicRoles
@@ -63,15 +63,15 @@ public:
 
     quint64 GetGroupId() const;
     void SetGroupId(quint64 id);
-    quint64 GetGroupFolderId() const;
-    void SetGroupFolderId(quint64 id);
+    QString GetGroupFolderId() const;
+    void SetGroupFolderId(const QString& id);
     bool GetHasMore() const;
     void SetHasMore(bool has);
 
 public slots:
     void fetchMoreContent();
 private slots:
-    void handleGotGroupFolderTopics(quint64 groupdFolderId, quint64 groupId,
+    void handleGotGroupFolderTopics(const QString& groupdFolderId, quint64 groupId,
             const CountedItems<TopicPtr>& topics);
     void handleGotGroupFolderTopic(const TopicPtr& topic);
 

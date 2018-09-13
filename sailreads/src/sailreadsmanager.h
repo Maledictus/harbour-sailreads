@@ -100,11 +100,12 @@ public slots:
     void joinGroup(quint64 groupId);
     void searchGroup(const QString& text, int page = 1);
     void loadGroupMembers(quint64 groupId, int page = 1);
-    void loadGroupFolderTopics(quint64 groupFolderId, quint64 groupId, int page = 1);
+    void loadGroupFolderTopics(const QString& groupFolderId, quint64 groupId, int page = 1);
     void loadGroupFolderTopic(quint64 topicId, int page = 1);
 
-    void addNewTopic(const QString& topic, const QString& subject, quint64 subjectId, quint64 folderId,
-            bool question, bool updateFeed, bool digest, const QString& comment);
+    void addNewTopic(const QString& topic, const QString& subject, quint64 subjectId,
+            const QString& folderId, bool question, bool updateFeed, bool digest,
+            const QString& comment);
 
     void addNewComment(const QString& type, quint64 resourceId, const QString& comment);
 signals:
@@ -131,7 +132,7 @@ signals:
     void gotUserGroup(quint64 inGroupId, const GroupPtr& inGroup);
     void gotFoundGroups(const CountedItems<GroupPtr>& groups);
     void gotGroupMembers(quint64 groupId, const GroupMembers_t& members);
-    void gotGroupFolderTopics(quint64 groupFolderId, quint64 groupId,
+    void gotGroupFolderTopics(const QString& groupFolderId, quint64 groupId,
             const CountedItems<TopicPtr>& topics);
     void gotGroupFolderTopic(const TopicPtr& inTopic);
     void gotNewGroupFolderTopic(const TopicPtr& inTopic);

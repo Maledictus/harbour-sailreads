@@ -33,7 +33,6 @@ namespace Sailreads {
 GroupFolderTopicsModel::GroupFolderTopicsModel(QObject *parent)
 : BaseModel<TopicPtr>(parent)
 , m_GroupId(0)
-, m_GroupFolderId(0)
 , m_HasMore(true)
 , m_CurrentPage(1)
 {
@@ -109,12 +108,12 @@ void GroupFolderTopicsModel::SetGroupId(quint64 id)
     }
 }
 
-quint64 GroupFolderTopicsModel::GetGroupFolderId() const
+QString GroupFolderTopicsModel::GetGroupFolderId() const
 {
     return m_GroupFolderId;
 }
 
-void GroupFolderTopicsModel::SetGroupFolderId(quint64 id)
+void GroupFolderTopicsModel::SetGroupFolderId(const QString& id)
 {
     if (m_GroupFolderId != id) {
         m_GroupFolderId = id;
@@ -140,7 +139,7 @@ void GroupFolderTopicsModel::fetchMoreContent()
     SailreadsManager::Instance()->loadGroupFolderTopics(m_GroupFolderId, m_GroupId, m_CurrentPage);
 }
 
-void GroupFolderTopicsModel::handleGotGroupFolderTopics(quint64 groupdFolderId,
+void GroupFolderTopicsModel::handleGotGroupFolderTopics(const QString& groupdFolderId,
         quint64 groupId, const CountedItems<TopicPtr> &topics)
 {
     if (m_GroupId != groupId || m_GroupFolderId != groupdFolderId) {

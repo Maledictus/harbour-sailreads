@@ -34,7 +34,7 @@ Page {
     id: folderPage
 
     property int groupId
-    property int folderId
+    property string folderId
     property string folderName
     property bool busy: sailreadsManager.busy && folderPage.status === PageStatus.Active
 

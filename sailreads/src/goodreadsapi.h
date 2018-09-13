@@ -50,6 +50,8 @@ class GoodReadsApi : public QObject
 {
     Q_OBJECT
 
+    static const QString UnreadTopicsFolderId;
+
     const QString m_ConsumerKey;
     const QString m_ConsumerSecretKey;
     const QUrl m_BaseUrl;
@@ -121,10 +123,11 @@ public:
     void JoinGroup(quint64 groupId);
     void SearchGroup(const QString& text, int page);
     void GetGroupMembers(quint64 groupId, int page);
-    void GetGroupFolderTopics(quint64 groupFolderId, quint64 groupId, int page);
+    void GetGroupFolderTopics(const QString& groupFolderId, quint64 groupId, int page);
     void GetGroupFolderTopic(quint64 topicId, int page);
     void AddNewTopic(const QString& topic, const QString& subject, quint64 subjectId,
-            quint64 folderId, bool question, bool updateFeed, bool digest, const QString& comment);
+            const QString& folderId, bool question, bool updateFeed, bool digest,
+            const QString& comment);
 
     void AddNewComment(const QString& type, quint64 resourceId, const QString& comment);
 
@@ -197,7 +200,7 @@ private slots:
     void handleJoinGroup(quint64 groupId);
     void handleSearchGroup();
     void handleGetGroupMembers(quint64 groupId, QObject *senderObject = nullptr);
-    void handleGetGroupFolderTopics(quint64 groupFolderId, quint64 groupId);
+    void handleGetGroupFolderTopics(const QString& groupFolderId, quint64 groupId);
     void handleGetGroupFolderTopic();
     void handleTopicAdded();
 
@@ -250,7 +253,7 @@ signals:
     void gotUserGroup(quint64 groupId, const GroupPtr& group);
     void gotFoundGroups(const CountedItems<GroupPtr>& groups);
     void gotGroupMembers(quint64 groupId, const GroupMembers_t& members);
-    void gotGroupFolderTopics(quint64 groupFolderId, quint64 groupId,
+    void gotGroupFolderTopics(const QString& groupFolderId, quint64 groupId,
             const CountedItems<TopicPtr>& topics);
     void gotGroupFolderTopic(const TopicPtr& topic);
     void gotNewGroupFolderTopic(const TopicPtr& topic);

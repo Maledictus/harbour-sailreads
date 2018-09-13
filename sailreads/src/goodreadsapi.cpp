@@ -35,6 +35,8 @@ THE SOFTWARE.
 
 namespace Sailreads
 {
+const QString GoodReadsApi::UnreadTopicsFolderId = QString("unread");
+
 GoodReadsApi::GoodReadsApi(QObject *parent)
 : QObject(parent)
 , m_ConsumerKey("GRGhcLIXU8M8u1NcnoMVFg")
@@ -494,12 +496,22 @@ void GoodReadsApi::GetGroupMembers(quint64 groupId, int page)
             });
 }
 
-void GoodReadsApi::GetGroupFolderTopics(quint64 groupFolderId, quint64 groupId, int page)
+void GoodReadsApi::GetGroupFolderTopics(const QString& groupFolderId, quint64 groupId, int page)
 {
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
+    QPair<QUrl, QByteArray> pair;
+    qDebug() << groupFolderId << groupId << page << GoodReadsApi::UnreadTopicsFolderId;
+    if (groupFolderId == GoodReadsApi::UnreadTopicsFolderId) {
+        qDebug() << Q_FUNC_INFO;
+        pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
+            QUrl(QString("https://www.goodreads.com/topic/unread_group/%1?format=xml&page=%2&"
+                    "sort=updated_at&order=d").arg(groupId).arg(page)), "GET");
+    }
+    else {
+        pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
             QUrl(QString("https://www.goodreads.com/topic/group_folder/%1?group_id=%2&page=%3&"
-                         "sort=updated_at&format=xml")
+                         "sort=updated_at&format=xml&order=d")
                  .arg(groupFolderId).arg(groupId).arg(page)), "GET");
+    }
     auto reply = m_NAM->get(QNetworkRequest(pair.first));
     m_CurrentReply = reply;
     connect(reply, &QNetworkReply::finished,
@@ -511,7 +523,6 @@ void GoodReadsApi::GetGroupFolderTopics(quint64 groupFolderId, quint64 groupId, 
 
 void GoodReadsApi::GetGroupFolderTopic(quint64 topicId, int page)
 {
-    //TODO make simple request
     const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
             QUrl(QString("https://www.goodreads.com/topic/show.xml?id=%1&page=%2")
                  .arg(topicId).arg(page)), "GET");
@@ -522,7 +533,7 @@ void GoodReadsApi::GetGroupFolderTopic(quint64 topicId, int page)
 }
 
 void GoodReadsApi::AddNewTopic(const QString& topic, const QString& subject, quint64 subjectId,
-        quint64 folderId, bool question, bool updateFeed, bool digest, const QString& comment)
+        const QString& folderId, bool question, bool updateFeed, bool digest, const QString& comment)
 {
     QString url = QString("https://www.goodreads.com/topic.xml?topic[subject_type]=%1&"
             "topic[subject_id]=%2&topic[folder_id]=%3&topic[title]=%4&topic[question_flag]=%5&"
@@ -1324,7 +1335,7 @@ void GoodReadsApi::handleGetGroupMembers(quint64 groupId, QObject *senderObject)
     emit gotGroupMembers(groupId, RpcUtils::Parser::ParseGroupMembers(doc));
 }
 
-void GoodReadsApi::handleGetGroupFolderTopics(quint64 groupFolderId, quint64 groupId)
+void GoodReadsApi::handleGetGroupFolderTopics(const QString& groupFolderId, quint64 groupId)
 {
     bool ok = false;
     auto doc = GetDocumentFromReply(sender(), ok);

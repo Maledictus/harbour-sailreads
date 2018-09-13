@@ -25,16 +25,17 @@ THE SOFTWARE.
 namespace Sailreads
 {
 GroupFolder::GroupFolder()
-: m_Id(0)
+: m_ItemsCount(0)
+, m_SubItemsCount(0)
 {
 }
 
-quint64 GroupFolder::GetId() const
+QString GroupFolder::GetId() const
 {
     return m_Id;
 }
 
-void GroupFolder::SetId(quint64 id)
+void GroupFolder::SetId(const QString& id)
 {
     m_Id = id;
 }

@@ -275,7 +275,7 @@ void SailreadsManager::loadGroupMembers(quint64 groupId, int page)
     m_Api->GetGroupMembers(groupId, page);
 }
 
-void SailreadsManager::loadGroupFolderTopics(quint64 groupFolderId, quint64 groupId, int page)
+void SailreadsManager::loadGroupFolderTopics(const QString& groupFolderId, quint64 groupId, int page)
 {
     SetBusy(true);
     m_Api->GetGroupFolderTopics(groupFolderId, groupId, page);
@@ -288,7 +288,7 @@ void SailreadsManager::loadGroupFolderTopic(quint64 topicId, int page)
 }
 
 void SailreadsManager::addNewTopic(const QString& topic, const QString& subject, quint64 subjectId,
-        quint64 folderId, bool question, bool updateFeed, bool digest, const QString& comment)
+        const QString& folderId, bool question, bool updateFeed, bool digest, const QString& comment)
 {
     SetBusy(true);
     m_Api->AddNewTopic(topic, subject, subjectId, folderId, question, updateFeed, digest, comment);

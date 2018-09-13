@@ -296,7 +296,7 @@ GroupFolder ParseGroupFolder(const QDomElement& element)
     for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
         const auto& fieldElement = fieldsList.at (i).toElement ();
         if (fieldElement.tagName() == "id") {
-            gf.SetId(fieldElement.text().toULongLong());
+            gf.SetId(fieldElement.text());
         }
         else if (fieldElement.tagName() == "name") {
             gf.SetName(fieldElement.text().trimmed());
