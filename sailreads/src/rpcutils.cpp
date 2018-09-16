@@ -1042,14 +1042,24 @@ UserPtr ParseUser(const QDomDocument& doc)
     return ParseUser(responseElement.firstChildElement("user"));
 }
 
-BookShelves_t ParseBookShelves(const QDomDocument& doc)
+CountedItems<BookShelf> ParseBookShelves(const QDomDocument& doc)
 {
     const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
     if (responseElement.isNull()) {
-        return BookShelves_t();
+        return CountedItems<BookShelf>();
     }
 
-    return ParseBookShelves(responseElement.firstChildElement("shelves"));
+    const auto& shelvesElement = responseElement.firstChildElement("shelves");
+    if (shelvesElement.isNull()) {
+        return CountedItems<BookShelf>();
+    }
+
+    CountedItems<BookShelf> shelves;
+    shelves.m_BeginIndex = shelvesElement.attribute("start").toULongLong();
+    shelves.m_EndIndex = shelvesElement.attribute("end").toULongLong();
+    shelves.m_Count = shelvesElement.attribute("total").toULongLong();
+    shelves.m_Items = ParseBookShelves(shelvesElement);
+    return shelves;
 }
 
 CountedItems<GroupPtr> ParseGroups(const QDomDocument& doc)
@@ -1077,14 +1087,23 @@ CountedItems<GroupPtr> ParseGroups(const QDomDocument& doc)
     return groups;
 }
 
-Friends_t ParseFriends(const QDomDocument& doc)
+CountedItems<Friend> ParseFriends(const QDomDocument& doc)
 {
     const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
     if (responseElement.isNull()) {
-        return Friends_t();
+        return CountedItems<Friend>();
+    }
+    const auto& friendsElement = responseElement.firstChildElement("friends");
+    if (friendsElement.isNull()) {
+        return CountedItems<Friend>();
     }
 
-    return ParseFriends(responseElement.firstChildElement("friends"));
+    CountedItems<Friend> friends;
+    friends.m_BeginIndex = friendsElement.attribute("start").toULongLong();
+    friends.m_EndIndex = friendsElement.attribute("end").toULongLong();
+    friends.m_Count = friendsElement.attribute("total").toULongLong();
+    friends.m_Items = ParseFriends(friendsElement);
+    return friends;
 }
 
 GroupPtr ParseGroup(const QDomDocument& doc)

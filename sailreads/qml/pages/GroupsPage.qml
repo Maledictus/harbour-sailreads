@@ -45,12 +45,9 @@ Page {
         sailreadsManager.abortRequest()
     }
 
-    BaseProxyModel {
+    UserGroupsModel {
         id: groupsModel
-        dynamicSortFilter: true
-        sourceModel: UserGroupsModel {
-            userId: groupsPage.userId
-        }
+        userId: groupsPage.userId
     }
 
     SilicaListView {
@@ -80,7 +77,18 @@ Page {
             text: qsTr ("There are no groups.\nPull down to refresh")
         }
 
+        cacheBuffer: groupsPage.height
         model: groupsModel
+
+        function fetchMoreIfNeeded() {
+            if (!groupsPage.busy &&
+                    groupsModel.hasMore &&
+                    indexAt(contentX, contentY + height) > groupsModel.rowCount() - 2) {
+                groupsModel.fetchMoreContent()
+            }
+        }
+
+        onContentYChanged: fetchMoreIfNeeded()
 
         delegate: ListItem {
             width: groupsView.width

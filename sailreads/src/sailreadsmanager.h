@@ -82,7 +82,7 @@ public slots:
     void getUserInfo(quint64 id);
     void getUpdates();
 
-    void loadBookShelves(quint64 id);
+    void loadBookShelves(quint64 id, int page = 1);
     void addBookShelf(const QString& name, bool exclusive, bool sortable, bool featured);
     void editBookShelf(quint64 id, const QString& name, bool exclusive, bool sortable, bool featured);
 
@@ -93,9 +93,9 @@ public slots:
 
     void loadSeries(quint64 seriesId);
 
-    void loadFriends(quint64 userId);
+    void loadFriends(quint64 userId, int page = 1);
 
-    void loadGroups(quint64 userId);
+    void loadGroups(quint64 userId, int page = 1);
     void loadGroup(quint64 groupId);
     void joinGroup(quint64 groupId);
     void searchGroup(const QString& text, int page = 1);
@@ -116,7 +116,7 @@ signals:
     void gotAuthUserId(quint64 authUserId);
     void gotUserProfile(const UserPtr& userProfile);
 
-    void gotUserBookShelves(quint64 userId, const BookShelves_t& shelves);
+    void gotUserBookShelves(quint64 userId, const CountedItems<BookShelf>& shelves);
     void bookShelfAdded(const BookShelf& shelf);
     void bookShelfEdited(const BookShelf& shelf);
 
@@ -126,7 +126,7 @@ signals:
 
     void gotSeries(const SeriesPtr& series);
 
-    void gotUserFriends(quint64 userId, const Friends_t& friends);
+    void gotUserFriends(quint64 userId, const CountedItems<Friend>& friends);
 
     void gotUserGroups(quint64 userId, const CountedItems<GroupPtr>& groups);
     void gotUserGroup(quint64 inGroupId, const GroupPtr& inGroup);

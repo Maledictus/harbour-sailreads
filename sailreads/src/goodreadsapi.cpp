@@ -155,10 +155,11 @@ void GoodReadsApi::GetNotifications(int page)
              this, &GoodReadsApi::handleGetNotifications);
 }
 
-void GoodReadsApi::GetBookShelves(quint64 userId)
+void GoodReadsApi::GetBookShelves(quint64 userId, int page)
 {
     const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/shelf/list.xml?user_id=%1").arg(userId)), "GET");
+            QUrl(QString("https://www.goodreads.com/shelf/list.xml?user_id=%1&page=%2")
+                 .arg(userId).arg(page)), "GET");
     auto reply = m_NAM->get(QNetworkRequest(pair.first));
     m_CurrentReply = reply;
     connect(reply,
@@ -431,11 +432,11 @@ void GoodReadsApi::ShowAuthorFollowingInformation(quint64 authorFollowingId)
             this, &GoodReadsApi::handleShowAuthorFollowingInformation);
 }
 
-void GoodReadsApi::GetGroups(quint64 userId)
+void GoodReadsApi::GetGroups(quint64 userId, int page)
 {
     const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/group/list/%1.xml?sort=last_activity")
-                 .arg(userId)), "GET");
+            QUrl(QString("https://www.goodreads.com/group/list/%1.xml?sort=last_activity&page=%2")
+                 .arg(userId).arg(page)), "GET");
     auto reply = m_NAM->get(QNetworkRequest(pair.first));
     m_CurrentReply = reply;
     connect(reply, &QNetworkReply::finished,
@@ -559,10 +560,11 @@ void GoodReadsApi::AddNewComment(const QString& type, quint64 resourceId, const 
              this, &GoodReadsApi::handleNewCommentAdded);
 }
 
-void GoodReadsApi::GetFriends(quint64 userId)
+void GoodReadsApi::GetFriends(quint64 userId, int page)
 {
     const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/friend/user/%1?format=xml").arg(userId)));
+            QUrl(QString("https://www.goodreads.com/friend/user/%1?format=xml&page=%2")
+                 .arg(userId).arg(page)));
     auto reply = m_NAM->get(QNetworkRequest(pair.first));
     m_CurrentReply = reply;
     connect (reply, &QNetworkReply::finished,

@@ -27,11 +27,11 @@ import Sailfish.Silica 1.0
 import harbour.sailreads 1.0
 
 Page {
-    id: page
+    id: bookShelvesPage
 
     property int userId: 0
     property string userName
-    property bool busy: sailreadsManager.busy && page.status === PageStatus.Active
+    property bool busy: sailreadsManager.busy && bookShelvesPage.status === PageStatus.Active
 
     function attachPage() {
         if (pageStack._currentContainer.attachedContainer === null
@@ -44,13 +44,9 @@ Page {
         sailreadsManager.abortRequest()
     }
 
-    BookShelfProxyModel {
+    BookShelvesModel {
         id: bookShelvesModel
-
-        dynamicSortFilter: true
-        sourceModel: BookShelvesModel {
-            userId: page.userId
-        }
+        userId: bookShelvesPage.userId
     }
 
     SilicaListView {
@@ -84,7 +80,18 @@ Page {
             text: qsTr("There are no bookshelves. Pull down to refresh")
         }
 
+        cacheBuffer: bookShelvesPage.height
         model: bookShelvesModel
+
+        function fetchMoreIfNeeded() {
+            if (!bookShelvesPage.busy &&
+                    bookShelvesModel.hasMore &&
+                    indexAt(contentX, contentY + height) > bookShelvesModel.rowCount() - 2) {
+                bookShelvesModel.fetchMoreContent()
+            }
+        }
+
+        onContentYChanged: fetchMoreIfNeeded()
 
         delegate: ListItem {
             Label {
@@ -140,7 +147,7 @@ Page {
     BusyIndicator {
         size: BusyIndicatorSize.Large
         anchors.centerIn: parent
-        running: page.busy
+        running: bookShelvesPage.busy
         visible: running
     }
 }

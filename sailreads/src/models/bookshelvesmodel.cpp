@@ -30,6 +30,8 @@ namespace Sailreads
 BookShelvesModel::BookShelvesModel(QObject *parent)
 : BaseModel<BookShelf>(parent)
 , m_UserId(0)
+, m_HasMore(true)
+, m_CurrentPage(1)
 {
     auto sm = SailreadsManager::Instance();
     connect(sm, &SailreadsManager::gotUserBookShelves,
@@ -94,13 +96,42 @@ void BookShelvesModel::SetUserId(quint64 id)
     }
 }
 
-void BookShelvesModel::handleGotUserBookShelves(quint64 userId, const BookShelves_t& bookshelves)
+bool BookShelvesModel::GetHasMore() const
 {
-    if (userId != m_UserId) {
+    return m_HasMore;
+}
+
+void BookShelvesModel::SetHasMore(bool has)
+{
+    if (m_HasMore != has) {
+        m_HasMore = has;
+        emit hasMoreChanged();
+    }
+}
+
+void BookShelvesModel::fetchMoreContent()
+{
+    SailreadsManager::Instance()->loadBookShelves(m_UserId, m_CurrentPage);
+}
+
+
+void BookShelvesModel::handleGotUserBookShelves(quint64 userId, const CountedItems<BookShelf> bookshelves)
+{
+    if (m_UserId != userId) {
         return;
     }
 
-    SetItems(bookshelves);
+    SetHasMore(bookshelves.m_EndIndex != bookshelves.m_Count);
+    if (m_HasMore) {
+        ++m_CurrentPage;
+    }
+
+    if (bookshelves.m_BeginIndex == 1) {
+        SetItems(bookshelves.m_Items);
+    }
+    else {
+        AddItems(bookshelves.m_Items);
+    }
 }
 
 void BookShelvesModel::handleBookShelfAdded(const BookShelf& shelf)

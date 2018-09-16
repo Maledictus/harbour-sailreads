@@ -73,9 +73,9 @@ SeriesWorks_t ParseSeriesWorks(const QDomElement& element);
 Series_t ParseSeriesFromSeriesWorks(const QDomElement& element);
 
 UserPtr ParseUser(const QDomDocument& doc);
-BookShelves_t ParseBookShelves(const QDomDocument& doc);
+CountedItems<BookShelf> ParseBookShelves(const QDomDocument& doc);
 CountedItems<GroupPtr> ParseGroups(const QDomDocument& doc);
-Friends_t ParseFriends(const QDomDocument& doc);
+CountedItems<Friend> ParseFriends(const QDomDocument& doc);
 GroupPtr ParseGroup(const QDomDocument& doc);
 GroupMembers_t ParseGroupMembers(const QDomDocument& doc);
 CountedItems<TopicPtr> ParseGroupFolderTopics(const QDomDocument& doc);

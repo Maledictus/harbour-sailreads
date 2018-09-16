@@ -24,6 +24,7 @@ THE SOFTWARE.
 
 #include "basemodel.h"
 #include "../objects/bookshelf.h"
+#include "../types.h"
 
 namespace Sailreads
 {
@@ -34,8 +35,12 @@ class BookShelvesModel : public BaseModel<BookShelf>
     Q_ENUMS(BookShelfRoles)
 
     quint64 m_UserId;
+    bool m_HasMore;
+    quint64 m_CurrentPage;
 
     Q_PROPERTY(quint64 userId READ GetUserId WRITE SetUserId NOTIFY userIdChanged)
+    Q_PROPERTY(bool hasMore READ GetHasMore WRITE SetHasMore NOTIFY hasMoreChanged)
+
 public:
     enum BookShelfRoles
     {
@@ -56,12 +61,18 @@ public:
     quint64 GetUserId() const;
     void SetUserId(quint64 id);
 
+    bool GetHasMore() const;
+    void SetHasMore(bool has);
+
+public slots:
+    void fetchMoreContent();
 private slots:
-    void handleGotUserBookShelves(quint64 userId, const BookShelves_t& bookshelves);
+    void handleGotUserBookShelves(quint64 userId, const CountedItems<BookShelf> bookshelves);
     void handleBookShelfAdded(const BookShelf& shelf);
     void handleBookShelfEdited(const BookShelf& shelf);
 
 signals:
     void userIdChanged();
+    void hasMoreChanged();
 };
 } // namespace Sailreads

@@ -88,7 +88,7 @@ public:
     void GetUpdates();
     void GetNotifications(int page);
 
-    void GetBookShelves(quint64 userId);
+    void GetBookShelves(quint64 userId, int page = 1);
     void AddBookShelf(const QString& name, bool exclusive, bool sortable, bool featured);
     void EditBookShelf(quint64 id, const QString& name, bool exclusive, bool sortable, bool featured);
 
@@ -118,7 +118,7 @@ public:
     void UnfollowAuthor(quint64 authorFollowingId);
     void ShowAuthorFollowingInformation(quint64 authorFollowingId);
 
-    void GetGroups(quint64 userId);
+    void GetGroups(quint64 userId, int page = 1);
     void GetGroup(quint64 groupId);
     void JoinGroup(quint64 groupId);
     void SearchGroup(const QString& text, int page);
@@ -131,7 +131,7 @@ public:
 
     void AddNewComment(const QString& type, quint64 resourceId, const QString& comment);
 
-    void GetFriends(quint64 userId);
+    void GetFriends(quint64 userId, int page = 1);
     void GetFriendRequests(int page);
     void ConfirmFriendRequest(quint64 friendRequestId);
     void DeclineFriendRequest(quint64 friendRequestId);
@@ -237,7 +237,7 @@ signals:
     void gotUserProfile(const UserPtr& profile);
 //    void gotFriendsUpdates(const & updates);
 
-    void gotUserBookShelves(quint64 userId, const BookShelves_t& shelves);
+    void gotUserBookShelves(quint64 userId, const CountedItems<BookShelf>& shelves);
     void bookShelfAdded(const BookShelf& shelf);
     void bookShelfEdited(const BookShelf& shelf);
 
@@ -260,6 +260,6 @@ signals:
 
     void newCommentAdded(const Comment& comment);
 
-    void gotUserFriends(quint64 userId, const Friends_t& friends);
+    void gotUserFriends(quint64 userId, const CountedItems<Friend>& friends);
 };
 }

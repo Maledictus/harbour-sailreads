@@ -30,24 +30,12 @@ namespace Sailreads
 UserGroupsModel::UserGroupsModel(QObject *parent)
 : GroupsModel(parent)
 , m_UserId(0)
+, m_HasMore(true)
+, m_CurrentPage(1)
 {
     auto sm = SailreadsManager::Instance();
     connect(sm, &SailreadsManager::gotUserGroups,
             this, &UserGroupsModel::handleGotUserGroups);
-}
-
-bool UserGroupsModel::canFetchMore(const QModelIndex& parent) const
-{
-    return !parent.isValid() ? m_CanFetchMore : false;
-}
-
-void UserGroupsModel::fetchMore(const QModelIndex& parent)
-{
-    if (parent.isValid()) {
-        return;
-    }
-
-    SailreadsManager::Instance()->loadGroups(m_UserId);
 }
 
 quint64 UserGroupsModel::GetUserId() const
@@ -63,13 +51,31 @@ void UserGroupsModel::SetUserId(quint64 id)
     }
 }
 
+bool UserGroupsModel::GetHasMore() const
+{
+    return m_HasMore;
+}
+
+void UserGroupsModel::SetHasMore(bool has)
+{
+    if (m_HasMore != has) {
+        m_HasMore = has;
+        emit hasMoreChanged();
+    }
+}
+
+void UserGroupsModel::fetchMoreContent()
+{
+    SailreadsManager::Instance()->loadGroups(m_UserId, m_CurrentPage);
+}
+
 void UserGroupsModel::handleGotUserGroups(quint64 userId, const CountedItems<GroupPtr>& groups)
 {
     if (userId != m_UserId) {
         return;
     }
 
-    m_CanFetchMore = groups.m_EndIndex != groups.m_Count;
+    SetHasMore(groups.m_EndIndex != groups.m_Count);
     if (groups.m_BeginIndex == 1) {
         SetItems(groups.m_Items);
     }

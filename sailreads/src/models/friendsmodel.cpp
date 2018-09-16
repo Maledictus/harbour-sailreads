@@ -29,6 +29,8 @@ namespace Sailreads
 FriendsModel::FriendsModel(QObject *parent)
 : BaseModel<Friend>(parent)
 , m_UserId(0)
+, m_HasMore(true)
+, m_CurrentPage(1)
 {
     auto sm = SailreadsManager::Instance();
     connect(sm, &SailreadsManager::gotUserFriends,
@@ -78,21 +80,6 @@ QHash<int, QByteArray> FriendsModel::roleNames() const
     return roles;
 }
 
-bool FriendsModel::canFetchMore(const QModelIndex& parent) const
-{
-    return !parent.isValid() ? m_CanFetchMore : false;
-}
-
-void FriendsModel::fetchMore(const QModelIndex& parent)
-{
-    if (parent.isValid()) {
-        return;
-    }
-
-    m_CanFetchMore = false;
-    SailreadsManager::Instance()->loadFriends(m_UserId);
-}
-
 quint64 FriendsModel::GetUserId() const
 {
     return m_UserId;
@@ -106,13 +93,41 @@ void FriendsModel::SetUserId(quint64 id)
     }
 }
 
-void FriendsModel::handleGotUserFriends(quint64 userId, const Friends_t& friends)
+bool FriendsModel::GetHasMore() const
+{
+    return m_HasMore;
+}
+
+void FriendsModel::SetHasMore(bool has)
+{
+    if (m_HasMore != has) {
+        m_HasMore = has;
+        emit hasMoreChanged();
+    }
+}
+
+void FriendsModel::fetchMoreContent()
+{
+    SailreadsManager::Instance()->loadFriends(m_UserId, m_CurrentPage);
+}
+
+void FriendsModel::handleGotUserFriends(quint64 userId, const CountedItems<Friend>& friends)
 {
     if (userId != m_UserId) {
         return;
     }
 
-    SetItems(friends);
+    SetHasMore(friends.m_EndIndex != friends.m_Count);
+    if (m_HasMore) {
+        ++m_CurrentPage;
+    }
+
+    if (friends.m_BeginIndex == 1) {
+        SetItems(friends.m_Items);
+    }
+    else {
+        AddItems(friends.m_Items);
+    }
 }
 
 } // namespace Sailreads

@@ -115,7 +115,12 @@ void SailreadsManager::MakeConnections()
                     emit authUserChanged();
                 }
                 emit gotUserProfile(profile);
-                emit gotUserBookShelves(profile->GetId(), profile->GetBookShelves());
+                CountedItems<BookShelf> items;
+                items.m_Items = profile->GetBookShelves();
+                items.m_BeginIndex = 1;
+                items.m_EndIndex = items.m_Items.size();
+                items.m_Count = items.m_Items.size();
+                emit gotUserBookShelves(profile->GetId(), items);
             });
     connect(m_Api, &GoodReadsApi::gotUserBookShelves,
             this, &SailreadsManager::gotUserBookShelves);
@@ -201,10 +206,10 @@ void SailreadsManager::getUpdates()
     m_Api->GetUpdates();
 }
 
-void SailreadsManager::loadBookShelves(quint64 id)
+void SailreadsManager::loadBookShelves(quint64 id, int page)
 {
     SetBusy(true);
-    m_Api->GetBookShelves(id);
+    m_Api->GetBookShelves(id, page);
 }
 
 void SailreadsManager::addBookShelf(const QString& name, bool exclusive, bool sortable, bool featured)
@@ -239,16 +244,16 @@ void SailreadsManager::loadSeries(quint64 seriesId)
     m_Api->GetSeries(seriesId);
 }
 
-void SailreadsManager::loadFriends(quint64 userId)
+void SailreadsManager::loadFriends(quint64 userId, int page)
 {
     SetBusy(true);
-    m_Api->GetFriends(userId);
+    m_Api->GetFriends(userId, page);
 }
 
-void SailreadsManager::loadGroups(quint64 userId)
+void SailreadsManager::loadGroups(quint64 userId, int page)
 {
     SetBusy(true);
-    m_Api->GetGroups(userId);
+    m_Api->GetGroups(userId, page);
 }
 
 void SailreadsManager::loadGroup(quint64 groupId)

@@ -24,6 +24,7 @@ THE SOFTWARE.
 
 #include "basemodel.h"
 #include "../objects/friend.h"
+#include "../types.h"
 
 namespace Sailreads
 {
@@ -34,8 +35,12 @@ class FriendsModel : public BaseModel<Friend>
     Q_ENUMS(FriendsRoles)
 
     quint64 m_UserId;
+    bool m_HasMore;
+    quint64 m_CurrentPage;
 
     Q_PROPERTY(quint64 userId READ GetUserId WRITE SetUserId NOTIFY userIdChanged)
+    Q_PROPERTY(bool hasMore READ GetHasMore WRITE SetHasMore NOTIFY hasMoreChanged)
+
 public:
     enum GroupRoles
     {
@@ -53,17 +58,20 @@ public:
 
     virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
     virtual QHash<int, QByteArray> roleNames() const override;
-    virtual bool canFetchMore(const QModelIndex& parent) const override;
-    virtual void fetchMore(const QModelIndex& parent) override;
 
     quint64 GetUserId() const;
     void SetUserId(quint64 id);
+    bool GetHasMore() const;
+    void SetHasMore(bool has);
 
+public slots:
+    void fetchMoreContent();
 private slots:
-    void handleGotUserFriends(quint64 userId, const Friends_t& friends);
+    void handleGotUserFriends(quint64 userId, const CountedItems<Friend> &friends);
 
 signals:
     void userIdChanged();
+    void hasMoreChanged();
 };
 
 } // namespace Sailreads
