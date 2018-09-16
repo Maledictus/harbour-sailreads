@@ -71,7 +71,18 @@ Page {
             text: qsTr("There are no friends. Pull down to refresh")
         }
 
+        cacheBuffer: friendsPage.height
         model: friendsModel
+
+        function fetchMoreIfNeeded() {
+            if (!friendsPage.busy &&
+                    friendsModel.hasMore &&
+                    indexAt(contentX, contentY + height) > friendsModel.rowCount() - 2) {
+                friendsModel.fetchMoreContent()
+            }
+        }
+
+        onContentYChanged: fetchMoreIfNeeded()
 
         delegate: ListItem {
             width: friendsView.width
