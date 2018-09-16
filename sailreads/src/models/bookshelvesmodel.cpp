@@ -92,7 +92,6 @@ void BookShelvesModel::SetUserId(quint64 id)
     if (m_UserId != id) {
         m_UserId = id;
         emit userIdChanged();
-        SailreadsManager::Instance(this)->loadBookShelves(m_UserId);
     }
 }
 
@@ -113,7 +112,6 @@ void BookShelvesModel::fetchMoreContent()
 {
     SailreadsManager::Instance()->loadBookShelves(m_UserId, m_CurrentPage);
 }
-
 
 void BookShelvesModel::handleGotUserBookShelves(quint64 userId, const CountedItems<BookShelf> bookshelves)
 {
