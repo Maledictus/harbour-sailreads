@@ -107,13 +107,16 @@ void GroupMembersModel::SetHasMore(bool has)
 
 void GroupMembersModel::handleGotGroupMembers(quint64 groupId, const GroupMembers_t& members)
 {
-    if (members.isEmpty()) {
-        SetHasMore(false);
+    if (groupId != m_GroupId) {
+        return;
     }
 
-    if (m_GroupId == groupId) {
-        AddItems(members);
+    SetHasMore(!members.isEmpty());
+    if (m_HasMore) {
+        ++m_CurrentPage;
     }
+
+    AddItems(members);
 }
 
 void GroupMembersModel::clear()
@@ -124,7 +127,7 @@ void GroupMembersModel::clear()
 
 void GroupMembersModel::fetchMoreContent()
 {
-    SailreadsManager::Instance()->loadGroupMembers(m_GroupId, ++m_CurrentPage);
+    SailreadsManager::Instance()->loadGroupMembers(m_GroupId, m_CurrentPage);
 }
 } // namespace Sailreads
 
