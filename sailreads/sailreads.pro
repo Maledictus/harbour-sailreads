@@ -50,7 +50,8 @@ SOURCES += src/harbour-sailreads.cpp \
     src/qmltypes/topicitem.cpp \
     src/qmltypes/userprofile.cpp \
     src/settings/accountsettings.cpp \
-    src/settings/applicationsettings.cpp
+    src/settings/applicationsettings.cpp \
+    src/objects/friendrequest.cpp
 
 
 HEADERS += src/application.h \
@@ -93,7 +94,8 @@ HEADERS += src/application.h \
     src/qmltypes/topicitem.h \
     src/qmltypes/userprofile.h \
     src/settings/accountsettings.h \
-    src/settings/applicationsettings.h
+    src/settings/applicationsettings.h \
+    src/objects/friendrequest.h
 
 DISTFILES += translations/*.ts \
     sailreads.desktop

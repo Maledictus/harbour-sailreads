@@ -28,6 +28,7 @@ THE SOFTWARE.
 #include <QUrl>
 
 #include "bookshelf.h"
+#include "friendrequest.h"
 #include "../types.h"
 
 namespace Sailreads
@@ -62,6 +63,10 @@ class User : public QObject
     quint32 m_GroupsCount;
     quint32 m_BooksCount;
     BookShelves_t m_BookShelves;
+    bool m_IsFriend;
+    bool m_IsFollwer;
+    bool m_IsFollowing;
+    FriendRequest m_FriendRequest;
 
     Q_PROPERTY(quint64 id READ GetId NOTIFY idChanged)
     Q_PROPERTY(QString userName READ GetUserName NOTIFY userNameChanged)
@@ -87,6 +92,9 @@ class User : public QObject
     Q_PROPERTY(quint32 groupsCount READ GetGroupsCount NOTIFY groupsCountChanged)
     Q_PROPERTY(quint32 booksCount READ GetBooksCount NOTIFY booksCountChanged)
     Q_PROPERTY(quint32 bookShelvesCount READ GetBookShelvesCount NOTIFY bookShelvesCountChanged)
+    Q_PROPERTY(bool isFriend READ GetIsFriend NOTIFY isFriendChanged)
+    Q_PROPERTY(bool isFollowing READ GetIsFollowing NOTIFY isFollowingChanged)
+    Q_PROPERTY(bool isFollower READ GetIsFollower NOTIFY isFollowerChanged)
 
 public:
     User(QObject *parent = nullptr);
@@ -143,6 +151,14 @@ public:
     BookShelves_t GetBookShelves() const;
     void SetBookShelves(const BookShelves_t& shelves);
     quint32 GetBookShelvesCount() const;
+    void SetIsFriend(bool isFriend);
+    bool GetIsFriend() const;
+    void SetIsFollowing(bool following);
+    bool GetIsFollowing() const;
+    void SetIsFollower(bool follower);
+    bool GetIsFollower() const;
+    void SetFriendRequest(const FriendRequest& fr);
+    FriendRequest GetFriendRequest() const;
 
     bool operator !=(const User& user) const;
 signals:
@@ -170,5 +186,8 @@ signals:
     void groupsCountChanged();
     void booksCountChanged();
     void bookShelvesCountChanged();
+    void isFriendChanged();
+    void isFollowingChanged();
+    void isFollowerChanged();
 };
 } // namespace Sailreads

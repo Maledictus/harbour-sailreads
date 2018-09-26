@@ -115,7 +115,10 @@ UserPtr ParseUser(const QDomElement& element)
             user->SetSmallAvatarUrl(QUrl(fieldElement.text()));
         }
         else if (fieldElement.tagName() == "is_following") {
-            //TODOuser->SetIsFollowing(fieldElement.text() == "true");
+            user->SetIsFollowing(fieldElement.text() == "true");
+        }
+        else if (fieldElement.tagName() == "is_follower") {
+            user->SetIsFollower(fieldElement.text() == "true");
         }
         else if (fieldElement.tagName() == "about") {
             user->SetAbout(fieldElement.text().trimmed());
@@ -148,10 +151,13 @@ UserPtr ParseUser(const QDomElement& element)
             user->SetFavoriteAuthors(ParseFavoriteAuthors(fieldElement));
         }
         else if (fieldElement.tagName() == "friend") {
-            //TODOuser->SetFriend(fieldElement.text() == "true");
+            user->SetIsFriend(fieldElement.text() == "true");
         }
         else if (fieldElement.tagName() == "friend_status") {
-            //TODOuser->SetFriendStatus();
+//            user->SetFriendStatus(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "friend_request") {
+            user->SetFriendRequest(ParseFriendRequest(fieldElement));
         }
         else if (fieldElement.tagName() == "updates_rss_url") {
             user->SetUpdateRSSUrl(QUrl(fieldElement.text()));
@@ -437,6 +443,33 @@ Friend ParseFriend(const QDomElement& element)
         else if (fieldElement.tagName() == "created_at" && !fieldElement.text().isEmpty()) {
             fr.SetCreatedDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
                     Qt::ISODate));
+        }
+        else if (fieldElement.tagName() == "is_mutual_friend") {
+            fr.SetIsMutualFriend(true);
+        }
+    }
+
+    return fr;
+}
+
+FriendRequest ParseFriendRequest(const QDomElement& element)
+{
+    FriendRequest fr;
+    const auto& fieldsList = element.childNodes();
+    for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
+        const auto& fieldElement = fieldsList.at (i).toElement ();
+        if (fieldElement.tagName() == "id") {
+            fr.SetId(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "created_at" && !fieldElement.text().isEmpty()) {
+            fr.SetCreatedAt(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
+                    Qt::ISODate));
+        }
+        else if (fieldElement.tagName() == "message") {
+            fr.SetMessage(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "from_user") {
+            fr.SetFromUser(ParseUser(fieldElement));
         }
     }
 
@@ -1212,6 +1245,7 @@ SeriesPtr ParseSeries(const QDomDocument& doc)
 
     return ParseSeries(responseElement.firstChildElement("series"));
 }
+
 }
 }
 }

@@ -34,6 +34,9 @@ User::User(QObject *parent)
 , m_FriendsCount(0)
 , m_GroupsCount(0)
 , m_BooksCount(0)
+, m_IsFriend(false)
+, m_IsFollwer(false)
+, m_IsFollowing(false)
 {
 #ifdef QT_DEBUG
     qDebug() << this << "CONSTRUCTED";
@@ -302,6 +305,46 @@ quint32 User::GetBookShelvesCount() const
     return m_BookShelves.count();
 }
 
+void User::SetIsFriend(bool isFriend)
+{
+    m_IsFriend = isFriend;
+}
+
+bool User::GetIsFriend() const
+{
+    return m_IsFriend;
+}
+
+void User::SetIsFollowing(bool following)
+{
+    m_IsFollowing = following;
+}
+
+bool User::GetIsFollowing() const
+{
+    return m_IsFollowing;
+}
+
+void User::SetIsFollower(bool follower)
+{
+    m_IsFollwer = follower;
+}
+
+bool User::GetIsFollower() const
+{
+    return m_IsFollwer;
+}
+
+void User::SetFriendRequest(const FriendRequest& fr)
+{
+    m_FriendRequest = fr;
+}
+
+FriendRequest User::GetFriendRequest() const
+{
+    return m_FriendRequest;
+}
+
 bool User::operator !=(const User& user) const
 {
     return m_Id != user.GetId() ||
@@ -328,7 +371,10 @@ bool User::operator !=(const User& user) const
         m_FriendsCount != user.GetFriendsCount() ||
         m_GroupsCount != user.GetGroupsCount() ||
         m_BooksCount != user.GetBooksCount() ||
-        m_BookShelves != user.GetBookShelves();
+        m_BookShelves != user.GetBookShelves() ||
+        m_IsFriend != user.GetIsFriend() ||
+        m_IsFollowing != user.GetIsFollowing() ||
+        m_IsFollwer != user.GetIsFollower();
 }
 
 } // namespace Sailreads

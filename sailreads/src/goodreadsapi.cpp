@@ -488,6 +488,7 @@ void GoodReadsApi::GetGroupMembers(quint64 groupId, int page)
     const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
             QUrl(QString("https://www.goodreads.com/group/members/%1.xml?page=%2&sort=num_comment")
                  .arg(groupId).arg(page)), "GET");
+    qDebug() << pair.first;
     auto reply = m_NAM->get(QNetworkRequest(pair.first));
     m_CurrentReply = reply;
     connect(reply, &QNetworkReply::finished,

@@ -23,43 +23,27 @@ THE SOFTWARE.
 #pragma once
 
 #include <QDateTime>
-#include <QList>
-#include <QUrl>
+
+#include "../types.h"
 
 namespace Sailreads
 {
-class Friend
+class FriendRequest
 {
     quint64 m_Id;
-    QString m_Name;
-    QUrl m_Url;
-    QUrl m_AvatarUrl;
-    QUrl m_SmallAvatarUrl;
-    quint64 m_FriendsCount;
-    quint64 m_BooksCount;
     QDateTime m_CreatedAt;
-    bool m_IsMutualFriend;
+    QString m_Message;
+    UserPtr m_FromUser;
 public:
-    explicit Friend();
+    FriendRequest();
 
     quint64 GetId() const;
     void SetId(quint64 id);
-    QString GetName() const;
-    void SetName(const QString& name);
-    QUrl GetUrl() const;
-    void SetUrl(const QUrl& url);
-    QUrl GetAvatarUrl() const;
-    void SetAvatarUrl(const QUrl& url);
-    QUrl GetSmallAvatarUrl() const;
-    void SetSmallAvatarUrl(const QUrl& url);
-    quint64 GetFriendsCount() const;
-    void SetFriendsCount(quint64 count);
-    quint64 GetBooksCount() const;
-    void SetBooksCount(quint64 count);
-    QDateTime GetCreatedDate() const;
-    void SetCreatedDate(const QDateTime& dt);
-    bool GetIsMutualFriend() const;
-    void SetIsMutualFriend(bool isMutualFriend);
+    QDateTime GetCreatedAt() const;
+    void SetCreatedAt(const QDateTime& createdAt);
+    QString GetMessage() const;
+    void SetMessage(const QString& message);
+    UserPtr GetFromUser() const;
+    void SetFromUser(const UserPtr& fromUser);
 };
-typedef QList<Friend> Friends_t;
 } // namespace Sailreads

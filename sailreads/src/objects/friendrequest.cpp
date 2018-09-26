@@ -20,103 +20,54 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-#include "friend.h"
+#include "friendrequest.h"
 
 namespace Sailreads
 {
-Friend::Friend()
+FriendRequest::FriendRequest()
 : m_Id(0)
-, m_IsMutualFriend(false)
 {
 }
 
-quint64 Friend::GetId() const
+quint64 FriendRequest::GetId() const
 {
     return m_Id;
 }
 
-void Friend::SetId(quint64 id)
+void FriendRequest::SetId(quint64 id)
 {
     m_Id = id;
 }
 
-QString Friend::GetName() const
-{
-    return m_Name;
-}
-
-void Friend::SetName(const QString& name)
-{
-    m_Name = name;
-}
-
-QUrl Friend::GetUrl() const
-{
-    return m_Url;
-}
-
-void Friend::SetUrl(const QUrl& url)
-{
-    m_Url = url;
-}
-
-QUrl Friend::GetAvatarUrl() const
-{
-    return m_AvatarUrl;
-}
-
-void Friend::SetAvatarUrl(const QUrl& url)
-{
-    m_AvatarUrl = url;
-}
-
-QUrl Friend::GetSmallAvatarUrl() const
-{
-    return m_SmallAvatarUrl;
-}
-
-void Friend::SetSmallAvatarUrl(const QUrl& url)
-{
-    m_SmallAvatarUrl = url;
-}
-
-quint64 Friend::GetFriendsCount() const
-{
-    return m_FriendsCount;
-}
-
-void Friend::SetFriendsCount(quint64 count)
-{
-    m_FriendsCount = count;
-}
-
-quint64 Friend::GetBooksCount() const
-{
-    return m_BooksCount;
-}
-
-void Friend::SetBooksCount(quint64 count)
-{
-    m_BooksCount = count;
-}
-
-QDateTime Friend::GetCreatedDate() const
+QDateTime FriendRequest::GetCreatedAt() const
 {
     return m_CreatedAt;
 }
 
-void Friend::SetCreatedDate(const QDateTime& dt)
+void FriendRequest::SetCreatedAt(const QDateTime& createdAt)
 {
-    m_CreatedAt = dt;
+    m_CreatedAt = createdAt;
 }
 
-bool Friend::GetIsMutualFriend() const
+QString FriendRequest::GetMessage() const
 {
-    return m_IsMutualFriend;
+    return m_Message;
 }
 
-void Friend::SetIsMutualFriend(bool isMutualFriend)
+void FriendRequest::SetMessage(const QString& message)
 {
-    m_IsMutualFriend = isMutualFriend;
+    m_Message = message;
 }
+
+UserPtr FriendRequest::GetFromUser() const
+{
+    return m_FromUser;
+}
+
+void FriendRequest::SetFromUser(const UserPtr& fromUser)
+{
+    m_FromUser = fromUser;
+}
+
+
 } // namespace Sailreads

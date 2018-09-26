@@ -31,6 +31,7 @@ THE SOFTWARE.
 #include "objects/bookshelf.h"
 #include "objects/comment.h"
 #include "objects/friend.h"
+#include "objects/friendrequest.h"
 #include "objects/groupfolder.h"
 #include "objects/groupmember.h"
 #include "types.h"
@@ -50,6 +51,7 @@ GroupMember ParseGroupMember(const QDomElement& element);
 GroupFolder ParseGroupFolder(const QDomElement& element);
 GroupPtr ParseGroup(const QDomElement& element);
 Friend ParseFriend(const QDomElement& element);
+FriendRequest ParseFriendRequest(const QDomElement& element);
 TopicPtr ParseTopic(const QDomElement& element);
 Comment ParseComment(const QDomElement& element);
 BookPtr ParseBook(const QDomElement& element);
