@@ -42,6 +42,22 @@
         <source>A book can only be on one of the exclisive shelves</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Sortable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can enable shelf sorting to customize the order of your books on shelf</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Featured</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You may choose one shelf to feature on the top of your profile.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AddGroupFolderTopicDialog</name>
@@ -153,10 +169,6 @@
 </context>
 <context>
     <name>BooksPage</name>
-    <message>
-        <source>by %1</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>%1/%2 ratings</source>
         <translation type="unfinished"></translation>
@@ -306,6 +318,10 @@
         <source>Topics</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Join a group</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GroupSearchPage</name>
@@ -408,10 +424,6 @@ Pull down to refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>by %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>%1/%2 ratings</source>
         <translation type="unfinished"></translation>
     </message>
@@ -428,6 +440,21 @@ Pull down to refresh</source>
     </message>
     <message>
         <source>Getting user profile...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SeriesPage</name>
+    <message>
+        <source>%1/%2 ratings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Series</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 works, %2 primary works</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

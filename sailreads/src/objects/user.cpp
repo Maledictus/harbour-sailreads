@@ -57,7 +57,10 @@ quint64 User::GetId() const
 
 void User::SetId(quint64 id)
 {
-    m_Id = id;
+    if (m_Id != id ) {
+        m_Id = id;
+        emit idChanged();
+    }
 }
 
 QString User::GetUserName() const
@@ -337,12 +340,24 @@ bool User::GetIsFollower() const
 
 void User::SetFriendRequest(const FriendRequest& fr)
 {
-    m_FriendRequest = fr;
+    if (m_FriendRequest.GetId() != fr.GetId()) {
+        emit hasFriendRequestChanged();
+    }
 }
 
 FriendRequest User::GetFriendRequest() const
 {
     return m_FriendRequest;
+}
+
+bool User::GetHasFriendRequest() const
+{
+    return m_FriendRequest.GetId() > 0;
+}
+
+quint64 User::GetFriendRequestId() const
+{
+    return m_FriendRequest.GetId();
 }
 
 bool User::operator !=(const User& user) const
