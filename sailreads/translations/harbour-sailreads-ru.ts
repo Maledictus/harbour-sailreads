@@ -210,6 +210,14 @@
         <source>%1 friends</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Remove</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Removing</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GroupFolderPage</name>
@@ -410,6 +418,26 @@ Pull down to refresh</source>
     </message>
     <message>
         <source>About me</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unfollow user</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Follow user</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add as a friend</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Friend request was sent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Accept friend request</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

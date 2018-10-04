@@ -247,13 +247,23 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/FriendsPage.qml" line="130"/>
+        <location filename="../qml/pages/FriendsPage.qml" line="131"/>
         <source>%1 books</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/FriendsPage.qml" line="136"/>
+        <location filename="../qml/pages/FriendsPage.qml" line="137"/>
         <source>%1 friends</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/FriendsPage.qml" line="159"/>
+        <source>Remove</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/FriendsPage.qml" line="161"/>
+        <source>Removing</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -455,52 +465,77 @@ Pull down to refresh</source>
 <context>
     <name>ProfilePage</name>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="90"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="95"/>
+        <source>Unfollow user</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ProfilePage.qml" line="95"/>
+        <source>Follow user</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ProfilePage.qml" line="116"/>
+        <source>Friend request was sent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ProfilePage.qml" line="120"/>
+        <source>Accept friend request</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ProfilePage.qml" line="123"/>
+        <source>Add as a friend</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ProfilePage.qml" line="137"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="122"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="169"/>
         <source>Details</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="132"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="179"/>
         <source>Joined</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="139"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="186"/>
         <source>Last active</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="158"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="205"/>
         <source>Interests</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="167"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="214"/>
         <source>Favorite books</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="176"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="223"/>
         <source>About me</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="185"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="237"/>
         <source>Friends</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="201"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="253"/>
         <source>Groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="217"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="269"/>
         <source>Bookshelves</source>
         <translation type="unfinished"></translation>
     </message>
@@ -526,17 +561,17 @@ Pull down to refresh</source>
 <context>
     <name>Sailreads::SailreadsManager</name>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="174"/>
+        <location filename="../src/sailreadsmanager.cpp" line="184"/>
         <source>Authorization user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="192"/>
+        <location filename="../src/sailreadsmanager.cpp" line="202"/>
         <source>Authentication user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="199"/>
+        <location filename="../src/sailreadsmanager.cpp" line="209"/>
         <source>Getting user profile...</source>
         <translation type="unfinished"></translation>
     </message>

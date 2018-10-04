@@ -94,6 +94,11 @@ public slots:
     void loadSeries(quint64 seriesId);
 
     void loadFriends(quint64 userId, int page = 1);
+    void confirmFriendRequest(quint64 friendRequestId, bool confirm);
+    void followUser(quint64 id);
+    void unfollowUser(quint64 id);
+    void addAsFriend(quint64 id);
+    void removeFriend(quint64 id);
 
     void loadGroups(quint64 userId, int page = 1);
     void loadGroup(quint64 groupId);
@@ -127,6 +132,11 @@ signals:
     void gotSeries(const SeriesPtr& series);
 
     void gotUserFriends(quint64 userId, const CountedItems<Friend>& friends);
+    void friendRequestConfirmed(quint64 friendRequestId, bool confirmed);
+    void userFollowed(quint64 userId, bool success);
+    void userUnfollowed(quint64 userId, bool success);
+    void friendAdded(quint64 userId);
+    void friendRemoved(quint64 userId);
 
     void gotUserGroups(quint64 userId, const CountedItems<GroupPtr>& groups);
     void gotUserGroup(quint64 inGroupId, const GroupPtr& inGroup);

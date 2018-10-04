@@ -87,6 +87,53 @@ Page {
 
             PullDownMenu {
                 MenuItem {
+                    visible: userProfile.user &&
+                        (sailreadsManager.authUser.id !== userId) &&
+                        !userProfile.user.isFriend &&
+                        userProfile.user.friendStatus != User.FriendRequestSent
+                    text: userProfile.user ?
+                        (userProfile.user.isFollowing ? qsTr("Unfollow user") : qsTr("Follow user")) :
+                        ""
+                    onClicked: {
+                        if (userProfile.user) {
+                            userProfile.user.isFollowing ?
+                                sailreadsManager.unfollowUser(userId) :
+                                sailreadsManager.followUser(userId)
+                        }
+                    }
+                }
+
+                MenuItem {
+                    visible: userProfile.user &&
+                        (sailreadsManager.authUser.id !== userId) &&
+                        !userProfile.user.isFriend
+                    enabled: userProfile.user &&
+                            (userProfile.user.friendStatus == User.NotAFriend ||
+                                userProfile.user.friendStatus == User.FriendRequestReceived)
+                    text: {
+                        if (userProfile.user &&
+                                userProfile.user.friendStatus == User.FriendRequestSent) {
+                            return qsTr("Friend request was sent")
+                        }
+                        else if (userProfile.user &&
+                                userProfile.user.friendStatus == User.FriendRequestReceived) {
+                            return qsTr("Accept friend request")
+                        }
+
+                        return qsTr("Add as a friend")
+                    }
+                    onClicked: {
+                        if (userProfile.user &&
+                                userProfile.user.friendStatus == User.FriendRequestReceived) {
+                            sailreadsManager.confirmFriendRequest(userProfile.user.friendRequestId, true)
+                        }
+                        else {
+                            sailreadsManager.addAsFriend(userId)
+                        }
+                    }
+                }
+
+                MenuItem {
                     text: qsTr("Refresh")
                     onClicked: {
                         userProfile.updateProfile()
@@ -176,6 +223,11 @@ Page {
                     key: qsTr("About me")
                     value: userProfile.user ? userProfile.user.about : ""
                 }
+            }
+
+            Item {
+                width: 1
+                height: Theme.paddingMedium
             }
 
             MoreButton {

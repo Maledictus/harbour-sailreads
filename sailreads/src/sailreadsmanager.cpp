@@ -134,6 +134,16 @@ void SailreadsManager::MakeConnections()
 
     connect(m_Api, &GoodReadsApi::gotUserFriends,
             this, &SailreadsManager::gotUserFriends);
+    connect(m_Api, &GoodReadsApi::friendRequestConfirmed,
+            this, &SailreadsManager::friendRequestConfirmed);
+    connect(m_Api, &GoodReadsApi::userFollowed,
+            this, &SailreadsManager::userFollowed);
+    connect(m_Api, &GoodReadsApi::userUnfollowed,
+            this, &SailreadsManager::userUnfollowed);
+    connect(m_Api, &GoodReadsApi::friendAdded,
+            this, &SailreadsManager::friendAdded);
+    connect(m_Api, &GoodReadsApi::friendRemoved,
+            this, &SailreadsManager::friendRemoved);
 
     connect(m_Api, &GoodReadsApi::gotUserGroups,
             this, &SailreadsManager::gotUserGroups);
@@ -248,6 +258,36 @@ void SailreadsManager::loadFriends(quint64 userId, int page)
 {
     SetBusy(true);
     m_Api->GetFriends(userId, page);
+}
+
+void SailreadsManager::confirmFriendRequest(quint64 friendRequestId, bool confirm)
+{
+    SetBusy(true);
+    m_Api->ConfirmFriendRequest(friendRequestId, confirm);
+}
+
+void SailreadsManager::followUser(quint64 id)
+{
+    SetBusy(true);
+    m_Api->FollowUser(id);
+}
+
+void SailreadsManager::unfollowUser(quint64 id)
+{
+    SetBusy(true);
+    m_Api->UnfollowUser(id);
+}
+
+void SailreadsManager::addAsFriend(quint64 id)
+{
+    SetBusy(true);
+    m_Api->AddFriend(id);
+}
+
+void SailreadsManager::removeFriend(quint64 id)
+{
+    SetBusy(true);
+    m_Api->RemoveFriend(id);
 }
 
 void SailreadsManager::loadGroups(quint64 userId, int page)

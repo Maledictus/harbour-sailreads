@@ -95,8 +95,21 @@ class User : public QObject
     Q_PROPERTY(bool isFriend READ GetIsFriend NOTIFY isFriendChanged)
     Q_PROPERTY(bool isFollowing READ GetIsFollowing NOTIFY isFollowingChanged)
     Q_PROPERTY(bool isFollower READ GetIsFollower NOTIFY isFollowerChanged)
-    Q_PROPERTY(bool hasFriendRequest READ GetHasFriendRequest NOTIFY hasFriendRequestChanged)
     Q_PROPERTY(quint64 friendRequestId READ GetFriendRequestId NOTIFY friendRequestIdChanged)
+    Q_PROPERTY(int friendStatus READ GetFriendStatus NOTIFY friendStatusChanged)
+
+public:
+    enum FriendStatus
+    {
+        NotAFriend = 0,
+        FriendRequestReceived,
+        FriendRequestSent,
+        Friend
+    };
+    Q_ENUMS(FriendStatus)
+
+private:
+    FriendStatus m_FriendStatus;
 
 public:
     User(QObject *parent = nullptr);
@@ -161,10 +174,11 @@ public:
     bool GetIsFollower() const;
     void SetFriendRequest(const FriendRequest& fr);
     FriendRequest GetFriendRequest() const;
-    bool GetHasFriendRequest() const;
     quint64 GetFriendRequestId() const;
+    int GetFriendStatus() const;
+    void SetFriendStatus(const QString& status);
 
-    bool operator !=(const User& user) const;
+    bool IsEqual(const UserPtr& user) const;
 signals:
     void idChanged();
     void userNameChanged();
@@ -193,7 +207,7 @@ signals:
     void isFriendChanged();
     void isFollowingChanged();
     void isFollowerChanged();
-    void hasFriendRequestChanged();
     void friendRequestIdChanged();
+    void friendStatusChanged();
 };
 } // namespace Sailreads

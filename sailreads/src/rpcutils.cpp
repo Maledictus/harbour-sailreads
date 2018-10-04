@@ -154,7 +154,7 @@ UserPtr ParseUser(const QDomElement& element)
             user->SetIsFriend(fieldElement.text() == "true");
         }
         else if (fieldElement.tagName() == "friend_status") {
-//            user->SetFriendStatus(fieldElement.text());
+            user->SetFriendStatus(fieldElement.text());
         }
         else if (fieldElement.tagName() == "friend_request") {
             user->SetFriendRequest(ParseFriendRequest(fieldElement));

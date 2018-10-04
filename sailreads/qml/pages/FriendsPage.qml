@@ -85,6 +85,7 @@ Page {
         onContentYChanged: fetchMoreIfNeeded()
 
         delegate: ListItem {
+            id: rootDelegateItem
             width: friendsView.width
             contentHeight: row.height + separator.height +
                     Theme.paddingMedium
@@ -148,6 +149,20 @@ Page {
                 width: parent.width
                 color: Theme.primaryColor
                 horizontalAlignment: Qt.AlignHCenter
+            }
+
+            RemorseItem { id: remorse }
+
+            menu: ContextMenu {
+                hasContent: userId === sailreadsManager.authUser.id
+                MenuItem {
+                    text: qsTr("Remove")
+                    onClicked: {
+                        remorse.execute(rootDelegateItem, qsTr("Removing"), function() {
+                            sailreadsManager.removeFriend(friendId)
+                        })
+                    }
+                }
             }
 
             onClicked: {

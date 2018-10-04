@@ -133,11 +133,11 @@ public:
 
     void GetFriends(quint64 userId, int page = 1);
     void GetFriendRequests(int page);
-    void ConfirmFriendRequest(quint64 friendRequestId);
-    void DeclineFriendRequest(quint64 friendRequestId);
+    void ConfirmFriendRequest(quint64 friendRequestId, bool confirm);
     void ConfirmFriendRecommendation(quint64 friendRecommendationId);
     void DeclineFriendRecommendation(quint64 friendRecommendationId);
     void AddFriend(quint64 userId);
+    void RemoveFriend(quint64 userId);
     void FollowUser(quint64 userId);
     void UnfollowUser(quint64 userId);
 
@@ -208,13 +208,13 @@ private slots:
 
     void handleGetFriends(quint64 userId);
     void handleGetFriendRequests();
-    void handleConfirmFriendRequest();
-    void handleDeclineFriendRequest();
+    void handleConfirmFriendRequest(quint64 friendRequestId, bool confirm);
     void handleConfirmFriendRecommendation();
     void handleDeclineFriendRecommendation();
-    void handleAddFriend();
+    void handleAddFriend(quint64 userId);
+    void handleRemoveFriend(quint64 userId);
     void handleFollowUser();
-    void handleUnfollowUser();
+    void handleUnfollowUser(quint64 userId);
 
     void handleAddQuote();
 
@@ -261,5 +261,10 @@ signals:
     void newCommentAdded(const Comment& comment);
 
     void gotUserFriends(quint64 userId, const CountedItems<Friend>& friends);
+    void friendRequestConfirmed(quint64 friendRequestId, bool confirmed);
+    void userFollowed(quint64 userId, bool success);
+    void userUnfollowed(quint64 userId, bool success);
+    void friendAdded(quint64 userId);
+    void friendRemoved(quint64 userId);
 };
 }

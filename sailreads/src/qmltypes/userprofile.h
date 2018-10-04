@@ -58,6 +58,11 @@ public:
 
 private slots:
     void handleGotUser(const UserPtr& user);
+    void handleFriendRequestCofirmed(quint64 friendRequestId, bool confirmed);
+    void handleUserFollowed(quint64 userId, bool success);
+    void handleUserUnfollowed(quint64 userId, bool success);
+    void handleFriendAdded(quint64 userId);
+    void handleFriendRemoved(quint64 friendId);
 public slots:
     void updateProfile();
 

@@ -35,6 +35,8 @@ FriendsModel::FriendsModel(QObject *parent)
     auto sm = SailreadsManager::Instance();
     connect(sm, &SailreadsManager::gotUserFriends,
             this, &FriendsModel::handleGotUserFriends);
+    connect(sm, &SailreadsManager::friendRemoved,
+            this, &FriendsModel::handleFriendRemoved);
 }
 
 QVariant FriendsModel::data(const QModelIndex& index, int role) const
@@ -128,6 +130,22 @@ void FriendsModel::handleGotUserFriends(quint64 userId, const CountedItems<Frien
     else {
         AddItems(friends.m_Items);
     }
+}
+
+void FriendsModel::handleFriendRemoved(quint64 friendId)
+{
+    auto it = std::find_if(m_Items.begin(), m_Items.end(),
+            [friendId](decltype(m_Items.front()) fr) {
+                return fr.GetId() == friendId;
+            });
+    if (it == m_Items.end()) {
+        return;
+    }
+
+    const int pos = std::distance(m_Items.begin(), it);
+    beginRemoveRows(QModelIndex(), pos, pos);
+    m_Items.removeAt(pos);
+    endRemoveRows();
 }
 
 } // namespace Sailreads

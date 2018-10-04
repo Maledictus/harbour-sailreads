@@ -38,6 +38,16 @@ UserProfile::UserProfile(QObject *parent)
 {
     connect(SailreadsManager::Instance(), &SailreadsManager::gotUserProfile,
             this, &UserProfile::handleGotUser);
+    connect(SailreadsManager::Instance(), &SailreadsManager::friendRequestConfirmed,
+            this, &UserProfile::handleFriendRequestCofirmed);
+    connect(SailreadsManager::Instance(), &SailreadsManager::userFollowed,
+            this, &UserProfile::handleUserFollowed);
+    connect(SailreadsManager::Instance(), &SailreadsManager::userUnfollowed,
+            this, &UserProfile::handleUserUnfollowed);
+    connect(SailreadsManager::Instance(), &SailreadsManager::friendAdded,
+            this, &UserProfile::handleFriendAdded);
+    connect(SailreadsManager::Instance(), &SailreadsManager::friendRemoved,
+            this, &UserProfile::handleFriendRemoved);
 }
 
 quint64 UserProfile::GetUserID() const
@@ -61,8 +71,13 @@ User* UserProfile::GetUser() const
 
 void UserProfile::SetUser(const UserPtr& user)
 {
-    if (m_User != user) {
+    if (!user) {
+        return;
+    }
+
+    if (!m_User || !m_User->IsEqual(user)) {
         m_User = user;
+        qDebug() << Q_FUNC_INFO;
         return userChanged();
     }
 }
@@ -73,6 +88,60 @@ void UserProfile::handleGotUser(const UserPtr& user)
         return;
     }
     SetUser(user);
+}
+
+void UserProfile::handleFriendRequestCofirmed(quint64 friendRequestId, bool)
+{
+    if (m_User && m_User->GetFriendRequestId() == friendRequestId) {
+        handleFriendAdded(m_UserId);
+    }
+
+    if (m_User && SailreadsManager::Instance()->GetAuthUser() &&
+            m_UserId == SailreadsManager::Instance()->GetAuthUser()->GetId()) {
+        m_User->SetFriendsCount(m_User->GetFriendsCount() + 1);
+        emit userChanged();
+    }
+}
+
+void UserProfile::handleUserFollowed(quint64 userId, bool success)
+{
+    if (!m_User || m_UserId != userId) {
+        return;
+    }
+
+    m_User->SetIsFollowing(success);
+    emit userChanged();
+}
+
+void UserProfile::handleUserUnfollowed(quint64 userId, bool success)
+{
+    if (!m_User || m_UserId != userId) {
+        return;
+    }
+
+    m_User->SetIsFollowing(!success);
+    emit userChanged();
+}
+
+void UserProfile::handleFriendAdded(quint64 userId)
+{
+    if (!m_User || m_UserId != userId) {
+        return;
+    }
+
+    m_User->SetIsFriend(true);
+    emit userChanged();
+}
+
+void UserProfile::handleFriendRemoved(quint64)
+{
+    if (!m_User || !SailreadsManager::Instance()->GetAuthUser() ||
+            m_UserId != SailreadsManager::Instance()->GetAuthUser()->GetId()) {
+        return;
+    }
+
+    m_User->SetFriendsCount(m_User->GetFriendsCount() - 1);
+    emit userChanged();
 }
 
 void UserProfile::updateProfile()

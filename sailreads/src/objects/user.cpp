@@ -37,6 +37,7 @@ User::User(QObject *parent)
 , m_IsFriend(false)
 , m_IsFollwer(false)
 , m_IsFollowing(false)
+, m_FriendStatus(User::NotAFriend)
 {
 #ifdef QT_DEBUG
     qDebug() << this << "CONSTRUCTED";
@@ -57,10 +58,7 @@ quint64 User::GetId() const
 
 void User::SetId(quint64 id)
 {
-    if (m_Id != id ) {
-        m_Id = id;
-        emit idChanged();
-    }
+    m_Id = id;
 }
 
 QString User::GetUserName() const
@@ -340,9 +338,7 @@ bool User::GetIsFollower() const
 
 void User::SetFriendRequest(const FriendRequest& fr)
 {
-    if (m_FriendRequest.GetId() != fr.GetId()) {
-        emit hasFriendRequestChanged();
-    }
+    m_FriendRequest = fr;
 }
 
 FriendRequest User::GetFriendRequest() const
@@ -350,46 +346,67 @@ FriendRequest User::GetFriendRequest() const
     return m_FriendRequest;
 }
 
-bool User::GetHasFriendRequest() const
-{
-    return m_FriendRequest.GetId() > 0;
-}
-
 quint64 User::GetFriendRequestId() const
 {
     return m_FriendRequest.GetId();
 }
 
-bool User::operator !=(const User& user) const
+int User::GetFriendStatus() const
 {
-    return m_Id != user.GetId() ||
-        m_WebUrl != user.GetWebUrl() ||
-        m_Private != user.GetPrivate() ||
-        m_UserName != user.GetUserName() ||
-        m_FirstName != user.GetFirstName() ||
-        m_LastName != user.GetLastName() ||
-        m_NickName != user.GetNickName() ||
-        m_AvatarUrl != user.GetAvatarUrl() ||
-        m_SmallAvatarUrl != user.GetSmallAvatarUrl() ||
-        m_About != user.GetAbout() ||
-        m_Age != user.GetAge() ||
-        m_Gender != user.GetGender() ||
-        m_Location != user.GetLocation() ||
-        m_WebSite != user.GetWebSite() ||
-        m_JoinDate != user.GetJoinedDate() ||
-        m_LastUpdateDate != user.GetLastUpdateDate() ||
-        m_Interests != user.GetInterests() ||
-        m_FavoriteBooksDesc != user.GetFavoriteBooksDesc() ||
-        m_FavoriteAuthors != user.GetFavoritesAuthors() ||
-        m_UpdateRSSUrl != user.GetUpdateRSSUrl() ||
-        m_ReviewRSSUrl != user.GetReviewRSSUrl() ||
-        m_FriendsCount != user.GetFriendsCount() ||
-        m_GroupsCount != user.GetGroupsCount() ||
-        m_BooksCount != user.GetBooksCount() ||
-        m_BookShelves != user.GetBookShelves() ||
-        m_IsFriend != user.GetIsFriend() ||
-        m_IsFollowing != user.GetIsFollowing() ||
-        m_IsFollwer != user.GetIsFollower();
+    return m_FriendStatus;
 }
 
+void User::SetFriendStatus(const QString& status)
+{
+    if (status == "friend") {
+        m_FriendStatus = User::Friend;
+    }
+    else if (status == "not_friend") {
+        m_FriendStatus = User::NotAFriend;
+    }
+    else if (status == "request_pending_to") {
+        m_FriendStatus = User::FriendRequestSent;
+    }
+    else if (status == "request_pending_from") {
+        m_FriendStatus = User::FriendRequestReceived;
+    }
+}
+
+bool User::IsEqual(const UserPtr& user) const
+{
+    if (!user) {
+        return false;
+    }
+
+    return m_Id == user->GetId() &&
+        m_WebUrl == user->GetWebUrl() &&
+        m_Private == user->GetPrivate() &&
+        m_UserName == user->GetUserName() &&
+        m_FirstName == user->GetFirstName() &&
+        m_LastName == user->GetLastName() &&
+        m_NickName == user->GetNickName() &&
+        m_AvatarUrl == user->GetAvatarUrl() &&
+        m_SmallAvatarUrl == user->GetSmallAvatarUrl() &&
+        m_About == user->GetAbout() &&
+        m_Age == user->GetAge() &&
+        m_Gender == user->GetGender() &&
+        m_Location == user->GetLocation() &&
+        m_WebSite == user->GetWebSite() &&
+        m_JoinDate == user->GetJoinedDate() &&
+        m_LastUpdateDate == user->GetLastUpdateDate() &&
+        m_Interests == user->GetInterests() &&
+        m_FavoriteBooksDesc == user->GetFavoriteBooksDesc() &&
+        m_FavoriteAuthors == user->GetFavoritesAuthors() &&
+        m_UpdateRSSUrl == user->GetUpdateRSSUrl() &&
+        m_ReviewRSSUrl == user->GetReviewRSSUrl() &&
+        m_FriendsCount == user->GetFriendsCount() &&
+        m_GroupsCount == user->GetGroupsCount() &&
+        m_BooksCount == user->GetBooksCount() &&
+        m_BookShelves == user->GetBookShelves() &&
+        m_IsFriend == user->GetIsFriend() &&
+        m_IsFollowing == user->GetIsFollowing() &&
+        m_IsFollwer == user->GetIsFollower() &&
+        m_FriendRequest.GetId() == user->GetFriendRequest().GetId() &&
+        m_FriendStatus == user->GetFriendStatus();
+}
 } // namespace Sailreads

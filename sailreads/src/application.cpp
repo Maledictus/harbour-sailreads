@@ -145,6 +145,7 @@ void Application::start()
     qmlRegisterType<TopicItem>("harbour.sailreads", 1, 0, "TopicItem");
     qmlRegisterType<BookItem>("harbour.sailreads", 1, 0, "BookItem");
     qmlRegisterType<SeriesItem>("harbour.sailreads", 1, 0, "SeriesItem");
+    qmlRegisterType<User>("harbour.sailreads", 1, 0, "User");
 
     ShowUI();
 }
