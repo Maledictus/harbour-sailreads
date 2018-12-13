@@ -32,6 +32,7 @@ Page {
     property int userId: 0
     property string userName
     property bool busy: sailreadsManager.busy && bookShelvesPage.status === PageStatus.Active
+    property bool showSearchField: applicationSettings.value("bookshelves/showSearchField", true)
 
     function attachPage() {
         if (pageStack._currentContainer.attachedContainer === null
@@ -44,19 +45,52 @@ Page {
         sailreadsManager.abortRequest()
     }
 
-    BookShelvesModel {
-        id: bookShelvesModel
-        userId: bookShelvesPage.userId
+    BookShelfProxyModel {
+        id: bookShelvesProxyModel
+        dynamicSortFilter: true
+        filterRole: BookShelvesModel.Name
+        sourceModel: BookShelvesModel {
+            id: bookShelvesModel
+            userId: bookShelvesPage.userId
+        }
     }
 
     SilicaListView {
         id: bookShelvesView
         anchors.fill: parent
-        header: PageHeader {
-            title: qsTr("Bookshelves")
+
+        header: Column {
+            id: headerColumn
+            width: bookShelvesView.width
+            property alias description: pageHeader.description
+            property alias searchField: search
+            PageHeader {
+                id: pageHeader
+                title: qsTr("Bookshelves")
+            }
+
+            SearchField {
+                id: search
+                visible: showSearchField
+                anchors.left: parent.left
+                anchors.right: parent.right
+                placeholderText: qsTr("Search")
+                onTextChanged: {
+                    bookShelvesProxyModel.filterRegExp = new RegExp(text)
+                    search.forceActiveFocus()
+                    bookShelvesView.currentIndex = -1
+                }
+            }
         }
 
         PullDownMenu {
+            MenuItem {
+                text: showSearchField ? qsTr("Hide search field") : qsTr("Show search field")
+                onClicked: {
+                    showSearchField = !showSearchField
+                    applicationSettings.setValue("bookshelves/showSearchField", showSearchField)
+                }
+            }
             MenuItem {
                 text: qsTr("Add shelf")
                 onClicked: {
@@ -81,10 +115,11 @@ Page {
         }
 
         cacheBuffer: bookShelvesPage.height
-        model: bookShelvesModel
+        model: bookShelvesProxyModel
 
         function fetchMoreIfNeeded() {
-            if (!bookShelvesPage.busy &&
+            if (headerItem.searchField.text === "" &&
+                !bookShelvesPage.busy &&
                     bookShelvesModel.hasMore &&
                     indexAt(contentX, contentY + height) > bookShelvesModel.rowCount() - 2) {
                 bookShelvesModel.fetchMoreContent()
