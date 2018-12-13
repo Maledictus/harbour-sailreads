@@ -24,8 +24,8 @@ THE SOFTWARE.
 
 import QtQuick 2.2
 import Sailfish.Silica 1.0
+import Nemo.Notifications 1.0
 import harbour.sailreads 1.0
-import org.nemomobile.notifications 1.0
 import "cover"
 import "pages"
 
