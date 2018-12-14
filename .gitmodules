@@ -1,3 +1,0 @@
-[submodule "liboauth"]
-	path = liboauth
-	url = git@github.com:Maledictus/liboauth.git
