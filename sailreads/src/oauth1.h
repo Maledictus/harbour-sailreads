@@ -59,19 +59,26 @@ public:
     OAuth1(const QString& consumerKey, const QString& consumerSecretKey,
             QNetworkAccessManager *manager, QObject *parent = nullptr);
 
-    QPair<QString, QString> GetClientCredentials() const;
-
     QNetworkReply* RequestTemporaryCredentials(QNetworkAccessManager::Operation operation,
             const QUrl& url);
     QNetworkReply* RequestTokenCredentials(QNetworkAccessManager::Operation operation,
-            const QUrl& url);
+            const QUrl& url, const QString& requestToken, const QString& requestTokenSecret);
 
+    QNetworkReply* Get(const QString& accessToken, const QString& accessTokenSecret,
+            const QUrl& url, const QVariantMap& parameters = QVariantMap());
+    QNetworkReply* Post(const QString& accessToken, const QString& accessTokenSecret,
+            const QUrl& url, const QVariantMap& parameters = QVariantMap());
+    QNetworkReply* Put(const QString& accessToken, const QString& accessTokenSecret,
+            const QUrl& url, const QVariantMap& parameters = QVariantMap());
+    QNetworkReply* DeleteResource(const QString& accessToken, const QString& accessTokenSecret,
+            const QUrl& url, const QVariantMap& parameters = QVariantMap());
 private:
-    void AppendCommonHeader(QVariantMap& headers);
-    void AppendOAuthSignature(QVariantMap& headers, const QUrl& url,
-            QNetworkAccessManager::Operation operation, const QVariantMap& parameters);
-    QString GenerateNonce() const;
-    QByteArray GenerateSignature(const QVariantMap&parameters, const QUrl& url,
-            QNetworkAccessManager::Operation operation) const;
+    void AppendCommonHeaders(QVariantMap& headers);
+    QNetworkReply* RequestToken(QNetworkAccessManager::Operation operation,
+            const QUrl& url, const QString& token, const QString& tokenSecret,
+            const QVariantMap& parameters = {});
+    void SignRequest(QNetworkRequest& request, const QVariantMap &signingParameters,
+            QNetworkAccessManager::Operation operation, const QString& accessToken,
+            const QString& accessTokenSecret);
 };
 } // namespace Sailreads
