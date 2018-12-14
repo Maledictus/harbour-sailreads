@@ -103,6 +103,13 @@ Page {
             PullDownMenu {
                 MenuItem {
                     text: qsTr("Add to Bookshelves")
+                    onClicked: {
+                        var dialog = pageStack.push("../dialogs/AddBookToShelvesDialog.qml",
+                                { usedShelves: review.shelvesList })
+                        dialog.accepted.connect (function () {
+                            sailreadsManager.addBookToShelves(bookId, dialog.newShelves)
+                        })
+                    }
                 }
 
                 MenuItem {

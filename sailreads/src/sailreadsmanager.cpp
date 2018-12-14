@@ -344,4 +344,10 @@ void SailreadsManager::addNewComment(const QString& type, quint64 resourceId, co
     SetBusy(true);
     m_Api->AddNewComment(type, resourceId, comment);
 }
+
+void SailreadsManager::addBookToShelves(quint64 bookId, const QStringList& shelves)
+{
+    SetBusy(true);
+    m_Api->AddBooksToShelves({ bookId }, shelves);
+}
 }

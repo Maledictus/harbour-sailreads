@@ -113,6 +113,8 @@ public slots:
             const QString& comment);
 
     void addNewComment(const QString& type, quint64 resourceId, const QString& comment);
+
+    void addBookToShelves(quint64 bookId, const QStringList& shelves);
 signals:
     void busyChanged();
     void loggedChanged();
