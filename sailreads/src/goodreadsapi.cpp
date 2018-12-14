@@ -354,7 +354,7 @@ void GoodReadsApi::AddBookToShelf(quint64 bookId, const QString& shelfName)
             this, &GoodReadsApi::handleAddBookToShelf);
 }
 
-void GoodReadsApi::AddBooksToShelves(QList<quint64>& bookIds, const QStringList& shelvesName)
+void GoodReadsApi::AddBooksToShelves(const QList<quint64>& bookIds, const QStringList& shelvesName)
 {
     QStringList bookIdsStringList;
     std::transform(bookIds.begin(), bookIds.end(),

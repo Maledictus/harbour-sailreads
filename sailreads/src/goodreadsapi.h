@@ -109,7 +109,7 @@ public:
     void GetWorkSeries(quint64 workId);
 
     void AddBookToShelf(quint64 bookId, const QString& shelfName);
-    void AddBooksToShelves(QList<quint64>& bookIds, const QStringList& shelvesName);
+    void AddBooksToShelves(const QList<quint64>& bookIds, const QStringList& shelvesName);
     void RemoveBookFromShelf(quint64 bookId, const QString& shelfName);
 
     void GetAuthor(quint64 authorId);
