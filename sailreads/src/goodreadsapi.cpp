@@ -30,7 +30,6 @@ THE SOFTWARE.
 #include <QRegularExpression>
 #include <QXmlQuery>
 
-#include "oauthwrapper.h"
 #include "rpcutils.h"
 
 namespace Sailreads
@@ -43,7 +42,6 @@ GoodReadsApi::GoodReadsApi(QObject *parent)
 , m_ConsumerSecretKey("Epo3MYIT3V1JcuC6OkZxptHLEuD8yqUgAj7mLNw")
 , m_BaseUrl("https://www.goodreads.com")
 , m_NAM(new QNetworkAccessManager(this))
-, m_OAuthWrapper(new OAuthWrapper(m_ConsumerKey, m_ConsumerSecretKey, m_BaseUrl, this))
 {
 }
 

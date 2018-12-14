@@ -44,7 +44,6 @@ class QNetworkReply;
 
 namespace Sailreads
 {
-class OAuthWrapper;
 
 class GoodReadsApi : public QObject
 {
@@ -63,7 +62,6 @@ class GoodReadsApi : public QObject
     QString m_AccessTokenSecret;
 
     QNetworkAccessManager *m_NAM;
-    OAuthWrapper *m_OAuthWrapper;
 
     QPointer<QNetworkReply> m_CurrentReply;
 

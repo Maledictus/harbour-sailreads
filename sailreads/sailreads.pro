@@ -14,7 +14,6 @@ SOURCES += src/harbour-sailreads.cpp \
     src/application.cpp \
     src/debugmessagehandler.cpp \
     src/goodreadsapi.cpp \
-    src/oauthwrapper.cpp \
     src/rpcutils.cpp \
     src/sailreadsmanager.cpp \
     src/userupdate.cpp \
@@ -51,13 +50,13 @@ SOURCES += src/harbour-sailreads.cpp \
     src/qmltypes/userprofile.cpp \
     src/settings/accountsettings.cpp \
     src/settings/applicationsettings.cpp \
-    src/objects/friendrequest.cpp
+    src/objects/friendrequest.cpp \
+    src/oauth1.cpp
 
 
 HEADERS += src/application.h \
     src/debugmessagehandler.h \
     src/goodreadsapi.h \
-    src/oauthwrapper.h \
     src/rpcutils.h \
     src/sailreadsmanager.h \
     src/types.h \
@@ -95,7 +94,8 @@ HEADERS += src/application.h \
     src/qmltypes/userprofile.h \
     src/settings/accountsettings.h \
     src/settings/applicationsettings.h \
-    src/objects/friendrequest.h
+    src/objects/friendrequest.h \
+    src/oauth1.h
 
 DISTFILES += translations/*.ts \
     sailreads.desktop
