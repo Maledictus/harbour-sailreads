@@ -1,7 +1,6 @@
 TEMPLATE = subdirs
 
 SUBDIRS = \
-    liboauth \
     sailreads \
     $${NULL}
 

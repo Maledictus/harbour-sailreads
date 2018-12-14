@@ -116,9 +116,6 @@ TRANSLATIONS += translations/harbour-sailreads-ru.ts
 
 QMAKE_RPATHDIR += $$CURRENT_RPATH_DIR
 
-LIBS += -L../liboauth -loauth
-INCLUDEPATH += ../liboauth/src/
-
 lupdate_only {
 SOURCES += $$QML_SOURCES
 }

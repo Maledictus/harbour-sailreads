@@ -7,7 +7,6 @@ Name:       harbour-sailreads
 
 # >> macros
 %define __provides_exclude_from ^%{_datadir}/.*$
-%define __requires_exclude ^liboauth.*$
 # << macros
 
 %{!?qtc_qmake:%define qtc_qmake %qmake}
@@ -28,6 +27,7 @@ BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Qml)
 BuildRequires:  pkgconfig(Qt5Quick)
 BuildRequires:  pkgconfig(libcrypto)
+BuildRequires:  pkgconfig(libssl)
 BuildRequires:  desktop-file-utils
 
 %description
