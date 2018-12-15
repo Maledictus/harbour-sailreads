@@ -178,7 +178,6 @@ Page {
             font.family: Theme.fontFamilyHeading
             font.pixelSize: Theme.fontSizeMedium
             text: {
-                console.log(seriesItem.series !== null ? seriesItem.series.title : "")
                 return seriesItem.series !== null ? seriesItem.series.title : ""
             }
         }
