@@ -212,7 +212,7 @@ Page {
                     width: parent.width
                     visible: value !== ""
                     key: qsTr("Favorite books")
-                    value: userProfile.user ? userProfile.user.favoriteBooksDesc : 0
+                    value: userProfile.user ? userProfile.user.favoriteBooksDesc : ""
                 }
                 KeyValueLabel {
                     maximumLineCount: 3
