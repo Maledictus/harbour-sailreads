@@ -30,6 +30,7 @@ THE SOFTWARE.
 #include <QRegularExpression>
 #include <QXmlQuery>
 
+#include "oauth1.h"
 #include "rpcutils.h"
 
 namespace Sailreads
@@ -42,6 +43,7 @@ GoodReadsApi::GoodReadsApi(QObject *parent)
 , m_ConsumerSecretKey("Epo3MYIT3V1JcuC6OkZxptHLEuD8yqUgAj7mLNw")
 , m_BaseUrl("https://www.goodreads.com")
 , m_NAM(new QNetworkAccessManager(this))
+, m_OAuth1(new OAuth1(m_ConsumerKey, m_ConsumerSecretKey, m_NAM, this))
 {
 }
 
@@ -67,37 +69,32 @@ void GoodReadsApi::UpdateCredentials(const QString& accessToken, const QString& 
 
 void GoodReadsApi::ObtainRequestToken() const
 {
-    QUrl requestTokenUrl = m_OAuthWrapper->GetRequestTokenUrl();
-
-    QNetworkReply *reply = m_NAM->get(QNetworkRequest(requestTokenUrl));
-
+    QNetworkReply *reply = m_OAuth1->RequestTemporaryCredentials(QNetworkAccessManager::GetOperation,
+            QUrl(m_BaseUrl + "/oauth/request_token"));
     connect(reply, &QNetworkReply::finished,
             this, &GoodReadsApi::handleObtainRequestToken);
 }
 
 void GoodReadsApi::RequestAccessToken() const
 {
-    QUrl accessTokenUrl = m_OAuthWrapper->GetAccessTokenUrl(m_RequestToken, m_RequestTokenSecret);
-    QNetworkReply *reply = m_NAM->get(QNetworkRequest(accessTokenUrl));
-
+    QNetworkReply *reply = m_OAuth1->RequestTokenCredentials(QNetworkAccessManager::GetOperation,
+            QUrl(m_BaseUrl + "/oauth/access_token"), m_RequestToken, m_RequestTokenSecret);
     connect(reply, &QNetworkReply::finished,
             this, &GoodReadsApi::handleRequestAccessToken);
 }
 
 void GoodReadsApi::AuthUser()
 {
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl("https://www.goodreads.com/api/auth_user"), "GET");
-    auto reply = m_NAM->get(QNetworkRequest(pair.first));
+    QNetworkReply *reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + "/api/auth_user"));
     connect(reply, &QNetworkReply::finished,
              this, &GoodReadsApi::handleAuthUser);
 }
 
 void GoodReadsApi::GetUserInfo(quint64 id)
 {
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/user/show/%1.xml").arg(id)), "GET");
-    auto reply = m_NAM->get(QNetworkRequest(pair.first));
+    QNetworkReply *reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + QString("/user/show/%1.xml").arg(id)));
     m_CurrentReply = reply;
     connect(reply, &QNetworkReply::finished,
              this, &GoodReadsApi::handleGetUserInfo);
@@ -105,89 +102,71 @@ void GoodReadsApi::GetUserInfo(quint64 id)
 
 void GoodReadsApi::CompareBooks(quint64 userId)
 {
-    //TODO make simple request
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/user/compare/%1.xml").arg(userId)), "GET");
-    auto reply = m_NAM->get(QNetworkRequest(pair.first));
-    connect(reply, &QNetworkReply::finished,
-             this, &GoodReadsApi::handleCompareBooks);
+//    //TODO make simple request
+//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
+//            QUrl(QString("https://www.goodreads.com/user/compare/%1.xml").arg(userId)), "GET");
+//    auto reply = m_NAM->get(QNetworkRequest(pair.first));
+//    connect(reply, &QNetworkReply::finished,
+//             this, &GoodReadsApi::handleCompareBooks);
 }
 
 void GoodReadsApi::GetUserFollowers(quint64 userId, int page)
 {
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/user/%1/followers.xml?page=%2")
-                 .arg(userId).arg(page)), "GET");
-    auto reply = m_NAM->get(QNetworkRequest(pair.first));
-    connect(reply, &QNetworkReply::finished,
-             this, &GoodReadsApi::handleGetUserFollowers);
+//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
+//            QUrl(QString("https://www.goodreads.com/user/%1/followers.xml?page=%2")
+//                 .arg(userId).arg(page)), "GET");
+//    auto reply = m_NAM->get(QNetworkRequest(pair.first));
+//    connect(reply, &QNetworkReply::finished,
+//             this, &GoodReadsApi::handleGetUserFollowers);
 }
 
 void GoodReadsApi::GetUserFollowings(quint64 userId, int page)
 {
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/user/%1/following.xml?page=%2")
-                 .arg(userId).arg(page)), "GET");
-    auto reply = m_NAM->get(QNetworkRequest(pair.first));
-    connect(reply, &QNetworkReply::finished,
-             this, &GoodReadsApi::handleGetUserFollowings);
+//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
+//            QUrl(QString("https://www.goodreads.com/user/%1/following.xml?page=%2")
+//                 .arg(userId).arg(page)), "GET");
+//    auto reply = m_NAM->get(QNetworkRequest(pair.first));
+//    connect(reply, &QNetworkReply::finished,
+//             this, &GoodReadsApi::handleGetUserFollowings);
 }
 
 void GoodReadsApi::GetUpdates()
 {
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl("https://www.goodreads.com/updates/friends.xml"), "GET");
-    auto reply = m_NAM->get(QNetworkRequest(pair.first));
-    m_CurrentReply = reply;
-    connect(reply, &QNetworkReply::finished,
-             this, &GoodReadsApi::handleGetUpdates);
+//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
+//            QUrl("https://www.goodreads.com/updates/friends.xml"), "GET");
+//    auto reply = m_NAM->get(QNetworkRequest(pair.first));
+//    m_CurrentReply = reply;
+//    connect(reply, &QNetworkReply::finished,
+//             this, &GoodReadsApi::handleGetUpdates);
 }
 
 void GoodReadsApi::GetNotifications(int page)
 {
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/notifications.xml?page=%1").arg(page)), "GET");
-    auto reply = m_NAM->get(QNetworkRequest(pair.first));
-    m_CurrentReply = reply;
-    connect(reply, &QNetworkReply::finished,
-             this, &GoodReadsApi::handleGetNotifications);
+//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
+//            QUrl(QString("https://www.goodreads.com/notifications.xml?page=%1").arg(page)), "GET");
+//    auto reply = m_NAM->get(QNetworkRequest(pair.first));
+//    m_CurrentReply = reply;
+//    connect(reply, &QNetworkReply::finished,
+//             this, &GoodReadsApi::handleGetNotifications);
 }
 
 void GoodReadsApi::GetBookShelves(quint64 userId, int page)
 {
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/shelf/list.xml?user_id=%1&page=%2")
-                 .arg(userId).arg(page)), "GET");
-    auto reply = m_NAM->get(QNetworkRequest(pair.first));
+    QNetworkReply *reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + "/shelf/list.xml"), { { "user_id", userId }, { "page", page } });
     m_CurrentReply = reply;
-    connect(reply,
-            &QNetworkReply::finished,
-            this,
-            [this, userId]() {
-                handleGetBookShelves(userId);
-            });
-}
-
-namespace
-{
-QNetworkRequest PreparePostRequest(const QUrl& url)
-{
-    QNetworkRequest request(url);
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
-    return request;
-}
+    connect(reply, &QNetworkReply::finished,
+            this, [this, userId]() { handleGetBookShelves(userId); });
 }
 
 void GoodReadsApi::AddBookShelf(const QString& name, bool exclusive, bool sortable, bool featured)
 {
-    QString urlString = QString("https://www.goodreads.com/user_shelves.xml?user_shelf[name]=%1&"
-            "user_shelf[exclusive_flag]=%2&user_shelf[sortable_flag]=%3&user_shelf[featured]=%4")
-            .arg(name).arg(exclusive ? "true" : "false")
-            .arg(sortable ? "true" : "false").arg(featured ? "true" : "false");
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(urlString), "POST");
-
-    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
+    const QVariantMap params = { { "user_shelf[name]", name },
+        { "user_shelf[exclusive_flag]", (exclusive ? "true" : "false") },
+        { "user_shelf[sortable_flag]", (sortable ? "true" : "false") },
+        { "ser_shelf[featured]", (featured ? "true" : "false") } };
+    QNetworkReply *reply = m_OAuth1->Post(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + "/user_shelves.xml"), params);
     connect(reply, &QNetworkReply::finished,
             this, &GoodReadsApi::handleAddBookShelf);
 }
@@ -195,14 +174,13 @@ void GoodReadsApi::AddBookShelf(const QString& name, bool exclusive, bool sortab
 void GoodReadsApi::EditBookShelf(quint64 id, const QString& name, bool exclusive,
         bool sortable, bool featured)
 {
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/user_shelves/%1.xml?user_shelf[name]=%2&"
-                        "user_shelf[exclusive_flag]=%3&user_shelf[sortable_flag]=%4"
-                        "&user_shelf[featured]=%5")
-                    .arg(id).arg(name)
-                    .arg(exclusive ? "true" : "false").arg(sortable ? "true" : "false")
-                    .arg(featured ? "true" : "false")), "PUT");
-    auto reply = m_NAM->put(QNetworkRequest(pair.first), QByteArray());
+    const QVariantMap params = { { "user_shelf[name]", name },
+        { "user_shelf[exclusive_flag]", (exclusive ? "true" : "false") },
+        { "user_shelf[sortable_flag]", (sortable ? "true" : "false") },
+        { "ser_shelf[featured]", (featured ? "true" : "false") }
+    };
+    QNetworkReply *reply = m_OAuth1->Put(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + QString("/user_shelves/%1.xml").arg(id)), params);
     connect(reply, &QNetworkReply::finished,
             this, &GoodReadsApi::handleEditBookShelf);
 }
@@ -210,23 +188,21 @@ void GoodReadsApi::EditBookShelf(quint64 id, const QString& name, bool exclusive
 void GoodReadsApi::GetReviews(quint64 userId, const QString& bookShelf, const QString& sortField,
         Qt::SortOrder order, int page)
 {
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/review/list/%1.xml?v=2&shelf=%2&page=%3&"
-                         "per_page=50&sort=%4&order=%5")
-                 .arg(userId).arg(bookShelf).arg(page).arg(sortField)
-                 .arg(order == Qt::AscendingOrder ? "a" : "d")), "GET");
-    auto reply = m_NAM->get(QNetworkRequest(pair.first));
+    const QVariantMap params = { { "v", 2 }, { "shelf", bookShelf }, { "page", page },
+        { "per_page", 50 }, { "sort", sortField },
+        { "order", (order == Qt::AscendingOrder ? "a" : "d") }
+    };
+    auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + QString("/review/list/%1.xml").arg(userId)), params);
     m_CurrentReply = reply;
     connect(reply, &QNetworkReply::finished,
             this, &GoodReadsApi::handleGetReviews);
 }
 
-void GoodReadsApi::GetReview(quint64 reviewId, int page)
+void GoodReadsApi::GetReview(quint64 reviewId, int commentsPage)
 {
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/review/show.xml?id=%1&page=%2").arg(reviewId)
-                 .arg(page)), "GET");
-    auto reply = m_NAM->get(QNetworkRequest(pair.first));
+    auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + "/review/show.xml"), { { "id", reviewId }, { "page", commentsPage } });
     connect(reply, &QNetworkReply::finished,
             this, &GoodReadsApi::handleGetReview);
 }
@@ -234,64 +210,62 @@ void GoodReadsApi::GetReview(quint64 reviewId, int page)
 void GoodReadsApi::AddReview(quint64 bookId, const QString& review, int rating,
     const QDateTime& readAt, const QString& shelf)
 {
-    QString url = QString("https://www.goodreads.com/review.xml?book_id=%1&review[review]=%2")
-            .arg(bookId).arg(review);
-    if (rating > 0) {
-        url.append("&review[rating]=" + QString::number(rating));
-    }
-    if (readAt.isValid()) {
-        url.append("&review[read_at]=" + readAt.toString("yyyy-MM-dd"));
-    }
-    if (!shelf.isEmpty()) {
-        url.append("&shelf=" + shelf);
-    }
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(url), "POST");
-    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
-    connect(reply, &QNetworkReply::finished,
-            this, &GoodReadsApi::handleAddReview);
+//    QString url = QString("https://www.goodreads.com/review.xml?book_id=%1&review[review]=%2")
+//            .arg(bookId).arg(review);
+//    if (rating > 0) {
+//        url.append("&review[rating]=" + QString::number(rating));
+//    }
+//    if (readAt.isValid()) {
+//        url.append("&review[read_at]=" + readAt.toString("yyyy-MM-dd"));
+//    }
+//    if (!shelf.isEmpty()) {
+//        url.append("&shelf=" + shelf);
+//    }
+//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
+//            QUrl(url), "POST");
+//    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
+//    connect(reply, &QNetworkReply::finished,
+//            this, &GoodReadsApi::handleAddReview);
 }
 
 void GoodReadsApi::EditReview(quint64 reviewId, const QString& review, int rating,
     const QDateTime& readAt, bool finished, const QString& shelf)
 {
-    QString url = QString("https://www.goodreads.com/review/%1.xml?review[review]=%2")
-            .arg(reviewId).arg(review);
-    if (rating > 0) {
-        url.append("&review[rating]=" + QString::number(rating));
-    }
-    if (readAt.isValid()) {
-        url.append("&review[read_at]=" + readAt.toString("yyyy-MM-dd"));
-    }
-    if (finished) {
-        url.append("&finished=true");
-    }
-    if (!shelf.isEmpty()) {
-        url.append("&shelf=" + shelf);
-    }
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(url), "PUT");
-    auto reply = m_NAM->put(QNetworkRequest(pair.first), pair.second);
-    connect(reply, &QNetworkReply::finished,
-            this, &GoodReadsApi::handleEditReview);
+//    QString url = QString("https://www.goodreads.com/review/%1.xml?review[review]=%2")
+//            .arg(reviewId).arg(review);
+//    if (rating > 0) {
+//        url.append("&review[rating]=" + QString::number(rating));
+//    }
+//    if (readAt.isValid()) {
+//        url.append("&review[read_at]=" + readAt.toString("yyyy-MM-dd"));
+//    }
+//    if (finished) {
+//        url.append("&finished=true");
+//    }
+//    if (!shelf.isEmpty()) {
+//        url.append("&shelf=" + shelf);
+//    }
+//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
+//            QUrl(url), "PUT");
+//    auto reply = m_NAM->put(QNetworkRequest(pair.first), pair.second);
+//    connect(reply, &QNetworkReply::finished,
+//            this, &GoodReadsApi::handleEditReview);
 }
 
 void GoodReadsApi::DeleteReview(quint64 reviewId)
 {
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/review/destroy/%1?format=xml").arg(reviewId)),
-                    "DELETE");
-    auto reply = m_NAM->deleteResource(QNetworkRequest(pair.first));
-    connect(reply, &QNetworkReply::finished,
-            this, &GoodReadsApi::handleDeleteReview);
+//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
+//            QUrl(QString("https://www.goodreads.com/review/destroy/%1?format=xml").arg(reviewId)),
+//                    "DELETE");
+//    auto reply = m_NAM->deleteResource(QNetworkRequest(pair.first));
+//    connect(reply, &QNetworkReply::finished,
+//            this, &GoodReadsApi::handleDeleteReview);
 }
 
 void GoodReadsApi::GetBook(quint64 bookId)
 {
-    //TODO make simple request
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/book/show.xml?id=%1").arg(bookId)), "GET");
-    auto reply = m_NAM->get(QNetworkRequest(pair.first));
+    auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + "/book/show.xml"), { { "id", bookId } });
     m_CurrentReply = reply;
     connect(reply, &QNetworkReply::finished,
             this, &GoodReadsApi::handleGetBook);
@@ -299,22 +273,20 @@ void GoodReadsApi::GetBook(quint64 bookId)
 
 void GoodReadsApi::SearchBooks(const QString& query, const QString& key, int page)
 {
-    //TODO make simple request
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/search/index.xml?q=%1&search[field]=%2&page=%3")
-                 .arg(query).arg(key).arg(page)), "GET");
-    auto reply = m_NAM->get(QNetworkRequest(pair.first));
-    m_CurrentReply = reply;
-    connect(reply, &QNetworkReply::finished,
-            this, &GoodReadsApi::handleSearchBook);
+//    //TODO make simple request
+//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
+//            QUrl(QString("https://www.goodreads.com/search/index.xml?q=%1&search[field]=%2&page=%3")
+//                 .arg(query).arg(key).arg(page)), "GET");
+//    auto reply = m_NAM->get(QNetworkRequest(pair.first));
+//    m_CurrentReply = reply;
+//    connect(reply, &QNetworkReply::finished,
+//            this, &GoodReadsApi::handleSearchBook);
 }
 
 void GoodReadsApi::GetSeries(quint64 seriesId)
 {
-    //TODO make simple request
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/series/show/%1.xml").arg(seriesId)), "GET");
-    auto reply = m_NAM->get(QNetworkRequest(pair.first));
+    auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + QString("/series/show/%1.xml").arg(seriesId)));
     m_CurrentReply = reply;
     connect(reply, &QNetworkReply::finished,
             this, &GoodReadsApi::handleGetSeries);
@@ -322,160 +294,147 @@ void GoodReadsApi::GetSeries(quint64 seriesId)
 
 void GoodReadsApi::GetAuthorSeries(quint64 authorId)
 {
-    //TODO make simple request
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/list/%1.xml").arg(authorId)), "GET");
-    auto reply = m_NAM->get(QNetworkRequest(pair.first));
-    m_CurrentReply = reply;
-    connect(reply, &QNetworkReply::finished,
-            this, &GoodReadsApi::handleGetAuthorSeries);
+//    //TODO make simple request
+//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
+//            QUrl(QString("https://www.goodreads.com/list/%1.xml").arg(authorId)), "GET");
+//    auto reply = m_NAM->get(QNetworkRequest(pair.first));
+//    m_CurrentReply = reply;
+//    connect(reply, &QNetworkReply::finished,
+//            this, &GoodReadsApi::handleGetAuthorSeries);
 }
 
 void GoodReadsApi::GetWorkSeries(quint64 workId)
 {
-    //TODO make simple request
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/work/%1/series?format=xml").arg(workId)), "GET");
-    auto reply = m_NAM->get(QNetworkRequest(pair.first));
-    m_CurrentReply = reply;
-    connect(reply, &QNetworkReply::finished,
-            this, &GoodReadsApi::handleGetWorkSeries);
+//    //TODO make simple request
+//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
+//            QUrl(QString("https://www.goodreads.com/work/%1/series?format=xml").arg(workId)), "GET");
+//    auto reply = m_NAM->get(QNetworkRequest(pair.first));
+//    m_CurrentReply = reply;
+//    connect(reply, &QNetworkReply::finished,
+//            this, &GoodReadsApi::handleGetWorkSeries);
 }
 
 void GoodReadsApi::AddBookToShelf(quint64 bookId, const QString& shelfName)
 {
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/shelf/add_to_shelf.xml?book_id=%1&name=%2")
-                 .arg(bookId).arg(shelfName)), "POST");
-    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
-    connect(reply, &QNetworkReply::finished,
-            this, &GoodReadsApi::handleAddBookToShelf);
+//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
+//            QUrl(QString("https://www.goodreads.com/shelf/add_to_shelf.xml?book_id=%1&name=%2")
+//                 .arg(bookId).arg(shelfName)), "POST");
+//    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
+//    connect(reply, &QNetworkReply::finished,
+//            this, &GoodReadsApi::handleAddBookToShelf);
 }
 
 void GoodReadsApi::AddBooksToShelves(const QList<quint64>& bookIds, const QStringList& shelvesName)
 {
-    QStringList bookIdsStringList;
-    std::transform(bookIds.begin(), bookIds.end(),
-            std::back_inserter(bookIdsStringList),
-            [](decltype(bookIds.front()) bookId)
-            { return QString::number(bookId); });
+//    QStringList bookIdsStringList;
+//    std::transform(bookIds.begin(), bookIds.end(),
+//            std::back_inserter(bookIdsStringList),
+//            [](decltype(bookIds.front()) bookId)
+//            { return QString::number(bookId); });
 
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/shelf/add_books_to_shelves.xml?bookids=%1&shelves=%2")
-                 .arg(bookIdsStringList.join(",")).arg(shelvesName.join(","))), "POST");
-    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
-    connect(reply, &QNetworkReply::finished,
-            this, &GoodReadsApi::handleAddBooksToShelves);
+//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
+//            QUrl(QString("https://www.goodreads.com/shelf/add_books_to_shelves.xml?bookids=%1&shelves=%2")
+//                 .arg(bookIdsStringList.join(",")).arg(shelvesName.join(","))), "POST");
+//    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
+//    connect(reply, &QNetworkReply::finished,
+//            this, &GoodReadsApi::handleAddBooksToShelves);
 }
 
 void GoodReadsApi::RemoveBookFromShelf(quint64 bookId, const QString& shelfName)
 {
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/shelf/add_to_shelf.xml?book_id=%1&name=%2&a=remove")
-                 .arg(bookId).arg(shelfName)), "POST");
-    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
-    connect(reply, &QNetworkReply::finished,
-            this, &GoodReadsApi::handleRemoveBookFromShelf);
+//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
+//            QUrl(QString("https://www.goodreads.com/shelf/add_to_shelf.xml?book_id=%1&name=%2&a=remove")
+//                 .arg(bookId).arg(shelfName)), "POST");
+//    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
+//    connect(reply, &QNetworkReply::finished,
+//            this, &GoodReadsApi::handleRemoveBookFromShelf);
 }
 
 void GoodReadsApi::GetAuthor(quint64 authorId)
 {
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/author/list/%1.xml").arg(authorId)), "GET");
-    auto reply = m_NAM->get(QNetworkRequest(pair.first));
-    m_CurrentReply = reply;
-    connect(reply, &QNetworkReply::finished,
-            this, &GoodReadsApi::handleGetAuthor);
+//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
+//            QUrl(QString("https://www.goodreads.com/author/list/%1.xml").arg(authorId)), "GET");
+//    auto reply = m_NAM->get(QNetworkRequest(pair.first));
+//    m_CurrentReply = reply;
+//    connect(reply, &QNetworkReply::finished,
+//            this, &GoodReadsApi::handleGetAuthor);
 }
 
 void GoodReadsApi::GetAuthorBooks(quint64 authorId, int page)
 {
-    //TODO make simple request
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/author/show/%1.xml?page=%2")
-                 .arg(authorId).arg(page)), "GET");
-    auto reply = m_NAM->get(QNetworkRequest(pair.first));
-    m_CurrentReply = reply;
-    connect(reply, &QNetworkReply::finished,
-            this, &GoodReadsApi::handleGetAuthorBooks);
+//    //TODO make simple request
+//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
+//            QUrl(QString("https://www.goodreads.com/author/show/%1.xml?page=%2")
+//                 .arg(authorId).arg(page)), "GET");
+//    auto reply = m_NAM->get(QNetworkRequest(pair.first));
+//    m_CurrentReply = reply;
+//    connect(reply, &QNetworkReply::finished,
+//            this, &GoodReadsApi::handleGetAuthorBooks);
 }
 
 void GoodReadsApi::FollowAuthor(quint64 authorId)
 {
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/author_followings?id=%1&format=xml")
-                 .arg(authorId)), "POST");
-    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
-    connect(reply, &QNetworkReply::finished,
-            this, &GoodReadsApi::handleFollowAuthor);
+//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
+//            QUrl(QString("https://www.goodreads.com/author_followings?id=%1&format=xml")
+//                 .arg(authorId)), "POST");
+//    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
+//    connect(reply, &QNetworkReply::finished,
+//            this, &GoodReadsApi::handleFollowAuthor);
 }
 
 void GoodReadsApi::UnfollowAuthor(quint64 authorFollowingId)
 {
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/author_followings/%1?format=xml")
-                 .arg(authorFollowingId)), "DELETE");
-    auto reply = m_NAM->deleteResource(QNetworkRequest(pair.first));
-    connect(reply, &QNetworkReply::finished,
-            this, &GoodReadsApi::handleUnfollowAuthor);
+//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
+//            QUrl(QString("https://www.goodreads.com/author_followings/%1?format=xml")
+//                 .arg(authorFollowingId)), "DELETE");
+//    auto reply = m_NAM->deleteResource(QNetworkRequest(pair.first));
+//    connect(reply, &QNetworkReply::finished,
+//            this, &GoodReadsApi::handleUnfollowAuthor);
 }
 
 void GoodReadsApi::ShowAuthorFollowingInformation(quint64 authorFollowingId)
 {
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/author_followings/%1?format=xml")
-                 .arg(authorFollowingId)), "GET");
-    auto reply = m_NAM->get(QNetworkRequest(pair.first));
-    connect(reply, &QNetworkReply::finished,
-            this, &GoodReadsApi::handleShowAuthorFollowingInformation);
+//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
+//            QUrl(QString("https://www.goodreads.com/author_followings/%1?format=xml")
+//                 .arg(authorFollowingId)), "GET");
+//    auto reply = m_NAM->get(QNetworkRequest(pair.first));
+//    connect(reply, &QNetworkReply::finished,
+//            this, &GoodReadsApi::handleShowAuthorFollowingInformation);
 }
 
 void GoodReadsApi::GetGroups(quint64 userId, int page)
 {
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/group/list/%1.xml?sort=last_activity&page=%2")
-                 .arg(userId).arg(page)), "GET");
-    auto reply = m_NAM->get(QNetworkRequest(pair.first));
+    auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + QString("/group/list/%1.xml").arg(userId)),
+            { { "sort", "last_activity" }, { "page", page } });
     m_CurrentReply = reply;
     connect(reply, &QNetworkReply::finished,
-            this,
-            [this, userId]() {
-                handleGetGroups(userId);
-            });
+            this, [this, userId]() { handleGetGroups(userId); });
 }
 
 void GoodReadsApi::GetGroup(quint64 groupId)
 {
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/group/show/%1.xml?sort=updated_at")
-                 .arg(groupId)), "GET");
-    auto reply = m_NAM->get(QNetworkRequest(pair.first));
+    auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + QString("/group/show/%1.xml").arg(groupId)),
+            { { "sort", "updated_at" } });
     m_CurrentReply = reply;
     connect(reply, &QNetworkReply::finished,
-            this,
-            [this, groupId]() {
-                handleGetGroup(groupId);
-            });
+            this, [this, groupId]() { handleGetGroup(groupId); });
 }
 
 void GoodReadsApi::JoinGroup(quint64 groupId)
 {
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/group/join?format=xml&id=%1")
-                 .arg(groupId)), "POST");
-    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
+    auto reply = m_OAuth1->Post(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + "/group/join"), { { "format", "xml" }, { "id", groupId } });
     connect(reply, &QNetworkReply::finished,
-            this,
-            [this, groupId] {
-                handleJoinGroup(groupId);
-            });
+            this, [this, groupId] { handleJoinGroup(groupId); });
 }
 
 void GoodReadsApi::SearchGroup(const QString& text, int page)
 {
-    QUrl url(QString("https://www.goodreads.com/group/search.xml?q=%1&page=%2&key=%3")
-         .arg(QString(QUrl::toPercentEncoding(text))).arg(page).arg(m_ConsumerKey));
-    auto reply = m_NAM->get(QNetworkRequest(url));
+    auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + "/group/search.xml"),
+            { { "q", QUrl::toPercentEncoding(text) }, { "page", page } });
     m_CurrentReply = reply;
     connect(reply, &QNetworkReply::finished,
             this, &GoodReadsApi::handleSearchGroup);
@@ -483,36 +442,27 @@ void GoodReadsApi::SearchGroup(const QString& text, int page)
 
 void GoodReadsApi::GetGroupMembers(quint64 groupId, int page)
 {
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/group/members/%1.xml?page=%2&sort=num_comment")
-                 .arg(groupId).arg(page)), "GET");
-    qDebug() << pair.first;
-    auto reply = m_NAM->get(QNetworkRequest(pair.first));
+    auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + QString("/group/members/%1.xml").arg(groupId)),
+            { { "page", page }, { "sort", "num_comment" } });
     m_CurrentReply = reply;
     connect(reply, &QNetworkReply::finished,
-            this,
-            [this, groupId] {
-                handleGetGroupMembers(groupId);
-            });
+            this, [this, groupId] { handleGetGroupMembers(groupId); });
 }
 
 void GoodReadsApi::GetGroupFolderTopics(const QString& groupFolderId, quint64 groupId, int page)
 {
-    QPair<QUrl, QByteArray> pair;
-    qDebug() << groupFolderId << groupId << page << GoodReadsApi::UnreadTopicsFolderId;
+    QNetworkReply *reply = nullptr;
+    const QVariantMap params = { { "format", "xml" }, { "page", page },
+            { "sort", "updated_at" }, { "order", "d" } };
     if (groupFolderId == GoodReadsApi::UnreadTopicsFolderId) {
-        qDebug() << Q_FUNC_INFO;
-        pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/topic/unread_group/%1?format=xml&page=%2&"
-                    "sort=updated_at&order=d").arg(groupId).arg(page)), "GET");
+        reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
+                QUrl(m_BaseUrl + QString("/topic/unread_group/%1").arg(groupId)), params);
     }
     else {
-        pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/topic/group_folder/%1?group_id=%2&page=%3&"
-                         "sort=updated_at&format=xml&order=d")
-                 .arg(groupFolderId).arg(groupId).arg(page)), "GET");
+        reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
+                QUrl(m_BaseUrl + QString("/topic/group_folder/%1").arg(groupFolderId)), params);
     }
-    auto reply = m_NAM->get(QNetworkRequest(pair.first));
     m_CurrentReply = reply;
     connect(reply, &QNetworkReply::finished,
             this,
@@ -523,10 +473,8 @@ void GoodReadsApi::GetGroupFolderTopics(const QString& groupFolderId, quint64 gr
 
 void GoodReadsApi::GetGroupFolderTopic(quint64 topicId, int page)
 {
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/topic/show.xml?id=%1&page=%2")
-                 .arg(topicId).arg(page)), "GET");
-    auto reply = m_NAM->get(QNetworkRequest(pair.first));
+    auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + "/topic/show.xml"), { { "id", topicId }, { "page", page } });
     m_CurrentReply = reply;
     connect(reply, &QNetworkReply::finished,
             this, &GoodReadsApi::handleGetGroupFolderTopic);
@@ -535,49 +483,41 @@ void GoodReadsApi::GetGroupFolderTopic(quint64 topicId, int page)
 void GoodReadsApi::AddNewTopic(const QString& topic, const QString& subject, quint64 subjectId,
         const QString& folderId, bool question, bool updateFeed, bool digest, const QString& comment)
 {
-    QString url = QString("https://www.goodreads.com/topic.xml?topic[subject_type]=%1&"
-            "topic[subject_id]=%2&topic[folder_id]=%3&topic[title]=%4&topic[question_flag]=%5&"
-            "update_feed=%6&digest=%7&comment[body_usertext]=%8").arg(subject)
-                    .arg(subjectId).arg(folderId).arg(topic)
-                    .arg(question ? "1" : "0").arg(updateFeed ? "1" : "0")
-                    .arg(digest ? "1" : "0").arg(comment);
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(url), "POST");
-    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
+    const QVariantMap params = { { "topic[subject_type]", subject },
+            { "topic[subject_id]", subjectId }, { "topic[folder_id]", folderId },
+            { "topic[title]", topic }, { "topic[question_flag]", (question ? "1" : "0") },
+            { "update_feed", (updateFeed ? "1" : "0") }, { "digest", (digest ? "1" : "0") },
+            { "comment[body_usertext]", comment } };
+    auto reply = m_OAuth1->Post(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + "/topic.xml"), params);
     connect(reply, &QNetworkReply::finished,
              this, &GoodReadsApi::handleTopicAdded);
 }
 
 void GoodReadsApi::AddNewComment(const QString& type, quint64 resourceId, const QString& comment)
 {
-    QString url = QString("https://www.goodreads.com/comment.xml?type=%1&"
-            "id=%2&comment[body]=%3").arg(type).arg(resourceId).arg(comment);
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(url), "POST");
-    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
+    const QVariantMap params = { { "type", type }, { "id", resourceId },
+            { "comment[body]", comment } };
+    auto reply = m_OAuth1->Post(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + "/comment.xml"), params);
     connect(reply, &QNetworkReply::finished,
              this, &GoodReadsApi::handleNewCommentAdded);
 }
 
 void GoodReadsApi::GetFriends(quint64 userId, int page)
 {
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/friend/user/%1?format=xml&page=%2")
-                 .arg(userId).arg(page)));
-    auto reply = m_NAM->get(QNetworkRequest(pair.first));
+    auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + QString("/friend/user/%1").arg(userId)),
+            { { "format", "xml" }, { "page", page } });
     m_CurrentReply = reply;
     connect(reply, &QNetworkReply::finished,
-             this,
-             [this, userId]() {
-                 handleGetFriends(userId);
-            });
+             this, [this, userId]() { handleGetFriends(userId); });
 }
 
 void GoodReadsApi::GetFriendRequests(int page)
 {
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/friend/requests.xml?page=%1").arg(page)));
-    auto reply = m_NAM->get(QNetworkRequest(pair.first));
+    auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + "/friend/requests.xml"), { { "page", page } });
     m_CurrentReply = reply;
     connect(reply, &QNetworkReply::finished,
              this, &GoodReadsApi::handleGetFriendRequests);
@@ -585,10 +525,9 @@ void GoodReadsApi::GetFriendRequests(int page)
 
 void GoodReadsApi::ConfirmFriendRequest(quint64 friendRequestId, bool confirm)
 {
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/friend/confirm_request.xml?id=%1&response=%2")
-                 .arg(friendRequestId).arg(confirm ? "Y" : "N")), "POST");
-    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
+    auto reply = m_OAuth1->Post(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + "/friend/confirm_request.xml"),
+            { { "id", friendRequestId }, { "response", (confirm ? "Y" : "N") } });
     connect(reply, &QNetworkReply::finished,
             this,
             [this, friendRequestId, confirm]() {
@@ -598,136 +537,136 @@ void GoodReadsApi::ConfirmFriendRequest(quint64 friendRequestId, bool confirm)
 
 void GoodReadsApi::ConfirmFriendRecommendation(quint64 friendRecommendationId)
 {
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/friend/confirm_recommendation.xml?id=%1&response=%2")
-                 .arg(friendRecommendationId).arg("Y")), "POST");
-    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
-    connect(reply, &QNetworkReply::finished,
-             this, &GoodReadsApi::handleConfirmFriendRecommendation);
+//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
+//            QUrl(QString("https://www.goodreads.com/friend/confirm_recommendation.xml?id=%1&response=%2")
+//                 .arg(friendRecommendationId).arg("Y")), "POST");
+//    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
+//    connect(reply, &QNetworkReply::finished,
+//             this, &GoodReadsApi::handleConfirmFriendRecommendation);
 }
 
 void GoodReadsApi::DeclineFriendRecommendation(quint64 friendRecommendationId)
 {
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/friend/confirm_recommendation.xml?id=%1&response=%2")
-                 .arg(friendRecommendationId).arg("N")), "POST");
-    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
-    connect(reply, &QNetworkReply::finished,
-            this, &GoodReadsApi::handleDeclineFriendRecommendation);
+//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
+//            QUrl(QString("https://www.goodreads.com/friend/confirm_recommendation.xml?id=%1&response=%2")
+//                 .arg(friendRecommendationId).arg("N")), "POST");
+//    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
+//    connect(reply, &QNetworkReply::finished,
+//            this, &GoodReadsApi::handleDeclineFriendRecommendation);
 }
 
 void GoodReadsApi::AddFriend(quint64 userId)
 {
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/friend/add_as_friend.xml?id=%1").arg(userId)), "POST");
-    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
-    connect(reply, &QNetworkReply::finished,
-            this,
-            [this, userId]() {
-                handleAddFriend(userId);
-            });
+//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
+//            QUrl(QString("https://www.goodreads.com/friend/add_as_friend.xml?id=%1").arg(userId)), "POST");
+//    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
+//    connect(reply, &QNetworkReply::finished,
+//            this,
+//            [this, userId]() {
+//                handleAddFriend(userId);
+//            });
 }
 
 void GoodReadsApi::RemoveFriend(quint64 userId)
 {
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/friend/destroy/%1?format=xml").arg(userId)), "POST");
-    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
-    connect(reply, &QNetworkReply::finished,
-            this,
-            [this, userId]() {
-                handleRemoveFriend(userId);
-            });
+//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
+//            QUrl(QString("https://www.goodreads.com/friend/destroy/%1?format=xml").arg(userId)), "POST");
+//    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
+//    connect(reply, &QNetworkReply::finished,
+//            this,
+//            [this, userId]() {
+//                handleRemoveFriend(userId);
+//            });
 }
 
 void GoodReadsApi::FollowUser(quint64 userId)
 {
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/user/%1/followers?format=xml").arg(userId)), "POST");
-    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
-    connect(reply, &QNetworkReply::finished,
-            this, &GoodReadsApi::handleFollowUser);
+//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
+//            QUrl(QString("https://www.goodreads.com/user/%1/followers?format=xml").arg(userId)), "POST");
+//    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
+//    connect(reply, &QNetworkReply::finished,
+//            this, &GoodReadsApi::handleFollowUser);
 }
 
 void GoodReadsApi::UnfollowUser(quint64 userId)
 {
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/user/%1/followers/stop_following?format=xml")
-                    .arg(userId)), "DELETE");
-    auto reply = m_NAM->deleteResource(QNetworkRequest(pair.first));
-    connect(reply, &QNetworkReply::finished,
-            this,
-            [this, userId]() {
-                handleUnfollowUser(userId);
-            });
+//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
+//            QUrl(QString("https://www.goodreads.com/user/%1/followers/stop_following?format=xml")
+//                    .arg(userId)), "DELETE");
+//    auto reply = m_NAM->deleteResource(QNetworkRequest(pair.first));
+//    connect(reply, &QNetworkReply::finished,
+//            this,
+//            [this, userId]() {
+//                handleUnfollowUser(userId);
+//            });
 }
 
 void GoodReadsApi::AddQuote(const QString& authorName, quint64 authorId, quint64 bookId,
     const QString& quote, const QStringList& tags)
 {
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/quotes?format=xml&quote[author_name]=%1&"
-                         "quote[author_id]=%2&quote[book_id]=%3&quote[body]=%4&quote[tags]=%5")
-                    .arg(authorName).arg(authorId).arg(bookId).arg(quote).arg(tags.join(","))),
-            "POST");
-    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
-    connect(reply, &QNetworkReply::finished,
-            this, &GoodReadsApi::handleAddQuote);
+//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
+//            QUrl(QString("https://www.goodreads.com/quotes?format=xml&quote[author_name]=%1&"
+//                         "quote[author_id]=%2&quote[book_id]=%3&quote[body]=%4&quote[tags]=%5")
+//                    .arg(authorName).arg(authorId).arg(bookId).arg(quote).arg(tags.join(","))),
+//            "POST");
+//    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
+//    connect(reply, &QNetworkReply::finished,
+//            this, &GoodReadsApi::handleAddQuote);
 }
 
 void GoodReadsApi::GetReadStatus(quint64 readStatusId)
 {
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/read_statuses/%1?format=xml").arg(readStatusId)));
-    auto reply = m_NAM->get(QNetworkRequest(pair.first));
-    connect(reply, &QNetworkReply::finished,
-            this, &GoodReadsApi::handleGetReadStatus);
+//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
+//            QUrl(QString("https://www.goodreads.com/read_statuses/%1?format=xml").arg(readStatusId)));
+//    auto reply = m_NAM->get(QNetworkRequest(pair.first));
+//    connect(reply, &QNetworkReply::finished,
+//            this, &GoodReadsApi::handleGetReadStatus);
 }
 
 void GoodReadsApi::GetRecentUserStatuses()
 {
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/user_status/index.xml")));
-    auto reply = m_NAM->get(QNetworkRequest(pair.first));
-    connect(reply, &QNetworkReply::finished,
-            this, &GoodReadsApi::handleGetRecentUserStatuses);
+//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
+//            QUrl(QString("https://www.goodreads.com/user_status/index.xml")));
+//    auto reply = m_NAM->get(QNetworkRequest(pair.first));
+//    connect(reply, &QNetworkReply::finished,
+//            this, &GoodReadsApi::handleGetRecentUserStatuses);
 }
 
 void GoodReadsApi::GetUserStatus(quint64 userStatusId)
 {
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/user_status/show/%1?format=xml")
-                 .arg(userStatusId)));
-    auto reply = m_NAM->get(QNetworkRequest(pair.first));
-    connect(reply, &QNetworkReply::finished,
-            this, &GoodReadsApi::handleGetUserStatus);
+//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
+//            QUrl(QString("https://www.goodreads.com/user_status/show/%1?format=xml")
+//                 .arg(userStatusId)));
+//    auto reply = m_NAM->get(QNetworkRequest(pair.first));
+//    connect(reply, &QNetworkReply::finished,
+//            this, &GoodReadsApi::handleGetUserStatus);
 }
 
 void GoodReadsApi::UpdateUserStatus(quint64 bookId, const QString& body, int percent, int page)
 {
-    QString url(QString("https://www.goodreads.com/user_status.xml?user_status[book_id]=%1&"
-                "user_status[body]=%2").arg(bookId).arg(body));
-    if(page > 0) {
-        url.append("&user_status[page]=" + QString::number(page));
-    }
-    else if (percent > 0) {
-        url.append("&user_status[percent]=" + QString::number(percent));
-    }
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(url), "POST");
-    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
-    connect(reply, &QNetworkReply::finished,
-             this, &GoodReadsApi::handleUpdateUserStatus);
+//    QString url(QString("https://www.goodreads.com/user_status.xml?user_status[book_id]=%1&"
+//                "user_status[body]=%2").arg(bookId).arg(body));
+//    if(page > 0) {
+//        url.append("&user_status[page]=" + QString::number(page));
+//    }
+//    else if (percent > 0) {
+//        url.append("&user_status[percent]=" + QString::number(percent));
+//    }
+//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
+//            QUrl(url), "POST");
+//    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
+//    connect(reply, &QNetworkReply::finished,
+//             this, &GoodReadsApi::handleUpdateUserStatus);
 }
 
 void GoodReadsApi::DeleteUserStatus(quint64 userStatusId)
 {
-    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-            QUrl(QString("https://www.goodreads.com/user_status/destroy/%1?format=xml")
-                    .arg(userStatusId)), "POST");
-    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
-    connect(reply, &QNetworkReply::finished,
-             this, &GoodReadsApi::handleDeleteUserStatus);
+//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
+//            QUrl(QString("https://www.goodreads.com/user_status/destroy/%1?format=xml")
+//                    .arg(userStatusId)), "POST");
+//    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
+//    connect(reply, &QNetworkReply::finished,
+//             this, &GoodReadsApi::handleDeleteUserStatus);
 }
 
 namespace
@@ -808,7 +747,8 @@ QByteArray GoodReadsApi::GetReply(QObject *sender, bool& ok)
     }
 
     ok = true;
-    return reply->readAll();
+    data = reply->readAll();
+    return data;
 }
 
 QDomDocument GoodReadsApi::GetDocumentFromReply(QObject *sender, bool& ok)
@@ -820,10 +760,8 @@ QDomDocument GoodReadsApi::GetDocumentFromReply(QObject *sender, bool& ok)
     }
 
     ok = false;
-    qDebug() << Q_FUNC_INFO << data;
     return ParseDocument(data, ok);
 }
-
 
 void GoodReadsApi::handleObtainRequestToken()
 {
@@ -1122,6 +1060,7 @@ void GoodReadsApi::handleGetSeries()
     }
 
     emit requestFinished();
+    qDebug() << doc.toByteArray();
     emit gotSeries(RpcUtils::Parser::ParseSeries(doc));
 }
 

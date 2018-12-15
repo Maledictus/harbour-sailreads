@@ -44,6 +44,7 @@ class QNetworkReply;
 
 namespace Sailreads
 {
+class OAuth1;
 
 class GoodReadsApi : public QObject
 {
@@ -53,7 +54,7 @@ class GoodReadsApi : public QObject
 
     const QString m_ConsumerKey;
     const QString m_ConsumerSecretKey;
-    const QUrl m_BaseUrl;
+    const QString m_BaseUrl;
 
     QString m_RequestToken;
     QString m_RequestTokenSecret;
@@ -62,6 +63,7 @@ class GoodReadsApi : public QObject
     QString m_AccessTokenSecret;
 
     QNetworkAccessManager *m_NAM;
+    OAuth1 *m_OAuth1;
 
     QPointer<QNetworkReply> m_CurrentReply;
 
@@ -92,7 +94,7 @@ public:
 
     void GetReviews(quint64 userId, const QString& bookShelf, const QString& sortField = "date_added",
             Qt::SortOrder order = Qt::DescendingOrder, int page = 1);
-    void GetReview(quint64 reviewId, int page);
+    void GetReview(quint64 reviewId, int commentsPage);
     void AddReview(quint64 bookId, const QString& review, int rating, const QDateTime& readAt,
             const QString& shelf);
     void EditReview(quint64 reviewId, const QString& review, int rating, const QDateTime& readAt,
