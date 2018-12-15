@@ -70,7 +70,7 @@ Page {
             anchors {
                 left: parent.left
                 leftMargin: Theme.horizontalPageMargin
-                right: parent.left
+                right: parent.right
                 rightMargin: Theme.horizontalPageMargin
             }
 
