@@ -577,24 +577,19 @@ void GoodReadsApi::RemoveFriend(quint64 userId)
 
 void GoodReadsApi::FollowUser(quint64 userId)
 {
-//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-//            QUrl(QString("https://www.goodreads.com/user/%1/followers?format=xml").arg(userId)), "POST");
-//    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
-//    connect(reply, &QNetworkReply::finished,
-//            this, &GoodReadsApi::handleFollowUser);
+    auto reply = m_OAuth1->Post(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + QString("/user/%1/followers").arg(userId)), { { "format", "xml" } });
+    connect(reply, &QNetworkReply::finished,
+            this, &GoodReadsApi::handleFollowUser);
 }
 
 void GoodReadsApi::UnfollowUser(quint64 userId)
 {
-//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-//            QUrl(QString("https://www.goodreads.com/user/%1/followers/stop_following?format=xml")
-//                    .arg(userId)), "DELETE");
-//    auto reply = m_NAM->deleteResource(QNetworkRequest(pair.first));
-//    connect(reply, &QNetworkReply::finished,
-//            this,
-//            [this, userId]() {
-//                handleUnfollowUser(userId);
-//            });
+    auto reply = m_OAuth1->DeleteResource(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + QString("/user/%1/followers/stop_following").arg(userId)),
+            { { "format", "xml" } });
+    connect(reply, &QNetworkReply::finished,
+            this, [this, userId]() { handleUnfollowUser(userId); });
 }
 
 void GoodReadsApi::AddQuote(const QString& authorName, quint64 authorId, quint64 bookId,
