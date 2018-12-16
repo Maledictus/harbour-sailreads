@@ -51,7 +51,9 @@ SOURCES += src/harbour-sailreads.cpp \
     src/settings/accountsettings.cpp \
     src/settings/applicationsettings.cpp \
     src/objects/friendrequest.cpp \
-    src/oauth1.cpp
+    src/oauth1.cpp \
+    src/models/followersmodel.cpp \
+    src/models/followingsmodel.cpp
 
 
 HEADERS += src/application.h \
@@ -95,7 +97,9 @@ HEADERS += src/application.h \
     src/settings/accountsettings.h \
     src/settings/applicationsettings.h \
     src/objects/friendrequest.h \
-    src/oauth1.h
+    src/oauth1.h \
+    src/models/followersmodel.h \
+    src/models/followingsmodel.h
 
 DISTFILES += translations/*.ts \
     sailreads.desktop

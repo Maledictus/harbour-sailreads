@@ -22,6 +22,8 @@ THE SOFTWARE.
 
 #pragma once
 
+#include <QQmlParserStatus>
+
 #include "basemodel.h"
 #include "../objects/friend.h"
 #include "../types.h"
@@ -29,11 +31,13 @@ THE SOFTWARE.
 namespace Sailreads
 {
 class FriendsModel : public BaseModel<Friend>
+                    , public QQmlParserStatus
 {
     Q_OBJECT
+    Q_INTERFACES(QQmlParserStatus)
 
     Q_ENUMS(FriendsRoles)
-
+protected:
     quint64 m_UserId;
     bool m_HasMore;
     quint64 m_CurrentPage;
@@ -42,7 +46,7 @@ class FriendsModel : public BaseModel<Friend>
     Q_PROPERTY(bool hasMore READ GetHasMore WRITE SetHasMore NOTIFY hasMoreChanged)
 
 public:
-    enum GroupRoles
+    enum FriendRoles
     {
         Id = Qt::UserRole + 1,
         Name,
@@ -64,10 +68,13 @@ public:
     bool GetHasMore() const;
     void SetHasMore(bool has);
 
+    virtual void classBegin();
+    virtual void componentComplete();
+
 public slots:
-    void fetchMoreContent();
-private slots:
+    virtual void fetchMoreContent();
     void handleGotUserFriends(quint64 userId, const CountedItems<Friend> &friends);
+private slots:
     void handleFriendRemoved(quint64 friendId);
 
 signals:

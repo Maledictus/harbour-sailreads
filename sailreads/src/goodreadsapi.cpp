@@ -110,26 +110,6 @@ void GoodReadsApi::CompareBooks(quint64 userId)
 //             this, &GoodReadsApi::handleCompareBooks);
 }
 
-void GoodReadsApi::GetUserFollowers(quint64 userId, int page)
-{
-//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-//            QUrl(QString("https://www.goodreads.com/user/%1/followers.xml?page=%2")
-//                 .arg(userId).arg(page)), "GET");
-//    auto reply = m_NAM->get(QNetworkRequest(pair.first));
-//    connect(reply, &QNetworkReply::finished,
-//             this, &GoodReadsApi::handleGetUserFollowers);
-}
-
-void GoodReadsApi::GetUserFollowings(quint64 userId, int page)
-{
-//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-//            QUrl(QString("https://www.goodreads.com/user/%1/following.xml?page=%2")
-//                 .arg(userId).arg(page)), "GET");
-//    auto reply = m_NAM->get(QNetworkRequest(pair.first));
-//    connect(reply, &QNetworkReply::finished,
-//             this, &GoodReadsApi::handleGetUserFollowings);
-}
-
 void GoodReadsApi::GetUpdates()
 {
 //    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
@@ -514,6 +494,22 @@ void GoodReadsApi::GetFriends(quint64 userId, int page)
              this, [this, userId]() { handleGetFriends(userId); });
 }
 
+void GoodReadsApi::GetUserFollowers(quint64 userId, int page)
+{
+    auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + QString("/user/%1/followers.xml").arg(userId)), { { "page", page } } );
+    connect(reply, &QNetworkReply::finished,
+             this, [this, userId]() { handleGetUserFollowers(userId); });
+}
+
+void GoodReadsApi::GetUserFollowings(quint64 userId, int page)
+{
+    auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + QString("/user/%1/following.xml").arg(userId)), { { "page", page } } );
+    connect(reply, &QNetworkReply::finished,
+             this, [this, userId]() { handleGetUserFollowings(userId); });
+}
+
 void GoodReadsApi::GetFriendRequests(int page)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
@@ -845,34 +841,6 @@ void GoodReadsApi::handleGetUserInfo()
 }
 
 void GoodReadsApi::handleCompareBooks()
-{
-    bool ok = false;
-    auto doc = GetDocumentFromReply(sender(), ok);
-    if (!ok) {
-        emit requestFinished();
-        return;
-    }
-
-    emit requestFinished();
-    //TODO
-    qDebug() << doc.toByteArray();
-}
-
-void GoodReadsApi::handleGetUserFollowers()
-{
-    bool ok = false;
-    auto doc = GetDocumentFromReply(sender(), ok);
-    if (!ok) {
-        emit requestFinished();
-        return;
-    }
-
-    emit requestFinished();
-    //TODO
-    qDebug() << doc.toByteArray();
-}
-
-void GoodReadsApi::handleGetUserFollowings()
 {
     bool ok = false;
     auto doc = GetDocumentFromReply(sender(), ok);
@@ -1342,6 +1310,32 @@ void GoodReadsApi::handleGetFriends(quint64 userId)
 
     emit requestFinished();
     emit gotUserFriends(userId, RpcUtils::Parser::ParseFriends(doc));
+}
+
+void GoodReadsApi::handleGetUserFollowers(quint64 userId)
+{
+    bool ok = false;
+    auto doc = GetDocumentFromReply(sender(), ok);
+    if (!ok) {
+        emit requestFinished();
+        return;
+    }
+
+    emit requestFinished();
+    emit gotUserFollowers(userId, RpcUtils::Parser::ParseFollowers(doc));
+}
+
+void GoodReadsApi::handleGetUserFollowings(quint64 userId)
+{
+    bool ok = false;
+    auto doc = GetDocumentFromReply(sender(), ok);
+    if (!ok) {
+        emit requestFinished();
+        return;
+    }
+
+    emit requestFinished();
+    emit gotUserFollowings(userId, RpcUtils::Parser::ParseFollowings(doc));
 }
 
 void GoodReadsApi::handleGetFriendRequests()

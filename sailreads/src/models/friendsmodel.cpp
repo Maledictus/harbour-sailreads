@@ -32,11 +32,6 @@ FriendsModel::FriendsModel(QObject *parent)
 , m_HasMore(true)
 , m_CurrentPage(1)
 {
-    auto sm = SailreadsManager::Instance();
-    connect(sm, &SailreadsManager::gotUserFriends,
-            this, &FriendsModel::handleGotUserFriends);
-    connect(sm, &SailreadsManager::friendRemoved,
-            this, &FriendsModel::handleFriendRemoved);
 }
 
 QVariant FriendsModel::data(const QModelIndex& index, int role) const
@@ -106,6 +101,19 @@ void FriendsModel::SetHasMore(bool has)
         m_HasMore = has;
         emit hasMoreChanged();
     }
+}
+
+void FriendsModel::classBegin()
+{
+    auto sm = SailreadsManager::Instance();
+    connect(sm, &SailreadsManager::gotUserFriends,
+            this, &FriendsModel::handleGotUserFriends);
+    connect(sm, &SailreadsManager::friendRemoved,
+            this, &FriendsModel::handleFriendRemoved);
+}
+
+void FriendsModel::componentComplete()
+{
 }
 
 void FriendsModel::fetchMoreContent()

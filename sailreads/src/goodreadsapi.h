@@ -82,8 +82,6 @@ public:
     void AuthUser();
     void GetUserInfo(quint64 id);
     void CompareBooks(quint64 userId);
-    void GetUserFollowers(quint64 userId, int page);
-    void GetUserFollowings(quint64 userId, int page);
 
     void GetUpdates();
     void GetNotifications(int page);
@@ -132,6 +130,8 @@ public:
     void AddNewComment(const QString& type, quint64 resourceId, const QString& comment);
 
     void GetFriends(quint64 userId, int page = 1);
+    void GetUserFollowers(quint64 userId, int page = 1);
+    void GetUserFollowings(quint64 userId, int page = 1);
     void GetFriendRequests(int page);
     void ConfirmFriendRequest(quint64 friendRequestId, bool confirm);
     void ConfirmFriendRecommendation(quint64 friendRecommendationId);
@@ -162,8 +162,6 @@ private slots:
     void handleAuthUser();
     void handleGetUserInfo();
     void handleCompareBooks();
-    void handleGetUserFollowers();
-    void handleGetUserFollowings();
 
     void handleGetUpdates();
     void handleGetNotifications();
@@ -207,6 +205,8 @@ private slots:
     void handleNewCommentAdded();
 
     void handleGetFriends(quint64 userId);
+    void handleGetUserFollowers(quint64 userId);
+    void handleGetUserFollowings(quint64 userId);
     void handleGetFriendRequests();
     void handleConfirmFriendRequest(quint64 friendRequestId, bool confirm);
     void handleConfirmFriendRecommendation();
@@ -261,6 +261,8 @@ signals:
     void newCommentAdded(const Comment& comment);
 
     void gotUserFriends(quint64 userId, const CountedItems<Friend>& friends);
+    void gotUserFollowings(quint64 userId, const CountedItems<Friend>& followings);
+    void gotUserFollowers(quint64 userId, const CountedItems<Friend>& followers);
     void friendRequestConfirmed(quint64 friendRequestId, bool confirmed);
     void userFollowed(quint64 userId, bool success);
     void userUnfollowed(quint64 userId, bool success);

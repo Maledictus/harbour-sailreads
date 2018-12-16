@@ -78,6 +78,8 @@ UserPtr ParseUser(const QDomDocument& doc);
 CountedItems<BookShelf> ParseBookShelves(const QDomDocument& doc);
 CountedItems<GroupPtr> ParseGroups(const QDomDocument& doc);
 CountedItems<Friend> ParseFriends(const QDomDocument& doc);
+CountedItems<Friend> ParseFollowings(const QDomDocument& doc);
+CountedItems<Friend> ParseFollowers(const QDomDocument& doc);
 GroupPtr ParseGroup(const QDomDocument& doc);
 GroupMembers_t ParseGroupMembers(const QDomDocument& doc);
 CountedItems<TopicPtr> ParseGroupFolderTopics(const QDomDocument& doc);

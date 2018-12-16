@@ -81,6 +81,8 @@ public slots:
     void authenticateUser();
     void getUserInfo(quint64 id);
     void getUpdates();
+    void loadUserFollowings(quint64 userId, int page = 1);
+    void loadUserFollowers(quint64 userId, int page = 1);
 
     void loadBookShelves(quint64 id, int page = 1);
     void addBookShelf(const QString& name, bool exclusive, bool sortable, bool featured);
@@ -134,6 +136,8 @@ signals:
     void gotSeries(const SeriesPtr& series);
 
     void gotUserFriends(quint64 userId, const CountedItems<Friend>& friends);
+    void gotUserFollowings(quint64 userId, const CountedItems<Friend>& friends);
+    void gotUserFollowers(quint64 userId, const CountedItems<Friend>& friends);
     void friendRequestConfirmed(quint64 friendRequestId, bool confirmed);
     void userFollowed(quint64 userId, bool success);
     void userUnfollowed(quint64 userId, bool success);

@@ -1246,6 +1246,44 @@ SeriesPtr ParseSeries(const QDomDocument& doc)
     return ParseSeries(responseElement.firstChildElement("series"));
 }
 
+CountedItems<Friend> ParseFollowings(const QDomDocument& doc)
+{
+    const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
+    if (responseElement.isNull()) {
+        return CountedItems<Friend>();
+    }
+    const auto& friendsElement = responseElement.firstChildElement("following");
+    if (friendsElement.isNull()) {
+        return CountedItems<Friend>();
+    }
+
+    CountedItems<Friend> friends;
+    friends.m_BeginIndex = friendsElement.attribute("start").toULongLong();
+    friends.m_EndIndex = friendsElement.attribute("end").toULongLong();
+    friends.m_Count = friendsElement.attribute("total").toULongLong();
+    friends.m_Items = ParseFriends(friendsElement);
+    return friends;
+}
+
+CountedItems<Friend> ParseFollowers(const QDomDocument& doc)
+{
+    const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
+    if (responseElement.isNull()) {
+        return CountedItems<Friend>();
+    }
+    const auto& friendsElement = responseElement.firstChildElement("followers");
+    if (friendsElement.isNull()) {
+        return CountedItems<Friend>();
+    }
+
+    CountedItems<Friend> friends;
+    friends.m_BeginIndex = friendsElement.attribute("start").toULongLong();
+    friends.m_EndIndex = friendsElement.attribute("end").toULongLong();
+    friends.m_Count = friendsElement.attribute("total").toULongLong();
+    friends.m_Items = ParseFriends(friendsElement);
+    return friends;
+}
+
 }
 }
 }

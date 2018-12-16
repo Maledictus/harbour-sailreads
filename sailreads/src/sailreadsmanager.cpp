@@ -134,6 +134,10 @@ void SailreadsManager::MakeConnections()
 
     connect(m_Api, &GoodReadsApi::gotUserFriends,
             this, &SailreadsManager::gotUserFriends);
+    connect(m_Api, &GoodReadsApi::gotUserFollowers,
+            this, &SailreadsManager::gotUserFollowers);
+    connect(m_Api, &GoodReadsApi::gotUserFollowings,
+            this, &SailreadsManager::gotUserFollowings);
     connect(m_Api, &GoodReadsApi::friendRequestConfirmed,
             this, &SailreadsManager::friendRequestConfirmed);
     connect(m_Api, &GoodReadsApi::userFollowed,
@@ -214,6 +218,18 @@ void SailreadsManager::getUpdates()
 {
     SetBusy(true);
     m_Api->GetUpdates();
+}
+
+void SailreadsManager::loadUserFollowings(quint64 userId, int page)
+{
+    SetBusy(true);
+    m_Api->GetUserFollowings(userId, page);
+}
+
+void SailreadsManager::loadUserFollowers(quint64 userId, int page)
+{
+    SetBusy(true);
+    m_Api->GetUserFollowers(userId, page);
 }
 
 void SailreadsManager::loadBookShelves(quint64 id, int page)
