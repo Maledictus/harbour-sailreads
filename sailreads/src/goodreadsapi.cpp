@@ -553,26 +553,19 @@ void GoodReadsApi::DeclineFriendRecommendation(quint64 friendRecommendationId)
 
 void GoodReadsApi::AddFriend(quint64 userId)
 {
-//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-//            QUrl(QString("https://www.goodreads.com/friend/add_as_friend.xml?id=%1").arg(userId)), "POST");
-//    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
-//    connect(reply, &QNetworkReply::finished,
-//            this,
-//            [this, userId]() {
-//                handleAddFriend(userId);
-//            });
+    auto reply = m_OAuth1->Post(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + "/friend/add_as_friend.xml"), { { "id", userId } });
+    connect(reply, &QNetworkReply::finished,
+            this, [this, userId]() { handleAddFriend(userId); });
 }
 
 void GoodReadsApi::RemoveFriend(quint64 userId)
 {
-//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-//            QUrl(QString("https://www.goodreads.com/friend/destroy/%1?format=xml").arg(userId)), "POST");
-//    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
-//    connect(reply, &QNetworkReply::finished,
-//            this,
-//            [this, userId]() {
-//                handleRemoveFriend(userId);
-//            });
+    auto reply = m_OAuth1->Post(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + QString("/friend/destroy/%1").arg(userId)),
+            { { "format", "xml" } });
+    connect(reply, &QNetworkReply::finished,
+            this, [this, userId]() { handleRemoveFriend(userId); });
 }
 
 void GoodReadsApi::FollowUser(quint64 userId)
