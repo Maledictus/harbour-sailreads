@@ -51,10 +51,6 @@ Page {
 
         anchors.fill: parent
 
-        PageHeader {
-            id: pageHeader
-        }
-
         PullDownMenu {
             MenuItem {
                 text: qsTr("Refresh")
@@ -86,24 +82,8 @@ Page {
             anchors {
                 left: parent.left
                 right: parent.right
-                top: pageHeader.bottom
+                top: parent.top
                 bottom: navigationBar.top
-            }
-
-            onCurrentIndexChanged: {
-                switch (currentIndex) {
-                case 0:
-                    pageHeader.title = qsTr("Friends")
-                    break
-                case 1:
-                    pageHeader.title = qsTr("Followings")
-                    break
-                case 2:
-                    pageHeader.title = qsTr("Followers")
-                    break
-                default:
-                    break
-                }
             }
 
             highlightRangeMode: ListView.StrictlyEnforceRange
@@ -111,11 +91,11 @@ Page {
             model: ObjectModel {
                 id: objectModel
 
-                SilicaListView {
+                FriendsView {
                     id: friendsView
                     width: slideshowView.width
                     height: slideshowView.height
-                    clip: true
+                    header: PageHeader { title: qsTr("Friends") }
 
                     ViewPlaceholder {
                         enabled: !sailreadsManager.busy && friendsView.count === 0
@@ -138,98 +118,18 @@ Page {
 
                     onContentYChanged: fetchMoreIfNeeded()
 
-                    delegate: ListItem {
-                        id: rootDelegateItem
-                        width: friendsView.width
-                        contentHeight: row.height + separator.height +
-                                Theme.paddingMedium
-                        clip: true
-
-                        Row {
-                            id: row
-                            spacing: Theme.paddingMedium
-                            height: Math.max(friendIconImage.height, column.height)
-                            anchors {
-                                left: parent.left
-                                leftMargin: Theme.horizontalPageMargin
-                                right: parent.right
-                                rightMargin: Theme.horizontalPageMargin
-                            }
-                            BaseImage {
-                                id: friendIconImage
-                                anchors {
-                                    top: column.top
-                                    topMargin: Theme.paddingSmall
-                                }
-                                height: Theme.iconSizeLarge
-                                width: Theme.iconSizeMedium
-                                source: friendAvatarUrl
-                                fillMode: Image.PreserveAspectFit
-                                horizontalAlignment: Image.AlignLeft
-                                verticalAlignment: Image.AlignTop
-                            }
-
-                            Column {
-                                id: column
-                                width: parent.width - friendIconImage.width - Theme.paddingMedium
-                                Label {
-                                    font.family: Theme.fontFamilyHeading
-                                    truncationMode: TruncationMode.Fade
-                                    text: friendName
-                                }
-                                Label {
-                                    truncationMode: TruncationMode.Fade
-                                    font.pixelSize: Theme.fontSizeExtraSmall
-                                    text: qsTr("%1 books").arg(friendBooksCount)
-                                }
-                                Label {
-                                    truncationMode: TruncationMode.Fade
-                                    font.pixelSize: Theme.fontSizeExtraSmall
-                                    text: qsTr("%1 friends").arg(friendFriendsCount)
-                                }
-                            }
-                        }
-
-                        Separator {
-                            id: separator
-                            anchors {
-                                top: row.bottom
-                                topMargin: Theme.paddingMedium
-                            }
-
-                            width: parent.width
-                            color: Theme.primaryColor
-                            horizontalAlignment: Qt.AlignHCenter
-                        }
-
-                        RemorseItem { id: remorse }
-
-                        menu: ContextMenu {
-                            hasContent: userId === sailreadsManager.authUser.id
-                            MenuItem {
-                                text: qsTr("Remove")
-                                onClicked: {
-                                    remorse.execute(rootDelegateItem, qsTr("Removing"), function() {
-                                        sailreadsManager.removeFriend(friendId)
-                                    })
-                                }
-                            }
-                        }
-
-                        onClicked: {
-                            pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
-                                    { userId: friendId })
-                        }
+                    onFriendItemClicked: {
+                        pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
+                                { userId: userId })
                     }
-
-                    VerticalScrollDecorator {}
                 }
 
-                SilicaListView {
+                FriendsView {
                     id: followingsView
                     width: slideshowView.width
                     height: slideshowView.height
-                    clip: true
+                    header: PageHeader { title: qsTr("Followings") }
+
                     ViewPlaceholder {
                         enabled: !sailreadsManager.busy && followingsView.count === 0
                         text: qsTr("There are no followings. Pull down to refresh")
@@ -251,83 +151,18 @@ Page {
 
                     onContentYChanged: fetchMoreIfNeeded()
 
-                    delegate: ListItem {
-                        width: followingsView.width
-                        contentHeight: row1.height + separator1.height +
-                                Theme.paddingMedium
-                        clip: true
-
-                        Row {
-                            id: row1
-                            spacing: Theme.paddingMedium
-                            height: Math.max(friendIconImage1.height, column1.height)
-                            anchors {
-                                left: parent.left
-                                leftMargin: Theme.horizontalPageMargin
-                                right: parent.right
-                                rightMargin: Theme.horizontalPageMargin
-                            }
-                            BaseImage {
-                                id: friendIconImage1
-                                anchors {
-                                    top: column1.top
-                                    topMargin: Theme.paddingSmall
-                                }
-                                height: Theme.iconSizeLarge
-                                width: Theme.iconSizeMedium
-                                source: friendAvatarUrl
-                                fillMode: Image.PreserveAspectFit
-                                horizontalAlignment: Image.AlignLeft
-                                verticalAlignment: Image.AlignTop
-                            }
-
-                            Column {
-                                id: column1
-                                width: parent.width - friendIconImage1.width - Theme.paddingMedium
-                                Label {
-                                    font.family: Theme.fontFamilyHeading
-                                    truncationMode: TruncationMode.Fade
-                                    text: friendName
-                                }
-                                Label {
-                                    truncationMode: TruncationMode.Fade
-                                    font.pixelSize: Theme.fontSizeExtraSmall
-                                    text: qsTr("%1 books").arg(friendBooksCount)
-                                }
-                                Label {
-                                    truncationMode: TruncationMode.Fade
-                                    font.pixelSize: Theme.fontSizeExtraSmall
-                                    text: qsTr("%1 friends").arg(friendFriendsCount)
-                                }
-                            }
-                        }
-
-                        Separator {
-                            id: separator1
-                            anchors {
-                                top: row1.bottom
-                                topMargin: Theme.paddingMedium
-                            }
-
-                            width: parent.width
-                            color: Theme.primaryColor
-                            horizontalAlignment: Qt.AlignHCenter
-                        }
-
-                        onClicked: {
-                            pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
-                                    { userId: friendId })
-                        }
+                    onFriendItemClicked: {
+                        pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
+                                { userId: userId })
                     }
-
-                    VerticalScrollDecorator {}
                 }
 
-                SilicaListView {
+                FriendsView {
                     id: followersView
                     width: slideshowView.width
                     height: slideshowView.height
-                    clip: true
+                    header: PageHeader { title: qsTr("Followers") }
+
                     ViewPlaceholder {
                         enabled: !sailreadsManager.busy && followersView.count === 0
                         text: qsTr("There are no followers. Pull down to refresh")
@@ -341,7 +176,7 @@ Page {
 
                     function fetchMoreIfNeeded() {
                         if (!friendsPage.busy &&
-                                followingsModel.hasMore &&
+                                followersModel.hasMore &&
                                 indexAt(contentX, contentY + height) > followersModel.rowCount() - 2) {
                             followersModel.fetchMoreContent()
                         }
@@ -349,76 +184,10 @@ Page {
 
                     onContentYChanged: fetchMoreIfNeeded()
 
-                    delegate: ListItem {
-                        width: followersView.width
-                        contentHeight: row2.height + separator2.height +
-                                Theme.paddingMedium
-                        clip: true
-
-                        Row {
-                            id: row2
-                            spacing: Theme.paddingMedium
-                            height: Math.max(friendIconImage.height, column.height)
-                            anchors {
-                                left: parent.left
-                                leftMargin: Theme.horizontalPageMargin
-                                right: parent.right
-                                rightMargin: Theme.horizontalPageMargin
-                            }
-                            BaseImage {
-                                id: friendIconImage2
-                                anchors {
-                                    top: column.top
-                                    topMargin: Theme.paddingSmall
-                                }
-                                height: Theme.iconSizeLarge
-                                width: Theme.iconSizeMedium
-                                source: friendAvatarUrl
-                                fillMode: Image.PreserveAspectFit
-                                horizontalAlignment: Image.AlignLeft
-                                verticalAlignment: Image.AlignTop
-                            }
-
-                            Column {
-                                id: column2
-                                width: parent.width - friendIconImage2.width - Theme.paddingMedium
-                                Label {
-                                    font.family: Theme.fontFamilyHeading
-                                    truncationMode: TruncationMode.Fade
-                                    text: friendName
-                                }
-                                Label {
-                                    truncationMode: TruncationMode.Fade
-                                    font.pixelSize: Theme.fontSizeExtraSmall
-                                    text: qsTr("%1 books").arg(friendBooksCount)
-                                }
-                                Label {
-                                    truncationMode: TruncationMode.Fade
-                                    font.pixelSize: Theme.fontSizeExtraSmall
-                                    text: qsTr("%1 friends").arg(friendFriendsCount)
-                                }
-                            }
-                        }
-
-                        Separator {
-                            id: separator2
-                            anchors {
-                                top: row2.bottom
-                                topMargin: Theme.paddingMedium
-                            }
-
-                            width: parent.width
-                            color: Theme.primaryColor
-                            horizontalAlignment: Qt.AlignHCenter
-                        }
-
-                        onClicked: {
-                            pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
-                                    { userId: friendId })
-                        }
+                    onFriendItemClicked: {
+                        pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
+                                { userId: userId })
                     }
-
-                    VerticalScrollDecorator {}
                 }
             }
         }
