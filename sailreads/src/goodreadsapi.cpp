@@ -144,7 +144,7 @@ void GoodReadsApi::AddBookShelf(const QString& name, bool exclusive, bool sortab
     const QVariantMap params = { { "user_shelf[name]", name },
         { "user_shelf[exclusive_flag]", (exclusive ? "true" : "false") },
         { "user_shelf[sortable_flag]", (sortable ? "true" : "false") },
-        { "ser_shelf[featured]", (featured ? "true" : "false") } };
+        { "user_shelf[featured]", (featured ? "true" : "false") } };
     QNetworkReply *reply = m_OAuth1->Post(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + "/user_shelves.xml"), params);
     connect(reply, &QNetworkReply::finished,
@@ -157,7 +157,7 @@ void GoodReadsApi::EditBookShelf(quint64 id, const QString& name, bool exclusive
     const QVariantMap params = { { "user_shelf[name]", name },
         { "user_shelf[exclusive_flag]", (exclusive ? "true" : "false") },
         { "user_shelf[sortable_flag]", (sortable ? "true" : "false") },
-        { "ser_shelf[featured]", (featured ? "true" : "false") }
+        { "user_shelf[featured]", (featured ? "true" : "false") }
     };
     QNetworkReply *reply = m_OAuth1->Put(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/user_shelves/%1.xml").arg(id)), params);
