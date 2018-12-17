@@ -122,6 +122,20 @@ Page {
                         id: rootDelegateItem
                         width: friendsView.width
 
+//                        RemorseItem { id: remorse }
+
+//                        menu: ContextMenu {
+//                            hasContent: userId === sailreadsManager.authUser.id
+//                            MenuItem {
+//                                text: qsTr("Remove")
+//                                onClicked: {
+//                                    remorse.execute(rootDelegateItem, qsTr("Removing"), function() {
+//                                        sailreadsManager.removeFriend(friendId)
+//                                    })
+//                                }
+//                            }
+//                        }
+
                         onClicked: {
                             pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
                                     { userId: friendId })
@@ -159,6 +173,20 @@ Page {
                     delegate: FriendListItem {
                         id: rootDelegateItem2
                         width: followingsView.width
+
+                        RemorseItem { id: remorse2 }
+
+                        menu: ContextMenu {
+                            hasContent: userId === sailreadsManager.authUser.id
+                            MenuItem {
+                                text: qsTr("Unfollow")
+                                onClicked: {
+                                    remorse2.execute(rootDelegateItem, qsTr("Unfollowing"), function() {
+                                        sailreadsManager.unfollowUser(friendId)
+                                    })
+                                }
+                            }
+                        }
 
                         onClicked: {
                             pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
