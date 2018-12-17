@@ -561,11 +561,11 @@ void GoodReadsApi::AddFriend(quint64 userId)
 
 void GoodReadsApi::RemoveFriend(quint64 userId)
 {
-    auto reply = m_OAuth1->Post(m_AccessToken, m_AccessTokenSecret,
-            QUrl(m_BaseUrl + QString("/friend/destroy/%1").arg(userId)),
-            { { "format", "xml" } });
-    connect(reply, &QNetworkReply::finished,
-            this, [this, userId]() { handleRemoveFriend(userId); });
+//    auto reply = m_OAuth1->Post(m_AccessToken, m_AccessTokenSecret,
+//            QUrl(m_BaseUrl + QString("/friend/destroy/%1").arg(userId)),
+//            { { "format", "xml" } });
+//    connect(reply, &QNetworkReply::finished,
+//            this, [this, userId]() { handleRemoveFriend(userId); });
 }
 
 void GoodReadsApi::FollowUser(quint64 userId)
@@ -578,11 +578,10 @@ void GoodReadsApi::FollowUser(quint64 userId)
 
 void GoodReadsApi::UnfollowUser(quint64 userId)
 {
-    auto reply = m_OAuth1->DeleteResource(m_AccessToken, m_AccessTokenSecret,
-            QUrl(m_BaseUrl + QString("/user/%1/followers/stop_following").arg(userId)),
-            { { "format", "xml" } });
-    connect(reply, &QNetworkReply::finished,
-            this, [this, userId]() { handleUnfollowUser(userId); });
+//    auto reply = m_OAuth1->DeleteResource(m_AccessToken, m_AccessTokenSecret,
+//            QUrl(m_BaseUrl + QString("/user/%1/followers/stop_following.xml").arg(userId)));
+//    connect(reply, &QNetworkReply::finished,
+//            this, [this, userId]() { handleUnfollowUser(userId); });
 }
 
 void GoodReadsApi::AddQuote(const QString& authorName, quint64 authorId, quint64 bookId,
@@ -708,6 +707,8 @@ QByteArray GoodReadsApi::GetReply(QObject *sender, bool& ok)
     }
     reply->deleteLater();
     m_CurrentReply.clear();
+    data = reply->readAll();
+    qDebug() << data;
 
     if (reply->error() != QNetworkReply::NoError &&
             reply->error() != QNetworkReply::OperationCanceledError &&
@@ -731,7 +732,6 @@ QByteArray GoodReadsApi::GetReply(QObject *sender, bool& ok)
     }
 
     ok = true;
-    data = reply->readAll();
     return data;
 }
 

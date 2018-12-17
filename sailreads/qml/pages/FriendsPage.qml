@@ -91,7 +91,7 @@ Page {
             model: ObjectModel {
                 id: objectModel
 
-                FriendsView {
+                SilicaListView {
                     id: friendsView
                     width: slideshowView.width
                     height: slideshowView.height
@@ -118,13 +118,18 @@ Page {
 
                     onContentYChanged: fetchMoreIfNeeded()
 
-                    onFriendItemClicked: {
-                        pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
-                                { userId: userId })
+                    delegate: FriendListItem {
+                        id: rootDelegateItem
+                        width: friendsView.width
+
+                        onClicked: {
+                            pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
+                                    { userId: friendId })
+                        }
                     }
                 }
 
-                FriendsView {
+                SilicaListView {
                     id: followingsView
                     width: slideshowView.width
                     height: slideshowView.height
@@ -151,13 +156,18 @@ Page {
 
                     onContentYChanged: fetchMoreIfNeeded()
 
-                    onFriendItemClicked: {
-                        pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
-                                { userId: userId })
+                    delegate: FriendListItem {
+                        id: rootDelegateItem2
+                        width: followingsView.width
+
+                        onClicked: {
+                            pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
+                                    { userId: friendId })
+                        }
                     }
                 }
 
-                FriendsView {
+                SilicaListView {
                     id: followersView
                     width: slideshowView.width
                     height: slideshowView.height
@@ -184,9 +194,13 @@ Page {
 
                     onContentYChanged: fetchMoreIfNeeded()
 
-                    onFriendItemClicked: {
-                        pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
-                                { userId: userId })
+                    delegate: FriendListItem {
+                        width: followersView.width
+
+                        onClicked: {
+                            pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
+                                    { userId: friendId })
+                        }
                     }
                 }
             }
