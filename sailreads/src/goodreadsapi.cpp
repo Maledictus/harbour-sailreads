@@ -39,8 +39,8 @@ const QString GoodReadsApi::UnreadTopicsFolderId = QString("unread");
 
 GoodReadsApi::GoodReadsApi(QObject *parent)
 : QObject(parent)
-, m_ConsumerKey("GRGhcLIXU8M8u1NcnoMVFg")
-, m_ConsumerSecretKey("Epo3MYIT3V1JcuC6OkZxptHLEuD8yqUgAj7mLNw")
+, m_ConsumerKey("YzXuHShjEIJ9VR0viEw7MQ")
+, m_ConsumerSecretKey("q9T9p1EMdQD1ldgMlNF6dVF3S3hYikBWcj5O2yeGHA")
 , m_BaseUrl("https://www.goodreads.com")
 , m_NAM(new QNetworkAccessManager(this))
 , m_OAuth1(new OAuth1(m_ConsumerKey, m_ConsumerSecretKey, m_NAM, this))
