@@ -1,6 +1,4 @@
 /*
-The MIT License (MIT)
-
 Copyright (c) 2018 Oleg Linkin <maledictusdemagog@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -22,34 +20,31 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-import QtQuick 2.2
-import QtQuick.Layouts 1.1
-import Sailfish.Silica 1.0
-import harbour.sailreads 1.0
+#pragma once
 
-import "../components"
+#include <QObject>
 
-Page {
-    id: authorPage
+#include "../types.h"
 
-    property alias authorId : authorProfile.authorId
-    property bool busy: sailreadsManager.busy && authorPage.status === PageStatus.Active
+namespace Sailreads
+{
+class AuthorProfileItem: public QObject
+{
+    Q_OBJECT
 
-    function attachPage() {
-        if (pageStack._currentContainer.attachedContainer === null
-                && sailreadsManager.logged) {
-            pageStack.pushAttached(Qt.resolvedUrl("StatusPage.qml"))
-        }
-    }
+    quint64 m_AuthorId;
+    Q_PROPERTY(quint64 authorId READ GetAuthorId WRITE SetAuthorId NOTIFY authorIdChanged)
 
-    AuthorProfileItem {
-        id: authorProfile
-    }
+public:
+    AuthorProfileItem(QObject *parent = nullptr);
 
-    BusyIndicator {
-        size: BusyIndicatorSize.Large
-        anchors.centerIn: parent
-        running: authorPage.busy
-        visible: running
-    }
+    quint64 GetAuthorId() const;
+    void SetAuthorId(quint64 authorId);
+
+private slots:
+    void updateAuthorProfile();
+
+signals:
+    void authorIdChanged();
+};
 }

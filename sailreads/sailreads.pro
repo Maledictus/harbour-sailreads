@@ -53,7 +53,8 @@ SOURCES += src/harbour-sailreads.cpp \
     src/objects/friendrequest.cpp \
     src/oauth1.cpp \
     src/models/followersmodel.cpp \
-    src/models/followingsmodel.cpp
+    src/models/followingsmodel.cpp \
+    src/qmltypes/authorprofileitem.cpp
 
 
 HEADERS += src/application.h \
@@ -99,7 +100,8 @@ HEADERS += src/application.h \
     src/objects/friendrequest.h \
     src/oauth1.h \
     src/models/followersmodel.h \
-    src/models/followingsmodel.h
+    src/models/followingsmodel.h \
+    src/qmltypes/authorprofileitem.h
 
 DISTFILES += translations/*.ts \
     sailreads.desktop

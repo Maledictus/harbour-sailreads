@@ -742,8 +742,8 @@ ReviewPtr ParseReview(const QDomElement& element)
                     Qt::ISODate));
         }
         else if (fieldElement.tagName() == "read_at" && !fieldElement.text().isEmpty()) {
-            //TODO review->SetReadDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
-            //        Qt::ISODate));
+            review->SetReadDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
+                Qt::ISODate));
         }
         else if (fieldElement.tagName() == "date_added" && !fieldElement.text().isEmpty()) {
             review->SetAddedDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),

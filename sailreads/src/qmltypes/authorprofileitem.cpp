@@ -1,6 +1,4 @@
 /*
-The MIT License (MIT)
-
 Copyright (c) 2018 Oleg Linkin <maledictusdemagog@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -22,34 +20,40 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-import QtQuick 2.2
-import QtQuick.Layouts 1.1
-import Sailfish.Silica 1.0
-import harbour.sailreads 1.0
+#include "authorprofileitem.h"
 
-import "../components"
+#include "../sailreadsmanager.h"
 
-Page {
-    id: authorPage
-
-    property alias authorId : authorProfile.authorId
-    property bool busy: sailreadsManager.busy && authorPage.status === PageStatus.Active
-
-    function attachPage() {
-        if (pageStack._currentContainer.attachedContainer === null
-                && sailreadsManager.logged) {
-            pageStack.pushAttached(Qt.resolvedUrl("StatusPage.qml"))
-        }
-    }
-
-    AuthorProfileItem {
-        id: authorProfile
-    }
-
-    BusyIndicator {
-        size: BusyIndicatorSize.Large
-        anchors.centerIn: parent
-        running: authorPage.busy
-        visible: running
-    }
+namespace Sailreads
+{
+AuthorProfileItem::AuthorProfileItem(QObject *parent)
+: QObject(parent)
+, m_AuthorId(0)
+{
 }
+
+quint64 AuthorProfileItem::GetAuthorId() const
+{
+    return m_AuthorId;
+}
+
+void AuthorProfileItem::SetAuthorId(quint64 authorId)
+{
+    if (m_AuthorId == authorId) {
+        return;
+    }
+
+    m_AuthorId = authorId;
+    updateAuthorProfile();
+    emit authorIdChanged();
+}
+
+void AuthorProfileItem::updateAuthorProfile()
+{
+    if (m_AuthorId <= 0) {
+        return;
+    }
+    SailreadsManager::Instance()->loadAuthorProfile(m_AuthorId);
+}
+
+} // namespace Sailreads

@@ -332,12 +332,11 @@ void GoodReadsApi::RemoveBookFromShelf(quint64 bookId, const QString& shelfName)
 
 void GoodReadsApi::GetAuthor(quint64 authorId)
 {
-//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-//            QUrl(QString("https://www.goodreads.com/author/list/%1.xml").arg(authorId)), "GET");
-//    auto reply = m_NAM->get(QNetworkRequest(pair.first));
-//    m_CurrentReply = reply;
-//    connect(reply, &QNetworkReply::finished,
-//            this, &GoodReadsApi::handleGetAuthor);
+    auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + "/author/show.xml"), { { "id", authorId } });
+    m_CurrentReply = reply;
+    connect(reply, &QNetworkReply::finished,
+            this, &GoodReadsApi::handleGetAuthor);
 }
 
 void GoodReadsApi::GetAuthorBooks(quint64 authorId, int page)
@@ -731,7 +730,9 @@ QByteArray GoodReadsApi::GetReply(QObject *sender, bool& ok)
 
     ok = true;
     data = reply->readAll();
+#ifdef QT_DEBUG
     qDebug() << data;
+#endif
     return data;
 }
 

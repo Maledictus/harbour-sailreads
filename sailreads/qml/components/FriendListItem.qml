@@ -42,12 +42,12 @@ ListItem {
             Label {
                 truncationMode: TruncationMode.Fade
                 font.pixelSize: Theme.fontSizeExtraSmall
-                text: qsTr("%1 books").arg(friendBooksCount)
+                text: qsTr("%1 books").arg(Number(friendBooksCount).toFixed())
             }
             Label {
                 truncationMode: TruncationMode.Fade
                 font.pixelSize: Theme.fontSizeExtraSmall
-                text: qsTr("%1 friends").arg(friendFriendsCount)
+                text: qsTr("%1 friends").arg(Number(friendFriendsCount).toFixed())
             }
         }
     }

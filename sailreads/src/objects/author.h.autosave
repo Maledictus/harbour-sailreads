@@ -56,6 +56,7 @@ class Author: public QObject
     QDateTime m_DeathDate;
     bool m_IsGoodreadsAuthor;
     quint64 m_UserId;
+    QList<>
 
 
     Q_PROPERTY(quint64 id READ GetId NOTIFY idChanged)

@@ -366,4 +366,10 @@ void SailreadsManager::addBookToShelves(quint64 bookId, const QStringList& shelv
     SetBusy(true);
     m_Api->AddBooksToShelves({ bookId }, shelves);
 }
+
+void SailreadsManager::loadAuthorProfile(quint64 authorId)
+{
+    SetBusy(true);
+    m_Api->GetAuthor(authorId);
+}
 }

@@ -195,8 +195,8 @@ Page {
             color: Theme.highlightColor
             visible: seriesItem.series !== null
             text: qsTr("%1 works, %2 primary works")
-                    .arg(seriesItem.series !== null ? seriesItem.series.seriesWorksCount : "")
-                    .arg(seriesItem.series !== null ? seriesItem.series.primaryWorkCount : "")
+                    .arg(Number(seriesItem.series !== null ? seriesItem.series.seriesWorksCount : 0).toFixed())
+                    .arg(Number(seriesItem.series !== null ? seriesItem.series.primaryWorkCount : 0).toFixed())
         }
 
         Item {

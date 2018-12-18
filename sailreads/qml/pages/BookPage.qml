@@ -63,12 +63,13 @@ Page {
         var result = qsTr("<style>a:link{color:" + Theme.primaryColor + ";}</style>")
         for (var i = 0; i < bookItem.book.authors.length; ++i) {
             result += "<a href=\"%1\" style=\"text-decoration:none;\">%2</a>"
-                    .arg(bookItem.book.authors[i].id)
+                    .arg(Number(bookItem.book.authors[i].id).toFixed())
                     .arg(bookItem.book.authors[i].name)
             if (i +1 < bookItem.book.authors.length) {
                 result += ", "
             }
         }
+        console.log(result)
         return result
     }
 
@@ -80,7 +81,7 @@ Page {
         var result = qsTr("<style>a:link{color:" + Theme.primaryColor + ";}</style>")
         for (var i = 0; i < bookItem.book.seriesList.length; ++i) {
             result += "<a href=\"%1\" style=\"text-decoration:none;\">%2</a>"
-                    .arg(bookItem.book.seriesList[i].id)
+                    .arg(Number(bookItem.book.seriesList[i].id).toFixed())
                     .arg(bookItem.book.seriesList[i].title)
             if (i +1 < bookItem.book.seriesList.length) {
                 result += ", "
@@ -163,7 +164,7 @@ Page {
                 Component.onCompleted: text = generateAuthorsString()
                 onLinkActivated: {
                     pageStack.push(Qt.resolvedUrl("AuthorPage.qml"),
-                            { authorId: link })
+                            { authorId: Number(link).toFixed() })
                 }
             }
 

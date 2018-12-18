@@ -54,6 +54,7 @@ THE SOFTWARE.
 
 #include "objects/groupfolder.h"
 #include "objects/topic.h"
+#include "qmltypes/authorprofileitem.h"
 #include "qmltypes/bookitem.h"
 #include "qmltypes/groupitem.h"
 #include "qmltypes/seriesitem.h"
@@ -149,6 +150,7 @@ void Application::start()
     qmlRegisterType<TopicItem>("harbour.sailreads", 1, 0, "TopicItem");
     qmlRegisterType<BookItem>("harbour.sailreads", 1, 0, "BookItem");
     qmlRegisterType<SeriesItem>("harbour.sailreads", 1, 0, "SeriesItem");
+    qmlRegisterType<AuthorProfileItem>("harbour.sailreads", 1, 0, "AuthorProfileItem");
     qmlRegisterType<User>("harbour.sailreads", 1, 0, "User");
 
     ShowUI();
