@@ -364,8 +364,6 @@ void OAuth1::SignRequest(QNetworkRequest& request, const QVariantMap& signingPar
     }
 
     request.setRawHeader("Authorization", generateAuthorizationHeader(oauthParams));
-    request.setRawHeader("Keep-Alive", "30000");
-    request.setRawHeader("Connection", "keep-alive");
 
     if (operation == QNetworkAccessManager::PostOperation ||
             operation == QNetworkAccessManager::PutOperation) {

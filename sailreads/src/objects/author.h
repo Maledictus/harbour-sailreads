@@ -24,6 +24,7 @@ THE SOFTWARE.
 
 #include <memory>
 
+#include <QDateTime>
 #include <QObject>
 #include <QString>
 #include <QUrl>
