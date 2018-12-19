@@ -119,6 +119,9 @@ public slots:
     void addBookToShelves(quint64 bookId, const QStringList& shelves);
 
     void loadAuthorProfile(quint64 authorId);
+    void followAuthor(quint64 authorId);
+    void unfollowAuthor(quint64 followingId);
+
 signals:
     void busyChanged();
     void loggedChanged();
@@ -134,6 +137,9 @@ signals:
     void gotReviews(quint64 bookShelfId, const CountedItems<ReviewPtr>& reviews);
 
     void gotBook(const BookPtr& book);
+
+    void gotAuthorProfile(const AuthorPtr& author);
+    void authorFollowed(quint64 authorId, quint64 followingId);
 
     void gotSeries(const SeriesPtr& series);
 

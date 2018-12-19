@@ -677,12 +677,7 @@ BookPtr ParseBook(const QDomElement& element)
             book->SetReviewsWidgetContent(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "similar_books") {
-            const auto& similarBooksList = fieldElement.childNodes();
-            Books_t books;
-            for (int i = 0, cnt = similarBooksList.size(); i < cnt; ++i) {
-                books << ParseBook(similarBooksList.at (i).toElement());
-            }
-            book->SetSimilarBooks(books);
+            book->SetSimilarBooks(ParseBooks(fieldElement));
         }
         else if (fieldElement.tagName() == "series_works") {
             book->SetSeriesList(ParseSeriesFromSeriesWorks(fieldElement));
@@ -792,6 +787,9 @@ AuthorPtr ParseAuthor(const QDomElement& element)
         else if (fieldElement.tagName() == "role") {
             //TODO
         }
+        else if (fieldElement.tagName() == "large_image_url") {
+            author->SetLargeImageUrl(QUrl(fieldElement.text()));
+        }
         else if (fieldElement.tagName() == "image_url") {
             author->SetImageUrl(QUrl(fieldElement.text()));
         }
@@ -809,6 +807,52 @@ AuthorPtr ParseAuthor(const QDomElement& element)
         }
         else if (fieldElement.tagName() == "text_reviews_count") {
             author->SetTextReviewsCount(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "fans_count") {
+            author->SetFansCount(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "author_followers_count") {
+            author->SetFollowersCount(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "about") {
+            author->SetAbout(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "influences") {
+            author->SetInfluences(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "works_count") {
+            author->SetWorksCount(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "gender") {
+            author->SetGender(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "hometown") {
+            author->SetHomeTown(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "born_at") {
+            author->SetBirthDate(QDateTime::fromString(fieldElement.text(), "yyyy/MM/dd"));
+        }
+        else if (fieldElement.tagName() == "died_at") {
+            author->SetDeathDate(QDateTime::fromString(fieldElement.text(), "yyyy/MM/dd"));
+        }
+        else if (fieldElement.tagName() == "goodreads_author") {
+            author->SetIsGoodreadsAuthor(fieldElement.text() == "true");
+        }
+        else if (fieldElement.tagName() == "user") {
+
+            QDomElement idElem = fieldElement.firstChildElement("id");
+            if (!idElem.isNull()) {
+                author->SetUserId(idElem.text().toULongLong());
+            }
+        }
+        else if (fieldElement.tagName() == "books") {
+            author->SetBooks(ParseBooks(fieldElement));
+        }
+        else if (fieldElement.tagName() == "author_following_id") {
+            author->SetFollowingId(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "fanship_id") {
+            author->SetFollowingId(fieldElement.text().toULongLong());
         }
     }
 
@@ -1065,6 +1109,16 @@ Series_t ParseSeriesFromSeriesWorks(const QDomElement& element)
     return series;
 }
 
+Books_t ParseBooks(const QDomElement& element)
+{
+    const auto& booksList = element.childNodes();
+    Books_t books;
+    for (int i = 0, cnt = booksList.size(); i < cnt; ++i) {
+        books << ParseBook(booksList.at (i).toElement());
+    }
+    return books;
+}
+
 UserPtr ParseUser(const QDomDocument& doc)
 {
     const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
@@ -1282,6 +1336,16 @@ CountedItems<Friend> ParseFollowers(const QDomDocument& doc)
     friends.m_Count = friendsElement.attribute("total").toULongLong();
     friends.m_Items = ParseFriends(friendsElement);
     return friends;
+}
+
+AuthorPtr ParseAuthor(const QDomDocument& doc)
+{
+    const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
+    if (responseElement.isNull()) {
+        return AuthorPtr();
+    }
+
+    return ParseAuthor(responseElement.firstChildElement("author"));
 }
 
 }

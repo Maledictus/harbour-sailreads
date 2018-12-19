@@ -73,6 +73,7 @@ CountedItems<Comment> ParseComments(const QDomElement& element);
 CountedItems<ReviewPtr> ParseReviews(const QDomElement& element);
 SeriesWorks_t ParseSeriesWorks(const QDomElement& element);
 Series_t ParseSeriesFromSeriesWorks(const QDomElement& element);
+Books_t ParseBooks(const QDomElement& element);
 
 UserPtr ParseUser(const QDomDocument& doc);
 CountedItems<BookShelf> ParseBookShelves(const QDomDocument& doc);
@@ -88,6 +89,7 @@ Comment ParseComment(const QDomDocument& doc);
 QPair<quint64, CountedItems<ReviewPtr>> ParseReviews(const QDomDocument& doc);
 BookPtr ParseBook(const QDomDocument& doc);
 SeriesPtr ParseSeries(const QDomDocument& doc);
+AuthorPtr ParseAuthor(const QDomDocument& doc);
 }
 }
 }

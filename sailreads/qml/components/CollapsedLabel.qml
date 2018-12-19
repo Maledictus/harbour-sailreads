@@ -66,7 +66,7 @@ MouseArea {
             id: lblForContentClip
             width: parent.width
             font.pixelSize: Theme.fontSizeSmall
-            text: "\n"
+            text: "\n\n"
         }
         Label {
             id: contentLabel

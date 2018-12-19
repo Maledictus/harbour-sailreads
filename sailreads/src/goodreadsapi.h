@@ -190,7 +190,7 @@ private slots:
     void handleGetAuthor();
     void handleGetAuthorBooks();
     void handleFollowAuthor();
-    void handleUnfollowAuthor();
+    void handleUnfollowAuthor(quint64 authorId);
     void handleShowAuthorFollowingInformation();
 
     void handleGetGroups(quint64 userId);
@@ -244,6 +244,10 @@ signals:
     void gotReviews(quint64 bookShelfId, const CountedItems<ReviewPtr>& reviews);
 
     void gotBook(const BookPtr& book);
+
+    void gotAuthorProfile(const AuthorPtr& authorProfile);
+    void authorFollowed(quint64 authorId, quint64 followingId);
+    void authorUnfollowed(quint64 authorId);
 
     void gotSeries(const SeriesPtr& series);
     void gotAuthorSeries(const Series_t& seriesList);

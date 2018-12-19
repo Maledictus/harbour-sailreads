@@ -50,6 +50,7 @@ class Author: public QObject
     quint64 m_FollowersCount;
     QUrl m_LargeImageUrl;
     QString m_About;
+    QString m_Influences;
     quint64 m_WorksCount;
     QString m_Gender;
     QString m_HomeTown;
@@ -57,6 +58,8 @@ class Author: public QObject
     QDateTime m_DeathDate;
     bool m_IsGoodreadsAuthor;
     quint64 m_UserId;
+    Books_t m_Books;
+    quint64 m_FollowingId;
 
 
     Q_PROPERTY(quint64 id READ GetId NOTIFY idChanged)
@@ -67,7 +70,20 @@ class Author: public QObject
     Q_PROPERTY(qreal averageRating READ GetAverageRating NOTIFY averageRatingChanged)
     Q_PROPERTY(quint64 ratingsCount READ GetRatingsCount NOTIFY ratingsCountChanged)
     Q_PROPERTY(quint64 textReviewsCount READ GetTextReviewsCount NOTIFY textReviewsCountChanged)
-
+    Q_PROPERTY(quint64 fansCount READ GetFansCount NOTIFY fansCountChanged)
+    Q_PROPERTY(quint64 followersCount READ GetFollowersCount NOTIFY followersCountChanged)
+    Q_PROPERTY(QUrl largeImageUrl READ GetLargeImageUrl NOTIFY largeImageUrlChanged)
+    Q_PROPERTY(QString about READ GetAbout NOTIFY aboutChanged)
+    Q_PROPERTY(QString influences READ GetInfluences NOTIFY influencesChanged)
+    Q_PROPERTY(quint64 worksCount READ GetWorksCount NOTIFY worksCountChanged)
+    Q_PROPERTY(QString gender READ GetGender NOTIFY genderChanged)
+    Q_PROPERTY(QString homeTown READ GetHomeTown NOTIFY homeTownChanged)
+    Q_PROPERTY(QDateTime birthDate READ GetBirthDate NOTIFY birthDateChanged)
+    Q_PROPERTY(QDateTime deathDate READ GetDeathDate NOTIFY deathDateChanged)
+    Q_PROPERTY(bool isGoodreadsAuthor READ GetIsGoodreadsAuthor NOTIFY isGoodreadsAuthorChanged)
+    Q_PROPERTY(quint64 userId READ GetUserId NOTIFY userIdChanged)
+    Q_PROPERTY(QObjectList books READ GetBooks NOTIFY booksChanged)
+    Q_PROPERTY(quint64 followingId READ GetFollowingId NOTIFY followingIdChanged)
 
 public:
     Author(QObject *parent = nullptr);
@@ -89,6 +105,39 @@ public:
     void SetRatingsCount(const quint64& ratingsCount);
     quint64 GetTextReviewsCount() const;
     void SetTextReviewsCount(const quint64& textReviewsCount);
+    quint64 GetFansCount() const;
+    void SetFansCount(quint64 fansCount);
+    quint64 GetFollowersCount() const;
+    void SetFollowersCount(quint64 followersCount);
+    QUrl GetLargeImageUrl() const;
+    void SetLargeImageUrl(const QUrl& largeImageUrl);
+    QString GetAbout() const;
+    void SetAbout(const QString& about);
+    QString GetInfluences() const;
+    void SetInfluences(const QString& influences);
+    quint64 GetWorksCount() const;
+    void SetWorksCount(quint64 worksCount);
+    QString GetGender() const;
+    void SetGender(const QString& gender);
+    QString GetHomeTown() const;
+    void SetHomeTown(const QString& homeTown);
+    QDateTime GetBirthDate() const;
+    void SetBirthDate(const QDateTime& dt);
+    QDateTime GetDeathDate() const;
+    void SetDeathDate(const QDateTime& dt);
+    bool GetIsGoodreadsAuthor() const;
+    void SetIsGoodreadsAuthor(bool isGoodreadsAuthor);
+    quint64 GetUserId() const;
+    void SetUserId(quint64 userId);
+    QObjectList GetBooks() const;
+    Books_t GetBooksPtr() const;
+    void SetBooks(const Books_t& books);
+    quint64 GetFollowingId() const;
+    void SetFollowingId(quint64 id);
+
+    void Update(Author *newAuthor);
+    void Update(const AuthorPtr& newAuthor);
+
 signals:
     void idChanged();
     void nameChanged();
@@ -98,5 +147,19 @@ signals:
     void averageRatingChanged();
     void ratingsCountChanged();
     void textReviewsCountChanged();
+    void fansCountChanged();
+    void followersCountChanged();
+    void largeImageUrlChanged();
+    void aboutChanged();
+    void worksCountChanged();
+    void genderChanged();
+    void homeTownChanged();
+    void birthDateChanged();
+    void deathDateChanged();
+    void isGoodreadsAuthorChanged();
+    void userIdChanged();
+    void booksChanged();
+    void influencesChanged(QString influences);
+    void followingIdChanged(quint64 followingId);
 };
 } // namespace Sailreads

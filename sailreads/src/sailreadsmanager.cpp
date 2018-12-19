@@ -165,6 +165,11 @@ void SailreadsManager::MakeConnections()
             this, &SailreadsManager::gotBook);
     connect(m_Api, &GoodReadsApi::gotSeries,
             this, &SailreadsManager::gotSeries);
+
+    connect(m_Api, &GoodReadsApi::gotAuthorProfile,
+            this, &SailreadsManager::gotAuthorProfile);
+    connect(m_Api, &GoodReadsApi::authorFollowed,
+            this, &SailreadsManager::authorFollowed);
 }
 
 void SailreadsManager::SetBusy(bool busy)
@@ -371,5 +376,17 @@ void SailreadsManager::loadAuthorProfile(quint64 authorId)
 {
     SetBusy(true);
     m_Api->GetAuthor(authorId);
+}
+
+void SailreadsManager::followAuthor(quint64 authorId)
+{
+    SetBusy(true);
+    m_Api->FollowAuthor(authorId);
+}
+
+void SailreadsManager::unfollowAuthor(quint64 followingId)
+{
+    SetBusy(true);
+    m_Api->UnfollowAuthor(followingId);
 }
 }

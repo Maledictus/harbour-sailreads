@@ -33,18 +33,27 @@ class AuthorProfileItem: public QObject
     Q_OBJECT
 
     quint64 m_AuthorId;
+    AuthorPtr m_Author;
     Q_PROPERTY(quint64 authorId READ GetAuthorId WRITE SetAuthorId NOTIFY authorIdChanged)
+    Q_PROPERTY(Author* author READ GetAuthor WRITE SetAuthor NOTIFY authorChanged)
 
 public:
     AuthorProfileItem(QObject *parent = nullptr);
 
     quint64 GetAuthorId() const;
     void SetAuthorId(quint64 authorId);
+    void SetAuthor(const AuthorPtr& author);
+    Author* GetAuthor() const;
+    void SetAuthor(Author *author);
 
-private slots:
+public slots:
     void updateAuthorProfile();
+private slots:
+    void handleGotAuthorProfile(const AuthorPtr& author);
+    void handleAuthorFollowed(quint64 authorId, quint64 followingId);
 
 signals:
     void authorIdChanged();
+    void authorChanged();
 };
 }

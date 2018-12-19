@@ -24,6 +24,8 @@ THE SOFTWARE.
 
 #include <QtDebug>
 
+#include "book.h"
+
 namespace Sailreads
 {
 Author::Author(QObject *parent)
@@ -32,6 +34,12 @@ Author::Author(QObject *parent)
 , m_AverageRating(0)
 , m_RatingsCount(0)
 , m_TextReviewsCount(0)
+, m_FansCount(0)
+, m_FollowersCount(0)
+, m_WorksCount(0)
+, m_IsGoodreadsAuthor(false)
+, m_UserId(0)
+, m_FollowingId(0)
 {
 #ifdef QT_DEBUG
     qDebug() << this << "CONSTRUCTED";
@@ -124,5 +132,197 @@ void Author::SetTextReviewsCount(const quint64& textReviewsCount)
 {
     m_TextReviewsCount = textReviewsCount;
 }
+
+quint64 Author::GetFansCount() const
+{
+    return m_FansCount;
+}
+
+void Author::SetFansCount(quint64 fansCount)
+{
+    m_FansCount = fansCount;
+}
+
+quint64 Author::GetFollowersCount() const
+{
+    return m_FollowersCount;
+}
+
+void Author::SetFollowersCount(quint64 followersCount)
+{
+    m_FollowersCount = followersCount;
+}
+
+QUrl Author::GetLargeImageUrl() const
+{
+    return m_LargeImageUrl;
+}
+
+void Author::SetLargeImageUrl(const QUrl& largeImageUrl)
+{
+    m_LargeImageUrl = largeImageUrl;
+}
+
+QString Author::GetAbout() const
+{
+    return m_About;
+}
+
+void Author::SetAbout(const QString& about)
+{
+    m_About = about;
+}
+
+QString Author::GetInfluences() const
+{
+    return m_Influences;
+}
+
+void Author::SetInfluences(const QString& influences)
+{
+    m_Influences = influences;
+}
+
+quint64 Author::GetWorksCount() const
+{
+    return m_WorksCount;
+}
+
+void Author::SetWorksCount(quint64 worksCount)
+{
+    m_WorksCount = worksCount;
+}
+
+QString Author::GetGender() const
+{
+    return m_Gender;
+}
+
+void Author::SetGender(const QString& gender)
+{
+    m_Gender = gender;
+}
+
+QString Author::GetHomeTown() const
+{
+    return m_HomeTown;
+}
+
+void Author::SetHomeTown(const QString& homeTown)
+{
+    m_HomeTown = homeTown;
+}
+
+QDateTime Author::GetBirthDate() const
+{
+    return m_BirthDate;
+}
+
+void Author::SetBirthDate(const QDateTime& dt)
+{
+    m_BirthDate = dt;
+}
+
+QDateTime Author::GetDeathDate() const
+{
+    return m_DeathDate;
+}
+
+void Author::SetDeathDate(const QDateTime& dt)
+{
+    m_DeathDate = dt;
+}
+
+bool Author::GetIsGoodreadsAuthor() const
+{
+    return m_IsGoodreadsAuthor;
+}
+
+void Author::SetIsGoodreadsAuthor(bool isGoodreadsAuthor)
+{
+    m_IsGoodreadsAuthor = isGoodreadsAuthor;
+}
+
+quint64 Author::GetUserId() const
+{
+    return m_UserId;
+}
+
+void Author::SetUserId(quint64 userId)
+{
+    m_UserId = userId;
+}
+
+QObjectList Author::GetBooks() const
+{
+    QObjectList objList;
+    for (const auto& book : m_Books) {
+        objList << book.get();
+    }
+    return objList;
+}
+
+Books_t Author::GetBooksPtr() const
+{
+    return m_Books;
+}
+
+void Author::SetBooks(const Books_t& books)
+{
+    m_Books = books;
+}
+
+quint64 Author::GetFollowingId() const
+{
+    return m_FollowingId;
+}
+
+void Author::SetFollowingId(quint64 id)
+{
+    m_FollowingId = id;
+}
+
+void Author::Update(Author *newAuthor)
+{
+    if (!newAuthor) {
+        return;
+    }
+
+    SetId(newAuthor->GetId());
+    SetName(newAuthor->GetName());
+    SetLink(newAuthor->GetLink());
+    SetImageUrl(newAuthor->GetImageUrl());
+    SetSmallImageUrl(newAuthor->GetSmallImageUrl());
+    SetAverageRating(newAuthor->GetAverageRating());
+    SetRatingsCount(newAuthor->GetRatingsCount());
+    SetTextReviewsCount(newAuthor->GetTextReviewsCount());
+}
+
+void Author::Update(const AuthorPtr& newAuthor)
+{
+    if (!newAuthor) {
+        return;
+    }
+
+    SetId(newAuthor->GetId());
+    SetName(newAuthor->GetName());
+    SetLink(newAuthor->GetLink());
+    SetFansCount(newAuthor->GetFansCount());
+    SetFollowersCount(newAuthor->GetFollowersCount());
+    SetLargeImageUrl(newAuthor->GetLargeImageUrl());
+    SetImageUrl(newAuthor->GetImageUrl());
+    SetSmallImageUrl(newAuthor->GetSmallImageUrl());
+    SetAbout(newAuthor->GetAbout());
+    SetWorksCount(newAuthor->GetWorksCount());
+    SetGender(newAuthor->GetGender());
+    SetHomeTown(newAuthor->GetHomeTown());
+    SetBirthDate(newAuthor->GetBirthDate());
+    SetDeathDate(newAuthor->GetDeathDate());
+    SetIsGoodreadsAuthor(newAuthor->GetIsGoodreadsAuthor());
+    SetUserId(newAuthor->GetUserId());
+    SetBooks(newAuthor->GetBooksPtr());
+    SetFollowingId(newAuthor->GetFollowingId());
+}
+
 
 } // namespace Sailreads

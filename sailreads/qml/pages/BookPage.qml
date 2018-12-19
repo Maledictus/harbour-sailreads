@@ -69,7 +69,6 @@ Page {
                 result += ", "
             }
         }
-        console.log(result)
         return result
     }
 
@@ -163,8 +162,16 @@ Page {
                 horizontalAlignment: height < 2 * font.pixelSize ? Text.AlignHCenter : Text.AlignJustify
                 Component.onCompleted: text = generateAuthorsString()
                 onLinkActivated: {
+                    var author
+                    for (var i = 0; i < bookItem.book.authors.length; ++i) {
+                        if (Number(bookItem.book.authors[i].id).toFixed() === Number(link).toFixed()) {
+                            author = bookItem.book.authors[i]
+                            break
+                        }
+                    }
+
                     pageStack.push(Qt.resolvedUrl("AuthorPage.qml"),
-                            { authorId: Number(link).toFixed() })
+                            { authorId: Number(link).toFixed(), author: author })
                 }
             }
 

@@ -22,6 +22,7 @@ THE SOFTWARE.
 
 #include "authorprofileitem.h"
 
+#include "../objects/author.h"
 #include "../sailreadsmanager.h"
 
 namespace Sailreads
@@ -30,6 +31,10 @@ AuthorProfileItem::AuthorProfileItem(QObject *parent)
 : QObject(parent)
 , m_AuthorId(0)
 {
+    connect(SailreadsManager::Instance(), &SailreadsManager::gotAuthorProfile,
+            this, &AuthorProfileItem::handleGotAuthorProfile);
+    connect(SailreadsManager::Instance(), &SailreadsManager::authorFollowed,
+            this, &AuthorProfileItem::handleAuthorFollowed);
 }
 
 quint64 AuthorProfileItem::GetAuthorId() const
@@ -48,12 +53,59 @@ void AuthorProfileItem::SetAuthorId(quint64 authorId)
     emit authorIdChanged();
 }
 
+Author* AuthorProfileItem::GetAuthor() const
+{
+    return m_Author.get();
+}
+
+void AuthorProfileItem::SetAuthor(Author *author)
+{
+    if (!m_Author) {
+        m_Author = AuthorPtr(new Author());
+    }
+    m_Author->Update(author);
+    emit authorChanged();
+}
+
+void AuthorProfileItem::SetAuthor(const AuthorPtr& author)
+{
+    if (!author) {
+        return;
+    }
+
+    if (!m_Author) {
+        m_Author = AuthorPtr(new Author());
+    }
+    m_Author->Update(author);
+    emit authorChanged();
+}
+
 void AuthorProfileItem::updateAuthorProfile()
 {
     if (m_AuthorId <= 0) {
         return;
     }
     SailreadsManager::Instance()->loadAuthorProfile(m_AuthorId);
+}
+
+void AuthorProfileItem::handleGotAuthorProfile(const AuthorPtr& author)
+{
+    if (!author || m_AuthorId != author->GetId()) {
+        return;
+    }
+    SetAuthor(author);
+}
+
+void AuthorProfileItem::handleAuthorFollowed(quint64 authorId, quint64 followingId)
+{
+    if (m_AuthorId != authorId) {
+        return;
+    }
+
+    if (m_Author) {
+        m_Author->SetFollowingId(followingId);
+        emit authorChanged();
+    }
 }
 
 } // namespace Sailreads
