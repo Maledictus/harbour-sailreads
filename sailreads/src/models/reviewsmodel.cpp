@@ -23,8 +23,6 @@ THE SOFTWARE.
 #include "reviewsmodel.h"
 #include "../sailreadsmanager.h"
 
-#include <QtDebug>
-
 #include "../objects/book.h"
 #include "../objects/review.h"
 

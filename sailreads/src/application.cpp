@@ -31,6 +31,7 @@ THE SOFTWARE.
 #include <QtDebug>
 #include <QtQml>
 
+#include "models/authorbooksmodel.h"
 #include "models/reviewsmodel.h"
 #include "models/bookshelvesmodel.h"
 #include "models/bookshelfproxymodel.h"
@@ -132,6 +133,7 @@ void Application::start()
     qRegisterMetaType<Work*>("Work*");
     qRegisterMetaType<GroupFolder>("GroupFolder");
 
+    qmlRegisterType<AuthorBooksModel>("harbour.sailreads", 1, 0, "AuthorBooksModel");
     qmlRegisterType<BaseProxyModel>("harbour.sailreads", 1, 0, "BaseProxyModel");
     qmlRegisterType<BookShelvesModel>("harbour.sailreads", 1, 0, "BookShelvesModel");
     qmlRegisterType<BookShelfProxyModel>("harbour.sailreads", 1, 0, "BookShelfProxyModel");

@@ -677,7 +677,7 @@ BookPtr ParseBook(const QDomElement& element)
             book->SetReviewsWidgetContent(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "similar_books") {
-            book->SetSimilarBooks(ParseBooks(fieldElement));
+            book->SetSimilarBooks(ParseBooksList(fieldElement));
         }
         else if (fieldElement.tagName() == "series_works") {
             book->SetSeriesList(ParseSeriesFromSeriesWorks(fieldElement));
@@ -846,7 +846,7 @@ AuthorPtr ParseAuthor(const QDomElement& element)
             }
         }
         else if (fieldElement.tagName() == "books") {
-            author->SetBooks(ParseBooks(fieldElement));
+            author->SetBooks(ParseBooksList(fieldElement));
         }
         else if (fieldElement.tagName() == "author_following_id") {
             author->SetFollowingId(fieldElement.text().toULongLong());
@@ -1109,13 +1109,23 @@ Series_t ParseSeriesFromSeriesWorks(const QDomElement& element)
     return series;
 }
 
-Books_t ParseBooks(const QDomElement& element)
+Books_t ParseBooksList(const QDomElement& element)
 {
     const auto& booksList = element.childNodes();
     Books_t books;
     for (int i = 0, cnt = booksList.size(); i < cnt; ++i) {
         books << ParseBook(booksList.at (i).toElement());
     }
+    return books;
+}
+
+CountedItems<BookPtr> ParseBooks(const QDomElement& element)
+{
+    CountedItems<BookPtr> books;
+    books.m_BeginIndex = element.attribute("start").toULongLong();
+    books.m_EndIndex = element.attribute("end").toULongLong();
+    books.m_Count = element.attribute("total").toULongLong();
+    books.m_Items = ParseBooksList(element);
     return books;
 }
 
@@ -1346,6 +1356,26 @@ AuthorPtr ParseAuthor(const QDomDocument& doc)
     }
 
     return ParseAuthor(responseElement.firstChildElement("author"));
+}
+
+CountedItems<BookPtr> ParseAuthorBooks(const QDomDocument &doc)
+{
+    const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
+    if (responseElement.isNull()) {
+        return CountedItems<BookPtr>();
+    }
+
+    const auto& authorElement = responseElement.firstChildElement("author");
+    if (authorElement.isNull()) {
+        return CountedItems<BookPtr>();
+    }
+
+    const auto& booksElement = authorElement.firstChildElement("books");
+    if (booksElement.isNull()) {
+        return CountedItems<BookPtr>();
+    }
+
+    return ParseBooks(booksElement);
 }
 
 }

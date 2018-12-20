@@ -167,6 +167,13 @@ Page {
                         key: qsTr("Influences")
                         value: authorProfile.author ? authorProfile.author.influences : ""
                     }
+                    KeyValueLabel {
+                        font.pixelSize: Theme.fontSizeSmall
+                        width: parent.width
+                        visible: value !== ""
+                        key: qsTr("Followers")
+                        value: authorProfile.author ? authorProfile.author.followersCount : ""
+                    }
 
                     Row {
                         spacing: Theme.paddingSmall
@@ -229,6 +236,41 @@ Page {
                 text: authorProfile.author ? (column._style + authorProfile.author.about) : ""
                 onLinkActivated: {
                     Qt.openUrlExternally(link)
+                }
+            }
+
+            SectionHeader {
+                text: qsTr("Books")
+            }
+
+            SilicaListView {
+                id: booksView
+
+                width: parent.width
+                height: contentHeight
+                clip: true
+
+                model: AuthorBooksModel {
+                    id: authorBooksModel
+                    authorId: authorProfile.author ? authorProfile.author.id : 0
+                }
+
+                function fetchMoreIfNeeded() {
+                    console.log(authorPage.busy, authorBooksModel.hasMore, (indexAt(contentX, contentY + height) > authorBooksModel.rowCount() - 2))
+                    if (!authorPage.busy &&
+                            authorBooksModel.hasMore &&
+                            indexAt(contentX, contentY + height) > authorBooksModel.rowCount() - 2) {
+                        authorBooksModel.fetchMoreContent()
+                    }
+                }
+                onContentYChanged: {
+                    console.log("onContentYChanged")
+                    fetchMoreIfNeeded()
+                }
+
+                delegate: BookListItem {
+                    width: booksView.width
+                    clip: true
                 }
             }
         }

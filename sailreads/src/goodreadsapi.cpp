@@ -341,14 +341,13 @@ void GoodReadsApi::GetAuthor(quint64 authorId)
 
 void GoodReadsApi::GetAuthorBooks(quint64 authorId, int page)
 {
-//    //TODO make simple request
-//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-//            QUrl(QString("https://www.goodreads.com/author/show/%1.xml?page=%2")
-//                 .arg(authorId).arg(page)), "GET");
-//    auto reply = m_NAM->get(QNetworkRequest(pair.first));
-//    m_CurrentReply = reply;
-//    connect(reply, &QNetworkReply::finished,
-//            this, &GoodReadsApi::handleGetAuthorBooks);
+    auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + "/author/list.xml"), { { "id", authorId }, { "page", page } });
+    m_CurrentReply = reply;
+    connect(reply, &QNetworkReply::finished,
+            this, [this, authorId]() {
+                handleGetAuthorBooks(authorId);
+            });
 }
 
 void GoodReadsApi::FollowAuthor(quint64 authorId)
@@ -367,16 +366,6 @@ void GoodReadsApi::UnfollowAuthor(quint64 authorId, quint64 authorFollowingId)
             this, [this, authorId]() {
                 handleUnfollowAuthor(authorId);
             });
-}
-
-void GoodReadsApi::ShowAuthorFollowingInformation(quint64 authorFollowingId)
-{
-//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-//            QUrl(QString("https://www.goodreads.com/author_followings/%1?format=xml")
-//                 .arg(authorFollowingId)), "GET");
-//    auto reply = m_NAM->get(QNetworkRequest(pair.first));
-//    connect(reply, &QNetworkReply::finished,
-//            this, &GoodReadsApi::handleShowAuthorFollowingInformation);
 }
 
 void GoodReadsApi::GetGroups(quint64 userId, int page)
@@ -1102,7 +1091,7 @@ void GoodReadsApi::handleGetAuthor()
     emit gotAuthorProfile(RpcUtils::Parser::ParseAuthor(doc));
 }
 
-void GoodReadsApi::handleGetAuthorBooks()
+void GoodReadsApi::handleGetAuthorBooks(quint64 authorId)
 {
     bool ok = false;
     auto doc = GetDocumentFromReply(sender(), ok);
@@ -1112,8 +1101,7 @@ void GoodReadsApi::handleGetAuthorBooks()
     }
 
     emit requestFinished();
-    //TODO
-    qDebug() << doc.toByteArray();
+    emit gotAuthorBooks(authorId, RpcUtils::Parser::ParseAuthorBooks(doc));
 }
 
 void GoodReadsApi::handleFollowAuthor()
@@ -1147,20 +1135,6 @@ void GoodReadsApi::handleUnfollowAuthor(quint64 authorId)
     if (doc.isNull()) {
         emit authorUnfollowed(authorId);
     }
-}
-
-void GoodReadsApi::handleShowAuthorFollowingInformation()
-{
-    bool ok = false;
-    auto doc = GetDocumentFromReply(sender(), ok);
-    if (!ok) {
-        emit requestFinished();
-        return;
-    }
-
-    emit requestFinished();
-    //TODO
-    qDebug() << doc.toByteArray();
 }
 
 void GoodReadsApi::handleGetGroups(quint64 userId)

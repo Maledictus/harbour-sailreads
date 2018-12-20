@@ -114,7 +114,6 @@ public:
     void GetAuthorBooks(quint64 authorId, int page);
     void FollowAuthor(quint64 authorId);
     void UnfollowAuthor(quint64 authorId, quint64 authorFollowingId);
-    void ShowAuthorFollowingInformation(quint64 authorFollowingId);
 
     void GetGroups(quint64 userId, int page = 1);
     void GetGroup(quint64 groupId);
@@ -188,10 +187,9 @@ private slots:
     void handleRemoveBookFromShelf();
 
     void handleGetAuthor();
-    void handleGetAuthorBooks();
+    void handleGetAuthorBooks(quint64 authorId);
     void handleFollowAuthor();
     void handleUnfollowAuthor(quint64 authorId);
-    void handleShowAuthorFollowingInformation();
 
     void handleGetGroups(quint64 userId);
     void handleGetGroup(quint64 groupId, QObject *senderObject = nullptr);
@@ -246,6 +244,7 @@ signals:
     void gotBook(const BookPtr& book);
 
     void gotAuthorProfile(const AuthorPtr& authorProfile);
+    void gotAuthorBooks(quint64 authorId, const CountedItems<BookPtr>& books);
     void authorFollowed(quint64 authorId, quint64 followingId);
     void authorUnfollowed(quint64 authorId);
 
