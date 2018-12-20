@@ -120,7 +120,7 @@ public slots:
 
     void loadAuthorProfile(quint64 authorId);
     void followAuthor(quint64 authorId);
-    void unfollowAuthor(quint64 followingId);
+    void unfollowAuthor(quint64 authorId, quint64 followingId);
 
 signals:
     void busyChanged();
@@ -140,6 +140,7 @@ signals:
 
     void gotAuthorProfile(const AuthorPtr& author);
     void authorFollowed(quint64 authorId, quint64 followingId);
+    void authorUnfollowed(quint64 authorId);
 
     void gotSeries(const SeriesPtr& series);
 

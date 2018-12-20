@@ -113,7 +113,7 @@ public:
     void GetAuthor(quint64 authorId);
     void GetAuthorBooks(quint64 authorId, int page);
     void FollowAuthor(quint64 authorId);
-    void UnfollowAuthor(quint64 authorFollowingId);
+    void UnfollowAuthor(quint64 authorId, quint64 authorFollowingId);
     void ShowAuthorFollowingInformation(quint64 authorFollowingId);
 
     void GetGroups(quint64 userId, int page = 1);

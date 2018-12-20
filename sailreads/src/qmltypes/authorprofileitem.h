@@ -51,6 +51,7 @@ public slots:
 private slots:
     void handleGotAuthorProfile(const AuthorPtr& author);
     void handleAuthorFollowed(quint64 authorId, quint64 followingId);
+    void handleAuthorUnfollowed(quint64 authorId);
 
 signals:
     void authorIdChanged();

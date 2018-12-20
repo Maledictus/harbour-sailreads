@@ -35,6 +35,8 @@ AuthorProfileItem::AuthorProfileItem(QObject *parent)
             this, &AuthorProfileItem::handleGotAuthorProfile);
     connect(SailreadsManager::Instance(), &SailreadsManager::authorFollowed,
             this, &AuthorProfileItem::handleAuthorFollowed);
+    connect(SailreadsManager::Instance(), &SailreadsManager::authorUnfollowed,
+            this, &AuthorProfileItem::handleAuthorUnfollowed);
 }
 
 quint64 AuthorProfileItem::GetAuthorId() const
@@ -104,6 +106,18 @@ void AuthorProfileItem::handleAuthorFollowed(quint64 authorId, quint64 following
 
     if (m_Author) {
         m_Author->SetFollowingId(followingId);
+        emit authorChanged();
+    }
+}
+
+void AuthorProfileItem::handleAuthorUnfollowed(quint64 authorId)
+{
+    if (m_AuthorId != authorId) {
+        return;
+    }
+
+    if (m_Author) {
+        m_Author->SetFollowingId(0);
         emit authorChanged();
     }
 }

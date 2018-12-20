@@ -359,12 +359,14 @@ void GoodReadsApi::FollowAuthor(quint64 authorId)
             this, &GoodReadsApi::handleFollowAuthor);
 }
 
-void GoodReadsApi::UnfollowAuthor(quint64 authorFollowingId)
+void GoodReadsApi::UnfollowAuthor(quint64 authorId, quint64 authorFollowingId)
 {
     auto reply = m_OAuth1->DeleteResource(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/author_followings/%1?format=xml").arg(authorFollowingId)));
     connect(reply, &QNetworkReply::finished,
-            this, &GoodReadsApi::handleUnfollowAuthor);
+            this, [this, authorId]() {
+                handleUnfollowAuthor(authorId);
+            });
 }
 
 void GoodReadsApi::ShowAuthorFollowingInformation(quint64 authorFollowingId)
@@ -1124,9 +1126,9 @@ void GoodReadsApi::handleFollowAuthor()
     }
 
     QXmlQuery query;
-    query.setFocus(data);
+    query.setFocus(doc.toByteArray());
     const QString followingId(GetQueryResult(query, "/GoodreadsResponse/author_following/id/text()"));
-    const QString authorId(GetQueryResult(query, "/GoodreadsResponse/author/id/text()"));
+    const QString authorId(GetQueryResult(query, "/GoodreadsResponse/author_following/author/id/text()"));
 
     emit requestFinished();
     emit authorFollowed(authorId.toULongLong(), followingId.toULongLong());

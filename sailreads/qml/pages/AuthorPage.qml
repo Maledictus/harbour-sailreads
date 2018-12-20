@@ -70,15 +70,15 @@ Page {
             PullDownMenu {
                 enabled: !busy
                 MenuItem {
-                    text:  {
-                        console.log(authorProfile.author.followingId)
+                    text: {
                         return authorProfile.author && authorProfile.author.followingId > 0 ?
                                qsTr("Unfollow") :
                                qsTr("Follow")
                     }
                     onClicked: {
                         if (authorProfile.author && authorProfile.author.followingId > 0) {
-                            sailreadsManager.unfollowAuthor(authorProfile.author.followingId);
+                            sailreadsManager.unfollowAuthor(authorProfile.author.id,
+                                    authorProfile.author.followingId);
                         }
                         else {
                             sailreadsManager.followAuthor(authorProfile.author.id);
