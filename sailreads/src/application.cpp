@@ -136,7 +136,6 @@ void Application::start()
     qmlRegisterType<AuthorBooksModel>("harbour.sailreads", 1, 0, "AuthorBooksModel");
     qmlRegisterType<BaseProxyModel>("harbour.sailreads", 1, 0, "BaseProxyModel");
     qmlRegisterType<BookShelvesModel>("harbour.sailreads", 1, 0, "BookShelvesModel");
-    qmlRegisterType<BookShelfProxyModel>("harbour.sailreads", 1, 0, "BookShelfProxyModel");
     qmlRegisterType<FriendsModel>("harbour.sailreads", 1, 0, "FriendsModel");
     qmlRegisterType<FollowersModel>("harbour.sailreads", 1, 0, "FollowersModel");
     qmlRegisterType<FollowingsModel>("harbour.sailreads", 1, 0, "FollowingsModel");

@@ -45,7 +45,7 @@ Page {
         sailreadsManager.abortRequest()
     }
 
-    BookShelfProxyModel {
+    BaseProxyModel {
         id: bookShelvesProxyModel
         dynamicSortFilter: true
         filterRole: BookShelvesModel.Name

@@ -51,7 +51,7 @@ Page {
         id: userProfile
     }
 
-    BookShelfProxyModel {
+    BaseProxyModel {
         id: bookShelvesModel
 
         limit: 3

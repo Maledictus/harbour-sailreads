@@ -5,6 +5,13 @@ import harbour.sailreads 1.0
 
 ListItem {
     id: listItem
+
+    property alias imageUrl: bookImage.source
+    property alias title: bookNameLabel.text
+    property alias authors: authorsLabel.text
+    property real averageRating: 0.0
+    property real ratingsCount: 0.0
+
     contentHeight: row.height + separator.height + Theme.paddingMedium
     clip: true
 
@@ -25,7 +32,6 @@ ListItem {
                 topMargin: Theme.paddingSmall
             }
 
-            source: bookImageUrl
             height: 1.5 * width
             width: Theme.iconSizeLarge
             horizontalAlignment: Image.AlignLeft
@@ -43,27 +49,27 @@ ListItem {
                 maximumLineCount: 2
                 font.family: Theme.fontFamilyHeading
                 font.pixelSize: Theme.fontSizeSmall
-                text: bookTitle
             }
 
             Label {
-                id: authorsLabe
+                id: authorsLabel
                 width: parent.width
                 truncationMode: TruncationMode.Fade
                 font.pixelSize: Theme.fontSizeTiny
-                text: bookAuthors
+                text: listItem.bookAuthors
             }
 
             Row {
                 spacing: Theme.paddingSmall
                 RatingBox {
-                    rating: bookAverageRating
+                    id: ratingBox
+                    rating: listItem.averageRating
                 }
 
                 Label {
                     font.pixelSize: Theme.fontSizeExtraSmall
-                    text: qsTr("%1/%2 ratings").arg(Number(bookAverageRating).toLocaleString())
-                            .arg(Number(bookRatingsCount).toLocaleString(Qt.locale(), 'f', 0))
+                    text: qsTr("%1/%2 ratings").arg(Number(listItem.averageRating).toLocaleString())
+                            .arg(Number(listItem.ratingsCount).toLocaleString(Qt.locale(), 'f', 0))
                 }
             }
         }

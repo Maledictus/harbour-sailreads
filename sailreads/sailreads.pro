@@ -18,7 +18,6 @@ SOURCES += src/harbour-sailreads.cpp \
     src/sailreadsmanager.cpp \
     src/userupdate.cpp \
     src/models/baseproxymodel.cpp \
-    src/models/bookshelfproxymodel.cpp \
     src/models/bookshelvesmodel.cpp \
     src/models/commentsmodel.cpp \
     src/models/foundgroupsmodel.cpp \
@@ -67,7 +66,6 @@ HEADERS += src/application.h \
     src/types.h \
     src/userupdate.h \
     src/models/baseproxymodel.h \
-    src/models/bookshelfproxymodel.h \
     src/models/bookshelvesmodel.h \
     src/models/commentsmodel.h \
     src/models/foundgroupsmodel.h \

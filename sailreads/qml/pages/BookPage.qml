@@ -237,7 +237,7 @@ Page {
                     color: Theme.highlightColor
                     font.pixelSize: Theme.fontSizeMedium
                     horizontalAlignment: Text.AlignHCenter
-                    text: qsTr("Rate this book:")
+                    text: review && review.rating > 0 ? qsTr("My Rating") : qsTr("Rate this book")
                 }
 
                 VotingBox {
@@ -251,6 +251,12 @@ Page {
                     }
                 }
             }
+
+            SectionHeader {
+                text: qsTr("My review")
+            }
+
+
 
             SectionHeader {
                 text: qsTr("Description")
@@ -366,6 +372,7 @@ Page {
                                     book: bookItem.book.similarBooks[index] })
                     }
                 }
+                HorizontalScrollDecorator{}
             }
 
 //TODO
@@ -382,6 +389,8 @@ Page {
 //                }
 //            }
         }
+
+        VerticalScrollDecorator {}
     }
 
 

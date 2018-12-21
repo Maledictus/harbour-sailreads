@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-import QtQuick 2.2
+import QtQuick 2.5
 import QtQuick.Layouts 1.1
 import Sailfish.Silica 1.0
 import harbour.sailreads 1.0
@@ -56,6 +56,7 @@ Page {
         id: authorView
 
         anchors.fill: parent
+        height: parent.height
         contentHeight: column.height
 
         Column {
@@ -239,8 +240,20 @@ Page {
                 }
             }
 
-            SectionHeader {
+            MoreButton {
+                id: booksButton
+                width: parent.width
+                height: Theme.itemSizeMedium
                 text: qsTr("Books")
+                counter: authorProfile.author ? authorProfile.author.worksCount : 0
+                busy: authorPage.busy
+                enabled: !busy
+                onClicked: {
+                    pageStack.push(Qt.resolvedUrl("AuthorBooksPage.qml"), {
+                        authorId: authorProfile.author ? authorProfile.author.id : 0,
+                        authorName: authorProfile.author ? authorProfile.author.name : ""
+                    })
+                }
             }
 
             SilicaListView {
@@ -250,27 +263,21 @@ Page {
                 height: contentHeight
                 clip: true
 
-                model: AuthorBooksModel {
-                    id: authorBooksModel
-                    authorId: authorProfile.author ? authorProfile.author.id : 0
-                }
-
-                function fetchMoreIfNeeded() {
-                    console.log(authorPage.busy, authorBooksModel.hasMore, (indexAt(contentX, contentY + height) > authorBooksModel.rowCount() - 2))
-                    if (!authorPage.busy &&
-                            authorBooksModel.hasMore &&
-                            indexAt(contentX, contentY + height) > authorBooksModel.rowCount() - 2) {
-                        authorBooksModel.fetchMoreContent()
-                    }
-                }
-                onContentYChanged: {
-                    console.log("onContentYChanged")
-                    fetchMoreIfNeeded()
-                }
+                model: authorProfile.author ? authorProfile.author.books : null
 
                 delegate: BookListItem {
                     width: booksView.width
                     clip: true
+
+                    imageUrl: modelData.imageUrl
+                    title: modelData.title
+                    authors: modelData.authorsString
+                    averageRating: modelData.averageRating
+                    ratingsCount: modelData.ratingsCount
+
+                    onClicked: {
+                        //TODO open Book/Review page
+                    }
                 }
             }
         }
