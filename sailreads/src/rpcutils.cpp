@@ -685,6 +685,9 @@ BookPtr ParseBook(const QDomElement& element)
         else if (fieldElement.tagName() == "my_review") {
             book->SetReview(ParseReview(fieldElement));
         }
+        else if (fieldElement.tagName() == "friend_reviews") {
+            book->SetFriendReviews(ParseReviewsList(fieldElement));
+        }
     }
 
     return book;
@@ -1127,6 +1130,16 @@ CountedItems<BookPtr> ParseBooks(const QDomElement& element)
     books.m_Count = element.attribute("total").toULongLong();
     books.m_Items = ParseBooksList(element);
     return books;
+}
+
+Reviews_t ParseReviewsList(const QDomElement& element)
+{
+    const auto& reviewsList = element.childNodes();
+    Reviews_t reviews;
+    for (int i = 0, cnt = reviewsList.size(); i < cnt; ++i) {
+        reviews << ParseReview(reviewsList.at (i).toElement());
+    }
+    return reviews;
 }
 
 UserPtr ParseUser(const QDomDocument& doc)

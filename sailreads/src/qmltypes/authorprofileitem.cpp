@@ -62,6 +62,10 @@ Author* AuthorProfileItem::GetAuthor() const
 
 void AuthorProfileItem::SetAuthor(Author *author)
 {
+    if (!author) {
+        return;
+    }
+
     if (!m_Author) {
         m_Author = AuthorPtr(new Author());
     }

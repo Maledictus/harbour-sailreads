@@ -314,6 +314,11 @@ QObjectList Book::GetAuthors() const
     return objList;
 }
 
+Authors_t Book::GetAuthorsPtr() const
+{
+    return m_Authors;
+}
+
 void Book::SetAuthors(const Authors_t& authors)
 {
     m_Authors = authors;
@@ -373,6 +378,11 @@ QObjectList Book::GetSimilarBooks() const
     return objList;
 }
 
+Books_t Book::GetSimilarBooksPtr() const
+{
+    return m_SimilarBooks;
+}
+
 void Book::SetSimilarBooks(const Books_t& books)
 {
     m_SimilarBooks = books;
@@ -381,6 +391,11 @@ void Book::SetSimilarBooks(const Books_t& books)
 Work* Book::GetWork() const
 {
     return m_Work.get();
+}
+
+WorkPtr Book::GetWorkPtr() const
+{
+    return m_Work;
 }
 
 void Book::SetWork(const WorkPtr& work)
@@ -397,6 +412,11 @@ QObjectList Book::GetSeriesList() const
     return objList;
 }
 
+Series_t Book::GetSeriesListPtr() const
+{
+    return m_SeriesList;
+}
+
 void Book::SetSeriesList(const Series_t& series)
 {
     m_SeriesList = series;
@@ -407,8 +427,86 @@ Review* Book::GetReview() const
     return m_Review.get();
 }
 
+ReviewPtr Book::GetReviewPtr() const
+{
+    return m_Review;
+}
+
 void Book::SetReview(const ReviewPtr& review)
 {
     m_Review = review;
+}
+
+QObjectList Book::GetFriendReviewsList() const
+{
+    QObjectList objList;
+    for (const auto& review : m_FriendReviews) {
+        objList << review.get();
+    }
+    return objList;
+}
+
+Reviews_t Book::GetFriendReviewsPtr() const
+{
+    return m_FriendReviews;
+}
+
+void Book::SetFriendReviews(const Reviews_t& reviews)
+{
+    m_FriendReviews = reviews;
+}
+
+void Book::Update(Book *newBook)
+{
+    if (!newBook) {
+        return;
+    }
+
+    SetId(newBook->GetId());
+    SetISBN(newBook->GetISBN());
+    SetISBN(newBook->GetISBN13());
+    SetTextReviewsCount(newBook->GetTextReviewsCount());
+    SetTitle(newBook->GetTitle());
+    SetTitleWithoutSeries(newBook->GetTitleWithoutSeries());
+    SetImageUrl(newBook->GetImageUrl());
+    SetSmallImageUrl(newBook->GetSmallImageUrl());
+    SetLargeImageUrl(newBook->GetLargeImageUrl());
+    SetLink(newBook->GetLink());
+    SetNumPages(newBook->GetNumPages());
+    SetFormat(newBook->GetFormat());
+    SetEditionInformation(newBook->GetEditionInformation());
+    SetPublisher(newBook->GetPublisher());
+    SetPublicationYear(newBook->GetPublicationYear());
+    SetPublicationMonth(newBook->GetPublicationMonth());
+    SetPublicationDay(newBook->GetPublicationDay());
+    SetAverageRating(newBook->GetAverageRating());
+    SetRatingsCount(newBook->GetRatingsCount());
+    SetDescription(newBook->GetDescription());
+    SetAuthors(newBook->GetAuthorsPtr());
+    SetPublishedYear(newBook->GetPublishedYear());
+    SetWork(newBook->GetWorkPtr());
+
+}
+
+void Book::Update(const BookPtr& newBook)
+{
+    if (!newBook) {
+        return;
+    }
+
+    Update(newBook.get());
+    SetASIN(newBook->GetASIN());
+    SetKindleASIN(newBook->GetKindleASIN());
+    SetMarketplaceId(newBook->GetMarketplaceId());
+    SetCountryCode(newBook->GetCountryCode());
+    SetLanguage(newBook->GetLanguage());
+    SetIsEBook(newBook->GetIsEBook());
+    SetWork(newBook->GetWorkPtr());
+    SetAuthors(newBook->GetAuthorsPtr());
+    SetFriendReviews(newBook->GetFriendReviewsPtr());
+    SetReviewsWidgetContent(newBook->GetReviewsWidgetContent());
+    SetSimilarBooks(newBook->GetSimilarBooksPtr());
+    SetSeriesList(newBook->GetSeriesListPtr());
+    SetReview(newBook->GetReviewPtr());
 }
 } // namespace Sailreads

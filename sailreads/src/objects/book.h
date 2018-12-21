@@ -68,6 +68,7 @@ class Book : public QObject
     WorkPtr m_Work;
     Series_t m_SeriesList;
     ReviewPtr m_Review;
+    Reviews_t m_FriendReviews;
 
     Q_PROPERTY(quint64 id READ GetId NOTIFY idChanged)
     Q_PROPERTY(QString isbn READ GetISBN NOTIFY isbnChanged)
@@ -103,6 +104,7 @@ class Book : public QObject
     Q_PROPERTY(QObjectList similarBooks READ GetSimilarBooks NOTIFY  similarBooksChanged)
     Q_PROPERTY(QObjectList seriesList READ GetSeriesList NOTIFY seriesListChanged)
     Q_PROPERTY(Review* review READ GetReview NOTIFY reviewChanged)
+    Q_PROPERTY(QObjectList friendReviews READ GetFriendReviewsList NOTIFY friendReviewsChanged)
 
 public:
     Book(QObject *parent = nullptr);
@@ -159,6 +161,7 @@ public:
     QString GetDescription() const;
     void SetDescription(const QString& description);
     QObjectList GetAuthors() const;
+    Authors_t GetAuthorsPtr() const;
     void SetAuthors(const Authors_t& authors);
     QString GetAuthorsString() const;
     int GetPublishedYear() const;
@@ -168,13 +171,23 @@ public:
     QString GetReviewsWidgetContent() const;
     void SetReviewsWidgetContent(const QString& content);
     QObjectList GetSimilarBooks() const;
+    Books_t GetSimilarBooksPtr() const;
     void SetSimilarBooks(const Books_t& books);
     Work* GetWork() const;
+    WorkPtr GetWorkPtr() const;
     void SetWork(const WorkPtr& work);
     QObjectList GetSeriesList() const;
+    Series_t GetSeriesListPtr() const;
     void SetSeriesList(const Series_t& seriesList);
     Review* GetReview() const;
+    ReviewPtr GetReviewPtr() const;
     void SetReview(const ReviewPtr& review);
+    QObjectList GetFriendReviewsList() const;
+    Reviews_t GetFriendReviewsPtr() const;
+    void SetFriendReviews(const Reviews_t& reviews);
+
+    void Update(Book *newBook);
+    void Update(const BookPtr& newBook);
 
 signals:
     void idChanged();
@@ -211,5 +224,6 @@ signals:
     void similarBooksChanged();
     void seriesListChanged();
     void reviewChanged();
+    void friendReviewsChanged();
 };
 } // namespace Sailreads

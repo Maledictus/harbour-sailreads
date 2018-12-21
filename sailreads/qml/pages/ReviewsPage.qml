@@ -166,13 +166,8 @@ Page {
             }
 
             onClicked: {
-                if (userId === sailreadsManager.authUser.id) {
-                    pageStack.push(Qt.resolvedUrl("BookPage.qml"),
-                            { review: reviewReview, bookId: reviewBook.id })
-                } else {
-                    pageStack.push(Qt.resolvedUrl("ReviewPage.qml"),
-                            { reviewId: reviewId })
-                }
+                pageStack.push(Qt.resolvedUrl("BookPage.qml"),
+                        { book: reviewBook, bookId: reviewBook.id })
             }
         }
 

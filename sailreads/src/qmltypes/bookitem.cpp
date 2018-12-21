@@ -56,13 +56,29 @@ Book* BookItem::GetBook() const
     return m_Book.get();
 }
 
+void BookItem::SetBook(Book *book)
+{
+    if (!book) {
+        return;
+    }
+
+    if (!m_Book) {
+        m_Book = BookPtr(new Book());
+    }
+    m_Book->Update(book);
+    emit bookChanged();
+}
+
 void BookItem::SetBook(const BookPtr& book)
 {
     if (!book) {
         return;
     }
 
-    m_Book = book;
+    if (!m_Book) {
+        m_Book = BookPtr(new Book());
+    }
+    m_Book->Update(book);
     emit bookChanged();
 }
 

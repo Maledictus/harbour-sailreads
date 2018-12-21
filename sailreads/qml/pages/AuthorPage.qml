@@ -276,7 +276,8 @@ Page {
                     ratingsCount: modelData.ratingsCount
 
                     onClicked: {
-                        //TODO open Book/Review page
+                        pageStack.push(Qt.resolvedUrl("BookPage.qml"),
+                                { book: modelData, bookId: modelData.id })
                     }
                 }
             }

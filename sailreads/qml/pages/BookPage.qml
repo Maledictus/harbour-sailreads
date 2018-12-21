@@ -33,7 +33,7 @@ Page {
     id: bookPage
 
     property alias bookId: bookItem.bookId
-    property var review
+    property alias book: bookItem.book
     property bool busy: sailreadsManager.busy && bookPage.status === PageStatus.Active
 
     function attachPage() {
@@ -56,16 +56,16 @@ Page {
     }
 
     function generateAuthorsString() {
-        if (bookItem.book === null || bookItem.book.authors.length === 0) {
+        if (book === null || book.authors.length === 0) {
             return "";
         }
 
         var result = qsTr("<style>a:link{color:" + Theme.primaryColor + ";}</style>")
-        for (var i = 0; i < bookItem.book.authors.length; ++i) {
+        for (var i = 0; i < book.authors.length; ++i) {
             result += "<a href=\"%1\" style=\"text-decoration:none;\">%2</a>"
-                    .arg(Number(bookItem.book.authors[i].id).toFixed())
-                    .arg(bookItem.book.authors[i].name)
-            if (i +1 < bookItem.book.authors.length) {
+                    .arg(Number(book.authors[i].id).toFixed())
+                    .arg(book.authors[i].name)
+            if (i +1 < book.authors.length) {
                 result += ", "
             }
         }
@@ -73,16 +73,16 @@ Page {
     }
 
     function generateSeriesString() {
-        if (bookItem.book === null || bookItem.book.seriesList.length === 0) {
+        if (book === null || book.seriesList.length === 0) {
             return "";
         }
 
         var result = qsTr("<style>a:link{color:" + Theme.primaryColor + ";}</style>")
-        for (var i = 0; i < bookItem.book.seriesList.length; ++i) {
+        for (var i = 0; i < book.seriesList.length; ++i) {
             result += "<a href=\"%1\" style=\"text-decoration:none;\">%2</a>"
-                    .arg(Number(bookItem.book.seriesList[i].id).toFixed())
-                    .arg(bookItem.book.seriesList[i].title)
-            if (i +1 < bookItem.book.seriesList.length) {
+                    .arg(Number(book.seriesList[i].id).toFixed())
+                    .arg(book.seriesList[i].title)
+            if (i +1 < book.seriesList.length) {
                 result += ", "
             }
         }
@@ -104,27 +104,27 @@ Page {
                 MenuItem {
                     text: qsTr("Add to Bookshelves")
                     onClicked: {
-                        var dialog = pageStack.push("../dialogs/AddBookToShelvesDialog.qml",
-                                { usedShelves: review.shelvesList })
-                        dialog.accepted.connect (function () {
-                            sailreadsManager.addBookToShelves(bookId, dialog.newShelves)
-                        })
+//                        var dialog = pageStack.push("../dialogs/AddBookToShelvesDialog.qml",
+//                                { usedShelves: book.review.shelvesList })
+//                        dialog.accepted.connect (function () {
+//                            sailreadsManager.addBookToShelves(bookId, dialog.newShelves)
+//                        })
                     }
                 }
 
                 MenuItem {
-                    visible: review ? review.shelvesList.length === 0 : true
+                    visible: book && book.review && book.review.shelvesList.length === 0
                     text: qsTr("Want to Read")
                 }
             }
 
             PageHeader {
-                title: review ? review.book.title : (bookItem.book ? bookItem.book.title : "")
-                description: review && review.shelvesList.length > 0 ? review.shelvesList[0] : ""
+                title: book ? book.title : ""
+                description: book && book.review && book.review.shelvesList.length > 0 ? book.review.shelvesList[0] : ""
             }
 
             BaseImage {
-                source: review ? review.book.imageUrl : (bookItem.book ? bookItem.book.imageUrl : "")
+                source: book ? book.imageUrl : ""
                 anchors.horizontalCenter: parent.horizontalCenter
                 height: Theme.coverSizeSmall.height
                 width: Theme.coverSizeSmall.width
@@ -134,7 +134,7 @@ Page {
             Label {
                 id: titleLabel
                 width: parent.width
-                text: review ? review.book.title : (bookItem.book ? bookItem.book.title : "")
+                text: book ? book.title : ""
                 wrapMode: Text.WordWrap
                 maximumLineCount: 2
                 anchors {
@@ -162,16 +162,18 @@ Page {
                 horizontalAlignment: height < 2 * font.pixelSize ? Text.AlignHCenter : Text.AlignJustify
                 Component.onCompleted: text = generateAuthorsString()
                 onLinkActivated: {
-                    var author
-                    for (var i = 0; i < bookItem.book.authors.length; ++i) {
-                        if (Number(bookItem.book.authors[i].id).toFixed() === Number(link).toFixed()) {
-                            author = bookItem.book.authors[i]
-                            break
+                    if (book) {
+                        var author
+                        for (var i = 0; i < book.authors.length; ++i) {
+                            if (Number(book.authors[i].id).toFixed() === Number(link).toFixed()) {
+                                author = book.authors[i]
+                                break
+                            }
                         }
-                    }
 
-                    pageStack.push(Qt.resolvedUrl("AuthorPage.qml"),
-                            { authorId: Number(link).toFixed(), author: author })
+                        pageStack.push(Qt.resolvedUrl("AuthorPage.qml"),
+                                { authorId: Number(link).toFixed(), author: author })
+                    }
                 }
             }
 
@@ -192,15 +194,13 @@ Page {
                 RatingBox {
                     Layout.alignment: Qt.AlignLeft
                     color: Theme.highlightColor
-                    rating: review ? review.book.averageRating :
-                            (bookItem.book ? bookItem.book.averageRating : 0)
+                    rating: book ? book.averageRating : 0.0
                 }
 
                 Label {
                     Layout.alignment: Qt.AlignLeft
                     color: Theme.highlightColor
-                    text: Number(review ? review.book.averageRating : (bookItem.book ?
-                            bookItem.book.averageRating : 0)).toLocaleString()
+                    text: Number(book ? book.averageRating : 0.0).toLocaleString()
                     Layout.fillWidth: true
                     horizontalAlignment: Text.AlignLeft
                 }
@@ -209,9 +209,8 @@ Page {
                     color: Theme.highlightColor
                     Layout.alignment: Qt.AlignRight
                     font.pixelSize: Theme.fontSizeSmall
-                    text: qsTr("%1 ratings").arg(Number(review ? review.book.ratingsCount :
-                                (bookItem.book ? bookItem.book.ratingsCount : 0))
-                                    .toLocaleString(Qt.locale(), 'f', 0))
+                    text: qsTr("%1 ratings").arg(Number(book ? book.ratingsCount : 0.0)
+                            .toLocaleString(Qt.locale(), 'f', 0))
                 }
             }
 
@@ -237,11 +236,12 @@ Page {
                     color: Theme.highlightColor
                     font.pixelSize: Theme.fontSizeMedium
                     horizontalAlignment: Text.AlignHCenter
-                    text: review && review.rating > 0 ? qsTr("My Rating") : qsTr("Rate this book")
+                    text: book && book.review && book.review.rating > 0 ?
+                            qsTr("My Rating") : qsTr("Rate this book")
                 }
 
                 VotingBox {
-                    rating: review ? review.rating : 0
+                    rating: book && book.review ? book.review.rating : 0
                     anchors {
                         horizontalCenter: parent.horizontalCenter
                     }
@@ -254,8 +254,21 @@ Page {
 
             SectionHeader {
                 text: qsTr("My review")
+                visible: book && book.review
             }
 
+            Button {
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: qsTr("Write a Review")
+                visible: book && book.review && book.review.body === ""
+                onClicked: {
+                }
+            }
+
+            SectionHeader {
+                text: qsTr("Friends reviews")
+                visible: book && book.friendReviews.length > 0
+            }
 
 
             SectionHeader {
@@ -300,35 +313,35 @@ Page {
                 KeyValueLabel {
                     font.pixelSize: Theme.fontSizeSmall
                     key: qsTr("Pages")
-                    value: bookItem.book ? bookItem.book.numPages : 0
-                    visible: bookItem.book ? bookItem.book.numPages > 0 : false
+                    value: book ? book.numPages : 0
+                    visible: book && book.numPages > 0
                 }
 
                 KeyValueLabel {
                     font.pixelSize: Theme.fontSizeSmall
                     key: qsTr("Published")
-                    value: bookItem.book ? (bookItem.book.publishedYear > 0 ? bookItem.book.publishedYear : bookItem.book.publicationYear) : 0
-                    visible: bookItem.book ? (bookItem.book.publishedYear > 0 || bookItem.book.publicationYear > 0) : false
+                    value: book ? (book.publishedYear > 0 ? book.publishedYear : book.publicationYear) : 0
+                    visible: book && (book.publishedYear > 0 || book.publicationYear > 0)
                 }
 
                 KeyValueLabel {
                     font.pixelSize: Theme.fontSizeSmall
                     key: "ISBN"
-                    value: bookItem.book ? bookItem.book.isbn : ""
-                    visible: bookItem.book ? (bookItem.book.isbn !== "") : false
+                    value: book ? book.isbn : ""
+                    visible: book && book.isbn !== ""
                 }
 
                 KeyValueLabel {
                     font.pixelSize: Theme.fontSizeSmall
                     key: "ISBN13"
-                    value: bookItem.book ? bookItem.book.isbn13 : 0
-                    visible: bookItem.book ? (bookItem.book.isbn13 !== "") : false
+                    value: book ? book.isbn13 : ""
+                    visible: book && book.isbn13 !== ""
                 }
 
                 Item { height: Theme.paddingMedium }
 
                 CollapsedLabel {
-                    text: bookItem.book ? bookItem.book.description : ""
+                    text: book ? book.description : ""
                     onLinkActivated: {
                         Qt.openUrlExternally(link)
                     }
@@ -339,13 +352,13 @@ Page {
                 width: parent.width
                 height: Theme.itemSizeMedium
                 text: qsTr("Similar Books")
-                counter: bookItem.book ? bookItem.book.similarBooks.length : 0
+                counter: book ? book.similarBooks.length : 0
                 busy: bookPage.busy
                 enabled: !busy
-                visible: bookItem.book ? bookItem.book.similarBooks.length > 0 : false
+                visible: book && book.similarBooks.length > 0
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("BooksPage.qml"),
-                        { books: bookItem.book.similarBooks, title: qsTr("Similar Books") })
+                        { books: book ? book.similarBooks : undefined, title: qsTr("Similar Books") })
                 }
             }
 
@@ -359,7 +372,7 @@ Page {
                     rightMargin: Theme.horizontalPageMargin
                 }
                 clip: true
-                model: bookItem.book ? bookItem.book.similarBooks : undefined
+                model: book ? book.similarBooks : undefined
                 spacing: Theme.paddingSmall
                 delegate: BaseImage {
                     height: 1.5 * width
@@ -368,8 +381,8 @@ Page {
                     indicator.size: BusyIndicatorSize.Medium
                     onClicked:  {
                         pageStack.push(Qt.resolvedUrl("BookPage.qml"),
-                                { bookId: bookItem.book.similarBooks[index].id,
-                                    book: bookItem.book.similarBooks[index] })
+                                { bookId: book ? book.similarBooks[index].id : 0,
+                                    book: book ? book.similarBooks[index] : undefined })
                     }
                 }
                 HorizontalScrollDecorator{}

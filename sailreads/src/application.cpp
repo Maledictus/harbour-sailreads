@@ -32,9 +32,8 @@ THE SOFTWARE.
 #include <QtQml>
 
 #include "models/authorbooksmodel.h"
-#include "models/reviewsmodel.h"
+#include "models/baseproxymodel.h"
 #include "models/bookshelvesmodel.h"
-#include "models/bookshelfproxymodel.h"
 #include "models/commentsmodel.h"
 #include "models/friendsmodel.h"
 #include "models/followersmodel.h"
@@ -44,6 +43,7 @@ THE SOFTWARE.
 #include "models/groupfoldersmodel.h"
 #include "models/groupmembersmodel.h"
 #include "models/groupfoldertopicsmodel.h"
+#include "models/reviewsmodel.h"
 #include "objects/author.h"
 #include "objects/book.h"
 #include "objects/group.h"

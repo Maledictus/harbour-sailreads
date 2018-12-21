@@ -75,6 +75,7 @@ SeriesWorks_t ParseSeriesWorks(const QDomElement& element);
 Series_t ParseSeriesFromSeriesWorks(const QDomElement& element);
 Books_t ParseBooksList(const QDomElement& element);
 CountedItems<BookPtr> ParseBooks(const QDomElement& element);
+Reviews_t ParseReviewsList(const QDomElement& element);
 
 UserPtr ParseUser(const QDomDocument& doc);
 CountedItems<BookShelf> ParseBookShelves(const QDomDocument& doc);
