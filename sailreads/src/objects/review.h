@@ -49,6 +49,7 @@ class Review: public QObject
     quint64 m_CommentsCount;
     quint64 m_Owned;
     QUrl m_Url;
+    UserPtr m_User;
 
     Q_PROPERTY(quint64 id READ GetId NOTIFY idChanged)
     Q_PROPERTY(Book* book READ GetBook NOTIFY bookChanged)
@@ -64,6 +65,7 @@ class Review: public QObject
     Q_PROPERTY(quint64 owned READ GetOwned NOTIFY ownedChanged)
     Q_PROPERTY(QUrl url READ GetUrl NOTIFY urlChanged)
     Q_PROPERTY(QStringList shelvesList READ GetShelvesList NOTIFY shelvesListChanged)
+    Q_PROPERTY(User* user READ GetUser NOTIFY userChanged)
 
 public:
     Review(QObject *parent = nullptr);
@@ -98,6 +100,8 @@ public:
     void SetOwned(const quint64& owned);
     QUrl GetUrl() const;
     void SetUrl(const QUrl& url);
+    User* GetUser() const;
+    void SetUser(const UserPtr& user);
 
 signals:
     void idChanged();
@@ -114,5 +118,6 @@ signals:
     void ownedChanged();
     void urlChanged();
     void shelvesListChanged();
+    void userChanged();
 };
 } // namespace Sailreads

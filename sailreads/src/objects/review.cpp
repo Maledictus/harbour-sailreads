@@ -197,4 +197,15 @@ void Review::SetUrl(const QUrl& url)
 {
     m_Url = url;
 }
+
+User *Review::GetUser() const
+{
+    return m_User.get();
+}
+
+void Review::SetUser(const UserPtr& user)
+{
+    m_User = user;
+    emit userChanged();
+}
 } // namespace Sailreads

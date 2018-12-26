@@ -93,7 +93,7 @@ UserPtr ParseUser(const QDomElement& element)
         if (fieldElement.tagName() == "id") {
             user->SetId(fieldElement.text().toULongLong());
         }
-        else if (fieldElement.tagName() == "name") {
+        else if (fieldElement.tagName() == "name" || fieldElement.tagName() == "display_name") {
             user->SetUserName(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "first_name") {
@@ -769,6 +769,9 @@ ReviewPtr ParseReview(const QDomElement& element)
         }
         else if (fieldElement.tagName() == "owned") {
             review->SetOwned(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "user") {
+            review->SetUser(ParseUser(fieldElement));
         }
     }
 
