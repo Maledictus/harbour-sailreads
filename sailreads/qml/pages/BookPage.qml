@@ -265,9 +265,54 @@ Page {
                 }
             }
 
-            SectionHeader {
-                text: qsTr("Friends reviews")
+            MoreButton {
+                id: bookShelvesButton
+                width: parent.width
+                height: Theme.itemSizeMedium
+                text: qsTr("Friends Reviews")
+                counter: book ? book.friendReviews.length : 0
+                busy: bookPage.busy
+                enabled: !busy
                 visible: book && book.friendReviews.length > 0
+                onClicked: {
+                }
+            }
+
+            SilicaListView {
+                id:friendsReviewsView
+
+                visible: book && book.friendReviews.length > 0
+
+                width: parent.width
+                height: contentHeight
+                delegate: ReviewListItem {
+                    userId: modelData.user.id
+                    userAvatarUrl: modelData.user.avatarUrl
+                    userName: modelData.user.userName
+                    reviewId: modelData.id
+                    reviewRate: modelData.rating
+                    reviewText: modelData.body
+                    reviewDate: modelData.updatedDate
+                }
+
+                model: {
+                    var result = []
+                    if (book) {
+                        for (var i = 0; i < book.friendReviews.length; ++i) {
+                            if (i < 3) {
+                                result.push(book.friendReviews[i])
+                            }
+                        }
+                    }
+                    return result
+                }
+
+                BusyIndicator {
+                    size: BusyIndicatorSize.Large
+                    anchors.centerIn: parent
+                    running: bookPage.busy
+                    visible: running
+                }
             }
 
 
