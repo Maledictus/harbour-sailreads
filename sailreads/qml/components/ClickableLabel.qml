@@ -42,5 +42,6 @@ MouseArea {
         opacity: clickableLabel.enabled ? 1.0 : 0.4
         wrapMode: Text.WordWrap
         color: highlighted ? Theme.highlightColor : Theme.primaryColor
+        linkColor: Theme.highlightColor
     }
 }
