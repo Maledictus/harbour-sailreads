@@ -19,24 +19,40 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-#ifndef REVIEWITEM_H
-#define REVIEWITEM_H
+
+#pragma once
 
 #include <QObject>
 
-namespace Sailreads {
+#include "../types.h"
 
+namespace Sailreads
+{
 class ReviewItem : public QObject
 {
     Q_OBJECT
+
+    quint64 m_ReviewId;
+    ReviewPtr m_Review;
+
+    Q_PROPERTY(quint64 reviewId READ GetReviewId WRITE SetReviewId NOTIFY reviewIdChanged)
+    Q_PROPERTY(Review* review READ GetReview NOTIFY reviewChanged)
+
 public:
     explicit ReviewItem(QObject *parent = nullptr);
 
-signals:
+    quint64 GetReviewId() const;
+    void SetReviewId(quint64 reviewId);
+    Review* GetReview() const;
+    void SetReview(const ReviewPtr& review);
 
+private slots:
+    void handleGotReview(const ReviewPtr& review);
 public slots:
+    void updateReview();
+
+signals:
+    void reviewIdChanged();
+    void reviewChanged();
 };
-
 } // namespace Sailreads
-
-#endif // REVIEWITEM_H

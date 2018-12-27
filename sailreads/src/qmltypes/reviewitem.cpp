@@ -19,13 +19,64 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
+
 #include "reviewitem.h"
 
-namespace Sailreads {
+#include "../objects/review.h"
+#include "../sailreadsmanager.h"
 
-ReviewItem::ReviewItem(QObject *parent) : QObject(parent)
+namespace Sailreads
 {
+ReviewItem::ReviewItem(QObject *parent)
+: QObject(parent)
+, m_ReviewId(0)
+{
+    connect(SailreadsManager::Instance(), &SailreadsManager::gotReview,
+            this, &ReviewItem::handleGotReview);
+}
 
+quint64 ReviewItem::GetReviewId() const
+{
+    return m_ReviewId;
+}
+
+void ReviewItem::SetReviewId(quint64 reviewId)
+{
+    if (m_ReviewId == reviewId) {
+        return;
+    }
+
+    m_ReviewId = reviewId;
+    updateReview();
+    emit reviewIdChanged();
+}
+
+Review* ReviewItem::GetReview() const
+{
+    return m_Review.get();
+}
+
+void ReviewItem::SetReview(const ReviewPtr& review)
+{
+    if (!review) {
+        return;
+    }
+
+    m_Review = review;
+    emit reviewChanged();
+}
+
+void ReviewItem::handleGotReview(const ReviewPtr& review)
+{
+    if (!review || m_ReviewId != review->GetId()) {
+        return;
+    }
+    SetReview(review);
+}
+
+void ReviewItem::updateReview()
+{
+    SailreadsManager::Instance()->loadReview(m_ReviewId);
 }
 
 } // namespace Sailreads
