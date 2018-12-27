@@ -77,7 +77,6 @@ void UserProfile::SetUser(const UserPtr& user)
 
     if (!m_User || !m_User->IsEqual(user)) {
         m_User = user;
-        qDebug() << Q_FUNC_INFO;
         return userChanged();
     }
 }
