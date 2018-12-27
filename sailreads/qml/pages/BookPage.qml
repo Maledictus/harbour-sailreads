@@ -293,6 +293,16 @@ Page {
                     reviewRate: modelData.rating
                     reviewText: modelData.body
                     reviewDate: modelData.updatedDate
+
+                    onUserClicked: {
+                        pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
+                                { userId: userId })
+                    }
+
+                    onReviewClicked: {
+                        pageStack.push(Qt.resolvedUrl("ReviewPage.qml"),
+                                { reviewId: reviewId })
+                    }
                 }
 
                 model: {
@@ -332,6 +342,7 @@ Page {
                     width: parent.width
                     height: seriesValueLabel.height
                     spacing: Theme.paddingSmall
+                    visible: seriesValueLabel.text !== ""
 
                     Label {
                         id: seriesKeyLabel
