@@ -12,41 +12,47 @@ ListItem {
     property alias reviewRate: ratingBox.rating
     property string reviewText
     property var reviewDate
+    property bool withBody: true
 
     signal userClicked(var userId)
     signal reviewClicked(var reviewId)
 
-    contentHeight: column.height + separator.height + Theme.paddingMedium
+    contentHeight: column.height
     clip: true
 
     Column {
         id: column
-
         anchors {
             left: parent.left
             leftMargin: Theme.horizontalPageMargin
             right: parent.right
             rightMargin: Theme.horizontalPageMargin
-            top: parent.top
-            topMargin: Theme.paddingSmall
         }
 
-        Row {
+        Item {
             id: headerRow
-            spacing: Theme.paddingMedium
             width: parent.width
-
+            height: Math.max(avatatImage.height, reviewHeader.height) + Theme.paddingMedium
             BaseImage {
                 id: avatatImage
-                height: width
-                width: Theme.iconSizeMedium
+                anchors {
+                    left: parent.left
+                    verticalCenter: parent.verticalCenter
+                }
+                fillMode: Image.PreserveAspectFit
                 indicator.size: BusyIndicatorSize.Medium
-                anchors.verticalCenter: reviewHeader.verticalCenter
                 onClicked: userClicked(userId)
             }
 
             Column {
                 id: reviewHeader
+                anchors {
+                    left: avatatImage.right
+                    leftMargin: Theme.paddingMedium
+                    right: hasCommentImage.left
+                    rightMargin: Theme.paddingMedium
+                }
+
                 Row {
                     spacing: Theme.paddingMedium
                     ClickableLabel {
@@ -79,31 +85,31 @@ ListItem {
                     color: Theme.highlightColor
                 }
             }
+
+            Image {
+                id: hasCommentImage
+                anchors {
+                    right: parent.right
+                    verticalCenter: reviewHeader.verticalCenter
+                }
+                visible: !withBody && reviewText !== ""
+                source: "image://theme/icon-m-note" +
+                        (highlighted ? "?" + Theme.highlightColor : "")
+            }
         }
 
-        ClickableLabel {
+        Label {
             id: bodyLabel
-            label.text: reviewText
-            label.wrapMode: Text.WordWrap
-            label.maximumLineCount: 4
-            label.font.pixelSize: Theme.fontSizeSmall
-            label.elide: Text.ElideRight
-            visible: label.text !== ""
+            text: reviewText
+            wrapMode: Text.WordWrap
+            font.pixelSize: Theme.fontSizeSmall
+            color: Theme.primaryColor
+            elide: Text.ElideRight
+            visible: withBody && text !== ""
+            linkColor: Theme.highlightColor
+            truncationMode: TruncationMode.Fade
             width: parent.width
-            onClicked: reviewClicked(reviewId)
             onLinkActivated: Qt.openUrlExternally(link)
         }
-    }
-
-    Separator {
-        id: separator
-        anchors {
-            top: column.bottom
-            topMargin: Theme.paddingMedium
-        }
-
-        width: parent.width
-        color: Theme.primaryColor
-        horizontalAlignment: Qt.AlignHCenter
     }
 }
