@@ -13,6 +13,9 @@ ListItem {
     property string reviewText
     property var reviewDate
 
+    signal userClicked(var userId)
+    signal reviewClicked(var reviewId)
+
     contentHeight: column.height + separator.height + Theme.paddingMedium
     clip: true
 
@@ -38,10 +41,12 @@ ListItem {
                 height: width
                 width: Theme.iconSizeMedium
                 indicator.size: BusyIndicatorSize.Medium
+                anchors.verticalCenter: reviewHeader.verticalCenter
+                onClicked: userClicked(userId)
             }
 
             Column {
-                anchors.top: avatatImage.top
+                id: reviewHeader
                 Row {
                     spacing: Theme.paddingMedium
                     ClickableLabel {
@@ -49,6 +54,7 @@ ListItem {
                         width: label.implicitWidth
                         label.text: userName
                         label.font.pixelSize: Theme.fontSizeExtraSmall
+                        onClicked: userClicked(userId)
                     }
 
                     Label {
@@ -84,6 +90,8 @@ ListItem {
             label.elide: Text.ElideRight
             visible: label.text !== ""
             width: parent.width
+            onClicked: reviewClicked(reviewId)
+            onLinkActivated: Qt.openUrlExternally(link)
         }
     }
 
