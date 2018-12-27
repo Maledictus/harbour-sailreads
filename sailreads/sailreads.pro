@@ -55,7 +55,8 @@ SOURCES += src/harbour-sailreads.cpp \
     src/models/followingsmodel.cpp \
     src/qmltypes/authorprofileitem.cpp \
     src/models/basebooksmodel.cpp \
-    src/models/authorbooksmodel.cpp
+    src/models/authorbooksmodel.cpp \
+    src/qmltypes/reviewitem.cpp
 
 
 HEADERS += src/application.h \
@@ -103,7 +104,8 @@ HEADERS += src/application.h \
     src/models/followingsmodel.h \
     src/qmltypes/authorprofileitem.h \
     src/models/basebooksmodel.h \
-    src/models/authorbooksmodel.h
+    src/models/authorbooksmodel.h \
+    src/qmltypes/reviewitem.h
 
 DISTFILES += translations/*.ts \
     sailreads.desktop
