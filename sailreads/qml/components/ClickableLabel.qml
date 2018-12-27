@@ -28,6 +28,8 @@ import Sailfish.Silica 1.0
 MouseArea {
     id: clickableLabel
 
+    signal linkActivated(var link)
+
     property alias label: textLabel
 
     property bool down: pressed && containsMouse
@@ -43,5 +45,6 @@ MouseArea {
         wrapMode: Text.WordWrap
         color: highlighted ? Theme.highlightColor : Theme.primaryColor
         linkColor: Theme.highlightColor
+        onLinkActivated: clickableLabel.linkActivated(link)
     }
 }
