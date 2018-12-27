@@ -2,8 +2,7 @@ import QtQuick 2.2
 import Sailfish.Silica 1.0
 
 ListItem {
-    contentHeight: row.height + separator.height +
-            Theme.paddingMedium
+    contentHeight: row.height + separator.height + Theme.paddingMedium
     clip: true
 
     Row {
