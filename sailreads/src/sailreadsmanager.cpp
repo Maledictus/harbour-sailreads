@@ -267,6 +267,11 @@ void SailreadsManager::loadReviews(quint64 userId, const QString& bookShelf, int
     m_Api->GetReviews(userId, bookShelf, sortField, order, page);
 }
 
+void SailreadsManager::loadReview(quint64 reviewId, int commentsPage)
+{
+    //TODO
+}
+
 void SailreadsManager::loadBook(quint64 bookId)
 {
     SetBusy(true);

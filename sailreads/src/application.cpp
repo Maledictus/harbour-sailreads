@@ -58,6 +58,7 @@ THE SOFTWARE.
 #include "qmltypes/authorprofileitem.h"
 #include "qmltypes/bookitem.h"
 #include "qmltypes/groupitem.h"
+#include "qmltypes/reviewitem.h"
 #include "qmltypes/seriesitem.h"
 #include "qmltypes/topicitem.h"
 #include "qmltypes/userprofile.h"
@@ -153,6 +154,7 @@ void Application::start()
     qmlRegisterType<SeriesItem>("harbour.sailreads", 1, 0, "SeriesItem");
     qmlRegisterType<AuthorProfileItem>("harbour.sailreads", 1, 0, "AuthorProfileItem");
     qmlRegisterType<User>("harbour.sailreads", 1, 0, "User");
+    qmlRegisterType<ReviewItem>("harbour.sailreads", 1, 0, "ReviewItem");
 
     ShowUI();
 }
