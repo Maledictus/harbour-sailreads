@@ -171,7 +171,7 @@ Page {
 //            }
 
             onClicked: {
-                pageStack.push(Qt.resolvedUrl("ReviewsPage.qml"),
+                pageStack.push(Qt.resolvedUrl("BookReviewsPage.qml"),
                         { userId: userId, userName: userName,
                         bookShelfId: bookShelfId, bookShelf: bookShelfName })
             }

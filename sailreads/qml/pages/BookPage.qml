@@ -275,6 +275,8 @@ Page {
                 enabled: !busy
                 visible: book && book.friendReviews.length > 0
                 onClicked: {
+                    pageStack.push(Qt.resolvedUrl("UserReviewsPage.qml"),
+                            { usersReviews: book ? book.friendReviews : [] })
                 }
             }
 
@@ -293,6 +295,7 @@ Page {
                     reviewRate: modelData.rating
                     reviewText: modelData.body
                     reviewDate: modelData.updatedDate
+                    withBody: false
 
                     onUserClicked: {
                         pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
@@ -315,13 +318,6 @@ Page {
                         }
                     }
                     return result
-                }
-
-                BusyIndicator {
-                    size: BusyIndicatorSize.Large
-                    anchors.centerIn: parent
-                    running: bookPage.busy
-                    visible: running
                 }
             }
 
