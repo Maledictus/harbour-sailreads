@@ -19,55 +19,54 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
+#include "topiccommentsmodel.h"
 
-#pragma once
-
-#include "basemodel.h"
-#include "../objects/comment.h"
-#include "../types.h"
+#include "../objects/topic.h"
+#include "../sailreadsmanager.h"
 
 namespace Sailreads
 {
-class CommentsModel: public BaseModel<Comment>
+TopicCommentsModel::TopicCommentsModel(QObject *parent)
+: BaseCommentsModel(parent)
+, m_TopicId(0)
 {
-    Q_OBJECT
+}
 
-    Q_ENUMS(CommentRoles)
+void TopicCommentsModel::classBegin()
+{
+    auto sm = SailreadsManager::Instance();
+    connect(sm, &SailreadsManager::gotGroupFolderTopic,
+            this, &TopicCommentsModel::handleGotGroupFolderTopic);
+}
 
-    quint64 m_TopicId;
-    bool m_HasMore;
-    quint64 m_CurrentPage;
+void TopicCommentsModel::componentComplete()
+{
+}
 
-    Q_PROPERTY(quint64 topicId READ GetTopicId WRITE SetTopicId NOTIFY topicIdChanged)
-    Q_PROPERTY(bool hasMore READ GetHasMore WRITE SetHasMore NOTIFY hasMoreChanged)
-public:
-    enum GroupRoles
-    {
-        Id = Qt::UserRole + 1,
-        Body,
-        UpdateDate,
-        Author,
-        CanDelete
-    };
+quint64 TopicCommentsModel::GetTopicId() const
+{
+    return m_TopicId;
+}
 
-    explicit CommentsModel(QObject *parent = nullptr);
+void TopicCommentsModel::SetTopicId(quint64 id)
+{
+    if (m_TopicId != id) {
+        m_TopicId = id;
+        topicIdChanged();
+    }
+}
 
-    virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
-    virtual QHash<int, QByteArray> roleNames() const override;
+void TopicCommentsModel::fetchMoreContent()
+{
+    SailreadsManager::Instance()->loadGroupFolderTopic(m_TopicId, m_CurrentPage);
+}
 
-    quint64 GetTopicId() const;
-    void SetTopicId(quint64 id);
-    bool GetHasMore() const;
-    void SetHasMore(bool has);
-
-public slots:
-    void fetchMoreContent();
-private slots:
-    void handleGotGroupFolderTopic(const TopicPtr& topic);
-
-signals:
-    void topicIdChanged();
-    void hasMoreChanged();
-};
+void TopicCommentsModel::handleGotGroupFolderTopic(const TopicPtr& topic)
+{
+    if (!topic || topic->GetId() != m_TopicId) {
+        return;
+    }
+    handleGotComments(topic->GetComments());
+}
 
 } // namespace Sailreads

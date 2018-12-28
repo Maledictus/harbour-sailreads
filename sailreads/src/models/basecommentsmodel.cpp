@@ -19,27 +19,21 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-#include "commentsmodel.h"
 
-#include <QtDebug>
+#include "basecommentsmodel.h"
 
-#include "../objects/topic.h"
 #include "../objects/user.h"
-#include "../sailreadsmanager.h"
 
 namespace Sailreads
 {
-CommentsModel::CommentsModel(QObject *parent)
+BaseCommentsModel::BaseCommentsModel(QObject *parent)
 : BaseModel<Comment>(parent)
-, m_TopicId(0)
 , m_HasMore(true)
 , m_CurrentPage(1)
 {
-    connect(SailreadsManager::Instance(), &SailreadsManager::gotGroupFolderTopic,
-            this, &CommentsModel::handleGotGroupFolderTopic);
 }
 
-QVariant CommentsModel::data(const QModelIndex& index, int role) const
+QVariant BaseCommentsModel::data(const QModelIndex& index, int role) const
 {
     if (index.row() > m_Items.count() - 1 || index.row() < 0) {
         return QVariant();
@@ -62,7 +56,7 @@ QVariant CommentsModel::data(const QModelIndex& index, int role) const
     }
 }
 
-QHash<int, QByteArray> CommentsModel::roleNames() const
+QHash<int, QByteArray> BaseCommentsModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[Id] = "commentId";
@@ -73,53 +67,32 @@ QHash<int, QByteArray> CommentsModel::roleNames() const
     return roles;
 }
 
-quint64 CommentsModel::GetTopicId() const
-{
-    return m_TopicId;
-}
-
-void CommentsModel::SetTopicId(quint64 id)
-{
-    if (m_TopicId != id) {
-        m_TopicId = id;
-        topicIdChanged();
-    }
-}
-
-bool CommentsModel::GetHasMore() const
+bool BaseCommentsModel::GetHasMore() const
 {
     return m_HasMore;
 }
 
-void CommentsModel::SetHasMore(bool has)
+void BaseCommentsModel::SetHasMore(bool has)
 {
     if (m_HasMore != has) {
         m_HasMore = has;
-        hasMoreChanged();
+        emit hasMoreChanged();
     }
 }
 
-void CommentsModel::fetchMoreContent()
+void BaseCommentsModel::handleGotComments(const CountedItems<Comment>& comments)
 {
-    SailreadsManager::Instance()->loadGroupFolderTopic(m_TopicId, m_CurrentPage);
-}
-
-void CommentsModel::handleGotGroupFolderTopic(const TopicPtr& topic)
-{
-    if (!topic) {
-        return;
-    }
-    const auto& comments = topic->GetComments();
-    SetHasMore(comments.m_EndIndex != comments.m_Count);
-    if (m_HasMore) {
-        ++m_CurrentPage;
-    }
     if (comments.m_BeginIndex == 1) {
+        m_CurrentPage = 1;
         SetItems(comments.m_Items);
     }
     else {
         AddItems(comments.m_Items);
     }
-}
 
+    SetHasMore(comments.m_EndIndex != comments.m_Count);
+    if (m_HasMore) {
+        ++m_CurrentPage;
+    }
+}
 } // namespace Sailreads

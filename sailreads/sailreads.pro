@@ -19,7 +19,6 @@ SOURCES += src/harbour-sailreads.cpp \
     src/userupdate.cpp \
     src/models/baseproxymodel.cpp \
     src/models/bookshelvesmodel.cpp \
-    src/models/commentsmodel.cpp \
     src/models/foundgroupsmodel.cpp \
     src/models/friendsmodel.cpp \
     src/models/groupfoldersmodel.cpp \
@@ -56,7 +55,10 @@ SOURCES += src/harbour-sailreads.cpp \
     src/qmltypes/authorprofileitem.cpp \
     src/models/basebooksmodel.cpp \
     src/models/authorbooksmodel.cpp \
-    src/qmltypes/reviewitem.cpp
+    src/qmltypes/reviewitem.cpp \
+    src/models/basecommentsmodel.cpp \
+    src/models/topiccommentsmodel.cpp \
+    src/models/reviewcommentsmodel.cpp
 
 
 HEADERS += src/application.h \
@@ -68,7 +70,6 @@ HEADERS += src/application.h \
     src/userupdate.h \
     src/models/baseproxymodel.h \
     src/models/bookshelvesmodel.h \
-    src/models/commentsmodel.h \
     src/models/foundgroupsmodel.h \
     src/models/friendsmodel.h \
     src/models/groupfoldersmodel.h \
@@ -105,7 +106,10 @@ HEADERS += src/application.h \
     src/qmltypes/authorprofileitem.h \
     src/models/basebooksmodel.h \
     src/models/authorbooksmodel.h \
-    src/qmltypes/reviewitem.h
+    src/qmltypes/reviewitem.h \
+    src/models/basecommentsmodel.h \
+    src/models/topiccommentsmodel.h \
+    src/models/reviewcommentsmodel.h
 
 DISTFILES += translations/*.ts \
     sailreads.desktop
