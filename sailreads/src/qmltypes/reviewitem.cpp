@@ -56,13 +56,29 @@ Review* ReviewItem::GetReview() const
     return m_Review.get();
 }
 
+void ReviewItem::SetReview(Review *review)
+{
+    if (!review) {
+        return;
+    }
+
+    if (!m_Review) {
+        m_Review = ReviewPtr(new Review());
+    }
+    m_Review->Update(review);
+    emit reviewChanged();
+}
+
 void ReviewItem::SetReview(const ReviewPtr& review)
 {
     if (!review) {
         return;
     }
 
-    m_Review = review;
+    if (!m_Review) {
+        m_Review = ReviewPtr(new Review());
+    }
+    m_Review->Update(review);
     emit reviewChanged();
 }
 

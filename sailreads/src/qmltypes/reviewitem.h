@@ -36,7 +36,7 @@ class ReviewItem : public QObject
     ReviewPtr m_Review;
 
     Q_PROPERTY(quint64 reviewId READ GetReviewId WRITE SetReviewId NOTIFY reviewIdChanged)
-    Q_PROPERTY(Review* review READ GetReview NOTIFY reviewChanged)
+    Q_PROPERTY(Review* review READ GetReview WRITE SetReview NOTIFY reviewChanged)
 
 public:
     explicit ReviewItem(QObject *parent = nullptr);
@@ -44,6 +44,7 @@ public:
     quint64 GetReviewId() const;
     void SetReviewId(quint64 reviewId);
     Review* GetReview() const;
+    void SetReview(Review* review);
     void SetReview(const ReviewPtr& review);
 
 private slots:

@@ -34,7 +34,8 @@ THE SOFTWARE.
 #include "models/authorbooksmodel.h"
 #include "models/baseproxymodel.h"
 #include "models/bookshelvesmodel.h"
-#include "models/commentsmodel.h"
+#include "models/topiccommentsmodel.h"
+#include "models/reviewcommentsmodel.h"
 #include "models/friendsmodel.h"
 #include "models/followersmodel.h"
 #include "models/followingsmodel.h"
@@ -145,7 +146,8 @@ void Application::start()
     qmlRegisterType<GroupFoldersModel>("harbour.sailreads", 1, 0, "GroupFoldersModel");
     qmlRegisterType<GroupMembersModel>("harbour.sailreads", 1, 0, "GroupMembersModel");
     qmlRegisterType<GroupFolderTopicsModel>("harbour.sailreads", 1, 0, "GroupFolderTopicsModel");
-    qmlRegisterType<CommentsModel>("harbour.sailreads", 1, 0, "CommentsModel");
+    qmlRegisterType<TopicCommentsModel>("harbour.sailreads", 1, 0, "TopicCommentsModel");
+    qmlRegisterType<ReviewCommentsModel>("harbour.sailreads", 1, 0, "ReviewCommentsModel");
     qmlRegisterType<ReviewsModel>("harbour.sailreads", 1, 0, "ReviewsModel");
     qmlRegisterType<UserProfile>("harbour.sailreads", 1, 0, "UserProfile");
     qmlRegisterType<GroupItem>("harbour.sailreads", 1, 0, "GroupItem");
