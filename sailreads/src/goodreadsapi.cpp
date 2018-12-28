@@ -921,8 +921,7 @@ void GoodReadsApi::handleGetReview()
     }
 
     emit requestFinished();
-    //TODO
-    qDebug() << doc.toByteArray();
+    emit gotReview(RpcUtils::Parser::ParseReview(doc));
 }
 
 void GoodReadsApi::handleAddReview()

@@ -131,6 +131,8 @@ void SailreadsManager::MakeConnections()
 
     connect(m_Api, &GoodReadsApi::gotReviews,
             this, &SailreadsManager::gotReviews);
+    connect(m_Api, &GoodReadsApi::gotReview,
+            this, &SailreadsManager::gotReview);
 
     connect(m_Api, &GoodReadsApi::gotUserFriends,
             this, &SailreadsManager::gotUserFriends);
@@ -269,7 +271,8 @@ void SailreadsManager::loadReviews(quint64 userId, const QString& bookShelf, int
 
 void SailreadsManager::loadReview(quint64 reviewId, int commentsPage)
 {
-    //TODO
+    SetBusy(true);
+    m_Api->GetReview(reviewId, commentsPage);
 }
 
 void SailreadsManager::loadBook(quint64 bookId)
