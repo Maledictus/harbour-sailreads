@@ -26,6 +26,7 @@ THE SOFTWARE.
 #include <QObject>
 #include <QString>
 
+#include "comment.h"
 #include "bookshelf.h"
 #include "../types.h"
 
@@ -50,6 +51,7 @@ class Review: public QObject
     quint64 m_Owned;
     QUrl m_Url;
     UserPtr m_User;
+    CountedItems<Comment> m_Comments;
 
     Q_PROPERTY(quint64 id READ GetId NOTIFY idChanged)
     Q_PROPERTY(Book* book READ GetBook NOTIFY bookChanged)
@@ -67,6 +69,7 @@ class Review: public QObject
     Q_PROPERTY(QStringList shelvesList READ GetShelvesList NOTIFY shelvesListChanged)
     Q_PROPERTY(User* user READ GetUser NOTIFY userChanged)
 
+
 public:
     Review(QObject *parent = nullptr);
     ~Review();
@@ -74,6 +77,7 @@ public:
     quint64 GetId() const;
     void SetId(quint64 id);
     Book* GetBook() const;
+    BookPtr GetBookPtr() const;
     void SetBook(const BookPtr& book);
     int GetRating() const;
     void SetRating(int rating);
@@ -101,7 +105,13 @@ public:
     QUrl GetUrl() const;
     void SetUrl(const QUrl& url);
     User* GetUser() const;
+    UserPtr GetUserPtr() const;
     void SetUser(const UserPtr& user);
+    CountedItems<Comment> GetComments() const;
+    void SetComments(const CountedItems<Comment>& comments);
+
+    void Update(Review *newReview);
+    void Update(const ReviewPtr& newReview);
 
 signals:
     void idChanged();

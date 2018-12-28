@@ -64,6 +64,11 @@ Book* Review::GetBook() const
     return m_Book.get();
 }
 
+BookPtr Review::GetBookPtr() const
+{
+    return m_Book;
+}
+
 void Review::SetBook(const BookPtr& book)
 {
     m_Book = book;
@@ -203,9 +208,57 @@ User *Review::GetUser() const
     return m_User.get();
 }
 
+UserPtr Review::GetUserPtr() const
+{
+    return m_User;
+}
+
 void Review::SetUser(const UserPtr& user)
 {
     m_User = user;
     emit userChanged();
+}
+
+CountedItems<Comment> Review::GetComments() const
+{
+    return m_Comments;
+}
+
+void Review::SetComments(const CountedItems<Comment>& comments)
+{
+    m_Comments = comments;
+}
+
+void Review::Update(Review *newReview)
+{
+    if (!newReview) {
+        return;
+    }
+
+    SetId(newReview->GetId());
+    SetBook(newReview->GetBookPtr());
+    SetRating(newReview->GetRating());
+    SetVotes(newReview->GetVotes());
+    SetShelves(newReview->GetShelves());
+    SetAddedDate(newReview->GetAddedDate());
+    SetUpdatedDate(newReview->GetUpdatedDate());
+    SetReadDate(newReview->GetReadDate());
+    SetStartedDate(newReview->GetStartedDate());
+    SetReadCount(newReview->GetReadCount());
+    SetBody(newReview->GetBody());
+    SetCommentsCount(newReview->GetCommentsCount());
+    SetOwned(newReview->GetOwned());
+    SetUrl(newReview->GetUrl());
+    SetUser(newReview->GetUserPtr());
+}
+
+void Review::Update(const ReviewPtr& newReview)
+{
+    if (!newReview) {
+        return;
+    }
+
+    Update(newReview.get());
+    SetComments(newReview->GetComments());
 }
 } // namespace Sailreads
