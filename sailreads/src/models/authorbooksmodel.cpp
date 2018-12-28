@@ -22,8 +22,6 @@ THE SOFTWARE.
 
 #include "authorbooksmodel.h"
 
-#include <QtDebug>
-
 #include "../sailreadsmanager.h"
 
 namespace Sailreads

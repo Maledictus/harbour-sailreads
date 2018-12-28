@@ -171,16 +171,17 @@ void ReviewsModel::handleGotReviews(quint64 booksShelfId, const CountedItems<Rev
         return;
     }
 
-    SetHasMore(reviews.m_EndIndex != reviews.m_Count);
-    if (m_HasMore) {
-        ++m_CurrentPage;
-    }
-
     if (reviews.m_BeginIndex == 1) {
+        m_CurrentPage = 1;
         SetItems(reviews.m_Items);
     }
     else {
         AddItems(reviews.m_Items);
+    }
+
+    SetHasMore(reviews.m_EndIndex != reviews.m_Count);
+    if (m_HasMore) {
+        ++m_CurrentPage;
     }
 }
 

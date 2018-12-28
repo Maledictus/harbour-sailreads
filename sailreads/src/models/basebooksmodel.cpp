@@ -88,16 +88,17 @@ void BaseBooksModel::SetHasMore(bool has)
 
 void BaseBooksModel::handleGotBooks(const CountedItems<BookPtr>& books)
 {
-    SetHasMore(books.m_EndIndex != books.m_Count);
-    if (m_HasMore) {
-        ++m_CurrentPage;
-    }
-
     if (books.m_BeginIndex == 1) {
+        m_CurrentPage = 1;
         SetItems(books.m_Items);
     }
     else {
         AddItems(books.m_Items);
+    }
+
+    SetHasMore(books.m_EndIndex != books.m_Count);
+    if (m_HasMore) {
+        ++m_CurrentPage;
     }
 }
 } // namespace Sailreads

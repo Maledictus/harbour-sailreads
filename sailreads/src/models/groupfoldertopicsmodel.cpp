@@ -146,16 +146,17 @@ void GroupFolderTopicsModel::handleGotGroupFolderTopics(const QString& groupdFol
         return;
     }
 
-    SetHasMore(topics.m_EndIndex != topics.m_Count);
-    if (m_HasMore) {
-        ++m_CurrentPage;
-    }
-
     if (topics.m_BeginIndex == 1) {
+        m_CurrentPage = 1;
         SetItems(topics.m_Items);
     }
     else {
         AddItems(topics.m_Items);
+    }
+
+    SetHasMore(topics.m_EndIndex != topics.m_Count);
+    if (m_HasMore) {
+        ++m_CurrentPage;
     }
 }
 

@@ -75,12 +75,16 @@ void UserGroupsModel::handleGotUserGroups(quint64 userId, const CountedItems<Gro
         return;
     }
 
-    SetHasMore(groups.m_EndIndex != groups.m_Count);
     if (groups.m_BeginIndex == 1) {
+        m_CurrentPage = 1;
         SetItems(groups.m_Items);
     }
     else {
         AddItems(groups.m_Items);
+    }
+    SetHasMore(groups.m_EndIndex != groups.m_Count);
+    if (m_HasMore) {
+        ++m_CurrentPage;
     }
 }
 

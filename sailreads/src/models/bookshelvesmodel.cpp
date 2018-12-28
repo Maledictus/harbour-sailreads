@@ -119,16 +119,17 @@ void BookShelvesModel::handleGotUserBookShelves(quint64 userId, const CountedIte
         return;
     }
 
-    SetHasMore(bookshelves.m_EndIndex != bookshelves.m_Count);
-    if (m_HasMore) {
-        ++m_CurrentPage;
-    }
-
     if (bookshelves.m_BeginIndex == 1) {
+        m_CurrentPage = 1;
         SetItems(bookshelves.m_Items);
     }
     else {
         AddItems(bookshelves.m_Items);
+    }
+
+    SetHasMore(bookshelves.m_EndIndex != bookshelves.m_Count);
+    if (m_HasMore) {
+        ++m_CurrentPage;
     }
 }
 

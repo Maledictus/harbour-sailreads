@@ -127,16 +127,17 @@ void FriendsModel::handleGotUserFriends(quint64 userId, const CountedItems<Frien
         return;
     }
 
-    SetHasMore(friends.m_EndIndex != friends.m_Count);
-    if (m_HasMore) {
-        ++m_CurrentPage;
-    }
-
     if (friends.m_BeginIndex == 1) {
+        m_CurrentPage = 1;
         SetItems(friends.m_Items);
     }
     else {
         AddItems(friends.m_Items);
+    }
+
+    SetHasMore(friends.m_EndIndex != friends.m_Count);
+    if (m_HasMore) {
+        ++m_CurrentPage;
     }
 }
 
