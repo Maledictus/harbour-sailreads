@@ -93,6 +93,7 @@ BookPtr ParseBook(const QDomDocument& doc);
 SeriesPtr ParseSeries(const QDomDocument& doc);
 AuthorPtr ParseAuthor(const QDomDocument& doc);
 CountedItems<BookPtr> ParseAuthorBooks(const QDomDocument& doc);
+ReviewPtr ParseReview(const QDomDocument& doc);
 }
 }
 }

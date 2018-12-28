@@ -773,6 +773,9 @@ ReviewPtr ParseReview(const QDomElement& element)
         else if (fieldElement.tagName() == "user") {
             review->SetUser(ParseUser(fieldElement));
         }
+        else if (fieldElement.tagName() == "comments") {
+            review->SetComments(ParseComments(fieldElement));
+        }
     }
 
     return review;
@@ -1392,6 +1395,16 @@ CountedItems<BookPtr> ParseAuthorBooks(const QDomDocument &doc)
     }
 
     return ParseBooks(booksElement);
+}
+
+ReviewPtr ParseReview(const QDomDocument& doc)
+{
+    const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
+    if (responseElement.isNull()) {
+        return ReviewPtr();
+    }
+
+    return ParseReview(responseElement.firstChildElement("review"));
 }
 
 }
