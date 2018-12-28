@@ -70,7 +70,7 @@ Page {
 
             onClicked: {
                 pageStack.push(Qt.resolvedUrl("ReviewPage.qml"),
-                        { reviewId: modelData.id })
+                        { reviewId: modelData.id, review: modelData })
             }
         }
 

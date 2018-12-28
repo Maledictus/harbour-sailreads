@@ -28,11 +28,13 @@ import Sailfish.Silica 1.0
 import harbour.sailreads 1.0
 
 import "../components"
+import "../utils/Utils.js" as Utils
 
 Page {
     id: reviewPage
 
-    property int reviewId
+    property alias reviewId : reviewItem.reviewId
+    property alias review : reviewItem.review
     property bool busy: sailreadsManager.busy && reviewPage.status === PageStatus.Active
 
     function attachPage() {
@@ -42,7 +44,153 @@ Page {
         }
     }
 
+    ReviewItem {
+        id: reviewItem
+        onReviewIdChanged: {
+            console.log(reviewId)
+        }
+    }
 
+    SilicaListView {
+        id: commentsView
+        anchors.fill: parent
+        cacheBuffer: reviewPage.height
+
+        function fetchMoreIfNeeded() {
+            if (!reviewPage.busy &&
+                    commentsModel.hasMore &&
+                    commentsModel.rowCount() > 0 &&
+                    indexAt(contentX, contentY + height) > commentsModel.rowCount() - 2) {
+                commentsModel.fetchMoreContent()
+            }
+        }
+
+        onContentYChanged: fetchMoreIfNeeded()
+
+        PullDownMenu {
+            MenuItem {
+                text: qsTr("Refresh")
+                onClicked: {
+                    reviewItem.updateReview()
+                }
+            }
+        }
+
+        header: Item {
+            width: commentsView.width
+            height: reviewBox.height
+        }
+
+        model: ReviewCommentsModel {
+            id: commentsModel
+            reviewId: reviewItem.reviewId
+        }
+
+        delegate: ListItem {
+            width: parent.width
+            contentHeight: column.height + separator.height + Theme.paddingMedium
+            clip: true
+            Column {
+                id: column
+                anchors {
+                    left: parent.left
+                    leftMargin: Theme.horizontalPageMargin
+                    right: parent.right
+                    rightMargin: Theme.horizontalPageMargin
+                }
+
+                PosterHeaderItem {
+                    width: parent.width
+                    posterName: commentAuthor.userName.toUpperCase()
+                    postDate: Utils.generateDateString(commentUpdateDate, "dd MMM yyyy hh:mm")
+                    posterAvatar: commentAuthor.avatarUrl
+
+                    onClicked: {
+                        pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
+                                { userId: commentAuthor.id })
+                    }
+                }
+
+                property string _style: "<style>" +
+                        "a:link { color:" + Theme.highlightColor + "; }" +
+                        "p { color:" + Theme.primaryColor + "; }" +
+                        "</style>"
+
+                Label {
+                    id: label
+                    width: parent.width
+                    wrapMode: Text.WordWrap
+                    textFormat: Text.RichText
+                    font.pixelSize: Theme.fontSizeSmall
+                    linkColor: Theme.highlightColor
+                    text: column._style + commentBody
+                    onLinkActivated: {
+                        Qt.openUrlExternally(link)
+                    }
+                }
+            }
+
+            Separator {
+                id: separator
+                anchors {
+                    top: column.bottom
+                    topMargin: Theme.paddingMedium
+                }
+
+                width: parent.width
+                color: Theme.primaryColor
+                horizontalAlignment: Qt.AlignHCenter
+            }
+        }
+        VerticalScrollDecorator{}
+    }
+
+    Column {
+        id: reviewBox
+        parent: commentsView.headerItem ? commentsView.headerItem : reviewPage
+        width: parent.width
+
+        spacing: Theme.paddingMedium
+
+        PageHeader {
+            title: qsTr("Review")
+        }
+
+        Column {
+            anchors {
+                left: parent.left
+                leftMargin: Theme.horizontalPageMargin
+                right: parent.right
+                rightMargin: Theme.horizontalPageMargin
+            }
+
+            UserShortReview {
+                width: parent.width
+
+                avatarImage.source: review ? review.user.avatarUrl : "qrc:/images/gra_small.png"
+                nameLabel.label.text: review ? review.user.userName : ""
+                ratingBox.rating: review ? review.rating : 0.0
+                dateLabel.text: review ?
+                        Utils.generateDateString(review.updatedDate, "dd MMM yyyy hh:mm") :
+                        ""
+                hasCommentImage.visible: false
+
+                headerFontSize: Theme.fontSizeSmall
+                ratingIconSize: Theme.iconSizeSmall
+                highlighted: false
+            }
+
+            Label {
+                text: review ? review.body : ""
+                width: parent.width
+                wrapMode: Text.WordWrap
+            }
+
+            SectionHeader {
+                text: qsTr("Comments")
+            }
+        }
+    }
 
     BusyIndicator {
         size: BusyIndicatorSize.Large

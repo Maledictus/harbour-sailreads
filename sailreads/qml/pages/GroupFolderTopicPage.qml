@@ -51,7 +51,7 @@ Page {
         sailreadsManager.abortRequest()
     }
 
-    CommentsModel {
+    TopicCommentsModel {
         id: topicThreadModel
         topicId: groupFodlerTopicPage.topicId
     }
