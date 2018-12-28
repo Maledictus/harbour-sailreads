@@ -302,9 +302,9 @@ Page {
                                 { userId: userId })
                     }
 
-                    onReviewClicked: {
+                    onClicked: {
                         pageStack.push(Qt.resolvedUrl("ReviewPage.qml"),
-                                { reviewId: reviewId })
+                                { reviewId: modelData.id })
                     }
                 }
 

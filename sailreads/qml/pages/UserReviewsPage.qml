@@ -52,6 +52,8 @@ Page {
 
         width: parent.width
         height: contentHeight
+        spacing: Theme.paddingMedium
+
         delegate: ReviewListItem {
             userId: modelData.user.id
             userAvatarUrl: modelData.user.avatarUrl
@@ -66,9 +68,9 @@ Page {
                         { userId: userId })
             }
 
-            onReviewClicked: {
+            onClicked: {
                 pageStack.push(Qt.resolvedUrl("ReviewPage.qml"),
-                        { reviewId: reviewId })
+                        { reviewId: modelData.id })
             }
         }
 

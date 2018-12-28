@@ -6,16 +6,15 @@ ListItem {
     id: listItem
 
     property int userId
-    property alias userAvatarUrl: avatatImage.source
+    property url userAvatarUrl
     property string userName
     property int reviewId
-    property alias reviewRate: ratingBox.rating
+    property real reviewRate
     property string reviewText
     property var reviewDate
     property bool withBody: true
 
     signal userClicked(var userId)
-    signal reviewClicked(var reviewId)
 
     contentHeight: column.height
     clip: true
@@ -29,73 +28,19 @@ ListItem {
             rightMargin: Theme.horizontalPageMargin
         }
 
-        Item {
+        UserShortReview {
             id: headerRow
             width: parent.width
-            height: Math.max(avatatImage.height, reviewHeader.height) + Theme.paddingMedium
-            BaseImage {
-                id: avatatImage
-                anchors {
-                    left: parent.left
-                    verticalCenter: parent.verticalCenter
-                }
-                fillMode: Image.PreserveAspectFit
-                indicator.size: BusyIndicatorSize.Medium
-                onClicked: userClicked(userId)
-            }
 
-            Column {
-                id: reviewHeader
-                anchors {
-                    left: avatatImage.right
-                    leftMargin: Theme.paddingMedium
-                    right: hasCommentImage.left
-                    rightMargin: Theme.paddingMedium
-                }
+            avatarImage.source: userAvatarUrl
+            nameLabel.label.text: userName
+            ratingBox.rating: reviewRate
+            dateLabel.text: Qt.formatDateTime(reviewDate)
+            hasCommentImage.visible: !withBody && reviewText !== ""
 
-                Row {
-                    spacing: Theme.paddingMedium
-                    ClickableLabel {
-                        id: nameLabel
-                        width: label.implicitWidth
-                        label.text: userName
-                        label.font.pixelSize: Theme.fontSizeExtraSmall
-                        onClicked: userClicked(userId)
-                    }
-
-                    Label {
-                        text: qsTr("rated it")
-                        font.pixelSize: Theme.fontSizeExtraSmall
-                        color: Theme.highlightColor
-                    }
-                }
-
-                RatingBox {
-                    id: ratingBox
-                    iconWidth: Theme.iconSizeExtraSmall
-                    iconHeight: Theme.iconSizeExtraSmall
-                    color: Theme.highlightColor
-                }
-
-                Label {
-                    id: dateLabel
-                    visible: text !== ""
-                    text: Qt.formatDateTime(reviewDate)
-                    font.pixelSize: Theme.fontSizeTiny
-                    color: Theme.highlightColor
-                }
-            }
-
-            Image {
-                id: hasCommentImage
-                anchors {
-                    right: parent.right
-                    verticalCenter: reviewHeader.verticalCenter
-                }
-                visible: !withBody && reviewText !== ""
-                source: "image://theme/icon-m-note" +
-                        (highlighted ? "?" + Theme.highlightColor : "")
-            }
+            headerFontSize: Theme.fontSizeExtraSmall
+            ratingIconSize: Theme.iconSizeExtraSmall
+            highlighted: listItem.highlighted
         }
 
         Label {

@@ -27,15 +27,17 @@ import harbour.sailreads 1.0
 Item {
     id: headerRow
 
-    property alias avatarImage: avatarImageItem.source
+    property alias avatarImage: avatarImageItem
     property alias nameLabel: nameLabelItem
-    property alias rating: ratingBoxItem.rating
+    property alias ratingBox: ratingBoxItem
     property alias dateLabel: dateLabelItem
     property alias hasCommentImage: hasCommentImageItem
 
     property int headerFontSize: Theme.fontSizeExtraSmall
     property int bodyFontSize: Theme.fontSizeSmall
     property int ratingIconSize: Theme.iconSizeExtraSmall
+
+    property bool highlighted: false
 
     signal userClicked(var userId)
 
@@ -88,7 +90,6 @@ Item {
         Label {
             id: dateLabelItem
             visible: text !== ""
-            text: Qt.formatDateTime(reviewDate)
             font.pixelSize: headerFontSize
             color: Theme.highlightColor
         }
@@ -100,7 +101,6 @@ Item {
             right: parent.right
             verticalCenter: reviewHeader.verticalCenter
         }
-        visible: !withBody && reviewText !== ""
         source: "image://theme/icon-m-note" +
                 (highlighted ? "?" + Theme.highlightColor : "")
     }
