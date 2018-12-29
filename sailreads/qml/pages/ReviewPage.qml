@@ -46,9 +46,6 @@ Page {
 
     ReviewItem {
         id: reviewItem
-        onReviewIdChanged: {
-            console.log(reviewId)
-        }
     }
 
     SilicaListView {
@@ -86,61 +83,12 @@ Page {
             reviewId: reviewItem.reviewId
         }
 
-        delegate: ListItem {
+        delegate: CommentListItem {
             width: parent.width
-            contentHeight: column.height + separator.height + Theme.paddingMedium
-            clip: true
-            Column {
-                id: column
-                anchors {
-                    left: parent.left
-                    leftMargin: Theme.horizontalPageMargin
-                    right: parent.right
-                    rightMargin: Theme.horizontalPageMargin
-                }
-
-                PosterHeaderItem {
-                    width: parent.width
-                    posterName: commentAuthor.userName.toUpperCase()
-                    postDate: Utils.generateDateString(commentUpdateDate, "dd MMM yyyy hh:mm")
-                    posterAvatar: commentAuthor.avatarUrl
-
-                    onClicked: {
-                        pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
-                                { userId: commentAuthor.id })
-                    }
-                }
-
-                property string _style: "<style>" +
-                        "a:link { color:" + Theme.highlightColor + "; }" +
-                        "p { color:" + Theme.primaryColor + "; }" +
-                        "</style>"
-
-                Label {
-                    id: label
-                    width: parent.width
-                    wrapMode: Text.WordWrap
-                    textFormat: Text.RichText
-                    font.pixelSize: Theme.fontSizeSmall
-                    linkColor: Theme.highlightColor
-                    text: column._style + commentBody
-                    onLinkActivated: {
-                        Qt.openUrlExternally(link)
-                    }
-                }
-            }
-
-            Separator {
-                id: separator
-                anchors {
-                    top: column.bottom
-                    topMargin: Theme.paddingMedium
-                }
-
-                width: parent.width
-                color: Theme.primaryColor
-                horizontalAlignment: Qt.AlignHCenter
-            }
+            author: commentAuthor
+            body: commentBody
+            updateDate: commentUpdateDate
+            onUserClicked: pageStack.push(Qt.resolvedUrl("ProfilePage.qml"), { userId: userId })
         }
         VerticalScrollDecorator{}
     }
@@ -167,6 +115,7 @@ Page {
             UserShortReview {
                 width: parent.width
 
+                userId: review && review.user ? review.user.id : 0
                 avatarImage.source: review ? review.user.avatarUrl : "qrc:/images/gra_small.png"
                 nameLabel.label.text: review ? review.user.userName : ""
                 ratingBox.rating: review ? review.rating : 0.0
@@ -178,6 +127,10 @@ Page {
                 headerFontSize: Theme.fontSizeSmall
                 ratingIconSize: Theme.iconSizeSmall
                 highlighted: false
+                onUserClicked: {
+                    pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
+                            { userId: userId })
+                }
             }
 
             Row {
@@ -188,23 +141,25 @@ Page {
                     height: Theme.coverSizeSmall.height
                     width: Theme.coverSizeSmall.width
                     indicator.size: BusyIndicatorSize.Medium
+                    onClicked: {
+
+                    }
                 }
 
                 Column {
                     width: parent.width
                     Label {
                         font.family: Theme.fontFamilyHeading
+                        font.pixelSize: Theme.fontSizeMedium
+                        color: Theme.highlightColor
                         text: review && review.book ? review.book.titleWithoutSeries : ""
                     }
 
                     Label {
-                        text: {
-                            if (review && review.book) {
-                                return qsTr("by %1").arg(Utils.getAuthorsString(review.book.authors,
-                                        Theme.primaryColor))
-                            }
-                            return ""
-                        }
+                        textFormat: Text.RichText
+                        font.pixelSize: Theme.fontSizeSmall
+                        color: Theme.highlightColor
+                        text: review && review.book ? review.book.authorsString : ""
                     }
                 }
             }
@@ -223,7 +178,7 @@ Page {
 
                     anchors {
                         left: parent.left
-                        verticalCenter: parent.verticalCenter
+                        verticalCenter: likeButton.verticalCenter
                     }
                     label.text: review ? review.votes : 0
                     label.color: Theme.highlightColor
@@ -236,8 +191,8 @@ Page {
 
                     anchors {
                         left: voteIcon.right
-                        leftMargin: Theme.paddingMedium
-                        verticalCenter: parent.verticalCenter
+                        leftMargin: Theme.paddingLarge
+                        verticalCenter: likeButton.verticalCenter
                     }
 
                     label.text: review ? review.commentsCount : 0
@@ -247,6 +202,7 @@ Page {
                 }
 
                 IconButton {
+                    id: likeButton
                     anchors {
                         right: parent.right
                         verticalCenter: parent.verticalCenter

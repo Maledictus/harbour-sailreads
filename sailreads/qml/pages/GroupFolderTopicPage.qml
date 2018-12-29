@@ -135,61 +135,12 @@ Page {
 
         onContentYChanged: fetchMoreIfNeeded()
 
-        delegate: ListItem {
+        delegate: CommentListItem {
             width: parent.width
-            contentHeight: column.height + separator.height + Theme.paddingMedium
-            clip: true
-            Column {
-                id: column
-                anchors {
-                    left: parent.left
-                    leftMargin: Theme.horizontalPageMargin
-                    right: parent.right
-                    rightMargin: Theme.horizontalPageMargin
-                }
-
-                PosterHeaderItem {
-                    width: parent.width
-                    posterName: commentAuthor.userName.toUpperCase()
-                    postDate: Utils.generateDateString(commentUpdateDate, "dd MMM yyyy hh:mm")
-                    posterAvatar: commentAuthor.avatarUrl
-
-                    onClicked: {
-                        pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
-                                { userId: commentAuthor.id })
-                    }
-                }
-
-                property string _style: "<style>" +
-                        "a:link { color:" + Theme.highlightColor + "; }" +
-                        "p { color:" + Theme.primaryColor + "; }" +
-                        "</style>"
-
-                Label {
-                    id: label
-                    width: parent.width
-                    wrapMode: Text.WordWrap
-                    textFormat: Text.RichText
-                    font.pixelSize: Theme.fontSizeSmall
-                    linkColor: Theme.highlightColor
-                    text: column._style + commentBody
-                    onLinkActivated: {
-                        Qt.openUrlExternally(link)
-                    }
-                }
-            }
-
-            Separator {
-                id: separator
-                anchors {
-                    top: column.bottom
-                    topMargin: Theme.paddingMedium
-                }
-
-                width: parent.width
-                color: Theme.primaryColor
-                horizontalAlignment: Qt.AlignHCenter
-            }
+            author: commentAuthor
+            body: commentBody
+            updateDate: commentUpdateDate
+            onUserClicked: pageStack.push(Qt.resolvedUrl("ProfilePage.qml"), { userId: userId })
         }
         VerticalScrollDecorator{}
     }
