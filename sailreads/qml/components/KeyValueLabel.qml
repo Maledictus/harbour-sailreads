@@ -35,6 +35,7 @@ Label {
     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
     font.pixelSize: Theme.fontSizeExtraSmall
     textFormat: Text.StyledText
+    linkColor: Theme.highlightColor
     text: "<font color=\"" + keyColor + "\">" +
           key + "</font> " + value.replace(/\n/g, '<br>')
 }

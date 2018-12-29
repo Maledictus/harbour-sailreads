@@ -279,7 +279,7 @@ Page {
 
                     onClicked: {
                         pageStack.push(Qt.resolvedUrl("ReviewPage.qml"),
-                                { reviewId: 1640339289/*modelData.id*/, review: modelData })
+                                { reviewId: 33433253/*modelData.id*/, review: modelData })
                     }
                 }
 

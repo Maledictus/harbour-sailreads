@@ -33,9 +33,11 @@ Row {
 
     Image {
         id: image
+        anchors.verticalCenter: parent.verticalCenter
     }
 
     Label {
         id: labelItem
+        anchors.verticalCenter: parent.verticalCenter
     }
 }

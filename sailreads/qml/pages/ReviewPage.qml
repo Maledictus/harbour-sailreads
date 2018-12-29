@@ -23,7 +23,6 @@ THE SOFTWARE.
 */
 
 import QtQuick 2.2
-import QtQuick.Layouts 1.1
 import Sailfish.Silica 1.0
 import harbour.sailreads 1.0
 
@@ -46,6 +45,9 @@ Page {
 
     ReviewItem {
         id: reviewItem
+        onReviewChanged: {
+            commentsView.currentIndex = -1
+        }
     }
 
     SilicaListView {
@@ -61,6 +63,9 @@ Page {
                 commentsModel.fetchMoreContent()
             }
         }
+
+
+        contentY: -headerItem.height
 
         onContentYChanged: fetchMoreIfNeeded()
 
@@ -172,13 +177,13 @@ Page {
 
             Item {
                 width: parent.width
-                height: Theme.iconSizeMedium
+                height: likeButton.height
                 IconText {
                     id: voteIcon
 
                     anchors {
                         left: parent.left
-                        verticalCenter: likeButton.verticalCenter
+                        baseline: parent.verticalCenter
                     }
                     label.text: review ? review.votes : 0
                     label.color: Theme.highlightColor
@@ -192,7 +197,7 @@ Page {
                     anchors {
                         left: voteIcon.right
                         leftMargin: Theme.paddingLarge
-                        verticalCenter: likeButton.verticalCenter
+                        baseline: parent.verticalCenter
                     }
 
                     label.text: review ? review.commentsCount : 0
@@ -205,7 +210,7 @@ Page {
                     id: likeButton
                     anchors {
                         right: parent.right
-                        verticalCenter: parent.verticalCenter
+                        bottom: parent.bottom
                     }
 
                     icon.source: "image://theme/icon-m-like?" + (pressed ?
