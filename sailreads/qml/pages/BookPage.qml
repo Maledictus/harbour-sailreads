@@ -28,6 +28,7 @@ import Sailfish.Silica 1.0
 import harbour.sailreads 1.0
 
 import "../components"
+import "../utils/Utils.js" as Utils
 
 Page {
     id: bookPage
@@ -46,47 +47,15 @@ Page {
     BookItem {
         id: bookItem
         onBookChanged: {
-            authorsLabel.text = generateAuthorsString()
-            seriesValueLabel.text = generateSeriesString()
+            if (book !== null) {
+                authorsLabel.text = Utils.getAuthorsString(book.authors, Theme.primaryColor)
+                seriesValueLabel.text = Utils.getSeriesString(book.seriesList, Theme.primaryColor)
+            }
         }
     }
 
     Component.onDestruction: {
         sailreadsManager.abortRequest()
-    }
-
-    function generateAuthorsString() {
-        if (book === null || book.authors.length === 0) {
-            return "";
-        }
-
-        var result = qsTr("<style>a:link{color:" + Theme.primaryColor + ";}</style>")
-        for (var i = 0; i < book.authors.length; ++i) {
-            result += "<a href=\"%1\" style=\"text-decoration:none;\">%2</a>"
-                    .arg(Number(book.authors[i].id).toFixed())
-                    .arg(book.authors[i].name)
-            if (i +1 < book.authors.length) {
-                result += ", "
-            }
-        }
-        return result
-    }
-
-    function generateSeriesString() {
-        if (book === null || book.seriesList.length === 0) {
-            return "";
-        }
-
-        var result = qsTr("<style>a:link{color:" + Theme.primaryColor + ";}</style>")
-        for (var i = 0; i < book.seriesList.length; ++i) {
-            result += "<a href=\"%1\" style=\"text-decoration:none;\">%2</a>"
-                    .arg(Number(book.seriesList[i].id).toFixed())
-                    .arg(book.seriesList[i].title)
-            if (i +1 < book.seriesList.length) {
-                result += ", "
-            }
-        }
-        return result
     }
 
     SilicaFlickable {
@@ -160,7 +129,13 @@ Page {
                 font.pixelSize: Theme.fontSizeExtraSmall
                 wrapMode: Text.WordWrap
                 horizontalAlignment: height < 2 * font.pixelSize ? Text.AlignHCenter : Text.AlignJustify
-                Component.onCompleted: text = generateAuthorsString()
+                Component.onCompleted: {
+                    var result = ""
+                    if (book !== null) {
+                        result = Utils.getSeriesString(book.authors, Theme.primaryColor)
+                    }
+                    text = result
+                }
                 onLinkActivated: {
                     if (book) {
                         var author
@@ -304,7 +279,7 @@ Page {
 
                     onClicked: {
                         pageStack.push(Qt.resolvedUrl("ReviewPage.qml"),
-                                { reviewId: modelData.id, review: modelData })
+                                { reviewId: 1640339289/*modelData.id*/, review: modelData })
                     }
                 }
 
@@ -354,7 +329,13 @@ Page {
                         textFormat: Text.RichText
                         font.pixelSize: Theme.fontSizeSmall
                         wrapMode: Text.WordWrap
-                        Component.onCompleted: text = generateSeriesString()
+                        Component.onCompleted: {
+                            var result = ""
+                            if (book !== null) {
+                                result = Utils.getSeriesString(book.seriesList, Theme.primaryColor)
+                            }
+                            text = result
+                        }
                         onLinkActivated: {
                             pageStack.push(Qt.resolvedUrl("SeriesPage.qml"),
                                     { seriesId: link })

@@ -69,3 +69,38 @@ function getDetailsInfoString(age, gender, location) {
 
     return result
 }
+
+function getAuthorsString(authorsList, color) {
+    if (authorsList.length === 0) {
+        return "";
+    }
+
+    var result = qsTr("<style>a:link{color:" + color + ";}</style>")
+    for (var i = 0; i < authorsList.length; ++i) {
+        result += "<a href=\"%1\" style=\"text-decoration:none;\">%2</a>"
+                .arg(Number(authorsList[i].id).toFixed())
+                .arg(authorsList[i].name)
+        if (i +1 < authorsList.length) {
+            result += ", "
+        }
+    }
+    return result
+}
+
+function getSeriesString(seriesList, color) {
+    if (seriesList.length === 0) {
+        return "";
+    }
+
+    var result = qsTr("<style>a:link{color:" + color + ";}</style>")
+    for (var i = 0; i < seriesList.length; ++i) {
+        result += "<a href=\"%1\" style=\"text-decoration:none;\">%2</a>"
+                .arg(Number(seriesList[i].id).toFixed())
+                .arg(seriesList[i].title)
+        if (i +1 < seriesList.length) {
+            result += ", "
+        }
+    }
+    return result
+}
+

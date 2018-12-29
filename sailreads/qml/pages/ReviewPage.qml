@@ -180,10 +180,82 @@ Page {
                 highlighted: false
             }
 
+            Row {
+                width: parent.width
+                spacing: Theme.paddingMedium
+                BaseImage {
+                    source: review && review.book ? review.book.imageUrl : ""
+                    height: Theme.coverSizeSmall.height
+                    width: Theme.coverSizeSmall.width
+                    indicator.size: BusyIndicatorSize.Medium
+                }
+
+                Column {
+                    width: parent.width
+                    Label {
+                        font.family: Theme.fontFamilyHeading
+                        text: review && review.book ? review.book.titleWithoutSeries : ""
+                    }
+
+                    Label {
+                        text: {
+                            if (review && review.book) {
+                                return qsTr("by %1").arg(Utils.getAuthorsString(review.book.authors,
+                                        Theme.primaryColor))
+                            }
+                            return ""
+                        }
+                    }
+                }
+            }
+
             Label {
                 text: review ? review.body : ""
                 width: parent.width
                 wrapMode: Text.WordWrap
+            }
+
+            Item {
+                width: parent.width
+                height: Theme.iconSizeMedium
+                IconText {
+                    id: voteIcon
+
+                    anchors {
+                        left: parent.left
+                        verticalCenter: parent.verticalCenter
+                    }
+                    label.text: review ? review.votes : 0
+                    label.color: Theme.highlightColor
+                    label.font.pixelSize: Theme.fontSizeExtraSmall
+                    icon.source: "image://theme/icon-s-like?" + Theme.highlightColor
+                }
+
+                IconText {
+                    id: commentsIcon
+
+                    anchors {
+                        left: voteIcon.right
+                        leftMargin: Theme.paddingMedium
+                        verticalCenter: parent.verticalCenter
+                    }
+
+                    label.text: review ? review.commentsCount : 0
+                    label.color: Theme.highlightColor
+                    label.font.pixelSize: Theme.fontSizeExtraSmall
+                    icon.source: "image://theme/icon-s-chat?" + Theme.highlightColor
+                }
+
+                IconButton {
+                    anchors {
+                        right: parent.right
+                        verticalCenter: parent.verticalCenter
+                    }
+
+                    icon.source: "image://theme/icon-m-like?" + (pressed ?
+                            Theme.highlightColor :
+                            Theme.primaryColor)
+                }
             }
 
             SectionHeader {
