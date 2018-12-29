@@ -164,7 +164,8 @@ Page {
                         textFormat: Text.RichText
                         font.pixelSize: Theme.fontSizeSmall
                         color: Theme.highlightColor
-                        text: review && review.book ? review.book.authorsString : ""
+                        text: review && review.book ?
+                                Utils.getAuthorsString(review.book.authors, Theme.primaryColor) : ""
                     }
                 }
             }
@@ -216,6 +217,9 @@ Page {
                     icon.source: "image://theme/icon-m-like?" + (pressed ?
                             Theme.highlightColor :
                             Theme.primaryColor)
+                    onClicked: {
+                        //TODO like review
+                    }
                 }
             }
 
