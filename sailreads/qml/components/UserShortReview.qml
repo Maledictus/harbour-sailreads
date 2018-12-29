@@ -32,6 +32,7 @@ Item {
     property alias ratingBox: ratingBoxItem
     property alias dateLabel: dateLabelItem
     property alias hasCommentImage: hasCommentImageItem
+    property int userId
 
     property int headerFontSize: Theme.fontSizeExtraSmall
     property int bodyFontSize: Theme.fontSizeSmall
@@ -68,7 +69,6 @@ Item {
             ClickableLabel {
                 id: nameLabelItem
                 width: label.implicitWidth
-                label.text: userName
                 label.font.pixelSize: headerFontSize
                 onClicked: userClicked(userId)
             }

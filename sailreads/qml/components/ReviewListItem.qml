@@ -32,6 +32,7 @@ ListItem {
             id: headerRow
             width: parent.width
 
+            userId: listItem.userId
             avatarImage.source: userAvatarUrl
             nameLabel.label.text: userName
             ratingBox.rating: reviewRate
