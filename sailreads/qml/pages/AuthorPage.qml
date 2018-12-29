@@ -71,6 +71,15 @@ Page {
             PullDownMenu {
                 enabled: !busy
                 MenuItem {
+                    visible: author && author.userId > 0
+                    text: qsTr("Open profile")
+                    onClicked: {
+                        pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
+                                { userId : author.userId })
+                    }
+                }
+
+                MenuItem {
                     text: {
                         return authorProfile.author && authorProfile.author.followingId > 0 ?
                                qsTr("Unfollow") :
