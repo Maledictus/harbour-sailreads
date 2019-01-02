@@ -39,19 +39,20 @@ Row {
 
             width: Theme.iconSizeMedium
             height: Theme.iconSizeMedium
-            source:  _selected ? "image://theme/icon-m-favorite-selected" :
-                    "image://theme/icon-m-favorite"
+            //TODO
+            source:  (_selected ? "image://theme/icon-m-favorite-selected" :
+                    "image://theme/icon-m-favorite") + "?" + Theme.highlightColor
 
             MouseArea {
                 anchors.fill: parent
                 preventStealing: true
                 onClicked: {
-                    if (userVote !== parent._vote) {
-                        userVote = parent._vote
-                    }
-                    else {
-                        --userVote
-                    }
+//                    if (userVote !== parent._vote) {
+//                        userVote = parent._vote
+//                    }
+//                    else {
+//                        --userVote
+//                    }
                 }
             }
         }

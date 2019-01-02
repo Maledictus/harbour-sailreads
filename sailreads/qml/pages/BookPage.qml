@@ -71,6 +71,7 @@ Page {
 
             PullDownMenu {
                 MenuItem {
+                    visible: false //TODO
                     text: qsTr("Add to Bookshelves")
                     onClicked: {
 //                        var dialog = pageStack.push("../dialogs/AddBookToShelvesDialog.qml",
@@ -82,7 +83,7 @@ Page {
                 }
 
                 MenuItem {
-                    visible: book && book.review && book.review.shelvesList.length === 0
+                    visible: false //TODO book && book.review && book.review.shelvesList.length === 0
                     text: qsTr("Want to Read")
                 }
             }
@@ -229,13 +230,13 @@ Page {
 
             SectionHeader {
                 text: qsTr("My review")
-                visible: book && book.review
+                visible: false //TODObook && book.review
             }
 
             Button {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: qsTr("Write a Review")
-                visible: book && book.review && book.review.body === ""
+                visible: false //TODO book && book.review && book.review.body === ""
                 onClicked: {
                 }
             }
@@ -279,7 +280,7 @@ Page {
 
                     onClicked: {
                         pageStack.push(Qt.resolvedUrl("ReviewPage.qml"),
-                                { reviewId: 33433253/*modelData.id*/, review: modelData })
+                                { reviewId: modelData.id, review: modelData })
                     }
                 }
 
