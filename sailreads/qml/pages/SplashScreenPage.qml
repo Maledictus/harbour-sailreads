@@ -61,7 +61,7 @@ Page {
 
         sourceSize.width: width
         sourceSize.height: height
-//        source: "qrc:/images/mnemosy256x256.png"
+        source: "qrc:/images/sailreads256x256.png"
     }
 
     BusyIndicator {
