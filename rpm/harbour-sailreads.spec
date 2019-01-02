@@ -6,7 +6,6 @@
 Name:       harbour-sailreads
 
 # >> macros
-%define __provides_exclude_from ^%{_datadir}/.*$
 # << macros
 
 %{!?qtc_qmake:%define qtc_qmake %qmake}
@@ -16,9 +15,9 @@ Name:       harbour-sailreads
 Summary:    Sailread - this is a goodreads.com client for readers and book recommendations.
 Version:    0.1
 Release:    1
-Group:      Qt/Qt
-License:    LICENSE
-URL:        http://example.org/
+Group:      Applications/Internet
+License:    The MIT License (MIT)
+URL:        https://github.com/Maledictus/harbour-sailreads
 Source0:    %{name}-%{version}.tar.bz2
 Source100:  harbour-sailreads.yaml
 Requires:   sailfishsilica-qt5 >= 0.10.9
@@ -31,7 +30,7 @@ BuildRequires:  pkgconfig(libssl)
 BuildRequires:  desktop-file-utils
 
 %description
-Short description of my Sailfish OS Application
+Application gives access to your account in goodreads.com resource via public api
 
 
 %prep
@@ -66,6 +65,8 @@ desktop-file-install --delete-original       \
 
 %files
 %defattr(-,root,root,-)
+%defattr(644,root,root,-)
+%attr(755,-,-) %{_bindir}
 %{_bindir}
 %{_datadir}/%{name}
 %{_datadir}/applications/%{name}.desktop
