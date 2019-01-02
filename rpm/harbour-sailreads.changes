@@ -12,7 +12,13 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
-* Sun Apr 13 2014 Jack Tar <jack.tar@example.com> 0.0.1-1
-- Scrubbed the deck
-- Hoisted the sails
-
+* Wed Jan 02 2019 Oleg Linkin <maledictusdemagog@gmail.com> 0.0.1-1
+- User profiles
+- Friends/Followers/Followings list
+- Groups (list, profile, topics, members, search, join)
+- Topic (comments, add comment)
+- Bookshelves (list, add)
+- Books(on shelves, similar)
+- Reviews (friends reviews on book page)
+- Authors (profile, follow/unfollow)
+- Series
