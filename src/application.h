@@ -39,6 +39,14 @@ class Application : public QObject
     QQuickView *m_View;
 public:
     explicit Application(QObject *parent = 0);
+
+    enum class ApplicationDirectory
+    {
+        CacheDirectory,
+        AppDataDirectory
+    };
+    static QString GetPath(ApplicationDirectory subdirectory);
+
 private:
     void ShowUI();
 

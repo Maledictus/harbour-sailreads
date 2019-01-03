@@ -25,7 +25,9 @@ THE SOFTWARE.
 #include "sailreadsmanager.h"
 
 #include <QtDebug>
+#include <QDir>
 
+#include "application.h"
 #include "objects/user.h"
 #include "settings/accountsettings.h"
 #include "goodreadsapi.h"
@@ -190,6 +192,12 @@ void SailreadsManager::SetLogged(bool logged)
     if (m_IsLogged) {
         m_Api->UpdateCredentials(m_AccessToken, m_AccessSecretToken);
     }
+    else {
+        m_Api->UpdateCredentials("", "");
+        m_AccessToken.clear();
+        m_AccessSecretToken.clear();
+        AccountSettings::Instance(this)->removeAll();
+    }
     emit loggedChanged();
 }
 
@@ -216,6 +224,20 @@ void SailreadsManager::authenticateUser()
     SetBusy(true);
     emit authProgressChanged(tr("Authentication user..."));
     m_Api->AuthUser();
+}
+
+void SailreadsManager::logout()
+{
+    //TODO reset application settings
+    //TODO clear all caches
+    QDir webkitCache(Application::GetPath(Application::ApplicationDirectory::CacheDirectory) +
+            "/.QtWebKit");
+    webkitCache.removeRecursively();
+    webkitCache = QDir(Application::GetPath(Application::ApplicationDirectory::AppDataDirectory) +
+            "/.QtWebKit");
+    webkitCache.removeRecursively();
+
+    SetLogged(false);
 }
 
 void SailreadsManager::getUserInfo(quint64 id)

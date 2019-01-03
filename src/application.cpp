@@ -75,6 +75,18 @@ Application::Application(QObject *parent)
 {
 }
 
+QString Application::GetPath(ApplicationDirectory subdirectory)
+{
+    switch (subdirectory) {
+    case ApplicationDirectory::AppDataDirectory:
+        return QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+    case ApplicationDirectory::CacheDirectory:
+        return QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
+    default:
+        return "";
+    }
+}
+
 void Application::ShowUI()
 {
     if (!m_View)

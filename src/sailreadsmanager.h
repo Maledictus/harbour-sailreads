@@ -79,6 +79,8 @@ public slots:
     void abortRequest();
 
     void authenticateUser();
+    void logout();
+
     void getUserInfo(quint64 id);
     void getUpdates();
     void loadUserFollowings(quint64 userId, int page = 1);

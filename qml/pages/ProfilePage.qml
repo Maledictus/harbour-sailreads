@@ -87,6 +87,12 @@ Page {
 
             PullDownMenu {
                 MenuItem {
+                    visible: sailreadsManager.authUser.id === userId
+                    text: qsTr("Logout")
+                    onClicked: sailreadsManager.logout()
+                }
+
+                MenuItem {
                     visible: userProfile.user &&
                         (sailreadsManager.authUser.id !== userId) &&
                         !userProfile.user.isFriend &&
