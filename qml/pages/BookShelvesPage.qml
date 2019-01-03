@@ -32,7 +32,7 @@ Page {
     property int userId: 0
     property string userName
     property bool busy: sailreadsManager.busy && bookShelvesPage.status === PageStatus.Active
-    property bool showSearchField: applicationSettings.value("bookshelves/showSearchField", true)
+    property bool showSearchField: applicationSettings.value("bookshelves/showSearchField", true) === true
 
     function attachPage() {
         if (pageStack._currentContainer.attachedContainer === null
