@@ -73,12 +73,16 @@ private:
     void SetLogged(bool logged);
 
 public slots:
+    void handleGotAuthAnswer(const QString& data);
+
     void obtainRequestToken();
     void requestAccessToken();
 
     void abortRequest();
 
     void authenticateUser();
+    void logout();
+
     void getUserInfo(quint64 id);
     void getUpdates();
     void loadUserFollowings(quint64 userId, int page = 1);

@@ -31,6 +31,7 @@ THE SOFTWARE.
 #include <QtDebug>
 #include <QtQml>
 
+
 #include "models/authorbooksmodel.h"
 #include "models/baseproxymodel.h"
 #include "models/bookshelvesmodel.h"
@@ -53,7 +54,6 @@ THE SOFTWARE.
 #include "objects/serieswork.h"
 #include "objects/user.h"
 #include "objects/work.h"
-
 #include "objects/groupfolder.h"
 #include "objects/topic.h"
 #include "qmltypes/authorprofileitem.h"
@@ -65,6 +65,7 @@ THE SOFTWARE.
 #include "qmltypes/userprofile.h"
 #include "settings/accountsettings.h"
 #include "settings/applicationsettings.h"
+#include "authserver.h"
 #include "sailreadsmanager.h"
 
 namespace Sailreads
@@ -72,7 +73,22 @@ namespace Sailreads
 Application::Application(QObject *parent)
 : QObject(parent)
 , m_View(nullptr)
+, m_AuthServer(new AuthServer(this))
 {
+    connect(m_AuthServer, &AuthServer::gotAuthAnswer,
+            this, &Application::handleAuthAnswerGot);
+}
+
+QString Application::GetPath(ApplicationDirectory subdirectory)
+{
+    switch (subdirectory) {
+    case ApplicationDirectory::AppDataDirectory:
+        return QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+    case ApplicationDirectory::CacheDirectory:
+        return QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
+    default:
+        return "";
+    }
 }
 
 void Application::ShowUI()
@@ -89,14 +105,34 @@ void Application::ShowUI()
         m_View->rootContext()->setContextProperty("sailreadsManager",
                 SailreadsManager::Instance(this));
 
+        const bool result = m_AuthServer->StartListening(QHostAddress::LocalHost, PORT);
+        m_View->rootContext()->setContextProperty("authServerRunning", result);
+
         m_View->setSource(SailfishApp::pathTo("qml/harbour-sailreads.qml"));
         m_View->showFullScreen();
+
+        connect(SailreadsManager::Instance(this), &SailreadsManager::loggedChanged,
+                this, &Application::handleLogged);
     }
     else
     {
         qDebug() << "Activating view";
         m_View->raise();
         m_View->requestActivate();
+    }
+}
+
+void Application::handleAuthAnswerGot(const QString& data)
+{
+    SailreadsManager::Instance(this)->handleGotAuthAnswer(data);
+}
+
+void Application::handleLogged()
+{
+    if (m_AuthServer)
+    {
+        m_AuthServer->SendAnswer(SailreadsManager::Instance(this)->GetLogged() ?
+                tr("Authorized") : tr("Not authorized"));
     }
 }
 

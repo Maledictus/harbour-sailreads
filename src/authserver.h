@@ -25,39 +25,32 @@ THE SOFTWARE.
 #pragma once
 
 #include <QObject>
+#include <QHostAddress>
+#include <QPointer>
 
-class QQuickView;
+class QTcpServer;
+class QTcpSocket;
 
 namespace Sailreads
 {
-class AuthServer;
-
-class Application : public QObject
+class AuthServer : public QObject
 {
     Q_OBJECT
 
-    static const int PORT = 45624;
-
-    QQuickView *m_View;
-    AuthServer *m_AuthServer;
-
+    QTcpServer *m_AuthServer;
+    QPointer<QTcpSocket> m_AuthSocket;
 public:
-    explicit Application(QObject *parent = 0);
+    explicit AuthServer(QObject *parent = 0);
 
-    enum class ApplicationDirectory
-    {
-        CacheDirectory,
-        AppDataDirectory
-    };
-    static QString GetPath(ApplicationDirectory subdirectory);
-
-private:
-    void ShowUI();
+    bool StartListening(const QHostAddress& address, int port);
+    void StopListening();
+    void SendAnswer(const QString& answer);
 private slots:
-    void handleAuthAnswerGot(const QString& data);
-    void handleLogged();
-public slots:
-    void start();
-    void handleAboutToQuit();
+    void handleNewConnection();
+    void handleSocketReadReady();
+
+signals:
+    void gotAuthAnswer(const QString& data);
 };
+
 } // namespace Sailreads
