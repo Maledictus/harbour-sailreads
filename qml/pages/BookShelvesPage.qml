@@ -165,7 +165,7 @@ Page {
                                 recommendFor: bookShelfRecommendFor })
                         dialog.accepted.connect(function () {
                             sailreadsManager.editBookShelf(bookShelfId, dialog.name, dialog.exclusive,
-                                    dialog.sortable, dialog.featured)
+                                    dialog.sortable, dialog.featured, dialog.recommendFor)
                             })
                      }
                 }

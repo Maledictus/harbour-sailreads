@@ -30,7 +30,7 @@ Dialog {
 
     property alias name: shelfNameField.text
     property alias exclusive: exclusiveShelfSwitch.checked
-    property alias sortable: sortableShelfSwitch.checked
+    property bool sortable: false
     property alias featured: featutredShelfSwitch.checked
     property alias recommendFor: recommendForShelfSwitch.checked
 
@@ -67,19 +67,19 @@ Dialog {
             description: qsTr("A book can only be on one of the exclisive shelves")
         }
 
-        TextSwitch {
-            id: sortableShelfSwitch
+//        TextSwitch {
+//            id: sortableShelfSwitch
 
 //            visible: mode !== "add"
-            width: parent.width
-            text: qsTr("Sortable")
-            description: qsTr("You can enable shelf sorting to customize the order of your books on shelf")
-        }
+//            width: parent.width
+//            text: qsTr("Sortable")
+//            description: qsTr("You can enable shelf sorting to customize the order of your books on shelf")
+//        }
 
         TextSwitch {
             id: featutredShelfSwitch
 
-//            visible: mode !== "add"
+            visible: mode !== "add"
             width: parent.width
             text: qsTr("Featured")
             description: qsTr("You may choose one shelf to feature on the top of your profile")
@@ -88,7 +88,6 @@ Dialog {
         TextSwitch {
             id: recommendForShelfSwitch
 
-//            visible: mode !== "add"
             width: parent.width
             text: qsTr("Recommend For")
             description: qsTr("If you would like GoodReads to try to make recommendations for books in this shelf")
