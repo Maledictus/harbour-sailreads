@@ -218,12 +218,7 @@ Pull down to refresh</source>
 <context>
     <name>AuthorizationPage</name>
     <message>
-        <location filename="../qml/pages/AuthorizationPage.qml" line="53"/>
-        <source>Authorization failed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/AuthorizationPage.qml" line="85"/>
+        <location filename="../qml/pages/AuthorizationPage.qml" line="36"/>
         <source>Authorization process...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -360,6 +355,11 @@ Pull down to refresh</source>
         <source>There are no bookshelves. Pull down to refresh</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../qml/pages/BookShelvesPage.qml" line="160"/>
+        <source>Edit</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>BooksPage</name>
@@ -373,7 +373,7 @@ Pull down to refresh</source>
     <name>CoverPage</name>
     <message>
         <location filename="../qml/cover/CoverPage.qml" line="38"/>
-        <source>My Cover</source>
+        <source>Sailreads</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -637,79 +637,112 @@ Pull down to refresh</source>
     </message>
 </context>
 <context>
+    <name>LoginPage</name>
+    <message>
+        <location filename="../qml/pages/LoginPage.qml" line="50"/>
+        <source>Welcome to Sailreads</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/LoginPage.qml" line="59"/>
+        <source>Before we begin, choose how you&apos;ll log into your GoodReads.com account</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/LoginPage.qml" line="67"/>
+        <source>To login via Amazon you should first of all unlink amazon account from goodreads one</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/LoginPage.qml" line="72"/>
+        <source>Facebook/Amazon account</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/LoginPage.qml" line="80"/>
+        <source>Regular account</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ProfilePage</name>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="95"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="91"/>
+        <source>Logout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ProfilePage.qml" line="101"/>
         <source>Unfollow user</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="95"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="101"/>
         <source>Follow user</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="116"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="122"/>
         <source>Friend request was sent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="120"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="126"/>
         <source>Accept friend request</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="123"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="129"/>
         <source>Add as a friend</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="137"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="143"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="169"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="175"/>
         <source>Details</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="179"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="185"/>
         <source>Joined</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="186"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="192"/>
         <source>Last active</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="205"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="211"/>
         <source>Interests</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="214"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="220"/>
         <source>Favorite books</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="223"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="229"/>
         <source>About me</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="237"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="243"/>
         <source>Friends</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="253"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="259"/>
         <source>Groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="269"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="275"/>
         <source>Bookshelves</source>
         <translation type="unfinished"></translation>
     </message>
@@ -733,19 +766,32 @@ Pull down to refresh</source>
     </message>
 </context>
 <context>
+    <name>Sailreads::Application</name>
+    <message>
+        <location filename="../src/application.cpp" line="135"/>
+        <source>Authorized</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/application.cpp" line="135"/>
+        <source>Not authorized</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Sailreads::SailreadsManager</name>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="199"/>
+        <location filename="../src/sailreadsmanager.cpp" line="217"/>
         <source>Authorization user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="217"/>
+        <location filename="../src/sailreadsmanager.cpp" line="235"/>
         <source>Authentication user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="224"/>
+        <location filename="../src/sailreadsmanager.cpp" line="256"/>
         <source>Getting user profile...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -822,6 +868,19 @@ Pull down to refresh</source>
     <message>
         <location filename="../qml/utils/Utils.js" line="38"/>
         <source>Yesterday</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>WebAuthorizationPage</name>
+    <message>
+        <location filename="../qml/pages/WebAuthorizationPage.qml" line="54"/>
+        <source>Authorization failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/WebAuthorizationPage.qml" line="86"/>
+        <source>Authorization process...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

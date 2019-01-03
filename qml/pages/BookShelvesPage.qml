@@ -37,7 +37,7 @@ Page {
     function attachPage() {
         if (pageStack._currentContainer.attachedContainer === null
                 && sailreadsManager.logged) {
-            pageStack.pushAttached(Qt.resolvedUrl("StatusPage.qml"))
+//            //pageStack.pushAttached(Qt.resolvedUrl("StatusPage.qml"))
         }
     }
 
@@ -97,7 +97,7 @@ Page {
                     var dialog = pageStack.push("../dialogs/AddEditShelfDialog.qml")
                     dialog.accepted.connect (function () {
                         sailreadsManager.addBookShelf(dialog.name, dialog.exclusive,
-                                dialog.sortable, dialog.featured)
+                                dialog.sortable, dialog.featured, dialog.recommendFor)
                     })
                 }
             }
@@ -154,21 +154,22 @@ Page {
                 text: bookShelfBooksCount
             }
 
-//            menu: ContextMenu {
-//                hasContent: userId === sailreadsManager.authUser.id
-//                MenuItem {
-//                    text: qsTr("Edit")
-//                    onClicked: {
-//                        var dialog = pageStack.push("../dialogs/AddEditShelfDialog.qml",
-//                            { mode: "edit", name: bookShelfName, exclusive: bookShelfExclusive,
-//                                sortable: bookShelfSortable, featured: bookShelfFeatured })
-//                        dialog.accepted.connect(function () {
-//                            sailreadsManager.editBookShelf(bookShelfId, dialog.name, dialog.exclusive,
-//                                    dialog.sortable, dialog.featured)
-//                            })
-//                     }
-//                }
-//            }
+            menu: ContextMenu {
+                hasContent: userId === sailreadsManager.authUser.id
+                MenuItem {
+                    text: qsTr("Edit")
+                    onClicked: {
+                        var dialog = pageStack.push("../dialogs/AddEditShelfDialog.qml",
+                            { mode: "edit", name: bookShelfName, exclusive: bookShelfExclusive,
+                                sortable: bookShelfSortable, featured: bookShelfFeatured,
+                                recommendFor: bookShelfRecommendFor })
+                        dialog.accepted.connect(function () {
+                            sailreadsManager.editBookShelf(bookShelfId, dialog.name, dialog.exclusive,
+                                    dialog.sortable, dialog.featured)
+                            })
+                     }
+                }
+            }
 
             onClicked: {
                 pageStack.push(Qt.resolvedUrl("BookReviewsPage.qml"),

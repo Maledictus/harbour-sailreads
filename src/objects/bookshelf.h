@@ -35,6 +35,7 @@ class BookShelf
     bool m_Exclusive;
     bool m_Featured;
     bool m_Sortable;
+    bool m_RecommendFor;
 public:
     explicit BookShelf();
 
@@ -54,6 +55,8 @@ public:
     void SetFeatured(bool featured);
     bool GetSortable() const;
     void SetSortable(bool sortable);
+    bool GetRecommendFor() const;
+    void SetRecommendFor(bool recommendFor);
 
     bool operator ==(const BookShelf& shelf) const;
 };

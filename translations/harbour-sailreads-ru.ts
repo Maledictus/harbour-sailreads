@@ -179,10 +179,6 @@ Pull down to refresh</source>
 <context>
     <name>AuthorizationPage</name>
     <message>
-        <source>Authorization failed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Authorization process...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -294,6 +290,10 @@ Pull down to refresh</source>
         <source>Show search field</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Edit</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>BooksPage</name>
@@ -305,7 +305,7 @@ Pull down to refresh</source>
 <context>
     <name>CoverPage</name>
     <message>
-        <source>My Cover</source>
+        <source>Sailreads</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -519,6 +519,29 @@ Pull down to refresh</source>
     </message>
 </context>
 <context>
+    <name>LoginPage</name>
+    <message>
+        <source>Welcome to Sailreads</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Before we begin, choose how you&apos;ll log into your GoodReads.com account</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Regular account</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Facebook/Amazon account</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To login via Amazon you should first of all unlink amazon account from goodreads one</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ProfilePage</name>
     <message>
         <source>Refresh</source>
@@ -580,6 +603,10 @@ Pull down to refresh</source>
         <source>Accept friend request</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Logout</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ReviewPage</name>
@@ -593,6 +620,17 @@ Pull down to refresh</source>
     </message>
     <message>
         <source>Comments</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Sailreads::Application</name>
+    <message>
+        <source>Authorized</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Not authorized</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -671,6 +709,17 @@ Pull down to refresh</source>
     </message>
     <message>
         <source>Yesterday</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>WebAuthorizationPage</name>
+    <message>
+        <source>Authorization failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Authorization process...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

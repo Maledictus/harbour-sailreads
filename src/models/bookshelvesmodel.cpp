@@ -64,6 +64,8 @@ QVariant BookShelvesModel::data(const QModelIndex& index, int role) const
         return booksShelf.GetFeatured();
     case Sortable:
         return booksShelf.GetSortable();
+    case RecommendFor:
+        return booksShelf.GetRecommendFor();
     default:
         return QVariant();
     }
@@ -79,6 +81,7 @@ QHash<int, QByteArray> BookShelvesModel::roleNames() const
     roles[Exclusive] = "bookShelfExclusive";
     roles[Featured] = "bookShelfFeatured";
     roles[Sortable] = "bookShelfSortable";
+    roles[RecommendFor] = "bookShelfRecommendFor";
     return roles;
 }
 

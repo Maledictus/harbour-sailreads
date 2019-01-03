@@ -50,7 +50,8 @@ public:
         Description,
         Exclusive,
         Featured,
-        Sortable
+        Sortable,
+        RecommendFor
     };
 
     explicit BookShelvesModel(QObject *parent = nullptr);

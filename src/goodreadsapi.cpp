@@ -28,6 +28,7 @@ THE SOFTWARE.
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QRegularExpression>
+#include <QUrlQuery>
 #include <QXmlQuery>
 
 #include "oauth1.h"
@@ -139,12 +140,14 @@ void GoodReadsApi::GetBookShelves(quint64 userId, int page)
             this, [this, userId]() { handleGetBookShelves(userId); });
 }
 
-void GoodReadsApi::AddBookShelf(const QString& name, bool exclusive, bool sortable, bool featured)
+void GoodReadsApi::AddBookShelf(const QString& name, bool exclusive, bool sortable, bool featured,
+        bool recommendFor)
 {
     const QVariantMap params = { { "user_shelf[name]", name },
         { "user_shelf[exclusive_flag]", (exclusive ? "true" : "false") },
         { "user_shelf[sortable_flag]", (sortable ? "true" : "false") },
-        { "user_shelf[featured]", (featured ? "true" : "false") } };
+        { "user_shelf[featured]", (featured ? "true" : "false") },
+        { "user_shelf[recommend_for]", (recommendFor ? "true" : "false") } };
     QNetworkReply *reply = m_OAuth1->Post(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + "/user_shelves.xml"), params);
     connect(reply, &QNetworkReply::finished,
@@ -152,15 +155,23 @@ void GoodReadsApi::AddBookShelf(const QString& name, bool exclusive, bool sortab
 }
 
 void GoodReadsApi::EditBookShelf(quint64 id, const QString& name, bool exclusive,
-        bool sortable, bool featured)
+        bool sortable, bool featured, bool recommendFor)
 {
     const QVariantMap params = { { "user_shelf[name]", name },
         { "user_shelf[exclusive_flag]", (exclusive ? "true" : "false") },
         { "user_shelf[sortable_flag]", (sortable ? "true" : "false") },
-        { "user_shelf[featured]", (featured ? "true" : "false") }
-    };
+        { "user_shelf[featured]", (featured ? "true" : "false") },
+        { "user_shelf[recommend_for]", (recommendFor ? "true" : "false") } };
+
+    QUrl url(m_BaseUrl + QString("/user_shelves/%1.xml").arg(id));
+    QUrlQuery query = QUrlQuery(url.query());
+    for (auto it = params.begin(), end = params.end(); it != end; ++it) {
+        query.addQueryItem(it.key(), it.value().toString());
+    }
+    url.setQuery(query);
+
     QNetworkReply *reply = m_OAuth1->Put(m_AccessToken, m_AccessTokenSecret,
-            QUrl(m_BaseUrl + QString("/user_shelves/%1.xml").arg(id)), params);
+            url, QVariantMap());
     connect(reply, &QNetworkReply::finished,
             this, &GoodReadsApi::handleEditBookShelf);
 }

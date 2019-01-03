@@ -49,10 +49,12 @@ ApplicationWindow {
         target: sailreadsManager
         onLoggedChanged: {
             if (!sailreadsManager.logged) {
+                pageStack.completeAnimation()
                 pageStack.clear()
                 pageStack.push(Qt.resolvedUrl("pages/LoginPage.qml"))
             }
             else {
+                pageStack.completeAnimation()
                 pageStack.clear()
                 pageStack.push(Qt.resolvedUrl("pages/SplashScreenPage.qml"))
             }

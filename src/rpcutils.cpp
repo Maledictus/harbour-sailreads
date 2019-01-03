@@ -248,11 +248,14 @@ BookShelf ParseBookShelf(const QDomElement& element)
         else if (fieldElement.tagName() == "description") {
             shelf.SetDescription(fieldElement.text().trimmed());
         }
-        else if (fieldElement.tagName() == "sort") {
+        else if (fieldElement.tagName() == "sortable_flag") {
             shelf.SetSortable(fieldElement.text() == "true");
         }
         else if (fieldElement.tagName() == "featured") {
             shelf.SetFeatured(fieldElement.text() == "true");
+        }
+        else if (fieldElement.tagName() == "recommend_for") {
+            shelf.SetRecommendFor(fieldElement.text() == "true");
         }
     }
 

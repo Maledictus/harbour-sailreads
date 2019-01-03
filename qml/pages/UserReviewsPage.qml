@@ -36,7 +36,7 @@ Page {
     function attachPage() {
         if (pageStack._currentContainer.attachedContainer === null
                 && sailreadsManager.logged) {
-            pageStack.pushAttached(Qt.resolvedUrl("StatusPage.qml"))
+            //pageStack.pushAttached(Qt.resolvedUrl("StatusPage.qml"))
         }
     }
 

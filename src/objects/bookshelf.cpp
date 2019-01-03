@@ -107,6 +107,16 @@ void BookShelf::SetSortable(bool sortable)
     m_Sortable = sortable;
 }
 
+bool BookShelf::GetRecommendFor() const
+{
+    return m_RecommendFor;
+}
+
+void BookShelf::SetRecommendFor(bool recommendFor)
+{
+    m_RecommendFor = recommendFor;
+}
+
 bool BookShelf::operator ==(const BookShelf& shelf) const
 {
     return m_Id == shelf.GetId() &&
@@ -115,6 +125,7 @@ bool BookShelf::operator ==(const BookShelf& shelf) const
         m_Description == shelf.GetDescription() &&
         m_Exclusive == shelf.GetExclusive() &&
         m_Featured == shelf.GetFeatured() &&
-        m_Sortable == shelf.GetSortable();
+        m_Sortable == shelf.GetSortable() &&
+        m_RecommendFor == shelf.GetRecommendFor();
 }
 } // namespace Sailreads
