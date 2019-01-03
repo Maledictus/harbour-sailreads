@@ -22,27 +22,53 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-import QtQuick 2.0
+import QtQuick 2.2
 import Sailfish.Silica 1.0
+import QtWebKit 3.0
 
 Page {
     id: authPage
 
-    Column {
-        anchors.centerIn: parent
-        spacing: Theme.paddingMedium
+    SilicaWebView {
+        id: webview
+        anchors.fill: parent
 
-        Label {
-            text: qsTr("Authorization process...")
-            color: Theme.highlightColor
-            font.pixelSize: Theme.fontSizeLarge
+        experimental.preferences.navigatorQtObjectEnabled: true
+        experimental.userAgent: "Mozilla/5.0 (Maemo; Linux; U; Sailfish; Mobile; rv:38.0) Gecko/38.0 Firefox/38.0"
+
+        onLoadingChanged: {
+            if (loadRequest.status !== WebView.LoadSucceededStatus) {
+                return;
+            }
+
+            webviewBusyIndicator.visible = false
+            var str = loadRequest.url.toString();
+            var success = str.indexOf ("authorize=1", 0)
+            var fail = str.indexOf ("authorize=0", 0)
+            if (success > 0) {
+                webview.stop()
+                sailreadsManager.requestAccessToken();
+            } else if (fail > 0) {
+                webview.stop()
+                webview.visible = false;
+                messageLabel.text = qsTr("Authorization failed")
+                processIndicator.visible = false
+            }
         }
 
         BusyIndicator {
-            anchors.horizontalCenter: parent.horizontalCenter
-            size: BusyIndicatorSize.Large
+            id: webviewBusyIndicator
+            anchors.centerIn: parent
+            visible: true;
             running: true
-            visible: running
+            size: BusyIndicatorSize.Large
+        }
+    }
+
+    Connections {
+        target: sailreadsManager
+        onRequestTokenChanged: {
+            webview.url = "https://www.goodreads.com/oauth/authorize?mobile=1&oauth_token=" + requestToken
         }
     }
 
@@ -50,11 +76,24 @@ Page {
         sailreadsManager.obtainRequestToken()
     }
 
-    Connections {
-        target: sailreadsManager
-        onRequestTokenChanged: {
-            Qt.openUrlExternally("https://www.goodreads.com/oauth/authorize?mobile=1&oauth_token=" +
-                    requestToken + "&oauth_callback=http://localhost:45624/sailreads")
+    Column {
+        anchors.centerIn: parent
+        spacing: Theme.paddingMedium
+        visible: !webview.visible
+
+        Label {
+            id: messageLabel
+            text: qsTr("Authorization process...")
+            color: Theme.highlightColor
+            font.pixelSize: Theme.fontSizeLarge
+        }
+
+        BusyIndicator {
+            id: processIndicator
+            anchors.horizontalCenter: parent.horizontalCenter
+            size: BusyIndicatorSize.Large
+            running: true
+            visible: running
         }
     }
 }

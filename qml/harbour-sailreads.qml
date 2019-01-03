@@ -39,7 +39,7 @@ ApplicationWindow {
     property bool alreadyLogged: accountSettings.value("access_token", "").length > 0 &&
             accountSettings.value("access_token_secret", "").length > 0
 
-    initialPage: alreadyLogged ? splashScreenComponent : authorizationPageComponent
+    initialPage: alreadyLogged ? splashScreenComponent : loginComponent
 
     Notification {
         id: notification
@@ -50,7 +50,7 @@ ApplicationWindow {
         onLoggedChanged: {
             if (!sailreadsManager.logged) {
                 pageStack.clear()
-                pageStack.push(Qt.resolvedUrl("pages/AuthorizationPage.qml"))
+                pageStack.push(Qt.resolvedUrl("pages/LoginPage.qml"))
             }
             else {
                 pageStack.clear()
@@ -66,8 +66,8 @@ ApplicationWindow {
     }
 
     Component {
-        id: authorizationPageComponent
+        id: loginComponent
 
-        AuthorizationPage {}
+        LoginPage {}
     }
 }

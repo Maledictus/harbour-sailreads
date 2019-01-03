@@ -201,6 +201,16 @@ void SailreadsManager::SetLogged(bool logged)
     emit loggedChanged();
 }
 
+void SailreadsManager::handleGotAuthAnswer(const QString& data)
+{
+    if (data.contains("authorize=1")) {
+        m_Api->RequestAccessToken();
+    }
+    else if (data.contains("authorize=0")){
+        SetLogged(false);
+    }
+}
+
 void SailreadsManager::obtainRequestToken()
 {
     SetBusy(true);

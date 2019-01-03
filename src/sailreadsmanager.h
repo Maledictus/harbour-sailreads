@@ -73,6 +73,8 @@ private:
     void SetLogged(bool logged);
 
 public slots:
+    void handleGotAuthAnswer(const QString& data);
+
     void obtainRequestToken();
     void requestAccessToken();
 
