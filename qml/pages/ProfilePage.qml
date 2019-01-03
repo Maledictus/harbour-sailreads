@@ -260,7 +260,6 @@ Page {
                 counter: userProfile.user ? userProfile.user.groupsCount : 0
                 busy: profilePage.busy
                 enabled: !busy
-                visible: userProfile.user ? userProfile.user.groupsCount > 0 : false
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("GroupsPage.qml"), {
                         userId: userProfile.user ? userProfile.user.id : 0
