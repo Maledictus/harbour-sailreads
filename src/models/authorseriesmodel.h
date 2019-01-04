@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2018-2019 Oleg Linkin <maledictusdemagog@gmail.com>
+Copyright (c) 2018 Oleg Linkin <maledictusdemagog@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -22,45 +22,43 @@ THE SOFTWARE.
 
 #pragma once
 
-#include <QList>
-#include <QObject>
-
+#include "basemodel.h"
 #include "../types.h"
 
 namespace Sailreads
 {
-class SeriesWork: public QObject
+class AuthorSeriesModel : public BaseModel<SeriesWorkPtr>
 {
     Q_OBJECT
 
-    quint64 m_Id;
-    int m_Position;
-    WorkPtr m_Work;
-    SeriesPtr m_Series;
+    quint64 m_AuthorId;
+    bool m_HasMore;
+    quint64 m_CurrentPage;
 
-    Q_PROPERTY(quint64 id READ GetId NOTIFY idChanged)
-    Q_PROPERTY(int position READ GetPosition NOTIFY positionChanged)
-    Q_PROPERTY(Work* work READ GetWork NOTIFY workChanged)
-    Q_PROPERTY(Series* series READ GetSeries NOTIFY seriesChanged)
-
+    Q_PROPERTY(quint64 authorId READ GetAuthorId WRITE SetAuthorId NOTIFY authorIdChanged)
+    Q_PROPERTY(bool hasMore READ GetHasMore WRITE SetHasMore NOTIFY hasMoreChanged)
 public:
-    SeriesWork(QObject *parent = nullptr);
-    ~SeriesWork();
+    AuthorSeriesModel(QObject *parent = nullptr);
 
-    quint64 GetId() const;
-    void SetId(quint64 id);
-    int GetPosition() const;
-    void SetPosition(int position);
-    Work* GetWork() const;
-    void SetWork(const WorkPtr& work);
-    Series* GetSeries() const;
-    SeriesPtr GetSeriesPtr() const;
-    void SetSeries(const SeriesPtr& series);
+    enum SeriesRoles
+    {
+        Id = Qt::UserRole + 1
+    };
+
+    virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
+    virtual QHash<int, QByteArray> roleNames() const override;
+
+    quint64 GetAuthorId() const;
+    void SetAuthorId(quint64 id);
+    bool GetHasMore() const;
+    void SetHasMore(bool has);
+
+private slots:
+    void handleGotAuthorSeries(const Series_t& series);
 
 signals:
-    void idChanged();
-    void positionChanged();
-    void workChanged();
-    void seriesChanged();
+    void authorIdChanged();
+    void hasMoreChanged();
 };
+
 } // namespace Sailreads

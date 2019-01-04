@@ -70,6 +70,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< HEAD
+=======
+        <source>You may choose one shelf to feature on the top of your profile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Recommend For</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+>>>>>>> d6ef6d6ae89ec4cca8509c91ce86610bb788a850
         <source>If you would like GoodReads to try to make recommendations for books in this shelf</source>
         <translation type="unfinished"></translation>
     </message>

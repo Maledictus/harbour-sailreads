@@ -127,6 +127,7 @@ public slots:
 
     void loadAuthorProfile(quint64 authorId);
     void loadAuthorBooks(quint64 authorId, int page = 1);
+    void loadAuthorSeries(quint64 authorId);
     void followAuthor(quint64 authorId);
     void unfollowAuthor(quint64 authorId, quint64 followingId);
 

@@ -70,6 +70,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="84"/>
         <source>Featured</source>
         <translation type="unfinished"></translation>
@@ -86,6 +87,34 @@
     </message>
     <message>
         <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="93"/>
+=======
+        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="75"/>
+        <source>Sortable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="76"/>
+        <source>You can enable shelf sorting to customize the order of your books on shelf</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="84"/>
+        <source>Featured</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="85"/>
+        <source>You may choose one shelf to feature on the top of your profile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="93"/>
+        <source>Recommend For</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="94"/>
+>>>>>>> d6ef6d6ae89ec4cca8509c91ce86610bb788a850
         <source>If you would like GoodReads to try to make recommendations for books in this shelf</source>
         <translation type="unfinished"></translation>
     </message>
@@ -677,82 +706,87 @@ Pull down to refresh or to search groups</source>
 <context>
     <name>ProfilePage</name>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="91"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="93"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="95"/>
         <source>Logout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="101"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="105"/>
         <source>Unfollow user</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="101"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="105"/>
         <source>Follow user</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="122"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="126"/>
         <source>Friend request was sent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="126"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="130"/>
         <source>Accept friend request</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="129"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="133"/>
         <source>Add as a friend</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="143"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="147"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="175"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="179"/>
         <source>Details</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="185"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="189"/>
         <source>Joined</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="192"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="196"/>
         <source>Last active</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="211"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="215"/>
         <source>Interests</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="220"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="224"/>
         <source>Favorite books</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="229"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="233"/>
         <source>About me</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="243"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="247"/>
         <source>Friends</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="259"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="263"/>
         <source>Groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../qml/pages/ProfilePage.qml" line="274"/>
+=======
+        <location filename="../qml/pages/ProfilePage.qml" line="279"/>
+>>>>>>> d6ef6d6ae89ec4cca8509c91ce86610bb788a850
         <source>Bookshelves</source>
         <translation type="unfinished"></translation>
     </message>

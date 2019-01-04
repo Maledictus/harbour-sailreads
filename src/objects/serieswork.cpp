@@ -63,7 +63,7 @@ void SeriesWork::SetPosition(int position)
     m_Position = position;
 }
 
-Work *SeriesWork::GetWork() const
+Work* SeriesWork::GetWork() const
 {
     return m_Work.get();
 }
@@ -71,5 +71,20 @@ Work *SeriesWork::GetWork() const
 void SeriesWork::SetWork(const WorkPtr& work)
 {
     m_Work = work;
+}
+
+Series* SeriesWork::GetSeries() const
+{
+    return m_Series.get();
+}
+
+SeriesPtr SeriesWork::GetSeriesPtr() const
+{
+    return m_Series;
+}
+
+void SeriesWork::SetSeries(const SeriesPtr& series)
+{
+    m_Series = series;
 }
 } // namespace Sailreads

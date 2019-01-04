@@ -43,6 +43,8 @@ Page {
         }
     }
 
+    RemorsePopup { id: remorse }
+
     Component.onDestruction: {
         sailreadsManager.abortRequest()
     }
@@ -89,7 +91,9 @@ Page {
                 MenuItem {
                     visible: sailreadsManager.authUser.id === userId
                     text: qsTr("Logout")
-                    onClicked: sailreadsManager.logout()
+                    onClicked: {
+                        remorse.execute(qsTr("Logout"), function() { sailreadsManager.logout() } )
+                    }
                 }
 
                 MenuItem {
