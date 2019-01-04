@@ -971,6 +971,9 @@ SeriesWorkPtr ParseSeriesWork(const QDomElement& element)
         else if (fieldElement.tagName() == "work") {
             seriesWork->SetWork(ParseWork(fieldElement));
         }
+        else if (fieldElement.tagName() == "series") {
+            seriesWork->SetSeries(ParseSeries(fieldElement));
+        }
     }
 
     return seriesWork;
@@ -1149,6 +1152,12 @@ Reviews_t ParseReviewsList(const QDomElement& element)
         reviews << ParseReview(reviewsList.at (i).toElement());
     }
     return reviews;
+}
+
+Series_t ParseAuthorSeries(const QDomElement& element)
+{
+    Series_t series;
+    return series;
 }
 
 UserPtr ParseUser(const QDomDocument& doc)
@@ -1408,6 +1417,21 @@ ReviewPtr ParseReview(const QDomDocument& doc)
     }
 
     return ParseReview(responseElement.firstChildElement("review"));
+}
+
+Series_t ParseAuthorSeries(const QDomDocument& doc)
+{
+    const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
+    if (responseElement.isNull()) {
+        return Series_t();
+    }
+
+    const auto& seriesWorksElement = responseElement.firstChildElement("series_works");
+    if (seriesWorksElement.isNull()) {
+        return Series_t();
+    }
+
+    return ParseAuthorSeries(seriesWorksElement);
 }
 
 }

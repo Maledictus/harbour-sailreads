@@ -429,6 +429,12 @@ void SailreadsManager::loadAuthorBooks(quint64 authorId, int page)
     m_Api->GetAuthorBooks(authorId, page);
 }
 
+void SailreadsManager::loadAuthorSeries(quint64 authorId)
+{
+    SetBusy(true);
+    m_Api->GetAuthorSeries(authorId);
+}
+
 void SailreadsManager::followAuthor(quint64 authorId)
 {
     SetBusy(true);

@@ -36,10 +36,12 @@ class SeriesWork: public QObject
     quint64 m_Id;
     int m_Position;
     WorkPtr m_Work;
+    SeriesPtr m_Series;
 
     Q_PROPERTY(quint64 id READ GetId NOTIFY idChanged)
     Q_PROPERTY(int position READ GetPosition NOTIFY positionChanged)
     Q_PROPERTY(Work* work READ GetWork NOTIFY workChanged)
+    Q_PROPERTY(Series* series READ GetSeries NOTIFY seriesChanged)
 
 public:
     SeriesWork(QObject *parent = nullptr);
@@ -51,10 +53,14 @@ public:
     void SetPosition(int position);
     Work* GetWork() const;
     void SetWork(const WorkPtr& work);
+    Series* GetSeries() const;
+    SeriesPtr GetSeriesPtr() const;
+    void SetSeries(const SeriesPtr& series);
 
 signals:
     void idChanged();
     void positionChanged();
     void workChanged();
+    void seriesChanged();
 };
 } // namespace Sailreads

@@ -20,71 +20,45 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-#include "serieswork.h"
+#pragma once
 
-#include <QtDebug>
+#include "basemodel.h"
+#include "../types.h"
 
 namespace Sailreads
 {
-SeriesWork::SeriesWork(QObject *parent)
-: QObject(parent)
-, m_Id(0)
-, m_Position(0)
+class AuthorSeriesModel : public BaseModel<SeriesWorkPtr>
 {
-#ifdef QT_DEBUG
-    qDebug() << this << "CONSTRUCTED";
-#endif
-}
+    Q_OBJECT
 
-SeriesWork::~SeriesWork()
-{
-#ifdef QT_DEBUG
-    qDebug() << this << "DESTRUCTED";
-#endif
-}
+    quint64 m_AuthorId;
+    bool m_HasMore;
+    quint64 m_CurrentPage;
 
-quint64 SeriesWork::GetId() const
-{
-    return m_Id;
-}
+    Q_PROPERTY(quint64 authorId READ GetAuthorId WRITE SetAuthorId NOTIFY authorIdChanged)
+    Q_PROPERTY(bool hasMore READ GetHasMore WRITE SetHasMore NOTIFY hasMoreChanged)
+public:
+    AuthorSeriesModel(QObject *parent = nullptr);
 
-void SeriesWork::SetId(quint64 id)
-{
-    m_Id = id;
-}
+    enum SeriesRoles
+    {
+        Id = Qt::UserRole + 1
+    };
 
-int SeriesWork::GetPosition() const
-{
-    return m_Position;
-}
+    virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
+    virtual QHash<int, QByteArray> roleNames() const override;
 
-void SeriesWork::SetPosition(int position)
-{
-    m_Position = position;
-}
+    quint64 GetAuthorId() const;
+    void SetAuthorId(quint64 id);
+    bool GetHasMore() const;
+    void SetHasMore(bool has);
 
-Work* SeriesWork::GetWork() const
-{
-    return m_Work.get();
-}
+private slots:
+    void handleGotAuthorSeries(const Series_t& series);
 
-void SeriesWork::SetWork(const WorkPtr& work)
-{
-    m_Work = work;
-}
+signals:
+    void authorIdChanged();
+    void hasMoreChanged();
+};
 
-Series* SeriesWork::GetSeries() const
-{
-    return m_Series.get();
-}
-
-SeriesPtr SeriesWork::GetSeriesPtr() const
-{
-    return m_Series;
-}
-
-void SeriesWork::SetSeries(const SeriesPtr& series)
-{
-    m_Series = series;
-}
 } // namespace Sailreads

@@ -244,8 +244,22 @@ Page {
                 }
                 visible: authorProfile.author && authorProfile.author.about !== ""
                 text: authorProfile.author ? (column._style + authorProfile.author.about) : ""
-                onLinkActivated: {
-                    Qt.openUrlExternally(link)
+                onLinkActivated: Qt.openUrlExternally(link)
+            }
+
+            MoreButton {
+                id: seriesButton
+                width: parent.width
+                height: Theme.itemSizeMedium
+                text: qsTr("Series")
+                counter: ""
+                busy: authorPage.busy
+                enabled: !busy
+                onClicked: {
+                    pageStack.push(Qt.resolvedUrl("AuthorSeriesPage.qml"), {
+                        authorId: authorProfile.author ? authorProfile.author.id : 0,
+                        authorName: authorProfile.author ? authorProfile.author.name : ""
+                    })
                 }
             }
 

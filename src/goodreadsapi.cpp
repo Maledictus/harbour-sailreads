@@ -285,13 +285,11 @@ void GoodReadsApi::GetSeries(quint64 seriesId)
 
 void GoodReadsApi::GetAuthorSeries(quint64 authorId)
 {
-//    //TODO make simple request
-//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-//            QUrl(QString("https://www.goodreads.com/list/%1.xml").arg(authorId)), "GET");
-//    auto reply = m_NAM->get(QNetworkRequest(pair.first));
-//    m_CurrentReply = reply;
-//    connect(reply, &QNetworkReply::finished,
-//            this, &GoodReadsApi::handleGetAuthorSeries);
+    auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + QString("/series/list/%1.xml").arg(authorId)));
+    m_CurrentReply = reply;
+    connect(reply, &QNetworkReply::finished,
+            this, &GoodReadsApi::handleGetAuthorSeries);
 }
 
 void GoodReadsApi::GetWorkSeries(quint64 workId)
@@ -1014,7 +1012,6 @@ void GoodReadsApi::handleGetSeries()
     }
 
     emit requestFinished();
-    qDebug() << doc.toByteArray();
     emit gotSeries(RpcUtils::Parser::ParseSeries(doc));
 }
 
@@ -1028,8 +1025,7 @@ void GoodReadsApi::handleGetAuthorSeries()
     }
 
     emit requestFinished();
-    //TODO
-    qDebug() << doc.toByteArray();
+    emit gotAuthorSeries(RpcUtils::Parser::ParseAuthorSeries(doc));
 }
 
 void GoodReadsApi::handleGetWorkSeries()
