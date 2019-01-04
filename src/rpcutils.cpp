@@ -325,6 +325,25 @@ GroupFolder ParseGroupFolder(const QDomElement& element)
     return gf;
 }
 
+Group::GroupAccess GetGroupAccessFromString(const QString& accessStr)
+{
+    if (accessStr.toLower() == "public") {
+        return Group::Public;
+    }
+    else if (accessStr.toLower() == "restricted") {
+        return Group::Restricted;
+    }
+    else if (accessStr.toLower() == "private") {
+        return Group::Private;
+    }
+    else if (accessStr.toLower() == "secret") {
+        return Group::Secret;
+    }
+    else {
+        return Group::Public;
+    }
+}
+
 GroupPtr ParseGroup(const QDomElement& element)
 {
     GroupPtr group = std::make_shared<Group>();
@@ -338,7 +357,7 @@ GroupPtr ParseGroup(const QDomElement& element)
             group->SetName(fieldElement.text().trimmed());
         }
         else if (fieldElement.tagName() == "access") {
-            group->SetIsPublic(fieldElement.text().toLower() == "public");
+            group->SetGroupAccess(GetGroupAccessFromString(fieldElement.text()));
         }
         else if (fieldElement.tagName() == "users_count" ||
                 fieldElement.tagName() == "group_users_count") {

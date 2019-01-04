@@ -37,7 +37,6 @@ class Group: public QObject
 
     quint64 m_Id;
     QString m_Name;
-    bool m_IsPublic;
     quint64 m_UsersCount;
     QUrl m_ImageUrl;
     QDateTime m_LastActivity;
@@ -54,6 +53,15 @@ class Group: public QObject
     GroupMembers_t m_GroupMembers;
     bool m_IsMember;
 public:
+    enum GroupAccess
+    {
+        Public,
+        Restricted,
+        Private,
+        Secret
+    };
+    Q_ENUMS(GroupAccess)
+
     enum GroupFlag
     {
         NoFlags = 0,
@@ -68,10 +76,10 @@ public:
     Q_DECLARE_FLAGS(GroupFlags, GroupFlag)
 private:
     GroupFlags m_Flags;
+    GroupAccess m_GroupAccess;
 
     Q_PROPERTY(quint64 id READ GetId NOTIFY idChanged)
     Q_PROPERTY(QString name READ GetName NOTIFY nameChanged)
-    Q_PROPERTY(bool isPublic READ GetIsPublic NOTIFY isPublicChanged)
     Q_PROPERTY(quint64 usersCount READ GetUsersCount NOTIFY usersCountChanged)
     Q_PROPERTY(QUrl imageUrl READ GetImageUrl NOTIFY imageUrlChanged)
     Q_PROPERTY(QDateTime lastActivity READ GetLastActivity NOTIFY lastActivityChanged)
@@ -84,7 +92,9 @@ private:
     Q_PROPERTY(QString subCategory READ GetSubCategory NOTIFY subCategoryChanged)
     Q_PROPERTY(QString rules READ GetRules NOTIFY rulesChanged)
     Q_PROPERTY(GroupFlags flags READ GetGroupFlags NOTIFY groupFlagsChanged)
+    Q_PROPERTY(int groupAccess READ GetGroupAccess NOTIFY groupAccessChanged)
     Q_PROPERTY(bool isMember READ GetIsMember NOTIFY isMemberChanged)
+    Q_PROPERTY(int foldersCount READ GetFoldersCount NOTIFY foldersCountChanged)
 
 public:
     Group(QObject *parent = nullptr);
@@ -94,8 +104,6 @@ public:
     void SetId(quint64 id);
     QString GetName() const;
     void SetName(const QString& name);
-    bool GetIsPublic() const;
-    void SetIsPublic(bool isPublic);
     quint64 GetUsersCount() const;
     void SetUsersCount(quint64 count);
     QUrl GetImageUrl() const;
@@ -134,11 +142,13 @@ public:
     void SetGroupMembers(const GroupMembers_t& groupMembers);
     bool GetIsMember() const;
     void SetIsMember(bool set);
+    int GetGroupAccess() const;
+    void SetGroupAccess(GroupAccess ga);
+    int GetFoldersCount() const;
 
 signals:
     void idChanged();
     void nameChanged();
-    void isPublicChanged();
     void usersCountChanged();
     void imageUrlChanged();
     void lastActivityChanged();
@@ -152,6 +162,8 @@ signals:
     void rulesChanged();
     void groupFlagsChanged();
     void isMemberChanged();
+    void groupAccessChanged();
+    void foldersCountChanged();
 };
 Q_DECLARE_OPERATORS_FOR_FLAGS(Group::GroupFlags)
 } // namespace Sailreads

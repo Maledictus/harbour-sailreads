@@ -29,12 +29,12 @@ namespace Sailreads
 Group::Group(QObject *parent)
 : QObject(parent)
 , m_Id(0)
-, m_IsPublic(false)
 , m_UsersCount(0)
 , m_DisplayFolderCount(0)
 , m_DisplayTopicsPerFolderCount(0)
 , m_IsMember(false)
 , m_Flags(NoFlags)
+, m_GroupAccess(Group::Public)
 {
 #ifdef QT_DEBUG
     qDebug() << this << "CONSTRUCTED";
@@ -66,16 +66,6 @@ QString Group::GetName() const
 void Group::SetName(const QString& name)
 {
     m_Name = name;
-}
-
-bool Group::GetIsPublic() const
-{
-    return m_IsPublic;
-}
-
-void Group::SetIsPublic(bool isPublic)
-{
-    m_IsPublic = isPublic;
 }
 
 quint64 Group::GetUsersCount() const
@@ -267,5 +257,20 @@ void Group::SetIsMember(bool set)
 {
     m_IsMember = set;
     emit isMemberChanged();
+}
+
+int Group::GetGroupAccess() const
+{
+    return m_GroupAccess;
+}
+
+void Group::SetGroupAccess(Group::GroupAccess ga)
+{
+    m_GroupAccess = ga;
+}
+
+int Group::GetFoldersCount() const
+{
+    return m_GroupFolders.size();
 }
 } // namespace Sailreads
