@@ -15,6 +15,10 @@
 # Wed Jan 02 2019 Oleg Linkin <maledictusdemagog@gmail.com> 0.1
 # - Login via facebook/amazon(patrly) and logout possibility
 
+* Thu Jan 02 2019 Oleg Linkin <maledictusdemagog@gmail.com> 0.2.1
+- Login via facebook/amazon(patrly) and logout possibility
+- Fix missing elements on group page. Join private and restricted groups via browser
+
 * Wed Jan 02 2019 Oleg Linkin <maledictusdemagog@gmail.com> 0.0.1-1
 - User profiles
 - Friends/Followers/Followings list
