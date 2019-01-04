@@ -37,7 +37,6 @@ public:
     {
         Id = Qt::UserRole + 1,
         Name,
-        Public,
         UsersCount,
         ImageUrl,
         LastActivity,

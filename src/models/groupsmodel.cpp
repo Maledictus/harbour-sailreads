@@ -43,8 +43,6 @@ QVariant GroupsModel::data(const QModelIndex& index, int role) const
         return group->GetId();
     case Name:
         return group->GetName();
-    case Public:
-        return group->GetIsPublic();
     case UsersCount:
         return group->GetUsersCount();
     case ImageUrl:
@@ -63,7 +61,6 @@ QHash<int, QByteArray> GroupsModel::roleNames() const
     QHash<int, QByteArray> roles;
     roles[Id] = "groupId";
     roles[Name] = "groupName";
-    roles[Public] = "groupPublic";
     roles[UsersCount] = "groupUsersCount";
     roles[ImageUrl] = "groupImageUrl";
     roles[LastActivity] = "groupLastActivity";
