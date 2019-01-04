@@ -31,6 +31,7 @@ THE SOFTWARE.
 #include <QUrlQuery>
 #include <QXmlQuery>
 
+#include "objects/group.h"
 #include "oauth1.h"
 #include "rpcutils.h"
 
@@ -421,7 +422,7 @@ void GoodReadsApi::GetGroupMembers(quint64 groupId, int page)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/group/members/%1.xml").arg(groupId)),
-            { { "page", page }, { "sort", "num_comment" } });
+            { { "page", page }, { "sort", "num_comments" } });
     m_CurrentReply = reply;
     connect(reply, &QNetworkReply::finished,
             this, [this, groupId] { handleGetGroupMembers(groupId); });
@@ -705,6 +706,7 @@ QByteArray GoodReadsApi::GetReply(QObject *sender, bool& ok)
     reply->deleteLater();
     m_CurrentReply.clear();
 
+    qDebug() << reply->error();
     if (reply->error() != QNetworkReply::NoError &&
             reply->error() != QNetworkReply::OperationCanceledError &&
             reply->error() != QNetworkReply::AuthenticationRequiredError) {
@@ -728,9 +730,9 @@ QByteArray GoodReadsApi::GetReply(QObject *sender, bool& ok)
 
     ok = true;
     data = reply->readAll();
-#ifdef QT_DEBUG
+//#ifdef QT_DEBUG
     qDebug() << data;
-#endif
+//#endif
     return data;
 }
 
@@ -1160,10 +1162,56 @@ void GoodReadsApi::handleGetGroups(quint64 userId)
     emit gotUserGroups(userId, RpcUtils::Parser::ParseGroups(doc));
 }
 
+namespace
+{
+GroupPtr CreateSecretGroup(quint64 groupId)
+{
+    GroupPtr group = std::make_shared<Group>();
+    group->SetId(groupId);
+    group->SetGroupAccess(Group::Secret);
+    return group;
+}
+}
+
 void GoodReadsApi::handleGetGroup(quint64 groupId, QObject *senderObject)
 {
+    auto reply = qobject_cast<QNetworkReply*>(senderObject ? senderObject : sender());
+    if (!reply) {
+        qWarning() << "Invalid reply";
+        emit requestFinished();
+        return;
+    }
+    reply->deleteLater();
+    m_CurrentReply.clear();
+
+    if (reply->error() == QNetworkReply::ContentOperationNotPermittedError) {
+        emit requestFinished();
+        emit gotUserGroup(groupId, CreateSecretGroup(groupId));
+        return;
+    }
+
+    if (reply->error() != QNetworkReply::NoError &&
+            reply->error() != QNetworkReply::OperationCanceledError &&
+            reply->error() != QNetworkReply::AuthenticationRequiredError) {
+        qWarning() << Q_FUNC_INFO << "There is network error: "
+                << reply->error() << reply->errorString();
+        emit requestFinished();
+        return;
+    }
+
+    if (reply->error() == QNetworkReply::OperationCanceledError) {
+        emit requestFinished();
+        return;
+    }
+
+    if (reply->error() == QNetworkReply::AuthenticationRequiredError) {
+        emit authenticationFailed();
+        emit requestFinished();
+        return;
+    }
+    QByteArray data = reply->readAll();
     bool ok = false;
-    auto doc = GetDocumentFromReply(senderObject ? senderObject : sender(), ok);
+    QDomDocument doc = ParseDocument(data, ok);
     if (!ok) {
         emit requestFinished();
         return;
@@ -1222,6 +1270,7 @@ void GoodReadsApi::handleGetGroupMembers(quint64 groupId, QObject *senderObject)
         return;
     }
 
+    qDebug() << doc.toByteArray();
     emit requestFinished();
     emit gotGroupMembers(groupId, RpcUtils::Parser::ParseGroupMembers(doc));
 }
