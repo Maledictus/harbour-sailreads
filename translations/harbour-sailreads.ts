@@ -40,53 +40,53 @@
 <context>
     <name>AddEditShelfDialog</name>
     <message>
-        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="48"/>
+        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="49"/>
         <source>Add</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="48"/>
+        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="49"/>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="49"/>
+        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="50"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="57"/>
+        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="58"/>
         <source>Shelf name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="65"/>
+        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="66"/>
         <source>Exclusive</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="66"/>
+        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="67"/>
         <source>A book can only be on one of the exclisive shelves</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="74"/>
-        <source>Sortable</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="75"/>
-        <source>You can enable shelf sorting to customize the order of your books on shelf</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="83"/>
+        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="84"/>
         <source>Featured</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="84"/>
-        <source>You may choose one shelf to feature on the top of your profile.</source>
+        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="85"/>
+        <source>You may choose one shelf to feature on the top of your profile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="92"/>
+        <source>Recommend For</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="93"/>
+        <source>If you would like GoodReads to try to make recommendations for books in this shelf</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -518,63 +518,73 @@ Pull down to refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="87"/>
+        <location filename="../qml/pages/GroupPage.qml" line="97"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="120"/>
+        <location filename="../qml/pages/GroupPage.qml" line="132"/>
         <source>Category</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="126"/>
+        <location filename="../qml/pages/GroupPage.qml" line="138"/>
         <source>Subcategory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="132"/>
+        <location filename="../qml/pages/GroupPage.qml" line="144"/>
         <source>Last activity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="150"/>
-        <source>Access</source>
+        <location filename="../qml/pages/GroupPage.qml" line="168"/>
+        <source>Restricted. Members can join if they have an email address at one of specified domains</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="152"/>
-        <source>public</source>
+        <location filename="../qml/pages/GroupPage.qml" line="172"/>
+        <source>Private. Members must be invited or approved by the group&apos;s moderator</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="152"/>
-        <source>private</source>
+        <location filename="../qml/pages/GroupPage.qml" line="176"/>
+        <source>Secret</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="157"/>
-        <location filename="../qml/pages/GroupPage.qml" line="249"/>
+        <location filename="../qml/pages/GroupPage.qml" line="180"/>
+        <source>Public. Anyone can join and invite others to join</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/GroupPage.qml" line="189"/>
+        <source>Group Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/GroupPage.qml" line="195"/>
+        <location filename="../qml/pages/GroupPage.qml" line="287"/>
         <source>Members</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="164"/>
+        <location filename="../qml/pages/GroupPage.qml" line="202"/>
         <source>Description</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="188"/>
+        <location filename="../qml/pages/GroupPage.qml" line="226"/>
         <source>Rules</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="207"/>
-        <source>Folders</source>
+        <location filename="../qml/pages/GroupPage.qml" line="245"/>
+        <source>Discussion Board</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="232"/>
+        <location filename="../qml/pages/GroupPage.qml" line="270"/>
         <source>Topics</source>
         <translation type="unfinished"></translation>
     </message>
@@ -622,7 +632,7 @@ Pull down to refresh</source>
     <message>
         <location filename="../qml/pages/GroupsPage.qml" line="77"/>
         <source>There are no groups.
-Pull down to refresh</source>
+Pull down to refresh or to search groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -742,7 +752,7 @@ Pull down to refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="275"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="274"/>
         <source>Bookshelves</source>
         <translation type="unfinished"></translation>
     </message>

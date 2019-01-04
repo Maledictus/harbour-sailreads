@@ -58,19 +58,19 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Sortable</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You can enable shelf sorting to customize the order of your books on shelf</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Featured</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You may choose one shelf to feature on the top of your profile.</source>
+        <source>You may choose one shelf to feature on the top of your profile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Recommend For</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you would like GoodReads to try to make recommendations for books in this shelf</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -435,18 +435,6 @@ Pull down to refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Access</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>public</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>private</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Members</source>
         <translation type="unfinished"></translation>
     </message>
@@ -459,15 +447,35 @@ Pull down to refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Folders</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Topics</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Join a group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Restricted. Members can join if they have an email address at one of specified domains</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Private. Members must be invited or approved by the group&apos;s moderator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Secret</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Group Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Public. Anyone can join and invite others to join</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Discussion Board</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -505,16 +513,16 @@ Pull down to refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>There are no groups.
-Pull down to refresh</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Last activity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Members</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There are no groups.
+Pull down to refresh or to search groups</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
