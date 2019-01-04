@@ -77,9 +77,19 @@ Page {
             PullDownMenu {
                 MenuItem {
                     text: qsTr("Join a group")
-                    visible: groupItem.group ? !groupItem.group.isMember : false
+                    visible: groupItem.group && groupItem.group.groupAccess != Group.Secret ?
+                            !groupItem.group.isMember : false
                     onClicked: {
-                        sailreadsManager.joinGroup(groupId)
+                        if (!groupItem.group) {
+                            return
+                        }
+
+                        if (groupItem.group.groupAccess == Group.Public) {
+                            sailreadsManager.joinGroup(groupId)
+                        }
+                        else {
+                            Qt.openUrlExternally(groupItem.group.url)
+                        }
                     }
                 }
 
@@ -106,6 +116,7 @@ Page {
                     width: Theme.iconSizeExtraLarge
                     height: Theme.iconSizeExtraLarge
                     fillMode: Image.PreserveAspectFit
+                    defaultImage: "qrc:/images/grga.jpg"
                     source: groupItem.group ? groupItem.group.imageUrl : ""
                     indicator.size: BusyIndicatorSize.Medium
                 }
@@ -114,6 +125,7 @@ Page {
                     anchors.top: parent.top
 
                     width: parent.width - Theme.iconSizeExtraLarge - Theme.paddingMedium
+
                     KeyValueLabel {
                         visible: value !== ""
                         font.pixelSize: Theme.fontSizeSmall
@@ -144,12 +156,38 @@ Page {
                     right: parent.right
                     rightMargin: Theme.horizontalPageMargin
                 }
+
+                function getGroupTypeString(group) {
+                    var result = ""
+                    if (!group) {
+                        return result
+                    }
+
+                    switch (group.groupAccess) {
+                    case Group.Restricted:
+                        result = qsTr("Restricted. Members can join if they have " +
+                                "an email address at one of specified domains")
+                        break
+                    case Group.Private:
+                        result = qsTr("Private. Members must be invited or approved " +
+                                "by the group's moderator")
+                        break
+                    case Group.Secret:
+                        result = qsTr("Secret")
+                        break
+                    case Group.Public:
+                    default:
+                        result = qsTr("Public. Anyone can join and invite others to join")
+                        break;
+                    }
+                    return result
+                }
+
                 KeyValueLabel {
                     visible: value !== ""
                     font.pixelSize: Theme.fontSizeSmall
-                    key: qsTr("Access")
-                    value: groupItem.group ?
-                            (groupItem.group.isPublic ? qsTr("public") : qsTr("private")) : ""
+                    key: qsTr("Group Type")
+                    value: groupItem.group ? parent.getGroupTypeString(groupItem.group) : ""
                 }
                 KeyValueLabel {
                     visible: value !== ""
@@ -204,8 +242,8 @@ Page {
             }
 
             SectionHeader {
-                text: qsTr("Folders")
-                visible: groupItem.group && groupItem.group.rules !== ""
+                text: qsTr("Discussion Board")
+                visible: groupItem.group && groupItem.group.foldersCount > 0
             }
 
             SilicaListView {
