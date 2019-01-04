@@ -3,5 +3,6 @@
         <file alias="gra_small.png">images/gra_small.png</file>
         <file alias="icon-m-favorite-half.svg">images/icon-m-favorite-half.svg</file>
         <file alias="sailreads256x256.png">images/sailreads256x256.png</file>
+        <file alias="grga.jpg">images/grga.jpg</file>
     </qresource>
 </RCC>
