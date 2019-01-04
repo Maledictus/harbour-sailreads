@@ -1217,8 +1217,9 @@ void GoodReadsApi::handleGetGroupMembers(quint64 groupId, QObject *senderObject)
 
     const QUrl& redirectedUrl = GetRedirectedUrl(doc);
     if (!redirectedUrl.isEmpty()) {
-        RequestRedirectedUrl(redirectedUrl,
-                std::bind(&GoodReadsApi::handleGetGroupMembers, this, groupId, std::placeholders::_1));
+        qDebug() << Q_FUNC_INFO << "Redirected url for" << groupId;
+        emit requestFinished();
+        emit gotGroupMembers(groupId, {});
         return;
     }
 
