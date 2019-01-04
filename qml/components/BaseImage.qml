@@ -25,6 +25,8 @@ import Sailfish.Silica 1.0
 
 Image {
     id: image
+
+    property url defaultImage
     property alias indicator: busyIndicator
 
     signal clicked()
@@ -39,5 +41,15 @@ Image {
     MouseArea {
         anchors.fill: parent
         onClicked: image.clicked()
+    }
+
+    onStatusChanged: {
+        if (defaultImage.length == 0) {
+            return
+        }
+
+        if (status == Image.Error || status == Image.Null) {
+            source = defaultImage
+        }
     }
 }
