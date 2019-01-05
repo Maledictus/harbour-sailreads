@@ -133,7 +133,7 @@ Page {
                 Component.onCompleted: {
                     var result = ""
                     if (book !== null) {
-                        result = Utils.getSeriesString(book.authors, Theme.primaryColor)
+                        result = Utils.getAuthorsString(book.authors, Theme.primaryColor)
                     }
                     text = result
                 }

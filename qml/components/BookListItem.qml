@@ -21,7 +21,6 @@ THE SOFTWARE.
 */
 
 import QtQuick 2.0
-import QtQuick.Layouts 1.1
 import Sailfish.Silica 1.0
 import harbour.sailreads 1.0
 
@@ -71,6 +70,7 @@ ListItem {
                 maximumLineCount: 2
                 font.family: Theme.fontFamilyHeading
                 font.pixelSize: Theme.fontSizeSmall
+                color: highlighted ? Theme.highlightColor : Theme.primaryColor
             }
 
             Label {
@@ -79,20 +79,13 @@ ListItem {
                 truncationMode: TruncationMode.Fade
                 font.pixelSize: Theme.fontSizeTiny
                 text: listItem.bookAuthors
+                color: Theme.highlightColor
             }
 
-            Row {
-                spacing: Theme.paddingSmall
-                RatingBox {
-                    id: ratingBox
-                    rating: listItem.averageRating
-                }
-
-                Label {
-                    font.pixelSize: Theme.fontSizeExtraSmall
-                    text: qsTr("%1/%2 ratings").arg(Number(listItem.averageRating).toLocaleString())
-                            .arg(Number(listItem.ratingsCount).toLocaleString(Qt.locale(), 'f', 0))
-                }
+            RatingComponent {
+                averageRating: listItem.averageRating
+                ratingsCount: listItem.ratingsCount
+                color: Theme.highlightColor
             }
         }
     }

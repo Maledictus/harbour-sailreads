@@ -26,6 +26,8 @@ import QtQuick 2.2
 import Sailfish.Silica 1.0
 import harbour.sailreads 1.0
 
+import "../components"
+
 Page {
     id: bookShelvesPage
 
@@ -128,31 +130,9 @@ Page {
 
         onContentYChanged: fetchMoreIfNeeded()
 
-        delegate: ListItem {
-            Label {
-                id: shelfName
-                anchors {
-                    left: parent.left
-                    leftMargin: Theme.horizontalPageMargin
-                    right: shelfCount.left
-                    rightMargin: Theme.paddingMedium
-                    verticalCenter: parent.verticalCenter
-                }
-
-                truncationMode: TruncationMode.Fade
-                text: bookShelfName
-            }
-
-            Label {
-                id: shelfCount
-                anchors {
-                    right: parent.right
-                    rightMargin: Theme.horizontalPageMargin
-                    verticalCenter: parent.verticalCenter
-                }
-                color: Theme.secondaryColor
-                text: bookShelfBooksCount
-            }
+        delegate: BookShelfListItem {
+            shelfName: bookShelfName
+            shelfBooksCount: bookShelfBooksCount
 
             menu: ContextMenu {
                 hasContent: userId === sailreadsManager.authUser.id

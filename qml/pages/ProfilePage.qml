@@ -292,32 +292,9 @@ Page {
 
                 width: parent.width
                 height: contentHeight
-                delegate: ListItem {
-                    Label {
-                        id: shelfName
-                        anchors {
-                            left: parent.left
-                            leftMargin: Theme.horizontalPageMargin
-                            right: shelfCount.left
-                            rightMargin: Theme.paddingMedium
-                            verticalCenter: parent.verticalCenter
-                        }
-
-                        truncationMode: TruncationMode.Fade
-                        text: bookShelfName
-                    }
-
-                    Label {
-                        id: shelfCount
-                        anchors {
-                            right: parent.right
-                            rightMargin: Theme.horizontalPageMargin
-                            verticalCenter: parent.verticalCenter
-                        }
-                        color: Theme.secondaryColor
-                        text: bookShelfBooksCount
-                    }
-
+                delegate: BookShelfListItem {
+                    shelfName: bookShelfName
+                    shelfBooksCount: bookShelfBooksCount
                     onClicked: {
                         pageStack.push(Qt.resolvedUrl("BookReviewsPage.qml"),
                                 { userId: userProfile.user.id, userName: userProfile.user.userName,

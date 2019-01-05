@@ -27,8 +27,7 @@ import Sailfish.Silica 1.0
 
 Row {
     property real rating: 0
-    property real iconWidth: Theme.iconSizeSmall
-    property real iconHeight: Theme.iconSizeSmall
+    property real starIconSize: Theme.iconSizeSmall
     property color color: Theme.primaryColor
 
     Repeater {
@@ -37,15 +36,12 @@ Row {
 
         Image {
             id: starIcon
-            width: iconWidth
-            height: iconHeight
+            width: starIconSize
+            height: starIconSize
             source: {
                 if (rating - index < 1) {
                     return "image://theme/icon-m-favorite?" + color
                 }
-//                else if (rating - index < 1) {
-//                    return "qrc:/images/icon-m-favorite-half.svg"
-//                }
                 else {
                     return "image://theme/icon-m-favorite-selected?" + color
                 }

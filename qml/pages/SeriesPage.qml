@@ -23,7 +23,6 @@ THE SOFTWARE.
 */
 
 import QtQuick 2.2
-import QtQuick.Layouts 1.1
 import Sailfish.Silica 1.0
 import harbour.sailreads 1.0
 
@@ -59,90 +58,18 @@ Page {
             height: headerBox.height
         }
 
-        delegate: ListItem {
+        delegate: BookListItem {
             width: seriesView.width
-            contentHeight: row.height + separator.height + Theme.paddingMedium
             clip: true
 
-            Row {
-                id: row
-                spacing: Theme.paddingMedium
-                height: Math.max(bookImage.height, column.height)
-                anchors {
-                    left: parent.left
-                    leftMargin: Theme.horizontalPageMargin
-                    right: parent.right
-                    rightMargin: Theme.horizontalPageMargin
-                }
-                BaseImage {
-                    id: bookImage
-                    anchors {
-                        top: column.top
-                        topMargin: Theme.paddingSmall
-                    }
-
-                    source: modelData.work !== null && modelData.work.bestBook !== null ?
-                            modelData.work.bestBook.imageUrl : ""
-                    height: 1.5 * width
-                    width: Theme.iconSizeLarge
-                    horizontalAlignment: Image.AlignLeft
-                    verticalAlignment: Image.AlignTop
-                    indicator.size: BusyIndicatorSize.Medium
-                }
-
-                Column {
-                    id: column
-                    width: parent.width - bookImage.width - Theme.paddingMedium
-                    Label {
-                        id: bookNameLabel
-                        width: parent.width
-                        wrapMode: Text.WordWrap
-                        maximumLineCount: 2
-                        font.family: Theme.fontFamilyHeading
-                        font.pixelSize: Theme.fontSizeSmall
-                        text: modelData.work !== null && modelData.work.bestBook !== null ?
-                                modelData.work.bestBook.title : ""
-                    }
-
-                    Label {
-                        id: authorsLabe
-                        width: parent.width
-                        truncationMode: TruncationMode.Fade
-                        font.pixelSize: Theme.fontSizeTiny
-                        text: modelData.work !== null && modelData.work.bestBook !== null ?
-                                modelData.work.bestBook.authorsString : ""
-                    }
-
-                    Row {
-                        spacing: Theme.paddingSmall
-                        RatingBox {
-                            rating: modelData.work !== null ? modelData.work.averageRating : 0
-                        }
-
-                        Label {
-                            font.pixelSize: Theme.fontSizeExtraSmall
-                            text: qsTr("%1/%2 ratings").arg(modelData.work !== null ?
-                                        Number(modelData.work.averageRating).toLocaleString()
-                                        : 0)
-                                    .arg(Number(modelData.work !== null ?
-                                        modelData.work.ratingCount : 0)
-                                            .toLocaleString(Qt.locale(), 'f', 0))
-                        }
-                    }
-                }
-            }
-
-            Separator {
-                id: separator
-                anchors {
-                    top: row.bottom
-                    topMargin: Theme.paddingMedium
-                }
-
-                width: parent.width
-                color: Theme.primaryColor
-                horizontalAlignment: Qt.AlignHCenter
-            }
+            imageUrl: modelData.work !== null && modelData.work.bestBook !== null ?
+                    modelData.work.bestBook.imageUrl : ""
+            title: modelData.work !== null && modelData.work.bestBook !== null ?
+                    modelData.work.bestBook.title : ""
+            authors: modelData.work !== null && modelData.work.bestBook !== null ?
+                    modelData.work.bestBook.authorsString : ""
+            averageRating: modelData.work !== null ? modelData.work.averageRating : 0.0
+            ratingsCount: modelData.work !== null ? modelData.work.ratingsCount : 0
 
             onClicked: {
                 pageStack.push(Qt.resolvedUrl("BookPage.qml"),

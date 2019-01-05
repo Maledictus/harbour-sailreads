@@ -82,8 +82,7 @@ Item {
 
         RatingBox {
             id: ratingBoxItem
-            iconWidth: ratingIconSize
-            iconHeight: ratingIconSize
+            starIconSize: ratingIconSize
             color: Theme.highlightColor
         }
 

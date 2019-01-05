@@ -59,16 +59,19 @@ ListItem {
                 font.family: Theme.fontFamilyHeading
                 truncationMode: TruncationMode.Fade
                 text: friendName
+                color: highlighted ? Theme.highlightColor : Theme.primaryColor
             }
             Label {
                 truncationMode: TruncationMode.Fade
                 font.pixelSize: Theme.fontSizeExtraSmall
                 text: qsTr("%1 books").arg(Number(friendBooksCount).toFixed())
+                color: Theme.highlightColor
             }
             Label {
                 truncationMode: TruncationMode.Fade
                 font.pixelSize: Theme.fontSizeExtraSmall
                 text: qsTr("%1 friends").arg(Number(friendFriendsCount).toFixed())
+                color: Theme.highlightColor
             }
         }
     }
