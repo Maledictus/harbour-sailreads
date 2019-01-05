@@ -912,7 +912,7 @@ WorkPtr ParseWork(const QDomElement& element)
             work->SetRatingSum(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "ratings_count") {
-            work->SetRatingCount(fieldElement.text().toULongLong());
+            work->SetRatingsCount(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "text_reviews_count") {
             work->SetTextReviewsCount(fieldElement.text().toULongLong());
@@ -1175,7 +1175,40 @@ Reviews_t ParseReviewsList(const QDomElement& element)
 
 Series_t ParseAuthorSeries(const QDomElement& element)
 {
+    std::map<quint64, SeriesPtr> id2series;
+    QHash<quint64, SeriesWorks_t> seriesId2seriesWorks;
+    const auto& seriesWorksList = element.childNodes();
+    for (int i = 0, cnt = seriesWorksList.size(); i < cnt; ++i) {
+        const auto& seriesWorkElement = seriesWorksList.at(i).toElement();
+        const auto& seriesWorkFields = seriesWorkElement.childNodes();
+        SeriesWorkPtr seriesWork = std::make_shared<SeriesWork>();
+        for (int j = 0, seriesWorkCnt = seriesWorkFields.size(); j < seriesWorkCnt; ++j) {
+            const auto& fieldElement = seriesWorkFields.at(j).toElement();
+            if (fieldElement.tagName() == "id") {
+                seriesWork->SetId(fieldElement.text().toULongLong());
+            }
+            else if (fieldElement.tagName() == "user_position") {
+                seriesWork->SetPosition(fieldElement.text().toInt());
+            }
+            else if (fieldElement.tagName() == "work") {
+                seriesWork->SetWork(ParseWork(fieldElement));
+            }
+            else if (fieldElement.tagName() == "series") {
+                SeriesPtr s = ParseSeries(fieldElement);
+                id2series.insert(std::make_pair(s->GetId(), s));
+                seriesId2seriesWorks[s->GetId()] << seriesWork;
+            }
+        }
+    }
+
     Series_t series;
+    for (auto pair : id2series) {
+        if (seriesId2seriesWorks.contains(pair.first)) {
+            pair.second->SetSeriesWorks(seriesId2seriesWorks[pair.first]);
+        }
+        series << pair.second;
+    }
+
     return series;
 }
 

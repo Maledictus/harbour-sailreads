@@ -47,7 +47,15 @@ QVariant AuthorSeriesModel::data(const QModelIndex &index, int role) const
     const auto& series = m_Items.at(index.row());
     switch (role) {
     case Id:
-        return 0;
+        return series->GetId();
+    case Title:
+        return series->GetTitle();
+    case PrimaryWorksCount:
+        return series->GetPrimaryWorkCount();
+    case AverageRating:
+        return series->GetAverageRating();
+    case RatingsCount:
+        return series->GetRatingsCount();
     default:
         return QVariant();
     }
@@ -57,6 +65,10 @@ QHash<int, QByteArray> AuthorSeriesModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[Id] = "seriesId";
+    roles[Title] = "seriesTitle";
+    roles[PrimaryWorksCount] = "seriesWorksCount";
+    roles[AverageRating] = "seriesAverageRating";
+    roles[RatingsCount] = "seriesRatingsCount";
     return roles;
 }
 
@@ -69,6 +81,7 @@ void AuthorSeriesModel::SetAuthorId(quint64 id)
 {
     if (m_AuthorId != id) {
         m_AuthorId = id;
+        SailreadsManager::Instance()->loadAuthorSeries(m_AuthorId);
         emit authorIdChanged();
     }
 }
@@ -86,14 +99,13 @@ void AuthorSeriesModel::SetHasMore(bool has)
     }
 }
 
-void AuthorSeriesModel::fetchMoreContent()
+void AuthorSeriesModel::handleGotAuthorSeries(quint64 authorId, const Series_t& series)
 {
-    SailreadsManager::Instance()->loadAuthorSeries(m_AuthorId);
-}
+    if (m_AuthorId != authorId) {
+        return;
+    }
 
-void AuthorSeriesModel::handleGotAuthorSeries(const Series_t& series)
-{
-
+    SetItems(series);
 }
 
 } // namespace Sailreads

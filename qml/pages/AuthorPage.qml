@@ -23,7 +23,6 @@ THE SOFTWARE.
 */
 
 import QtQuick 2.5
-import QtQuick.Layouts 1.1
 import Sailfish.Silica 1.0
 import harbour.sailreads 1.0
 
@@ -190,19 +189,16 @@ Page {
                         RatingBox {
                             id: ratingBox
                             rating: authorProfile.author ? authorProfile.author.averageRating : 0.0
-                            iconWidth: Theme.iconSizeExtraSmall
-                            iconHeight: Theme.iconSizeExtraSmall
-                            anchors.verticalCenter: parent.verticalCenter
                             color: Theme.highlightColor
                         }
+
                         Label {
-                            id: ratingLabel
-                            text: Number(authorProfile.author ? authorProfile.author.averageRating : 0.0)
-                                    .toLocaleString()
-                            font.pixelSize: Theme.fontSizeSmall
+                            font.pixelSize: Theme.fontSizeExtraSmall
                             color: Theme.highlightColor
+                            text: Number(ratingBox.rating).toLocaleString(Qt.locale(), 'f', 2)
                         }
                     }
+
                     KeyValueLabel {
                         font.pixelSize: Theme.fontSizeSmall
                         width: parent.width

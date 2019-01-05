@@ -74,18 +74,52 @@ Page {
         model: authorSeriesModel
         clip: true
 
-        function fetchMoreIfNeeded() {
-            if (!authorSeriesPage.busy &&
-                    authorSeriesModel.hasMore &&
-                    indexAt(contentX, contentY + height) > authorSeriesModel.rowCount() - 2) {
-                authorSeriesModel.fetchMoreContent()
-            }
-        }
-
-        onContentYChanged: fetchMoreIfNeeded()
-
         delegate: ListItem{
-            height: Theme.itemSizeMedium
+            width: authorSeriesView.width
+            height: column.height + separator.height + Theme.paddingMedium
+            clip: true
+            Column {
+                id: column
+                anchors {
+                    left: parent.left
+                    leftMargin: Theme.horizontalPageMargin
+                    right: parent.right
+                    rightMargin: Theme.horizontalPageMargin
+                }
+
+                Label {
+                    font.family: Theme.fontFamilyHeading
+                    elide: Text.ElideRight
+                    width: parent.width
+                    truncationMode: TruncationMode.Fade
+                    text: qsTr("%1").arg(seriesTitle)
+                }
+
+                KeyValueLabel {
+                    key: qsTr("Books")
+                    value: seriesWorksCount
+                }
+
+                RatingComponent {
+                    averageRating: seriesAverageRating
+                    ratingsCount: seriesRatingsCount
+                    color: Theme.highlightColor
+                }
+            }
+
+            Separator {
+                id: separator
+                anchors {
+                    top: column.bottom
+                    topMargin: Theme.paddingMedium
+                }
+
+                width: parent.width
+                color: Theme.primaryColor
+                horizontalAlignment: Qt.AlignHCenter
+            }
+
+            onClicked: pageStack.push(Qt.resolvedUrl("SeriesPage.qml"), { seriesId: seriesId })
         }
 
         VerticalScrollDecorator {}

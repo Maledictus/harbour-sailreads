@@ -22,9 +22,12 @@ THE SOFTWARE.
 
 #include "series.h"
 
+#include <numeric>
+
 #include <QtDebug>
 
 #include "serieswork.h"
+#include "work.h"
 
 namespace Sailreads
 {
@@ -34,6 +37,8 @@ Series::Series(QObject *parent)
 , m_SeriesWorksCount(0)
 , m_PrimaryWorkCount(0)
 , m_Numbered(false)
+, m_RatingsCount(0)
+, m_AverageRating(0.0)
 {
 #ifdef QT_DEBUG
     qDebug() << this << "CONSTRUCTED";
@@ -129,5 +134,24 @@ QObjectList Series::GetSeriesWorks() const
 void Series::SetSeriesWorks(const SeriesWorks_t& seriesWorks)
 {
     m_SeriesWorks = seriesWorks;
+    m_RatingsCount = std::accumulate (m_SeriesWorks.begin(), m_SeriesWorks.end(),
+            0, [](int i, decltype(m_SeriesWorks.front()) sw)
+            { return i + sw->GetWorkPtr()->GetRatingsCount(); });
+    const quint64 ratingSum = std::accumulate (m_SeriesWorks.begin(), m_SeriesWorks.end(),
+            0, [](int i, decltype(m_SeriesWorks.front()) sw)
+            { return i + sw->GetWorkPtr()->GetRatingSum(); });
+    m_AverageRating = m_RatingsCount > 0 ?
+            static_cast<qreal>(ratingSum) / m_RatingsCount :
+            0.0;
+}
+
+qreal Series::GetAverageRating() const
+{
+    return m_AverageRating;
+}
+
+quint64 Series::GetRatingsCount() const
+{
+    return m_RatingsCount;
 }
 } // namespace Sailreads

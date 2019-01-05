@@ -34,7 +34,7 @@ Work::Work(QObject *parent)
 , m_BestBooksId(0)
 , m_ReviewsCount(0)
 , m_RatingSum(0)
-, m_RatingCount(0)
+, m_RatingsCount(0)
 , m_OriginalPublicationYear(0)
 , m_OriginalPublicationMonth(0)
 , m_OriginalPublicationDay(0)
@@ -101,14 +101,14 @@ void Work::SetRatingSum(quint64 ratingSum)
     m_RatingSum = ratingSum;
 }
 
-quint64 Work::GetRatingCount() const
+quint64 Work::GetRatingsCount() const
 {
-    return m_RatingCount;
+    return m_RatingsCount;
 }
 
-void Work::SetRatingCount(quint64 ratingCount)
+void Work::SetRatingsCount(quint64 ratingsCount)
 {
-    m_RatingCount = ratingCount;
+    m_RatingsCount = ratingsCount;
 }
 
 quint64 Work::GetTextReviewsCount() const
@@ -173,7 +173,7 @@ void Work::SetRatingDist(const QString& ratingDist)
 
 qreal Work::GetAverageRating() const
 {
-    return m_RatingCount > 0 ? static_cast<qreal>(m_RatingSum) / m_RatingCount : 0;
+    return m_RatingsCount > 0 ? static_cast<qreal>(m_RatingSum) / m_RatingsCount : 0;
 }
 
 Book *Work::GetBestBook() const

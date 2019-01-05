@@ -32,6 +32,7 @@ THE SOFTWARE.
 #include <QXmlQuery>
 
 #include "objects/group.h"
+#include "objects/series.h"
 #include "oauth1.h"
 #include "rpcutils.h"
 
@@ -290,7 +291,7 @@ void GoodReadsApi::GetAuthorSeries(quint64 authorId)
             QUrl(m_BaseUrl + QString("/series/list/%1.xml").arg(authorId)));
     m_CurrentReply = reply;
     connect(reply, &QNetworkReply::finished,
-            this, &GoodReadsApi::handleGetAuthorSeries);
+            this, [this, authorId]() { handleGetAuthorSeries(authorId); });
 }
 
 void GoodReadsApi::GetWorkSeries(quint64 workId)
@@ -704,7 +705,6 @@ QByteArray GoodReadsApi::GetReply(QObject *sender, bool& ok)
     reply->deleteLater();
     m_CurrentReply.clear();
 
-    qDebug() << reply->error();
     if (reply->error() != QNetworkReply::NoError &&
             reply->error() != QNetworkReply::OperationCanceledError &&
             reply->error() != QNetworkReply::AuthenticationRequiredError) {
@@ -728,9 +728,9 @@ QByteArray GoodReadsApi::GetReply(QObject *sender, bool& ok)
 
     ok = true;
     data = reply->readAll();
-//#ifdef QT_DEBUG
+#ifdef QT_DEBUG
     qDebug() << data;
-//#endif
+#endif
     return data;
 }
 
@@ -1017,7 +1017,7 @@ void GoodReadsApi::handleGetSeries()
     emit gotSeries(RpcUtils::Parser::ParseSeries(doc));
 }
 
-void GoodReadsApi::handleGetAuthorSeries()
+void GoodReadsApi::handleGetAuthorSeries(quint64 authorId)
 {
     bool ok = false;
     auto doc = GetDocumentFromReply(sender(), ok);
@@ -1027,7 +1027,7 @@ void GoodReadsApi::handleGetAuthorSeries()
     }
 
     emit requestFinished();
-    emit gotAuthorSeries(RpcUtils::Parser::ParseAuthorSeries(doc));
+    emit gotAuthorSeries(authorId, RpcUtils::Parser::ParseAuthorSeries(doc));
 }
 
 void GoodReadsApi::handleGetWorkSeries()
@@ -1267,7 +1267,6 @@ void GoodReadsApi::handleGetGroupMembers(quint64 groupId, QObject *senderObject)
         return;
     }
 
-    qDebug() << doc.toByteArray();
     emit requestFinished();
     emit gotGroupMembers(groupId, RpcUtils::Parser::ParseGroupMembers(doc));
 }

@@ -68,6 +68,11 @@ Work* SeriesWork::GetWork() const
     return m_Work.get();
 }
 
+WorkPtr SeriesWork::GetWorkPtr() const
+{
+    return m_Work;
+}
+
 void SeriesWork::SetWork(const WorkPtr& work)
 {
     m_Work = work;

@@ -39,7 +39,7 @@ class Work: public QObject
     BookPtr m_BestBook;
     quint64 m_ReviewsCount;
     quint64 m_RatingSum;
-    quint64 m_RatingCount;
+    quint64 m_RatingsCount;
     quint64 m_TextReviewsCount;
     int m_OriginalPublicationYear;
     int m_OriginalPublicationMonth;
@@ -53,7 +53,7 @@ class Work: public QObject
     Q_PROPERTY(Book* bestBook READ GetBestBook NOTIFY bestBookChanged)
     Q_PROPERTY(quint64 reviewsCount READ GetReviewsCount NOTIFY reviewsCountChanged)
     Q_PROPERTY(quint64 ratingSum READ GetRatingSum NOTIFY ratingSumChanged)
-    Q_PROPERTY(quint64 ratingCount READ GetRatingCount NOTIFY ratingCountChanged)
+    Q_PROPERTY(quint64 ratingsCount READ GetRatingsCount NOTIFY ratingCountChanged)
     Q_PROPERTY(quint64 textReviewsCount READ GetTextReviewsCount NOTIFY textReviewsCountChanged)
     Q_PROPERTY(int originalPublicationYear READ GetOriginalPublicationYear NOTIFY originalPublicationYearChanged)
     Q_PROPERTY(int originalPublicationMonth READ GetOriginalPublicationMonth NOTIFY originalPublicationMonthChanged)
@@ -76,8 +76,8 @@ public:
     void SetReviewsCount(quint64 reviewsCount);
     quint64 GetRatingSum() const;
     void SetRatingSum(quint64 ratingSum);
-    quint64 GetRatingCount() const;
-    void SetRatingCount(quint64 ratingCount);
+    quint64 GetRatingsCount() const;
+    void SetRatingsCount(quint64 ratingsCount);
     quint64 GetTextReviewsCount() const;
     void SetTextReviewsCount(quint64 textReviewsCount);
     int GetOriginalPublicationYear() const;

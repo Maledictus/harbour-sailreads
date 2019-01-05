@@ -41,6 +41,8 @@ class Series : public QObject
     int m_PrimaryWorkCount;
     bool m_Numbered;
     SeriesWorks_t m_SeriesWorks;
+    quint64 m_RatingsCount;
+    qreal m_AverageRating;
 
     Q_PROPERTY(quint64 id READ GetId NOTIFY idChanged)
     Q_PROPERTY(QString title READ GetTitle NOTIFY titleChanged)
@@ -50,6 +52,8 @@ class Series : public QObject
     Q_PROPERTY(int primaryWorkCount READ GetPrimaryWorkCount NOTIFY primaryWorkCountChanged)
     Q_PROPERTY(bool numbered READ GetNumbered NOTIFY numberedChanged)
     Q_PROPERTY(QObjectList seriesWorks READ GetSeriesWorks NOTIFY seriesWorksChanged)
+    Q_PROPERTY(qreal averageRating READ GetAverageRating NOTIFY averageRatingChanged)
+    Q_PROPERTY(quint64 ratingsCount READ GetRatingsCount NOTIFY ratingsCountChanged)
 
 public:
     Series(QObject *parent = nullptr);
@@ -66,11 +70,13 @@ public:
     int GetSeriesWorksCount() const;
     void SetSeriesWorksCount(int seriesWorksCount);
     int GetPrimaryWorkCount() const;
-    void SetPrimaryWorkCount(int primaryWorkCount);
+    void SetPrimaryWorkCount(int primaryWorksCount);
     bool GetNumbered() const;
     void SetNumbered(bool numbered);
     QObjectList GetSeriesWorks() const;
     void SetSeriesWorks(const SeriesWorks_t& seriesWorks);
+    qreal GetAverageRating() const;
+    quint64 GetRatingsCount() const;
 
 signals:
     void idChanged();
@@ -81,5 +87,7 @@ signals:
     void primaryWorkCountChanged();
     void numberedChanged();
     void seriesWorksChanged();
+    void averageRatingChanged();
+    void ratingsCountChanged();
 };
 } // namespace Sailreads

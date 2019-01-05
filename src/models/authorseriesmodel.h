@@ -27,7 +27,7 @@ THE SOFTWARE.
 
 namespace Sailreads
 {
-class AuthorSeriesModel : public BaseModel<SeriesWorkPtr>
+class AuthorSeriesModel : public BaseModel<SeriesPtr>
 {
     Q_OBJECT
 
@@ -42,7 +42,11 @@ public:
 
     enum SeriesRoles
     {
-        Id = Qt::UserRole + 1
+        Id = Qt::UserRole + 1,
+        Title,
+        PrimaryWorksCount,
+        AverageRating,
+        RatingsCount
     };
 
     virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
@@ -54,7 +58,7 @@ public:
     void SetHasMore(bool has);
 
 private slots:
-    void handleGotAuthorSeries(const Series_t& series);
+    void handleGotAuthorSeries(quint64 authorId, const Series_t& series);
 
 signals:
     void authorIdChanged();

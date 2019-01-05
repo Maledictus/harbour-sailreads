@@ -152,6 +152,7 @@ signals:
     void authorFollowed(quint64 authorId, quint64 followingId);
     void authorUnfollowed(quint64 authorId);
     void gotAuthorBooks(quint64 authorId, const CountedItems<BookPtr>& books);
+    void gotAuthorSeries(quint64 authorId, const Series_t& series);
 
     void gotSeries(const SeriesPtr& series);
 

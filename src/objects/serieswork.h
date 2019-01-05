@@ -52,6 +52,7 @@ public:
     int GetPosition() const;
     void SetPosition(int position);
     Work* GetWork() const;
+    WorkPtr GetWorkPtr() const;
     void SetWork(const WorkPtr& work);
     Series* GetSeries() const;
     SeriesPtr GetSeriesPtr() const;

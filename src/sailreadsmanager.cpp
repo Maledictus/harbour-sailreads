@@ -178,6 +178,8 @@ void SailreadsManager::MakeConnections()
             this, &SailreadsManager::authorUnfollowed);
     connect(m_Api, &GoodReadsApi::gotAuthorBooks,
             this, &SailreadsManager::gotAuthorBooks);
+    connect(m_Api, &GoodReadsApi::gotAuthorSeries,
+            this, &SailreadsManager::gotAuthorSeries);
 }
 
 void SailreadsManager::SetBusy(bool busy)

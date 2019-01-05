@@ -33,6 +33,7 @@ THE SOFTWARE.
 
 
 #include "models/authorbooksmodel.h"
+#include "models/authorseriesmodel.h"
 #include "models/baseproxymodel.h"
 #include "models/bookshelvesmodel.h"
 #include "models/topiccommentsmodel.h"
@@ -172,6 +173,7 @@ void Application::start()
     qRegisterMetaType<GroupFolder>("GroupFolder");
 
     qmlRegisterType<AuthorBooksModel>("harbour.sailreads", 1, 0, "AuthorBooksModel");
+    qmlRegisterType<AuthorSeriesModel>("harbour.sailreads", 1, 0, "AuthorSeriesModel");
     qmlRegisterType<BaseProxyModel>("harbour.sailreads", 1, 0, "BaseProxyModel");
     qmlRegisterType<BookShelvesModel>("harbour.sailreads", 1, 0, "BookShelvesModel");
     qmlRegisterType<FriendsModel>("harbour.sailreads", 1, 0, "FriendsModel");
