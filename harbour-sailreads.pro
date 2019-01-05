@@ -135,7 +135,7 @@ RESOURCES += sailreads.qrc
 
 SAILFISHAPP_ICONS = 86x86 108x108 128x128 172x172
 
-TRANSLATIONS += translations/harbour-sailreads-ru.ts
+TRANSLATIONS += translations/harbour-sailreads.ts
 
 lupdate_only {
 SOURCES += $$QML_SOURCES
