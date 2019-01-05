@@ -193,8 +193,9 @@ Page {
                         }
 
                         Label {
-                            font.pixelSize: Theme.fontSizeExtraSmall
+                            font.pixelSize: Theme.fontSizeSmall
                             color: Theme.highlightColor
+                            anchors.verticalCenter: ratingBox.verticalCenter
                             text: Number(ratingBox.rating).toLocaleString(Qt.locale(), 'f', 2)
                         }
                     }
