@@ -90,76 +90,19 @@ Page {
 
         onContentYChanged: fetchMoreIfNeeded()
 
-        delegate: ListItem {
+        delegate: GroupListItem {
             width: groupsView.width
-            contentHeight: Math.max(groupIconImage.height, column.height) + separator.height +
-                    Theme.paddingMedium
-            clip: true
 
-            BaseImage {
-                id: groupIconImage
-                anchors {
-                    left: parent.left
-                    leftMargin: Theme.horizontalPageMargin
-                    top: column.top
-                    topMargin: Theme.paddingSmall
-                }
-                source: groupImageUrl
-                height: Theme.iconSizeLarge
-                width: Theme.iconSizeMedium
-                fillMode: Image.PreserveAspectFit
-                horizontalAlignment: Image.AlignLeft
-                verticalAlignment: Image.AlignTop
-                indicator.size: BusyIndicatorSize.Medium
-            }
-
-            Column {
-                id: column
-
-                anchors {
-                    right: parent.right
-                    rightMargin: Theme.horizontalPageMargin
-                    left: groupIconImage.right
-                    leftMargin: Theme.paddingMedium
-                }
-
-                Label {
-                    id: groupNameLabel
-                    width: parent.width
-                    font.family: Theme.fontFamilyHeading
-                    truncationMode: TruncationMode.Fade
-                    text: groupName
-                }
-                KeyValueLabel {
-                    id: groupLastActivityLabel
-                    key: qsTr("Last activity")
-                    value: Utils.generateDateString(groupLastActivity, "dd MMM yyyy hh:mm")
-                }
-                KeyValueLabel {
-                    id: groupMembersLabel
-                    key: qsTr("Members")
-                    value: Number(groupUsersCount).toLocaleString(Qt.locale(), 'f', 0)
-                }
-            }
-
-            Separator {
-                id: separator
-                anchors {
-                    top: column.bottom
-                    topMargin: Theme.paddingMedium
-                }
-
-                width: parent.width
-                color: Theme.primaryColor
-                horizontalAlignment: Qt.AlignHCenter
-            }
+            imageUrl: groupImageUrl
+            title: groupName
+            lastActivity: groupLastActivity
+            usersCount: groupUsersCount
 
             onClicked: {
                 pageStack.push(Qt.resolvedUrl("GroupPage.qml"),
                         { groupId: groupId, groupName: groupName })
             }
         }
-
         VerticalScrollDecorator {}
     }
 
