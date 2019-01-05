@@ -102,6 +102,7 @@ public:
     void DeleteReview(quint64 reviewId);
 
     void GetBook(quint64 bookId);
+    void GetBookEditions(quint64 workId, int page);
     void SearchBooks(const QString& query, const QString& key, int page);
 
     void GetSeries(quint64 seriesId);
@@ -178,6 +179,7 @@ private slots:
     void handleDeleteReview();
 
     void handleGetBook();
+    void handleGetBookEditions(quint64 workId);
     void handleSearchBook();
 
     void handleGetSeries();
@@ -245,6 +247,7 @@ signals:
     void gotReview(const ReviewPtr& review);
 
     void gotBook(const BookPtr& book);
+    void gotBookEditions(quint64 workId, const CountedItems<BookPtr>& books);
 
     void gotAuthorProfile(const AuthorPtr& authorProfile);
     void gotAuthorBooks(quint64 authorId, const CountedItems<BookPtr>& books);

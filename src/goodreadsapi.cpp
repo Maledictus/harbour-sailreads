@@ -264,6 +264,16 @@ void GoodReadsApi::GetBook(quint64 bookId)
             this, &GoodReadsApi::handleGetBook);
 }
 
+void GoodReadsApi::GetBookEditions(quint64 workId, int page)
+{
+    auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + QString("/work/editions/%1").arg(workId)),
+            { { "format", "xml" }, { "page", page } });
+    m_CurrentReply = reply;
+    connect(reply, &QNetworkReply::finished,
+            this, [this, workId]() { handleGetBookEditions(workId); });
+}
+
 void GoodReadsApi::SearchBooks(const QString& query, const QString& key, int page)
 {
 //    //TODO make simple request
@@ -988,6 +998,19 @@ void GoodReadsApi::handleGetBook()
 
     emit requestFinished();
     emit gotBook(RpcUtils::Parser::ParseBook(doc));
+}
+
+void GoodReadsApi::handleGetBookEditions(quint64 workId)
+{
+    bool ok = false;
+    auto doc = GetDocumentFromReply(sender(), ok);
+    if (!ok) {
+        emit requestFinished();
+        return;
+    }
+
+    emit requestFinished();
+    emit gotBookEditions(workId, RpcUtils::Parser::ParseBookEditions(doc));
 }
 
 void GoodReadsApi::handleSearchBook()

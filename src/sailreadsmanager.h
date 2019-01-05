@@ -99,6 +99,7 @@ public slots:
     void loadReview(quint64 reviewId, int commentsPage = 1);
 
     void loadBook(quint64 bookId);
+    void loadBookEditions(quint64 workId, int page = 1);
 
     void loadSeries(quint64 seriesId);
 
@@ -147,6 +148,7 @@ signals:
     void gotReview(const ReviewPtr& review);
 
     void gotBook(const BookPtr& book);
+    void gotBookEditions(quint64 workId, const CountedItems<BookPtr>& books);
 
     void gotAuthorProfile(const AuthorPtr& author);
     void authorFollowed(quint64 authorId, quint64 followingId);

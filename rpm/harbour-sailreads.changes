@@ -12,8 +12,11 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
-# Wed Jan 02 2019 Oleg Linkin <maledictusdemagog@gmail.com> 0.1
-# - Login via facebook/amazon(patrly) and logout possibility
+# Wed Jan 02 2019 Oleg Linkin <maledictusdemagog@gmail.com> 0.2.2
+# - Add author's series page
+# - Add book editions page
+# - UI improvements
+# - Code improvements
 
 * Thu Jan 02 2019 Oleg Linkin <maledictusdemagog@gmail.com> 0.2.1
 - Login via facebook/amazon(patrly) and logout possibility

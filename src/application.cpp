@@ -36,6 +36,7 @@ THE SOFTWARE.
 #include "models/authorseriesmodel.h"
 #include "models/baseproxymodel.h"
 #include "models/bookshelvesmodel.h"
+#include "models/bookeditionsmodel.h"
 #include "models/topiccommentsmodel.h"
 #include "models/reviewcommentsmodel.h"
 #include "models/friendsmodel.h"
@@ -176,6 +177,7 @@ void Application::start()
     qmlRegisterType<AuthorSeriesModel>("harbour.sailreads", 1, 0, "AuthorSeriesModel");
     qmlRegisterType<BaseProxyModel>("harbour.sailreads", 1, 0, "BaseProxyModel");
     qmlRegisterType<BookShelvesModel>("harbour.sailreads", 1, 0, "BookShelvesModel");
+    qmlRegisterType<BookEditionsModel>("harbour.sailreads", 1, 0, "BookEditionsModel");
     qmlRegisterType<FriendsModel>("harbour.sailreads", 1, 0, "FriendsModel");
     qmlRegisterType<FollowersModel>("harbour.sailreads", 1, 0, "FollowersModel");
     qmlRegisterType<FollowingsModel>("harbour.sailreads", 1, 0, "FollowingsModel");

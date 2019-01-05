@@ -1486,6 +1486,26 @@ Series_t ParseAuthorSeries(const QDomDocument& doc)
     return ParseAuthorSeries(seriesWorksElement);
 }
 
+CountedItems<BookPtr> ParseBookEditions(const QDomDocument &doc)
+{
+    const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
+    if (responseElement.isNull()) {
+        return CountedItems<BookPtr>();
+    }
+
+    const auto& editionsElement = responseElement.firstChildElement("editions");
+    if (editionsElement.isNull()) {
+        return CountedItems<BookPtr>();
+    }
+
+    const auto& booksElement = editionsElement.firstChildElement("books");
+    if (booksElement.isNull()) {
+        return CountedItems<BookPtr>();
+    }
+
+    return ParseBooks(booksElement);
+}
+
 }
 }
 }

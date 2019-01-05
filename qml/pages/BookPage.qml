@@ -386,6 +386,20 @@ Page {
             MoreButton {
                 width: parent.width
                 height: Theme.itemSizeMedium
+                text: qsTr("Other editions")
+                counter: ""
+                busy: bookPage.busy
+                enabled: !busy
+                onClicked: {
+                    pageStack.push(Qt.resolvedUrl("BookEditionsPage.qml"),
+                        { workId: book && book.work ? book.work.id : 0 })
+                }
+            }
+
+
+            MoreButton {
+                width: parent.width
+                height: Theme.itemSizeMedium
                 text: qsTr("Similar Books")
                 counter: book ? book.similarBooks.length : 0
                 busy: bookPage.busy
