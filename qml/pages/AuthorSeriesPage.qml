@@ -75,8 +75,9 @@ Page {
         clip: true
 
         delegate: ListItem{
+            id: listItem
             width: authorSeriesView.width
-            height: column.height + separator.height + Theme.paddingMedium
+            contentHeight: column.height + separator.height + Theme.paddingMedium
             clip: true
             Column {
                 id: column
@@ -93,6 +94,7 @@ Page {
                     width: parent.width
                     truncationMode: TruncationMode.Fade
                     text: qsTr("%1").arg(seriesTitle)
+                    color: listItem.highlighted ? Theme.highlightColor : Theme.primaryColor
                 }
 
                 KeyValueLabel {
