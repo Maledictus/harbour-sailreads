@@ -1229,6 +1229,9 @@ void GoodReadsApi::handleGetGroup(quint64 groupId, QObject *senderObject)
         return;
     }
     QByteArray data = reply->readAll();
+#ifdef QT_DEBUG
+    qDebug() << data;
+#endif
     bool ok = false;
     QDomDocument doc = ParseDocument(data, ok);
     if (!ok) {
