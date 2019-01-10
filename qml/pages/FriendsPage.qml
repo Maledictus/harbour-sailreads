@@ -53,6 +53,14 @@ Page {
 
         PullDownMenu {
             MenuItem {
+                text: qsTr("Friends updates")
+                visible: sailreadsManager.authUser && sailreadsManager.authUser.id === userId
+                onClicked: {
+                    pageStack.replace(Qt.resolvedUrl("FriendsUpdatesPage.qml"))
+                }
+            }
+
+            MenuItem {
                 text: qsTr("Refresh")
                 onClicked: {
                     switch (slideshowView.currentIndex) {
