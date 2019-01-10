@@ -261,7 +261,7 @@ void SailreadsManager::getUserInfo(quint64 id)
     m_Api->GetUserInfo(id);
 }
 
-void SailreadsManager::getUpdates()
+void SailreadsManager::loadUpdates()
 {
     SetBusy(true);
     m_Api->GetUpdates();
@@ -277,6 +277,12 @@ void SailreadsManager::loadUserFollowers(quint64 userId, int page)
 {
     SetBusy(true);
     m_Api->GetUserFollowers(userId, page);
+}
+
+void SailreadsManager::loadMessages(const QString& folder, int page)
+{
+    SetBusy(true);
+    m_Api->GetMessages(folder, page);
 }
 
 void SailreadsManager::loadBookShelves(quint64 id, int page)

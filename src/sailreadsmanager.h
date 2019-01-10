@@ -84,9 +84,10 @@ public slots:
     void logout();
 
     void getUserInfo(quint64 id);
-    void getUpdates();
+    void loadUpdates();
     void loadUserFollowings(quint64 userId, int page = 1);
     void loadUserFollowers(quint64 userId, int page = 1);
+    void loadMessages(const QString& folder, int page = 1);
 
     void loadBookShelves(quint64 id, int page = 1);
     void addBookShelf(const QString& name, bool exclusive, bool sortable, bool featured,
