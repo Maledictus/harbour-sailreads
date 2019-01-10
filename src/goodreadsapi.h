@@ -84,7 +84,8 @@ public:
     void CompareBooks(quint64 userId);
 
     void GetUpdates();
-    void GetNotifications(int page);
+    void GetNotifications(const QString& nextPageToken);
+    void GetMessages(int page);
 
     void GetBookShelves(quint64 userId, int page = 1);
     void AddBookShelf(const QString& name, bool exclusive, bool sortable, bool featured,
@@ -167,6 +168,7 @@ private slots:
 
     void handleGetUpdates();
     void handleGetNotifications();
+    void handleGetMessages();
 
     void handleGetBookShelves(quint64 userId);
     void handleAddBookShelf();

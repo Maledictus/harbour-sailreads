@@ -123,14 +123,25 @@ void GoodReadsApi::GetUpdates()
 //             this, &GoodReadsApi::handleGetUpdates);
 }
 
-void GoodReadsApi::GetNotifications(int page)
+void GoodReadsApi::GetNotifications(const QString& nextPageToken)
 {
-//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-//            QUrl(QString("https://www.goodreads.com/notifications.xml?page=%1").arg(page)), "GET");
-//    auto reply = m_NAM->get(QNetworkRequest(pair.first));
-//    m_CurrentReply = reply;
-//    connect(reply, &QNetworkReply::finished,
-//             this, &GoodReadsApi::handleGetNotifications);
+   const QVariantMap params = nextPageToken.isEmpty() ?
+            QVariantMap() :
+            QVariantMap({ { "next_page_token", nextPageToken } });
+    QNetworkReply *reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + "/notifications.xml"), params);
+    m_CurrentReply = reply;
+    connect(reply, &QNetworkReply::finished,
+            this, [this]() { handleGetNotifications(); });
+}
+
+void GoodReadsApi::GetMessages(int page)
+{
+    QNetworkReply *reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + "/message/inbox"), { { "format", "xml" }, { "page", page } });
+    m_CurrentReply = reply;
+    connect(reply, &QNetworkReply::finished,
+            this, [this]() { handleGetMessages(); });
 }
 
 void GoodReadsApi::GetBookShelves(quint64 userId, int page)
@@ -866,6 +877,20 @@ void GoodReadsApi::handleGetUpdates()
 }
 
 void GoodReadsApi::handleGetNotifications()
+{
+    bool ok = false;
+    auto doc = GetDocumentFromReply(sender(), ok);
+    if (!ok) {
+        emit requestFinished();
+        return;
+    }
+
+    emit requestFinished();
+    //TODO
+    qDebug() << doc.toByteArray();
+}
+
+void GoodReadsApi::handleGetMessages()
 {
     bool ok = false;
     auto doc = GetDocumentFromReply(sender(), ok);
