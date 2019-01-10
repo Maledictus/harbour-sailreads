@@ -135,10 +135,11 @@ void GoodReadsApi::GetNotifications(const QString& nextPageToken)
             this, [this]() { handleGetNotifications(); });
 }
 
-void GoodReadsApi::GetMessages(int page)
+void GoodReadsApi::GetMessages(const QString& folder, int page)
 {
     QNetworkReply *reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
-            QUrl(m_BaseUrl + "/message/inbox"), { { "format", "xml" }, { "page", page } });
+            QUrl(m_BaseUrl + QString("/message/%1").arg(folder)),
+            { { "format", "xml" }, { "page", page } });
     m_CurrentReply = reply;
     connect(reply, &QNetworkReply::finished,
             this, [this]() { handleGetMessages(); });
@@ -314,13 +315,6 @@ void GoodReadsApi::GetAuthorSeries(quint64 authorId)
 
 void GoodReadsApi::GetWorkSeries(quint64 workId)
 {
-//    //TODO make simple request
-//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-//            QUrl(QString("https://www.goodreads.com/work/%1/series?format=xml").arg(workId)), "GET");
-//    auto reply = m_NAM->get(QNetworkRequest(pair.first));
-//    m_CurrentReply = reply;
-//    connect(reply, &QNetworkReply::finished,
-//            this, &GoodReadsApi::handleGetWorkSeries);
 }
 
 void GoodReadsApi::AddBookToShelf(quint64 bookId, const QString& shelfName)
@@ -883,8 +877,7 @@ void GoodReadsApi::handleGetNotifications()
     }
 
     emit requestFinished();
-    //TODO
-    qDebug() << doc.toByteArray();
+
 }
 
 void GoodReadsApi::handleGetMessages()

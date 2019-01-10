@@ -60,6 +60,7 @@ AuthorPtr ParseAuthor(const QDomElement& element);
 WorkPtr ParseWork(const QDomElement& element);
 SeriesPtr ParseSeries(const QDomElement& element);
 SeriesWorkPtr ParseSeriesWork(const QDomElement& element);
+MessagePtr ParseMessage(const QDomElement& element);
 
 GroupMembers_t ParseGroupMembers(const QDomElement& element);
 GroupFolders_t ParseGroupFolders(const QDomElement& element);
@@ -77,6 +78,8 @@ Books_t ParseBooksList(const QDomElement& element);
 CountedItems<BookPtr> ParseBooks(const QDomElement& element);
 Reviews_t ParseReviewsList(const QDomElement& element);
 Series_t ParseAuthorSeries(const QDomElement& element);
+Messages_t ParseMessagesList(const QDomElement& element);
+CountedItems<MessagePtr> ParseMessages(const QDomElement& element);
 
 
 UserPtr ParseUser(const QDomDocument& doc);
@@ -98,6 +101,7 @@ CountedItems<BookPtr> ParseAuthorBooks(const QDomDocument& doc);
 ReviewPtr ParseReview(const QDomDocument& doc);
 Series_t ParseAuthorSeries(const QDomDocument& doc);
 CountedItems<BookPtr> ParseBookEditions(const QDomDocument& doc);
+CountedItems<MessagePtr> ParseMessages(const QDomDocument& doc);
 }
 }
 }

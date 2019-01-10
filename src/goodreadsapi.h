@@ -85,7 +85,7 @@ public:
 
     void GetUpdates();
     void GetNotifications(const QString& nextPageToken);
-    void GetMessages(int page);
+    void GetMessages(const QString& folder, int page);
 
     void GetBookShelves(quint64 userId, int page = 1);
     void AddBookShelf(const QString& name, bool exclusive, bool sortable, bool featured,
@@ -240,6 +240,10 @@ signals:
     void gotAuthUserInfo(quint64 id, const QString& name, const QString& link);
     void gotUserProfile(const UserPtr& profile);
 //    void gotFriendsUpdates(const & updates);
+
+    void gotNotifications(const QString& nextPageToken,
+            const CountedItems<NotificationPtr>& notifications);
+    void gotMessages(const QString& folder, const CountedItems<MessagePtr>& messages);
 
     void gotUserBookShelves(quint64 userId, const CountedItems<BookShelf>& shelves);
     void bookShelfAdded(const BookShelf& shelf);

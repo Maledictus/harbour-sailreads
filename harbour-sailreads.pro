@@ -61,7 +61,9 @@ SOURCES += src/harbour-sailreads.cpp \
     src/models/reviewcommentsmodel.cpp \
     src/authserver.cpp \
     src/models/authorseriesmodel.cpp \
-    src/models/bookeditionsmodel.cpp
+    src/models/bookeditionsmodel.cpp \
+    src/objects/notification.cpp \
+    src/objects/message.cpp
 
 
 HEADERS += src/application.h \
@@ -115,7 +117,9 @@ HEADERS += src/application.h \
     src/models/reviewcommentsmodel.h \
     src/authserver.h \
     src/models/authorseriesmodel.h \
-    src/models/bookeditionsmodel.h
+    src/models/bookeditionsmodel.h \
+    src/objects/notification.h \
+    src/objects/message.h
 
 DISTFILES += translations/*.ts \
     sailreads.desktop \

@@ -30,6 +30,7 @@ THE SOFTWARE.
 #include "objects/author.h"
 #include "objects/book.h"
 #include "objects/group.h"
+#include "objects/message.h"
 #include "objects/review.h"
 #include "objects/series.h"
 #include "objects/serieswork.h"
@@ -998,6 +999,50 @@ SeriesWorkPtr ParseSeriesWork(const QDomElement& element)
     return seriesWork;
 }
 
+MessagePtr ParseMessage(const QDomElement& element)
+{
+    MessagePtr message = std::make_shared<Message>();
+    const auto& fieldsList = element.childNodes();
+    for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
+        const auto& fieldElement = fieldsList.at (i).toElement ();
+        if (fieldElement.tagName() == "id") {
+            message->SetId(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "created_at") {
+            message->SetCreateDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
+                    Qt::ISODate));
+        }
+        else if (fieldElement.tagName() == "updated_at") {
+            message->SetUpdateDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
+                    Qt::ISODate));
+        }
+        else if (fieldElement.tagName() == "read_at") {
+            message->SetReadDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
+                    Qt::ISODate));
+        }
+        else if (fieldElement.tagName() == "folder") {
+            message->SetFolder(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "parent_message_id") {
+            message->SetParentMessageId(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "subject") {
+            message->SetSubject(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "body") {
+            message->SetBody(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "from_user") {
+            message->SetFromUser(ParseUser(fieldElement));
+        }
+        else if (fieldElement.tagName() == "to_user") {
+            message->SetToUser(ParseUser(fieldElement));
+        }
+    }
+
+    return message;
+}
+
 GroupMembers_t ParseGroupMembers(const QDomElement& element)
 {
     GroupMembers_t members;
@@ -1210,6 +1255,26 @@ Series_t ParseAuthorSeries(const QDomElement& element)
     }
 
     return series;
+}
+
+Messages_t ParseMessagesList(const QDomElement& element)
+{
+    const auto& messagesList = element.childNodes();
+    Messages_t result;
+    for (int i = 0, cnt = messagesList.size(); i < cnt; ++i) {
+        result << ParseMessage(messagesList.at (i).toElement());
+    }
+    return result;
+}
+
+CountedItems<MessagePtr> ParseMessages(const QDomElement& element)
+{
+    CountedItems<MessagePtr> messages;
+    messages.m_BeginIndex = element.attribute("start").toULongLong();
+    messages.m_EndIndex = element.attribute("end").toULongLong();
+    messages.m_Count = element.attribute("total").toULongLong();
+    messages.m_Items = ParseMessagesList(element);
+    return messages;
 }
 
 UserPtr ParseUser(const QDomDocument& doc)
@@ -1504,6 +1569,31 @@ CountedItems<BookPtr> ParseBookEditions(const QDomDocument &doc)
     }
 
     return ParseBooks(booksElement);
+}
+
+CountedItems<MessagePtr> ParseMessages(const QDomDocument& doc)
+{
+//    <message_folder>
+//      <folder_name>inbox</folder_name>
+//      <folder_title>my inbox</folder_title>
+//      <messages end='20' start='1' total='26'>
+//        <message>
+    const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
+    if (responseElement.isNull()) {
+        return CountedItems<MessagePtr>();
+    }
+
+    const auto& messageFolderElement = responseElement.firstChildElement("message_folder");
+    if (messageFolderElement.isNull()) {
+        return CountedItems<MessagePtr>();
+    }
+
+    const auto& messagesElement = messageFolderElement.firstChildElement("messages");
+    if (messagesElement.isNull()) {
+        return CountedItems<MessagePtr>();
+    }
+
+    return ParseMessages(messagesElement);
 }
 
 }

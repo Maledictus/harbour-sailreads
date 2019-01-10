@@ -89,4 +89,12 @@ typedef QList<TopicPtr> Topics_t;
 class Work;
 typedef std::shared_ptr<Work> WorkPtr;
 typedef QList<WorkPtr> Works_t;
+
+class Notification;
+typedef std::shared_ptr<Notification> NotificationPtr;
+typedef QList<NotificationPtr> Notifications_t;
+
+class Message;
+typedef std::shared_ptr<Message> MessagePtr;
+typedef QList<MessagePtr> Messages_t;
 }
