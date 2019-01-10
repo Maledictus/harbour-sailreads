@@ -241,37 +241,6 @@ Page {
             }
 
             MoreButton {
-                id: friendsButton
-                width: parent.width
-                height: Theme.itemSizeMedium
-                text: qsTr("Friends")
-                counter: userProfile.user ? userProfile.user.friendsCount : 0
-                busy: profilePage.busy
-                enabled: !busy
-                visible: userProfile.user ? userProfile.user.friendsCount > 0 : false
-                onClicked: {
-                    pageStack.push(Qt.resolvedUrl("FriendsPage.qml"), {
-                        userId: userProfile.user ? userProfile.user.id : 0
-                   })
-                }
-            }
-
-            MoreButton {
-                id: groupsButton
-                width: parent.width
-                height: Theme.itemSizeMedium
-                text: qsTr("Groups")
-                counter: userProfile.user ? userProfile.user.groupsCount : 0
-                busy: profilePage.busy
-                enabled: !busy
-                onClicked: {
-                    pageStack.push(Qt.resolvedUrl("GroupsPage.qml"), {
-                        userId: userProfile.user ? userProfile.user.id : 0
-                    })
-                }
-            }
-
-            MoreButton {
                 id: bookShelvesButton
                 width: parent.width
                 height: Theme.itemSizeMedium
@@ -311,6 +280,63 @@ Page {
                     visible: running
                 }
             }
+
+            MoreButton {
+                id: friendsButton
+                width: parent.width
+                height: Theme.itemSizeMedium
+                text: qsTr("Friends")
+                counter: userProfile.user ? userProfile.user.friendsCount : 0
+                busy: profilePage.busy
+                enabled: !busy
+                visible: userProfile.user ? userProfile.user.friendsCount > 0 : false
+                onClicked: {
+                    pageStack.push(Qt.resolvedUrl("FriendsPage.qml"), {
+                        userId: userProfile.user ? userProfile.user.id : 0
+                   })
+                }
+            }
+
+            MoreButton {
+                id: groupsButton
+                width: parent.width
+                height: Theme.itemSizeMedium
+                text: qsTr("Groups")
+                counter: userProfile.user ? userProfile.user.groupsCount : 0
+                busy: profilePage.busy
+                enabled: !busy
+                onClicked: {
+                    pageStack.push(Qt.resolvedUrl("GroupsPage.qml"), {
+                        userId: userProfile.user ? userProfile.user.id : 0
+                    })
+                }
+            }
+
+            MoreButton {
+                id: messagesButton
+                width: parent.width
+                height: Theme.itemSizeMedium
+                text: qsTr("Messages")
+                counter: ""
+                visible: sailreadsManager.authUser && userId === sailreadsManager.authUser.id
+                busy: profilePage.busy
+                enabled: !busy
+                onClicked: pageStack.push(Qt.resolvedUrl("MessagesPage.qml"))
+            }
+
+            MoreButton {
+                id: notificationButton
+                width: parent.width
+                height: Theme.itemSizeMedium
+                text: qsTr("Notifications")
+                counter: ""
+                visible: sailreadsManager.authUser && userId === sailreadsManager.authUser.id
+                busy: profilePage.busy
+                enabled: !busy
+                onClicked: pageStack.push(Qt.resolvedUrl("NotificationsPage.qml"))
+            }
         }
+
+        VerticalScrollDecorator {}
     }
 }
