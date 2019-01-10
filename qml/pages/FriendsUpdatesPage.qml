@@ -26,11 +26,14 @@ import QtQuick 2.2
 import Sailfish.Silica 1.0
 
 Page {
-    id: updatesPage
+    id: friendsUpdatesPage
 
-    function loadUpdates() {
-        if (sailreadsManager.logged) {
-            sailreadsManager.getUpdates()
+    property bool busy: sailreadsManager.busy && friendsUpdatesPage.status === PageStatus.Active
+
+    function attachPage() {
+        if (pageStack._currentContainer.attachedContainer === null
+                && sailreadsManager.logged) {
+            //pageStack.pushAttached(Qt.resolvedUrl("StatusPage.qml"))
         }
     }
 
@@ -38,50 +41,25 @@ Page {
         sailreadsManager.abortRequest()
     }
 
-    onStatusChanged: {
-        if (status === PageStatus.Active && sailreadsManager.logged) {
-            loadUpdates()
-        }
-    }
-
     SilicaListView {
-        id: updatesView
+        id: friendsUpdatesView
         anchors.fill: parent
-        header: PageHeader {
-            title: qsTr("Updates")
-        }
-
-        ViewPlaceholder {
-            enabled: false //TODO
-            text: qsTr("There are no updates. Pull down to refresh")
-        }
+        clip: true
 
         PullDownMenu {
             MenuItem {
-                text: qsTr("View Profile")
-                onClicked: {
-                    pageStack.push(Qt.resolvedUrl("ProfilePage.qml"))
-                }
+                text: qsTr("Friends")
+                onClicked: pageStack.replace(Qt.resolvedUrl("FriendsPage.qml"),
+                        { userId: sailreadsManager.authUser ? sailreadsManager.authUser.id : 0 })
             }
-
-            MenuItem {
-                text: qsTr("My Books")
-                onClicked: {
-                    pageStack.replace(Qt.resolvedUrl("BookShelvesPage.qml"),
-                            {userId: sailreadsManager.userProfile.userId})
-                }
-            }
-
             MenuItem {
                 text: qsTr("Refresh")
-                onClicked: {
-                    sailreadsManager.getUpdates()
-                }
             }
         }
 
-        VerticalScrollDecorator {}
+        VerticalScrollDecorator{}
     }
+
 
     BusyIndicator {
         size: BusyIndicatorSize.Large
