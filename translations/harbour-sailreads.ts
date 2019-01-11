@@ -740,33 +740,58 @@ Pull down to refresh or to search groups</source>
 <context>
     <name>MessagesPage</name>
     <message>
-        <location filename="../qml/pages/MessagesPage.qml" line="36"/>
+        <location filename="../qml/pages/MessagesPage.qml" line="37"/>
         <source>Inbox</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MessagesPage.qml" line="40"/>
+        <location filename="../qml/pages/MessagesPage.qml" line="41"/>
         <source>Saved</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MessagesPage.qml" line="44"/>
+        <location filename="../qml/pages/MessagesPage.qml" line="45"/>
         <source>Sent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MessagesPage.qml" line="48"/>
+        <location filename="../qml/pages/MessagesPage.qml" line="49"/>
         <source>Trash</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MessagesPage.qml" line="80"/>
+        <location filename="../qml/pages/MessagesPage.qml" line="85"/>
         <source>Select folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MessagesPage.qml" line="87"/>
+        <location filename="../qml/pages/MessagesPage.qml" line="92"/>
         <source>Refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MessagesPage.qml" line="105"/>
+        <source>There are no messages in this folder. Pull down to refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MessagesPage.qml" line="156"/>
+        <source>Mark as read</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MessagesPage.qml" line="156"/>
+        <source>Mark as unread</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MessagesPage.qml" line="162"/>
+        <source>Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MessagesPage.qml" line="165"/>
+        <source>Deleting</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -901,12 +926,12 @@ Pull down to refresh or to search groups</source>
 <context>
     <name>Sailreads::Application</name>
     <message>
-        <location filename="../src/application.cpp" line="137"/>
+        <location filename="../src/application.cpp" line="138"/>
         <source>Authorized</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="137"/>
+        <location filename="../src/application.cpp" line="138"/>
         <source>Not authorized</source>
         <translation type="unfinished"></translation>
     </message>
@@ -914,17 +939,17 @@ Pull down to refresh or to search groups</source>
 <context>
     <name>Sailreads::SailreadsManager</name>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="221"/>
+        <location filename="../src/sailreadsmanager.cpp" line="224"/>
         <source>Authorization user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="239"/>
+        <location filename="../src/sailreadsmanager.cpp" line="242"/>
         <source>Authentication user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="260"/>
+        <location filename="../src/sailreadsmanager.cpp" line="263"/>
         <source>Getting user profile...</source>
         <translation type="unfinished"></translation>
     </message>

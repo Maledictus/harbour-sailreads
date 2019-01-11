@@ -63,7 +63,8 @@ SOURCES += src/harbour-sailreads.cpp \
     src/models/authorseriesmodel.cpp \
     src/models/bookeditionsmodel.cpp \
     src/objects/notification.cpp \
-    src/objects/message.cpp
+    src/objects/message.cpp \
+    src/models/messagesmodel.cpp
 
 
 HEADERS += src/application.h \
@@ -119,7 +120,8 @@ HEADERS += src/application.h \
     src/models/authorseriesmodel.h \
     src/models/bookeditionsmodel.h \
     src/objects/notification.h \
-    src/objects/message.h
+    src/objects/message.h \
+    src/models/messagesmodel.h
 
 DISTFILES += translations/*.ts \
     sailreads.desktop \

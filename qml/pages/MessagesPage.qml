@@ -24,6 +24,7 @@ THE SOFTWARE.
 
 import QtQuick 2.2
 import Sailfish.Silica 1.0
+import harbour.sailreads 1.0
 import "../components"
 
 Page {
@@ -56,7 +57,7 @@ Page {
     ]
 
     onMessagesFolderChanged: {
-        //sailreadsManager.loadMessages(messagesFolder.key)
+        messagesModel.folder = messagesFolder.key
     }
 
     function attachPage() {
@@ -68,6 +69,10 @@ Page {
 
     Component.onDestruction: {
         sailreadsManager.abortRequest()
+    }
+
+    MessagesModel {
+        id: messagesModel
     }
 
     SilicaListView {
@@ -85,11 +90,97 @@ Page {
             }
             MenuItem {
                 text: qsTr("Refresh")
+                onClicked: sailreadsManager.loadMessages(messagesModel.folder)
             }
         }
 
         header: PageHeader {
-            title: messagesFolder.name
+            title: "Messages: %1".arg(messagesFolder.name)
+        }
+
+        model: messagesModel
+        cacheBuffer: messagesPage.height
+        ViewPlaceholder {
+            enabled: !sailreadsManager.busy && messagesView.count === 0
+            text: qsTr("There are no messages in this folder. Pull down to refresh")
+        }
+
+        function fetchMoreIfNeeded() {
+            if (!messagesPage.busy &&
+                    messagesModel.hasMore &&
+                    indexAt(contentX, contentY + height) > messagesModel.rowCount() - 2) {
+                messagesModel.fetchMoreContent()
+            }
+        }
+
+        onContentYChanged: fetchMoreIfNeeded()
+
+        RemorseItem { id: remorse }
+
+        delegate: ListItem {
+            id: listItem
+
+            width: parent.width
+            contentHeight: column.height + separator.height + Theme.paddingMedium
+            clip: true
+
+            Column {
+                id: column
+                anchors {
+                    left: parent.left
+                    leftMargin: Theme.horizontalPageMargin
+                    right: parent.right
+                    rightMargin: Theme.horizontalPageMargin
+                }
+                PosterHeaderItem {
+                    width: parent.width
+                    posterAvatar: messageFromUser.avatarUrl
+                    posterName: messageFromUser.userName
+                    postDate: Qt.formatDateTime(messageCreateDate)
+                    onClicked: pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
+                            { userId: messageFromUser.id })
+                }
+                Label {
+                    text: messageSubject
+                    width: parent.width
+                    wrapMode: Text.WordWrap
+                    font.bold: !messageRead
+                    textFormat: Text.StyledText
+                    linkColor: Theme.highlightColor
+                    onLinkActivated: Qt.openUrlExternally(link)
+                }
+            }
+
+            menu: ContextMenu {
+                MenuItem {
+                    text: !messageRead ? qsTr("Mark as read") : qsTr("Mark as unread")
+                    onClicked: !messageRead ?
+                           sailreadsManager.markMessageAsRead(messageId) :
+                           sailreadsManager.markMessageAsUnread(messageId)
+                }
+                MenuItem {
+                    text: qsTr("Delete")
+                    visible: sailreadsManager.authUser && messageFromUser &&
+                            messageFromUser.id === sailreadsManager.authUser.id
+                    onClicked: remorse.execute(listItem, qsTr("Deleting"), function() {
+                            sailreadsManager.deleteMessage(messageId)
+                            })
+                }
+            }
+
+            Separator {
+                id: separator
+                anchors {
+                    top: column.bottom
+                    topMargin: Theme.paddingMedium
+                }
+
+                width: parent.width
+                color: Theme.primaryColor
+                horizontalAlignment: Qt.AlignHCenter
+            }
+
+            onClicked: pageStack.push(Qt.resolvedUrl("MessagePage.qml"), { message: messageMessage })
         }
 
         VerticalScrollDecorator{}

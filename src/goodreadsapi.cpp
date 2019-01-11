@@ -138,11 +138,50 @@ void GoodReadsApi::GetNotifications(const QString& nextPageToken)
 void GoodReadsApi::GetMessages(const QString& folder, int page)
 {
     QNetworkReply *reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
-            QUrl(m_BaseUrl + QString("/message/%1").arg(folder)),
+            QUrl(m_BaseUrl + QString("/message/%1.xml").arg(folder)),
             { { "format", "xml" }, { "page", page } });
     m_CurrentReply = reply;
     connect(reply, &QNetworkReply::finished,
             this, [this]() { handleGetMessages(); });
+}
+
+void GoodReadsApi::GetMessage(quint64 messageId)
+{
+    QNetworkReply *reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + QString("/message/show/%1").arg(messageId)),
+            { { "format", "xml" } });
+    m_CurrentReply = reply;
+    connect(reply, &QNetworkReply::finished,
+            this, [this]() { handleGetMessage(); });
+}
+
+void GoodReadsApi::MarkMessageAsRead(quint64 messageId)
+{
+    QNetworkReply *reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + QString("/message/show/%1").arg(messageId)),
+            { { "format", "xml" } });
+    m_CurrentReply = reply;
+    connect(reply, &QNetworkReply::finished,
+            this, [this]() { handleMarkMessageAsRead(); });
+}
+
+void GoodReadsApi::MarkMessageAsUnread(quint64 messageId)
+{
+    QNetworkReply *reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + QString("/message/mark_as_unread?messages[%1]=%1").arg(messageId)),
+            {});
+    m_CurrentReply = reply;
+    connect(reply, &QNetworkReply::finished,
+            this, [this, messageId]() { handleMarkMessageAsUnread(messageId); });
+}
+
+void GoodReadsApi::DeleteMessage(quint64 messageId)
+{
+    QNetworkReply *reply = m_OAuth1->Post(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + QString("/message/destroy/%1?format=xml").arg(messageId)), {});
+    m_CurrentReply = reply;
+    connect(reply, &QNetworkReply::finished,
+            this, [this, messageId]() { handleDeleteMessage(messageId); });
 }
 
 void GoodReadsApi::GetBookShelves(quint64 userId, int page)
@@ -890,8 +929,30 @@ void GoodReadsApi::handleGetMessages()
     }
 
     emit requestFinished();
-    //TODO
-    qDebug() << doc.toByteArray();
+    QXmlQuery query;
+    query.setFocus(doc.toByteArray());
+    const QString folder(GetQueryResult(query, "/GoodreadsResponse/message_folder/folder_name/text()"));
+    emit gotMessages(folder, RpcUtils::Parser::ParseMessages(doc));
+}
+
+void GoodReadsApi::handleGetMessage()
+{
+
+}
+
+void GoodReadsApi::handleMarkMessageAsRead()
+{
+
+}
+
+void GoodReadsApi::handleMarkMessageAsUnread(quint64 messageId)
+{
+
+}
+
+void GoodReadsApi::handleDeleteMessage(quint64 messageId)
+{
+
 }
 
 void GoodReadsApi::handleGetBookShelves(quint64 userId)

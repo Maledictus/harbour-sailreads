@@ -1016,7 +1016,7 @@ MessagePtr ParseMessage(const QDomElement& element)
             message->SetUpdateDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
                     Qt::ISODate));
         }
-        else if (fieldElement.tagName() == "read_at") {
+        else if (fieldElement.tagName() == "read_at" && !fieldElement.text().isEmpty()) {
             message->SetReadDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
                     Qt::ISODate));
         }

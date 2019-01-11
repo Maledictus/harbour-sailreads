@@ -37,6 +37,7 @@ THE SOFTWARE.
 #include "models/baseproxymodel.h"
 #include "models/bookshelvesmodel.h"
 #include "models/bookeditionsmodel.h"
+#include "models/messagesmodel.h"
 #include "models/topiccommentsmodel.h"
 #include "models/reviewcommentsmodel.h"
 #include "models/friendsmodel.h"
@@ -181,6 +182,7 @@ void Application::start()
     qmlRegisterType<FriendsModel>("harbour.sailreads", 1, 0, "FriendsModel");
     qmlRegisterType<FollowersModel>("harbour.sailreads", 1, 0, "FollowersModel");
     qmlRegisterType<FollowingsModel>("harbour.sailreads", 1, 0, "FollowingsModel");
+    qmlRegisterType<MessagesModel>("harbour.sailreads", 1, 0, "MessagesModel");
     qmlRegisterType<UserGroupsModel>("harbour.sailreads", 1, 0, "UserGroupsModel");
     qmlRegisterType<FoundGroupsModel>("harbour.sailreads", 1, 0, "FoundGroupsModel");
     qmlRegisterType<GroupFoldersModel>("harbour.sailreads", 1, 0, "GroupFoldersModel");

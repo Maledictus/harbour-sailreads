@@ -87,7 +87,12 @@ public slots:
     void loadUpdates();
     void loadUserFollowings(quint64 userId, int page = 1);
     void loadUserFollowers(quint64 userId, int page = 1);
+
     void loadMessages(const QString& folder, int page = 1);
+    void loadMessage(quint64 messageId);
+    void markMessageAsRead(quint64 messageId);
+    void markMessageAsUnread(quint64 messageId);
+    void deleteMessage(quint64 messageId);
 
     void loadBookShelves(quint64 id, int page = 1);
     void addBookShelf(const QString& name, bool exclusive, bool sortable, bool featured,
@@ -140,6 +145,8 @@ signals:
 
     void gotAuthUserId(quint64 authUserId);
     void gotUserProfile(const UserPtr& userProfile);
+
+    void gotMessages(const QString& folder, const CountedItems<MessagePtr>& messages);
 
     void gotUserBookShelves(quint64 userId, const CountedItems<BookShelf>& shelves);
     void bookShelfAdded(const BookShelf& shelf);

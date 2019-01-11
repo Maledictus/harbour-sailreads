@@ -124,6 +124,9 @@ void SailreadsManager::MakeConnections()
                 items.m_Count = items.m_Items.size();
                 emit gotUserBookShelves(profile->GetId(), items);
             });
+    connect(m_Api, &GoodReadsApi::gotMessages,
+            this, &SailreadsManager::gotMessages);
+
     connect(m_Api, &GoodReadsApi::gotUserBookShelves,
             this, &SailreadsManager::gotUserBookShelves);
     connect(m_Api, &GoodReadsApi::bookShelfAdded,
@@ -283,6 +286,30 @@ void SailreadsManager::loadMessages(const QString& folder, int page)
 {
     SetBusy(true);
     m_Api->GetMessages(folder, page);
+}
+
+void SailreadsManager::loadMessage(quint64 messageId)
+{
+    SetBusy(true);
+    m_Api->GetMessage(messageId);
+}
+
+void SailreadsManager::markMessageAsRead(quint64 messageId)
+{
+    SetBusy(true);
+    m_Api->MarkMessageAsRead(messageId);
+}
+
+void SailreadsManager::markMessageAsUnread(quint64 messageId)
+{
+    SetBusy(true);
+    m_Api->MarkMessageAsUnread(messageId);
+}
+
+void SailreadsManager::deleteMessage(quint64 messageId)
+{
+    SetBusy(true);
+    m_Api->DeleteMessage(messageId);
 }
 
 void SailreadsManager::loadBookShelves(quint64 id, int page)
