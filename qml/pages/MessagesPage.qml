@@ -152,19 +152,11 @@ Page {
             }
 
             menu: ContextMenu {
+                enabled: !messageRead
                 MenuItem {
-                    text: !messageRead ? qsTr("Mark as read") : qsTr("Mark as unread")
-                    onClicked: !messageRead ?
-                           sailreadsManager.markMessageAsRead(messageId) :
-                           sailreadsManager.markMessageAsUnread(messageId)
-                }
-                MenuItem {
-                    text: qsTr("Delete")
-                    visible: sailreadsManager.authUser && messageFromUser &&
-                            messageFromUser.id === sailreadsManager.authUser.id
-                    onClicked: remorse.execute(listItem, qsTr("Deleting"), function() {
-                            sailreadsManager.deleteMessage(messageId)
-                            })
+                    visible: !messageRead
+                    text: qsTr("Mark as read")
+                    onClicked: sailreadsManager.markMessageAsRead(messageId)
                 }
             }
 

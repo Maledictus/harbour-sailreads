@@ -775,23 +775,8 @@ Pull down to refresh or to search groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MessagesPage.qml" line="156"/>
+        <location filename="../qml/pages/MessagesPage.qml" line="158"/>
         <source>Mark as read</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/MessagesPage.qml" line="156"/>
-        <source>Mark as unread</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/MessagesPage.qml" line="162"/>
-        <source>Delete</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/MessagesPage.qml" line="165"/>
-        <source>Deleting</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -939,17 +924,17 @@ Pull down to refresh or to search groups</source>
 <context>
     <name>Sailreads::SailreadsManager</name>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="224"/>
+        <location filename="../src/sailreadsmanager.cpp" line="226"/>
         <source>Authorization user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="242"/>
+        <location filename="../src/sailreadsmanager.cpp" line="244"/>
         <source>Authentication user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="263"/>
+        <location filename="../src/sailreadsmanager.cpp" line="265"/>
         <source>Getting user profile...</source>
         <translation type="unfinished"></translation>
     </message>

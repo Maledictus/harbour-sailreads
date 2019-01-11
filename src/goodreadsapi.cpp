@@ -165,25 +165,6 @@ void GoodReadsApi::MarkMessageAsRead(quint64 messageId)
             this, [this]() { handleMarkMessageAsRead(); });
 }
 
-void GoodReadsApi::MarkMessageAsUnread(quint64 messageId)
-{
-    QNetworkReply *reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
-            QUrl(m_BaseUrl + QString("/message/mark_as_unread?messages[%1]=%1").arg(messageId)),
-            {});
-    m_CurrentReply = reply;
-    connect(reply, &QNetworkReply::finished,
-            this, [this, messageId]() { handleMarkMessageAsUnread(messageId); });
-}
-
-void GoodReadsApi::DeleteMessage(quint64 messageId)
-{
-    QNetworkReply *reply = m_OAuth1->Post(m_AccessToken, m_AccessTokenSecret,
-            QUrl(m_BaseUrl + QString("/message/destroy/%1?format=xml").arg(messageId)), {});
-    m_CurrentReply = reply;
-    connect(reply, &QNetworkReply::finished,
-            this, [this, messageId]() { handleDeleteMessage(messageId); });
-}
-
 void GoodReadsApi::GetBookShelves(quint64 userId, int page)
 {
     QNetworkReply *reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
@@ -937,22 +918,28 @@ void GoodReadsApi::handleGetMessages()
 
 void GoodReadsApi::handleGetMessage()
 {
+    bool ok = false;
+    auto doc = GetDocumentFromReply(sender(), ok);
+    if (!ok) {
+        emit requestFinished();
+        return;
+    }
 
+    emit requestFinished();
+    emit gotMessage(RpcUtils::Parser::ParseMessage(doc));
 }
 
 void GoodReadsApi::handleMarkMessageAsRead()
 {
+    bool ok = false;
+    auto doc = GetDocumentFromReply(sender(), ok);
+    if (!ok) {
+        emit requestFinished();
+        return;
+    }
 
-}
-
-void GoodReadsApi::handleMarkMessageAsUnread(quint64 messageId)
-{
-
-}
-
-void GoodReadsApi::handleDeleteMessage(quint64 messageId)
-{
-
+    emit requestFinished();
+    emit gotMessage(RpcUtils::Parser::ParseMessage(doc));
 }
 
 void GoodReadsApi::handleGetBookShelves(quint64 userId)

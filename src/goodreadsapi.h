@@ -89,8 +89,6 @@ public:
     void GetMessages(const QString& folder, int page);
     void GetMessage(quint64 messageId);
     void MarkMessageAsRead(quint64 messageId);
-    void MarkMessageAsUnread(quint64 messageId);
-    void DeleteMessage(quint64 messageId);
 
     void GetBookShelves(quint64 userId, int page = 1);
     void AddBookShelf(const QString& name, bool exclusive, bool sortable, bool featured,
@@ -177,8 +175,6 @@ private slots:
     void handleGetMessages();
     void handleGetMessage();
     void handleMarkMessageAsRead();
-    void handleMarkMessageAsUnread(quint64 messageId);
-    void handleDeleteMessage(quint64 messageId);
 
     void handleGetBookShelves(quint64 userId);
     void handleAddBookShelf();
@@ -253,7 +249,9 @@ signals:
 
     void gotNotifications(const QString& nextPageToken,
             const CountedItems<NotificationPtr>& notifications);
+
     void gotMessages(const QString& folder, const CountedItems<MessagePtr>& messages);
+    void gotMessage(const MessagePtr& message);
 
     void gotUserBookShelves(quint64 userId, const CountedItems<BookShelf>& shelves);
     void bookShelfAdded(const BookShelf& shelf);

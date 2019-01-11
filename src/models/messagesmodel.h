@@ -72,6 +72,7 @@ public slots:
 
 private slots:
     void handleGotMessages(const QString& folder, const CountedItems<MessagePtr>& messages);
+    void handleGotMessage(const MessagePtr& message);
 
 signals:
     void folderChanged();

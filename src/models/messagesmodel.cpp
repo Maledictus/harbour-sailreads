@@ -35,6 +35,8 @@ MessagesModel::MessagesModel(QObject *parent)
 {
     connect(SailreadsManager::Instance(), &SailreadsManager::gotMessages,
             this, &MessagesModel::handleGotMessages);
+    connect(SailreadsManager::Instance(), &SailreadsManager::gotMessage,
+            this, &MessagesModel::handleGotMessage);
 }
 
 QString MessagesModel::GetFolder() const
@@ -157,6 +159,23 @@ void MessagesModel::handleGotMessages(const QString& folder, const CountedItems<
     SetHasMore(messages.m_EndIndex != messages.m_Count);
     if (m_HasMore) {
         ++m_CurrentPage;
+    }
+}
+
+void MessagesModel::handleGotMessage(const MessagePtr& message)
+{
+    auto it = std::find_if(m_Items.begin(), m_Items.end(),
+            [message](decltype(m_Items.front()) item) {
+                return item->GetId() == message->GetId();
+            });
+    if (it != m_Items.end()) {
+        (*it)->SetUpdateDate(message->GetUpdateDate());
+        (*it)->SetReadDate(message->GetReadDate());
+        (*it)->SetNextMessageId(message->GetNextMessageId());
+        (*it)->SetPreviousMessageId(message->GetPreviousMessageId());
+        const int pos = std::distance(m_Items.begin(), it);
+        emit dataChanged(index(pos), index(pos),
+                { UpdateDate, ReadDate, NextMessageId, PreviousMessageId, IsRead, Message });
     }
 }
 } // namespace Sailreads

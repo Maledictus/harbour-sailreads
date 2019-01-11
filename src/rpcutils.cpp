@@ -1573,11 +1573,6 @@ CountedItems<BookPtr> ParseBookEditions(const QDomDocument &doc)
 
 CountedItems<MessagePtr> ParseMessages(const QDomDocument& doc)
 {
-//    <message_folder>
-//      <folder_name>inbox</folder_name>
-//      <folder_title>my inbox</folder_title>
-//      <messages end='20' start='1' total='26'>
-//        <message>
     const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
     if (responseElement.isNull()) {
         return CountedItems<MessagePtr>();
@@ -1594,6 +1589,38 @@ CountedItems<MessagePtr> ParseMessages(const QDomDocument& doc)
     }
 
     return ParseMessages(messagesElement);
+}
+
+MessagePtr ParseMessage(const QDomDocument& doc)
+{
+    MessagePtr message;
+    const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
+    if (responseElement.isNull()) {
+        return message;
+    }
+
+    const auto& messageShowElement = responseElement.firstChildElement("message_show");
+    if (messageShowElement.isNull()) {
+        return message;
+    }
+
+    const auto& messageElement = messageShowElement.firstChildElement("message");
+    if (messageElement.isNull()) {
+        return message;
+    }
+
+    message = ParseMessage(messageElement);
+    if (!message) {
+        return message;
+    }
+    const auto& messageHistoryElement = messageShowElement.firstChildElement("message_history");
+    if (messageHistoryElement.isNull()) {
+        return message;
+    }
+
+    Messages_t messageHistory = ParseMessagesList(messageHistoryElement);
+    message->SetMessageHistory(messageHistory);
+    return message;
 }
 
 }
