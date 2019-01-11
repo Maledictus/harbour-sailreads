@@ -1620,6 +1620,14 @@ MessagePtr ParseMessage(const QDomDocument& doc)
 
     Messages_t messageHistory = ParseMessagesList(messageHistoryElement);
     message->SetMessageHistory(messageHistory);
+    auto nextMessageElement = messageShowElement.firstChildElement("next_message");
+    auto prevMessageElement = messageShowElement.firstChildElement("previous_message");
+    if (!nextMessageElement.text().isEmpty()) {
+        message->SetNextMessageId(nextMessageElement.text().toULongLong());
+    }
+    if (!prevMessageElement.text().isEmpty()) {
+        message->SetPreviousMessageId(prevMessageElement.text().toULongLong());
+    }
     return message;
 }
 

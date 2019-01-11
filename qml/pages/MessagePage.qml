@@ -31,7 +31,8 @@ Page {
     id: messagePage
 
     property bool busy: sailreadsManager.busy && messagePage.status === PageStatus.Active
-    property var message
+    property alias messageId: messageItem.messageId
+    property alias message: messageItem.message
 
     function attachPage() {
         if (pageStack._currentContainer.attachedContainer === null
@@ -40,8 +41,135 @@ Page {
         }
     }
 
+    MessageItem {
+        id: messageItem
+    }
+
+    SilicaListView {
+        id: messageHistoryView
+        anchors.fill: parent
+        cacheBuffer: messagePage.height
+
+        PullDownMenu {
+            MenuItem {
+                text: qsTr("Refresh")
+                onClicked: {
+                    messageItem.updateMessage()
+                }
+            }
+        }
+
+        header: Item {
+            width: messageHistoryView.width
+            height: messageBox.height
+        }
+
+        model: message ? message.messageHistory : []
+
+        delegate: ListItem {
+            id: listItem
+
+            width: parent.width
+            contentHeight: column.height + separator.height + Theme.paddingMedium
+            clip: true
+
+            Column {
+                id: column
+                anchors {
+                    left: parent.left
+                    leftMargin: Theme.horizontalPageMargin
+                    right: parent.right
+                    rightMargin: Theme.horizontalPageMargin
+                }
+                PosterHeaderItem {
+                    width: parent.width
+                    posterAvatar: modelData.fromUser.avatarUrl
+                    posterName: modelData.fromUser.userName
+                    postDate: Qt.formatDateTime(modelData.createDate)
+                    onClicked: pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
+                            { userId: modelData.fromUser.id })
+                }
+                Label {
+                    text: modelData.subject
+                    width: parent.width
+                    wrapMode: Text.WordWrap
+                    font.bold: !modelData.isRead
+                    textFormat: Text.StyledText
+                    linkColor: Theme.highlightColor
+                    onLinkActivated: Qt.openUrlExternally(link)
+                }
+            }
+
+            Separator {
+                id: separator
+                anchors {
+                    top: column.bottom
+                    topMargin: Theme.paddingMedium
+                }
+
+                width: parent.width
+                color: Theme.primaryColor
+                horizontalAlignment: Qt.AlignHCenter
+            }
+
+            onClicked: pageStack.push(Qt.resolvedUrl("MessagePage.qml"),
+                    { message: modelData, messageId: modelData.id })
+        }
+
+        VerticalScrollDecorator {}
+    }
+
     Component.onDestruction: {
         sailreadsManager.abortRequest()
+    }
+
+    Column {
+        id: messageBox
+        parent: messageHistoryView.headerItem ? messageHistoryView.headerItem : messagePage
+        width: parent.width
+
+        spacing: Theme.paddingMedium
+
+        PageHeader {
+            title: message ? message.subject : qsTr("Message")
+        }
+
+        Column {
+            anchors {
+                left: parent.left
+                leftMargin: Theme.horizontalPageMargin
+                right: parent.right
+                rightMargin: Theme.horizontalPageMargin
+            }
+
+            PosterHeaderItem {
+                width: parent.width
+                height: Theme.itemSizeMedium
+                posterAvatar: message ? message.fromUser.avatarUrl : ""
+                posterName: message ?  message.fromUser.userName : ""
+                postDate: message ? Qt.formatDateTime(message.createDate) : ""
+                onClicked: {
+                    if (!message) {
+                        return
+                    }
+
+                    pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
+                        { userId: message.fromUser.id })
+                }
+            }
+
+            Label {
+                text: message ? message.body : ""
+                width: parent.width
+                wrapMode: Text.WordWrap
+                textFormat: Text.StyledText
+                linkColor: Theme.highlightColor
+            }
+
+            SectionHeader {
+                text: qsTr("Message History")
+            }
+        }
     }
 
     BusyIndicator {

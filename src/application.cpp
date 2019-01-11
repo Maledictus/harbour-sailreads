@@ -52,6 +52,7 @@ THE SOFTWARE.
 #include "objects/author.h"
 #include "objects/book.h"
 #include "objects/group.h"
+#include "objects/message.h"
 #include "objects/review.h"
 #include "objects/series.h"
 #include "objects/serieswork.h"
@@ -62,6 +63,7 @@ THE SOFTWARE.
 #include "qmltypes/authorprofileitem.h"
 #include "qmltypes/bookitem.h"
 #include "qmltypes/groupitem.h"
+#include "qmltypes/messageitem.h"
 #include "qmltypes/reviewitem.h"
 #include "qmltypes/seriesitem.h"
 #include "qmltypes/topicitem.h"
@@ -166,6 +168,7 @@ void Application::start()
     qRegisterMetaType<Author*>("Author*");
     qRegisterMetaType<Book*>("Book*");
     qRegisterMetaType<Group*>("Group*");
+    qRegisterMetaType<Message*>("Message*");
     qRegisterMetaType<Review*>("Review*");
     qRegisterMetaType<Series*>("Series*");
     qRegisterMetaType<SeriesWork*>("SeriesWork*");
@@ -199,6 +202,7 @@ void Application::start()
     qmlRegisterType<AuthorProfileItem>("harbour.sailreads", 1, 0, "AuthorProfileItem");
     qmlRegisterType<User>("harbour.sailreads", 1, 0, "User");
     qmlRegisterType<ReviewItem>("harbour.sailreads", 1, 0, "ReviewItem");
+    qmlRegisterType<MessageItem>("harbour.sailreads", 1, 0, "MessageItem");
 
     ShowUI();
 }

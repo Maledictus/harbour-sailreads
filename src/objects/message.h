@@ -48,6 +48,21 @@ class Message : public QObject
     quint64 m_NextMessageId;
     quint64 m_PreviousMessageId;
 
+    Q_PROPERTY(quint64 id READ GetId NOTIFY idChanged)
+    Q_PROPERTY(QDateTime createDate READ GetCreateDate NOTIFY createDateChanged)
+    Q_PROPERTY(QDateTime updateDate READ GetUpdateDate NOTIFY updateDateChanged)
+    Q_PROPERTY(QDateTime readDate READ GetReadDate NOTIFY readDateChanged)
+    Q_PROPERTY(QString folder READ GetFolder NOTIFY folderChanged)
+    Q_PROPERTY(quint64 parentMessageId READ GetParentMessageId NOTIFY parentMessageIdChanged)
+    Q_PROPERTY(QString subject READ GetSubject NOTIFY subjectChanged)
+    Q_PROPERTY(QString body READ GetBody NOTIFY bodyChanged)
+    Q_PROPERTY(User* fromUser READ GetFromUser NOTIFY fromUserChanged)
+    Q_PROPERTY(User* toUser READ GetToUser NOTIFY toUserChanged)
+    Q_PROPERTY(QObjectList messageHistory READ GetMessageHistory NOTIFY messageHistoryChanged)
+    Q_PROPERTY(quint64 nextMessageId READ GetNextMessageId NOTIFY nextMessageIdChanged)
+    Q_PROPERTY(quint64 previousMessageId READ GetPreviousMessageId NOTIFY previousMessageIdChanged)
+    Q_PROPERTY(bool isRead READ GetIsRead NOTIFY isReadChanged)
+
 public:
     Message(QObject *parent = nullptr);
 
@@ -73,12 +88,34 @@ public:
     UserPtr GetToUserPtr() const;
     User* GetToUser() const;
     void SetToUser(const UserPtr& user);
-    Messages_t GetMessageHistory() const;
+    Messages_t GetMessageHistoryPtr() const;
+    QObjectList GetMessageHistory() const;
     void SetMessageHistory(const Messages_t& messages);
     quint64 GetNextMessageId() const;
     void SetNextMessageId(quint64 messageId);
     quint64 GetPreviousMessageId() const;
     void SetPreviousMessageId(quint64 messageId);
+    bool GetIsRead() const;
+
+    void Update(Message *newMessage);
+    void Update(const MessagePtr& newMessage);
+
+
+signals:
+    void idChanged();
+    void createDateChanged();
+    void updateDateChanged();
+    void readDateChanged();
+    void folderChanged();
+    void parentMessageIdChanged();
+    void subjectChanged();
+    void bodyChanged();
+    void fromUserChanged();
+    void toUserChanged();
+    void messageHistoryChanged();
+    void nextMessageIdChanged();
+    void previousMessageIdChanged();
+    void isReadChanged();
 };
 
 } // namespace Sailreads

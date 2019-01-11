@@ -172,7 +172,8 @@ Page {
                 horizontalAlignment: Qt.AlignHCenter
             }
 
-            onClicked: pageStack.push(Qt.resolvedUrl("MessagePage.qml"), { message: messageMessage })
+            onClicked: pageStack.push(Qt.resolvedUrl("MessagePage.qml"),
+                    { message: messageMessage, messageId: messageId })
         }
 
         VerticalScrollDecorator{}

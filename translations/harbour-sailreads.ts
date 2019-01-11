@@ -722,6 +722,24 @@ Pull down to refresh or to search groups</source>
     </message>
 </context>
 <context>
+    <name>MessagePage</name>
+    <message>
+        <location filename="../qml/pages/MessagePage.qml" line="55"/>
+        <source>Refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MessagePage.qml" line="134"/>
+        <source>Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MessagePage.qml" line="170"/>
+        <source>Message History</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>MessagesFolder</name>
     <message>
         <location filename="../qml/components/MessagesFolder.qml" line="28"/>
@@ -911,12 +929,12 @@ Pull down to refresh or to search groups</source>
 <context>
     <name>Sailreads::Application</name>
     <message>
-        <location filename="../src/application.cpp" line="138"/>
+        <location filename="../src/application.cpp" line="140"/>
         <source>Authorized</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="138"/>
+        <location filename="../src/application.cpp" line="140"/>
         <source>Not authorized</source>
         <translation type="unfinished"></translation>
     </message>

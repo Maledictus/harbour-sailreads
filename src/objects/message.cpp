@@ -143,9 +143,18 @@ void Message::SetToUser(const UserPtr& user)
     m_ToUser = user;
 }
 
-Messages_t Message::GetMessageHistory() const
+Messages_t Message::GetMessageHistoryPtr() const
 {
     return m_MessageHistory;
+}
+
+QObjectList Message::GetMessageHistory() const
+{
+    QObjectList objList;
+    for (const auto& message : m_MessageHistory) {
+        objList << message.get();
+    }
+    return objList;
 }
 
 void Message::SetMessageHistory(const Messages_t& messages)
@@ -171,6 +180,41 @@ quint64 Message::GetPreviousMessageId() const
 void Message::SetPreviousMessageId(quint64 messageId)
 {
     m_PreviousMessageId = messageId;
+}
+
+bool Message::GetIsRead() const
+{
+    return !m_ReadDate.isNull();
+}
+
+void Message::Update(Message *newMessage)
+{
+    if (!newMessage) {
+        return;
+    }
+
+    SetId(newMessage->GetId());
+    SetCreateDate(newMessage->GetCreateDate());
+    SetUpdateDate(newMessage->GetUpdateDate());
+    SetReadDate(newMessage->GetReadDate());
+    SetFolder(newMessage->GetFolder());
+    SetParentMessageId(newMessage->GetParentMessageId());
+    SetSubject(newMessage->GetSubject());
+    SetBody(newMessage->GetBody());
+    SetFromUser(newMessage->GetFromUserPtr());
+    SetToUser(newMessage->GetToUserPtr());
+    SetNextMessageId(newMessage->GetNextMessageId());
+    SetPreviousMessageId(newMessage->GetPreviousMessageId());
+}
+
+void Message::Update(const MessagePtr& newMessage)
+{
+    if (!newMessage) {
+        return;
+    }
+
+    Update(newMessage.get());
+    SetMessageHistory(newMessage->GetMessageHistoryPtr());
 }
 
 } // namespace Sailreads
