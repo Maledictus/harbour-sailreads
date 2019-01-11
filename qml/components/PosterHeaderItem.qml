@@ -52,6 +52,7 @@ MouseArea {
             }
         }
         indicator.size: BusyIndicatorSize.Small
+        enabled: false
     }
 
     Label {
