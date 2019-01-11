@@ -40,6 +40,7 @@ Image {
 
     MouseArea {
         anchors.fill: parent
+        enabled: image.enabled
         onClicked: image.clicked()
     }
 
