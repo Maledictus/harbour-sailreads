@@ -128,6 +128,8 @@ void SailreadsManager::MakeConnections()
             this, &SailreadsManager::gotMessages);
     connect(m_Api, &GoodReadsApi::gotMessage,
             this, &SailreadsManager::gotMessage);
+    connect(m_Api, &GoodReadsApi::gotNotifications,
+            this, &SailreadsManager::gotNotifications);
 
     connect(m_Api, &GoodReadsApi::gotUserBookShelves,
             this, &SailreadsManager::gotUserBookShelves);
@@ -300,6 +302,12 @@ void SailreadsManager::markMessageAsRead(quint64 messageId)
 {
     SetBusy(true);
     m_Api->MarkMessageAsRead(messageId);
+}
+
+void SailreadsManager::loadNotifications(const QString& pageToken)
+{
+    SetBusy(true);
+    m_Api->GetNotifications(pageToken);
 }
 
 void SailreadsManager::loadBookShelves(quint64 id, int page)

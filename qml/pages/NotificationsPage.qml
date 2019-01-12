@@ -24,6 +24,8 @@ THE SOFTWARE.
 
 import QtQuick 2.2
 import Sailfish.Silica 1.0
+import harbour.sailreads 1.0
+import "../components"
 
 Page {
     id: notificationsPage
@@ -41,6 +43,10 @@ Page {
         sailreadsManager.abortRequest()
     }
 
+    NotificationsModel {
+        id: notificationsModel
+    }
+
     SilicaListView {
         id: notificationsView
         anchors.fill: parent
@@ -49,6 +55,97 @@ Page {
         PullDownMenu {
             MenuItem {
                 text: qsTr("Refresh")
+                onClicked: notificationsModel.updateNotifications()
+            }
+        }
+
+        header: PageHeader {
+            title: qsTr("Notifications")
+        }
+
+        model: notificationsModel
+        cacheBuffer: notificationsPage.height
+
+        ViewPlaceholder {
+            enabled: !sailreadsManager.busy && notificationsView.count === 0
+            text: qsTr("There are no notifications. Pull down to refresh")
+        }
+
+        function fetchMoreIfNeeded() {
+            if (!notificationsPage.busy &&
+                    notificationsModel.hasMore &&
+                    indexAt(contentX, contentY + height) > notificationsModel.rowCount() - 2) {
+                notificationsModel.fetchMoreContent()
+            }
+        }
+
+        onContentYChanged: fetchMoreIfNeeded()
+
+        delegate: ListItem {
+            id: listItem
+
+            contentHeight: row.height + separator.height + Theme.paddingMedium
+            clip: true
+
+            Row {
+                id: row
+                height: Math.max(firstActorAvatar.height, column.height)
+                anchors {
+                    left: parent.left
+                    leftMargin: Theme.horizontalPageMargin
+                    right: parent.right
+                    rightMargin: Theme.horizontalPageMargin
+                }
+
+                spacing: Theme.paddingMedium
+
+                BaseImage {
+                    id: firstActorAvatar
+                    anchors {
+                        top: parent.top
+                        topMargin: Theme.paddingSmall
+                    }
+
+                    width: Theme.iconSizeMedium
+                    height: Theme.iconSizeMedium
+                    fillMode: Image.PreserveAspectFit
+                    source: notificationActors.length > 0 ? notificationActors[0].avatarUrl : ""
+                    indicator.size: BusyIndicatorSize.Small
+                    enabled: false
+                }
+
+                Column {
+                    id: column
+                    width: parent.width - firstActorAvatar.width
+                    Label {
+                        width: parent.width
+                        wrapMode: Text.WordWrap
+                        font.bold: notificationIsNew
+                        textFormat: Text.StyledText
+                        linkColor: Theme.highlightColor
+                        text: notificationPlainText
+                        onLinkActivated: Qt.openUrlExternally(link)
+                        color: highlighted ? Theme.highlightColor : Theme.primaryColor
+                    }
+                    Label {
+                        anchors.right: parent.right
+                        font.pixelSize: Theme.fontSizeTiny
+                        text: Qt.formatDateTime(notificationCreateDate)
+                        color: highlighted ? Theme.highlightColor : Theme.primaryColor
+                    }
+                }
+            }
+
+            Separator {
+                id: separator
+                anchors {
+                    top: row.bottom
+                    topMargin: Theme.paddingMedium
+                }
+
+                width: parent.width
+                color: Theme.primaryColor
+                horizontalAlignment: Qt.AlignHCenter
             }
         }
 

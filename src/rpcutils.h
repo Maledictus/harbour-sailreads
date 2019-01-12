@@ -42,9 +42,7 @@ namespace RpcUtils
 {
 namespace Parser
 {
-//UserUpdate::Actor ParseActor(const QDomElement& element);
 UserPtr ParseUser(const QDomElement& element);
-//UserUpdate ParseUserUpdate(const QDomElement& element);
 BookShelf ParseBookShelf(const QDomElement& element);
 FavoriteAuthors_t ParseFavoriteAuthors(const QDomElement& faElement);
 GroupMember ParseGroupMember(const QDomElement& element);
@@ -61,10 +59,10 @@ WorkPtr ParseWork(const QDomElement& element);
 SeriesPtr ParseSeries(const QDomElement& element);
 SeriesWorkPtr ParseSeriesWork(const QDomElement& element);
 MessagePtr ParseMessage(const QDomElement& element);
+NotificationPtr ParseNotification(const QDomElement& element);
 
 GroupMembers_t ParseGroupMembers(const QDomElement& element);
 GroupFolders_t ParseGroupFolders(const QDomElement& element);
-//UserUpdates_t ParseUserUpdates(const QDomElement& element);
 BookShelves_t ParseBookShelves(const QDomElement& element);
 Groups_t ParseGroups(const QDomElement& element);
 Friends_t ParseFriends(const QDomElement& element);
@@ -80,7 +78,8 @@ Reviews_t ParseReviewsList(const QDomElement& element);
 Series_t ParseAuthorSeries(const QDomElement& element);
 Messages_t ParseMessagesList(const QDomElement& element);
 CountedItems<MessagePtr> ParseMessages(const QDomElement& element);
-
+Notifications_t ParseNotifications(const QDomElement& element);
+Users_t ParseUsers(const QDomElement& element);
 
 UserPtr ParseUser(const QDomDocument& doc);
 CountedItems<BookShelf> ParseBookShelves(const QDomDocument& doc);
@@ -103,6 +102,7 @@ Series_t ParseAuthorSeries(const QDomDocument& doc);
 CountedItems<BookPtr> ParseBookEditions(const QDomDocument& doc);
 CountedItems<MessagePtr> ParseMessages(const QDomDocument& doc);
 MessagePtr ParseMessage(const QDomDocument& doc);
+Notifications_t ParseNotifications(const QDomDocument& doc);
 }
 }
 }

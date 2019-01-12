@@ -729,12 +729,12 @@ Pull down to refresh or to search groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MessagePage.qml" line="134"/>
+        <location filename="../qml/pages/MessagePage.qml" line="97"/>
         <source>Message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MessagePage.qml" line="170"/>
+        <location filename="../qml/pages/MessagePage.qml" line="133"/>
         <source>Message History</source>
         <translation type="unfinished"></translation>
     </message>
@@ -793,7 +793,7 @@ Pull down to refresh or to search groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MessagesPage.qml" line="158"/>
+        <location filename="../qml/pages/MessagesPage.qml" line="131"/>
         <source>Mark as read</source>
         <translation type="unfinished"></translation>
     </message>
@@ -801,8 +801,18 @@ Pull down to refresh or to search groups</source>
 <context>
     <name>NotificationsPage</name>
     <message>
-        <location filename="../qml/pages/NotificationsPage.qml" line="51"/>
+        <location filename="../qml/pages/NotificationsPage.qml" line="57"/>
         <source>Refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/NotificationsPage.qml" line="63"/>
+        <source>Notifications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/NotificationsPage.qml" line="71"/>
+        <source>There are no notifications. Pull down to refresh</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -929,12 +939,12 @@ Pull down to refresh or to search groups</source>
 <context>
     <name>Sailreads::Application</name>
     <message>
-        <location filename="../src/application.cpp" line="140"/>
+        <location filename="../src/application.cpp" line="141"/>
         <source>Authorized</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="140"/>
+        <location filename="../src/application.cpp" line="141"/>
         <source>Not authorized</source>
         <translation type="unfinished"></translation>
     </message>
@@ -942,17 +952,17 @@ Pull down to refresh or to search groups</source>
 <context>
     <name>Sailreads::SailreadsManager</name>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="226"/>
+        <location filename="../src/sailreadsmanager.cpp" line="228"/>
         <source>Authorization user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="244"/>
+        <location filename="../src/sailreadsmanager.cpp" line="246"/>
         <source>Authentication user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="265"/>
+        <location filename="../src/sailreadsmanager.cpp" line="267"/>
         <source>Getting user profile...</source>
         <translation type="unfinished"></translation>
     </message>

@@ -57,6 +57,7 @@ struct CountedItems
 
 class User;
 typedef std::shared_ptr<User> UserPtr;
+typedef QList<UserPtr> Users_t;
 
 class Author;
 typedef std::shared_ptr<Author> AuthorPtr;

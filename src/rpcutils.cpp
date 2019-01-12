@@ -31,6 +31,7 @@ THE SOFTWARE.
 #include "objects/book.h"
 #include "objects/group.h"
 #include "objects/message.h"
+#include "objects/notification.h"
 #include "objects/review.h"
 #include "objects/series.h"
 #include "objects/serieswork.h"
@@ -61,29 +62,6 @@ QString PrepareDateTimeString(const QString& str)
     return sIso;
 }
 }
-
-//UserUpdate::Actor ParseActor(const QDomElement& element)
-//{
-//    UserUpdate::Actor actor;
-//    const auto& fieldsList = element.childNodes();
-//    for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
-//        const auto& fieldElement = fieldsList.at (i).toElement ();
-//        if (fieldElement.tagName() == "id") {
-//            actor.m_Id = fieldElement.text().toULongLong();
-//        }
-//        else if (fieldElement.tagName() == "name") {
-//            actor.m_Name = fieldElement.text();
-//        }
-//        else if (fieldElement.tagName() == "image_url") {
-//            actor.m_AvatarUrl = QUrl(fieldElement.text().trimmed());
-//        }
-//        else if (fieldElement.tagName() == "link") {
-//            actor.m_ProfileUrl = QUrl(fieldElement.text().trimmed());
-//        }
-//    }
-
-//    return actor;
-//}
 
 UserPtr ParseUser(const QDomElement& element)
 {
@@ -190,43 +168,6 @@ UserPtr ParseUser(const QDomElement& element)
      }
     return user;
 }
-
-//UserUpdate ParseUserUpdate(const QDomElement&)
-//{
-//    //TODO
-//    return UserUpdate();
-//}
-
-
-//UserUpdate::Type GetType(const QString& typeStr)
-//{
-//    if (typeStr == "readstatus") {
-//        return UserUpdate::Type::ReadStatus;
-//    }
-
-//    if (typeStr == "userstatus") {
-//        return UserUpdate::Type::UserStatus;
-//    }
-
-//    if (typeStr == "review") {
-//        return UserUpdate::Type::Review;
-//    }
-
-//    if (typeStr == "userchallenge") {
-//        return UserUpdate::Type::UserChallenge;
-//    }
-
-//    return UserUpdate::Type::NoType;
-//}
-
-//UserUpdate::ActionType GetActionType(const QString& typeStr)
-//{
-//    if (typeStr == "rating") {
-//        return UserUpdate::ActionType::Rating;
-//    }
-
-//    return UserUpdate::ActionType::NoType;
-//}
 
 BookShelf ParseBookShelf(const QDomElement& element)
 {
@@ -1043,6 +984,59 @@ MessagePtr ParseMessage(const QDomElement& element)
     return message;
 }
 
+NotificationPtr ParseNotification(const QDomElement& element)
+{
+    NotificationPtr notification = std::make_shared<Notification>();
+    const auto& fieldsList = element.childNodes();
+    for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
+        const auto& fieldElement = fieldsList.at (i).toElement ();
+        if (fieldElement.tagName() == "actors") {
+            notification->SetActors(ParseUsers(fieldElement));
+        }
+        else if (fieldElement.tagName() == "new") {
+            notification->SetIsNew(fieldElement.text() == "true");
+        }
+        else if (fieldElement.tagName() == "created_at") {
+            notification->SetCreateDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
+                    Qt::ISODate));
+        }
+        else if (fieldElement.tagName() == "body") {
+            const auto& bodyList = fieldElement.childNodes();
+            for (int i = 0, bodyListCount = bodyList.size(); i < bodyListCount; ++i) {
+                const auto& bodyElement = bodyList.at (i).toElement ();
+                if (bodyElement.tagName() == "html") {
+                    notification->SetHtmlTextBody(bodyElement.text());
+                }
+                else if (bodyElement.tagName() == "text") {
+                    notification->SetPlainTextBody(bodyElement.text());
+                }
+            }
+        }
+        else if (fieldElement.tagName() == "url") {
+            notification->SetUrl(QUrl(fieldElement.text()));
+        }
+        else if (fieldElement.tagName() == "resource_type") {
+            //Comment, DeletedComment, Rating, Poll, ChoiceAwardsResultsAnnouncement,
+            //Rating, Friend, ChoiceAwardsFinalRoundAnnouncement, Comment, Challenge,
+            //Rating, Giveaway, Recommendation
+            notification->SetResourceType(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "group_resource_type") {
+            //Topic, Review, Poll, ChoiceAwardsResultsAnnouncement,
+            //Friend, Friend, ChoiceAwardsFinalRoundAnnouncement, Blog, Challenge,
+            //UserChallenge, Giveaway, Recommendation
+            notification->SetGroupResourceType(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "group_resource") {
+            //topic, review, poll, "",
+            //friend, friend, "", blog, challenge,
+            //user_challenge, giveaway, recommendation
+        }
+    }
+
+    return notification;
+}
+
 GroupMembers_t ParseGroupMembers(const QDomElement& element)
 {
     GroupMembers_t members;
@@ -1064,17 +1058,6 @@ GroupFolders_t ParseGroupFolders(const QDomElement& element)
     }
     return folders;
 }
-
-//UserUpdates_t ParseUserUpdates(const QDomElement& element)
-//{
-//    UserUpdates_t updates;
-//    const auto& nodes = element.childNodes();
-//    for (int i = 0, count = nodes.size(); i < count; ++i) {
-//        const auto& elem = nodes.at(i).toElement();
-//        updates << ParseUserUpdate(elem);
-//    }
-//    return updates;
-//}
 
 BookShelves_t ParseBookShelves(const QDomElement& element)
 {
@@ -1275,6 +1258,26 @@ CountedItems<MessagePtr> ParseMessages(const QDomElement& element)
     messages.m_Count = element.attribute("total").toULongLong();
     messages.m_Items = ParseMessagesList(element);
     return messages;
+}
+
+Notifications_t ParseNotifications(const QDomElement& element)
+{
+    const auto& notificationsList = element.childNodes();
+    Notifications_t result;
+    for (int i = 0, cnt = notificationsList.size(); i < cnt; ++i) {
+        result << ParseNotification(notificationsList.at (i).toElement());
+    }
+    return result;
+}
+
+Users_t ParseUsers(const QDomElement& element)
+{
+    const auto& usersList = element.childNodes();
+    Users_t result;
+    for (int i = 0, cnt = usersList.size(); i < cnt; ++i) {
+        result << ParseUser(usersList.at (i).toElement());
+    }
+    return result;
 }
 
 UserPtr ParseUser(const QDomDocument& doc)
@@ -1629,6 +1632,21 @@ MessagePtr ParseMessage(const QDomDocument& doc)
         message->SetPreviousMessageId(prevMessageElement.text().toULongLong());
     }
     return message;
+}
+
+Notifications_t ParseNotifications(const QDomDocument &doc)
+{
+    const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
+    if (responseElement.isNull()) {
+        return Notifications_t();
+    }
+
+    const auto& notificationsElement = responseElement.firstChildElement("notifications");
+    if (notificationsElement.isNull()) {
+        return Notifications_t();
+    }
+
+    return ParseNotifications(notificationsElement);
 }
 
 }

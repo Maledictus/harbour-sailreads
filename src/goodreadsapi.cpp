@@ -123,11 +123,11 @@ void GoodReadsApi::GetUpdates()
 //             this, &GoodReadsApi::handleGetUpdates);
 }
 
-void GoodReadsApi::GetNotifications(const QString& nextPageToken)
+void GoodReadsApi::GetNotifications(const QString& pageToken)
 {
-   const QVariantMap params = nextPageToken.isEmpty() ?
+   const QVariantMap params = pageToken.isEmpty() ?
             QVariantMap() :
-            QVariantMap({ { "next_page_token", nextPageToken } });
+            QVariantMap({ { "next_page_token", pageToken } });
     QNetworkReply *reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + "/notifications.xml"), params);
     m_CurrentReply = reply;
@@ -897,7 +897,12 @@ void GoodReadsApi::handleGetNotifications()
     }
 
     emit requestFinished();
-
+    emit requestFinished();
+    QXmlQuery query;
+    query.setFocus(doc.toByteArray());
+    const QString nextPageToken(GetQueryResult(query,
+            "/GoodreadsResponse/notifications/@next_page_token/string()"));
+    emit gotNotifications(nextPageToken, RpcUtils::Parser::ParseNotifications(doc));
 }
 
 void GoodReadsApi::handleGetMessages()

@@ -92,6 +92,8 @@ public slots:
     void loadMessage(quint64 messageId);
     void markMessageAsRead(quint64 messageId);
 
+    void loadNotifications(const QString& pageToken);
+
     void loadBookShelves(quint64 id, int page = 1);
     void addBookShelf(const QString& name, bool exclusive, bool sortable, bool featured,
             bool recommendFor);
@@ -146,6 +148,7 @@ signals:
 
     void gotMessages(const QString& folder, const CountedItems<MessagePtr>& messages);
     void gotMessage(const MessagePtr& message);
+    void gotNotifications(const QString& nextPageToken, const Notifications_t& notifications);
 
     void gotUserBookShelves(quint64 userId, const CountedItems<BookShelf>& shelves);
     void bookShelfAdded(const BookShelf& shelf);

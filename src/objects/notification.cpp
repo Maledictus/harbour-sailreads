@@ -19,14 +19,106 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
+
 #include "notification.h"
 
-namespace Sailreads {
+#include "../objects/user.h"
 
+namespace Sailreads
+{
 Notification::Notification(QObject *parent)
 : QObject(parent)
+, m_IsNew(false)
 {
+}
 
+QObjectList Notification::GetActors() const
+{
+    QObjectList objList;
+    for (const auto& actor : m_Actors) {
+        objList << actor.get();
+    }
+    return objList;
+}
+
+Users_t Notification::GetActorsPtr() const
+{
+    return m_Actors;
+}
+
+void Notification::SetActors(const Users_t& actors)
+{
+    m_Actors = actors;
+}
+
+bool Notification::GetIsNew() const
+{
+    return m_IsNew;
+}
+
+void Notification::SetIsNew(bool isNew)
+{
+    m_IsNew = isNew;
+}
+
+QDateTime Notification::GetCreateDate() const
+{
+    return m_CreateDate;
+}
+
+void Notification::SetCreateDate(const QDateTime& dt)
+{
+    m_CreateDate = dt;
+}
+
+QString Notification::GetPlainTextBody() const
+{
+    return m_PlainTextBody;
+}
+
+void Notification::SetPlainTextBody(const QString& text)
+{
+    m_PlainTextBody = text;
+}
+
+QString Notification::GetHtmlTextBody() const
+{
+    return m_HtmlTextBody;
+}
+
+void Notification::SetHtmlTextBody(const QString& text)
+{
+    m_HtmlTextBody = text;
+}
+
+QUrl Notification::GetUrl() const
+{
+    return m_Url;
+}
+
+void Notification::SetUrl(const QUrl& url)
+{
+    m_Url = url;
+}
+
+QString Notification::GetResourceType() const
+{
+    return m_ResourceType;
+}
+
+void Notification::SetResourceType(const QString& resourceType)
+{
+    m_ResourceType = resourceType;
+}
+
+QString Notification::GetGroupResourceType() const
+{
+    return m_GroupResourceType;
+}
+
+void Notification::SetGroupResourceType(const QString& groupResourceType)
+{
+    m_GroupResourceType = groupResourceType;
 }
 
 } // namespace Sailreads
