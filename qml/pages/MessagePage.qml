@@ -64,6 +64,7 @@ Page {
             height: messageBox.height
         }
 
+        contentY: -headerItem.height
         model: message ? message.messageHistory : []
 
         delegate: MessageListItem {
