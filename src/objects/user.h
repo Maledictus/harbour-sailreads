@@ -97,6 +97,7 @@ class User : public QObject
     Q_PROPERTY(bool isFollower READ GetIsFollower NOTIFY isFollowerChanged)
     Q_PROPERTY(quint64 friendRequestId READ GetFriendRequestId NOTIFY friendRequestIdChanged)
     Q_PROPERTY(int friendStatus READ GetFriendStatus NOTIFY friendStatusChanged)
+    Q_PROPERTY(QString favoriteAutors READ GetFavoritesAuthorsString NOTIFY favoriteAutorsChanged)
 
 public:
     enum FriendStatus
@@ -177,8 +178,10 @@ public:
     quint64 GetFriendRequestId() const;
     int GetFriendStatus() const;
     void SetFriendStatus(const QString& status);
+    QString GetFavoritesAuthorsString() const;
 
     bool IsEqual(const UserPtr& user) const;
+
 signals:
     void idChanged();
     void userNameChanged();
@@ -209,5 +212,6 @@ signals:
     void isFollowerChanged();
     void friendRequestIdChanged();
     void friendStatusChanged();
+    void favoriteAutorsChanged(QUrl favoriteAutors);
 };
 } // namespace Sailreads

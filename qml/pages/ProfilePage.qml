@@ -224,6 +224,26 @@ Page {
                     key: qsTr("Favorite books")
                     value: userProfile.user ? userProfile.user.favoriteBooksDesc : ""
                 }
+
+                Label {
+                    property string key: qsTr("Favorite authors")
+                    property string value: userProfile.user ? userProfile.user.favoriteAutors : ""
+
+                    width: parent.width
+                    color: Theme.highlightColor
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: Theme.fontSizeSmall
+                    textFormat: Text.RichText
+                    visible: value !== ""
+                    maximumLineCount: 3
+                    text: "<font color=\"" + Theme.secondaryHighlightColor + "\">" +
+                            key + "</font> " +
+                            "<style>a:link{color:" + Theme.primaryColor + ";}</style>" +
+                            value.replace(/\n/g, '<br>')
+                    onLinkActivated: pageStack.push(Qt.resolvedUrl("AuthorPage.qml"),
+                            { authorId: Number(link).toFixed() })
+                }
+
                 KeyValueLabel {
                     maximumLineCount: 3
                     wrapMode: Text.WordWrap

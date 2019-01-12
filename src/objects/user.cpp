@@ -372,6 +372,20 @@ void User::SetFriendStatus(const QString& status)
     }
 }
 
+QString User::GetFavoritesAuthorsString() const
+{
+    QString result;
+    for (int i = 0; i < m_FavoriteAuthors.size(); ++i) {
+        result += QString("<a href=\"%1\" style=\"text-decoration:none;\">%2</a>")
+                .arg(m_FavoriteAuthors[i].m_Id)
+                .arg(m_FavoriteAuthors[i].m_Name);
+        if (i + 1 < m_FavoriteAuthors.size()) {
+            result += ", ";
+        }
+    }
+    return result;
+}
+
 bool User::IsEqual(const UserPtr& user) const
 {
     if (!user) {
