@@ -482,11 +482,6 @@ Pull down to refresh</source>
 <context>
     <name>FriendsPage</name>
     <message>
-        <location filename="../qml/pages/FriendsPage.qml" line="56"/>
-        <source>Friends updates</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../qml/pages/FriendsPage.qml" line="64"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
