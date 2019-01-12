@@ -1,6 +1,6 @@
 TARGET = harbour-sailreads
 
-VERSION = 0.2.2
+VERSION = 0.3.0
 
 QT += network xmlpatterns xml
 

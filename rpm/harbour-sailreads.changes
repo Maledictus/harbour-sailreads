@@ -18,6 +18,13 @@
 # - UI improvements
 # - Code improvements
 
+* Sat Jan 12 2019 Oleg Linkin <maledictusdemagog@gmail.com> 0.3.0
+ - Messages(only view)
+ - Notificaitons(content opens in embeded webview)
+ - AboutPage
+ - Favorite authors in profile page
+ - UI improvements
+
 * Sat Jan 05 2019 Oleg Linkin <maledictusdemagog@gmail.com> 0.2.2
  - Add author's series page
  - Add book editions page
