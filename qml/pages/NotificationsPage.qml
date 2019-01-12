@@ -147,6 +147,8 @@ Page {
                 color: Theme.primaryColor
                 horizontalAlignment: Qt.AlignHCenter
             }
+
+            onClicked: pageStack.push(Qt.resolvedUrl("WebViewPage.qml"), { url: notificationUrl })
         }
 
         VerticalScrollDecorator{}
