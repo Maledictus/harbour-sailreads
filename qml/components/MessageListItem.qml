@@ -58,6 +58,7 @@ ListItem {
             font.bold: !isRead
             textFormat: Text.StyledText
             linkColor: Theme.highlightColor
+            color: highlighted ? Theme.highlightColor : Theme.primaryColor
             onLinkActivated: Qt.openUrlExternally(link)
         }
     }

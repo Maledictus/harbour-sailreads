@@ -126,9 +126,8 @@ Page {
             isRead: messageRead
 
             menu: ContextMenu {
-                enabled: !messageRead
+                hasContent: !messageRead
                 MenuItem {
-                    visible: !messageRead
                     text: qsTr("Mark as read")
                     onClicked: sailreadsManager.markMessageAsRead(messageId)
                 }
