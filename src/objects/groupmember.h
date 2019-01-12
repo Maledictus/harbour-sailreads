@@ -35,6 +35,7 @@ class GroupMember
     quint64 m_CommentsCount;
 public:
     GroupMember();
+    ~GroupMember();
 
     UserPtr GetUser() const;
     void SetUser(const UserPtr& user);

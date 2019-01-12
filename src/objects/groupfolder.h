@@ -45,6 +45,7 @@ class GroupFolder
     Q_PROPERTY(QDateTime updatedAt READ GetUpdatedAt)
 public:
     GroupFolder();
+    ~GroupFolder();
 
     QString GetId() const;
     void SetId(const QString& id);

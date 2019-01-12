@@ -36,6 +36,7 @@ class FriendRequest
     UserPtr m_FromUser;
 public:
     FriendRequest();
+    ~FriendRequest();
 
     quint64 GetId() const;
     void SetId(quint64 id);

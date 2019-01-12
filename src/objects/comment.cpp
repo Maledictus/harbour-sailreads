@@ -22,6 +22,8 @@ THE SOFTWARE.
 
 #include "comment.h"
 
+#include <QtDebug>
+
 #include "user.h"
 
 namespace Sailreads
@@ -30,6 +32,16 @@ Comment::Comment()
 : m_Id(0)
 , m_CanDelete(false)
 {
+#ifdef QT_DEBUG
+    qDebug() << this << "CONSTRUCTED";
+#endif
+}
+
+Comment::~Comment()
+{
+#ifdef QT_DEBUG
+    qDebug() << this << "DESTRUCTED";
+#endif
 }
 
 quint64 Comment::GetId() const

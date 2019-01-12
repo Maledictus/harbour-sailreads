@@ -21,9 +21,7 @@ THE SOFTWARE.
 */
 #include "work.h"
 
-#ifdef QT_DEBUG
-    #include <QtDebug>
-#endif
+#include <QtDebug>
 
 namespace Sailreads
 {

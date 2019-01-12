@@ -65,6 +65,7 @@ class Message : public QObject
 
 public:
     Message(QObject *parent = nullptr);
+    ~Message();
 
     quint64 GetId() const;
     void SetId(quint64 id);

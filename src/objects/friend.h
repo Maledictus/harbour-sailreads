@@ -41,6 +41,7 @@ class Friend
     bool m_IsMutualFriend;
 public:
     explicit Friend();
+    ~Friend();
 
     quint64 GetId() const;
     void SetId(quint64 id);

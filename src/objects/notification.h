@@ -54,6 +54,8 @@ class Notification : public QObject
 
 public:
     Notification(QObject *parent = nullptr);
+    ~Notification();
+
     QObjectList GetActors() const;
     Users_t GetActorsPtr() const;
     void SetActors(const Users_t& actors);

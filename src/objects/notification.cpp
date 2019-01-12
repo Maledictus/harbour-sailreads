@@ -22,6 +22,8 @@ THE SOFTWARE.
 
 #include "notification.h"
 
+#include <QtDebug>
+
 #include "../objects/user.h"
 
 namespace Sailreads
@@ -30,6 +32,16 @@ Notification::Notification(QObject *parent)
 : QObject(parent)
 , m_IsNew(false)
 {
+#ifdef QT_DEBUG
+    qDebug() << this << "CONSTRUCTED";
+#endif
+}
+
+Notification::~Notification()
+{
+#ifdef QT_DEBUG
+    qDebug() << this << "DESTRUCTED";
+#endif
 }
 
 QObjectList Notification::GetActors() const

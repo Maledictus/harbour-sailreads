@@ -22,12 +22,24 @@ THE SOFTWARE.
 
 #include "groupmember.h"
 
+#include <QtDebug>
+
 #include "user.h"
 
 namespace Sailreads
 {
 GroupMember::GroupMember()
 {
+#ifdef QT_DEBUG
+    qDebug() << this << "CONSTRUCTED";
+#endif
+}
+
+GroupMember::~GroupMember()
+{
+#ifdef QT_DEBUG
+    qDebug() << this << "DESTRUCTED";
+#endif
 }
 
 UserPtr GroupMember::GetUser() const

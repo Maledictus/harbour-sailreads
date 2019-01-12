@@ -22,6 +22,8 @@ THE SOFTWARE.
 
 #include "message.h"
 
+#include <QtDebug>
+
 namespace Sailreads
 {
 Message::Message(QObject *parent)
@@ -31,6 +33,16 @@ Message::Message(QObject *parent)
 , m_NextMessageId(0)
 , m_PreviousMessageId(0)
 {
+#ifdef QT_DEBUG
+    qDebug() << this << "CONSTRUCTED";
+#endif
+}
+
+Message::~Message()
+{
+#ifdef QT_DEBUG
+    qDebug() << this << "DESTRUCTED";
+#endif
 }
 
 quint64 Message::GetId() const

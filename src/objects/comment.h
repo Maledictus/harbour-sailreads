@@ -38,6 +38,7 @@ class Comment
 
 public:
     Comment();
+    ~Comment();
 
     quint64 GetId() const;
     void SetId(quint64 id);

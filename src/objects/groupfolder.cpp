@@ -22,12 +22,24 @@ THE SOFTWARE.
 
 #include "groupfolder.h"
 
+#include <QtDebug>
+
 namespace Sailreads
 {
 GroupFolder::GroupFolder()
 : m_ItemsCount(0)
 , m_SubItemsCount(0)
 {
+#ifdef QT_DEBUG
+    qDebug() << this << "CONSTRUCTED";
+#endif
+}
+
+GroupFolder::~GroupFolder()
+{
+#ifdef QT_DEBUG
+    qDebug() << this << "DESTRUCTED";
+#endif
 }
 
 QString GroupFolder::GetId() const

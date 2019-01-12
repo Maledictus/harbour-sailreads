@@ -22,6 +22,8 @@ THE SOFTWARE.
 
 #include "bookshelf.h"
 
+#include <QtDebug>
+
 namespace Sailreads
 {
 BookShelf::BookShelf()
@@ -30,6 +32,16 @@ BookShelf::BookShelf()
 , m_Featured(false)
 , m_Sortable(false)
 {
+#ifdef QT_DEBUG
+    qDebug() << this << "CONSTRUCTED";
+#endif
+}
+
+BookShelf::~BookShelf()
+{
+#ifdef QT_DEBUG
+    qDebug() << this << "DESTRUCTED";
+#endif
 }
 
 bool BookShelf::IsValid() const

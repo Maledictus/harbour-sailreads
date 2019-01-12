@@ -22,11 +22,23 @@ THE SOFTWARE.
 
 #include "friendrequest.h"
 
+#include <QtDebug>
+
 namespace Sailreads
 {
 FriendRequest::FriendRequest()
 : m_Id(0)
 {
+#ifdef QT_DEBUG
+    qDebug() << this << "CONSTRUCTED";
+#endif
+}
+
+FriendRequest::~FriendRequest()
+{
+#ifdef QT_DEBUG
+    qDebug() << this << "DESTRUCTED";
+#endif
 }
 
 quint64 FriendRequest::GetId() const

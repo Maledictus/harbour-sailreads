@@ -38,6 +38,7 @@ class BookShelf
     bool m_RecommendFor;
 public:
     explicit BookShelf();
+    ~BookShelf();
 
     bool IsValid() const;
 

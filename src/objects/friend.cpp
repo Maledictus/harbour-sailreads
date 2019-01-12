@@ -22,12 +22,24 @@ THE SOFTWARE.
 
 #include "friend.h"
 
+#include <QtDebug>
+
 namespace Sailreads
 {
 Friend::Friend()
 : m_Id(0)
 , m_IsMutualFriend(false)
 {
+#ifdef QT_DEBUG
+    qDebug() << this << "CONSTRUCTED";
+#endif
+}
+
+Friend::~Friend()
+{
+#ifdef QT_DEBUG
+    qDebug() << this << "DESTRUCTED";
+#endif
 }
 
 quint64 Friend::GetId() const
