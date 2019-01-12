@@ -66,51 +66,13 @@ Page {
 
         model: message ? message.messageHistory : []
 
-        delegate: ListItem {
-            id: listItem
-
-            width: parent.width
-            contentHeight: column.height + separator.height + Theme.paddingMedium
-            clip: true
-
-            Column {
-                id: column
-                anchors {
-                    left: parent.left
-                    leftMargin: Theme.horizontalPageMargin
-                    right: parent.right
-                    rightMargin: Theme.horizontalPageMargin
-                }
-                PosterHeaderItem {
-                    width: parent.width
-                    posterAvatar: modelData.fromUser.avatarUrl
-                    posterName: modelData.fromUser.userName
-                    postDate: Qt.formatDateTime(modelData.createDate)
-                    onClicked: pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
-                            { userId: modelData.fromUser.id })
-                }
-                Label {
-                    text: modelData.subject
-                    width: parent.width
-                    wrapMode: Text.WordWrap
-                    font.bold: !modelData.isRead
-                    textFormat: Text.StyledText
-                    linkColor: Theme.highlightColor
-                    onLinkActivated: Qt.openUrlExternally(link)
-                }
-            }
-
-            Separator {
-                id: separator
-                anchors {
-                    top: column.bottom
-                    topMargin: Theme.paddingMedium
-                }
-
-                width: parent.width
-                color: Theme.primaryColor
-                horizontalAlignment: Qt.AlignHCenter
-            }
+        delegate: MessageListItem {
+            posterImage: modelData.fromUser.avatarUrl
+            posterName: modelData.fromUser.userName
+            postDate: modelData.createDate
+            posterId: modelData.fromUser.id
+            subject: modelData.subject
+            isRead: modelData.isRead
 
             onClicked: pageStack.push(Qt.resolvedUrl("MessagePage.qml"),
                     { message: modelData, messageId: modelData.id })

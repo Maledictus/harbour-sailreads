@@ -117,39 +117,13 @@ Page {
 
         RemorseItem { id: remorse }
 
-        delegate: ListItem {
-            id: listItem
-
-            width: parent.width
-            contentHeight: column.height + separator.height + Theme.paddingMedium
-            clip: true
-
-            Column {
-                id: column
-                anchors {
-                    left: parent.left
-                    leftMargin: Theme.horizontalPageMargin
-                    right: parent.right
-                    rightMargin: Theme.horizontalPageMargin
-                }
-                PosterHeaderItem {
-                    width: parent.width
-                    posterAvatar: messageFromUser.avatarUrl
-                    posterName: messageFromUser.userName
-                    postDate: Qt.formatDateTime(messageCreateDate)
-                    onClicked: pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
-                            { userId: messageFromUser.id })
-                }
-                Label {
-                    text: messageSubject
-                    width: parent.width
-                    wrapMode: Text.WordWrap
-                    font.bold: !messageRead
-                    textFormat: Text.StyledText
-                    linkColor: Theme.highlightColor
-                    onLinkActivated: Qt.openUrlExternally(link)
-                }
-            }
+        delegate: MessageListItem {
+            posterImage: messageFromUser.avatarUrl
+            posterName: messageFromUser.userName
+            postDate: messageCreateDate
+            posterId: messageFromUser.id
+            subject: messageSubject
+            isRead: messageRead
 
             menu: ContextMenu {
                 enabled: !messageRead
@@ -158,18 +132,6 @@ Page {
                     text: qsTr("Mark as read")
                     onClicked: sailreadsManager.markMessageAsRead(messageId)
                 }
-            }
-
-            Separator {
-                id: separator
-                anchors {
-                    top: column.bottom
-                    topMargin: Theme.paddingMedium
-                }
-
-                width: parent.width
-                color: Theme.primaryColor
-                horizontalAlignment: Qt.AlignHCenter
             }
 
             onClicked: pageStack.push(Qt.resolvedUrl("MessagePage.qml"),
