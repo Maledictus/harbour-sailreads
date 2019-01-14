@@ -428,42 +428,32 @@ Pull down to refresh</source>
 <context>
     <name>BookShelvesPage</name>
     <message>
-        <location filename="../qml/pages/BookShelvesPage.qml" line="71"/>
+        <location filename="../qml/pages/BookShelvesPage.qml" line="65"/>
         <source>Bookshelves</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookShelvesPage.qml" line="79"/>
+        <location filename="../qml/pages/BookShelvesPage.qml" line="70"/>
         <source>Search</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookShelvesPage.qml" line="91"/>
-        <source>Hide search field</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/BookShelvesPage.qml" line="91"/>
-        <source>Show search field</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/BookShelvesPage.qml" line="98"/>
+        <location filename="../qml/pages/BookShelvesPage.qml" line="76"/>
         <source>Add shelf</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookShelvesPage.qml" line="108"/>
+        <location filename="../qml/pages/BookShelvesPage.qml" line="86"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookShelvesPage.qml" line="117"/>
+        <location filename="../qml/pages/BookShelvesPage.qml" line="95"/>
         <source>There are no bookshelves. Pull down to refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookShelvesPage.qml" line="141"/>
+        <location filename="../qml/pages/BookShelvesPage.qml" line="118"/>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1100,12 +1090,12 @@ Pull down to refresh or to search groups</source>
 <context>
     <name>Sailreads::Application</name>
     <message>
-        <location filename="../src/application.cpp" line="141"/>
+        <location filename="../src/application.cpp" line="142"/>
         <source>Authorized</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="141"/>
+        <location filename="../src/application.cpp" line="142"/>
         <source>Not authorized</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1113,18 +1103,31 @@ Pull down to refresh or to search groups</source>
 <context>
     <name>Sailreads::SailreadsManager</name>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="228"/>
+        <location filename="../src/sailreadsmanager.cpp" line="230"/>
         <source>Authorization user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="246"/>
+        <location filename="../src/sailreadsmanager.cpp" line="248"/>
         <source>Authentication user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="267"/>
+        <location filename="../src/sailreadsmanager.cpp" line="269"/>
         <source>Getting user profile...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SearchBookReviewPage</name>
+    <message>
+        <location filename="../qml/pages/SearchBookReviewPage.qml" line="59"/>
+        <source>Search review</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SearchBookReviewPage.qml" line="66"/>
+        <source>Search</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

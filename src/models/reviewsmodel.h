@@ -22,21 +22,26 @@ THE SOFTWARE.
 
 #pragma once
 
+#include <QQmlParserStatus>
+
 #include "basemodel.h"
 #include "../types.h"
 
 namespace Sailreads
 {
 class ReviewsModel : public BaseModel<ReviewPtr>
+                    , public QQmlParserStatus
 {
     Q_OBJECT
-    Q_ENUMS(ReviewRoles)
+    Q_INTERFACES(QQmlParserStatus)
 
+    Q_ENUMS(ReviewRoles)
+protected:
+    bool m_HasMore;
+    quint64 m_CurrentPage;
     quint64 m_UserId;
     quint64 m_BookShelfId;
     QString m_BookShelf;
-    bool m_HasMore;
-    quint64 m_CurrentPage;
     Qt::SortOrder m_SortOrder;
     QString m_SortField;
 
@@ -85,8 +90,11 @@ public:
     virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
     virtual QHash<int, QByteArray> roleNames() const override;
 
+    virtual void classBegin();
+    virtual void componentComplete();
+
 public slots:
-    void fetchMoreContent();
+    virtual void fetchMoreContent();
     void update();
 
 private slots:

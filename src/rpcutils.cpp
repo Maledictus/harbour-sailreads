@@ -1441,6 +1441,21 @@ QPair<quint64, CountedItems<ReviewPtr>> ParseReviews(const QDomDocument& doc)
     return qMakePair(shelfId, ParseReviews(reviewsListElement));
 }
 
+CountedItems<ReviewPtr> ParseFoundReviews(const QDomDocument& doc)
+{
+    const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
+    if (responseElement.isNull()) {
+        return CountedItems<ReviewPtr>();
+    }
+
+    const auto& reviewsListElement = responseElement.firstChildElement("reviews");
+    if (reviewsListElement.isNull()) {
+        return CountedItems<ReviewPtr>();
+    }
+
+    return ParseReviews(reviewsListElement);
+}
+
 BookPtr ParseBook(const QDomDocument& doc)
 {
     const auto& responseElement = doc.firstChildElement("GoodreadsResponse");

@@ -99,6 +99,8 @@ public:
     void GetReviews(quint64 userId, const QString& bookShelf, const QString& sortField = "date_added",
             Qt::SortOrder order = Qt::DescendingOrder, int page = 1);
     void GetReview(quint64 reviewId, int commentsPage);
+    void SearchReviews(quint64 userId, const QString& searchText, int page = 1);
+
     void AddReview(quint64 bookId, const QString& review, int rating, const QDateTime& readAt,
             const QString& shelf);
     void EditReview(quint64 reviewId, const QString& review, int rating, const QDateTime& readAt,
@@ -182,6 +184,7 @@ private slots:
 
     void handleGetReviews();
     void handleGetReview();
+    void handleSearchReviews();
     void handleAddReview();
     void handleEditReview();
     void handleDeleteReview();
@@ -258,6 +261,7 @@ signals:
 
     void gotReviews(quint64 bookShelfId, const CountedItems<ReviewPtr>& reviews);
     void gotReview(const ReviewPtr& review);
+    void gotFoundReviews(const CountedItems<ReviewPtr>& reviews);
 
     void gotBook(const BookPtr& book);
     void gotBookEditions(quint64 workId, const CountedItems<BookPtr>& books);

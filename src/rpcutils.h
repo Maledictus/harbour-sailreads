@@ -93,6 +93,7 @@ CountedItems<TopicPtr> ParseGroupFolderTopics(const QDomDocument& doc);
 TopicPtr ParseGroupFolderTopic(const QDomDocument& doc);
 Comment ParseComment(const QDomDocument& doc);
 QPair<quint64, CountedItems<ReviewPtr>> ParseReviews(const QDomDocument& doc);
+CountedItems<ReviewPtr> ParseFoundReviews(const QDomDocument& doc);
 BookPtr ParseBook(const QDomDocument& doc);
 SeriesPtr ParseSeries(const QDomDocument& doc);
 AuthorPtr ParseAuthor(const QDomDocument& doc);

@@ -229,6 +229,18 @@ void GoodReadsApi::GetReview(quint64 reviewId, int commentsPage)
             this, &GoodReadsApi::handleGetReview);
 }
 
+void GoodReadsApi::SearchReviews(quint64 userId, const QString& searchText, int page)
+{
+    const QVariantMap params = { { "v", 2 }, { "search[query]", searchText }, { "page", page },
+        { "per_page", 50 }
+    };
+    auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + QString("/review/list/%1.xml").arg(userId)), params);
+    m_CurrentReply = reply;
+    connect(reply, &QNetworkReply::finished,
+            this, &GoodReadsApi::handleSearchReviews);
+}
+
 void GoodReadsApi::AddReview(quint64 bookId, const QString& review, int rating,
     const QDateTime& readAt, const QString& shelf)
 {
@@ -1011,6 +1023,19 @@ void GoodReadsApi::handleGetReview()
 
     emit requestFinished();
     emit gotReview(RpcUtils::Parser::ParseReview(doc));
+}
+
+void GoodReadsApi::handleSearchReviews()
+{
+    bool ok = false;
+    auto doc = GetDocumentFromReply(sender(), ok);
+    if (!ok) {
+        emit requestFinished();
+        return;
+    }
+
+    emit requestFinished();
+    emit gotFoundReviews(RpcUtils::Parser::ParseFoundReviews(doc));
 }
 
 void GoodReadsApi::handleAddReview()

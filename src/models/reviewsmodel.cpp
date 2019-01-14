@@ -35,8 +35,6 @@ ReviewsModel::ReviewsModel(QObject *parent)
 , m_HasMore(true)
 , m_CurrentPage(1)
 {
-    connect(SailreadsManager::Instance(), &SailreadsManager::gotReviews,
-            this, &ReviewsModel::handleGotReviews);
 }
 
 quint64 ReviewsModel::GetUserId() const
@@ -179,6 +177,16 @@ QHash<int, QByteArray> ReviewsModel::roleNames() const
     roles[Url] = "reviewUrl";
     roles[ReviewItem] = "reviewReview";
     return roles;
+}
+
+void ReviewsModel::classBegin()
+{
+    connect(SailreadsManager::Instance(), &SailreadsManager::gotReviews,
+            this, &ReviewsModel::handleGotReviews);
+}
+
+void ReviewsModel::componentComplete()
+{
 }
 
 void ReviewsModel::fetchMoreContent()

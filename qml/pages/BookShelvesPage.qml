@@ -34,7 +34,6 @@ Page {
     property int userId: 0
     property string userName
     property bool busy: sailreadsManager.busy && bookShelvesPage.status === PageStatus.Active
-    property bool showSearchField: applicationSettings.value("bookshelves/showSearchField", true) === true
 
     function attachPage() {
         if (pageStack._currentContainer.attachedContainer === null
@@ -61,39 +60,18 @@ Page {
         id: bookShelvesView
         anchors.fill: parent
 
-        header: Column {
-            id: headerColumn
-            width: bookShelvesView.width
-            property alias description: pageHeader.description
-            property alias searchField: search
-            PageHeader {
-                id: pageHeader
-                title: qsTr("Bookshelves")
-            }
-
-            SearchField {
-                id: search
-                visible: showSearchField
-                anchors.left: parent.left
-                anchors.right: parent.right
-                placeholderText: qsTr("Search")
-                onTextChanged: {
-                    bookShelvesProxyModel.filterRegExp = new RegExp(text)
-                    search.forceActiveFocus()
-                    bookShelvesView.currentIndex = -1
-                }
-            }
+        header: PageHeader {
+            id: pageHeader
+            title: qsTr("Bookshelves")
         }
 
         PullDownMenu {
-            //TODO move to settings
             MenuItem {
-                text: showSearchField ? qsTr("Hide search field") : qsTr("Show search field")
-                onClicked: {
-                    showSearchField = !showSearchField
-                    applicationSettings.setValue("bookshelves/showSearchField", showSearchField)
-                }
+                text: qsTr("Search")
+                visible: sailreadsManager.authUser
+                onClicked: pageStack.push("../pages/SearchBookReviewPage.qml")
             }
+
             MenuItem {
                 text: qsTr("Add shelf")
                 onClicked: {
@@ -121,8 +99,7 @@ Page {
         model: bookShelvesProxyModel
 
         function fetchMoreIfNeeded() {
-            if (headerItem.searchField.text === "" &&
-                !bookShelvesPage.busy &&
+            if (!bookShelvesPage.busy &&
                     bookShelvesModel.hasMore &&
                     indexAt(contentX, contentY + height) > bookShelvesModel.rowCount() - 2) {
                 bookShelvesModel.fetchMoreContent()

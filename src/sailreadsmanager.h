@@ -103,6 +103,7 @@ public slots:
     void loadReviews(quint64 userId, const QString& bookShelf, int page = 1,
             Qt::SortOrder order = Qt::DescendingOrder, const QString& sortField = "date_added");
     void loadReview(quint64 reviewId, int commentsPage = 1);
+    void searchReviews(quint64 userId, const QString& searchText, int page = 1);
 
     void loadBook(quint64 bookId);
     void loadBookEditions(quint64 workId, int page = 1);
@@ -156,6 +157,7 @@ signals:
 
     void gotReviews(quint64 bookShelfId, const CountedItems<ReviewPtr>& reviews);
     void gotReview(const ReviewPtr& review);
+    void gotFoundReviews(const CountedItems<ReviewPtr>& reviews);
 
     void gotBook(const BookPtr& book);
     void gotBookEditions(quint64 workId, const CountedItems<BookPtr>& books);

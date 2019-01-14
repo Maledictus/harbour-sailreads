@@ -66,7 +66,8 @@ SOURCES += src/harbour-sailreads.cpp \
     src/objects/message.cpp \
     src/models/messagesmodel.cpp \
     src/qmltypes/messageitem.cpp \
-    src/models/notificationsmodel.cpp
+    src/models/notificationsmodel.cpp \
+    src/models/searchreviewsmodel.cpp
 
 
 HEADERS += src/application.h \
@@ -125,7 +126,8 @@ HEADERS += src/application.h \
     src/objects/message.h \
     src/models/messagesmodel.h \
     src/qmltypes/messageitem.h \
-    src/models/notificationsmodel.h
+    src/models/notificationsmodel.h \
+    src/models/searchreviewsmodel.h
 
 DISTFILES += translations/*.ts \
     sailreads.desktop \
