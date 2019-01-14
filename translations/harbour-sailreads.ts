@@ -405,12 +405,22 @@ Pull down to refresh</source>
 <context>
     <name>BookReviewsPage</name>
     <message>
-        <location filename="../qml/pages/BookReviewsPage.qml" line="64"/>
-        <source>Refresh</source>
+        <location filename="../qml/pages/BookReviewsPage.qml" line="66"/>
+        <source>Sorted by %1, %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/BookReviewsPage.qml" line="73"/>
+        <source>Sort</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BookReviewsPage.qml" line="88"/>
+        <source>Refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BookReviewsPage.qml" line="97"/>
         <source>There are no books reviews. Pull down to refresh</source>
         <translation type="unfinished"></translation>
     </message>
@@ -428,33 +438,126 @@ Pull down to refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookShelvesPage.qml" line="90"/>
+        <location filename="../qml/pages/BookShelvesPage.qml" line="91"/>
         <source>Hide search field</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookShelvesPage.qml" line="90"/>
+        <location filename="../qml/pages/BookShelvesPage.qml" line="91"/>
         <source>Show search field</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookShelvesPage.qml" line="97"/>
+        <location filename="../qml/pages/BookShelvesPage.qml" line="98"/>
         <source>Add shelf</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookShelvesPage.qml" line="107"/>
+        <location filename="../qml/pages/BookShelvesPage.qml" line="108"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookShelvesPage.qml" line="116"/>
+        <location filename="../qml/pages/BookShelvesPage.qml" line="117"/>
         <source>There are no bookshelves. Pull down to refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookShelvesPage.qml" line="140"/>
+        <location filename="../qml/pages/BookShelvesPage.qml" line="141"/>
         <source>Edit</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>BooksReviewsSortingDialog</name>
+    <message>
+        <location filename="../qml/dialogs/BooksReviewsSortingDialog.qml" line="39"/>
+        <source>Sort</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/BooksReviewsSortingDialog.qml" line="40"/>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/BooksReviewsSortingDialog.qml" line="60"/>
+        <source>Sorting order</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/BooksReviewsSortingDialog.qml" line="64"/>
+        <source>Ascending</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/BooksReviewsSortingDialog.qml" line="67"/>
+        <source>Descending</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/BooksReviewsSortingDialog.qml" line="91"/>
+        <source>Sorting field</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/BooksReviewsSortingDialog.qml" line="95"/>
+        <source>Title</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/BooksReviewsSortingDialog.qml" line="98"/>
+        <source>Author</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/BooksReviewsSortingDialog.qml" line="101"/>
+        <source>Average rating</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/BooksReviewsSortingDialog.qml" line="104"/>
+        <source>Number of ratings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/BooksReviewsSortingDialog.qml" line="107"/>
+        <source>First published date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/BooksReviewsSortingDialog.qml" line="110"/>
+        <source>Pages count</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/BooksReviewsSortingDialog.qml" line="113"/>
+        <source>Date added</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/BooksReviewsSortingDialog.qml" line="116"/>
+        <source>Date updated</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/BooksReviewsSortingDialog.qml" line="119"/>
+        <source>Your rating</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/BooksReviewsSortingDialog.qml" line="122"/>
+        <source>Date started</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/BooksReviewsSortingDialog.qml" line="125"/>
+        <source>Date finished</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/BooksReviewsSortingDialog.qml" line="128"/>
+        <source>Review written</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1064,6 +1167,66 @@ Pull down to refresh or to search groups</source>
     <message>
         <location filename="../qml/utils/Utils.js" line="38"/>
         <source>Yesterday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/utils/Utils.js" line="109"/>
+        <source>Title</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/utils/Utils.js" line="110"/>
+        <source>Author</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/utils/Utils.js" line="111"/>
+        <source>Average rating</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/utils/Utils.js" line="112"/>
+        <source>Number of ratings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/utils/Utils.js" line="113"/>
+        <source>First published date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/utils/Utils.js" line="114"/>
+        <source>Pages count</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/utils/Utils.js" line="115"/>
+        <source>Date updated</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/utils/Utils.js" line="116"/>
+        <source>Your rating</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/utils/Utils.js" line="117"/>
+        <source>Date started</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/utils/Utils.js" line="118"/>
+        <source>Date finished</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/utils/Utils.js" line="119"/>
+        <source>Review written</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/utils/Utils.js" line="122"/>
+        <source>Date added</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

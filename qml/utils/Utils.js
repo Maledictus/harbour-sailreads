@@ -104,3 +104,21 @@ function getSeriesString(seriesList, color) {
     return result
 }
 
+function humanReadableSortField(sortField) {
+    switch (sortField) {
+    case "title": return qsTr("Title")
+    case "author": return qsTr("Author")
+    case "avg_rating": return qsTr("Average rating")
+    case "num_ratings": return qsTr("Number of ratings")
+    case "date_pub": return qsTr("First published date")
+    case "num_pages": return qsTr("Pages count")
+    case "date_updated": return qsTr("Date updated")
+    case "rating": return qsTr("Your rating")
+    case "date_started": return qsTr("Date started")
+    case "date_read": return qsTr("Date finished")
+    case "review": return qsTr("Review written")
+    case "date_added":
+    default:
+        return qsTr("Date added")
+    }
+}

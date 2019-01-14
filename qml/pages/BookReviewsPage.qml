@@ -27,6 +27,7 @@ import Sailfish.Silica 1.0
 import harbour.sailreads 1.0
 
 import "../components"
+import "../utils/Utils.js" as Utils
 
 Page {
     id: reviewsPage
@@ -36,6 +37,9 @@ Page {
     property alias bookShelfId: reviewsModel.bookShelfId
     property alias bookShelf: reviewsModel.bookShelf
     property bool busy: sailreadsManager.busy && reviewsPage.status === PageStatus.Active
+
+    property string sortField: applicationSettings.value(bookShelfId + "/sortField", "date_added")
+    property int sortOrder: applicationSettings.value(bookShelfId + "/sortOrder", Qt.DescendingOrder)
 
     function attachPage() {
         if (pageStack._currentContainer.attachedContainer === null
@@ -50,6 +54,8 @@ Page {
 
     ReviewsModel {
         id: reviewsModel
+        sortOrder: reviewsPage.sortOrder
+        sortField: reviewsPage.sortField
     }
 
     SilicaListView {
@@ -57,9 +63,27 @@ Page {
         anchors.fill: parent
         header: PageHeader {
             title: "%1: %2".arg(userName).arg(bookShelf)
+            description: qsTr("Sorted by %1, %2")
+                    .arg(Utils.humanReadableSortField(reviewsModel.sortField))
+                    .arg(reviewsModel.sortOrder === Qt.AscendingOrder ? "▲" : "▼")
         }
 
         PullDownMenu {
+            MenuItem {
+                text: qsTr("Sort")
+                onClicked: {
+                    var dialog = pageStack.push("../dialogs/BooksReviewsSortingDialog.qml",
+                            { order: reviewsPage.sortOrder, field: reviewsPage.sortField })
+                    dialog.accepted.connect (function () {
+                        reviewsPage.sortOrder = dialog.order
+                        applicationSettings.setValue(bookShelfId + "/sortOrder", reviewsPage.sortOrder)
+                        reviewsPage.sortField = dialog.field
+                        applicationSettings.setValue(bookShelfId + "/sortField", reviewsPage.sortField)
+                        reviewsModel.update()
+                    })
+                }
+            }
+
             MenuItem {
                 text: qsTr("Refresh")
                 onClicked: {

@@ -91,6 +91,32 @@ void ReviewsModel::SetHasMore(bool has)
     }
 }
 
+Qt::SortOrder ReviewsModel::GetSortOrder() const
+{
+    return m_SortOrder;
+}
+
+void ReviewsModel::SetSortOrder(Qt::SortOrder sortOrder)
+{
+    if (m_SortOrder != sortOrder) {
+        m_SortOrder = sortOrder;
+        emit sortOrdereChanged();
+    }
+}
+
+QString ReviewsModel::GetSortField() const
+{
+    return m_SortField;
+}
+
+void ReviewsModel::SetSortField(const QString& sortField)
+{
+    if (m_SortField != sortField) {
+        m_SortField = sortField;
+        emit sortFieldChanged();
+    }
+}
+
 QVariant ReviewsModel::data(const QModelIndex& index, int role) const
 {
     if (index.row() > m_Items.count() - 1 || index.row() < 0) {
@@ -162,7 +188,15 @@ void ReviewsModel::fetchMoreContent()
         return;
     }
 
-    SailreadsManager::Instance()->loadReviews(m_UserId, m_BookShelf, m_CurrentPage);
+    SailreadsManager::Instance()->loadReviews(m_UserId, m_BookShelf, m_CurrentPage,
+                                              m_SortOrder, m_SortField);
+}
+
+void ReviewsModel::update()
+{
+    SetHasMore(true);
+    m_CurrentPage = 1;
+    fetchMoreContent();
 }
 
 void ReviewsModel::handleGotReviews(quint64 booksShelfId, const CountedItems<ReviewPtr>& reviews)

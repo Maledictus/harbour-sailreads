@@ -37,11 +37,15 @@ class ReviewsModel : public BaseModel<ReviewPtr>
     QString m_BookShelf;
     bool m_HasMore;
     quint64 m_CurrentPage;
+    Qt::SortOrder m_SortOrder;
+    QString m_SortField;
 
     Q_PROPERTY(quint64 userId READ GetUserId WRITE SetUserId NOTIFY userIdChanged)
     Q_PROPERTY(quint64 bookShelfId READ GetBookShelfId WRITE SetBookShelfId NOTIFY bookShelfIdChanged)
     Q_PROPERTY(QString bookShelf READ GetBookShelf WRITE SetBookShelf NOTIFY bookShelfChanged)
     Q_PROPERTY(bool hasMore READ GetHasMore WRITE SetHasMore NOTIFY hasMoreChanged)
+    Q_PROPERTY(Qt::SortOrder sortOrder READ GetSortOrder WRITE SetSortOrder NOTIFY sortOrdereChanged)
+    Q_PROPERTY(QString sortField READ GetSortField WRITE SetSortField NOTIFY sortFieldChanged)
 
 public:
     enum ReviewRoles
@@ -73,12 +77,18 @@ public:
     void SetBookShelf(const QString& shelf);
     bool GetHasMore() const;
     void SetHasMore(bool has);
+    Qt::SortOrder GetSortOrder() const;
+    void SetSortOrder(Qt::SortOrder sortOrder);
+    QString GetSortField() const;
+    void SetSortField(const QString& sortField);
 
     virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
     virtual QHash<int, QByteArray> roleNames() const override;
 
 public slots:
     void fetchMoreContent();
+    void update();
+
 private slots:
     void handleGotReviews(quint64 booksShelfId, const CountedItems<ReviewPtr>& reviews);
 
@@ -87,6 +97,8 @@ signals:
     void bookShelfIdChanged();
     void bookShelfChanged();
     void hasMoreChanged();
+    void sortOrdereChanged();
+    void sortFieldChanged();
 };
 
 } // namespace Sailreads

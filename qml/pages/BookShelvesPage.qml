@@ -86,6 +86,7 @@ Page {
         }
 
         PullDownMenu {
+            //TODO move to settings
             MenuItem {
                 text: showSearchField ? qsTr("Hide search field") : qsTr("Show search field")
                 onClicked: {
