@@ -1151,6 +1151,11 @@ Pull down to refresh or to search groups</source>
         <source>Friends reviews</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../qml/pages/UserReviewsPage.qml" line="78"/>
+        <source>Open on GoodReads.com</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>UserShortReview</name>

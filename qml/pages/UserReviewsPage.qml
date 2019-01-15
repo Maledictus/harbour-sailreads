@@ -72,6 +72,13 @@ Page {
                 pageStack.push(Qt.resolvedUrl("ReviewPage.qml"),
                         { reviewId: modelData.id, review: modelData })
             }
+
+            menu: ContextMenu {
+                MenuItem {
+                    text: qsTr("Open on GoodReads.com")
+                    onClicked: mainWindow.openInBrowser(modelData.url)
+                }
+            }
         }
 
         model: usersReviews

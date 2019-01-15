@@ -63,13 +63,20 @@ ApplicationWindow {
 
     Component {
         id: splashScreenComponent
-
         SplashScreenPage {}
     }
 
     Component {
         id: loginComponent
-
         LoginPage {}
+    }
+
+    function openInBrowser(url) {
+        if (applicationSettings.value("main/embeded_browser", true) === true) {
+            pageStack.push(Qt.resolvedUrl("pages/WebViewPage.qml"), { url: url })
+        }
+        else {
+            Qt.openUrlExternally(url)
+        }
     }
 }

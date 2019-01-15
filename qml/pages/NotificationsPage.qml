@@ -150,7 +150,7 @@ Page {
 
             onClicked: {
                 if (notificationResourceId === 0) {
-                    pageStack.push(Qt.resolvedUrl("WebViewPage.qml"), { url: notificationUrl })
+                    mainWindow.openInBrowser(notificationUrl)
                 }
                 else {
                     console.log(notificationGroupResourceType)
@@ -169,11 +169,11 @@ Page {
                                     { userId: notificationResourceId })
                         }
                         else {
-                            pageStack.push(Qt.resolvedUrl("WebViewPage.qml"), { url: notificationUrl })
+                            mainWindow.openInBrowser(notificationUrl)
                         }
                         break
                     default:
-                        pageStack.push(Qt.resolvedUrl("WebViewPage.qml"), { url: notificationUrl })
+                        mainWindow.openInBrowser(notificationUrl)
                         break
                     }
                 }

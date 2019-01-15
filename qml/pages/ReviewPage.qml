@@ -71,6 +71,11 @@ Page {
 
         PullDownMenu {
             MenuItem {
+                text: qsTr("Open on GoodReads.com")
+                onClicked: mainWindow.openInBrowser(review.url)
+            }
+
+            MenuItem {
                 text: qsTr("Refresh")
                 onClicked: {
                     reviewItem.updateReview()
