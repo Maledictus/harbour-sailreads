@@ -44,7 +44,7 @@ public:
     int GetLimit() const;
     void SetLimit(int limit);
 
-    virtual int	rowCount(const QModelIndex& parent = QModelIndex()) const override;
+    virtual int rowCount(const QModelIndex& parent = QModelIndex()) const override;
 
 signals:
     void limitChanged();
