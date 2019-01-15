@@ -72,6 +72,8 @@ QVariant NotificationsModel::data(const QModelIndex& index, int role) const
         return notification->GetResourceType();
     case GroupResourceType:
         return notification->GetGroupResourceType();
+    case ResourceId:
+        return notification->GetResourceId();
     default:
         return QVariant();
     }
@@ -88,6 +90,7 @@ QHash<int, QByteArray> NotificationsModel::roleNames() const
     roles[Url] = "notificationUrl";
     roles[ResourceType] = "notificationResourceType";
     roles[GroupResourceType] = "notificationGroupResourceType";
+    roles[ResourceId] = "notificationResourceId";
     return roles;
 }
 

@@ -42,6 +42,7 @@ class Notification : public QObject
     QUrl m_Url;
     QString m_ResourceType;
     QString m_GroupResourceType;
+    quint64 m_ResourceId;
 
     Q_PROPERTY(QObjectList actors READ GetActors NOTIFY actorsChanged)
     Q_PROPERTY(bool isNew READ GetIsNew NOTIFY isNewChanged)
@@ -51,6 +52,7 @@ class Notification : public QObject
     Q_PROPERTY(QUrl url READ GetUrl NOTIFY urlChanged)
     Q_PROPERTY(QString resourceType READ GetResourceType NOTIFY resourceTypeChanged)
     Q_PROPERTY(QString groupResourceType READ GetGroupResourceType NOTIFY groupResourceTypeChanged)
+    Q_PROPERTY(quint64 resourceId READ GetResourceId NOTIFY resourceIdChanged)
 
 public:
     Notification(QObject *parent = nullptr);
@@ -73,6 +75,8 @@ public:
     void SetResourceType(const QString& resourceType);
     QString GetGroupResourceType() const;
     void SetGroupResourceType(const QString& groupResourceType);
+    quint64 GetResourceId() const;
+    void SetResourceId(quint64 resourceId);
 
 signals:
     void actorsChanged();
@@ -82,7 +86,8 @@ signals:
     void urlChanged();
     void resourceTypeChanged();
     void groupResourceTypeChanged();
-    void htmlTextBodyChanged(QString htmlTextBody);
+    void htmlTextBodyChanged();
+    void resourceIdChanged();
 };
 
 } // namespace Sailreads

@@ -984,6 +984,30 @@ MessagePtr ParseMessage(const QDomElement& element)
     return message;
 }
 
+quint64 ParseResourceId(const QDomElement& element)
+{
+    const auto& resourceList = element.childNodes();
+    for (int i = 0, fieldsCount = resourceList.size(); i < fieldsCount; ++i) {
+        const auto& fieldElement = resourceList.at (i).toElement ();
+        if (fieldElement.tagName() == "topic") {
+            return ParseTopic(fieldElement)->GetId();
+        }
+        else if (fieldElement.tagName() == "review") {
+            return ParseReview(fieldElement)->GetId();
+        }
+        else if (fieldElement.tagName() == "friend") {
+            const auto& friendList = fieldElement.childNodes();
+            for (int j = 0, frFieldsCount = friendList.size(); j < frFieldsCount; ++j) {
+                const auto& friendFieldElement = friendList.at(j).toElement ();
+                if (friendFieldElement.tagName() == "user_id") {
+                    return friendFieldElement.text().toULongLong();
+                }
+            }
+        }
+    }
+    return 0;
+}
+
 NotificationPtr ParseNotification(const QDomElement& element)
 {
     NotificationPtr notification = std::make_shared<Notification>();
@@ -1028,9 +1052,7 @@ NotificationPtr ParseNotification(const QDomElement& element)
             notification->SetGroupResourceType(fieldElement.text());
         }
         else if (fieldElement.tagName() == "group_resource") {
-            //topic, review, poll, "",
-            //friend, friend, "", blog, challenge,
-            //user_challenge, giveaway, recommendation
+            notification->SetResourceId(ParseResourceId(fieldElement));
         }
     }
 

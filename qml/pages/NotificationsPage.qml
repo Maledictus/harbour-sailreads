@@ -148,7 +148,36 @@ Page {
                 horizontalAlignment: Qt.AlignHCenter
             }
 
-            onClicked: pageStack.push(Qt.resolvedUrl("WebViewPage.qml"), { url: notificationUrl })
+            onClicked: {
+                if (notificationResourceId === 0) {
+                    pageStack.push(Qt.resolvedUrl("WebViewPage.qml"), { url: notificationUrl })
+                }
+                else {
+                    console.log(notificationGroupResourceType)
+                    switch (notificationGroupResourceType) {
+                    case "Topic":
+                        pageStack.push(Qt.resolvedUrl("GroupFolderTopicPage.qml"),
+                                { topicId: notificationResourceId })
+                        break
+                    case "Review":
+                        pageStack.push(Qt.resolvedUrl("ReviewPage.qml"),
+                                { reviewId: notificationResourceId })
+                        break
+                    case "Friend":
+                        if (notificationResourceType === "Friend") {
+                            pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
+                                    { userId: notificationResourceId })
+                        }
+                        else {
+                            pageStack.push(Qt.resolvedUrl("WebViewPage.qml"), { url: notificationUrl })
+                        }
+                        break
+                    default:
+                        pageStack.push(Qt.resolvedUrl("WebViewPage.qml"), { url: notificationUrl })
+                        break
+                    }
+                }
+            }
         }
 
         VerticalScrollDecorator{}

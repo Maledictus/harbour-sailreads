@@ -46,7 +46,8 @@ public:
         HtmlTextBody,
         Url,
         ResourceType,
-        GroupResourceType
+        GroupResourceType,
+        ResourceId
     };
 
     NotificationsModel(QObject *parent = nullptr);
