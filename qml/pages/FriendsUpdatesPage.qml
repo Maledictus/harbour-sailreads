@@ -24,11 +24,18 @@ THE SOFTWARE.
 
 import QtQuick 2.2
 import Sailfish.Silica 1.0
+import harbour.sailreads 1.0
+
+import "../components"
+import "../utils/Utils.js" as Utils
 
 Page {
     id: friendsUpdatesPage
 
     property bool busy: sailreadsManager.busy && friendsUpdatesPage.status === PageStatus.Active
+
+    property string contentFilter: applicationSettings.value("friends/updatesContentFilter", "all")
+    property string scopeFilter: applicationSettings.value("friends/updatesScopeFilter","friends")
 
     function attachPage() {
         if (pageStack._currentContainer.attachedContainer === null
@@ -41,21 +48,54 @@ Page {
         sailreadsManager.abortRequest()
     }
 
+    UpdatesModel {
+        id: updatesModel
+        updateItems: contentFilter
+        updateScope: scopeFilter
+    }
+
     SilicaListView {
         id: friendsUpdatesView
         anchors.fill: parent
         clip: true
 
         PullDownMenu {
+            busy: friendsUpdatesPage.busy
             MenuItem {
                 text: qsTr("Friends")
                 onClicked: pageStack.replace(Qt.resolvedUrl("FriendsPage.qml"),
                         { userId: sailreadsManager.authUser ? sailreadsManager.authUser.id : 0 })
             }
             MenuItem {
+                text: qsTr("Filter")
+                onClicked: {
+                    var dialog = pageStack.push("../dialogs/UpdatesFilterDialog.qml",
+                           { items: contentFilter, scope: scopeFilter })
+                    dialog.accepted.connect (function () {
+                        friendsUpdatesPage.contentFilter = dialog.items
+                        applicationSettings.setValue("friends/updatesContentFilter",
+                                friendsUpdatesPage.contentFilter)
+                        friendsUpdatesPage.scopeFilter = dialog.scope
+                        applicationSettings.setValue("friends/updatesScopeFilter",
+                                friendsUpdatesPage.scopeFilter)
+                        updatesModel.refreshUpdates()
+                    })
+                }
+            }
+            MenuItem {
                 text: qsTr("Refresh")
+                onClicked: updatesModel.refreshUpdates()
             }
         }
+
+        header: PageHeader {
+            title: qsTr("Friends updates")
+            description: qsTr("%1, %2")
+                    .arg(Utils.humanReadableContentField(contentFilter))
+                    .arg(Utils.humanReadableScopeField(scopeFilter))
+        }
+
+        model: updatesModel
 
         VerticalScrollDecorator{}
     }

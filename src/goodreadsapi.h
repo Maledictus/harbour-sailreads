@@ -83,7 +83,7 @@ public:
     void GetUserInfo(quint64 id);
     void CompareBooks(quint64 userId);
 
-    void GetUpdates();
+    void GetUpdates(const QString& scope, const QString& items, const QDateTime& updateDt);
     void GetNotifications(const QString& pageToken);
 
     void GetMessages(const QString& folder, int page);
@@ -248,7 +248,7 @@ signals:
 
     void gotAuthUserInfo(quint64 id, const QString& name, const QString& link);
     void gotUserProfile(const UserPtr& profile);
-//    void gotFriendsUpdates(const & updates);
+    void gotUpdates(const Updates_t& updates);
 
     void gotNotifications(const QString& pageToken, const Notifications_t& notifications);
 

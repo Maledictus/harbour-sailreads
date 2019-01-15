@@ -37,13 +37,13 @@ class ReviewsModel : public BaseModel<ReviewPtr>
 
     Q_ENUMS(ReviewRoles)
 protected:
-    bool m_HasMore;
-    quint64 m_CurrentPage;
     quint64 m_UserId;
     quint64 m_BookShelfId;
     QString m_BookShelf;
     Qt::SortOrder m_SortOrder;
     QString m_SortField;
+    bool m_HasMore;
+    quint64 m_CurrentPage;
 
     Q_PROPERTY(quint64 userId READ GetUserId WRITE SetUserId NOTIFY userIdChanged)
     Q_PROPERTY(quint64 bookShelfId READ GetBookShelfId WRITE SetBookShelfId NOTIFY bookShelfIdChanged)

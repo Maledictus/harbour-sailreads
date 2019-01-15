@@ -98,4 +98,8 @@ typedef QList<NotificationPtr> Notifications_t;
 class Message;
 typedef std::shared_ptr<Message> MessagePtr;
 typedef QList<MessagePtr> Messages_t;
+
+class Update;
+typedef std::shared_ptr<Update> UpdatePtr;
+typedef QList<UpdatePtr> Updates_t;
 }

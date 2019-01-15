@@ -131,6 +131,9 @@ void SailreadsManager::MakeConnections()
     connect(m_Api, &GoodReadsApi::gotNotifications,
             this, &SailreadsManager::gotNotifications);
 
+    connect(m_Api, &GoodReadsApi::gotUpdates,
+            this, &SailreadsManager::gotUpdates);
+
     connect(m_Api, &GoodReadsApi::gotUserBookShelves,
             this, &SailreadsManager::gotUserBookShelves);
     connect(m_Api, &GoodReadsApi::bookShelfAdded,
@@ -270,10 +273,10 @@ void SailreadsManager::getUserInfo(quint64 id)
     m_Api->GetUserInfo(id);
 }
 
-void SailreadsManager::loadUpdates()
+void SailreadsManager::loadUpdates(const QString& scope, const QString& items, const QDateTime& dt)
 {
     SetBusy(true);
-    m_Api->GetUpdates();
+    m_Api->GetUpdates(scope, items, dt);
 }
 
 void SailreadsManager::loadUserFollowings(quint64 userId, int page)

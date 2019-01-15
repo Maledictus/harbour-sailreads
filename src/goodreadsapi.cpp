@@ -113,10 +113,12 @@ void GoodReadsApi::CompareBooks(quint64 userId)
 //             this, &GoodReadsApi::handleCompareBooks);
 }
 
-void GoodReadsApi::GetUpdates()
+void GoodReadsApi::GetUpdates(const QString& scope, const QString& items, const QDateTime& updateDt)
 {
-//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-//            QUrl("https://www.goodreads.com/updates/friends.xml"), "GET");
+    //TODO
+//    QVariantMap params;
+//    QNetworkReply *reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
+//            QUrl(m_BaseUrl + "/updates/friends.xml"), params);
 //    auto reply = m_NAM->get(QNetworkRequest(pair.first));
 //    m_CurrentReply = reply;
 //    connect(reply, &QNetworkReply::finished,

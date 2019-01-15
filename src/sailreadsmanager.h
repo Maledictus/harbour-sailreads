@@ -84,7 +84,7 @@ public slots:
     void logout();
 
     void getUserInfo(quint64 id);
-    void loadUpdates();
+    void loadUpdates(const QString& scope, const QString& items, const QDateTime& dt = QDateTime());
     void loadUserFollowings(quint64 userId, int page = 1);
     void loadUserFollowers(quint64 userId, int page = 1);
 
@@ -146,6 +146,8 @@ signals:
 
     void gotAuthUserId(quint64 authUserId);
     void gotUserProfile(const UserPtr& userProfile);
+
+    void gotUpdates(const Updates_t& updates);
 
     void gotMessages(const QString& folder, const CountedItems<MessagePtr>& messages);
     void gotMessage(const MessagePtr& message);

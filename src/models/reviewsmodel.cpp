@@ -32,6 +32,8 @@ ReviewsModel::ReviewsModel(QObject *parent)
 : BaseModel<ReviewPtr>(parent)
 , m_UserId(0)
 , m_BookShelfId(0)
+, m_SortOrder(Qt::DescendingOrder)
+, m_SortField("date_added")
 , m_HasMore(true)
 , m_CurrentPage(1)
 {

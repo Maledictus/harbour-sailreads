@@ -122,3 +122,23 @@ function humanReadableSortField(sortField) {
         return qsTr("Date added")
     }
 }
+
+function humanReadableScopeField(scope) {
+    switch (scope) {
+    case "friends": return qsTr("Friends")
+    case "top_friends_following": return qsTr("Top friends and followings")
+    case "top_friends": return qsTr("Top friends")
+    default:
+        return qsTr("Friends")
+    }
+}
+
+function humanReadableContentField(content) {
+    switch (content) {
+    case "all": return qsTr("Everything")
+    case "books": return qsTr("Books")
+    case "reviews": return qsTr("Reviews")
+    default:
+        return qsTr("Everything")
+    }
+}

@@ -91,12 +91,6 @@ Page {
                 busy: profilePage.busy
                 MenuItem {
                     visible: sailreadsManager.authUser.id === userId
-                    text: qsTr("About")
-                    onClicked: pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
-                }
-
-                MenuItem {
-                    visible: sailreadsManager.authUser.id === userId
                     text: qsTr("Logout")
                     onClicked: {
                         remorse.execute(qsTr("Logout"), function() { sailreadsManager.logout() } )
@@ -155,6 +149,14 @@ Page {
                     onClicked: {
                         userProfile.updateProfile()
                     }
+                }
+            }
+
+            PushUpMenu {
+                MenuItem {
+                    visible: sailreadsManager.authUser.id === userId
+                    text: qsTr("About")
+                    onClicked: pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
                 }
             }
 
