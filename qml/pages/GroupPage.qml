@@ -75,6 +75,7 @@ Page {
             }
 
             PullDownMenu {
+                busy: groupPage.busy
                 MenuItem {
                     text: qsTr("Join a group")
                     visible: groupItem.group && groupItem.group.groupAccess != Group.Secret ?

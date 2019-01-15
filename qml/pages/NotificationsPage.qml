@@ -53,6 +53,7 @@ Page {
         clip: true
 
         PullDownMenu {
+            busy: notificationsPage.busy
             MenuItem {
                 text: qsTr("Refresh")
                 onClicked: notificationsModel.updateNotifications()

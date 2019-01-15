@@ -65,12 +65,7 @@ Page {
         model: topicsModel
 
         PullDownMenu {
-            MenuItem {
-                text: qsTr("Refresh")
-                onClicked: {
-                    sailreadsManager.loadGroupFolderTopics(folderPage.folderId, folderPage.groupId)
-                }
-            }
+            busy: folderPage.busy
             MenuItem {
                 text: qsTr("Add new topic")
                 onClicked: {
@@ -80,6 +75,12 @@ Page {
                                 folderPage.folderId, dialog.question, dialog.updateFeed,
                                 dialog.digest, dialog.topicComment)
                     })
+                }
+            }
+            MenuItem {
+                text: qsTr("Refresh")
+                onClicked: {
+                    sailreadsManager.loadGroupFolderTopics(folderPage.folderId, folderPage.groupId)
                 }
             }
         }

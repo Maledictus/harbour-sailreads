@@ -68,7 +68,7 @@ Page {
             }
 
             PullDownMenu {
-                enabled: !busy
+                busy: authorPage.busy
                 MenuItem {
                     visible: author && author.userId > 0
                     text: qsTr("Open profile")

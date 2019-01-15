@@ -58,6 +58,7 @@ Page {
         }
 
         PullDownMenu {
+            busy: groupsPage.busy
             MenuItem {
                 text: qsTr("Search")
                 onClicked: {

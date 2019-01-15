@@ -66,6 +66,7 @@ Page {
         }
 
         PullDownMenu {
+            busy: bookShelvesPage.busy
             MenuItem {
                 text: qsTr("Search")
                 visible: sailreadsManager.authUser

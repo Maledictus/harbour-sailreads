@@ -102,12 +102,7 @@ Page {
         }
 
         PullDownMenu {
-            MenuItem {
-                text: qsTr("Refresh")
-                onClicked: {
-                    topicItem.updateTopic()
-                }
-            }
+            busy: groupFodlerTopicPage.busy
             MenuItem {
                 text: qsTr("Add comment")
                 onClicked: {
@@ -116,6 +111,12 @@ Page {
                         sailreadsManager.addNewComment("topic", groupFodlerTopicPage.topicId,
                                 dialog.comment)
                     })
+                }
+            }
+            MenuItem {
+                text: qsTr("Refresh")
+                onClicked: {
+                    topicItem.updateTopic()
                 }
             }
         }

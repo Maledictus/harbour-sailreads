@@ -81,6 +81,7 @@ Page {
         clip: true
 
         PullDownMenu {
+            busy: messagesPage.busy
             MenuItem {
                 text: qsTr("Select folder")
                 onClicked: {

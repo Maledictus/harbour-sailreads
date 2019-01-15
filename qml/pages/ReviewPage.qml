@@ -70,6 +70,7 @@ Page {
         onContentYChanged: fetchMoreIfNeeded()
 
         PullDownMenu {
+            busy: reviewPage.busy
             MenuItem {
                 text: qsTr("Open on GoodReads.com")
                 onClicked: mainWindow.openInBrowser(review.url)

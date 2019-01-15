@@ -51,6 +51,7 @@ Page {
         cacheBuffer: messagePage.height
 
         PullDownMenu {
+            busy: messagePage.busy
             MenuItem {
                 text: qsTr("Refresh")
                 onClicked: {

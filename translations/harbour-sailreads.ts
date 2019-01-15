@@ -194,12 +194,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AuthorBooksPage.qml" line="61"/>
+        <location filename="../qml/pages/AuthorBooksPage.qml" line="63"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AuthorBooksPage.qml" line="70"/>
+        <location filename="../qml/pages/AuthorBooksPage.qml" line="72"/>
         <source>There are no books.
 Pull down to refresh</source>
         <translation type="unfinished"></translation>
@@ -208,67 +208,67 @@ Pull down to refresh</source>
 <context>
     <name>AuthorPage</name>
     <message>
-        <location filename="../qml/pages/AuthorPage.qml" line="74"/>
+        <location filename="../qml/pages/AuthorPage.qml" line="75"/>
         <source>Open profile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AuthorPage.qml" line="84"/>
+        <location filename="../qml/pages/AuthorPage.qml" line="85"/>
         <source>Unfollow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AuthorPage.qml" line="85"/>
+        <location filename="../qml/pages/AuthorPage.qml" line="86"/>
         <source>Follow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AuthorPage.qml" line="99"/>
+        <location filename="../qml/pages/AuthorPage.qml" line="100"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AuthorPage.qml" line="148"/>
+        <location filename="../qml/pages/AuthorPage.qml" line="149"/>
         <source>Goodreads Author</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AuthorPage.qml" line="158"/>
+        <location filename="../qml/pages/AuthorPage.qml" line="159"/>
         <source>Born</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AuthorPage.qml" line="167"/>
+        <location filename="../qml/pages/AuthorPage.qml" line="168"/>
         <source>Died</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AuthorPage.qml" line="176"/>
+        <location filename="../qml/pages/AuthorPage.qml" line="177"/>
         <source>Influences</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AuthorPage.qml" line="183"/>
+        <location filename="../qml/pages/AuthorPage.qml" line="184"/>
         <source>Followers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AuthorPage.qml" line="207"/>
+        <location filename="../qml/pages/AuthorPage.qml" line="208"/>
         <source>Ratings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AuthorPage.qml" line="215"/>
+        <location filename="../qml/pages/AuthorPage.qml" line="216"/>
         <source>Reviews</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AuthorPage.qml" line="251"/>
+        <location filename="../qml/pages/AuthorPage.qml" line="252"/>
         <source>Series</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AuthorPage.qml" line="267"/>
+        <location filename="../qml/pages/AuthorPage.qml" line="268"/>
         <source>Books</source>
         <translation type="unfinished"></translation>
     </message>
@@ -960,103 +960,103 @@ Pull down to refresh or to search groups</source>
 <context>
     <name>ProfilePage</name>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="93"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="95"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="99"/>
         <location filename="../qml/pages/ProfilePage.qml" line="101"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="103"/>
         <source>Logout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="111"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="113"/>
         <source>Unfollow user</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="111"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="113"/>
         <source>Follow user</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="132"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="134"/>
         <source>Friend request was sent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="136"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="138"/>
         <source>Accept friend request</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="139"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="141"/>
         <source>Add as a friend</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="153"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="155"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="185"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="187"/>
         <source>Details</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="195"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="197"/>
         <source>Joined</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="202"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="204"/>
         <source>Last active</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="221"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="223"/>
         <source>Interests</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="230"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="232"/>
         <source>Favorite books</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="235"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="237"/>
         <source>Favorite authors</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="259"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="261"/>
         <source>About me</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="273"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="275"/>
         <source>Bookshelves</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="314"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="316"/>
         <source>Friends</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="330"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="332"/>
         <source>Groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="345"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="347"/>
         <source>Messages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="357"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="359"/>
         <source>Notifications</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1073,16 +1073,21 @@ Pull down to refresh or to search groups</source>
     <name>ReviewPage</name>
     <message>
         <location filename="../qml/pages/ReviewPage.qml" line="74"/>
+        <source>Open on GoodReads.com</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ReviewPage.qml" line="79"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ReviewPage.qml" line="109"/>
+        <location filename="../qml/pages/ReviewPage.qml" line="114"/>
         <source>Review</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ReviewPage.qml" line="227"/>
+        <location filename="../qml/pages/ReviewPage.qml" line="232"/>
         <source>Comments</source>
         <translation type="unfinished"></translation>
     </message>

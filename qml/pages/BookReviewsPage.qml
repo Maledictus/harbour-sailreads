@@ -69,6 +69,7 @@ Page {
         }
 
         PullDownMenu {
+            busy: reviewsPage.busy
             MenuItem {
                 text: qsTr("Sort")
                 onClicked: {

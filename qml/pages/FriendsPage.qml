@@ -52,6 +52,7 @@ Page {
         anchors.fill: parent
 
         PullDownMenu {
+            busy: friendsPage.busy
 //            MenuItem {
 //                text: qsTr("Friends updates")
 //                visible: sailreadsManager.authUser && sailreadsManager.authUser.id === userId

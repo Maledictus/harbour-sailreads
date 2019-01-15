@@ -70,6 +70,7 @@ Page {
             spacing: Theme.paddingSmall
 
             PullDownMenu {
+                busy: bookPage.busy
                 MenuItem {
                     visible: false //TODO
                     text: qsTr("Add to Bookshelves")

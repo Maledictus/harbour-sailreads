@@ -88,6 +88,7 @@ Page {
             }
 
             PullDownMenu {
+                busy: profilePage.busy
                 MenuItem {
                     visible: sailreadsManager.authUser.id === userId
                     text: qsTr("About")

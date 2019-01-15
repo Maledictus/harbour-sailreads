@@ -53,6 +53,7 @@ Page {
         }
 
         PullDownMenu {
+            busy: bookEditionsPage.busy
             MenuItem {
                 text: qsTr("Refresh")
                 onClicked: {
