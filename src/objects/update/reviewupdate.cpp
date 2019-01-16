@@ -20,101 +20,60 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-#include "update.h"
+#include "reviewupdate.h"
 
-#include <QtDebug>
-
-#include "../objects/user.h"
+#include "../book.h"
 
 namespace Sailreads
 {
-Update::Update(QObject *parent)
+ReviewUpdate::ReviewUpdate(QObject *parent)
 : QObject(parent)
+, m_Rating(0)
 {
-#ifdef QT_DEBUG
-    qDebug() << this << "CONSTRUCTED";
-#endif
 }
 
-Update::~Update()
-{
-#ifdef QT_DEBUG
-    qDebug() << this << "DESTRUCTED";
-#endif
-}
-
-QString Update::GetBody() const
+QString ReviewUpdate::GetBody() const
 {
     return m_Body;
 }
 
-void Update::SetBody(const QString& body)
+void ReviewUpdate::SetBody(const QString& body)
 {
-    m_Body = body;
+    if (m_Body != body) {
+        m_Body = body;
+        emit bodyChanged();
+    }
 }
 
-QUrl Update::GetLink() const
+BookPtr ReviewUpdate::GetBookPtr() const
 {
-    return m_Link;
+    return m_Book;
 }
 
-void Update::SetLink(const QUrl& link)
+Book* ReviewUpdate::GetBook() const
 {
-    m_Link = link;
+    return m_Book.get();
 }
 
-QUrl Update::GetImageUrl() const
+void ReviewUpdate::SetBook(const BookPtr& book)
 {
-    return m_ImageUrl;
+    if (m_Book != book) {
+        m_Book = book;
+        emit bookChanged();
+    }
 }
 
-void Update::SetImageUrl(const QUrl& url)
+int ReviewUpdate::GetRating() const
 {
-    m_ImageUrl = url;
+    return m_Rating;
 }
 
-UserPtr Update::GetActorPtr() const
+void ReviewUpdate::SetRating(int rating)
 {
-    return m_Actor;
+    if (m_Rating != rating) {
+        m_Rating = rating;
+        emit ratingChanged();
+    }
 }
 
-User* Update::GetActor() const
-{
-    return m_Actor.get();
-}
-
-void Update::SetActor(const UserPtr& actor)
-{
-    m_Actor = actor;
-}
-
-QDateTime Update::GetUpdatedDate() const
-{
-    return m_UpdatedDate;
-}
-
-void Update::SetUpdateDate(const QDateTime& dt)
-{
-    m_UpdatedDate = dt;
-}
-
-Update::UpdateType Update::GetUpdateType() const
-{
-    return m_UpdateType;
-}
-
-void Update::SetUpdateType(Update::UpdateType ut)
-{
-    m_UpdateType = ut;
-}
-
-QObjectPtr Update::GetUpdateObject() const
-{
-    return m_UpdateObject;
-}
-
-void Update::SetUpdateObject(const QObjectPtr& object)
-{
-    m_UpdateObject = object;
-}
 } // namespace Sailreads

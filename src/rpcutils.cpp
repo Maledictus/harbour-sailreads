@@ -27,6 +27,8 @@ THE SOFTWARE.
 #include <QRegularExpression>
 #include <QtDebug>
 
+#include "objects/update/commentupdate.h"
+#include "objects/update/reviewupdate.h"
 #include "objects/author.h"
 #include "objects/book.h"
 #include "objects/group.h"
@@ -36,6 +38,7 @@ THE SOFTWARE.
 #include "objects/series.h"
 #include "objects/serieswork.h"
 #include "objects/topic.h"
+#include "objects/update.h"
 #include "objects/user.h"
 #include "objects/work.h"
 
@@ -1059,6 +1062,107 @@ NotificationPtr ParseNotification(const QDomElement& element)
     return notification;
 }
 
+Update::UpdateType GetUpdateType(const QString& type)
+{
+    if (type == "comment") {
+        return Update::Comment;
+    }
+    else if (type == "readstatus") {
+        return Update::ReadStatus;
+    }
+    else if (type == "review") {
+        return Update::Review;
+    }
+    else if (type == "userchallenge") {
+        return Update::UserChallenge;
+    }
+    else if (type == "friend") {
+        return Update::Friend;
+    }
+    else if (type == "userstatus") {
+        return Update::UserStatus;
+    }
+    else {
+        return Update::Unknown;
+    }
+}
+
+UpdatePtr ParseUpdate(const QDomElement& element)
+{
+    UpdatePtr update = std::make_shared<Update>();
+    update->SetUpdateType(GetUpdateType(element.attribute("type")));
+
+    QString body;
+    int rating;
+    BookPtr book;
+    const auto& fieldsList = element.childNodes();
+    for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
+        const auto& fieldElement = fieldsList.at (i).toElement ();
+        if (fieldElement.tagName() == "action_text") {
+            update->SetBody(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "link") {
+            update->SetLink(QUrl(fieldElement.text()));
+        }
+        else if (fieldElement.tagName() == "image_url") {
+            update->SetImageUrl(QUrl(fieldElement.text()));
+        }
+        else if (fieldElement.tagName() == "actor") {
+            update->SetActor(ParseUser(fieldElement));
+        }
+        else if (fieldElement.tagName() == "updated_at") {
+            update->SetUpdateDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
+                     Qt::ISODate));
+        }
+        else if (fieldElement.tagName() == "object") {
+            const auto& objectsList = fieldElement.childNodes();
+            for (int j = 0, objectsCount = objectsList.size(); j < objectsCount; ++j) {
+                }
+                else if (objectElement.tagName() == "book") {
+                    book = ParseBook(objectElement);
+                }
+                else if (objectElement.tagName() == "userstatus") {
+
+                }
+                else if (objectElement.tagName() == "recommendation") {
+
+                }
+            }
+        }
+        else if (fieldElement.tagName() == "action" && fieldElement.attribute("type") == "rating") {
+            const auto& ratingElement = fieldElement.firstChildElement("rating");
+            if (!ratingElement.isNull()) {
+                rating = ratingElement.text().toInt();
+            }
+        }
+        else if (fieldElement.tagName() == "body") {
+            body = fieldElement.text();
+        }
+    }
+
+    QObjectPtr updateObject;
+    switch (update->GetUpdateType()) {
+    case Update::Review: {
+        ReviewUpdate *ru = new ReviewUpdate();
+        ru->SetBody(body);
+        ru->SetBook(book);
+        ru->SetRating(rating);
+        updateObject.reset(ru);
+        break;
+    }
+    case Update::Comment: {
+        CommentUpdate *cu = new CommentUpdate();
+        cu->SetBody(body);
+        updateObject.reset(cu);
+        break;
+    }
+    }
+
+    update->SetUpdateObject(updateObject);
+
+    return update;
+}
+
 GroupMembers_t ParseGroupMembers(const QDomElement& element)
 {
     GroupMembers_t members;
@@ -1298,6 +1402,16 @@ Users_t ParseUsers(const QDomElement& element)
     Users_t result;
     for (int i = 0, cnt = usersList.size(); i < cnt; ++i) {
         result << ParseUser(usersList.at (i).toElement());
+    }
+    return result;
+}
+
+Updates_t ParseUpdatesList(const QDomElement& element)
+{
+    const auto& updatesList = element.childNodes();
+    Updates_t result;
+    for (int i = 0, cnt = updatesList.size(); i < cnt; ++i) {
+        result << ParseUpdate(updatesList.at (i).toElement());
     }
     return result;
 }
@@ -1686,6 +1800,20 @@ Notifications_t ParseNotifications(const QDomDocument &doc)
     return ParseNotifications(notificationsElement);
 }
 
+Updates_t ParseUpdates(const QDomDocument& doc)
+{
+    const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
+    if (responseElement.isNull()) {
+        return Updates_t();
+    }
+
+    const auto& updatesElement = responseElement.firstChildElement("updates");
+    if (updatesElement.isNull()) {
+        return Updates_t();
+    }
+
+    return ParseUpdatesList(updatesElement);
+}
 }
 }
 }

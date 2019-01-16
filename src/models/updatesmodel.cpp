@@ -94,6 +94,8 @@ QVariant UpdatesModel::data(const QModelIndex& index, int role) const
         return update->GetUpdatedDate();
     case UpdateType:
         return update->GetUpdateType();
+    case UpdateObject:
+        return QVariant::fromValue(update->GetUpdateObject().get());
     default:
         return QVariant();
     }
@@ -109,6 +111,7 @@ QHash<int, QByteArray> UpdatesModel::roleNames() const
     roles[Actor] = "updateActor";
     roles[UpdatedDate] = "updateUpdatedDate";
     roles[UpdateType] = "updateUpdateType";
+    roles[UpdateObject] = "updateUpdateObject";
     return roles;
 }
 

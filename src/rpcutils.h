@@ -61,6 +61,7 @@ SeriesWorkPtr ParseSeriesWork(const QDomElement& element);
 MessagePtr ParseMessage(const QDomElement& element);
 quint64 ParseResourceId(const QDomElement& element);
 NotificationPtr ParseNotification(const QDomElement& element);
+UpdatePtr ParseUpdate(const QDomElement& element);
 
 GroupMembers_t ParseGroupMembers(const QDomElement& element);
 GroupFolders_t ParseGroupFolders(const QDomElement& element);
@@ -81,6 +82,7 @@ Messages_t ParseMessagesList(const QDomElement& element);
 CountedItems<MessagePtr> ParseMessages(const QDomElement& element);
 Notifications_t ParseNotifications(const QDomElement& element);
 Users_t ParseUsers(const QDomElement& element);
+Updates_t ParseUpdatesList(const QDomElement& element);
 
 UserPtr ParseUser(const QDomDocument& doc);
 CountedItems<BookShelf> ParseBookShelves(const QDomDocument& doc);
@@ -105,6 +107,7 @@ CountedItems<BookPtr> ParseBookEditions(const QDomDocument& doc);
 CountedItems<MessagePtr> ParseMessages(const QDomDocument& doc);
 MessagePtr ParseMessage(const QDomDocument& doc);
 Notifications_t ParseNotifications(const QDomDocument& doc);
+Updates_t ParseUpdates(const QDomDocument& doc);
 }
 }
 }

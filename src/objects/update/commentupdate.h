@@ -22,61 +22,23 @@ THE SOFTWARE.
 
 #pragma once
 
-#include <memory>
-
-#include <QDateTime>
 #include <QObject>
-#include <QString>
-#include <QUrl>
-
-#include "../types.h"
 
 namespace Sailreads
 {
-class Update : public QObject
+class CommentUpdate : public QObject
 {
     Q_OBJECT
 
     QString m_Body;
-    QUrl m_Link;
-    QUrl m_ImageUrl;
-    UserPtr m_Actor;
-    QDateTime m_UpdatedDate;
-    QObjectPtr m_UpdateObject;
-public:
-    enum UpdateType
-    {
-        Unknown = -1,
-        ReadStatus = 0,
-        Review,
-        UserStatus,
-        Friend,
-        Comment,
-        UserChallenge
-    };
-    Q_ENUMS(UpdateType)
-private:
-    UpdateType m_UpdateType;
+    Q_PROPERTY(QString body READ GetBody NOTIFY bodyChanged)
 
 public:
-    Update(QObject *parent = nullptr);
-    ~Update();
+    CommentUpdate(QObject *parent = nullptr);
 
     QString GetBody() const;
     void SetBody(const QString& body);
-    QUrl GetLink() const;
-    void SetLink(const QUrl& link);
-    QUrl GetImageUrl() const;
-    void SetImageUrl(const QUrl& url);
-    UserPtr GetActorPtr() const;
-    User* GetActor() const;
-    void SetActor(const UserPtr& actor);
-    QDateTime GetUpdatedDate() const;
-    void SetUpdateDate(const QDateTime& dt);
-    UpdateType GetUpdateType() const;
-    void SetUpdateType(UpdateType ut);
-    QObjectPtr GetUpdateObject() const;
-    void SetUpdateObject(const QObjectPtr& object);
+signals:
+    void bodyChanged();
 };
-
 } // namespace Sailreads

@@ -115,14 +115,16 @@ void GoodReadsApi::CompareBooks(quint64 userId)
 
 void GoodReadsApi::GetUpdates(const QString& scope, const QString& items, const QDateTime& updateDt)
 {
-    //TODO
-//    QVariantMap params;
-//    QNetworkReply *reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
-//            QUrl(m_BaseUrl + "/updates/friends.xml"), params);
-//    auto reply = m_NAM->get(QNetworkRequest(pair.first));
-//    m_CurrentReply = reply;
-//    connect(reply, &QNetworkReply::finished,
-//             this, &GoodReadsApi::handleGetUpdates);
+    QVariantMap params = { { "update_item", items }, { "update_scope", scope },
+            { "update_filter", scope } };
+    if (updateDt.isValid() && !updateDt.isNull()) {
+        params.insert("max_updated_at", updateDt.toTime_t());
+    }
+    QNetworkReply *reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + "/updates/friends.xml"), params);
+    m_CurrentReply = reply;
+    connect(reply, &QNetworkReply::finished,
+             this, &GoodReadsApi::handleGetUpdates);
 }
 
 void GoodReadsApi::GetNotifications(const QString& pageToken)
@@ -897,8 +899,8 @@ void GoodReadsApi::handleGetUpdates()
     }
 
     emit requestFinished();
-    //TODO
-    qDebug() << doc.toByteArray();
+    emit gotUpdates(RpcUtils::Parser::ParseUpdates(doc));
+
 }
 
 void GoodReadsApi::handleGetNotifications()

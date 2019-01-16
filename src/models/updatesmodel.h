@@ -47,7 +47,8 @@ public:
         ImageUrl,
         Actor,
         UpdatedDate,
-        UpdateType
+        UpdateType,
+        UpdateObject
     };
 
     UpdatesModel(QObject *parent = nullptr);

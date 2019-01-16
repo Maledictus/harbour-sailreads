@@ -20,101 +20,88 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-#include "update.h"
-
-#include <QtDebug>
-
-#include "../objects/user.h"
+#include "readstatusupdate.h"
 
 namespace Sailreads
 {
-Update::Update(QObject *parent)
+ReadStatusUpdate::ReadStatusUpdate(QObject *parent)
 : QObject(parent)
 {
-#ifdef QT_DEBUG
-    qDebug() << this << "CONSTRUCTED";
-#endif
 }
 
-Update::~Update()
+quint64 ReadStatusUpdate::GetId() const
 {
-#ifdef QT_DEBUG
-    qDebug() << this << "DESTRUCTED";
-#endif
+
 }
 
-QString Update::GetBody() const
+void ReadStatusUpdate::SetId(quint64 id)
 {
-    return m_Body;
+
 }
 
-void Update::SetBody(const QString& body)
+quint64 ReadStatusUpdate::GetReviewId() const
 {
-    m_Body = body;
+
 }
 
-QUrl Update::GetLink() const
+void ReadStatusUpdate::SetReviewId(quint64 id)
 {
-    return m_Link;
+
 }
 
-void Update::SetLink(const QUrl& link)
+quint64 ReadStatusUpdate::GetUserId() const
 {
-    m_Link = link;
+
 }
 
-QUrl Update::GetImageUrl() const
+void ReadStatusUpdate::SetUserId(quint64 id)
 {
-    return m_ImageUrl;
+
 }
 
-void Update::SetImageUrl(const QUrl& url)
+QString ReadStatusUpdate::GetOldStatus() const
 {
-    m_ImageUrl = url;
+
 }
 
-UserPtr Update::GetActorPtr() const
+void ReadStatusUpdate::SetOldStatus(const QString &status)
 {
-    return m_Actor;
+
 }
 
-User* Update::GetActor() const
+QString ReadStatusUpdate::GetCurrentStatus() const
 {
-    return m_Actor.get();
+
 }
 
-void Update::SetActor(const UserPtr& actor)
+void ReadStatusUpdate::SetCurrentStatus(const QString &status)
 {
-    m_Actor = actor;
+
 }
 
-QDateTime Update::GetUpdatedDate() const
+QDateTime ReadStatusUpdate::GetUpdateDate() const
 {
-    return m_UpdatedDate;
+
 }
 
-void Update::SetUpdateDate(const QDateTime& dt)
+void ReadStatusUpdate::SetUpdateDate(const QDateTime &dt)
 {
-    m_UpdatedDate = dt;
+
 }
 
-Update::UpdateType Update::GetUpdateType() const
+Book *ReadStatusUpdate::GetBook() const
 {
-    return m_UpdateType;
+
 }
 
-void Update::SetUpdateType(Update::UpdateType ut)
+BookPtr ReadStatusUpdate::GetBookPtr() const
 {
-    m_UpdateType = ut;
+
 }
 
-QObjectPtr Update::GetUpdateObject() const
+void ReadStatusUpdate::SetBook(const BookPtr &book)
 {
-    return m_UpdateObject;
+
 }
 
-void Update::SetUpdateObject(const QObjectPtr& object)
-{
-    m_UpdateObject = object;
-}
 } // namespace Sailreads
