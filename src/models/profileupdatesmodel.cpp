@@ -19,40 +19,48 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
+#include "profileupdatesmodel.h"
 
-import QtQuick 2.2
-import Sailfish.Silica 1.0
+#include "../sailreadsmanager.h"
 
-Image {
-    id: image
+namespace Sailreads
+{
+ProfileUpdatesModel::ProfileUpdatesModel(QObject *parent)
+: UpdatesModel(parent)
+{
+}
 
-    property url defaultImage
-    property alias indicator: busyIndicator
+quint64 ProfileUpdatesModel::GetUserId() const
+{
+    return m_UserId;
+}
 
-    signal clicked()
-
-    fillMode: Image.PreserveAspectFit
-
-    BusyIndicator {
-        id: busyIndicator
-        anchors.centerIn: image
-        running: image.status === Image.Loading
-        visible: running
-    }
-
-    MouseArea {
-        anchors.fill: parent
-        enabled: image.enabled
-        onClicked: image.clicked()
-    }
-
-    onStatusChanged: {
-        if (defaultImage.length == 0) {
-            return
-        }
-
-        if (status == Image.Error || status == Image.Null) {
-            source = defaultImage
-        }
+void ProfileUpdatesModel::SetUserId(quint64 userId)
+{
+    if (m_UserId != userId) {
+        m_UserId = userId;
+        emit userIdChanged();
     }
 }
+
+void ProfileUpdatesModel::classBegin()
+{
+    connect(SailreadsManager::Instance(this), &SailreadsManager::gotUserUpdates,
+            this, &ProfileUpdatesModel::handleGotUpdates);
+}
+
+void ProfileUpdatesModel::componentComplete()
+{
+}
+
+void ProfileUpdatesModel::handleGotUpdates(quint64 userId, const Updates_t& updates)
+{
+    if (m_UserId != userId) {
+        return;
+    }
+
+    SetItems(updates);
+    SetHasMore(false);
+}
+
+} // namespace Sailreads

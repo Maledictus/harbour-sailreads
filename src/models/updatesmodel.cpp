@@ -22,6 +22,8 @@ THE SOFTWARE.
 
 #include "updatesmodel.h"
 
+#include <QtDebug>
+
 #include "../sailreadsmanager.h"
 #include "../objects/update.h"
 #include "../objects/user.h"
@@ -30,9 +32,8 @@ namespace Sailreads
 {
 UpdatesModel::UpdatesModel(QObject *parent)
 : BaseModel<UpdatePtr>(parent)
+, m_HasMore(true)
 {
-    connect(SailreadsManager::Instance(this), &SailreadsManager::gotUpdates,
-            this, &UpdatesModel::handleGotUpdates);
 }
 
 bool UpdatesModel::GetHasMore() const
@@ -82,8 +83,8 @@ QVariant UpdatesModel::data(const QModelIndex& index, int role) const
 
     const auto& update = m_Items.at(index.row());
     switch (role) {
-    case Body:
-        return update->GetBody();
+    case HeaderText:
+        return update->GetHeaderText();
     case Link:
         return update->GetLink();
     case ImageUrl:
@@ -105,7 +106,7 @@ QVariant UpdatesModel::data(const QModelIndex& index, int role) const
 QHash<int, QByteArray> UpdatesModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
-    roles[Body] = "updateBody";
+    roles[HeaderText] = "updateHeaderText";
     roles[Link] = "updateLink";
     roles[ImageUrl] = "updateImageUrl";
     roles[Actor] = "updateActor";
@@ -113,6 +114,16 @@ QHash<int, QByteArray> UpdatesModel::roleNames() const
     roles[UpdateType] = "updateUpdateType";
     roles[UpdateObject] = "updateUpdateObject";
     return roles;
+}
+
+void UpdatesModel::classBegin()
+{
+    connect(SailreadsManager::Instance(this), &SailreadsManager::gotUpdates,
+            this, &UpdatesModel::handleGotUpdates);
+}
+
+void UpdatesModel::componentComplete()
+{
 }
 
 void UpdatesModel::fetchMoreContent()

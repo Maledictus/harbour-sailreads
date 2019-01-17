@@ -116,7 +116,6 @@ Page {
                     id: groupImage
                     width: Theme.iconSizeExtraLarge
                     height: Theme.iconSizeExtraLarge
-                    fillMode: Image.PreserveAspectFit
                     defaultImage: "qrc:/images/grga.jpg"
                     source: groupItem.group ? groupItem.group.imageUrl : ""
                     indicator.size: BusyIndicatorSize.Medium

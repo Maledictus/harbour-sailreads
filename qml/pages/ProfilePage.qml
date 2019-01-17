@@ -175,7 +175,6 @@ Page {
                     width: Theme.iconSizeExtraLarge
                     height: Theme.iconSizeExtraLarge
                     source: userProfile.user ? userProfile.user.avatarUrl : ""
-                    fillMode: Image.PreserveAspectFit
                     indicator.size: BusyIndicatorSize.Medium
                 }
 
@@ -363,6 +362,38 @@ Page {
                 busy: profilePage.busy
                 enabled: !busy
                 onClicked: pageStack.push(Qt.resolvedUrl("NotificationsPage.qml"))
+            }
+
+            SectionHeader {
+                text: qsTr("Recent updates")
+            }
+
+            SilicaListView {
+                id: recentUpdatesView
+
+                width: parent.width
+                height: contentHeight
+                delegate: UpdateListItem {
+                    imageUrl: updateImageUrl
+                    headerText: updateHeaderText
+                    date: Qt.formatDateTime(updateUpdatedDate)
+                    onLinkActivated: {
+                        console.log(link)
+                    }
+                    onClicked: {
+                    }
+                }
+
+                model: ProfileUpdatesModel {
+                    userId: userProfile.userId
+                }
+
+                BusyIndicator {
+                    size: BusyIndicatorSize.Large
+                    anchors.centerIn: parent
+                    running: profilePage.busy
+                    visible: running
+                }
             }
         }
 

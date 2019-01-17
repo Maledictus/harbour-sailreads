@@ -109,7 +109,6 @@ Page {
 
                     width: Theme.iconSizeMedium
                     height: Theme.iconSizeMedium
-                    fillMode: Image.PreserveAspectFit
                     source: notificationActors.length > 0 ? notificationActors[0].avatarUrl : ""
                     indicator.size: BusyIndicatorSize.Small
                     enabled: false

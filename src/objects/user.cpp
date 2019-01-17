@@ -386,6 +386,16 @@ QString User::GetFavoritesAuthorsString() const
     return result;
 }
 
+Updates_t User::GetRecentUpdates() const
+{
+    return m_RecentUpdates;
+}
+
+void User::SetRecentUpdates(const Updates_t& updates)
+{
+    m_RecentUpdates = updates;
+}
+
 bool User::IsEqual(const UserPtr& user) const
 {
     if (!user) {

@@ -28,7 +28,9 @@ THE SOFTWARE.
 #include <QtDebug>
 
 #include "objects/update/commentupdate.h"
+#include "objects/update/readstatusupdate.h"
 #include "objects/update/reviewupdate.h"
+#include "objects/update/userstatusupdate.h"
 #include "objects/author.h"
 #include "objects/book.h"
 #include "objects/group.h"
@@ -163,7 +165,7 @@ UserPtr ParseUser(const QDomElement& element)
             user->SetPrivate(fieldElement.text() == "true");
         }
         else if (fieldElement.tagName() == "updates") {
-            //TODOuser->SetUserUpdates(ParseUserUpdates(fieldElement));
+            user->SetRecentUpdates(ParseUpdatesList(fieldElement));
         }
         else if (fieldElement.tagName() == "user_statuses") {
             // No any sense to implement this
@@ -1062,6 +1064,91 @@ NotificationPtr ParseNotification(const QDomElement& element)
     return notification;
 }
 
+ReadStatusUpdate* ParseReadStatusUpdate(const QDomElement& element)
+{
+    ReadStatusUpdate* rsu = new ReadStatusUpdate();
+    const auto& fieldsList = element.childNodes();
+    for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
+        const auto& fieldElement = fieldsList.at (i).toElement ();
+        if (fieldElement.tagName() == "id") {
+            rsu->SetId(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "review_id") {
+            rsu->SetReviewId(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "user_id") {
+            rsu->SetUserId(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "old_status") {
+            rsu->SetOldStatus(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "status") {
+            rsu->SetCurrentStatus(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "updated_at") {
+            rsu->SetUpdateDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
+                    Qt::ISODate));
+        }
+        else if (fieldElement.tagName() == "review") {
+            const auto& bookElement = fieldElement.firstChildElement("book");
+            if (!bookElement.isNull()) {
+                BookPtr book = ParseBook(bookElement);
+                rsu->SetBook(book);
+            }
+        }
+    }
+    return rsu;
+}
+
+UserStatusUpdate* ParseUserStatusUpdate(const QDomElement& element)
+{
+    UserStatusUpdate* usu = new UserStatusUpdate();
+    const auto& fieldsList = element.childNodes();
+    for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
+        const auto& fieldElement = fieldsList.at (i).toElement ();
+        if (fieldElement.tagName() == "id") {
+            usu->SetId(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "user_id") {
+            usu->SetUserId(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "book_id") {
+            usu->SetBookId(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "page") {
+            usu->SetPage(fieldElement.text().toInt());
+        }
+        else if (fieldElement.tagName() == "comments_count") {
+            usu->SetCommentsCount(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "created_at") {
+            usu->SetCreateDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
+                    Qt::ISODate));
+        }
+        else if (fieldElement.tagName() == "updated_at") {
+            usu->SetUpdateDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
+                    Qt::ISODate));
+        }
+        else if (fieldElement.tagName() == "body") {
+            usu->SetBody(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "percent") {
+            usu->SetPercent(fieldElement.text().toInt());
+        }
+        else if (fieldElement.tagName() == "work_id") {
+            usu->SetWorkId(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "review_id") {
+            usu->SetReviewId(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "book") {
+            usu->SetBook(ParseBook(fieldElement));
+        }
+    }
+    return usu;
+}
+
+
 Update::UpdateType GetUpdateType(const QString& type)
 {
     if (type == "comment") {
@@ -1093,13 +1180,15 @@ UpdatePtr ParseUpdate(const QDomElement& element)
     update->SetUpdateType(GetUpdateType(element.attribute("type")));
 
     QString body;
-    int rating;
+    int rating = 0;
     BookPtr book;
+    ReadStatusUpdate *rsu = nullptr;
+    UserStatusUpdate *usu = nullptr;
     const auto& fieldsList = element.childNodes();
     for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
         const auto& fieldElement = fieldsList.at (i).toElement ();
         if (fieldElement.tagName() == "action_text") {
-            update->SetBody(fieldElement.text());
+            update->SetActionText(fieldElement.text());
         }
         else if (fieldElement.tagName() == "link") {
             update->SetLink(QUrl(fieldElement.text()));
@@ -1111,21 +1200,20 @@ UpdatePtr ParseUpdate(const QDomElement& element)
             update->SetActor(ParseUser(fieldElement));
         }
         else if (fieldElement.tagName() == "updated_at") {
-            update->SetUpdateDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
-                     Qt::ISODate));
+            update->SetUpdateDate(QDateTime::fromString(fieldElement.text(), Qt::RFC2822Date));
         }
         else if (fieldElement.tagName() == "object") {
             const auto& objectsList = fieldElement.childNodes();
             for (int j = 0, objectsCount = objectsList.size(); j < objectsCount; ++j) {
-                }
-                else if (objectElement.tagName() == "book") {
+                const auto& objectElement = objectsList.at(j).toElement();
+                if (objectElement.tagName() == "book") {
                     book = ParseBook(objectElement);
                 }
                 else if (objectElement.tagName() == "userstatus") {
-
+                    usu = ParseUserStatusUpdate(objectElement);
                 }
-                else if (objectElement.tagName() == "recommendation") {
-
+                else if (objectElement.tagName() == "read_status") {
+                    rsu = ParseReadStatusUpdate(objectElement);
                 }
             }
         }
@@ -1145,8 +1233,8 @@ UpdatePtr ParseUpdate(const QDomElement& element)
     case Update::Review: {
         ReviewUpdate *ru = new ReviewUpdate();
         ru->SetBody(body);
-        ru->SetBook(book);
         ru->SetRating(rating);
+        ru->SetBook(book);
         updateObject.reset(ru);
         break;
     }
@@ -1156,6 +1244,20 @@ UpdatePtr ParseUpdate(const QDomElement& element)
         updateObject.reset(cu);
         break;
     }
+    case Update::ReadStatus: {
+        if (rsu) {
+            updateObject.reset(rsu);
+        }
+        break;
+    }
+    case Update::UserStatus: {
+        if (usu) {
+            updateObject.reset(usu);
+        }
+        break;
+    }
+    default:
+        break;
     }
 
     update->SetUpdateObject(updateObject);

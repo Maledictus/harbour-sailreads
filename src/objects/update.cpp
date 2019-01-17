@@ -43,14 +43,28 @@ Update::~Update()
 #endif
 }
 
-QString Update::GetBody() const
+QString Update::GetActionText() const
 {
-    return m_Body;
+    return m_ActionText;
 }
 
-void Update::SetBody(const QString& body)
+void Update::SetActionText(const QString& actionText)
 {
-    m_Body = body;
+    m_ActionText = actionText;
+}
+
+QString Update::GetHeaderText() const
+{
+    switch (m_UpdateType) {
+    case Update::Comment:
+        return m_ActionText;
+    default:
+        return QString("<a href=\"%1\" >%2</a> %3")
+                .arg(QUrl(m_Actor ? m_Actor->GetWebUrl() : QUrl()).toString())
+                .arg(m_Actor ? m_Actor->GetUserName() : QString())
+                .arg(m_ActionText);
+    }
+    return "";
 }
 
 QUrl Update::GetLink() const

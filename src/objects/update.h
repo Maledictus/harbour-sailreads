@@ -37,7 +37,7 @@ class Update : public QObject
 {
     Q_OBJECT
 
-    QString m_Body;
+    QString m_ActionText;
     QUrl m_Link;
     QUrl m_ImageUrl;
     UserPtr m_Actor;
@@ -62,8 +62,9 @@ public:
     Update(QObject *parent = nullptr);
     ~Update();
 
-    QString GetBody() const;
-    void SetBody(const QString& body);
+    QString GetActionText() const;
+    void SetActionText(const QString& actionText);
+    QString GetHeaderText() const;
     QUrl GetLink() const;
     void SetLink(const QUrl& link);
     QUrl GetImageUrl() const;

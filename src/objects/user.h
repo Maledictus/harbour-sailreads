@@ -67,6 +67,7 @@ class User : public QObject
     bool m_IsFollwer;
     bool m_IsFollowing;
     FriendRequest m_FriendRequest;
+    Updates_t m_RecentUpdates;
 
     Q_PROPERTY(quint64 id READ GetId NOTIFY idChanged)
     Q_PROPERTY(QString userName READ GetUserName NOTIFY userNameChanged)
@@ -179,6 +180,8 @@ public:
     int GetFriendStatus() const;
     void SetFriendStatus(const QString& status);
     QString GetFavoritesAuthorsString() const;
+    Updates_t GetRecentUpdates() const;
+    void SetRecentUpdates(const Updates_t& updates);
 
     bool IsEqual(const UserPtr& user) const;
 

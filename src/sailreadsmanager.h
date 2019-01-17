@@ -148,6 +148,7 @@ signals:
     void gotUserProfile(const UserPtr& userProfile);
 
     void gotUpdates(const Updates_t& updates);
+    void gotUserUpdates(quint64 userId, const Updates_t& updates);
 
     void gotMessages(const QString& folder, const CountedItems<MessagePtr>& messages);
     void gotMessage(const MessagePtr& message);

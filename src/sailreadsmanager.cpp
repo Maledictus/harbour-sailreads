@@ -122,7 +122,9 @@ void SailreadsManager::MakeConnections()
                 items.m_BeginIndex = 1;
                 items.m_EndIndex = items.m_Items.size();
                 items.m_Count = items.m_Items.size();
+
                 emit gotUserBookShelves(profile->GetId(), items);
+                emit gotUserUpdates(profile->GetId(), profile->GetRecentUpdates());
             });
     connect(m_Api, &GoodReadsApi::gotMessages,
             this, &SailreadsManager::gotMessages);

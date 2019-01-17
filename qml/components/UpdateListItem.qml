@@ -20,65 +20,76 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-import QtQuick 2.2
+import QtQuick 2.0
 import Sailfish.Silica 1.0
+import harbour.sailreads 1.0
 
 ListItem {
-    contentHeight: row.height + separator.height + Theme.paddingMedium
+    id: listItem
+
+    property alias imageUrl: headerImage.source
+    property string headerText
+    property alias date: dateLabel.text
+
+    signal linkActivated(var link)
+
+    contentHeight: column.height + separator.height + Theme.paddingMedium + Theme.paddingSmall
     clip: true
 
-    Row {
-        id: row
-        spacing: Theme.paddingMedium
-        height: Math.max(friendIconImage.height, column.height)
+    Column {
+        id: column
         anchors {
+            top: parent.top
+            topMargin: Theme.paddingSmall
             left: parent.left
             leftMargin: Theme.horizontalPageMargin
             right: parent.right
             rightMargin: Theme.horizontalPageMargin
         }
-        BaseImage {
-            id: friendIconImage
-            anchors {
-                top: column.top
-                topMargin: Theme.paddingSmall
+
+        Row {
+            id: row
+            height: Math.max(headerImage.height, headerLabel.height)
+            width: parent.width
+            spacing: Theme.paddingMedium
+
+            property string _style: "<style>a:link { color:" + Theme.highlightColor + "; }</style>"
+            BaseImage {
+                id: headerImage
+
+                width: Theme.iconSizeMedium
+                height: 1.5 * width
+                horizontalAlignment: Image.AlignLeft
+                verticalAlignment: Image.AlignTop
+                indicator.size: BusyIndicatorSize.Medium
+                enabled: false
             }
-            height: Theme.iconSizeLarge
-            width: Theme.iconSizeMedium
-            source: friendAvatarUrl
-            horizontalAlignment: Image.AlignLeft
-            verticalAlignment: Image.AlignTop
+
+            Label {
+                id: headerLabel
+                width: parent.width - headerImage.width - Theme.paddingMedium
+                textFormat: Text.StyledText
+                wrapMode: Text.WordWrap
+                text: headerText
+                linkColor: Theme.highlightColor
+                font.family: Theme.fontFamilyHeading
+                color: highlighted ? Theme.highlightColor : Theme.primaryColor
+                onLinkActivated: listItem.linkActivated(link)
+            }
         }
 
-        Column {
-            id: column
-            width: parent.width - friendIconImage.width -
-                    Theme.paddingMedium
-            Label {
-                font.family: Theme.fontFamilyHeading
-                truncationMode: TruncationMode.Fade
-                text: friendName
-                color: highlighted ? Theme.highlightColor : Theme.primaryColor
-            }
-            Label {
-                truncationMode: TruncationMode.Fade
-                font.pixelSize: Theme.fontSizeExtraSmall
-                text: qsTr("%1 books").arg(Number(friendBooksCount).toFixed())
-                color: Theme.highlightColor
-            }
-            Label {
-                truncationMode: TruncationMode.Fade
-                font.pixelSize: Theme.fontSizeExtraSmall
-                text: qsTr("%1 friends").arg(Number(friendFriendsCount).toFixed())
-                color: Theme.highlightColor
-            }
+        Label {
+            id: dateLabel
+            anchors.right: parent.right
+            font.pixelSize: Theme.fontSizeExtraSmall
+            color: highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor
         }
     }
 
     Separator {
         id: separator
         anchors {
-            top: row.bottom
+            top: column.bottom
             topMargin: Theme.paddingMedium
         }
 
@@ -87,5 +98,3 @@ ListItem {
         horizontalAlignment: Qt.AlignHCenter
     }
 }
-
-

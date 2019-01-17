@@ -48,7 +48,6 @@ ListItem {
         }
         height: Theme.iconSizeLarge
         width: Theme.iconSizeMedium
-        fillMode: Image.PreserveAspectFit
         horizontalAlignment: Image.AlignLeft
         verticalAlignment: Image.AlignTop
         indicator.size: BusyIndicatorSize.Medium

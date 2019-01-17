@@ -95,7 +95,29 @@ Page {
                     .arg(Utils.humanReadableScopeField(scopeFilter))
         }
 
+        cacheBuffer: friendsUpdatesPage.height
         model: updatesModel
+        function fetchMoreIfNeeded() {
+            if (!friendsUpdatesPage.busy &&
+                    updatesModel.hasMore &&
+                    indexAt(contentX, contentY + height) > updatesModel.rowCount() - 2) {
+                updatesModel.fetchMoreContent()
+            }
+        }
+
+        onContentYChanged: fetchMoreIfNeeded()
+
+
+        delegate: UpdateListItem {
+            imageUrl: updateImageUrl
+            headerText: updateHeaderText
+            date: Qt.formatDateTime(updateUpdatedDate)
+            onLinkActivated: {
+                console.log(link)
+            }
+            onClicked: {
+            }
+        }
 
         VerticalScrollDecorator{}
     }

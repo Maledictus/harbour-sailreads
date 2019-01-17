@@ -52,6 +52,7 @@ THE SOFTWARE.
 #include "models/reviewsmodel.h"
 #include "models/searchreviewsmodel.h"
 #include "models/updatesmodel.h"
+#include "models/profileupdatesmodel.h"
 #include "objects/author.h"
 #include "objects/book.h"
 #include "objects/group.h"
@@ -63,6 +64,7 @@ THE SOFTWARE.
 #include "objects/work.h"
 #include "objects/groupfolder.h"
 #include "objects/topic.h"
+#include "objects/update.h"
 #include "qmltypes/authorprofileitem.h"
 #include "qmltypes/bookitem.h"
 #include "qmltypes/groupitem.h"
@@ -166,6 +168,8 @@ void Application::start()
             "User provids attached properties and can't be instantiated");
     qmlRegisterUncreatableType<Work>("harbour.sailreads", 1, 0, "Work",
             "Work provides attached properties and can't be instantiated");
+    qmlRegisterUncreatableType<Update>("harbour.sailreads", 1, 0, "Update",
+            "Update provides attached properties and can't be instantiated");
 
     qRegisterMetaType<QObjectList>("QObjectList");
     qRegisterMetaType<Author*>("Author*");
@@ -200,6 +204,7 @@ void Application::start()
     qmlRegisterType<ReviewsModel>("harbour.sailreads", 1, 0, "ReviewsModel");
     qmlRegisterType<SearchReviewsModel>("harbour.sailreads", 1, 0, "SearchReviewsModel");
     qmlRegisterType<UpdatesModel>("harbour.sailreads", 1, 0, "UpdatesModel");
+    qmlRegisterType<ProfileUpdatesModel>("harbour.sailreads", 1, 0, "ProfileUpdatesModel");
 
     qmlRegisterType<UserProfile>("harbour.sailreads", 1, 0, "UserProfile");
     qmlRegisterType<GroupItem>("harbour.sailreads", 1, 0, "GroupItem");

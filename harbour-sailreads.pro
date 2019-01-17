@@ -72,7 +72,9 @@ SOURCES += src/harbour-sailreads.cpp \
     src/objects/update.cpp \
     src/objects/update/commentupdate.cpp \
     src/objects/update/reviewupdate.cpp \
-    src/objects/update/readstatusupdate.cpp
+    src/objects/update/readstatusupdate.cpp \
+    src/objects/update/userstatusupdate.cpp \
+    src/models/profileupdatesmodel.cpp
 
 
 HEADERS += src/application.h \
@@ -137,7 +139,9 @@ HEADERS += src/application.h \
     src/objects/update.h \
     src/objects/update/commentupdate.h \
     src/objects/update/reviewupdate.h \
-    src/objects/update/readstatusupdate.h
+    src/objects/update/readstatusupdate.h \
+    src/objects/update/userstatusupdate.h \
+    src/models/profileupdatesmodel.h
 
 DISTFILES += translations/*.ts \
     sailreads.desktop \

@@ -20,39 +20,33 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-import QtQuick 2.2
-import Sailfish.Silica 1.0
+#pragma once
 
-Image {
-    id: image
+#include "updatesmodel.h"
 
-    property url defaultImage
-    property alias indicator: busyIndicator
+namespace Sailreads
+{
+class ProfileUpdatesModel : public UpdatesModel
+{
+    Q_OBJECT
 
-    signal clicked()
+    quint64 m_UserId;
+    Q_PROPERTY(quint64 userId READ GetUserId WRITE SetUserId NOTIFY userIdChanged)
 
-    fillMode: Image.PreserveAspectFit
+public:
+    ProfileUpdatesModel(QObject *parent = nullptr);
 
-    BusyIndicator {
-        id: busyIndicator
-        anchors.centerIn: image
-        running: image.status === Image.Loading
-        visible: running
-    }
+    quint64 GetUserId() const;
+    void SetUserId(quint64 userId);
 
-    MouseArea {
-        anchors.fill: parent
-        enabled: image.enabled
-        onClicked: image.clicked()
-    }
+    virtual void classBegin() override;
+    virtual void componentComplete() override;
 
-    onStatusChanged: {
-        if (defaultImage.length == 0) {
-            return
-        }
+private slots:
+    void handleGotUpdates(quint64 userId, const Updates_t& updates);
 
-        if (status == Image.Error || status == Image.Null) {
-            source = defaultImage
-        }
-    }
-}
+signals:
+    void userIdChanged();
+};
+
+} // namespace Sailreads

@@ -22,17 +22,20 @@ THE SOFTWARE.
 
 #pragma once
 
+#include <QQmlParserStatus>
+
 #include "basemodel.h"
 #include "../types.h"
 
 namespace Sailreads
 {
 class UpdatesModel : public BaseModel<UpdatePtr>
+                    , public QQmlParserStatus
 {
     Q_OBJECT
 
+protected:
     bool m_HasMore;
-    quint64 m_CurrentPage;
     QString m_UpdateScope;
     QString m_UpdateItems;
 
@@ -42,7 +45,7 @@ class UpdatesModel : public BaseModel<UpdatePtr>
 public:
     enum UpdateRoles
     {
-        Body = Qt::UserRole + 1,
+        HeaderText = Qt::UserRole + 1,
         Link,
         ImageUrl,
         Actor,
@@ -62,6 +65,9 @@ public:
 
     virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
     virtual QHash<int, QByteArray> roleNames() const override;
+
+    virtual void classBegin();
+    virtual void componentComplete();
 
 public slots:
     void fetchMoreContent();

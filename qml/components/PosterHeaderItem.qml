@@ -44,7 +44,6 @@ MouseArea {
         anchors.verticalCenter: parent.verticalCenter
         width: Theme.iconSizeMedium
         height: Theme.iconSizeMedium
-        fillMode: Image.PreserveAspectFit
         source: posterAvatar.length > 0 ? posterAvatar : posterDefaultAvatar
         onStatusChanged: {
             if (status === Image.Error) {

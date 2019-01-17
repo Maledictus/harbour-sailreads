@@ -128,7 +128,6 @@ Page {
                         }
                         return ""
                     }
-                    fillMode: Image.PreserveAspectFit
                     indicator.size: BusyIndicatorSize.Medium
                 }
 

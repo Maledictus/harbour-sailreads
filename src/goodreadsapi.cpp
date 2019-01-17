@@ -900,7 +900,6 @@ void GoodReadsApi::handleGetUpdates()
 
     emit requestFinished();
     emit gotUpdates(RpcUtils::Parser::ParseUpdates(doc));
-
 }
 
 void GoodReadsApi::handleGetNotifications()

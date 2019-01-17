@@ -228,47 +228,47 @@ Pull down to refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AuthorPage.qml" line="148"/>
+        <location filename="../qml/pages/AuthorPage.qml" line="147"/>
         <source>Goodreads Author</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AuthorPage.qml" line="158"/>
+        <location filename="../qml/pages/AuthorPage.qml" line="157"/>
         <source>Born</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AuthorPage.qml" line="167"/>
+        <location filename="../qml/pages/AuthorPage.qml" line="166"/>
         <source>Died</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AuthorPage.qml" line="176"/>
+        <location filename="../qml/pages/AuthorPage.qml" line="175"/>
         <source>Influences</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AuthorPage.qml" line="183"/>
+        <location filename="../qml/pages/AuthorPage.qml" line="182"/>
         <source>Followers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AuthorPage.qml" line="207"/>
+        <location filename="../qml/pages/AuthorPage.qml" line="206"/>
         <source>Ratings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AuthorPage.qml" line="215"/>
+        <location filename="../qml/pages/AuthorPage.qml" line="214"/>
         <source>Reviews</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AuthorPage.qml" line="251"/>
+        <location filename="../qml/pages/AuthorPage.qml" line="250"/>
         <source>Series</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AuthorPage.qml" line="267"/>
+        <location filename="../qml/pages/AuthorPage.qml" line="266"/>
         <source>Books</source>
         <translation type="unfinished"></translation>
     </message>
@@ -562,12 +562,12 @@ Pull down to refresh</source>
 <context>
     <name>FriendListItem</name>
     <message>
-        <location filename="../qml/components/FriendListItem.qml" line="67"/>
+        <location filename="../qml/components/FriendListItem.qml" line="66"/>
         <source>%1 books</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/FriendListItem.qml" line="73"/>
+        <location filename="../qml/components/FriendListItem.qml" line="72"/>
         <source>%1 friends</source>
         <translation type="unfinished"></translation>
     </message>
@@ -652,7 +652,7 @@ Pull down to refresh</source>
     </message>
     <message>
         <location filename="../qml/pages/FriendsUpdatesPage.qml" line="93"/>
-        <source>Filter by %1 from %2)</source>
+        <source>%1, %2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -715,12 +715,12 @@ Pull down to refresh</source>
 <context>
     <name>GroupListItem</name>
     <message>
-        <location filename="../qml/components/GroupListItem.qml" line="76"/>
+        <location filename="../qml/components/GroupListItem.qml" line="75"/>
         <source>Last activity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/GroupListItem.qml" line="81"/>
+        <location filename="../qml/components/GroupListItem.qml" line="80"/>
         <source>Members</source>
         <translation type="unfinished"></translation>
     </message>
@@ -751,68 +751,68 @@ Pull down to refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="133"/>
+        <location filename="../qml/pages/GroupPage.qml" line="132"/>
         <source>Category</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="139"/>
+        <location filename="../qml/pages/GroupPage.qml" line="138"/>
         <source>Subcategory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="145"/>
+        <location filename="../qml/pages/GroupPage.qml" line="144"/>
         <source>Last activity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="169"/>
+        <location filename="../qml/pages/GroupPage.qml" line="168"/>
         <source>Restricted. Members can join if they have an email address at one of specified domains</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="173"/>
+        <location filename="../qml/pages/GroupPage.qml" line="172"/>
         <source>Private. Members must be invited or approved by the group&apos;s moderator</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="177"/>
+        <location filename="../qml/pages/GroupPage.qml" line="176"/>
         <source>Secret</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="181"/>
+        <location filename="../qml/pages/GroupPage.qml" line="180"/>
         <source>Public. Anyone can join and invite others to join</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="190"/>
+        <location filename="../qml/pages/GroupPage.qml" line="189"/>
         <source>Group Type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="196"/>
-        <location filename="../qml/pages/GroupPage.qml" line="288"/>
+        <location filename="../qml/pages/GroupPage.qml" line="195"/>
+        <location filename="../qml/pages/GroupPage.qml" line="287"/>
         <source>Members</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="203"/>
+        <location filename="../qml/pages/GroupPage.qml" line="202"/>
         <source>Description</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="227"/>
+        <location filename="../qml/pages/GroupPage.qml" line="226"/>
         <source>Rules</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="246"/>
+        <location filename="../qml/pages/GroupPage.qml" line="245"/>
         <source>Discussion Board</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="271"/>
+        <location filename="../qml/pages/GroupPage.qml" line="270"/>
         <source>Topics</source>
         <translation type="unfinished"></translation>
     </message>
@@ -980,11 +980,6 @@ Pull down to refresh or to search groups</source>
 <context>
     <name>ProfilePage</name>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="158"/>
-        <source>About</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../qml/pages/ProfilePage.qml" line="94"/>
         <location filename="../qml/pages/ProfilePage.qml" line="96"/>
         <source>Logout</source>
@@ -1021,63 +1016,73 @@ Pull down to refresh or to search groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="188"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="158"/>
+        <source>About</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ProfilePage.qml" line="187"/>
         <source>Details</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="198"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="197"/>
         <source>Joined</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="205"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="204"/>
         <source>Last active</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="224"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="223"/>
         <source>Interests</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="233"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="232"/>
         <source>Favorite books</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="238"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="237"/>
         <source>Favorite authors</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="262"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="261"/>
         <source>About me</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="276"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="275"/>
         <source>Bookshelves</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="317"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="316"/>
         <source>Friends</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="333"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="332"/>
         <source>Groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="348"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="347"/>
         <source>Messages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="360"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="359"/>
         <source>Notifications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ProfilePage.qml" line="368"/>
+        <source>Recent updates</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1115,12 +1120,12 @@ Pull down to refresh or to search groups</source>
 <context>
     <name>Sailreads::Application</name>
     <message>
-        <location filename="../src/application.cpp" line="143"/>
+        <location filename="../src/application.cpp" line="145"/>
         <source>Authorized</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="143"/>
+        <location filename="../src/application.cpp" line="145"/>
         <source>Not authorized</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1128,17 +1133,17 @@ Pull down to refresh or to search groups</source>
 <context>
     <name>Sailreads::SailreadsManager</name>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="233"/>
+        <location filename="../src/sailreadsmanager.cpp" line="235"/>
         <source>Authorization user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="251"/>
+        <location filename="../src/sailreadsmanager.cpp" line="253"/>
         <source>Authentication user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="272"/>
+        <location filename="../src/sailreadsmanager.cpp" line="274"/>
         <source>Getting user profile...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1248,7 +1253,7 @@ Pull down to refresh or to search groups</source>
 <context>
     <name>UserShortReview</name>
     <message>
-        <location filename="../qml/components/UserShortReview.qml" line="77"/>
+        <location filename="../qml/components/UserShortReview.qml" line="76"/>
         <source>rated it</source>
         <translation type="unfinished"></translation>
     </message>

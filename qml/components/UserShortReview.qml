@@ -50,7 +50,6 @@ Item {
             left: parent.left
             verticalCenter: parent.verticalCenter
         }
-        fillMode: Image.PreserveAspectFit
         indicator.size: BusyIndicatorSize.Medium
         onClicked: userClicked(userId)
     }
