@@ -51,6 +51,7 @@ private slots:
     void handleGotReview(const ReviewPtr& review);
 public slots:
     void updateReview();
+    void cancelRequest();
 
 signals:
     void reviewIdChanged();

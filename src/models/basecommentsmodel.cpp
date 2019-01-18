@@ -23,6 +23,7 @@ THE SOFTWARE.
 #include "basecommentsmodel.h"
 
 #include "../objects/user.h"
+#include "../sailreadsmanager.h"
 
 namespace Sailreads
 {
@@ -78,6 +79,11 @@ void BaseCommentsModel::SetHasMore(bool has)
         m_HasMore = has;
         emit hasMoreChanged();
     }
+}
+
+void BaseCommentsModel::cancelRequest()
+{
+    SailreadsManager::Instance(this)->abortRequest(this);
 }
 
 void BaseCommentsModel::handleGotComments(const CountedItems<Comment>& comments)

@@ -147,4 +147,9 @@ void UserProfile::updateProfile()
 {
     SailreadsManager::Instance()->getUserInfo(m_UserId);
 }
+
+void UserProfile::cancelRequest()
+{
+    SailreadsManager::Instance(this)->abortRequest(this);
+}
 } // namespace Sailreads

@@ -46,12 +46,13 @@ public:
     Author* GetAuthor() const;
     void SetAuthor(Author *author);
 
-public slots:
-    void updateAuthorProfile();
 private slots:
     void handleGotAuthorProfile(const AuthorPtr& author);
     void handleAuthorFollowed(quint64 authorId, quint64 followingId);
     void handleAuthorUnfollowed(quint64 authorId);
+public slots:
+    void updateAuthorProfile();
+    void cancelRequest();
 
 signals:
     void authorIdChanged();

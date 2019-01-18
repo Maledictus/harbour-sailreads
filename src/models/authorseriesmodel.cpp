@@ -108,4 +108,9 @@ void AuthorSeriesModel::handleGotAuthorSeries(quint64 authorId, const Series_t& 
     SetItems(series);
 }
 
+void AuthorSeriesModel::cancelRequest()
+{
+    SailreadsManager::Instance(this)->abortRequest(this);
+}
+
 } // namespace Sailreads

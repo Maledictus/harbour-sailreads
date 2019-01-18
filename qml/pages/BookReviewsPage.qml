@@ -49,7 +49,7 @@ Page {
     }
 
     Component.onDestruction: {
-        sailreadsManager.abortRequest()
+        reviewsModel.cancelRequest()
     }
 
     ReviewsModel {

@@ -41,6 +41,10 @@ Page {
         }
     }
 
+    Component.onDestruction: {
+        messageItem.cancelRequest()
+    }
+
     MessageItem {
         id: messageItem
     }
@@ -81,10 +85,6 @@ Page {
         }
 
         VerticalScrollDecorator {}
-    }
-
-    Component.onDestruction: {
-        sailreadsManager.abortRequest()
     }
 
     Column {

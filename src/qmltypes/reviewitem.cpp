@@ -95,4 +95,8 @@ void ReviewItem::updateReview()
     SailreadsManager::Instance()->loadReview(m_ReviewId);
 }
 
+void ReviewItem::cancelRequest()
+{
+    SailreadsManager::Instance(this)->abortRequest(this);
+}
 } // namespace Sailreads

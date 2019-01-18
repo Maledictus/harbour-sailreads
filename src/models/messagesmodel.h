@@ -67,12 +67,12 @@ public:
     virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
     virtual QHash<int, QByteArray> roleNames() const override;
 
-public slots:
-    void fetchMoreContent();
-
 private slots:
     void handleGotMessages(const QString& folder, const CountedItems<MessagePtr>& messages);
     void handleGotMessage(const MessagePtr& message);
+public slots:
+    void fetchMoreContent();
+    void cancelRequest();
 
 signals:
     void folderChanged();

@@ -58,11 +58,12 @@ public:
     virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
     virtual QHash<int, QByteArray> roleNames() const override;
 
+private slots:
+    void handleGotNotifications(const QString& pageToken, const Notifications_t& notificaitons);
 public slots:
     void fetchMoreContent();
     void updateNotifications();
-private slots:
-    void handleGotNotifications(const QString& pageToken, const Notifications_t& notificaitons);
+    void cancelRequest();
 
 signals:
     void hasMoreChanged();

@@ -71,11 +71,13 @@ public:
     virtual void classBegin();
     virtual void componentComplete();
 
-public slots:
-    virtual void fetchMoreContent();
-    void handleGotUserFriends(quint64 userId, const CountedItems<Friend> &friends);
 private slots:
     void handleFriendRemoved(quint64 friendId);
+public slots:
+    virtual void fetchMoreContent();
+    void cancelRequest();
+protected:
+    void handleGotUserFriends(quint64 userId, const CountedItems<Friend>& friends);
 
 signals:
     void userIdChanged();

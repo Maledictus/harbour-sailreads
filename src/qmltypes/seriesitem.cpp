@@ -79,4 +79,8 @@ void SeriesItem::updateSeries()
     SailreadsManager::Instance()->loadSeries(m_SeriesId);
 }
 
+void SeriesItem::cancelRequest()
+{
+    SailreadsManager::Instance(this)->abortRequest(this);
+}
 } // namespace Sailreads

@@ -65,12 +65,13 @@ public:
     bool GetHasMore() const;
     void SetHasMore(bool has);
 
-public slots:
-    void fetchMoreContent();
 private slots:
     void handleGotUserBookShelves(quint64 userId, const CountedItems<BookShelf> bookshelves);
     void handleBookShelfAdded(const BookShelf& shelf);
     void handleBookShelfEdited(const BookShelf& shelf);
+public slots:
+    void fetchMoreContent();
+    void cancelRequest();
 
 signals:
     void userIdChanged();

@@ -77,4 +77,9 @@ void TopicItem::updateTopic()
 {
     SailreadsManager::Instance()->loadGroupFolderTopic(m_TopicId);
 }
+
+void TopicItem::cancelRequest()
+{
+    SailreadsManager::Instance(this)->abortRequest(this);
+}
 } // namespace Sailreads

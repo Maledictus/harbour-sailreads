@@ -46,11 +46,11 @@ public:
     virtual void classBegin() override;
     virtual void componentComplete() override;
 
-public slots:
-    virtual void fetchMoreContent() override;
-
 private slots:
     void handleGotFoundReviews(const CountedItems<ReviewPtr>& reviews);
+public slots:
+    virtual void fetchMoreContent() override;
+    void cancelRequest();
 
 signals:
     void searchTextChanged();

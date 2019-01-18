@@ -22,6 +22,8 @@ THE SOFTWARE.
 
 #include "groupfoldersmodel.h"
 
+#include "../sailreadsmanager.h"
+
 namespace Sailreads
 {
 GroupFoldersModel::GroupFoldersModel(QObject *parent)
@@ -89,5 +91,10 @@ void GroupFoldersModel::handleGotGroup(quint64 groupId, const GroupPtr& group)
     if (group && m_GroupId == groupId) {
         SetItems(group->GetGroupFolders());
     }
+}
+
+void GroupFoldersModel::cancelRequest()
+{
+    SailreadsManager::Instance(this)->abortRequest(this);
 }
 } // namespace Sailreads

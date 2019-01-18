@@ -65,6 +65,7 @@ private slots:
     void handleFriendRemoved(quint64 friendId);
 public slots:
     void updateProfile();
+    void cancelRequest();
 
 signals:
     void userIdChanged();

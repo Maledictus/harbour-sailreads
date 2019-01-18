@@ -49,6 +49,7 @@ private slots:
     void handleGotSeries(const SeriesPtr& series);
 public slots:
     void updateSeries();
+    void cancelRequest();
 
 signals:
     void seriesIdChanged();

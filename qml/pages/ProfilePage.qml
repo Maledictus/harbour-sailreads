@@ -46,7 +46,7 @@ Page {
     RemorsePopup { id: remorse }
 
     Component.onDestruction: {
-        sailreadsManager.abortRequest()
+        userProfile.cancelRequest()
     }
 
     UserProfile {

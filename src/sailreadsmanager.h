@@ -78,52 +78,54 @@ public slots:
     void obtainRequestToken();
     void requestAccessToken();
 
-    void abortRequest();
+    void abortRequest(QObject *requester);
 
     void authenticateUser();
     void logout();
 
-    void getUserInfo(quint64 id);
-    void loadUpdates(const QString& scope, const QString& items, const QDateTime& dt = QDateTime());
-    void loadUserFollowings(quint64 userId, int page = 1);
-    void loadUserFollowers(quint64 userId, int page = 1);
+    void getUserInfo(QObject *requester, quint64 id);
+    void loadUpdates(QObject *requester, const QString& scope, const QString& items,
+            const QDateTime& dt = QDateTime());
+    void loadUserFollowings(QObject *requester, quint64 userId, int page = 1);
+    void loadUserFollowers(QObject *requester, quint64 userId, int page = 1);
 
-    void loadMessages(const QString& folder, int page = 1);
-    void loadMessage(quint64 messageId);
+    void loadMessages(QObject *requester, const QString& folder, int page = 1);
+    void loadMessage(QObject *requester, quint64 messageId);
     void markMessageAsRead(quint64 messageId);
 
-    void loadNotifications(const QString& pageToken);
+    void loadNotifications(QObject *requester, const QString& pageToken);
 
-    void loadBookShelves(quint64 id, int page = 1);
+    void loadBookShelves(QObject *requester, quint64 id, int page = 1);
     void addBookShelf(const QString& name, bool exclusive, bool sortable, bool featured,
             bool recommendFor);
     void editBookShelf(quint64 id, const QString& name, bool exclusive, bool sortable, bool featured,
             bool recommendFor);
 
-    void loadReviews(quint64 userId, const QString& bookShelf, int page = 1,
+    void loadReviews(QObject *requester, quint64 userId, const QString& bookShelf, int page = 1,
             Qt::SortOrder order = Qt::DescendingOrder, const QString& sortField = "date_added");
-    void loadReview(quint64 reviewId, int commentsPage = 1);
-    void searchReviews(quint64 userId, const QString& searchText, int page = 1);
+    void loadReview(QObject *requester, quint64 reviewId, int commentsPage = 1);
+    void searchReviews(QObject *requester, quint64 userId, const QString& searchText, int page = 1);
 
-    void loadBook(quint64 bookId);
-    void loadBookEditions(quint64 workId, int page = 1);
+    void loadBook(QObject *requester, quint64 bookId);
+    void loadBookEditions(QObject *requester, quint64 workId, int page = 1);
 
-    void loadSeries(quint64 seriesId);
+    void loadSeries(QObject *requester, quint64 seriesId);
 
-    void loadFriends(quint64 userId, int page = 1);
+    void loadFriends(QObject *requester, quint64 userId, int page = 1);
     void confirmFriendRequest(quint64 friendRequestId, bool confirm);
     void followUser(quint64 id);
     void unfollowUser(quint64 id);
     void addAsFriend(quint64 id);
     void removeFriend(quint64 id);
 
-    void loadGroups(quint64 userId, int page = 1);
-    void loadGroup(quint64 groupId);
+    void loadGroups(QObject *requester, quint64 userId, int page = 1);
+    void loadGroup(QObject *requester, quint64 groupId);
     void joinGroup(quint64 groupId);
-    void searchGroup(const QString& text, int page = 1);
-    void loadGroupMembers(quint64 groupId, int page = 1);
-    void loadGroupFolderTopics(const QString& groupFolderId, quint64 groupId, int page = 1);
-    void loadGroupFolderTopic(quint64 topicId, int page = 1);
+    void searchGroup(QObject *requester, const QString& text, int page = 1);
+    void loadGroupMembers(QObject *requester, quint64 groupId, int page = 1);
+    void loadGroupFolderTopics(QObject *requester, const QString& groupFolderId,
+            quint64 groupId, int page = 1);
+    void loadGroupFolderTopic(QObject *requester, quint64 topicId, int page = 1);
 
     void addNewTopic(const QString& topic, const QString& subject, quint64 subjectId,
             const QString& folderId, bool question, bool updateFeed, bool digest,
@@ -133,9 +135,9 @@ public slots:
 
     void addBookToShelves(quint64 bookId, const QStringList& shelves);
 
-    void loadAuthorProfile(quint64 authorId);
-    void loadAuthorBooks(quint64 authorId, int page = 1);
-    void loadAuthorSeries(quint64 authorId);
+    void loadAuthorProfile(QObject *requester, quint64 authorId);
+    void loadAuthorBooks(QObject *requester, quint64 authorId, int page = 1);
+    void loadAuthorSeries(QObject *requester, quint64 authorId);
     void followAuthor(quint64 authorId);
     void unfollowAuthor(quint64 authorId, quint64 followingId);
 

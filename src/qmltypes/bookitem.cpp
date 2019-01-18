@@ -94,4 +94,9 @@ void BookItem::updateBook()
 {
     SailreadsManager::Instance()->loadBook(m_BookId);
 }
+
+void BookItem::cancelRequest()
+{
+    SailreadsManager::Instance(this)->abortRequest(this);
+}
 } // namespace Sailreads

@@ -68,7 +68,7 @@ Page {
     }
 
     Component.onDestruction: {
-        sailreadsManager.abortRequest()
+        messagesModel.cancelRequest()
     }
 
     MessagesModel {

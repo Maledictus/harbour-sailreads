@@ -68,12 +68,13 @@ public:
     bool GetHasMore() const;
     void SetHasMore(bool has);
 
-public slots:
-    void fetchMoreContent();
 private slots:
     void handleGotGroupFolderTopics(const QString& groupdFolderId, quint64 groupId,
             const CountedItems<TopicPtr>& topics);
     void handleGotGroupFolderTopic(const TopicPtr& topic);
+public slots:
+    void fetchMoreContent();
+    void cancelRequest();
 
 signals:
     void groupIdChanged();

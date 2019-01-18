@@ -78,4 +78,8 @@ void GroupItem::updateGroup()
     SailreadsManager::Instance()->loadGroup(m_GroupId);
 }
 
+void GroupItem::cancelRequest()
+{
+    SailreadsManager::Instance(this)->abortRequest(this);
+}
 } // namespace Sailreads

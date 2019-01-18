@@ -65,6 +65,7 @@ public:
 
 public slots:
     virtual void fetchMoreContent() = 0;
+    void cancelRequest();
 protected slots:
     void handleGotBooks(const CountedItems<BookPtr>& books);
 

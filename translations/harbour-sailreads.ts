@@ -682,32 +682,32 @@ Pull down to refresh</source>
 <context>
     <name>GroupFolderTopicPage</name>
     <message>
-        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="66"/>
+        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="67"/>
         <source>Topic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="78"/>
+        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="79"/>
         <source>Author</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="84"/>
+        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="85"/>
         <source>Group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="89"/>
+        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="90"/>
         <source>Folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="117"/>
+        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="118"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="107"/>
+        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="108"/>
         <source>Add comment</source>
         <translation type="unfinished"></translation>
     </message>
@@ -741,78 +741,78 @@ Pull down to refresh</source>
 <context>
     <name>GroupPage</name>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="80"/>
+        <location filename="../qml/pages/GroupPage.qml" line="81"/>
         <source>Join a group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="98"/>
+        <location filename="../qml/pages/GroupPage.qml" line="99"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="132"/>
+        <location filename="../qml/pages/GroupPage.qml" line="133"/>
         <source>Category</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="138"/>
+        <location filename="../qml/pages/GroupPage.qml" line="139"/>
         <source>Subcategory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="144"/>
+        <location filename="../qml/pages/GroupPage.qml" line="145"/>
         <source>Last activity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="168"/>
+        <location filename="../qml/pages/GroupPage.qml" line="169"/>
         <source>Restricted. Members can join if they have an email address at one of specified domains</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="172"/>
+        <location filename="../qml/pages/GroupPage.qml" line="173"/>
         <source>Private. Members must be invited or approved by the group&apos;s moderator</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="176"/>
+        <location filename="../qml/pages/GroupPage.qml" line="177"/>
         <source>Secret</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="180"/>
+        <location filename="../qml/pages/GroupPage.qml" line="181"/>
         <source>Public. Anyone can join and invite others to join</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="189"/>
+        <location filename="../qml/pages/GroupPage.qml" line="190"/>
         <source>Group Type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="195"/>
-        <location filename="../qml/pages/GroupPage.qml" line="287"/>
+        <location filename="../qml/pages/GroupPage.qml" line="196"/>
+        <location filename="../qml/pages/GroupPage.qml" line="288"/>
         <source>Members</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="202"/>
+        <location filename="../qml/pages/GroupPage.qml" line="203"/>
         <source>Description</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="226"/>
+        <location filename="../qml/pages/GroupPage.qml" line="227"/>
         <source>Rules</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="245"/>
+        <location filename="../qml/pages/GroupPage.qml" line="246"/>
         <source>Discussion Board</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="270"/>
+        <location filename="../qml/pages/GroupPage.qml" line="271"/>
         <source>Topics</source>
         <translation type="unfinished"></translation>
     </message>
@@ -885,7 +885,7 @@ Pull down to refresh or to search groups</source>
 <context>
     <name>MessagePage</name>
     <message>
-        <location filename="../qml/pages/MessagePage.qml" line="56"/>
+        <location filename="../qml/pages/MessagePage.qml" line="60"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>

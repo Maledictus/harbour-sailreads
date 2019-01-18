@@ -23,6 +23,7 @@ THE SOFTWARE.
 #include "basebooksmodel.h"
 
 #include "../objects/book.h"
+#include "../sailreadsmanager.h"
 
 namespace Sailreads
 {
@@ -84,6 +85,11 @@ void BaseBooksModel::SetHasMore(bool has)
         m_HasMore = has;
         emit hasMoreChanged();
     }
+}
+
+void BaseBooksModel::cancelRequest()
+{
+    SailreadsManager::Instance(this)->abortRequest(this);
 }
 
 void BaseBooksModel::handleGotBooks(const CountedItems<BookPtr>& books)

@@ -42,10 +42,11 @@ public:
     quint64 GetTopicId() const;
     void SetTopicId(quint64 id);
 
-public slots:
-    void fetchMoreContent();
 private slots:
     void handleGotGroupFolderTopic(const TopicPtr& topic);
+public slots:
+    void fetchMoreContent();
+    void cancelRequest();
 
 signals:
     void topicIdChanged();

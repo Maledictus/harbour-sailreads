@@ -94,6 +94,11 @@ void AuthorProfileItem::updateAuthorProfile()
     SailreadsManager::Instance()->loadAuthorProfile(m_AuthorId);
 }
 
+void AuthorProfileItem::cancelRequest()
+{
+    SailreadsManager::Instance(this)->abortRequest(this);
+}
+
 void AuthorProfileItem::handleGotAuthorProfile(const AuthorPtr& author)
 {
     if (!author || m_AuthorId != author->GetId()) {

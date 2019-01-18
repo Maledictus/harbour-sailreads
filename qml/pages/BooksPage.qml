@@ -42,10 +42,6 @@ Page {
         }
     }
 
-    Component.onDestruction: {
-        sailreadsManager.abortRequest()
-    }
-
     SilicaListView {
         id: booksView
         anchors.fill: parent

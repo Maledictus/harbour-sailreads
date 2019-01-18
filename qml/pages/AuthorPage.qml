@@ -48,7 +48,7 @@ Page {
     }
 
     Component.onDestruction: {
-        sailreadsManager.abortRequest()
+        authorProfile.cancelRequest()
     }
 
     SilicaFlickable {

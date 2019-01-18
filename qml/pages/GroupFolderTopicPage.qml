@@ -48,7 +48,8 @@ Page {
     }
 
     Component.onDestruction: {
-        sailreadsManager.abortRequest()
+        topicItem.cancelRequest()
+        topicThreadModel.cancelRequest()
     }
 
     TopicCommentsModel {

@@ -93,12 +93,12 @@ public:
     virtual void classBegin();
     virtual void componentComplete();
 
+private slots:
+    void handleGotReviews(quint64 booksShelfId, const CountedItems<ReviewPtr>& reviews);
 public slots:
     virtual void fetchMoreContent();
     void update();
-
-private slots:
-    void handleGotReviews(quint64 booksShelfId, const CountedItems<ReviewPtr>& reviews);
+    void cancelRequest();
 
 signals:
     void userIdChanged();

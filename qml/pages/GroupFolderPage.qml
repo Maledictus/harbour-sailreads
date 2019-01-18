@@ -46,7 +46,7 @@ Page {
     }
 
     Component.onDestruction: {
-        sailreadsManager.abortRequest()
+        topicsModel.cancelRequest()
     }
 
     GroupFolderTopicsModel {

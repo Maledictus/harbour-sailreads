@@ -116,6 +116,11 @@ void BookShelvesModel::fetchMoreContent()
     SailreadsManager::Instance()->loadBookShelves(m_UserId, m_CurrentPage);
 }
 
+void BookShelvesModel::cancelRequest()
+{
+    SailreadsManager::Instance(this)->abortRequest(this);
+}
+
 void BookShelvesModel::handleGotUserBookShelves(quint64 userId, const CountedItems<BookShelf> bookshelves)
 {
     if (m_UserId != userId) {

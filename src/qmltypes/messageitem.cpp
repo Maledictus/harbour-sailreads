@@ -95,4 +95,8 @@ void MessageItem::updateMessage()
     SailreadsManager::Instance()->loadMessage(m_MessageId);
 }
 
+void MessageItem::cancelRequest()
+{
+    SailreadsManager::Instance(this)->abortRequest(this);
+}
 } // namespace Sailreads

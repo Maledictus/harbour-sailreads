@@ -42,7 +42,7 @@ Page {
     }
 
     Component.onDestruction: {
-        sailreadsManager.abortRequest()
+        groupsModel.cancelRequest()
     }
 
     UserGroupsModel {

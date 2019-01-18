@@ -138,6 +138,11 @@ void UpdatesModel::refreshUpdates()
     SailreadsManager::Instance(this)->loadUpdates(m_UpdateScope, m_UpdateItems);
 }
 
+void UpdatesModel::cancelRequest()
+{
+    SailreadsManager::Instance(this)->abortRequest(this);
+}
+
 void UpdatesModel::handleGotUpdates(const Updates_t& updates)
 {
     if (updates.size() > 0) {

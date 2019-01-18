@@ -209,6 +209,11 @@ void ReviewsModel::update()
     fetchMoreContent();
 }
 
+void ReviewsModel::cancelRequest()
+{
+    SailreadsManager::Instance(this)->abortRequest(this);
+}
+
 void ReviewsModel::handleGotReviews(quint64 booksShelfId, const CountedItems<ReviewPtr>& reviews)
 {
     if (m_BookShelfId != booksShelfId) {

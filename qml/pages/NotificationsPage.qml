@@ -40,7 +40,7 @@ Page {
     }
 
     Component.onDestruction: {
-        sailreadsManager.abortRequest()
+        notificationsModel.cancelRequest()
     }
 
     NotificationsModel {

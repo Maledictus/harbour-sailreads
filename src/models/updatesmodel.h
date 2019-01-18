@@ -69,11 +69,12 @@ public:
     virtual void classBegin();
     virtual void componentComplete();
 
+private slots:
+    void handleGotUpdates(const Updates_t& updates);
 public slots:
     void fetchMoreContent();
     void refreshUpdates();
-private slots:
-    void handleGotUpdates(const Updates_t& updates);
+    void cancelRequest();
 
 signals:
     void hasMoreChanged();

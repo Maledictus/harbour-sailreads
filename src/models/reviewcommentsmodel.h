@@ -42,10 +42,11 @@ public:
     quint64 GetReviewId() const;
     void SetReviewId(quint64 id);
 
-public slots:
-    void fetchMoreContent();
 private slots:
     void handleGotReview(const ReviewPtr& review);
+public slots:
+    void fetchMoreContent();
+    void cancelRequest();
 
 signals:
     void reviewIdChanged();

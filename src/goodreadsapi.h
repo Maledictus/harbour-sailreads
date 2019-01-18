@@ -28,6 +28,7 @@ THE SOFTWARE.
 #include <memory>
 
 #include <QDomDocument>
+#include <QMap>
 #include <QObject>
 #include <QUrl>
 #include <QPointer>
@@ -65,12 +66,12 @@ class GoodReadsApi : public QObject
     QNetworkAccessManager *m_NAM;
     OAuth1 *m_OAuth1;
 
-    QPointer<QNetworkReply> m_CurrentReply;
+    QMap<QObject*, QPointer<QNetworkReply>> m_Requester2Reply;
 
 public:
     explicit GoodReadsApi(QObject *parent = 0);
 
-    void AbortRequest();
+    void AbortRequest(QObject *object);
 
     void RequestRedirectedUrl(const QUrl& url, const std::function<void(QObject*)>& func);
 
@@ -80,26 +81,28 @@ public:
     void RequestAccessToken() const;
 
     void AuthUser();
-    void GetUserInfo(quint64 id);
+    void GetUserInfo(QObject *requester, quint64 id);
     void CompareBooks(quint64 userId);
 
-    void GetUpdates(const QString& scope, const QString& items, const QDateTime& updateDt);
-    void GetNotifications(const QString& pageToken);
+    void GetUpdates(QObject *requester, const QString& scope, const QString& items,
+            const QDateTime& updateDt);
+    void GetNotifications(QObject *requester, const QString& pageToken);
 
-    void GetMessages(const QString& folder, int page);
-    void GetMessage(quint64 messageId);
+    void GetMessages(QObject *requester, const QString& folder, int page);
+    void GetMessage(QObject *requester, quint64 messageId);
     void MarkMessageAsRead(quint64 messageId);
 
-    void GetBookShelves(quint64 userId, int page = 1);
+    void GetBookShelves(QObject *requester, quint64 userId, int page = 1);
     void AddBookShelf(const QString& name, bool exclusive, bool sortable, bool featured,
             bool recommendFor);
     void EditBookShelf(quint64 id, const QString& name, bool exclusive, bool sortable, bool featured,
             bool recommendFor);
 
-    void GetReviews(quint64 userId, const QString& bookShelf, const QString& sortField = "date_added",
-            Qt::SortOrder order = Qt::DescendingOrder, int page = 1);
-    void GetReview(quint64 reviewId, int commentsPage);
-    void SearchReviews(quint64 userId, const QString& searchText, int page = 1);
+    void GetReviews(QObject *requester, quint64 userId, const QString& bookShelf,
+            const QString& sortField = "date_added", Qt::SortOrder order = Qt::DescendingOrder,
+            int page = 1);
+    void GetReview(QObject *requester, quint64 reviewId, int commentsPage);
+    void SearchReviews(QObject *requester, quint64 userId, const QString& searchText, int page = 1);
 
     void AddReview(quint64 bookId, const QString& review, int rating, const QDateTime& readAt,
             const QString& shelf);
@@ -107,40 +110,41 @@ public:
             bool finished, const QString& shelf);
     void DeleteReview(quint64 reviewId);
 
-    void GetBook(quint64 bookId);
-    void GetBookEditions(quint64 workId, int page);
-    void SearchBooks(const QString& query, const QString& key, int page);
+    void GetBook(QObject *requester, quint64 bookId);
+    void GetBookEditions(QObject *requester, quint64 workId, int page);
+    void SearchBooks(QObject *requester, const QString& query, const QString& key, int page);
 
-    void GetSeries(quint64 seriesId);
-    void GetAuthorSeries(quint64 authorId);
-    void GetWorkSeries(quint64 workId);
+    void GetSeries(QObject *requester, quint64 seriesId);
+    void GetAuthorSeries(QObject *requester, quint64 authorId);
+    void GetWorkSeries(QObject *requester, quint64 workId);
 
     void AddBookToShelf(quint64 bookId, const QString& shelfName);
     void AddBooksToShelves(const QList<quint64>& bookIds, const QStringList& shelvesName);
     void RemoveBookFromShelf(quint64 bookId, const QString& shelfName);
 
-    void GetAuthor(quint64 authorId);
-    void GetAuthorBooks(quint64 authorId, int page);
+    void GetAuthor(QObject *requester, quint64 authorId);
+    void GetAuthorBooks(QObject *requester, quint64 authorId, int page = 1);
     void FollowAuthor(quint64 authorId);
     void UnfollowAuthor(quint64 authorId, quint64 authorFollowingId);
 
-    void GetGroups(quint64 userId, int page = 1);
-    void GetGroup(quint64 groupId);
+    void GetGroups(QObject *requester, quint64 userId, int page = 1);
+    void GetGroup(QObject *requester, quint64 groupId);
     void JoinGroup(quint64 groupId);
-    void SearchGroup(const QString& text, int page);
-    void GetGroupMembers(quint64 groupId, int page);
-    void GetGroupFolderTopics(const QString& groupFolderId, quint64 groupId, int page);
-    void GetGroupFolderTopic(quint64 topicId, int page);
+    void SearchGroup(QObject *requester, const QString& text, int page);
+    void GetGroupMembers(QObject *requester, quint64 groupId, int page);
+    void GetGroupFolderTopics(QObject *requester, const QString& groupFolderId,
+            quint64 groupId, int page);
+    void GetGroupFolderTopic(QObject *requester, quint64 topicId, int page);
     void AddNewTopic(const QString& topic, const QString& subject, quint64 subjectId,
             const QString& folderId, bool question, bool updateFeed, bool digest,
             const QString& comment);
 
     void AddNewComment(const QString& type, quint64 resourceId, const QString& comment);
 
-    void GetFriends(quint64 userId, int page = 1);
-    void GetUserFollowers(quint64 userId, int page = 1);
-    void GetUserFollowings(quint64 userId, int page = 1);
-    void GetFriendRequests(int page);
+    void GetFriends(QObject *requester, quint64 userId, int page = 1);
+    void GetUserFollowers(QObject *requester, quint64 userId, int page = 1);
+    void GetUserFollowings(QObject *requester, quint64 userId, int page = 1);
+    void GetFriendRequests(QObject *requester, int page);
     void ConfirmFriendRequest(quint64 friendRequestId, bool confirm);
     void ConfirmFriendRecommendation(quint64 friendRecommendationId);
     void DeclineFriendRecommendation(quint64 friendRecommendationId);
@@ -152,10 +156,10 @@ public:
     void AddQuote(const QString& authorName, quint64 authorId, quint64 bookId, const QString& quote,
         const QStringList& tags);
 
-    void GetReadStatus(quint64 readStatusId);
+    void GetReadStatus(QObject *requester, quint64 readStatusId);
 
-    void GetRecentUserStatuses();
-    void GetUserStatus(quint64 userStatusId);
+    void GetRecentUserStatuses(QObject *requester);
+    void GetUserStatus(QObject *requester, quint64 userStatusId);
     void UpdateUserStatus(quint64 bookId, const QString& body, int percent, int page = -1);
     void DeleteUserStatus(quint64 userStatusId);
 

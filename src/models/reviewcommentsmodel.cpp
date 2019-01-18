@@ -65,6 +65,11 @@ void ReviewCommentsModel::fetchMoreContent()
     SailreadsManager::Instance()->loadReview(m_ReviewId, m_CurrentPage);
 }
 
+void ReviewCommentsModel::cancelRequest()
+{
+    SailreadsManager::Instance(this)->abortRequest(this);
+}
+
 void ReviewCommentsModel::handleGotReview(const ReviewPtr& review)
 {
     if (!review || review->GetId() != m_ReviewId) {

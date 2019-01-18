@@ -50,6 +50,7 @@ private slots:
     void handleGotBook(const BookPtr& book);
 public slots:
     void updateBook();
+    void cancelRequest();
 
 signals:
     void bookIdChanged();

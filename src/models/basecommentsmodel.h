@@ -63,6 +63,7 @@ public:
 
 public slots:
     virtual void fetchMoreContent() = 0;
+    void cancelRequest();
 protected slots:
     void handleGotComments(const CountedItems<Comment>& comments);
 

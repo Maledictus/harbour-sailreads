@@ -41,7 +41,7 @@ Page {
     }
 
     Component.onDestruction: {
-        sailreadsManager.abortRequest()
+        foundBookReviewsModel.cancelRequest()
     }
 
     SearchReviewsModel {
