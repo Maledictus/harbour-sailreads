@@ -164,7 +164,6 @@ void GoodReadsApi::MarkMessageAsRead(quint64 messageId)
     QNetworkReply *reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/message/show/%1").arg(messageId)),
             { { "format", "xml" } });
-    m_CurrentReply = reply;
     connect(reply, &QNetworkReply::finished,
             this, [this]() { handleMarkMessageAsRead(); });
 }
@@ -229,6 +228,7 @@ void GoodReadsApi::GetReview(quint64 reviewId, int commentsPage)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + "/review/show.xml"), { { "id", reviewId }, { "page", commentsPage } });
+    m_CurrentReply = reply;
     connect(reply, &QNetworkReply::finished,
             this, &GoodReadsApi::handleGetReview);
 }
@@ -543,6 +543,7 @@ void GoodReadsApi::GetUserFollowers(quint64 userId, int page)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/user/%1/followers.xml").arg(userId)), { { "page", page } } );
+    m_CurrentReply = reply;
     connect(reply, &QNetworkReply::finished,
              this, [this, userId]() { handleGetUserFollowers(userId); });
 }
@@ -551,6 +552,7 @@ void GoodReadsApi::GetUserFollowings(quint64 userId, int page)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/user/%1/following.xml").arg(userId)), { { "page", page } } );
+    m_CurrentReply = reply;
     connect(reply, &QNetworkReply::finished,
              this, [this, userId]() { handleGetUserFollowings(userId); });
 }
