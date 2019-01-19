@@ -490,7 +490,7 @@ void GoodReadsApi::GetGroupFolderTopics(QObject *requester, const QString& group
 {
     QNetworkReply *reply = nullptr;
     const QVariantMap params = { { "format", "xml" }, { "page", page },
-            { "sort", "updated_at" }, { "order", "d" } };
+            { "sort", "updated_at" }, { "order", "d" }, { "group_id", groupId } };
     if (groupFolderId == GoodReadsApi::UnreadTopicsFolderId) {
         reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
                 QUrl(m_BaseUrl + QString("/topic/unread_group/%1").arg(groupId)), params);
@@ -538,7 +538,7 @@ void GoodReadsApi::AddNewComment(const QString& type, quint64 resourceId, const 
     auto reply = m_OAuth1->Post(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + "/comment.xml"), params);
     connect(reply, &QNetworkReply::finished,
-             this, &GoodReadsApi::handleNewCommentAdded);
+             this, [this, resourceId]() { handleNewCommentAdded(resourceId); });
 }
 
 void GoodReadsApi::GetFriends(QObject *requester, quint64 userId, int page)
@@ -1444,7 +1444,7 @@ void GoodReadsApi::handleTopicAdded()
     emit requestFinished();
 }
 
-void GoodReadsApi::handleNewCommentAdded()
+void GoodReadsApi::handleNewCommentAdded(quint64 resourceId)
 {
     bool ok = false;
     auto doc = GetDocumentFromReply(sender(), ok);
@@ -1452,7 +1452,7 @@ void GoodReadsApi::handleNewCommentAdded()
         emit requestFinished();
         return;
     }
-    emit newCommentAdded(RpcUtils::Parser::ParseComment(doc));
+    emit newCommentAdded(resourceId, RpcUtils::Parser::ParseComment(doc));
     emit requestFinished();
 }
 

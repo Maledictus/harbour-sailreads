@@ -30,6 +30,7 @@ THE SOFTWARE.
 #include <QVariantMap>
 
 #include "objects/bookshelf.h"
+#include "objects/comment.h"
 #include "objects/friend.h"
 #include "objects/groupmember.h"
 #include "types.h"
@@ -183,6 +184,8 @@ signals:
     void userUnfollowed(quint64 userId, bool success);
     void friendAdded(quint64 userId);
     void friendRemoved(quint64 userId);
+
+    void newCommentAdded(quint64 resourceId, const Comment& comment);
 
     void gotUserGroups(quint64 userId, const CountedItems<GroupPtr>& groups);
     void gotUserGroup(quint64 inGroupId, const GroupPtr& inGroup);

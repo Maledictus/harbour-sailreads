@@ -1138,17 +1138,17 @@ Pull down to refresh or to search groups</source>
 <context>
     <name>Sailreads::SailreadsManager</name>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="235"/>
+        <location filename="../src/sailreadsmanager.cpp" line="238"/>
         <source>Authorization user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="253"/>
+        <location filename="../src/sailreadsmanager.cpp" line="256"/>
         <source>Authentication user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="274"/>
+        <location filename="../src/sailreadsmanager.cpp" line="277"/>
         <source>Getting user profile...</source>
         <translation type="unfinished"></translation>
     </message>

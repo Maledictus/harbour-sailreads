@@ -44,6 +44,7 @@ public:
 
 private slots:
     void handleGotGroupFolderTopic(const TopicPtr& topic);
+    void handleNewCommentAdded(quint64 resourceId, const Comment& comment);
 public slots:
     void fetchMoreContent();
 

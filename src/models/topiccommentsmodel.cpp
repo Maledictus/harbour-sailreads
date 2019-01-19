@@ -37,6 +37,8 @@ void TopicCommentsModel::classBegin()
     auto sm = SailreadsManager::Instance();
     connect(sm, &SailreadsManager::gotGroupFolderTopic,
             this, &TopicCommentsModel::handleGotGroupFolderTopic);
+    connect(sm, &SailreadsManager::newCommentAdded,
+            this, &TopicCommentsModel::handleNewCommentAdded);
 }
 
 void TopicCommentsModel::componentComplete()
@@ -67,6 +69,16 @@ void TopicCommentsModel::handleGotGroupFolderTopic(const TopicPtr& topic)
         return;
     }
     handleGotComments(topic->GetComments());
+}
+
+void TopicCommentsModel::handleNewCommentAdded(quint64 resourceId, const Comment& comment)
+{
+    if (resourceId != m_TopicId) {
+        return;
+    }
+    if (!m_HasMore) {
+        AddItems(comment);
+    }
 }
 
 } // namespace Sailreads

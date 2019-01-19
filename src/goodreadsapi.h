@@ -219,7 +219,7 @@ private slots:
     void handleGetGroupFolderTopic();
     void handleTopicAdded();
 
-    void handleNewCommentAdded();
+    void handleNewCommentAdded(quint64 resourceId);
 
     void handleGetFriends(quint64 userId);
     void handleGetUserFollowers(quint64 userId);
@@ -288,7 +288,7 @@ signals:
     void gotGroupFolderTopic(const TopicPtr& topic);
     void gotNewGroupFolderTopic(const TopicPtr& topic);
 
-    void newCommentAdded(const Comment& comment);
+    void newCommentAdded(quint64 resourceId, const Comment& comment);
 
     void gotUserFriends(quint64 userId, const CountedItems<Friend>& friends);
     void gotUserFollowings(quint64 userId, const CountedItems<Friend>& followings);

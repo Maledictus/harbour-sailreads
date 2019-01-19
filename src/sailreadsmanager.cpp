@@ -186,6 +186,9 @@ void SailreadsManager::MakeConnections()
     connect(m_Api, &GoodReadsApi::gotSeries,
             this, &SailreadsManager::gotSeries);
 
+    connect(m_Api, &GoodReadsApi::newCommentAdded,
+            this, &SailreadsManager::newCommentAdded);
+
     connect(m_Api, &GoodReadsApi::gotAuthorProfile,
             this, &SailreadsManager::gotAuthorProfile);
     connect(m_Api, &GoodReadsApi::authorFollowed,
