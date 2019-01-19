@@ -229,9 +229,7 @@ Page {
                 }
                 visible: groupItem.group && groupItem.group.description !== ""
                 text: groupItem.group ? (column._style + groupItem.group.description) : ""
-                onLinkActivated: {
-                    Qt.openUrlExternally(link)
-                }
+                onLinkActivated: mainWindow.openPageFromUrl(link)
             }
 
             SectionHeader {
@@ -248,9 +246,7 @@ Page {
                 }
                 visible: groupItem.group && groupItem.group.rules !== ""
                 text: groupItem.group ? (column._style + groupItem.group.rules) : ""
-                onLinkActivated: {
-                    Qt.openUrlExternally(link)
-                }
+                onLinkActivated: mainWindow.openPageFromUrl(link)
             }
 
             SectionHeader {

@@ -383,9 +383,7 @@ Page {
                 CollapsedLabel {
                     text: book ? book.description : ""
                     visible: book && book.description !== ""
-                    onLinkActivated: {
-                        Qt.openUrlExternally(link)
-                    }
+                    onLinkActivated: mainWindow.openPageFromUrl(link)
                 }
             }
 

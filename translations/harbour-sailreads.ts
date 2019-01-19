@@ -396,13 +396,13 @@ Pull down to refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="395"/>
+        <location filename="../qml/pages/BookPage.qml" line="393"/>
         <source>Other editions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="409"/>
-        <location filename="../qml/pages/BookPage.qml" line="416"/>
+        <location filename="../qml/pages/BookPage.qml" line="407"/>
+        <location filename="../qml/pages/BookPage.qml" line="414"/>
         <source>Similar Books</source>
         <translation type="unfinished"></translation>
     </message>
@@ -807,7 +807,7 @@ Pull down to refresh</source>
     </message>
     <message>
         <location filename="../qml/pages/GroupPage.qml" line="207"/>
-        <location filename="../qml/pages/GroupPage.qml" line="299"/>
+        <location filename="../qml/pages/GroupPage.qml" line="295"/>
         <source>Members</source>
         <translation type="unfinished"></translation>
     </message>
@@ -817,17 +817,17 @@ Pull down to refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="238"/>
+        <location filename="../qml/pages/GroupPage.qml" line="236"/>
         <source>Rules</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="257"/>
+        <location filename="../qml/pages/GroupPage.qml" line="253"/>
         <source>Discussion Board</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="282"/>
+        <location filename="../qml/pages/GroupPage.qml" line="278"/>
         <source>Topics</source>
         <translation type="unfinished"></translation>
     </message>

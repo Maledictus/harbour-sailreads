@@ -79,4 +79,40 @@ ApplicationWindow {
             Qt.openUrlExternally(url)
         }
     }
+
+    function openPageFromUrl(url) {
+        var str = url.toString();
+        var id = str.substr(str.lastIndexOf('/') + 1)
+        if (str.indexOf("www.goodreads.com/topic/show/", 0) > 0) {
+            console.log("TOPIC: ", id)
+        }
+        else if (str.indexOf("www.goodreads.com/read_statuses/", 0) > 0) {
+            console.log("READ_STATUS: ", id)
+        }
+        else if (str.indexOf("www.goodreads.com/review/show/", 0) > 0) {
+            console.log("REVIEW: ", id)
+        }
+        else if (str.indexOf("www.goodreads.com/user/show/", 0) > 0) {
+            console.log("USER: ", id)
+        }
+        else if (str.indexOf("www.goodreads.com/book/show/", 0) > 0) {
+            console.log("BOOK: ", id)
+        }
+        else if (str.indexOf("www.goodreads.com/author/show/", 0) > 0) {
+            console.log("AUTHOR: ", id)
+        }
+        else if (str.indexOf("www.goodreads.com/user_status/show/", 0) > 0) {
+            console.log("USER_STATUS: ", id)
+        }
+        else if (str.indexOf("www.goodreads.com/recommendations/", 0) > 0) {
+            console.log("RECOMMENDATION: ", id)
+        }
+        else if (str.indexOf("www.goodreads.com/user_challenges/", 0) > 0) {
+            console.log("USER_CHALLENGE: ", id)
+        }
+        else {
+            console.log("OPEN IN BROWSER: ", url)
+//            openInBrowser(url)
+        }
+    }
 }

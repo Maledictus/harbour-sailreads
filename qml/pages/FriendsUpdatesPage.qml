@@ -112,11 +112,8 @@ Page {
             imageUrl: updateImageUrl
             headerText: updateHeaderText
             date: Qt.formatDateTime(updateUpdatedDate)
-            onLinkActivated: {
-                console.log(link)
-            }
-            onClicked: {
-            }
+            onLinkActivated: mainWindow.openPageFromUrl(link)
+            onClicked: mainWindow.openPageFromUrl(updateLink)
         }
 
         VerticalScrollDecorator{}

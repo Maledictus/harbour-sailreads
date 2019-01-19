@@ -124,7 +124,7 @@ Page {
                         textFormat: Text.StyledText
                         linkColor: Theme.highlightColor
                         text: notificationPlainText
-                        onLinkActivated: Qt.openUrlExternally(link)
+                        onLinkActivated: mainWindow.openPageFromUrl(link)
                         color: highlighted ? Theme.highlightColor : Theme.primaryColor
                     }
                     Label {

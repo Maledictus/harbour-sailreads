@@ -157,9 +157,7 @@ Page {
             }
             visible: seriesItem.series && seriesItem.series.description !== ""
             text: seriesItem.series !== null ? (headerBox._style + seriesItem.series.description) : ""
-            onLinkActivated: {
-                Qt.openUrlExternally(link)
-            }
+            onLinkActivated: mainWindow.openPageFromUrl(link)
         }
 
         Item {

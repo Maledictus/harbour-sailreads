@@ -240,7 +240,7 @@ Page {
                 }
                 visible: authorProfile.author && authorProfile.author.about !== ""
                 text: authorProfile.author ? (column._style + authorProfile.author.about) : ""
-                onLinkActivated: Qt.openUrlExternally(link)
+                onLinkActivated: mainWindow.openPageFromUrl(link)
             }
 
             MoreButton {
