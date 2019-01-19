@@ -161,27 +161,27 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddGroupFolderTopicDialog.qml" line="63"/>
+        <location filename="../qml/dialogs/AddGroupFolderTopicDialog.qml" line="69"/>
         <source>Discussion question</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddGroupFolderTopicDialog.qml" line="69"/>
+        <location filename="../qml/dialogs/AddGroupFolderTopicDialog.qml" line="75"/>
         <source>Add to my update feed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddGroupFolderTopicDialog.qml" line="75"/>
+        <location filename="../qml/dialogs/AddGroupFolderTopicDialog.qml" line="81"/>
         <source>Notify me when people reply</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddGroupFolderTopicDialog.qml" line="76"/>
+        <location filename="../qml/dialogs/AddGroupFolderTopicDialog.qml" line="82"/>
         <source>You will receive an email notification if someone replies to this thread.You will only receive one email notification unit you revisit the thread</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddGroupFolderTopicDialog.qml" line="83"/>
+        <location filename="../qml/dialogs/AddGroupFolderTopicDialog.qml" line="63"/>
         <source>Comment</source>
         <translation type="unfinished"></translation>
     </message>
@@ -747,77 +747,82 @@ Pull down to refresh</source>
     <name>GroupPage</name>
     <message>
         <location filename="../qml/pages/GroupPage.qml" line="79"/>
+        <source>Add new topic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/GroupPage.qml" line="92"/>
         <source>Join a group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="97"/>
+        <location filename="../qml/pages/GroupPage.qml" line="110"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="131"/>
+        <location filename="../qml/pages/GroupPage.qml" line="144"/>
         <source>Category</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="137"/>
+        <location filename="../qml/pages/GroupPage.qml" line="150"/>
         <source>Subcategory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="143"/>
+        <location filename="../qml/pages/GroupPage.qml" line="156"/>
         <source>Last activity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="167"/>
+        <location filename="../qml/pages/GroupPage.qml" line="180"/>
         <source>Restricted. Members can join if they have an email address at one of specified domains</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="171"/>
+        <location filename="../qml/pages/GroupPage.qml" line="184"/>
         <source>Private. Members must be invited or approved by the group&apos;s moderator</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="175"/>
+        <location filename="../qml/pages/GroupPage.qml" line="188"/>
         <source>Secret</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="179"/>
+        <location filename="../qml/pages/GroupPage.qml" line="192"/>
         <source>Public. Anyone can join and invite others to join</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="188"/>
+        <location filename="../qml/pages/GroupPage.qml" line="201"/>
         <source>Group Type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="194"/>
-        <location filename="../qml/pages/GroupPage.qml" line="286"/>
+        <location filename="../qml/pages/GroupPage.qml" line="207"/>
+        <location filename="../qml/pages/GroupPage.qml" line="299"/>
         <source>Members</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="201"/>
+        <location filename="../qml/pages/GroupPage.qml" line="214"/>
         <source>Description</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="225"/>
+        <location filename="../qml/pages/GroupPage.qml" line="238"/>
         <source>Rules</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="244"/>
+        <location filename="../qml/pages/GroupPage.qml" line="257"/>
         <source>Discussion Board</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupPage.qml" line="269"/>
+        <location filename="../qml/pages/GroupPage.qml" line="282"/>
         <source>Topics</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1138,17 +1143,17 @@ Pull down to refresh or to search groups</source>
 <context>
     <name>Sailreads::SailreadsManager</name>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="238"/>
+        <location filename="../src/sailreadsmanager.cpp" line="240"/>
         <source>Authorization user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="256"/>
+        <location filename="../src/sailreadsmanager.cpp" line="258"/>
         <source>Authentication user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="277"/>
+        <location filename="../src/sailreadsmanager.cpp" line="279"/>
         <source>Getting user profile...</source>
         <translation type="unfinished"></translation>
     </message>

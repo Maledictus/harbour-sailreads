@@ -72,6 +72,7 @@ private slots:
     void handleGotGroupFolderTopics(const QString& groupdFolderId, quint64 groupId,
             const CountedItems<TopicPtr>& topics);
     void handleGotGroupFolderTopic(const TopicPtr& topic);
+    void handleGotNewGroupFolderTopic(const QString& groupdFolderId, const TopicPtr& topic);
 public slots:
     void fetchMoreContent();
 

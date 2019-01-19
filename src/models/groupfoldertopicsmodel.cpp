@@ -40,6 +40,8 @@ GroupFolderTopicsModel::GroupFolderTopicsModel(QObject *parent)
             this, &GroupFolderTopicsModel::handleGotGroupFolderTopics);
     connect(SailreadsManager::Instance(), &SailreadsManager::gotGroupFolderTopic,
             this, &GroupFolderTopicsModel::handleGotGroupFolderTopic);
+    connect(SailreadsManager::Instance(), &SailreadsManager::gotNewGroupFolderTopic,
+            this, &GroupFolderTopicsModel::handleGotNewGroupFolderTopic);
 }
 
 QVariant GroupFolderTopicsModel::data(const QModelIndex& index, int role) const
@@ -141,7 +143,7 @@ void GroupFolderTopicsModel::fetchMoreContent()
 }
 
 void GroupFolderTopicsModel::handleGotGroupFolderTopics(const QString& groupdFolderId,
-        quint64 groupId, const CountedItems<TopicPtr> &topics)
+        quint64 groupId, const CountedItems<TopicPtr>& topics)
 {
     if (m_GroupId != groupId || m_GroupFolderId != groupdFolderId) {
         return;
@@ -171,6 +173,18 @@ void GroupFolderTopicsModel::handleGotGroupFolderTopic(const TopicPtr& topic)
         (*it)->SetUnreadCount(topic->GetUnreadCount());
         const int pos = std::distance(m_Items.begin(), it);
         emit dataChanged(index(pos), index(pos), { UnreadCount });
+    }
+}
+
+void GroupFolderTopicsModel::handleGotNewGroupFolderTopic(const QString& groupdFolderId,
+        const TopicPtr& topic)
+{
+    if (m_GroupFolderId != groupdFolderId) {
+        return;
+    }
+
+    if (!m_HasMore) {
+        AddItems(topic);
     }
 }
 } // namespace Sailreads

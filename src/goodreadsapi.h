@@ -217,7 +217,7 @@ private slots:
     void handleGetGroupMembers(quint64 groupId, QObject *senderObject = nullptr);
     void handleGetGroupFolderTopics(const QString& groupFolderId, quint64 groupId);
     void handleGetGroupFolderTopic();
-    void handleTopicAdded();
+    void handleTopicAdded(const QString &folderId);
 
     void handleNewCommentAdded(quint64 resourceId);
 
@@ -286,7 +286,7 @@ signals:
     void gotGroupFolderTopics(const QString& groupFolderId, quint64 groupId,
             const CountedItems<TopicPtr>& topics);
     void gotGroupFolderTopic(const TopicPtr& topic);
-    void gotNewGroupFolderTopic(const TopicPtr& topic);
+    void gotNewGroupFolderTopic(const QString& folderId, const TopicPtr& topic);
 
     void newCommentAdded(quint64 resourceId, const Comment& comment);
 

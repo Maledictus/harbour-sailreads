@@ -186,6 +186,8 @@ void SailreadsManager::MakeConnections()
     connect(m_Api, &GoodReadsApi::gotSeries,
             this, &SailreadsManager::gotSeries);
 
+    connect(m_Api, &GoodReadsApi::gotNewGroupFolderTopic,
+            this, &SailreadsManager::gotNewGroupFolderTopic);
     connect(m_Api, &GoodReadsApi::newCommentAdded,
             this, &SailreadsManager::newCommentAdded);
 

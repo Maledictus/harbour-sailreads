@@ -194,7 +194,7 @@ signals:
     void gotGroupFolderTopics(const QString& groupFolderId, quint64 groupId,
             const CountedItems<TopicPtr>& topics);
     void gotGroupFolderTopic(const TopicPtr& inTopic);
-    void gotNewGroupFolderTopic(const TopicPtr& inTopic);
+    void gotNewGroupFolderTopic(const QString& groupFolderId, const TopicPtr& inTopic);
 
     void requestTokenChanged(const QString& requestToken);
 

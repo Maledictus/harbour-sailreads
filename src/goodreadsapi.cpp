@@ -520,15 +520,18 @@ void GoodReadsApi::GetGroupFolderTopic(QObject *requester, quint64 topicId, int 
 void GoodReadsApi::AddNewTopic(const QString& topic, const QString& subject, quint64 subjectId,
         const QString& folderId, bool question, bool updateFeed, bool digest, const QString& comment)
 {
-    const QVariantMap params = { { "topic[subject_type]", subject },
-            { "topic[subject_id]", subjectId }, { "topic[folder_id]", folderId },
+    QVariantMap params = { { "topic[subject_type]", subject },
+            { "topic[subject_id]", subjectId },
             { "topic[title]", topic }, { "topic[question_flag]", (question ? "1" : "0") },
             { "update_feed", (updateFeed ? "1" : "0") }, { "digest", (digest ? "1" : "0") },
             { "comment[body_usertext]", comment } };
+    if (!folderId.isEmpty() && folderId != "0") {
+        params.insert("topic[folder_id]", folderId);
+    }
     auto reply = m_OAuth1->Post(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + "/topic.xml"), params);
     connect(reply, &QNetworkReply::finished,
-             this, &GoodReadsApi::handleTopicAdded);
+             this, [this, folderId]() { handleTopicAdded(folderId); });
 }
 
 void GoodReadsApi::AddNewComment(const QString& type, quint64 resourceId, const QString& comment)
@@ -1432,7 +1435,7 @@ void GoodReadsApi::handleGetGroupFolderTopic()
     emit requestFinished();
 }
 
-void GoodReadsApi::handleTopicAdded()
+void GoodReadsApi::handleTopicAdded(const QString& folderId)
 {
     bool ok = false;
     auto doc = GetDocumentFromReply(sender(), ok);
@@ -1440,7 +1443,7 @@ void GoodReadsApi::handleTopicAdded()
         emit requestFinished();
         return;
     }
-    emit gotNewGroupFolderTopic(RpcUtils::Parser::ParseGroupFolderTopic(doc));
+    emit gotNewGroupFolderTopic(folderId, RpcUtils::Parser::ParseGroupFolderTopic(doc));
     emit requestFinished();
 }
 

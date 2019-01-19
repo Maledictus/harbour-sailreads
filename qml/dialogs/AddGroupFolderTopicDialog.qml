@@ -57,6 +57,12 @@ Dialog {
                 placeholderText: qsTr("Topic title")
             }
 
+            TextArea {
+                id: topicCommentArea
+                width: parent.width
+                placeholderText: qsTr("Comment")
+            }
+
             TextSwitch {
                 id: questionSwitch
                 width: parent.width
@@ -77,11 +83,6 @@ Dialog {
                         "You will only receive one email notification unit you revisit the thread")
             }
 
-            TextArea {
-                id: topicCommentArea
-                width: parent.width
-                placeholderText: qsTr("Comment")
-            }
         }
         VerticalScrollDecorator{}
     }

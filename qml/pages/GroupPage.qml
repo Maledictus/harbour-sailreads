@@ -76,6 +76,19 @@ Page {
             PullDownMenu {
                 busy: groupPage.busy
                 MenuItem {
+                    text: qsTr("Add new topic")
+                    visible: groupItem.group && groupItem.group.isMember
+                    onClicked: {
+                        var dialog = pageStack.push("../dialogs/AddGroupFolderTopicDialog.qml")
+                        dialog.accepted.connect (function () {
+                            sailreadsManager.addNewTopic(dialog.topic, 'Group', groupPage.groupId,
+                                    "", dialog.question, dialog.updateFeed,
+                                    dialog.digest, dialog.topicComment)
+                        })
+                    }
+                }
+
+                MenuItem {
                     text: qsTr("Join a group")
                     visible: groupItem.group && groupItem.group.groupAccess != Group.Secret ?
                             !groupItem.group.isMember : false
