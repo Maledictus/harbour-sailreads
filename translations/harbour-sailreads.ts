@@ -1102,22 +1102,22 @@ Pull down to refresh or to search groups</source>
 <context>
     <name>ReviewPage</name>
     <message>
-        <location filename="../qml/pages/ReviewPage.qml" line="75"/>
+        <location filename="../qml/pages/ReviewPage.qml" line="79"/>
         <source>Open on GoodReads.com</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ReviewPage.qml" line="80"/>
+        <location filename="../qml/pages/ReviewPage.qml" line="84"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ReviewPage.qml" line="115"/>
+        <location filename="../qml/pages/ReviewPage.qml" line="119"/>
         <source>Review</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ReviewPage.qml" line="233"/>
+        <location filename="../qml/pages/ReviewPage.qml" line="237"/>
         <source>Comments</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1169,12 +1169,17 @@ Pull down to refresh or to search groups</source>
 <context>
     <name>SeriesPage</name>
     <message>
-        <location filename="../qml/pages/SeriesPage.qml" line="93"/>
+        <location filename="../qml/pages/SeriesPage.qml" line="62"/>
+        <source>Refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SeriesPage.qml" line="104"/>
         <source>Series</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SeriesPage.qml" line="124"/>
+        <location filename="../qml/pages/SeriesPage.qml" line="135"/>
         <source>%1 works, %2 primary works</source>
         <translation type="unfinished"></translation>
     </message>

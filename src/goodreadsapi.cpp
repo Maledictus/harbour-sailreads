@@ -820,8 +820,8 @@ void GoodReadsApi::handleObtainRequestToken()
 
     m_RequestToken = QString::fromUtf8(tokens.value(0).mid(12));
     m_RequestTokenSecret = QString::fromUtf8(tokens.value(1).mid(19));
-    emit requestFinished();
     emit requestTokenChanged(m_RequestToken);
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleRequestAccessToken()
@@ -845,8 +845,8 @@ void GoodReadsApi::handleRequestAccessToken()
     QString accessToken = QString::fromUtf8(tokens.value(0).mid(12));
     QString accessTokenSecret = QString::fromUtf8(tokens.value(1).mid(19));
 
-    emit requestFinished();
     emit accessTokensChanged(accessToken, accessTokenSecret);
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleAuthUser()
@@ -877,8 +877,8 @@ void GoodReadsApi::handleGetUserInfo()
         return;
     }
 
-    emit requestFinished();
     emit gotUserProfile(RpcUtils::Parser::ParseUser(doc));
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleCompareBooks()
@@ -890,9 +890,9 @@ void GoodReadsApi::handleCompareBooks()
         return;
     }
 
-    emit requestFinished();
     //TODO
     qDebug() << doc.toByteArray();
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleGetUpdates()
@@ -904,8 +904,8 @@ void GoodReadsApi::handleGetUpdates()
         return;
     }
 
-    emit requestFinished();
     emit gotUpdates(RpcUtils::Parser::ParseUpdates(doc));
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleGetNotifications()
@@ -917,13 +917,12 @@ void GoodReadsApi::handleGetNotifications()
         return;
     }
 
-    emit requestFinished();
-    emit requestFinished();
     QXmlQuery query;
     query.setFocus(doc.toByteArray());
     const QString nextPageToken(GetQueryResult(query,
             "/GoodreadsResponse/notifications/@next_page_token/string()"));
     emit gotNotifications(nextPageToken, RpcUtils::Parser::ParseNotifications(doc));
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleGetMessages()
@@ -935,11 +934,11 @@ void GoodReadsApi::handleGetMessages()
         return;
     }
 
-    emit requestFinished();
     QXmlQuery query;
     query.setFocus(doc.toByteArray());
     const QString folder(GetQueryResult(query, "/GoodreadsResponse/message_folder/folder_name/text()"));
     emit gotMessages(folder, RpcUtils::Parser::ParseMessages(doc));
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleGetMessage()
@@ -951,8 +950,8 @@ void GoodReadsApi::handleGetMessage()
         return;
     }
 
-    emit requestFinished();
     emit gotMessage(RpcUtils::Parser::ParseMessage(doc));
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleMarkMessageAsRead()
@@ -964,8 +963,8 @@ void GoodReadsApi::handleMarkMessageAsRead()
         return;
     }
 
-    emit requestFinished();
     emit gotMessage(RpcUtils::Parser::ParseMessage(doc));
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleGetBookShelves(quint64 userId)
@@ -977,8 +976,8 @@ void GoodReadsApi::handleGetBookShelves(quint64 userId)
         return;
     }
 
-    emit requestFinished();
     emit gotUserBookShelves(userId, RpcUtils::Parser::ParseBookShelves(doc));
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleAddBookShelf()
@@ -990,8 +989,8 @@ void GoodReadsApi::handleAddBookShelf()
         return;
     }
 
-    emit requestFinished();
     emit bookShelfAdded(RpcUtils::Parser::ParseBookShelf(doc.firstChildElement("user_shelf")));
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleEditBookShelf()
@@ -1003,8 +1002,8 @@ void GoodReadsApi::handleEditBookShelf()
         return;
     }
 
-    emit requestFinished();
     emit bookShelfEdited(RpcUtils::Parser::ParseBookShelf(doc.firstChildElement("user_shelf")));
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleGetReviews()
@@ -1016,9 +1015,9 @@ void GoodReadsApi::handleGetReviews()
         return;
     }
 
-    emit requestFinished();
     const auto& pair = RpcUtils::Parser::ParseReviews(doc);
     emit gotReviews(pair.first, pair.second);
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleGetReview()
@@ -1030,8 +1029,8 @@ void GoodReadsApi::handleGetReview()
         return;
     }
 
-    emit requestFinished();
     emit gotReview(RpcUtils::Parser::ParseReview(doc));
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleSearchReviews()
@@ -1043,8 +1042,8 @@ void GoodReadsApi::handleSearchReviews()
         return;
     }
 
-    emit requestFinished();
     emit gotFoundReviews(RpcUtils::Parser::ParseFoundReviews(doc));
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleAddReview()
@@ -1056,9 +1055,9 @@ void GoodReadsApi::handleAddReview()
         return;
     }
 
-    emit requestFinished();
     //TODO
     qDebug() << doc.toByteArray();
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleEditReview()
@@ -1070,9 +1069,9 @@ void GoodReadsApi::handleEditReview()
         return;
     }
 
-    emit requestFinished();
     //TODO
     qDebug() << doc.toByteArray();
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleDeleteReview()
@@ -1084,9 +1083,9 @@ void GoodReadsApi::handleDeleteReview()
         return;
     }
 
-    emit requestFinished();
     //TODO
     qDebug() << doc.toByteArray();
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleGetBook()
@@ -1098,8 +1097,8 @@ void GoodReadsApi::handleGetBook()
         return;
     }
 
-    emit requestFinished();
     emit gotBook(RpcUtils::Parser::ParseBook(doc));
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleGetBookEditions(quint64 workId)
@@ -1111,8 +1110,8 @@ void GoodReadsApi::handleGetBookEditions(quint64 workId)
         return;
     }
 
-    emit requestFinished();
     emit gotBookEditions(workId, RpcUtils::Parser::ParseBookEditions(doc));
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleSearchBook()
@@ -1124,9 +1123,9 @@ void GoodReadsApi::handleSearchBook()
         return;
     }
 
-    emit requestFinished();
     //TODO
     qDebug() << doc.toByteArray();
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleGetSeries()
@@ -1138,8 +1137,8 @@ void GoodReadsApi::handleGetSeries()
         return;
     }
 
-    emit requestFinished();
     emit gotSeries(RpcUtils::Parser::ParseSeries(doc));
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleGetAuthorSeries(quint64 authorId)
@@ -1151,8 +1150,8 @@ void GoodReadsApi::handleGetAuthorSeries(quint64 authorId)
         return;
     }
 
-    emit requestFinished();
     emit gotAuthorSeries(authorId, RpcUtils::Parser::ParseAuthorSeries(doc));
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleGetWorkSeries()
@@ -1164,9 +1163,9 @@ void GoodReadsApi::handleGetWorkSeries()
         return;
     }
 
-    emit requestFinished();
     //TODO
     qDebug() << doc.toByteArray();
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleAddBookToShelf()
@@ -1178,9 +1177,9 @@ void GoodReadsApi::handleAddBookToShelf()
         return;
     }
 
-    emit requestFinished();
     //TODO
     qDebug() << doc.toByteArray();
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleAddBooksToShelves()
@@ -1192,9 +1191,9 @@ void GoodReadsApi::handleAddBooksToShelves()
         return;
     }
 
-    emit requestFinished();
     //TODO
     qDebug() << doc.toByteArray();
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleRemoveBookFromShelf()
@@ -1206,9 +1205,9 @@ void GoodReadsApi::handleRemoveBookFromShelf()
         return;
     }
 
-    emit requestFinished();
     //TODO
     qDebug() << doc.toByteArray();
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleGetAuthor()
@@ -1220,8 +1219,8 @@ void GoodReadsApi::handleGetAuthor()
         return;
     }
 
-    emit requestFinished();
     emit gotAuthorProfile(RpcUtils::Parser::ParseAuthor(doc));
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleGetAuthorBooks(quint64 authorId)
@@ -1233,8 +1232,8 @@ void GoodReadsApi::handleGetAuthorBooks(quint64 authorId)
         return;
     }
 
-    emit requestFinished();
     emit gotAuthorBooks(authorId, RpcUtils::Parser::ParseAuthorBooks(doc));
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleFollowAuthor()
@@ -1251,8 +1250,8 @@ void GoodReadsApi::handleFollowAuthor()
     const QString followingId(GetQueryResult(query, "/GoodreadsResponse/author_following/id/text()"));
     const QString authorId(GetQueryResult(query, "/GoodreadsResponse/author_following/author/id/text()"));
 
-    emit requestFinished();
     emit authorFollowed(authorId.toULongLong(), followingId.toULongLong());
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleUnfollowAuthor(quint64 authorId)
@@ -1264,10 +1263,10 @@ void GoodReadsApi::handleUnfollowAuthor(quint64 authorId)
         return;
     }
 
-    emit requestFinished();
     if (doc.isNull()) {
         emit authorUnfollowed(authorId);
     }
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleGetGroups(quint64 userId)
@@ -1279,8 +1278,8 @@ void GoodReadsApi::handleGetGroups(quint64 userId)
         return;
     }
 
-    emit requestFinished();
     emit gotUserGroups(userId, RpcUtils::Parser::ParseGroups(doc));
+    emit requestFinished();
 }
 
 namespace
@@ -1306,8 +1305,8 @@ void GoodReadsApi::handleGetGroup(quint64 groupId, QObject *senderObject)
     m_Requester2Reply.remove(m_Requester2Reply.key(reply));
 
     if (reply->error() == QNetworkReply::ContentOperationNotPermittedError) {
-        emit requestFinished();
         emit gotUserGroup(groupId, CreateSecretGroup(groupId));
+        emit requestFinished();
         return;
     }
 
@@ -1348,8 +1347,8 @@ void GoodReadsApi::handleGetGroup(quint64 groupId, QObject *senderObject)
         return;
     }
 
-    emit requestFinished();
     emit gotUserGroup(groupId, RpcUtils::Parser::ParseGroup(doc));
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleJoinGroup(quint64 groupId)
@@ -1361,8 +1360,8 @@ void GoodReadsApi::handleJoinGroup(quint64 groupId)
         return;
     }
 
-    emit requestFinished();
     emit gotUserGroup(groupId, RpcUtils::Parser::ParseGroup(doc));
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleSearchGroup()
@@ -1374,8 +1373,8 @@ void GoodReadsApi::handleSearchGroup()
         return;
     }
 
-    emit requestFinished();
     emit gotFoundGroups(RpcUtils::Parser::ParseGroups(doc));
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleGetGroupMembers(quint64 groupId, QObject *senderObject)
@@ -1390,13 +1389,13 @@ void GoodReadsApi::handleGetGroupMembers(quint64 groupId, QObject *senderObject)
     const QUrl& redirectedUrl = GetRedirectedUrl(doc);
     if (!redirectedUrl.isEmpty()) {
         qDebug() << Q_FUNC_INFO << "Redirected url for" << groupId;
-        emit requestFinished();
         emit gotGroupMembers(groupId, {});
+        emit requestFinished();
         return;
     }
 
-    emit requestFinished();
     emit gotGroupMembers(groupId, RpcUtils::Parser::ParseGroupMembers(doc));
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleGetGroupFolderTopics(const QString& groupFolderId, quint64 groupId)
@@ -1407,8 +1406,8 @@ void GoodReadsApi::handleGetGroupFolderTopics(const QString& groupFolderId, quin
         emit requestFinished();
         return;
     }
-    emit requestFinished();
     emit gotGroupFolderTopics(groupFolderId, groupId, RpcUtils::Parser::ParseGroupFolderTopics(doc));
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleGetGroupFolderTopic()
@@ -1419,8 +1418,8 @@ void GoodReadsApi::handleGetGroupFolderTopic()
         emit requestFinished();
         return;
     }
-    emit requestFinished();
     emit gotGroupFolderTopic(RpcUtils::Parser::ParseGroupFolderTopic(doc));
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleTopicAdded()
@@ -1431,8 +1430,8 @@ void GoodReadsApi::handleTopicAdded()
         emit requestFinished();
         return;
     }
-    emit requestFinished();
     emit gotNewGroupFolderTopic(RpcUtils::Parser::ParseGroupFolderTopic(doc));
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleNewCommentAdded()
@@ -1443,8 +1442,8 @@ void GoodReadsApi::handleNewCommentAdded()
         emit requestFinished();
         return;
     }
-    emit requestFinished();
     emit newCommentAdded(RpcUtils::Parser::ParseComment(doc));
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleGetFriends(quint64 userId)
@@ -1456,8 +1455,8 @@ void GoodReadsApi::handleGetFriends(quint64 userId)
         return;
     }
 
-    emit requestFinished();
     emit gotUserFriends(userId, RpcUtils::Parser::ParseFriends(doc));
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleGetUserFollowers(quint64 userId)
@@ -1469,8 +1468,8 @@ void GoodReadsApi::handleGetUserFollowers(quint64 userId)
         return;
     }
 
-    emit requestFinished();
     emit gotUserFollowers(userId, RpcUtils::Parser::ParseFollowers(doc));
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleGetUserFollowings(quint64 userId)
@@ -1482,8 +1481,8 @@ void GoodReadsApi::handleGetUserFollowings(quint64 userId)
         return;
     }
 
-    emit requestFinished();
     emit gotUserFollowings(userId, RpcUtils::Parser::ParseFollowings(doc));
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleGetFriendRequests()
@@ -1495,9 +1494,9 @@ void GoodReadsApi::handleGetFriendRequests()
         return;
     }
 
-    emit requestFinished();
     //TODO
     qDebug() << doc.toByteArray();
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleConfirmFriendRequest(quint64 friendRequestId, bool confirm)
@@ -1509,8 +1508,8 @@ void GoodReadsApi::handleConfirmFriendRequest(quint64 friendRequestId, bool conf
         return;
     }
 
-    emit requestFinished();
     emit friendRequestConfirmed(friendRequestId, confirm);
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleConfirmFriendRecommendation()
@@ -1522,9 +1521,9 @@ void GoodReadsApi::handleConfirmFriendRecommendation()
         return;
     }
 
-    emit requestFinished();
     //TODO
     qDebug() << doc.toByteArray();
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleDeclineFriendRecommendation()
@@ -1536,9 +1535,9 @@ void GoodReadsApi::handleDeclineFriendRecommendation()
         return;
     }
 
-    emit requestFinished();
     //TODO
     qDebug() << doc.toByteArray();
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleAddFriend(quint64 userId)
@@ -1550,10 +1549,10 @@ void GoodReadsApi::handleAddFriend(quint64 userId)
         return;
     }
 
-    emit requestFinished();
     if (doc.isNull()) {
         emit friendAdded(userId);
     }
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleRemoveFriend(quint64 userId)
@@ -1565,10 +1564,10 @@ void GoodReadsApi::handleRemoveFriend(quint64 userId)
         return;
     }
 
-    emit requestFinished();
     if (doc.isNull()) {
         emit friendRemoved(userId);
     }
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleFollowUser()
@@ -1580,12 +1579,12 @@ void GoodReadsApi::handleFollowUser()
         return;
     }
 
-    emit requestFinished();
     QXmlQuery query;
     query.setFocus(doc.toByteArray());
     const QString idStr(GetQueryResult(query, "/user-following/id/text()"));
     const QString userIdStr(GetQueryResult(query, "/user-following/user-id/text()"));
     emit userFollowed(userIdStr.toULongLong() , idStr.toLongLong() > 0);
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleUnfollowUser(quint64 userId)
@@ -1597,11 +1596,11 @@ void GoodReadsApi::handleUnfollowUser(quint64 userId)
         return;
     }
 
-    emit requestFinished();
     QXmlQuery query;
     query.setFocus(doc.toByteArray());
     const QString resultStr(GetQueryResult(query, "/hash/status/text()"));
     emit userUnfollowed(userId, resultStr == "success");
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleAddQuote()
@@ -1613,9 +1612,9 @@ void GoodReadsApi::handleAddQuote()
         return;
     }
 
-    emit requestFinished();
     //TODO
     qDebug() << doc.toByteArray();
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleGetReadStatus()
@@ -1627,9 +1626,9 @@ void GoodReadsApi::handleGetReadStatus()
         return;
     }
 
-    emit requestFinished();
     //TODO
     qDebug() << doc.toByteArray();
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleGetRecentUserStatuses()
@@ -1641,9 +1640,9 @@ void GoodReadsApi::handleGetRecentUserStatuses()
         return;
     }
 
-    emit requestFinished();
     //TODO
     qDebug() << doc.toByteArray();
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleGetUserStatus()
@@ -1655,9 +1654,9 @@ void GoodReadsApi::handleGetUserStatus()
         return;
     }
 
-    emit requestFinished();
     //TODO
     qDebug() << doc.toByteArray();
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleUpdateUserStatus()
@@ -1669,9 +1668,9 @@ void GoodReadsApi::handleUpdateUserStatus()
         return;
     }
 
-    emit requestFinished();
     //TODO
     qDebug() << doc.toByteArray();
+    emit requestFinished();
 }
 
 void GoodReadsApi::handleDeleteUserStatus()
@@ -1683,8 +1682,8 @@ void GoodReadsApi::handleDeleteUserStatus()
         return;
     }
 
-    emit requestFinished();
     //TODO
     qDebug() << doc.toByteArray();
+    emit requestFinished();
 }
 }
