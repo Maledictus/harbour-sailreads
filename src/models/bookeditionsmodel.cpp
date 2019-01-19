@@ -56,12 +56,21 @@ void BookEditionsModel::SetWorkId(quint64 workId)
 
     m_WorkId = workId;
     m_CurrentPage = 1;
+    loadBookEditions();
     emit workIdChanged();
 }
 
 void BookEditionsModel::fetchMoreContent()
 {
     SailreadsManager::Instance()->loadBookEditions(this, m_WorkId, m_CurrentPage);
+}
+
+void BookEditionsModel::loadBookEditions()
+{
+    if (m_WorkId <= 0) {
+        return;
+    }
+    SailreadsManager::Instance()->loadBookEditions(this, m_WorkId);
 }
 
 void BookEditionsModel::handleGotBookEditions(quint64 workId, const CountedItems<BookPtr>& books)

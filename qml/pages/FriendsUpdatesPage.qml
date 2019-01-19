@@ -84,7 +84,7 @@ Page {
             }
             MenuItem {
                 text: qsTr("Refresh")
-                onClicked: updatesModel.refreshUpdates()
+                onClicked: updatesModel.loadUpdates()
             }
         }
 

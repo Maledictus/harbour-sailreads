@@ -68,7 +68,7 @@ Page {
             MenuItem {
                 text: qsTr("Refresh")
                 onClicked: {
-                    sailreadsManager.loadGroups(userId)
+                    groupsModel.loadGroups()
                 }
             }
         }

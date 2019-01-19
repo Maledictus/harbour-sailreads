@@ -62,7 +62,7 @@ private slots:
     void handleGotNotifications(const QString& pageToken, const Notifications_t& notificaitons);
 public slots:
     void fetchMoreContent();
-    void updateNotifications();
+    void loadNotifications();
 
 signals:
     void hasMoreChanged();

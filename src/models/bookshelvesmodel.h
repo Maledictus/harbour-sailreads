@@ -71,6 +71,7 @@ private slots:
     void handleBookShelfEdited(const BookShelf& shelf);
 public slots:
     void fetchMoreContent();
+    void loadBookShelves();
 
 signals:
     void userIdChanged();

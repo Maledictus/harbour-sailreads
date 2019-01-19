@@ -99,7 +99,7 @@ void NotificationsModel::fetchMoreContent()
     SailreadsManager::Instance()->loadNotifications(this, m_PageToken);
 }
 
-void NotificationsModel::updateNotifications()
+void NotificationsModel::loadNotifications()
 {
     m_PageToken.clear();
     SailreadsManager::Instance()->loadNotifications(this, m_PageToken);

@@ -20,4 +20,12 @@ void FollowersModel::fetchMoreContent()
 {
     SailreadsManager::Instance()->loadUserFollowers(this, m_UserId, m_CurrentPage);
 }
+
+void FollowersModel::loadUsers()
+{
+    if (m_UserId <= 0) {
+        return;
+    }
+    SailreadsManager::Instance()->loadUserFollowers(this, m_UserId);
+}
 } // namespace Sailreads

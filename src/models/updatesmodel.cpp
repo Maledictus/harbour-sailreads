@@ -132,7 +132,7 @@ void UpdatesModel::fetchMoreContent()
             m_Items.size() > 0 ? m_Items.last()->GetUpdatedDate() : QDateTime());
 }
 
-void UpdatesModel::refreshUpdates()
+void UpdatesModel::loadUpdates()
 {
     SetItems({});
     SailreadsManager::Instance(this)->loadUpdates(this, m_UpdateScope, m_UpdateItems);

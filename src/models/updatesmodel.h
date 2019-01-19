@@ -73,7 +73,7 @@ private slots:
     void handleGotUpdates(const Updates_t& updates);
 public slots:
     void fetchMoreContent();
-    void refreshUpdates();
+    void loadUpdates();
 
 signals:
     void hasMoreChanged();

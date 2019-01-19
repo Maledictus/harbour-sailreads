@@ -139,6 +139,15 @@ void MessagesModel::fetchMoreContent()
     SailreadsManager::Instance()->loadMessages(this, m_Folder, m_CurrentPage);
 }
 
+void MessagesModel::loadMessages()
+{
+    if (m_Folder.isEmpty()) {
+        return;
+    }
+
+    SailreadsManager::Instance()->loadMessages(this, m_Folder);
+}
+
 void MessagesModel::handleGotMessages(const QString& folder, const CountedItems<MessagePtr>& messages)
 {
     if (m_Folder != folder) {

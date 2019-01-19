@@ -79,9 +79,7 @@ Page {
             }
             MenuItem {
                 text: qsTr("Refresh")
-                onClicked: {
-                    sailreadsManager.loadGroupFolderTopics(folderPage.folderId, folderPage.groupId)
-                }
+                onClicked: topicsModel.loadGroupFolderTopics()
             }
         }
 

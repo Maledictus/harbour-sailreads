@@ -44,6 +44,7 @@ public:
 
 private slots:
     void handleGotUpdates(quint64 userId, const Updates_t& updates);
+
 signals:
     void userIdChanged();
 };

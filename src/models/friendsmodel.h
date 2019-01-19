@@ -75,6 +75,7 @@ private slots:
     void handleFriendRemoved(quint64 friendId);
 public slots:
     virtual void fetchMoreContent();
+    virtual void loadUsers();
 protected:
     void handleGotUserFriends(quint64 userId, const CountedItems<Friend>& friends);
 

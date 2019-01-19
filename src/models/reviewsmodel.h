@@ -97,7 +97,7 @@ private slots:
     void handleGotReviews(quint64 booksShelfId, const CountedItems<ReviewPtr>& reviews);
 public slots:
     virtual void fetchMoreContent();
-    void update();
+    void loadReviews();
 
 signals:
     void userIdChanged();

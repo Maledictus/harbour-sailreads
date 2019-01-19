@@ -139,7 +139,15 @@ void GroupFolderTopicsModel::SetHasMore(bool has)
 void GroupFolderTopicsModel::fetchMoreContent()
 {
     SailreadsManager::Instance()->loadGroupFolderTopics(this, m_GroupFolderId,
-            m_GroupId, m_CurrentPage);
+                                                        m_GroupId, m_CurrentPage);
+}
+
+void GroupFolderTopicsModel::loadGroupFolderTopics()
+{
+    if (m_GroupId <= 0) {
+        return;
+    }
+    SailreadsManager::Instance()->loadGroupFolderTopics(this, m_GroupFolderId, m_GroupId);
 }
 
 void GroupFolderTopicsModel::handleGotGroupFolderTopics(const QString& groupdFolderId,

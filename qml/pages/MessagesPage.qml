@@ -91,7 +91,7 @@ Page {
             }
             MenuItem {
                 text: qsTr("Refresh")
-                onClicked: sailreadsManager.loadMessages(messagesModel.folder)
+                onClicked: messagesModel.loadMessages()
             }
         }
 

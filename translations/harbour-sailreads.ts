@@ -674,12 +674,12 @@ Pull down to refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupFolderPage.qml" line="128"/>
+        <location filename="../qml/pages/GroupFolderPage.qml" line="126"/>
         <source>Author</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupFolderPage.qml" line="137"/>
+        <location filename="../qml/pages/GroupFolderPage.qml" line="135"/>
         <source>Last update</source>
         <translation type="unfinished"></translation>
     </message>
@@ -733,12 +733,17 @@ Pull down to refresh</source>
 <context>
     <name>GroupMembersPage</name>
     <message>
-        <location filename="../qml/pages/GroupMembersPage.qml" line="57"/>
+        <location filename="../qml/pages/GroupMembersPage.qml" line="56"/>
         <source>Members</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupMembersPage.qml" line="101"/>
+        <location filename="../qml/pages/GroupMembersPage.qml" line="62"/>
+        <source>Refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/GroupMembersPage.qml" line="108"/>
         <source>Comments</source>
         <translation type="unfinished"></translation>
     </message>

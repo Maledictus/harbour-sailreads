@@ -56,7 +56,7 @@ Page {
             busy: notificationsPage.busy
             MenuItem {
                 text: qsTr("Refresh")
-                onClicked: notificationsModel.updateNotifications()
+                onClicked: notificationsModel.loadNotifications()
             }
         }
 

@@ -202,11 +202,14 @@ void ReviewsModel::fetchMoreContent()
                                               m_SortOrder, m_SortField);
 }
 
-void ReviewsModel::update()
+void ReviewsModel::loadReviews()
 {
-    SetHasMore(true);
-    m_CurrentPage = 1;
-    fetchMoreContent();
+    if (m_BookShelf.isEmpty() || !m_UserId) {
+        return;
+    }
+
+    SailreadsManager::Instance()->loadReviews(this, m_UserId, m_BookShelf, 1,
+                                              m_SortOrder, m_SortField);
 }
 
 void ReviewsModel::handleGotReviews(quint64 booksShelfId, const CountedItems<ReviewPtr>& reviews)

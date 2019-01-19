@@ -69,6 +69,14 @@ void UserGroupsModel::fetchMoreContent()
     SailreadsManager::Instance()->loadGroups(this, m_UserId, m_CurrentPage);
 }
 
+void UserGroupsModel::loadGroups()
+{
+    if (m_UserId <= 0) {
+        return;
+    }
+    SailreadsManager::Instance()->loadGroups(this, m_UserId);
+}
+
 void UserGroupsModel::handleGotUserGroups(quint64 userId, const CountedItems<GroupPtr>& groups)
 {
     if (userId != m_UserId) {

@@ -56,13 +56,21 @@ void AuthorBooksModel::SetAuthorId(quint64 authorId)
 
     m_AuthorId = authorId;
     m_CurrentPage = 1;
-    fetchMoreContent();
+    loadAuthorBooks();
     emit authorIdChanged();
 }
 
 void AuthorBooksModel::fetchMoreContent()
 {
     SailreadsManager::Instance()->loadAuthorBooks(this, m_AuthorId, m_CurrentPage);
+}
+
+void AuthorBooksModel::loadAuthorBooks()
+{
+    if (m_AuthorId <= 0) {
+        return;
+    }
+    SailreadsManager::Instance()->loadAuthorBooks(this, m_AuthorId);
 }
 
 void AuthorBooksModel::handleGotAuthorBooks(quint64 authorId, const CountedItems<BookPtr>& books)

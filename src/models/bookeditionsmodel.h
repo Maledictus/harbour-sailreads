@@ -46,6 +46,7 @@ public:
 
 public slots:
     virtual void fetchMoreContent() override;
+    void loadBookEditions();
 private slots:
     void handleGotBookEditions(quint64 workId, const CountedItems<BookPtr>& books);
 

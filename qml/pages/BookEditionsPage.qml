@@ -57,7 +57,7 @@ Page {
             MenuItem {
                 text: qsTr("Refresh")
                 onClicked: {
-                    sailreadsManager.loadBookEditions(workId)
+                    bookEditionsModel.loadBookEditions()
                 }
             }
         }

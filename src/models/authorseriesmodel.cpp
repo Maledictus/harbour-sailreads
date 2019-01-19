@@ -81,7 +81,7 @@ void AuthorSeriesModel::SetAuthorId(quint64 id)
 {
     if (m_AuthorId != id) {
         m_AuthorId = id;
-        SailreadsManager::Instance()->loadAuthorSeries(this, m_AuthorId);
+        loadAuthorSeries();
         emit authorIdChanged();
     }
 }
@@ -106,5 +106,13 @@ void AuthorSeriesModel::handleGotAuthorSeries(quint64 authorId, const Series_t& 
     }
 
     SetItems(series);
+}
+
+void AuthorSeriesModel::loadAuthorSeries()
+{
+    if (m_AuthorId <= 0) {
+        return;
+    }
+    SailreadsManager::Instance()->loadAuthorSeries(this, m_AuthorId);
 }
 } // namespace Sailreads

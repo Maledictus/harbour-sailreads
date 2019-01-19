@@ -61,7 +61,7 @@ Page {
             MenuItem {
                 text: qsTr("Refresh")
                 onClicked: {
-                    sailreadsManager.loadAuthorBooks(authorId)
+                    authorBooksModel.loadAuthorBooks()
                 }
             }
         }

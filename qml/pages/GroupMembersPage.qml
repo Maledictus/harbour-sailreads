@@ -31,7 +31,7 @@ import "../utils/Utils.js" as Utils
 Page {
     id: groupMembersPage
 
-    property int groupId: 0
+    property alias groupId: groupMembersModel.groupId
     property bool busy: sailreadsManager.busy && groupMembersPage.status === PageStatus.Active
 
     function attachPage() {
@@ -47,7 +47,6 @@ Page {
 
     GroupMembersModel {
         id: groupMembersModel
-        groupId: groupMembersPage.groupId
     }
 
     SilicaGridView {
@@ -55,6 +54,14 @@ Page {
         anchors.fill: parent
         header: PageHeader {
             title: qsTr("Members")
+        }
+
+        PullDownMenu {
+            busy: groupMembersPage.busy
+            MenuItem {
+                text: qsTr("Refresh")
+                onClicked: groupMembersModel.loadGroupMembers()
+            }
         }
 
         cellHeight: Theme.itemSizeMedium

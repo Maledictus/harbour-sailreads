@@ -46,6 +46,7 @@ public:
 
 public slots:
     void fetchMoreContent();
+    void loadGroups();
 private slots:
     void handleGotUserGroups(quint64 userId, const CountedItems<GroupPtr>& groups);
 

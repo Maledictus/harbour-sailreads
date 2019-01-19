@@ -66,13 +66,13 @@ Page {
                 onClicked: {
                     switch (slideshowView.currentIndex) {
                     case 0:
-                        sailreadsManager.loadFriends(userId)
+                        friendsModel.loadUsers()
                         return
                     case 1:
-                        sailreadsManager.loadUserFollowings(userId)
+                        followingsModel.loadUsers()
                         return
                     case 2:
-                        sailreadsManager.loadUserFollowers(userId)
+                        followersModel.loadUsers()
                         return
                     default:
                         return

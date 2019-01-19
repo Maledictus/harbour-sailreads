@@ -75,6 +75,7 @@ private slots:
     void handleGotNewGroupFolderTopic(const QString& groupdFolderId, const TopicPtr& topic);
 public slots:
     void fetchMoreContent();
+    void loadGroupFolderTopics();
 
 signals:
     void groupIdChanged();

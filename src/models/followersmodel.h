@@ -37,5 +37,6 @@ public:
 
 public slots:
     virtual void fetchMoreContent();
+    virtual void loadUsers();
 };
 } // namespace Sailreads

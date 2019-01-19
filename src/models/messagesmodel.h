@@ -72,6 +72,7 @@ private slots:
     void handleGotMessage(const MessagePtr& message);
 public slots:
     void fetchMoreContent();
+    void loadMessages();
 
 signals:
     void folderChanged();

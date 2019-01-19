@@ -121,6 +121,14 @@ void FriendsModel::fetchMoreContent()
     SailreadsManager::Instance()->loadFriends(this, m_UserId, m_CurrentPage);
 }
 
+void FriendsModel::loadUsers()
+{
+    if (m_UserId <= 0) {
+        return;
+    }
+    SailreadsManager::Instance()->loadFriends(this, m_UserId);
+}
+
 void FriendsModel::handleGotUserFriends(quint64 userId, const CountedItems<Friend>& friends)
 {
     if (userId != m_UserId) {

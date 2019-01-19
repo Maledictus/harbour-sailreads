@@ -116,6 +116,14 @@ void BookShelvesModel::fetchMoreContent()
     SailreadsManager::Instance()->loadBookShelves(this, m_UserId, m_CurrentPage);
 }
 
+void BookShelvesModel::loadBookShelves()
+{
+    if (m_UserId <= 0) {
+        return;
+    }
+    SailreadsManager::Instance()->loadBookShelves(this, m_UserId);
+}
+
 void BookShelvesModel::handleGotUserBookShelves(quint64 userId, const CountedItems<BookShelf> bookshelves)
 {
     if (m_UserId != userId) {

@@ -46,6 +46,7 @@ public:
 
 public slots:
     virtual void fetchMoreContent() override;
+    void loadAuthorBooks();
 private slots:
     void handleGotAuthorBooks(quint64 authorId, const CountedItems<BookPtr>& books);
 
