@@ -50,7 +50,7 @@ public:
 private slots:
     void handleGotGroup(quint64 inGroupId, const GroupPtr& group);
 public slots:
-    void updateGroup();
+    void loadGroup();
 
 signals:
     void groupIdChanged();

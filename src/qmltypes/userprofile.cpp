@@ -59,7 +59,7 @@ void UserProfile::SetUserID(quint64 id)
 {
     if (m_UserId != id) {
         m_UserId = id;
-        updateProfile();
+        loadProfile();
         emit userIdChanged();
     }
 }
@@ -143,8 +143,11 @@ void UserProfile::handleFriendRemoved(quint64)
     emit userChanged();
 }
 
-void UserProfile::updateProfile()
+void UserProfile::loadProfile()
 {
+    if (m_UserId <= 0) {
+        return;
+    }
     SailreadsManager::Instance()->getUserInfo(this, m_UserId);
 }
 } // namespace Sailreads

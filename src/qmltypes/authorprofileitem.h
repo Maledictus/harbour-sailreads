@@ -52,7 +52,7 @@ private slots:
     void handleAuthorFollowed(quint64 authorId, quint64 followingId);
     void handleAuthorUnfollowed(quint64 authorId);
 public slots:
-    void updateAuthorProfile();
+    void loadAuthorProfile();
 
 signals:
     void authorIdChanged();

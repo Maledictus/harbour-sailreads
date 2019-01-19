@@ -43,6 +43,10 @@ Page {
         }
     }
 
+    Component.onDestruction: {
+        reviewItem.cancelRequest()
+    }
+
     ReviewItem {
         id: reviewItem
         onReviewChanged: {
@@ -79,7 +83,7 @@ Page {
             MenuItem {
                 text: qsTr("Refresh")
                 onClicked: {
-                    reviewItem.updateReview()
+                    reviewItem.loadReview()
                 }
             }
         }

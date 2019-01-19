@@ -55,8 +55,7 @@ public:
     quint64 GetGroupId() const;
     void SetGroupId(quint64 id);
 
-public slots:
-    void handleGotGroup(quint64 groupId, Group *group);
+private slots:
     void handleGotGroup(quint64 groupId, const GroupPtr& group);
 
 signals:

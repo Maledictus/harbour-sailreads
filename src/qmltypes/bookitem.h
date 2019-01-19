@@ -50,7 +50,7 @@ public:
 private slots:
     void handleGotBook(const BookPtr& book);
 public slots:
-    void updateBook();
+    void loadBook();
 
 signals:
     void bookIdChanged();

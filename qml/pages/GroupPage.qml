@@ -42,17 +42,15 @@ Page {
         }
     }
 
+    Component.onDestruction: {
+        groupItem.cancelRequest()
+    }
+
     GroupItem {
         id: groupItem
         onGroupChanged: {
-            groupFoldersModel.handleGotGroup(groupId, group)
             membersButton.counter = group.usersCount
         }
-    }
-
-    Component.onDestruction: {
-        groupItem.cancelRequest()
-        groupFoldersModel.cancelRequest()
     }
 
     GroupFoldersModel {
@@ -98,7 +96,7 @@ Page {
                 MenuItem {
                     text: qsTr("Refresh")
                     onClicked: {
-                        groupItem.updateGroup()
+                        groupItem.loadGroup()
                     }
                 }
             }

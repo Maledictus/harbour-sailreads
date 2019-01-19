@@ -30,6 +30,8 @@ GroupFoldersModel::GroupFoldersModel(QObject *parent)
 : BaseModel<GroupFolder>(parent)
 , m_GroupId(0)
 {
+    connect(SailreadsManager::Instance(this), &SailreadsManager::gotUserGroup,
+            this, &GroupFoldersModel::handleGotGroup);
 }
 
 QVariant GroupFoldersModel::data(const QModelIndex& index, int role) const
@@ -76,13 +78,6 @@ void GroupFoldersModel::SetGroupId(quint64 id)
     if (m_GroupId != id) {
         m_GroupId = id;
         emit groupIdChanged();
-    }
-}
-
-void GroupFoldersModel::handleGotGroup(quint64 groupId, Group *group)
-{
-    if (group && m_GroupId == groupId) {
-        SetItems(group->GetGroupFolders());
     }
 }
 

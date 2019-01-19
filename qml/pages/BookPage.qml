@@ -87,6 +87,11 @@ Page {
                     visible: false //TODO book && book.review && book.review.shelvesList.length === 0
                     text: qsTr("Want to Read")
                 }
+
+                MenuItem {
+                    text: qsTr("Refresh")
+                    onClicked: bookItem.loadBook()
+                }
             }
 
             PageHeader {

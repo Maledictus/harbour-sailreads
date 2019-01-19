@@ -47,7 +47,7 @@ void BookItem::SetBookId(quint64 bookId)
     }
 
     m_BookId = bookId;
-    updateBook();
+    loadBook();
     emit bookIdChanged();
 }
 
@@ -90,8 +90,11 @@ void BookItem::handleGotBook(const BookPtr& book)
     SetBook(book);
 }
 
-void BookItem::updateBook()
+void BookItem::loadBook()
 {
+    if (m_BookId <= 0) {
+        return;
+    }
     SailreadsManager::Instance()->loadBook(this, m_BookId);
 }
 } // namespace Sailreads

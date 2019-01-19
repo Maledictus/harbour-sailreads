@@ -65,7 +65,7 @@ private slots:
     void handleFriendAdded(quint64 userId);
     void handleFriendRemoved(quint64 friendId);
 public slots:
-    void updateProfile();
+    void loadProfile();
 
 signals:
     void userIdChanged();

@@ -49,7 +49,7 @@ public:
 private slots:
     void handleGotTopic(const TopicPtr& topic);
 public slots:
-    void updateTopic();
+    void loadTopic();
 
 signals:
     void topicIdChanged();

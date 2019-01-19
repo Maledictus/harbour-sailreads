@@ -117,7 +117,7 @@ Page {
             MenuItem {
                 text: qsTr("Refresh")
                 onClicked: {
-                    topicItem.updateTopic()
+                    topicItem.loadTopic()
                 }
             }
         }

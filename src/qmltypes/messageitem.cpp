@@ -47,7 +47,7 @@ void MessageItem::SetMessageId(quint64 messageId)
     }
 
     m_MessageId = messageId;
-    updateMessage();
+    loadMessage();
     emit messageIdChanged();
 }
 
@@ -90,8 +90,11 @@ void MessageItem::handleGotMessage(const MessagePtr& message)
     SetMessage(message);
 }
 
-void MessageItem::updateMessage()
+void MessageItem::loadMessage()
 {
+    if (m_MessageId <= 0) {
+        return;
+    }
     SailreadsManager::Instance()->loadMessage(this, m_MessageId);
 }
 } // namespace Sailreads

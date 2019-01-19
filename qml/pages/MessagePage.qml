@@ -59,7 +59,7 @@ Page {
             MenuItem {
                 text: qsTr("Refresh")
                 onClicked: {
-                    messageItem.updateMessage()
+                    messageItem.loadMessage()
                 }
             }
         }

@@ -47,7 +47,7 @@ void ReviewItem::SetReviewId(quint64 reviewId)
     }
 
     m_ReviewId = reviewId;
-    updateReview();
+    loadReview();
     emit reviewIdChanged();
 }
 
@@ -90,8 +90,11 @@ void ReviewItem::handleGotReview(const ReviewPtr& review)
     SetReview(review);
 }
 
-void ReviewItem::updateReview()
+void ReviewItem::loadReview()
 {
+    if (m_ReviewId <= 0) {
+        return;
+    }
     SailreadsManager::Instance()->loadReview(this, m_ReviewId);
 }
 } // namespace Sailreads

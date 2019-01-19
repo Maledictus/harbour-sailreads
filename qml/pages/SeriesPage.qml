@@ -41,6 +41,10 @@ Page {
         }
     }
 
+    Component.onDestruction: {
+        seriesItem.cancelRequest()
+    }
+
     SeriesItem {
         id: seriesItem
     }
@@ -52,6 +56,13 @@ Page {
 
         model: seriesItem.series !== null ? seriesItem.series.seriesWorks : null
         clip: true
+
+        PullDownMenu {
+            MenuItem {
+                text: qsTr("Refresh")
+                onClicked: seriesItem.loadSeries()
+            }
+        }
 
         header: Item {
             width: seriesView.width

@@ -51,7 +51,7 @@ void AuthorProfileItem::SetAuthorId(quint64 authorId)
     }
 
     m_AuthorId = authorId;
-    updateAuthorProfile();
+    loadAuthorProfile();
     emit authorIdChanged();
 }
 
@@ -86,7 +86,7 @@ void AuthorProfileItem::SetAuthor(const AuthorPtr& author)
     emit authorChanged();
 }
 
-void AuthorProfileItem::updateAuthorProfile()
+void AuthorProfileItem::loadAuthorProfile()
 {
     if (m_AuthorId <= 0) {
         return;

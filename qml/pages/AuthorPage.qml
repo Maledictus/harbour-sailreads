@@ -98,7 +98,7 @@ Page {
                 MenuItem {
                     text: qsTr("Refresh")
                     onClicked: {
-                        authorProfile.updateAuthorProfile()
+                        authorProfile.loadAuthorProfile()
                     }
                 }
             }

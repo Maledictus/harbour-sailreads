@@ -47,7 +47,7 @@ void TopicItem::SetTopicId(quint64 topicId)
     }
 
     m_TopicId = topicId;
-    updateTopic();
+    loadTopic();
     emit topicIdChanged();
 }
 
@@ -73,8 +73,11 @@ void TopicItem::handleGotTopic(const TopicPtr& topic)
     SetTopic(topic);
 }
 
-void TopicItem::updateTopic()
+void TopicItem::loadTopic()
 {
+    if (m_TopicId <= 0) {
+        return;
+    }
     SailreadsManager::Instance()->loadGroupFolderTopic(this, m_TopicId);
 }
 } // namespace Sailreads

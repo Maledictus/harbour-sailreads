@@ -147,7 +147,7 @@ Page {
                 MenuItem {
                     text: qsTr("Refresh")
                     onClicked: {
-                        userProfile.updateProfile()
+                        userProfile.loadProfile()
                     }
                 }
             }
