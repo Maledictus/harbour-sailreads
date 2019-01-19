@@ -198,7 +198,7 @@ void ReviewsModel::fetchMoreContent()
         return;
     }
 
-    SailreadsManager::Instance()->loadReviews(m_UserId, m_BookShelf, m_CurrentPage,
+    SailreadsManager::Instance()->loadReviews(this, m_UserId, m_BookShelf, m_CurrentPage,
                                               m_SortOrder, m_SortField);
 }
 

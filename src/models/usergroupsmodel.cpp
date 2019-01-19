@@ -66,7 +66,7 @@ void UserGroupsModel::SetHasMore(bool has)
 
 void UserGroupsModel::fetchMoreContent()
 {
-    SailreadsManager::Instance()->loadGroups(m_UserId, m_CurrentPage);
+    SailreadsManager::Instance()->loadGroups(this, m_UserId, m_CurrentPage);
 }
 
 void UserGroupsModel::handleGotUserGroups(quint64 userId, const CountedItems<GroupPtr>& groups)

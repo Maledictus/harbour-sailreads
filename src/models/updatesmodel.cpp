@@ -128,14 +128,14 @@ void UpdatesModel::componentComplete()
 
 void UpdatesModel::fetchMoreContent()
 {
-    SailreadsManager::Instance(this)->loadUpdates(m_UpdateScope, m_UpdateItems,
+    SailreadsManager::Instance(this)->loadUpdates(this, m_UpdateScope, m_UpdateItems,
             m_Items.size() > 0 ? m_Items.last()->GetUpdatedDate() : QDateTime());
 }
 
 void UpdatesModel::refreshUpdates()
 {
     SetItems({});
-    SailreadsManager::Instance(this)->loadUpdates(m_UpdateScope, m_UpdateItems);
+    SailreadsManager::Instance(this)->loadUpdates(this, m_UpdateScope, m_UpdateItems);
 }
 
 void UpdatesModel::cancelRequest()

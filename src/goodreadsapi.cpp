@@ -99,7 +99,7 @@ void GoodReadsApi::GetUserInfo(QObject *requester, quint64 id)
 {
     QNetworkReply *reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/user/show/%1.xml").arg(id)));
-
+    m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
              this, &GoodReadsApi::handleGetUserInfo);
 }
@@ -124,7 +124,7 @@ void GoodReadsApi::GetUpdates(QObject *requester, const QString& scope, const QS
     }
     QNetworkReply *reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + "/updates/friends.xml"), params);
-//    m_CurrentReply = reply;
+    m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
              this, &GoodReadsApi::handleGetUpdates);
 }
@@ -136,7 +136,7 @@ void GoodReadsApi::GetNotifications(QObject *requester, const QString& pageToken
             QVariantMap({ { "next_page_token", pageToken } });
     QNetworkReply *reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + "/notifications.xml"), params);
-//    m_CurrentReply = reply;
+    m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this, [this]() { handleGetNotifications(); });
 }
@@ -146,7 +146,7 @@ void GoodReadsApi::GetMessages(QObject *requester, const QString& folder, int pa
     QNetworkReply *reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/message/%1.xml").arg(folder)),
             { { "format", "xml" }, { "page", page } });
-//    m_CurrentReply = reply;
+    m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this, [this]() { handleGetMessages(); });
 }
@@ -156,7 +156,7 @@ void GoodReadsApi::GetMessage(QObject *requester, quint64 messageId)
     QNetworkReply *reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/message/show/%1").arg(messageId)),
             { { "format", "xml" } });
-//    m_CurrentReply = reply;
+    m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this, [this]() { handleGetMessage(); });
 }
@@ -174,7 +174,7 @@ void GoodReadsApi::GetBookShelves(QObject *requester, quint64 userId, int page)
 {
     QNetworkReply *reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + "/shelf/list.xml"), { { "user_id", userId }, { "page", page } });
-//    m_CurrentReply = reply;
+    m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this, [this, userId]() { handleGetBookShelves(userId); });
 }
@@ -221,7 +221,7 @@ void GoodReadsApi::GetReviews(QObject *requester, quint64 userId, const QString&
     };
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/review/list/%1.xml").arg(userId)), params);
-//    m_CurrentReply = reply;
+    m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this, &GoodReadsApi::handleGetReviews);
 }
@@ -230,7 +230,7 @@ void GoodReadsApi::GetReview(QObject *requester, quint64 reviewId, int commentsP
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + "/review/show.xml"), { { "id", reviewId }, { "page", commentsPage } });
-//    m_CurrentReply = reply;
+    m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this, &GoodReadsApi::handleGetReview);
 }
@@ -243,7 +243,7 @@ void GoodReadsApi::SearchReviews(QObject *requester, quint64 userId,
     };
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/review/list/%1.xml").arg(userId)), params);
-//    m_CurrentReply = reply;
+    m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this, &GoodReadsApi::handleSearchReviews);
 }
@@ -307,7 +307,7 @@ void GoodReadsApi::GetBook(QObject *requester, quint64 bookId)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + "/book/show.xml"), { { "id", bookId } });
-//    m_CurrentReply = reply;
+    m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this, &GoodReadsApi::handleGetBook);
 }
@@ -317,7 +317,7 @@ void GoodReadsApi::GetBookEditions(QObject *requester, quint64 workId, int page)
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/work/editions/%1").arg(workId)),
             { { "format", "xml" }, { "page", page } });
-//    m_CurrentReply = reply;
+    m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this, [this, workId]() { handleGetBookEditions(workId); });
 }
@@ -338,7 +338,7 @@ void GoodReadsApi::GetSeries(QObject *requester, quint64 seriesId)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/series/show/%1.xml").arg(seriesId)));
-//    m_CurrentReply = reply;
+    m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this, &GoodReadsApi::handleGetSeries);
 }
@@ -347,7 +347,7 @@ void GoodReadsApi::GetAuthorSeries(QObject *requester, quint64 authorId)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/series/list/%1.xml").arg(authorId)));
-//    m_CurrentReply = reply;
+    m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this, [this, authorId]() { handleGetAuthorSeries(authorId); });
 }
@@ -396,7 +396,7 @@ void GoodReadsApi::GetAuthor(QObject *requester, quint64 authorId)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + "/author/show.xml"), { { "id", authorId } });
-//    m_CurrentReply = reply;
+    m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this, &GoodReadsApi::handleGetAuthor);
 }
@@ -405,7 +405,7 @@ void GoodReadsApi::GetAuthorBooks(QObject *requester, quint64 authorId, int page
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + "/author/list.xml"), { { "id", authorId }, { "page", page } });
-//    m_CurrentReply = reply;
+    m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this, [this, authorId]() {
                 handleGetAuthorBooks(authorId);
@@ -435,7 +435,7 @@ void GoodReadsApi::GetGroups(QObject *requester, quint64 userId, int page)
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/group/list/%1.xml").arg(userId)),
             { { "sort", "last_activity" }, { "page", page } });
-//    m_CurrentReply = reply;
+    m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this, [this, userId]() { handleGetGroups(userId); });
 }
@@ -445,7 +445,7 @@ void GoodReadsApi::GetGroup(QObject *requester, quint64 groupId)
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/group/show/%1.xml").arg(groupId)),
             { { "sort", "updated_at" } });
-//    m_CurrentReply = reply;
+    m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this, [this, groupId]() { handleGetGroup(groupId); });
 }
@@ -463,7 +463,7 @@ void GoodReadsApi::SearchGroup(QObject *requester, const QString& text, int page
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + "/group/search.xml"),
             { { "q", QUrl::toPercentEncoding(text) }, { "page", page } });
-//    m_CurrentReply = reply;
+    m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this, &GoodReadsApi::handleSearchGroup);
 }
@@ -473,7 +473,7 @@ void GoodReadsApi::GetGroupMembers(QObject *requester, quint64 groupId, int page
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/group/members/%1.xml").arg(groupId)),
             { { "page", page }, { "sort", "num_comments" } });
-//    m_CurrentReply = reply;
+    m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this, [this, groupId] { handleGetGroupMembers(groupId); });
 }
@@ -492,7 +492,7 @@ void GoodReadsApi::GetGroupFolderTopics(QObject *requester, const QString& group
         reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
                 QUrl(m_BaseUrl + QString("/topic/group_folder/%1").arg(groupFolderId)), params);
     }
-//    m_CurrentReply = reply;
+    m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this,
             [this, groupFolderId, groupId] {
@@ -504,7 +504,7 @@ void GoodReadsApi::GetGroupFolderTopic(QObject *requester, quint64 topicId, int 
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + "/topic/show.xml"), { { "id", topicId }, { "page", page } });
-//    m_CurrentReply = reply;
+    m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this, &GoodReadsApi::handleGetGroupFolderTopic);
 }
@@ -538,7 +538,7 @@ void GoodReadsApi::GetFriends(QObject *requester, quint64 userId, int page)
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/friend/user/%1").arg(userId)),
             { { "format", "xml" }, { "page", page } });
-//    m_CurrentReply = reply;
+    m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
              this, [this, userId]() { handleGetFriends(userId); });
 }
@@ -547,7 +547,7 @@ void GoodReadsApi::GetUserFollowers(QObject *requester, quint64 userId, int page
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/user/%1/followers.xml").arg(userId)), { { "page", page } } );
-//    m_CurrentReply = reply;
+    m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
              this, [this, userId]() { handleGetUserFollowers(userId); });
 }
@@ -556,7 +556,7 @@ void GoodReadsApi::GetUserFollowings(QObject *requester, quint64 userId, int pag
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/user/%1/following.xml").arg(userId)), { { "page", page } } );
-//    m_CurrentReply = reply;
+    m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
              this, [this, userId]() { handleGetUserFollowings(userId); });
 }
@@ -565,7 +565,7 @@ void GoodReadsApi::GetFriendRequests(QObject *requester, int page)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + "/friend/requests.xml"), { { "page", page } });
-//    m_CurrentReply = reply;
+    m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
              this, &GoodReadsApi::handleGetFriendRequests);
 }
@@ -757,7 +757,7 @@ QByteArray GoodReadsApi::GetReply(QObject *sender, bool& ok)
         return data;
     }
     reply->deleteLater();
-//    m_CurrentReply.clear();
+    m_Requester2Reply.remove(m_Requester2Reply.key(reply));
 
     if (reply->error() != QNetworkReply::NoError &&
             reply->error() != QNetworkReply::OperationCanceledError &&
@@ -1303,7 +1303,7 @@ void GoodReadsApi::handleGetGroup(quint64 groupId, QObject *senderObject)
         return;
     }
     reply->deleteLater();
-//    m_CurrentReply.clear();
+    m_Requester2Reply.remove(m_Requester2Reply.key(reply));
 
     if (reply->error() == QNetworkReply::ContentOperationNotPermittedError) {
         emit requestFinished();

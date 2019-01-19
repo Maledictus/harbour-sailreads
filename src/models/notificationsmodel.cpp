@@ -96,13 +96,13 @@ QHash<int, QByteArray> NotificationsModel::roleNames() const
 
 void NotificationsModel::fetchMoreContent()
 {
-    SailreadsManager::Instance()->loadNotifications(m_PageToken);
+    SailreadsManager::Instance()->loadNotifications(this, m_PageToken);
 }
 
 void NotificationsModel::updateNotifications()
 {
     m_PageToken.clear();
-    SailreadsManager::Instance()->loadNotifications(m_PageToken);
+    SailreadsManager::Instance()->loadNotifications(this, m_PageToken);
 }
 
 void NotificationsModel::cancelRequest()

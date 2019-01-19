@@ -76,7 +76,7 @@ void SeriesItem::handleGotSeries(const SeriesPtr& series)
 
 void SeriesItem::updateSeries()
 {
-    SailreadsManager::Instance()->loadSeries(m_SeriesId);
+    SailreadsManager::Instance()->loadSeries(this, m_SeriesId);
 }
 
 void SeriesItem::cancelRequest()

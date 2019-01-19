@@ -118,7 +118,7 @@ void FriendsModel::componentComplete()
 
 void FriendsModel::fetchMoreContent()
 {
-    SailreadsManager::Instance()->loadFriends(m_UserId, m_CurrentPage);
+    SailreadsManager::Instance()->loadFriends(this, m_UserId, m_CurrentPage);
 }
 
 void FriendsModel::cancelRequest()

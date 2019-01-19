@@ -59,7 +59,7 @@ void FoundGroupsModel::fetchMoreContent(const QString& text)
     if (text.isEmpty()) {
         return;
     }
-    SailreadsManager::Instance()->searchGroup(text, m_CurrentPage);
+    SailreadsManager::Instance()->searchGroup(this, text, m_CurrentPage);
 }
 
 void FoundGroupsModel::handleGotFoundGroups(const CountedItems<GroupPtr>& groups)

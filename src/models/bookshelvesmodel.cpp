@@ -113,7 +113,7 @@ void BookShelvesModel::SetHasMore(bool has)
 
 void BookShelvesModel::fetchMoreContent()
 {
-    SailreadsManager::Instance()->loadBookShelves(m_UserId, m_CurrentPage);
+    SailreadsManager::Instance()->loadBookShelves(this, m_UserId, m_CurrentPage);
 }
 
 void BookShelvesModel::cancelRequest()

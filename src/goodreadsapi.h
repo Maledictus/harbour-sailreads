@@ -66,7 +66,7 @@ class GoodReadsApi : public QObject
     QNetworkAccessManager *m_NAM;
     OAuth1 *m_OAuth1;
 
-    QMap<QObject*, QPointer<QNetworkReply>> m_Requester2Reply;
+    QMap<QObject*, QNetworkReply*> m_Requester2Reply;
 
 public:
     explicit GoodReadsApi(QObject *parent = 0);

@@ -92,7 +92,7 @@ void MessageItem::handleGotMessage(const MessagePtr& message)
 
 void MessageItem::updateMessage()
 {
-    SailreadsManager::Instance()->loadMessage(m_MessageId);
+    SailreadsManager::Instance()->loadMessage(this, m_MessageId);
 }
 
 void MessageItem::cancelRequest()

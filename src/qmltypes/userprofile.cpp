@@ -145,7 +145,7 @@ void UserProfile::handleFriendRemoved(quint64)
 
 void UserProfile::updateProfile()
 {
-    SailreadsManager::Instance()->getUserInfo(m_UserId);
+    SailreadsManager::Instance()->getUserInfo(this, m_UserId);
 }
 
 void UserProfile::cancelRequest()

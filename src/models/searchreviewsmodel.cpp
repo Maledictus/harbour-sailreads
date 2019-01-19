@@ -63,7 +63,7 @@ void SearchReviewsModel::fetchMoreContent()
     if (m_SearchText.isEmpty()) {
         return;
     }
-    SailreadsManager::Instance()->searchReviews(m_UserId, m_SearchText, m_CurrentPage);
+    SailreadsManager::Instance()->searchReviews(this, m_UserId, m_SearchText, m_CurrentPage);
 }
 
 void SearchReviewsModel::cancelRequest()

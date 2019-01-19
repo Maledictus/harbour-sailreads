@@ -127,7 +127,7 @@ void GroupMembersModel::clear()
 
 void GroupMembersModel::fetchMoreContent()
 {
-    SailreadsManager::Instance()->loadGroupMembers(m_GroupId, m_CurrentPage);
+    SailreadsManager::Instance()->loadGroupMembers(this, m_GroupId, m_CurrentPage);
 }
 
 void GroupMembersModel::cancelRequest()

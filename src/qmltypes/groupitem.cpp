@@ -75,7 +75,7 @@ void GroupItem::handleGotGroup(quint64 inGroupId, const GroupPtr& group)
 
 void GroupItem::updateGroup()
 {
-    SailreadsManager::Instance()->loadGroup(m_GroupId);
+    SailreadsManager::Instance()->loadGroup(this, m_GroupId);
 }
 
 void GroupItem::cancelRequest()

@@ -92,7 +92,7 @@ void ReviewItem::handleGotReview(const ReviewPtr& review)
 
 void ReviewItem::updateReview()
 {
-    SailreadsManager::Instance()->loadReview(m_ReviewId);
+    SailreadsManager::Instance()->loadReview(this, m_ReviewId);
 }
 
 void ReviewItem::cancelRequest()

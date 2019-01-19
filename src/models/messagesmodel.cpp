@@ -136,7 +136,7 @@ void MessagesModel::fetchMoreContent()
         return;
     }
 
-    SailreadsManager::Instance()->loadMessages(m_Folder, m_CurrentPage);
+    SailreadsManager::Instance()->loadMessages(this, m_Folder, m_CurrentPage);
 }
 
 void MessagesModel::cancelRequest()

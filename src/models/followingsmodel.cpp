@@ -18,6 +18,6 @@ void FollowingsModel::classBegin()
 
 void FollowingsModel::fetchMoreContent()
 {
-    SailreadsManager::Instance()->loadUserFollowings(m_UserId, m_CurrentPage);
+    SailreadsManager::Instance()->loadUserFollowings(this, m_UserId, m_CurrentPage);
 }
 } // namespace Sailreads

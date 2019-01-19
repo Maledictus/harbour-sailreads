@@ -61,7 +61,7 @@ void BookEditionsModel::SetWorkId(quint64 workId)
 
 void BookEditionsModel::fetchMoreContent()
 {
-    SailreadsManager::Instance()->loadBookEditions(m_WorkId, m_CurrentPage);
+    SailreadsManager::Instance()->loadBookEditions(this, m_WorkId, m_CurrentPage);
 }
 
 void BookEditionsModel::handleGotBookEditions(quint64 workId, const CountedItems<BookPtr>& books)

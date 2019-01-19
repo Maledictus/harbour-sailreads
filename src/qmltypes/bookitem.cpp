@@ -92,7 +92,7 @@ void BookItem::handleGotBook(const BookPtr& book)
 
 void BookItem::updateBook()
 {
-    SailreadsManager::Instance()->loadBook(m_BookId);
+    SailreadsManager::Instance()->loadBook(this, m_BookId);
 }
 
 void BookItem::cancelRequest()

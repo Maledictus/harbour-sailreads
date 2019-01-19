@@ -75,7 +75,7 @@ void TopicItem::handleGotTopic(const TopicPtr& topic)
 
 void TopicItem::updateTopic()
 {
-    SailreadsManager::Instance()->loadGroupFolderTopic(m_TopicId);
+    SailreadsManager::Instance()->loadGroupFolderTopic(this, m_TopicId);
 }
 
 void TopicItem::cancelRequest()

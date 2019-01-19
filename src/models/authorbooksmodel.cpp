@@ -62,7 +62,7 @@ void AuthorBooksModel::SetAuthorId(quint64 authorId)
 
 void AuthorBooksModel::fetchMoreContent()
 {
-    SailreadsManager::Instance()->loadAuthorBooks(m_AuthorId, m_CurrentPage);
+    SailreadsManager::Instance()->loadAuthorBooks(this, m_AuthorId, m_CurrentPage);
 }
 
 void AuthorBooksModel::handleGotAuthorBooks(quint64 authorId, const CountedItems<BookPtr>& books)

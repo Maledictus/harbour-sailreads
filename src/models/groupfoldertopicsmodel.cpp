@@ -136,7 +136,8 @@ void GroupFolderTopicsModel::SetHasMore(bool has)
 
 void GroupFolderTopicsModel::fetchMoreContent()
 {
-    SailreadsManager::Instance()->loadGroupFolderTopics(m_GroupFolderId, m_GroupId, m_CurrentPage);
+    SailreadsManager::Instance()->loadGroupFolderTopics(this, m_GroupFolderId,
+            m_GroupId, m_CurrentPage);
 }
 
 void GroupFolderTopicsModel::cancelRequest()

@@ -58,7 +58,7 @@ void TopicCommentsModel::SetTopicId(quint64 id)
 
 void TopicCommentsModel::fetchMoreContent()
 {
-    SailreadsManager::Instance()->loadGroupFolderTopic(m_TopicId, m_CurrentPage);
+    SailreadsManager::Instance()->loadGroupFolderTopic(this, m_TopicId, m_CurrentPage);
 }
 
 void TopicCommentsModel::cancelRequest()

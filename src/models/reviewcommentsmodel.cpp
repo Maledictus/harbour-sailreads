@@ -62,7 +62,7 @@ void ReviewCommentsModel::fetchMoreContent()
         return;
     }
 
-    SailreadsManager::Instance()->loadReview(m_ReviewId, m_CurrentPage);
+    SailreadsManager::Instance()->loadReview(this, m_ReviewId, m_CurrentPage);
 }
 
 void ReviewCommentsModel::cancelRequest()

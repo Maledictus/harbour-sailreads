@@ -91,7 +91,7 @@ void AuthorProfileItem::updateAuthorProfile()
     if (m_AuthorId <= 0) {
         return;
     }
-    SailreadsManager::Instance()->loadAuthorProfile(m_AuthorId);
+    SailreadsManager::Instance()->loadAuthorProfile(this, m_AuthorId);
 }
 
 void AuthorProfileItem::cancelRequest()

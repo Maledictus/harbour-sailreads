@@ -81,7 +81,7 @@ void AuthorSeriesModel::SetAuthorId(quint64 id)
 {
     if (m_AuthorId != id) {
         m_AuthorId = id;
-        SailreadsManager::Instance()->loadAuthorSeries(m_AuthorId);
+        SailreadsManager::Instance()->loadAuthorSeries(this, m_AuthorId);
         emit authorIdChanged();
     }
 }
