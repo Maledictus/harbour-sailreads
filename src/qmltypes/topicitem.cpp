@@ -28,7 +28,7 @@ THE SOFTWARE.
 namespace Sailreads
 {
 TopicItem::TopicItem(QObject *parent)
-: QObject(parent)
+: ItemRequestCanceler(parent)
 , m_TopicId(0)
 {
     connect(SailreadsManager::Instance(), &SailreadsManager::gotGroupFolderTopic,
@@ -76,10 +76,5 @@ void TopicItem::handleGotTopic(const TopicPtr& topic)
 void TopicItem::updateTopic()
 {
     SailreadsManager::Instance()->loadGroupFolderTopic(this, m_TopicId);
-}
-
-void TopicItem::cancelRequest()
-{
-    SailreadsManager::Instance(this)->abortRequest(this);
 }
 } // namespace Sailreads

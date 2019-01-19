@@ -121,11 +121,6 @@ void FriendsModel::fetchMoreContent()
     SailreadsManager::Instance()->loadFriends(this, m_UserId, m_CurrentPage);
 }
 
-void FriendsModel::cancelRequest()
-{
-    SailreadsManager::Instance(this)->abortRequest(this);
-}
-
 void FriendsModel::handleGotUserFriends(quint64 userId, const CountedItems<Friend>& friends)
 {
     if (userId != m_UserId) {

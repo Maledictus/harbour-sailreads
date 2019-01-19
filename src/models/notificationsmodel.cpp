@@ -105,11 +105,6 @@ void NotificationsModel::updateNotifications()
     SailreadsManager::Instance()->loadNotifications(this, m_PageToken);
 }
 
-void NotificationsModel::cancelRequest()
-{
-    SailreadsManager::Instance(this)->abortRequest(this);
-}
-
 void NotificationsModel::handleGotNotifications(const QString& pageToken,
         const Notifications_t& notifications)
 {

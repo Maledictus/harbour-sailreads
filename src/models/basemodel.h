@@ -24,17 +24,19 @@ THE SOFTWARE.
 
 #include <QAbstractListModel>
 
+#include "../modelrequestcanceler.h"
+
 namespace Sailreads
 {
 template<typename T>
-class BaseModel : public QAbstractListModel
+class BaseModel : public ModelRequestCanceler
 {
 protected:
     QList<T> m_Items;
 
 public:
     BaseModel(QObject *parent = 0)
-    : QAbstractListModel(parent)
+    : ModelRequestCanceler(parent)
     {}
 
     virtual int rowCount(const QModelIndex& = QModelIndex()) const override

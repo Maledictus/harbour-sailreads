@@ -28,7 +28,7 @@ THE SOFTWARE.
 namespace Sailreads
 {
 AuthorProfileItem::AuthorProfileItem(QObject *parent)
-: QObject(parent)
+: ItemRequestCanceler(parent)
 , m_AuthorId(0)
 {
     connect(SailreadsManager::Instance(), &SailreadsManager::gotAuthorProfile,
@@ -92,11 +92,6 @@ void AuthorProfileItem::updateAuthorProfile()
         return;
     }
     SailreadsManager::Instance()->loadAuthorProfile(this, m_AuthorId);
-}
-
-void AuthorProfileItem::cancelRequest()
-{
-    SailreadsManager::Instance(this)->abortRequest(this);
 }
 
 void AuthorProfileItem::handleGotAuthorProfile(const AuthorPtr& author)

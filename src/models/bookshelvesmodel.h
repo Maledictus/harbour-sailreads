@@ -71,7 +71,6 @@ private slots:
     void handleBookShelfEdited(const BookShelf& shelf);
 public slots:
     void fetchMoreContent();
-    void cancelRequest();
 
 signals:
     void userIdChanged();

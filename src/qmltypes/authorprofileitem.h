@@ -24,11 +24,12 @@ THE SOFTWARE.
 
 #include <QObject>
 
+#include "../itemrequestcanceler.h"
 #include "../types.h"
 
 namespace Sailreads
 {
-class AuthorProfileItem: public QObject
+class AuthorProfileItem: public ItemRequestCanceler
 {
     Q_OBJECT
 
@@ -52,7 +53,6 @@ private slots:
     void handleAuthorUnfollowed(quint64 authorId);
 public slots:
     void updateAuthorProfile();
-    void cancelRequest();
 
 signals:
     void authorIdChanged();

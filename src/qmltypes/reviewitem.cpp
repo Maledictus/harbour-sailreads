@@ -28,7 +28,7 @@ THE SOFTWARE.
 namespace Sailreads
 {
 ReviewItem::ReviewItem(QObject *parent)
-: QObject(parent)
+: ItemRequestCanceler(parent)
 , m_ReviewId(0)
 {
     connect(SailreadsManager::Instance(), &SailreadsManager::gotReview,
@@ -93,10 +93,5 @@ void ReviewItem::handleGotReview(const ReviewPtr& review)
 void ReviewItem::updateReview()
 {
     SailreadsManager::Instance()->loadReview(this, m_ReviewId);
-}
-
-void ReviewItem::cancelRequest()
-{
-    SailreadsManager::Instance(this)->abortRequest(this);
 }
 } // namespace Sailreads

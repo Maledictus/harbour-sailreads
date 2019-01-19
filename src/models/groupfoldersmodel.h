@@ -58,7 +58,6 @@ public:
 public slots:
     void handleGotGroup(quint64 groupId, Group *group);
     void handleGotGroup(quint64 groupId, const GroupPtr& group);
-    void cancelRequest();
 
 signals:
     void groupIdChanged();

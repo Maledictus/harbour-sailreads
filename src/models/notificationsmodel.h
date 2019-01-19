@@ -63,7 +63,6 @@ private slots:
 public slots:
     void fetchMoreContent();
     void updateNotifications();
-    void cancelRequest();
 
 signals:
     void hasMoreChanged();

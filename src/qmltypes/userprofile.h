@@ -31,6 +31,7 @@ THE SOFTWARE.
 #include <QVariantMap>
 #include <QUrl>
 
+#include "../itemrequestcanceler.h"
 #include "../types.h"
 
 namespace Sailreads
@@ -38,7 +39,7 @@ namespace Sailreads
 class BookShelvesModel;
 class User;
 
-class UserProfile : public QObject
+class UserProfile : public ItemRequestCanceler
 {
     Q_OBJECT
 
@@ -65,7 +66,6 @@ private slots:
     void handleFriendRemoved(quint64 friendId);
 public slots:
     void updateProfile();
-    void cancelRequest();
 
 signals:
     void userIdChanged();

@@ -19,58 +19,21 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-#include "reviewcommentsmodel.h"
 
-#include "../objects/review.h"
-#include "../sailreadsmanager.h"
+#include "itemrequestcanceler.h"
+
+#include "sailreadsmanager.h"
 
 namespace Sailreads
 {
-ReviewCommentsModel::ReviewCommentsModel(QObject *parent)
-: BaseCommentsModel(parent)
-, m_ReviewId(0)
+ItemRequestCanceler::ItemRequestCanceler(QObject *parent)
+: QObject(parent)
 {
 }
 
-void ReviewCommentsModel::classBegin()
+void ItemRequestCanceler::cancelRequest()
 {
-    auto sm = SailreadsManager::Instance();
-    connect(sm, &SailreadsManager::gotReview,
-            this, &ReviewCommentsModel::handleGotReview);
-}
-
-void ReviewCommentsModel::componentComplete()
-{
-}
-
-quint64 ReviewCommentsModel::GetReviewId() const
-{
-    return m_ReviewId;
-}
-
-void ReviewCommentsModel::SetReviewId(quint64 id)
-{
-    if (m_ReviewId != id) {
-        m_ReviewId = id;
-        reviewIdChanged();
-    }
-}
-
-void ReviewCommentsModel::fetchMoreContent()
-{
-    if (!rowCount()) {
-        return;
-    }
-
-    SailreadsManager::Instance()->loadReview(this, m_ReviewId, m_CurrentPage);
-}
-
-void ReviewCommentsModel::handleGotReview(const ReviewPtr& review)
-{
-    if (!review || review->GetId() != m_ReviewId) {
-        return;
-    }
-    handleGotComments(review->GetComments());
+    SailreadsManager::Instance(this)->abortRequest(this);
 }
 
 } // namespace Sailreads

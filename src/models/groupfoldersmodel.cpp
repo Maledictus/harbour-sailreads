@@ -92,9 +92,4 @@ void GroupFoldersModel::handleGotGroup(quint64 groupId, const GroupPtr& group)
         SetItems(group->GetGroupFolders());
     }
 }
-
-void GroupFoldersModel::cancelRequest()
-{
-    SailreadsManager::Instance(this)->abortRequest(this);
-}
 } // namespace Sailreads

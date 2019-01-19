@@ -24,11 +24,12 @@ THE SOFTWARE.
 
 #include <QObject>
 
+#include "../itemrequestcanceler.h"
 #include "../types.h"
 
 namespace Sailreads
 {
-class SeriesItem : public QObject
+class SeriesItem : public ItemRequestCanceler
 {
     Q_OBJECT
 
@@ -49,7 +50,6 @@ private slots:
     void handleGotSeries(const SeriesPtr& series);
 public slots:
     void updateSeries();
-    void cancelRequest();
 
 signals:
     void seriesIdChanged();

@@ -50,7 +50,6 @@ private slots:
     void handleGotFoundReviews(const CountedItems<ReviewPtr>& reviews);
 public slots:
     virtual void fetchMoreContent() override;
-    void cancelRequest();
 
 signals:
     void searchTextChanged();

@@ -74,7 +74,9 @@ SOURCES += src/harbour-sailreads.cpp \
     src/objects/update/reviewupdate.cpp \
     src/objects/update/readstatusupdate.cpp \
     src/objects/update/userstatusupdate.cpp \
-    src/models/profileupdatesmodel.cpp
+    src/models/profileupdatesmodel.cpp \
+    src/itemrequestcanceler.cpp \
+    src/modelrequestcanceler.cpp
 
 
 HEADERS += src/application.h \
@@ -84,6 +86,7 @@ HEADERS += src/application.h \
     src/sailreadsmanager.h \
     src/types.h \
     src/userupdate.h \
+    src/models/basemodel.h \
     src/models/baseproxymodel.h \
     src/models/bookshelvesmodel.h \
     src/models/foundgroupsmodel.h \
@@ -141,7 +144,9 @@ HEADERS += src/application.h \
     src/objects/update/reviewupdate.h \
     src/objects/update/readstatusupdate.h \
     src/objects/update/userstatusupdate.h \
-    src/models/profileupdatesmodel.h
+    src/models/profileupdatesmodel.h \
+    src/itemrequestcanceler.h \
+    src/modelrequestcanceler.h
 
 DISTFILES += translations/*.ts \
     sailreads.desktop \

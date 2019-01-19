@@ -68,9 +68,4 @@ QHash<int, QByteArray> GroupsModel::roleNames() const
     roles[Url] = "groupUrl";
     return roles;
 }
-
-void GroupsModel::cancelRequest()
-{
-    SailreadsManager::Instance(this)->abortRequest(this);
-}
 } // namespace Sailreads

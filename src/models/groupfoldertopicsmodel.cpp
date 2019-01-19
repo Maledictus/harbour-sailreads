@@ -140,11 +140,6 @@ void GroupFolderTopicsModel::fetchMoreContent()
             m_GroupId, m_CurrentPage);
 }
 
-void GroupFolderTopicsModel::cancelRequest()
-{
-    SailreadsManager::Instance(this)->abortRequest(this);
-}
-
 void GroupFolderTopicsModel::handleGotGroupFolderTopics(const QString& groupdFolderId,
         quint64 groupId, const CountedItems<TopicPtr> &topics)
 {

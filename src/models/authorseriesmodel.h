@@ -59,8 +59,6 @@ public:
 
 private slots:
     void handleGotAuthorSeries(quint64 authorId, const Series_t& series);
-public slots:
-    void cancelRequest();
 
 signals:
     void authorIdChanged();

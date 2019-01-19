@@ -28,7 +28,7 @@ THE SOFTWARE.
 namespace Sailreads
 {
 SeriesItem::SeriesItem(QObject *parent)
-: QObject(parent)
+: ItemRequestCanceler(parent)
 , m_SeriesId(0)
 {
     connect(SailreadsManager::Instance(), &SailreadsManager::gotSeries,
@@ -77,10 +77,5 @@ void SeriesItem::handleGotSeries(const SeriesPtr& series)
 void SeriesItem::updateSeries()
 {
     SailreadsManager::Instance()->loadSeries(this, m_SeriesId);
-}
-
-void SeriesItem::cancelRequest()
-{
-    SailreadsManager::Instance(this)->abortRequest(this);
 }
 } // namespace Sailreads

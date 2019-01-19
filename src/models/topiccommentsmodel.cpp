@@ -61,11 +61,6 @@ void TopicCommentsModel::fetchMoreContent()
     SailreadsManager::Instance()->loadGroupFolderTopic(this, m_TopicId, m_CurrentPage);
 }
 
-void TopicCommentsModel::cancelRequest()
-{
-    SailreadsManager::Instance(this)->abortRequest(this);
-}
-
 void TopicCommentsModel::handleGotGroupFolderTopic(const TopicPtr& topic)
 {
     if (!topic || topic->GetId() != m_TopicId) {

@@ -66,11 +66,6 @@ void SearchReviewsModel::fetchMoreContent()
     SailreadsManager::Instance()->searchReviews(this, m_UserId, m_SearchText, m_CurrentPage);
 }
 
-void SearchReviewsModel::cancelRequest()
-{
-    SailreadsManager::Instance(this)->abortRequest(this);
-}
-
 void SearchReviewsModel::handleGotFoundReviews(const CountedItems<ReviewPtr>& reviews)
 {
     if (reviews.m_BeginIndex == 1) {

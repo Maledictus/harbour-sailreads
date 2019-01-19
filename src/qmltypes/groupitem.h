@@ -24,11 +24,12 @@ THE SOFTWARE.
 
 #include <QObject>
 
+#include "../itemrequestcanceler.h"
 #include "../types.h"
 
 namespace Sailreads
 {
-class GroupItem : public QObject
+class GroupItem : public ItemRequestCanceler
 {
     Q_OBJECT
 
@@ -50,7 +51,6 @@ private slots:
     void handleGotGroup(quint64 inGroupId, const GroupPtr& group);
 public slots:
     void updateGroup();
-    void cancelRequest();
 
 signals:
     void groupIdChanged();

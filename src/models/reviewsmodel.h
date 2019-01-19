@@ -98,7 +98,6 @@ private slots:
 public slots:
     virtual void fetchMoreContent();
     void update();
-    void cancelRequest();
 
 signals:
     void userIdChanged();

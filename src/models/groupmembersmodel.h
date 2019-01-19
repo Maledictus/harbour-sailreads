@@ -66,7 +66,6 @@ public slots:
     void handleGotGroupMembers(quint64 groupId, const GroupMembers_t& members);
     void clear();
     void fetchMoreContent();
-    void cancelRequest();
 
 signals:
     void groupIdChanged();

@@ -28,7 +28,7 @@ THE SOFTWARE.
 namespace Sailreads
 {
 BookItem::BookItem(QObject *parent)
-: QObject(parent)
+: ItemRequestCanceler(parent)
 , m_BookId(0)
 {
     connect(SailreadsManager::Instance(), &SailreadsManager::gotBook,
@@ -93,10 +93,5 @@ void BookItem::handleGotBook(const BookPtr& book)
 void BookItem::updateBook()
 {
     SailreadsManager::Instance()->loadBook(this, m_BookId);
-}
-
-void BookItem::cancelRequest()
-{
-    SailreadsManager::Instance(this)->abortRequest(this);
 }
 } // namespace Sailreads

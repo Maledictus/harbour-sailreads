@@ -81,11 +81,6 @@ void BaseCommentsModel::SetHasMore(bool has)
     }
 }
 
-void BaseCommentsModel::cancelRequest()
-{
-    SailreadsManager::Instance(this)->abortRequest(this);
-}
-
 void BaseCommentsModel::handleGotComments(const CountedItems<Comment>& comments)
 {
     if (comments.m_BeginIndex == 1) {

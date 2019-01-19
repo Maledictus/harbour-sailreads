@@ -74,7 +74,6 @@ private slots:
     void handleGotGroupFolderTopic(const TopicPtr& topic);
 public slots:
     void fetchMoreContent();
-    void cancelRequest();
 
 signals:
     void groupIdChanged();

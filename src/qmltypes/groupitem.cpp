@@ -27,7 +27,7 @@ THE SOFTWARE.
 namespace Sailreads
 {
 GroupItem::GroupItem(QObject *parent)
-: QObject(parent)
+: ItemRequestCanceler(parent)
 , m_GroupId(0)
 {
     connect(SailreadsManager::Instance(), &SailreadsManager::gotUserGroup,
@@ -76,10 +76,5 @@ void GroupItem::handleGotGroup(quint64 inGroupId, const GroupPtr& group)
 void GroupItem::updateGroup()
 {
     SailreadsManager::Instance()->loadGroup(this, m_GroupId);
-}
-
-void GroupItem::cancelRequest()
-{
-    SailreadsManager::Instance(this)->abortRequest(this);
 }
 } // namespace Sailreads

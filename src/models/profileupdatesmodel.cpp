@@ -62,10 +62,4 @@ void ProfileUpdatesModel::handleGotUpdates(quint64 userId, const Updates_t& upda
     SetItems(updates);
     SetHasMore(false);
 }
-
-void ProfileUpdatesModel::cancelRequest()
-{
-    SailreadsManager::Instance(this)->abortRequest(this);
-}
-
 } // namespace Sailreads

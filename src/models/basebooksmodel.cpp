@@ -87,11 +87,6 @@ void BaseBooksModel::SetHasMore(bool has)
     }
 }
 
-void BaseBooksModel::cancelRequest()
-{
-    SailreadsManager::Instance(this)->abortRequest(this);
-}
-
 void BaseBooksModel::handleGotBooks(const CountedItems<BookPtr>& books)
 {
     if (books.m_BeginIndex == 1) {

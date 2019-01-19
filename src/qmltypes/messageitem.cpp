@@ -28,7 +28,7 @@ THE SOFTWARE.
 namespace Sailreads
 {
 MessageItem::MessageItem(QObject *parent)
-: QObject(parent)
+: ItemRequestCanceler(parent)
 , m_MessageId(0)
 {
     connect(SailreadsManager::Instance(), &SailreadsManager::gotMessage,
@@ -93,10 +93,5 @@ void MessageItem::handleGotMessage(const MessagePtr& message)
 void MessageItem::updateMessage()
 {
     SailreadsManager::Instance()->loadMessage(this, m_MessageId);
-}
-
-void MessageItem::cancelRequest()
-{
-    SailreadsManager::Instance(this)->abortRequest(this);
 }
 } // namespace Sailreads

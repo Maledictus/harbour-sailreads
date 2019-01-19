@@ -33,7 +33,7 @@ THE SOFTWARE.
 namespace Sailreads
 {
 UserProfile::UserProfile(QObject *parent)
-: QObject(parent)
+: ItemRequestCanceler(parent)
 , m_UserId(0)
 {
     connect(SailreadsManager::Instance(), &SailreadsManager::gotUserProfile,
@@ -146,10 +146,5 @@ void UserProfile::handleFriendRemoved(quint64)
 void UserProfile::updateProfile()
 {
     SailreadsManager::Instance()->getUserInfo(this, m_UserId);
-}
-
-void UserProfile::cancelRequest()
-{
-    SailreadsManager::Instance(this)->abortRequest(this);
 }
 } // namespace Sailreads

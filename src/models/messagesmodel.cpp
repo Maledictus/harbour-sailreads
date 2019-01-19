@@ -139,11 +139,6 @@ void MessagesModel::fetchMoreContent()
     SailreadsManager::Instance()->loadMessages(this, m_Folder, m_CurrentPage);
 }
 
-void MessagesModel::cancelRequest()
-{
-    SailreadsManager::Instance(this)->abortRequest(this);
-}
-
 void MessagesModel::handleGotMessages(const QString& folder, const CountedItems<MessagePtr>& messages)
 {
     if (m_Folder != folder) {

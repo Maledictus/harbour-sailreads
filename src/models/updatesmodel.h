@@ -74,7 +74,6 @@ private slots:
 public slots:
     void fetchMoreContent();
     void refreshUpdates();
-    void cancelRequest();
 
 signals:
     void hasMoreChanged();
