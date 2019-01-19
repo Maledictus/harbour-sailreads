@@ -51,14 +51,16 @@ void FoundGroupsModel::SetHasMore(bool has)
 
 void FoundGroupsModel::fetchMoreContent(const QString& text)
 {
-    if (m_LastSearch != text) {
-        m_CurrentPage = 1;
-    }
-    m_LastSearch = text;
-
     if (text.isEmpty()) {
         return;
     }
+    if (m_LastSearch != text) {
+        m_CurrentPage = 1;
+        m_HasMore = true;
+        SetItems({});
+    }
+    m_LastSearch = text;
+
     SailreadsManager::Instance()->searchGroup(this, text, m_CurrentPage);
 }
 
