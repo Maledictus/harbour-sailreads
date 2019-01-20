@@ -82,47 +82,51 @@ ApplicationWindow {
 
     function openPageFromUrl(url) {
         var str = url.toString();
-        var id = str.substr(str.lastIndexOf('/') + 1)
-        if (str.indexOf("www.goodreads.com/topic/show/", 0) > 0) {
+        var match = /(https?:\/\/)?www.goodreads.com\/(.*)\/(\d+)/.exec(url)
+        var path = match[2]
+        var id = match[3]
+        switch (path) {
+        case "topic/show":
             console.log("TOPIC: ", id)
             pageStack.push(Qt.resolvedUrl("pages/GroupFolderTopicPage.qml"),
                     { topicId: id })
-        }
-        else if (str.indexOf("www.goodreads.com/read_statuses/", 0) > 0) {
+            break
+        case "read_statuses":
             console.log("READ_STATUS: ", id)
-        }
-        else if (str.indexOf("www.goodreads.com/review/show/", 0) > 0) {
+            break
+        case "review/show":
             console.log("REVIEW: ", id)
             pageStack.push(Qt.resolvedUrl("pages/ReviewPage.qml"),
                     { reviewId: id })
-        }
-        else if (str.indexOf("www.goodreads.com/user/show/", 0) > 0) {
+            break
+        case "user/show":
             console.log("USER: ", id)
             pageStack.push(Qt.resolvedUrl("pages/ProfilePage.qml"),
                     { userId : id })
-        }
-        else if (str.indexOf("www.goodreads.com/book/show/", 0) > 0) {
+            break
+        case "book/show":
             console.log("BOOK: ", id)
             pageStack.push(Qt.resolvedUrl("pages/BookPage.qml"),
                     { bookId: id })
-        }
-        else if (str.indexOf("www.goodreads.com/author/show/", 0) > 0) {
+            break
+        case "author/show":
             console.log("AUTHOR: ", id)
             pageStack.push(Qt.resolvedUrl("pages/AuthorPage.qml"),
                     { authorId: id })
-        }
-        else if (str.indexOf("www.goodreads.com/user_status/show/", 0) > 0) {
+            break
+        case "user_status/show":
             console.log("USER_STATUS: ", id)
-        }
-        else if (str.indexOf("www.goodreads.com/recommendations/", 0) > 0) {
+            break
+        case "recommendations":
             console.log("RECOMMENDATION: ", id)
-        }
-        else if (str.indexOf("www.goodreads.com/user_challenges/", 0) > 0) {
+            break
+        case "user_challenges":
             console.log("USER_CHALLENGE: ", id)
-        }
-        else {
+            break
+        default:
             console.log("OPEN IN BROWSER: ", url)
             openInBrowser(url)
+            break
         }
     }
 }
