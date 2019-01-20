@@ -687,32 +687,32 @@ Pull down to refresh</source>
 <context>
     <name>GroupFolderTopicPage</name>
     <message>
-        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="67"/>
+        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="65"/>
         <source>Topic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="79"/>
+        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="77"/>
         <source>Author</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="85"/>
+        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="83"/>
         <source>Group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="90"/>
+        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="88"/>
         <source>Folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="118"/>
+        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="116"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="108"/>
+        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="106"/>
         <source>Add comment</source>
         <translation type="unfinished"></translation>
     </message>

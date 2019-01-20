@@ -29,18 +29,18 @@ namespace Sailreads
 {
 BookItem::BookItem(QObject *parent)
 : ItemRequestCanceler(parent)
-, m_BookId(0)
+, m_BookId("")
 {
     connect(SailreadsManager::Instance(), &SailreadsManager::gotBook,
             this, &BookItem::handleGotBook);
 }
 
-quint64 BookItem::GetBookId() const
+QString BookItem::GetBookId() const
 {
     return m_BookId;
 }
 
-void BookItem::SetBookId(quint64 bookId)
+void BookItem::SetBookId(const QString& bookId)
 {
     if (m_BookId == bookId) {
         return;
@@ -84,15 +84,17 @@ void BookItem::SetBook(const BookPtr& book)
 
 void BookItem::handleGotBook(const BookPtr& book)
 {
-    if (!book || m_BookId != book->GetId()) {
+    if (!book || (m_BookId != book->GetId() && !m_BookId.startsWith(book->GetId()))) {
         return;
     }
+    m_BookId = book->GetId();
+    emit bookIdChanged();
     SetBook(book);
 }
 
 void BookItem::loadBook()
 {
-    if (m_BookId <= 0) {
+    if (m_BookId.isEmpty()) {
         return;
     }
     SailreadsManager::Instance()->loadBook(this, m_BookId);

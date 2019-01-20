@@ -29,7 +29,7 @@ namespace Sailreads
 {
 AuthorProfileItem::AuthorProfileItem(QObject *parent)
 : ItemRequestCanceler(parent)
-, m_AuthorId(0)
+, m_AuthorId("")
 {
     connect(SailreadsManager::Instance(), &SailreadsManager::gotAuthorProfile,
             this, &AuthorProfileItem::handleGotAuthorProfile);
@@ -39,12 +39,12 @@ AuthorProfileItem::AuthorProfileItem(QObject *parent)
             this, &AuthorProfileItem::handleAuthorUnfollowed);
 }
 
-quint64 AuthorProfileItem::GetAuthorId() const
+QString AuthorProfileItem::GetAuthorId() const
 {
     return m_AuthorId;
 }
 
-void AuthorProfileItem::SetAuthorId(quint64 authorId)
+void AuthorProfileItem::SetAuthorId(const QString& authorId)
 {
     if (m_AuthorId == authorId) {
         return;
@@ -88,7 +88,7 @@ void AuthorProfileItem::SetAuthor(const AuthorPtr& author)
 
 void AuthorProfileItem::loadAuthorProfile()
 {
-    if (m_AuthorId <= 0) {
+    if (m_AuthorId.isEmpty()) {
         return;
     }
     SailreadsManager::Instance()->loadAuthorProfile(this, m_AuthorId);
@@ -96,13 +96,15 @@ void AuthorProfileItem::loadAuthorProfile()
 
 void AuthorProfileItem::handleGotAuthorProfile(const AuthorPtr& author)
 {
-    if (!author || m_AuthorId != author->GetId()) {
+    if (!author || (m_AuthorId != author->GetId() && !m_AuthorId.startsWith(author->GetId()))) {
         return;
     }
+    m_AuthorId = author->GetId();
+    emit authorIdChanged();
     SetAuthor(author);
 }
 
-void AuthorProfileItem::handleAuthorFollowed(quint64 authorId, quint64 followingId)
+void AuthorProfileItem::handleAuthorFollowed(const QString& authorId, quint64 followingId)
 {
     if (m_AuthorId != authorId) {
         return;
@@ -114,7 +116,7 @@ void AuthorProfileItem::handleAuthorFollowed(quint64 authorId, quint64 following
     }
 }
 
-void AuthorProfileItem::handleAuthorUnfollowed(quint64 authorId)
+void AuthorProfileItem::handleAuthorUnfollowed(const QString& authorId)
 {
     if (m_AuthorId != authorId) {
         return;

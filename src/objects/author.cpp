@@ -30,7 +30,7 @@ namespace Sailreads
 {
 Author::Author(QObject *parent)
 : QObject(parent)
-, m_Id(0)
+, m_Id("")
 , m_AverageRating(0)
 , m_RatingsCount(0)
 , m_TextReviewsCount(0)
@@ -38,7 +38,7 @@ Author::Author(QObject *parent)
 , m_FollowersCount(0)
 , m_WorksCount(0)
 , m_IsGoodreadsAuthor(false)
-, m_UserId(0)
+, m_UserId("")
 , m_FollowingId(0)
 {
 #ifdef QT_DEBUG
@@ -53,12 +53,12 @@ Author::~Author()
 #endif
 }
 
-quint64 Author::GetId() const
+QString Author::GetId() const
 {
     return m_Id;
 }
 
-void Author::SetId(const quint64& id)
+void Author::SetId(const QString& id)
 {
     m_Id = id;
 }
@@ -243,12 +243,12 @@ void Author::SetIsGoodreadsAuthor(bool isGoodreadsAuthor)
     m_IsGoodreadsAuthor = isGoodreadsAuthor;
 }
 
-quint64 Author::GetUserId() const
+QString Author::GetUserId() const
 {
     return m_UserId;
 }
 
-void Author::SetUserId(quint64 userId)
+void Author::SetUserId(const QString& userId)
 {
     m_UserId = userId;
 }

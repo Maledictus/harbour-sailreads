@@ -28,7 +28,7 @@ namespace Sailreads
 {
 TopicCommentsModel::TopicCommentsModel(QObject *parent)
 : BaseCommentsModel(parent)
-, m_TopicId(0)
+, m_TopicId("")
 {
 }
 
@@ -45,12 +45,12 @@ void TopicCommentsModel::componentComplete()
 {
 }
 
-quint64 TopicCommentsModel::GetTopicId() const
+QString TopicCommentsModel::GetTopicId() const
 {
     return m_TopicId;
 }
 
-void TopicCommentsModel::SetTopicId(quint64 id)
+void TopicCommentsModel::SetTopicId(const QString& id)
 {
     if (m_TopicId != id) {
         m_TopicId = id;
@@ -71,7 +71,7 @@ void TopicCommentsModel::handleGotGroupFolderTopic(const TopicPtr& topic)
     handleGotComments(topic->GetComments());
 }
 
-void TopicCommentsModel::handleNewCommentAdded(quint64 resourceId, const Comment& comment)
+void TopicCommentsModel::handleNewCommentAdded(const QString& resourceId, const Comment& comment)
 {
     if (resourceId != m_TopicId) {
         return;

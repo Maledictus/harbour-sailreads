@@ -30,20 +30,20 @@ class ProfileUpdatesModel : public UpdatesModel
 {
     Q_OBJECT
 
-    quint64 m_UserId;
-    Q_PROPERTY(quint64 userId READ GetUserId WRITE SetUserId NOTIFY userIdChanged)
+    QString m_UserId;
+    Q_PROPERTY(QString userId READ GetUserId WRITE SetUserId NOTIFY userIdChanged)
 
 public:
     ProfileUpdatesModel(QObject *parent = nullptr);
 
-    quint64 GetUserId() const;
-    void SetUserId(quint64 userId);
+    QString GetUserId() const;
+    void SetUserId(const QString& userId);
 
     virtual void classBegin() override;
     virtual void componentComplete() override;
 
 private slots:
-    void handleGotUpdates(quint64 userId, const Updates_t& updates);
+    void handleGotUpdates(const QString& userId, const Updates_t& updates);
 
 signals:
     void userIdChanged();

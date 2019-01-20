@@ -33,16 +33,16 @@ class TopicItem : public ItemRequestCanceler
 {
     Q_OBJECT
 
-    quint64 m_TopicId;
+    QString m_TopicId;
     TopicPtr m_Topic;
 
-    Q_PROPERTY(quint64 topicId READ GetTopicId WRITE SetTopicId NOTIFY topicIdChanged)
+    Q_PROPERTY(QString topicId READ GetTopicId WRITE SetTopicId NOTIFY topicIdChanged)
     Q_PROPERTY(Topic* topic READ GetTopic NOTIFY topicChanged)
 public:
     TopicItem(QObject *parent = nullptr);
 
-    quint64 GetTopicId() const;
-    void SetTopicId(quint64 topicId);
+    QString GetTopicId() const;
+    void SetTopicId(const QString& topicId);
     Topic* GetTopic() const;
     void SetTopic(const TopicPtr& topic);
 

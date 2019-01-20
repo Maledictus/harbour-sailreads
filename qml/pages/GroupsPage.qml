@@ -31,7 +31,7 @@ import "../utils/Utils.js" as Utils
 Page {
     id: groupsPage
 
-    property int userId: 0
+    property string userId: ""
     property bool busy: sailreadsManager.busy && groupsPage.status === PageStatus.Active
 
     function attachPage() {

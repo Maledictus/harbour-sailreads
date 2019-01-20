@@ -29,7 +29,7 @@ namespace Sailreads
 
 UserGroupsModel::UserGroupsModel(QObject *parent)
 : GroupsModel(parent)
-, m_UserId(0)
+, m_UserId("")
 , m_HasMore(true)
 , m_CurrentPage(1)
 {
@@ -38,12 +38,12 @@ UserGroupsModel::UserGroupsModel(QObject *parent)
             this, &UserGroupsModel::handleGotUserGroups);
 }
 
-quint64 UserGroupsModel::GetUserId() const
+QString UserGroupsModel::GetUserId() const
 {
     return m_UserId;
 }
 
-void UserGroupsModel::SetUserId(quint64 id)
+void UserGroupsModel::SetUserId(const QString& id)
 {
     if (m_UserId != id) {
         m_UserId = id;
@@ -71,13 +71,13 @@ void UserGroupsModel::fetchMoreContent()
 
 void UserGroupsModel::loadGroups()
 {
-    if (m_UserId <= 0) {
+    if (m_UserId.isEmpty()) {
         return;
     }
     SailreadsManager::Instance()->loadGroups(this, m_UserId);
 }
 
-void UserGroupsModel::handleGotUserGroups(quint64 userId, const CountedItems<GroupPtr>& groups)
+void UserGroupsModel::handleGotUserGroups(const QString& userId, const CountedItems<GroupPtr>& groups)
 {
     if (userId != m_UserId) {
         return;

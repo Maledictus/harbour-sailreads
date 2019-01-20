@@ -30,8 +30,8 @@ class ReviewCommentsModel: public BaseCommentsModel
 {
     Q_OBJECT
 
-    quint64 m_ReviewId;
-    Q_PROPERTY(quint64 reviewId READ GetReviewId WRITE SetReviewId NOTIFY reviewIdChanged)
+    QString m_ReviewId;
+    Q_PROPERTY(QString reviewId READ GetReviewId WRITE SetReviewId NOTIFY reviewIdChanged)
 
 public:
     explicit ReviewCommentsModel(QObject *parent = nullptr);
@@ -39,8 +39,8 @@ public:
     virtual void classBegin() override;
     virtual void componentComplete() override;
 
-    quint64 GetReviewId() const;
-    void SetReviewId(quint64 id);
+    QString GetReviewId() const;
+    void SetReviewId(const QString& id);
 
 private slots:
     void handleGotReview(const ReviewPtr& review);

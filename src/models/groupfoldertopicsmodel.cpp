@@ -66,7 +66,7 @@ QVariant GroupFolderTopicsModel::data(const QModelIndex& index, int role) const
     case ContextId:
         return topic->GetContextId();
     case AuthorId:
-        return author ? author->GetId() : 0;
+        return author ? author->GetId() : "";
     case AuthorName:
         return author ? author->GetFirstName() : "";
     case FolderId:

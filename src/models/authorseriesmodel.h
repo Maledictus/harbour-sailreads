@@ -31,11 +31,11 @@ class AuthorSeriesModel : public BaseModel<SeriesPtr>
 {
     Q_OBJECT
 
-    quint64 m_AuthorId;
+    QString m_AuthorId;
     bool m_HasMore;
     quint64 m_CurrentPage;
 
-    Q_PROPERTY(quint64 authorId READ GetAuthorId WRITE SetAuthorId NOTIFY authorIdChanged)
+    Q_PROPERTY(QString authorId READ GetAuthorId WRITE SetAuthorId NOTIFY authorIdChanged)
     Q_PROPERTY(bool hasMore READ GetHasMore WRITE SetHasMore NOTIFY hasMoreChanged)
 public:
     AuthorSeriesModel(QObject *parent = nullptr);
@@ -52,13 +52,13 @@ public:
     virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
     virtual QHash<int, QByteArray> roleNames() const override;
 
-    quint64 GetAuthorId() const;
-    void SetAuthorId(quint64 id);
+    QString GetAuthorId() const;
+    void SetAuthorId(const QString& id);
     bool GetHasMore() const;
     void SetHasMore(bool has);
 
 private slots:
-    void handleGotAuthorSeries(quint64 authorId, const Series_t& series);
+    void handleGotAuthorSeries(const QString& authorId, const Series_t& series);
 public slots:
     void loadAuthorSeries();
 

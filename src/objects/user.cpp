@@ -28,7 +28,7 @@ namespace Sailreads
 {
 User::User(QObject *parent)
 : QObject(parent)
-, m_Id(0)
+, m_Id("")
 , m_Private(false)
 , m_Age(0)
 , m_FriendsCount(0)
@@ -51,12 +51,12 @@ User::~User()
 #endif
 }
 
-quint64 User::GetId() const
+QString User::GetId() const
 {
     return m_Id;
 }
 
-void User::SetId(quint64 id)
+void User::SetId(const QString& id)
 {
     m_Id = id;
 }

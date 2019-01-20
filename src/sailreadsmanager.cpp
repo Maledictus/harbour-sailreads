@@ -97,7 +97,7 @@ void SailreadsManager::MakeConnections()
 
     connect(m_Api, &GoodReadsApi::gotAuthUserInfo,
             this,
-            [=](const quint64& id, const QString&, const QString&) {
+            [=](const QString& id, const QString&, const QString&) {
                 if (!m_AuthUser) {
                     m_AuthUser = std::make_shared<User>();
                 }
@@ -273,7 +273,7 @@ void SailreadsManager::logout()
     SetLogged(false);
 }
 
-void SailreadsManager::getUserInfo(QObject *requester, quint64 id)
+void SailreadsManager::getUserInfo(QObject *requester, const QString& id)
 {
     SetBusy(true);
     emit authProgressChanged(tr("Getting user profile..."));
@@ -287,13 +287,13 @@ void SailreadsManager::loadUpdates(QObject *requester, const QString& scope, con
     m_Api->GetUpdates(requester, scope, items, dt);
 }
 
-void SailreadsManager::loadUserFollowings(QObject *requester, quint64 userId, int page)
+void SailreadsManager::loadUserFollowings(QObject *requester, const QString& userId, int page)
 {
     SetBusy(true);
     m_Api->GetUserFollowings(requester, userId, page);
 }
 
-void SailreadsManager::loadUserFollowers(QObject *requester, quint64 userId, int page)
+void SailreadsManager::loadUserFollowers(QObject *requester, const QString& userId, int page)
 {
     SetBusy(true);
     m_Api->GetUserFollowers(requester, userId, page);
@@ -323,7 +323,7 @@ void SailreadsManager::loadNotifications(QObject *requester, const QString& page
     m_Api->GetNotifications(requester, pageToken);
 }
 
-void SailreadsManager::loadBookShelves(QObject *requester, quint64 id, int page)
+void SailreadsManager::loadBookShelves(QObject *requester, const QString& id, int page)
 {
     SetBusy(true);
     m_Api->GetBookShelves(requester, id, page);
@@ -343,27 +343,27 @@ void SailreadsManager::editBookShelf(quint64 id, const QString& name, bool exclu
     m_Api->EditBookShelf(id, name, exclusive, sortable, featured, recommendFor);
 }
 
-void SailreadsManager::loadReviews(QObject *requester, quint64 userId, const QString& bookShelf,
-        int page, Qt::SortOrder order, const QString& sortField)
+void SailreadsManager::loadReviews(QObject *requester, const QString& userId,
+        const QString& bookShelf, int page, Qt::SortOrder order, const QString& sortField)
 {
     SetBusy(true);
     m_Api->GetReviews(requester, userId, bookShelf, sortField, order, page);
 }
 
-void SailreadsManager::loadReview(QObject *requester, quint64 reviewId, int commentsPage)
+void SailreadsManager::loadReview(QObject *requester, const QString& reviewId, int commentsPage)
 {
     SetBusy(true);
     m_Api->GetReview(requester, reviewId, commentsPage);
 }
 
-void SailreadsManager::searchReviews(QObject *requester, quint64 userId,
+void SailreadsManager::searchReviews(QObject *requester, const QString& userId,
         const QString& searchText, int page)
 {
     SetBusy(true);
     m_Api->SearchReviews(requester, userId, searchText, page);
 }
 
-void SailreadsManager::loadBook(QObject *requester, quint64 bookId)
+void SailreadsManager::loadBook(QObject *requester, const QString& bookId)
 {
     SetBusy(true);
     m_Api->GetBook(requester, bookId);
@@ -381,7 +381,7 @@ void SailreadsManager::loadSeries(QObject *requester, quint64 seriesId)
     m_Api->GetSeries(requester, seriesId);
 }
 
-void SailreadsManager::loadFriends(QObject *requester, quint64 userId, int page)
+void SailreadsManager::loadFriends(QObject *requester, const QString& userId, int page)
 {
     SetBusy(true);
     m_Api->GetFriends(requester, userId, page);
@@ -393,31 +393,31 @@ void SailreadsManager::confirmFriendRequest(quint64 friendRequestId, bool confir
     m_Api->ConfirmFriendRequest(friendRequestId, confirm);
 }
 
-void SailreadsManager::followUser(quint64 id)
+void SailreadsManager::followUser(const QString& userId)
 {
     SetBusy(true);
-    m_Api->FollowUser(id);
+    m_Api->FollowUser(userId);
 }
 
-void SailreadsManager::unfollowUser(quint64 id)
+void SailreadsManager::unfollowUser(const QString& userId)
 {
     SetBusy(true);
-    m_Api->UnfollowUser(id);
+    m_Api->UnfollowUser(userId);
 }
 
-void SailreadsManager::addAsFriend(quint64 id)
+void SailreadsManager::addAsFriend(const QString& userId)
 {
     SetBusy(true);
-    m_Api->AddFriend(id);
+    m_Api->AddFriend(userId);
 }
 
-void SailreadsManager::removeFriend(quint64 id)
+void SailreadsManager::removeFriend(const QString& userId)
 {
     SetBusy(true);
-    m_Api->RemoveFriend(id);
+    m_Api->RemoveFriend(userId);
 }
 
-void SailreadsManager::loadGroups(QObject *requester, quint64 userId, int page)
+void SailreadsManager::loadGroups(QObject *requester, const QString& userId, int page)
 {
     SetBusy(true);
     m_Api->GetGroups(requester, userId, page);
@@ -454,7 +454,7 @@ void SailreadsManager::loadGroupFolderTopics(QObject *requester, const QString& 
     m_Api->GetGroupFolderTopics(requester, groupFolderId, groupId, page);
 }
 
-void SailreadsManager::loadGroupFolderTopic(QObject *requester, quint64 topicId, int page)
+void SailreadsManager::loadGroupFolderTopic(QObject *requester, const QString& topicId, int page)
 {
     SetBusy(true);
     m_Api->GetGroupFolderTopic(requester, topicId, page);
@@ -467,7 +467,8 @@ void SailreadsManager::addNewTopic(const QString& topic, const QString& subject,
     m_Api->AddNewTopic(topic, subject, subjectId, folderId, question, updateFeed, digest, comment);
 }
 
-void SailreadsManager::addNewComment(const QString& type, quint64 resourceId, const QString& comment)
+void SailreadsManager::addNewComment(const QString& type, const QString& resourceId,
+        const QString& comment)
 {
     SetBusy(true);
     m_Api->AddNewComment(type, resourceId, comment);
@@ -479,31 +480,31 @@ void SailreadsManager::addBookToShelves(quint64 bookId, const QStringList& shelv
     m_Api->AddBooksToShelves({ bookId }, shelves);
 }
 
-void SailreadsManager::loadAuthorProfile(QObject *requester, quint64 authorId)
+void SailreadsManager::loadAuthorProfile(QObject *requester, const QString& authorId)
 {
     SetBusy(true);
     m_Api->GetAuthor(requester, authorId);
 }
 
-void SailreadsManager::loadAuthorBooks(QObject *requester, quint64 authorId, int page)
+void SailreadsManager::loadAuthorBooks(QObject *requester, const QString& authorId, int page)
 {
     SetBusy(true);
     m_Api->GetAuthorBooks(requester, authorId, page);
 }
 
-void SailreadsManager::loadAuthorSeries(QObject *requester, quint64 authorId)
+void SailreadsManager::loadAuthorSeries(QObject *requester, const QString& authorId)
 {
     SetBusy(true);
     m_Api->GetAuthorSeries(requester, authorId);
 }
 
-void SailreadsManager::followAuthor(quint64 authorId)
+void SailreadsManager::followAuthor(const QString& authorId)
 {
     SetBusy(true);
     m_Api->FollowAuthor(authorId);
 }
 
-void SailreadsManager::unfollowAuthor(quint64 authorId, quint64 followingId)
+void SailreadsManager::unfollowAuthor(const QString& authorId, quint64 followingId)
 {
     SetBusy(true);
     m_Api->UnfollowAuthor(authorId, followingId);

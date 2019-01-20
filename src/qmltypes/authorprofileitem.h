@@ -33,24 +33,24 @@ class AuthorProfileItem: public ItemRequestCanceler
 {
     Q_OBJECT
 
-    quint64 m_AuthorId;
+    QString m_AuthorId;
     AuthorPtr m_Author;
-    Q_PROPERTY(quint64 authorId READ GetAuthorId WRITE SetAuthorId NOTIFY authorIdChanged)
+    Q_PROPERTY(QString authorId READ GetAuthorId WRITE SetAuthorId NOTIFY authorIdChanged)
     Q_PROPERTY(Author* author READ GetAuthor WRITE SetAuthor NOTIFY authorChanged)
 
 public:
     AuthorProfileItem(QObject *parent = nullptr);
 
-    quint64 GetAuthorId() const;
-    void SetAuthorId(quint64 authorId);
+    QString GetAuthorId() const;
+    void SetAuthorId(const QString& authorId);
     void SetAuthor(const AuthorPtr& author);
     Author* GetAuthor() const;
     void SetAuthor(Author *author);
 
 private slots:
     void handleGotAuthorProfile(const AuthorPtr& author);
-    void handleAuthorFollowed(quint64 authorId, quint64 followingId);
-    void handleAuthorUnfollowed(quint64 authorId);
+    void handleAuthorFollowed(const QString& authorId, quint64 followingId);
+    void handleAuthorUnfollowed(const QString& authorId);
 public slots:
     void loadAuthorProfile();
 

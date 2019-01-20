@@ -28,7 +28,7 @@ namespace Sailreads
 {
 FriendsModel::FriendsModel(QObject *parent)
 : BaseModel<Friend>(parent)
-, m_UserId(0)
+, m_UserId("")
 , m_HasMore(true)
 , m_CurrentPage(1)
 {
@@ -77,12 +77,12 @@ QHash<int, QByteArray> FriendsModel::roleNames() const
     return roles;
 }
 
-quint64 FriendsModel::GetUserId() const
+QString FriendsModel::GetUserId() const
 {
     return m_UserId;
 }
 
-void FriendsModel::SetUserId(quint64 id)
+void FriendsModel::SetUserId(const QString& id)
 {
     if (m_UserId != id) {
         m_UserId = id;
@@ -123,13 +123,13 @@ void FriendsModel::fetchMoreContent()
 
 void FriendsModel::loadUsers()
 {
-    if (m_UserId <= 0) {
+    if (m_UserId.isEmpty()) {
         return;
     }
     SailreadsManager::Instance()->loadFriends(this, m_UserId);
 }
 
-void FriendsModel::handleGotUserFriends(quint64 userId, const CountedItems<Friend>& friends)
+void FriendsModel::handleGotUserFriends(const QString& userId, const CountedItems<Friend>& friends)
 {
     if (userId != m_UserId) {
         return;
@@ -149,7 +149,7 @@ void FriendsModel::handleGotUserFriends(quint64 userId, const CountedItems<Frien
     }
 }
 
-void FriendsModel::handleFriendRemoved(quint64 friendId)
+void FriendsModel::handleFriendRemoved(const QString& friendId)
 {
     auto it = std::find_if(m_Items.begin(), m_Items.end(),
             [friendId](decltype(m_Items.front()) fr) {

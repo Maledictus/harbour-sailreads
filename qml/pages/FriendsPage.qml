@@ -32,7 +32,7 @@ import "../components"
 Page {
     id: friendsPage
 
-    property int userId: 0
+    property string userId: ""
     property bool busy: sailreadsManager.busy && friendsPage.status === PageStatus.Active
 
     function attachPage() {

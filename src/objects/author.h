@@ -37,7 +37,7 @@ class Author: public QObject
 {
     Q_OBJECT
 
-    quint64 m_Id;
+    QString m_Id;
     QString m_Name;
     QUrl m_ImageUrl;
     QUrl m_SmallImageUrl;
@@ -57,12 +57,12 @@ class Author: public QObject
     QDateTime m_BirthDate;
     QDateTime m_DeathDate;
     bool m_IsGoodreadsAuthor;
-    quint64 m_UserId;
+    QString m_UserId;
     Books_t m_Books;
     quint64 m_FollowingId;
 
 
-    Q_PROPERTY(quint64 id READ GetId NOTIFY idChanged)
+    Q_PROPERTY(QString id READ GetId NOTIFY idChanged)
     Q_PROPERTY(QString name READ GetName NOTIFY nameChanged)
     Q_PROPERTY(QUrl imageUrl READ GetImageUrl NOTIFY imageUrlChanged)
     Q_PROPERTY(QUrl smallImageUrl READ GetSmallImageUrl NOTIFY smallImageUrlChanged)
@@ -81,7 +81,7 @@ class Author: public QObject
     Q_PROPERTY(QDateTime birthDate READ GetBirthDate NOTIFY birthDateChanged)
     Q_PROPERTY(QDateTime deathDate READ GetDeathDate NOTIFY deathDateChanged)
     Q_PROPERTY(bool isGoodreadsAuthor READ GetIsGoodreadsAuthor NOTIFY isGoodreadsAuthorChanged)
-    Q_PROPERTY(quint64 userId READ GetUserId NOTIFY userIdChanged)
+    Q_PROPERTY(QString userId READ GetUserId NOTIFY userIdChanged)
     Q_PROPERTY(QObjectList books READ GetBooks NOTIFY booksChanged)
     Q_PROPERTY(quint64 followingId READ GetFollowingId NOTIFY followingIdChanged)
 
@@ -89,8 +89,8 @@ public:
     Author(QObject *parent = nullptr);
     ~Author();
 
-    quint64 GetId() const;
-    void SetId(const quint64& id);
+    QString GetId() const;
+    void SetId(const QString& id);
     QString GetName() const;
     void SetName(const QString& name);
     QUrl GetImageUrl() const;
@@ -127,8 +127,8 @@ public:
     void SetDeathDate(const QDateTime& dt);
     bool GetIsGoodreadsAuthor() const;
     void SetIsGoodreadsAuthor(bool isGoodreadsAuthor);
-    quint64 GetUserId() const;
-    void SetUserId(quint64 userId);
+    QString GetUserId() const;
+    void SetUserId(const QString& userId);
     QObjectList GetBooks() const;
     Books_t GetBooksPtr() const;
     void SetBooks(const Books_t& books);

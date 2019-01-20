@@ -38,11 +38,11 @@ class FriendsModel : public BaseModel<Friend>
 
     Q_ENUMS(FriendsRoles)
 protected:
-    quint64 m_UserId;
+    QString m_UserId;
     bool m_HasMore;
     quint64 m_CurrentPage;
 
-    Q_PROPERTY(quint64 userId READ GetUserId WRITE SetUserId NOTIFY userIdChanged)
+    Q_PROPERTY(QString userId READ GetUserId WRITE SetUserId NOTIFY userIdChanged)
     Q_PROPERTY(bool hasMore READ GetHasMore WRITE SetHasMore NOTIFY hasMoreChanged)
 
 public:
@@ -63,8 +63,8 @@ public:
     virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
     virtual QHash<int, QByteArray> roleNames() const override;
 
-    quint64 GetUserId() const;
-    void SetUserId(quint64 id);
+    QString GetUserId() const;
+    void SetUserId(const QString& id);
     bool GetHasMore() const;
     void SetHasMore(bool has);
 
@@ -72,12 +72,12 @@ public:
     virtual void componentComplete();
 
 private slots:
-    void handleFriendRemoved(quint64 friendId);
+    void handleFriendRemoved(const QString& friendId);
 public slots:
     virtual void fetchMoreContent();
     virtual void loadUsers();
 protected:
-    void handleGotUserFriends(quint64 userId, const CountedItems<Friend>& friends);
+    void handleGotUserFriends(const QString& userId, const CountedItems<Friend>& friends);
 
 signals:
     void userIdChanged();

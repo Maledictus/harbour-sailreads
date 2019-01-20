@@ -29,7 +29,7 @@ namespace Sailreads
 {
 BookShelvesModel::BookShelvesModel(QObject *parent)
 : BaseModel<BookShelf>(parent)
-, m_UserId(0)
+, m_UserId("")
 , m_HasMore(true)
 , m_CurrentPage(1)
 {
@@ -85,12 +85,12 @@ QHash<int, QByteArray> BookShelvesModel::roleNames() const
     return roles;
 }
 
-quint64 BookShelvesModel::GetUserId() const
+QString BookShelvesModel::GetUserId() const
 {
     return m_UserId;
 }
 
-void BookShelvesModel::SetUserId(quint64 id)
+void BookShelvesModel::SetUserId(const QString& id)
 {
     if (m_UserId != id) {
         m_UserId = id;
@@ -118,13 +118,14 @@ void BookShelvesModel::fetchMoreContent()
 
 void BookShelvesModel::loadBookShelves()
 {
-    if (m_UserId <= 0) {
+    if (m_UserId.isEmpty()) {
         return;
     }
     SailreadsManager::Instance()->loadBookShelves(this, m_UserId);
 }
 
-void BookShelvesModel::handleGotUserBookShelves(quint64 userId, const CountedItems<BookShelf> bookshelves)
+void BookShelvesModel::handleGotUserBookShelves(const QString& userId,
+        const CountedItems<BookShelf> bookshelves)
 {
     if (m_UserId != userId) {
         return;

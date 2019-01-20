@@ -37,7 +37,7 @@ class ReviewsModel : public BaseModel<ReviewPtr>
 
     Q_ENUMS(ReviewRoles)
 protected:
-    quint64 m_UserId;
+    QString m_UserId;
     quint64 m_BookShelfId;
     QString m_BookShelf;
     Qt::SortOrder m_SortOrder;
@@ -45,7 +45,7 @@ protected:
     bool m_HasMore;
     quint64 m_CurrentPage;
 
-    Q_PROPERTY(quint64 userId READ GetUserId WRITE SetUserId NOTIFY userIdChanged)
+    Q_PROPERTY(QString userId READ GetUserId WRITE SetUserId NOTIFY userIdChanged)
     Q_PROPERTY(quint64 bookShelfId READ GetBookShelfId WRITE SetBookShelfId NOTIFY bookShelfIdChanged)
     Q_PROPERTY(QString bookShelf READ GetBookShelf WRITE SetBookShelf NOTIFY bookShelfChanged)
     Q_PROPERTY(bool hasMore READ GetHasMore WRITE SetHasMore NOTIFY hasMoreChanged)
@@ -74,8 +74,8 @@ public:
 
     ReviewsModel(QObject *parent = nullptr);
 
-    quint64 GetUserId() const;
-    void SetUserId(quint64 id);
+    QString GetUserId() const;
+    void SetUserId(const QString& id);
     quint64 GetBookShelfId() const;
     void SetBookShelfId(quint64 id);
     QString GetBookShelf() const;

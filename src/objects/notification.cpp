@@ -31,7 +31,7 @@ namespace Sailreads
 Notification::Notification(QObject *parent)
 : QObject(parent)
 , m_IsNew(false)
-, m_ResourceId(0)
+, m_ResourceId("")
 {
 #ifdef QT_DEBUG
     qDebug() << this << "CONSTRUCTED";
@@ -134,12 +134,12 @@ void Notification::SetGroupResourceType(const QString& groupResourceType)
     m_GroupResourceType = groupResourceType;
 }
 
-quint64 Notification::GetResourceId() const
+QString Notification::GetResourceId() const
 {
     return m_ResourceId;
 }
 
-void Notification::SetResourceId(quint64 resourceId)
+void Notification::SetResourceId(const QString& resourceId)
 {
     m_ResourceId = resourceId;
 }

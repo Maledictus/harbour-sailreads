@@ -253,7 +253,7 @@ Page {
                 enabled: !busy
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("AuthorSeriesPage.qml"), {
-                        authorId: authorProfile.author ? authorProfile.author.id : 0,
+                        authorId: authorProfile.author ? authorProfile.author.id : "",
                         authorName: authorProfile.author ? authorProfile.author.name : ""
                     })
                 }
@@ -269,7 +269,7 @@ Page {
                 enabled: !busy
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("AuthorBooksPage.qml"), {
-                        authorId: authorProfile.author ? authorProfile.author.id : 0,
+                        authorId: authorProfile.author ? authorProfile.author.id : "",
                         authorName: authorProfile.author ? authorProfile.author.name : ""
                     })
                 }

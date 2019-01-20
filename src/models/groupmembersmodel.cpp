@@ -48,7 +48,7 @@ QVariant GroupMembersModel::data(const QModelIndex& index, int role) const
     auto user = groupMember.GetUser();
     switch (role) {
     case Id:
-        return user ? user->GetId() : 0;
+        return user ? user->GetId() : "";
     case Title:
         return groupMember.GetTitle();
     case FirstName:

@@ -34,7 +34,7 @@ namespace Sailreads
 {
 UserProfile::UserProfile(QObject *parent)
 : ItemRequestCanceler(parent)
-, m_UserId(0)
+, m_UserId("")
 {
     connect(SailreadsManager::Instance(), &SailreadsManager::gotUserProfile,
             this, &UserProfile::handleGotUser);
@@ -50,12 +50,12 @@ UserProfile::UserProfile(QObject *parent)
             this, &UserProfile::handleFriendRemoved);
 }
 
-quint64 UserProfile::GetUserID() const
+QString UserProfile::GetUserID() const
 {
     return m_UserId;
 }
 
-void UserProfile::SetUserID(quint64 id)
+void UserProfile::SetUserID(const QString& id)
 {
     if (m_UserId != id) {
         m_UserId = id;
@@ -83,9 +83,12 @@ void UserProfile::SetUser(const UserPtr& user)
 
 void UserProfile::handleGotUser(const UserPtr& user)
 {
-    if (!user || user->GetId() != m_UserId) {
+    if (!user || (user->GetId() != m_UserId && !m_UserId.startsWith(user->GetId()))) {
         return;
     }
+
+    m_UserId = user->GetId();
+    emit userIdChanged();
     SetUser(user);
 }
 
@@ -102,7 +105,7 @@ void UserProfile::handleFriendRequestCofirmed(quint64 friendRequestId, bool)
     }
 }
 
-void UserProfile::handleUserFollowed(quint64 userId, bool success)
+void UserProfile::handleUserFollowed(const QString& userId, bool success)
 {
     if (!m_User || m_UserId != userId) {
         return;
@@ -112,7 +115,7 @@ void UserProfile::handleUserFollowed(quint64 userId, bool success)
     emit userChanged();
 }
 
-void UserProfile::handleUserUnfollowed(quint64 userId, bool success)
+void UserProfile::handleUserUnfollowed(const QString& userId, bool success)
 {
     if (!m_User || m_UserId != userId) {
         return;
@@ -122,7 +125,7 @@ void UserProfile::handleUserUnfollowed(quint64 userId, bool success)
     emit userChanged();
 }
 
-void UserProfile::handleFriendAdded(quint64 userId)
+void UserProfile::handleFriendAdded(const QString& userId)
 {
     if (!m_User || m_UserId != userId) {
         return;
@@ -132,7 +135,7 @@ void UserProfile::handleFriendAdded(quint64 userId)
     emit userChanged();
 }
 
-void UserProfile::handleFriendRemoved(quint64)
+void UserProfile::handleFriendRemoved(const QString&)
 {
     if (!m_User || !SailreadsManager::Instance()->GetAuthUser() ||
             m_UserId != SailreadsManager::Instance()->GetAuthUser()->GetId()) {
@@ -145,7 +148,7 @@ void UserProfile::handleFriendRemoved(quint64)
 
 void UserProfile::loadProfile()
 {
-    if (m_UserId <= 0) {
+    if (m_UserId.isEmpty()) {
         return;
     }
     SailreadsManager::Instance()->getUserInfo(this, m_UserId);

@@ -130,7 +130,7 @@ Page {
             UserShortReview {
                 width: parent.width
 
-                userId: review && review.user ? review.user.id : 0
+                userId: review && review.user ? review.user.id : ""
                 avatarImage.source: review ? review.user.avatarUrl : "qrc:/images/gra_small.png"
                 nameLabel.label.text: review ? review.user.userName : ""
                 ratingBox.rating: review ? review.rating : 0.0
@@ -152,6 +152,7 @@ Page {
                 width: parent.width
                 spacing: Theme.paddingMedium
                 BaseImage {
+                    id: bookImage
                     source: review && review.book ? review.book.imageUrl : ""
                     height: Theme.coverSizeSmall.height
                     width: Theme.coverSizeSmall.width
@@ -162,12 +163,14 @@ Page {
                 }
 
                 Column {
-                    width: parent.width
+                    width: parent.width - bookImage.width - Theme.paddingMedium
                     Label {
                         font.family: Theme.fontFamilyHeading
                         font.pixelSize: Theme.fontSizeMedium
                         color: Theme.highlightColor
                         text: review && review.book ? review.book.titleWithoutSeries : ""
+                        wrapMode: Text.WordWrap
+                        width: parent.width
                     }
 
                     Label {

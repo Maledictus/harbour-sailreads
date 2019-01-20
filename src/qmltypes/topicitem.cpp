@@ -29,18 +29,18 @@ namespace Sailreads
 {
 TopicItem::TopicItem(QObject *parent)
 : ItemRequestCanceler(parent)
-, m_TopicId(0)
+, m_TopicId("")
 {
     connect(SailreadsManager::Instance(), &SailreadsManager::gotGroupFolderTopic,
             this, &TopicItem::handleGotTopic);
 }
 
-quint64 TopicItem::GetTopicId() const
+QString TopicItem::GetTopicId() const
 {
     return m_TopicId;
 }
 
-void TopicItem::SetTopicId(quint64 topicId)
+void TopicItem::SetTopicId(const QString& topicId)
 {
     if (m_TopicId == topicId) {
         return;
@@ -67,15 +67,17 @@ void TopicItem::SetTopic(const TopicPtr& topic)
 
 void TopicItem::handleGotTopic(const TopicPtr& topic)
 {
-    if (!topic || m_TopicId != topic->GetId()) {
+    if (!topic || (m_TopicId != topic->GetId() && !m_TopicId.startsWith(topic->GetId()))) {
         return;
     }
+    m_TopicId = topic->GetId();
+    emit topicIdChanged();
     SetTopic(topic);
 }
 
 void TopicItem::loadTopic()
 {
-    if (m_TopicId <= 0) {
+    if (m_TopicId.isEmpty()) {
         return;
     }
     SailreadsManager::Instance()->loadGroupFolderTopic(this, m_TopicId);

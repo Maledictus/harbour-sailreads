@@ -30,12 +30,12 @@ ProfileUpdatesModel::ProfileUpdatesModel(QObject *parent)
 {
 }
 
-quint64 ProfileUpdatesModel::GetUserId() const
+QString ProfileUpdatesModel::GetUserId() const
 {
     return m_UserId;
 }
 
-void ProfileUpdatesModel::SetUserId(quint64 userId)
+void ProfileUpdatesModel::SetUserId(const QString& userId)
 {
     if (m_UserId != userId) {
         m_UserId = userId;
@@ -53,7 +53,7 @@ void ProfileUpdatesModel::componentComplete()
 {
 }
 
-void ProfileUpdatesModel::handleGotUpdates(quint64 userId, const Updates_t& updates)
+void ProfileUpdatesModel::handleGotUpdates(const QString& userId, const Updates_t& updates)
 {
     if (m_UserId != userId) {
         return;

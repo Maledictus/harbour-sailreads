@@ -37,7 +37,7 @@ class User : public QObject
 {
     Q_OBJECT
 
-    quint64 m_Id;
+    QString m_Id;
     QUrl m_WebUrl;
     bool m_Private;
 
@@ -69,7 +69,7 @@ class User : public QObject
     FriendRequest m_FriendRequest;
     Updates_t m_RecentUpdates;
 
-    Q_PROPERTY(quint64 id READ GetId NOTIFY idChanged)
+    Q_PROPERTY(QString id READ GetId NOTIFY idChanged)
     Q_PROPERTY(QString userName READ GetUserName NOTIFY userNameChanged)
     Q_PROPERTY(QString firstName READ GetFirstName NOTIFY firstNameChanged)
     Q_PROPERTY(QString lastName READ GetLastName NOTIFY lastNameChanged)
@@ -117,8 +117,8 @@ public:
     User(QObject *parent = nullptr);
     virtual ~User();
 
-    quint64 GetId() const;
-    void SetId(quint64 id);
+    QString GetId() const;
+    void SetId(const QString& id);
     QString GetUserName() const;
     void SetUserName(const QString& name);
     QString GetFirstName() const;

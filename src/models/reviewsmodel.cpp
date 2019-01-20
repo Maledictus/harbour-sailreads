@@ -30,7 +30,7 @@ namespace Sailreads
 {
 ReviewsModel::ReviewsModel(QObject *parent)
 : BaseModel<ReviewPtr>(parent)
-, m_UserId(0)
+, m_UserId("")
 , m_BookShelfId(0)
 , m_SortOrder(Qt::DescendingOrder)
 , m_SortField("date_added")
@@ -39,12 +39,12 @@ ReviewsModel::ReviewsModel(QObject *parent)
 {
 }
 
-quint64 ReviewsModel::GetUserId() const
+QString ReviewsModel::GetUserId() const
 {
     return m_UserId;
 }
 
-void ReviewsModel::SetUserId(quint64 id)
+void ReviewsModel::SetUserId(const QString& id)
 {
     if (m_UserId != id) {
         m_UserId = id;
@@ -193,7 +193,7 @@ void ReviewsModel::componentComplete()
 
 void ReviewsModel::fetchMoreContent()
 {
-    if (m_BookShelf.isEmpty() || !m_UserId) {
+    if (m_BookShelf.isEmpty() || m_UserId.isEmpty()) {
         SetHasMore(false);
         return;
     }
@@ -204,7 +204,7 @@ void ReviewsModel::fetchMoreContent()
 
 void ReviewsModel::loadReviews()
 {
-    if (m_BookShelf.isEmpty() || !m_UserId) {
+    if (m_BookShelf.isEmpty() || m_UserId.isEmpty()) {
         return;
     }
 

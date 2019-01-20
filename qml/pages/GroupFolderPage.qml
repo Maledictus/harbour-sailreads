@@ -164,9 +164,7 @@ Page {
 
             onClicked: {
                 pageStack.push(Qt.resolvedUrl("GroupFolderTopicPage.qml"),
-                        { groupId: folderPage.groupId,
-                            groupFolderId: folderPage.folderId,
-                            topicId: topicId })
+                        { topicId: topicId })
             }
         }
 

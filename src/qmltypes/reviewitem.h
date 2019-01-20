@@ -33,17 +33,17 @@ class ReviewItem : public ItemRequestCanceler
 {
     Q_OBJECT
 
-    quint64 m_ReviewId;
+    QString m_ReviewId;
     ReviewPtr m_Review;
 
-    Q_PROPERTY(quint64 reviewId READ GetReviewId WRITE SetReviewId NOTIFY reviewIdChanged)
+    Q_PROPERTY(QString reviewId READ GetReviewId WRITE SetReviewId NOTIFY reviewIdChanged)
     Q_PROPERTY(Review* review READ GetReview WRITE SetReview NOTIFY reviewChanged)
 
 public:
     explicit ReviewItem(QObject *parent = nullptr);
 
-    quint64 GetReviewId() const;
-    void SetReviewId(quint64 reviewId);
+    QString GetReviewId() const;
+    void SetReviewId(const QString& reviewId);
     Review* GetReview() const;
     void SetReview(Review* review);
     void SetReview(const ReviewPtr& review);

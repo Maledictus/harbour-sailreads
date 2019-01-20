@@ -43,27 +43,27 @@ class UserProfile : public ItemRequestCanceler
 {
     Q_OBJECT
 
-    quint64 m_UserId;
+    QString m_UserId;
     UserPtr m_User;
 
-    Q_PROPERTY(quint64 userId READ GetUserID WRITE SetUserID NOTIFY userIdChanged)
+    Q_PROPERTY(QString userId READ GetUserID WRITE SetUserID NOTIFY userIdChanged)
     Q_PROPERTY(User* user READ GetUser NOTIFY userChanged)
 
 public:
     explicit UserProfile(QObject *parent = nullptr);
 
-    quint64 GetUserID() const;
-    void SetUserID(quint64 id);
+    QString GetUserID() const;
+    void SetUserID(const QString& id);
     User* GetUser() const;
     void SetUser(const UserPtr& user);
 
 private slots:
     void handleGotUser(const UserPtr& user);
     void handleFriendRequestCofirmed(quint64 friendRequestId, bool confirmed);
-    void handleUserFollowed(quint64 userId, bool success);
-    void handleUserUnfollowed(quint64 userId, bool success);
-    void handleFriendAdded(quint64 userId);
-    void handleFriendRemoved(quint64 friendId);
+    void handleUserFollowed(const QString& userId, bool success);
+    void handleUserUnfollowed(const QString& userId, bool success);
+    void handleFriendAdded(const QString& userId);
+    void handleFriendRemoved(const QString& friendId);
 public slots:
     void loadProfile();
 

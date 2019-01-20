@@ -37,7 +37,7 @@ class Topic : public QObject
 {
     Q_OBJECT
 
-    quint64 m_Id;
+    QString m_Id;
     QString m_Title;
     quint64 m_CommentsCount;
     QDateTime m_LastCommentDate;
@@ -54,7 +54,7 @@ class Topic : public QObject
     CountedItems<Comment> m_Comments;
     int m_UnreadCount;
 
-    Q_PROPERTY(quint64 id READ GetId NOTIFY idChanged)
+    Q_PROPERTY(QString id READ GetId NOTIFY idChanged)
     Q_PROPERTY(QString title READ GetTitle NOTIFY titleChanged)
     Q_PROPERTY(quint64 commentsCount READ GetCommentsCount NOTIFY commentsCountChanged)
     Q_PROPERTY(quint64 newCommentsCount READ GetNewCommentsCount NOTIFY newCommentsCountChanged)
@@ -69,8 +69,8 @@ public:
     Topic(QObject *parent = nullptr);
     ~Topic();
 
-    quint64 GetId() const;
-    void SetId(quint64 id);
+    QString GetId() const;
+    void SetId(const QString& id);
     QString GetTitle() const;
     void SetTitle(const QString& title);
     quint64 GetCommentsCount() const;

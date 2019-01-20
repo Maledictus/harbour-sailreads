@@ -85,21 +85,31 @@ ApplicationWindow {
         var id = str.substr(str.lastIndexOf('/') + 1)
         if (str.indexOf("www.goodreads.com/topic/show/", 0) > 0) {
             console.log("TOPIC: ", id)
+            pageStack.push(Qt.resolvedUrl("pages/GroupFolderTopicPage.qml"),
+                    { topicId: id })
         }
         else if (str.indexOf("www.goodreads.com/read_statuses/", 0) > 0) {
             console.log("READ_STATUS: ", id)
         }
         else if (str.indexOf("www.goodreads.com/review/show/", 0) > 0) {
             console.log("REVIEW: ", id)
+            pageStack.push(Qt.resolvedUrl("pages/ReviewPage.qml"),
+                    { reviewId: id })
         }
         else if (str.indexOf("www.goodreads.com/user/show/", 0) > 0) {
             console.log("USER: ", id)
+            pageStack.push(Qt.resolvedUrl("pages/ProfilePage.qml"),
+                    { userId : id })
         }
         else if (str.indexOf("www.goodreads.com/book/show/", 0) > 0) {
             console.log("BOOK: ", id)
+            pageStack.push(Qt.resolvedUrl("pages/BookPage.qml"),
+                    { bookId: id })
         }
         else if (str.indexOf("www.goodreads.com/author/show/", 0) > 0) {
             console.log("AUTHOR: ", id)
+            pageStack.push(Qt.resolvedUrl("pages/AuthorPage.qml"),
+                    { authorId: id })
         }
         else if (str.indexOf("www.goodreads.com/user_status/show/", 0) > 0) {
             console.log("USER_STATUS: ", id)
@@ -112,7 +122,7 @@ ApplicationWindow {
         }
         else {
             console.log("OPEN IN BROWSER: ", url)
-//            openInBrowser(url)
+            openInBrowser(url)
         }
     }
 }

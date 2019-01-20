@@ -61,7 +61,7 @@ Page {
         filterRegExp: new RegExp("true")
         dynamicSortFilter: true
         sourceModel: BookShelvesModel {
-            userId: userProfile.user ? userProfile.user.id : 0
+            userId: userProfile.user ? userProfile.user.id : ""
         }
     }
 
@@ -278,7 +278,7 @@ Page {
                 enabled: !busy
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("BookShelvesPage.qml"), {
-                        userId: userProfile.user ? userProfile.user.id : 0,
+                        userId: userProfile.user ? userProfile.user.id : "",
                         userName: userProfile.user ? userProfile.user.userName : "",
                     })
                 }
@@ -320,7 +320,7 @@ Page {
                 visible: userProfile.user ? userProfile.user.friendsCount > 0 : false
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("FriendsPage.qml"), {
-                        userId: userProfile.user ? userProfile.user.id : 0
+                        userId: userProfile.user ? userProfile.user.id : ""
                    })
                 }
             }
@@ -335,7 +335,7 @@ Page {
                 enabled: !busy
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("GroupsPage.qml"), {
-                        userId: userProfile.user ? userProfile.user.id : 0
+                        userId: userProfile.user ? userProfile.user.id : ""
                     })
                 }
             }

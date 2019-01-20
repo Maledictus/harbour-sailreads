@@ -131,7 +131,7 @@ Page {
                         anchors.right: parent.right
                         font.pixelSize: Theme.fontSizeTiny
                         text: Qt.formatDateTime(notificationCreateDate)
-                        color: highlighted ? Theme.highlightColor : Theme.primaryColor
+                        color: highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor
                     }
                 }
             }

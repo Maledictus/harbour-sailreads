@@ -95,7 +95,7 @@ void GoodReadsApi::AuthUser()
              this, &GoodReadsApi::handleAuthUser);
 }
 
-void GoodReadsApi::GetUserInfo(QObject *requester, quint64 id)
+void GoodReadsApi::GetUserInfo(QObject *requester, const QString& id)
 {
     QNetworkReply *reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/user/show/%1").arg(id)), { { "format", "xml" } } );
@@ -104,7 +104,7 @@ void GoodReadsApi::GetUserInfo(QObject *requester, quint64 id)
              this, &GoodReadsApi::handleGetUserInfo);
 }
 
-void GoodReadsApi::CompareBooks(quint64 userId)
+void GoodReadsApi::CompareBooks(const QString& userId)
 {
 //    //TODO make simple request
 //    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
@@ -171,7 +171,7 @@ void GoodReadsApi::MarkMessageAsRead(quint64 messageId)
             this, [this]() { handleMarkMessageAsRead(); });
 }
 
-void GoodReadsApi::GetBookShelves(QObject *requester, quint64 userId, int page)
+void GoodReadsApi::GetBookShelves(QObject *requester, const QString& userId, int page)
 {
     QNetworkReply *reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + "/shelf/list"),
@@ -214,7 +214,7 @@ void GoodReadsApi::EditBookShelf(quint64 id, const QString& name, bool exclusive
             this, &GoodReadsApi::handleEditBookShelf);
 }
 
-void GoodReadsApi::GetReviews(QObject *requester, quint64 userId, const QString& bookShelf,
+void GoodReadsApi::GetReviews(QObject *requester, const QString& userId, const QString& bookShelf,
         const QString& sortField, Qt::SortOrder order, int page)
 {
     const QVariantMap params = { { "v", 2 }, { "shelf", bookShelf }, { "page", page },
@@ -229,7 +229,7 @@ void GoodReadsApi::GetReviews(QObject *requester, quint64 userId, const QString&
             this, &GoodReadsApi::handleGetReviews);
 }
 
-void GoodReadsApi::GetReview(QObject *requester, quint64 reviewId, int commentsPage)
+void GoodReadsApi::GetReview(QObject *requester, const QString& reviewId, int commentsPage)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + "/review/show"),
@@ -239,7 +239,7 @@ void GoodReadsApi::GetReview(QObject *requester, quint64 reviewId, int commentsP
             this, &GoodReadsApi::handleGetReview);
 }
 
-void GoodReadsApi::SearchReviews(QObject *requester, quint64 userId,
+void GoodReadsApi::SearchReviews(QObject *requester, const QString& userId,
         const QString& searchText, int page)
 {
     const QVariantMap params = { { "v", 2 }, { "search[query]", searchText }, { "page", page },
@@ -307,7 +307,7 @@ void GoodReadsApi::DeleteReview(quint64 reviewId)
 //            this, &GoodReadsApi::handleDeleteReview);
 }
 
-void GoodReadsApi::GetBook(QObject *requester, quint64 bookId)
+void GoodReadsApi::GetBook(QObject *requester, const QString& bookId)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + "/book/show"), { { "id", bookId }, { "format", "xml" } });
@@ -348,10 +348,10 @@ void GoodReadsApi::GetSeries(QObject *requester, quint64 seriesId)
             this, &GoodReadsApi::handleGetSeries);
 }
 
-void GoodReadsApi::GetAuthorSeries(QObject *requester, quint64 authorId)
+void GoodReadsApi::GetAuthorSeries(QObject *requester, const QString& authorId)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
-            QUrl(m_BaseUrl + QString("/series/list/%1").arg(authorId)),
+            QUrl(m_BaseUrl + QString("/series/list/%1.xml").arg(authorId)),
             { { "format", "xml" } });
     m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
@@ -398,7 +398,7 @@ void GoodReadsApi::RemoveBookFromShelf(quint64 bookId, const QString& shelfName)
 //            this, &GoodReadsApi::handleRemoveBookFromShelf);
 }
 
-void GoodReadsApi::GetAuthor(QObject *requester, quint64 authorId)
+void GoodReadsApi::GetAuthor(QObject *requester, const QString& authorId)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + "/author/show"), { { "id", authorId }, { "format", "xml" } });
@@ -407,7 +407,7 @@ void GoodReadsApi::GetAuthor(QObject *requester, quint64 authorId)
             this, &GoodReadsApi::handleGetAuthor);
 }
 
-void GoodReadsApi::GetAuthorBooks(QObject *requester, quint64 authorId, int page)
+void GoodReadsApi::GetAuthorBooks(QObject *requester, const QString& authorId, int page)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + "/author/list"),
@@ -419,7 +419,7 @@ void GoodReadsApi::GetAuthorBooks(QObject *requester, quint64 authorId, int page
             });
 }
 
-void GoodReadsApi::FollowAuthor(quint64 authorId)
+void GoodReadsApi::FollowAuthor(const QString& authorId)
 {
     auto reply = m_OAuth1->Post(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/author_followings?id=%1&format=%2").arg(authorId).arg("xml")));
@@ -427,7 +427,7 @@ void GoodReadsApi::FollowAuthor(quint64 authorId)
             this, &GoodReadsApi::handleFollowAuthor);
 }
 
-void GoodReadsApi::UnfollowAuthor(quint64 authorId, quint64 authorFollowingId)
+void GoodReadsApi::UnfollowAuthor(const QString& authorId, quint64 authorFollowingId)
 {
     auto reply = m_OAuth1->DeleteResource(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/author_followings/%1?format=xml").arg(authorFollowingId)));
@@ -437,7 +437,7 @@ void GoodReadsApi::UnfollowAuthor(quint64 authorId, quint64 authorFollowingId)
             });
 }
 
-void GoodReadsApi::GetGroups(QObject *requester, quint64 userId, int page)
+void GoodReadsApi::GetGroups(QObject *requester, const QString& userId, int page)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/group/list/%1").arg(userId)),
@@ -507,7 +507,7 @@ void GoodReadsApi::GetGroupFolderTopics(QObject *requester, const QString& group
             });
 }
 
-void GoodReadsApi::GetGroupFolderTopic(QObject *requester, quint64 topicId, int page)
+void GoodReadsApi::GetGroupFolderTopic(QObject *requester, const QString& topicId, int page)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + "/topic/show"),
@@ -534,7 +534,7 @@ void GoodReadsApi::AddNewTopic(const QString& topic, const QString& subject, qui
              this, [this, folderId]() { handleTopicAdded(folderId); });
 }
 
-void GoodReadsApi::AddNewComment(const QString& type, quint64 resourceId, const QString& comment)
+void GoodReadsApi::AddNewComment(const QString& type, const QString& resourceId, const QString& comment)
 {
     const QVariantMap params = { { "type", type }, { "id", resourceId },
             { "comment[body]", comment } };
@@ -544,7 +544,7 @@ void GoodReadsApi::AddNewComment(const QString& type, quint64 resourceId, const 
              this, [this, resourceId]() { handleNewCommentAdded(resourceId); });
 }
 
-void GoodReadsApi::GetFriends(QObject *requester, quint64 userId, int page)
+void GoodReadsApi::GetFriends(QObject *requester, const QString& userId, int page)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/friend/user/%1").arg(userId)),
@@ -554,7 +554,7 @@ void GoodReadsApi::GetFriends(QObject *requester, quint64 userId, int page)
              this, [this, userId]() { handleGetFriends(userId); });
 }
 
-void GoodReadsApi::GetUserFollowers(QObject *requester, quint64 userId, int page)
+void GoodReadsApi::GetUserFollowers(QObject *requester, const QString& userId, int page)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/user/%1/followers").arg(userId)),
@@ -564,7 +564,7 @@ void GoodReadsApi::GetUserFollowers(QObject *requester, quint64 userId, int page
              this, [this, userId]() { handleGetUserFollowers(userId); });
 }
 
-void GoodReadsApi::GetUserFollowings(QObject *requester, quint64 userId, int page)
+void GoodReadsApi::GetUserFollowings(QObject *requester, const QString& userId, int page)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/user/%1/following").arg(userId)),
@@ -615,7 +615,7 @@ void GoodReadsApi::DeclineFriendRecommendation(quint64 friendRecommendationId)
 //            this, &GoodReadsApi::handleDeclineFriendRecommendation);
 }
 
-void GoodReadsApi::AddFriend(quint64 userId)
+void GoodReadsApi::AddFriend(const QString& userId)
 {
     auto reply = m_OAuth1->Post(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + "/friend/add_as_friend.xml"), { { "id", userId } });
@@ -623,7 +623,7 @@ void GoodReadsApi::AddFriend(quint64 userId)
             this, [this, userId]() { handleAddFriend(userId); });
 }
 
-void GoodReadsApi::RemoveFriend(quint64 userId)
+void GoodReadsApi::RemoveFriend(const QString& userId)
 {
 //    auto reply = m_OAuth1->Post(m_AccessToken, m_AccessTokenSecret,
 //            QUrl(m_BaseUrl + QString("/friend/destroy/%1").arg(userId)),
@@ -632,7 +632,7 @@ void GoodReadsApi::RemoveFriend(quint64 userId)
 //            this, [this, userId]() { handleRemoveFriend(userId); });
 }
 
-void GoodReadsApi::FollowUser(quint64 userId)
+void GoodReadsApi::FollowUser(const QString& userId)
 {
     auto reply = m_OAuth1->Post(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/user/%1/followers").arg(userId)), { { "format", "xml" } });
@@ -640,7 +640,7 @@ void GoodReadsApi::FollowUser(quint64 userId)
             this, &GoodReadsApi::handleFollowUser);
 }
 
-void GoodReadsApi::UnfollowUser(quint64 userId)
+void GoodReadsApi::UnfollowUser(const QString& userId)
 {
     auto reply = m_OAuth1->DeleteResource(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/user/%1/followers/stop_following?format=xml").arg(userId)));
@@ -878,7 +878,7 @@ void GoodReadsApi::handleAuthUser()
     const QString link(GetQueryResult(query, "/GoodreadsResponse/user/link/text()"));
 
     emit requestFinished();
-    emit gotAuthUserInfo(id.toLongLong(), name, link);
+    emit gotAuthUserInfo(id, name, link);
 }
 
 void GoodReadsApi::handleGetUserInfo()
@@ -980,7 +980,7 @@ void GoodReadsApi::handleMarkMessageAsRead()
     emit requestFinished();
 }
 
-void GoodReadsApi::handleGetBookShelves(quint64 userId)
+void GoodReadsApi::handleGetBookShelves(const QString& userId)
 {
     bool ok = false;
     auto doc = GetDocumentFromReply(sender(), ok);
@@ -1154,7 +1154,7 @@ void GoodReadsApi::handleGetSeries()
     emit requestFinished();
 }
 
-void GoodReadsApi::handleGetAuthorSeries(quint64 authorId)
+void GoodReadsApi::handleGetAuthorSeries(const QString& authorId)
 {
     bool ok = false;
     auto doc = GetDocumentFromReply(sender(), ok);
@@ -1236,7 +1236,7 @@ void GoodReadsApi::handleGetAuthor()
     emit requestFinished();
 }
 
-void GoodReadsApi::handleGetAuthorBooks(quint64 authorId)
+void GoodReadsApi::handleGetAuthorBooks(const QString& authorId)
 {
     bool ok = false;
     auto doc = GetDocumentFromReply(sender(), ok);
@@ -1263,11 +1263,11 @@ void GoodReadsApi::handleFollowAuthor()
     const QString followingId(GetQueryResult(query, "/GoodreadsResponse/author_following/id/text()"));
     const QString authorId(GetQueryResult(query, "/GoodreadsResponse/author_following/author/id/text()"));
 
-    emit authorFollowed(authorId.toULongLong(), followingId.toULongLong());
+    emit authorFollowed(authorId, followingId.toULongLong());
     emit requestFinished();
 }
 
-void GoodReadsApi::handleUnfollowAuthor(quint64 authorId)
+void GoodReadsApi::handleUnfollowAuthor(const QString& authorId)
 {
     bool ok = false;
     auto doc = GetDocumentFromReply(sender(), ok);
@@ -1282,7 +1282,7 @@ void GoodReadsApi::handleUnfollowAuthor(quint64 authorId)
     emit requestFinished();
 }
 
-void GoodReadsApi::handleGetGroups(quint64 userId)
+void GoodReadsApi::handleGetGroups(const QString& userId)
 {
     bool ok = false;
     auto doc = GetDocumentFromReply(sender(), ok);
@@ -1447,7 +1447,7 @@ void GoodReadsApi::handleTopicAdded(const QString& folderId)
     emit requestFinished();
 }
 
-void GoodReadsApi::handleNewCommentAdded(quint64 resourceId)
+void GoodReadsApi::handleNewCommentAdded(const QString& resourceId)
 {
     bool ok = false;
     auto doc = GetDocumentFromReply(sender(), ok);
@@ -1459,7 +1459,7 @@ void GoodReadsApi::handleNewCommentAdded(quint64 resourceId)
     emit requestFinished();
 }
 
-void GoodReadsApi::handleGetFriends(quint64 userId)
+void GoodReadsApi::handleGetFriends(const QString& userId)
 {
     bool ok = false;
     auto doc = GetDocumentFromReply(sender(), ok);
@@ -1472,7 +1472,7 @@ void GoodReadsApi::handleGetFriends(quint64 userId)
     emit requestFinished();
 }
 
-void GoodReadsApi::handleGetUserFollowers(quint64 userId)
+void GoodReadsApi::handleGetUserFollowers(const QString& userId)
 {
     bool ok = false;
     auto doc = GetDocumentFromReply(sender(), ok);
@@ -1485,7 +1485,7 @@ void GoodReadsApi::handleGetUserFollowers(quint64 userId)
     emit requestFinished();
 }
 
-void GoodReadsApi::handleGetUserFollowings(quint64 userId)
+void GoodReadsApi::handleGetUserFollowings(const QString& userId)
 {
     bool ok = false;
     auto doc = GetDocumentFromReply(sender(), ok);
@@ -1553,7 +1553,7 @@ void GoodReadsApi::handleDeclineFriendRecommendation()
     emit requestFinished();
 }
 
-void GoodReadsApi::handleAddFriend(quint64 userId)
+void GoodReadsApi::handleAddFriend(const QString& userId)
 {
     bool ok = false;
     auto doc = GetDocumentFromReply(sender(), ok);
@@ -1568,7 +1568,7 @@ void GoodReadsApi::handleAddFriend(quint64 userId)
     emit requestFinished();
 }
 
-void GoodReadsApi::handleRemoveFriend(quint64 userId)
+void GoodReadsApi::handleRemoveFriend(const QString& userId)
 {
     bool ok = false;
     auto doc = GetDocumentFromReply(sender(), ok);
@@ -1596,11 +1596,11 @@ void GoodReadsApi::handleFollowUser()
     query.setFocus(doc.toByteArray());
     const QString idStr(GetQueryResult(query, "/user-following/id/text()"));
     const QString userIdStr(GetQueryResult(query, "/user-following/user-id/text()"));
-    emit userFollowed(userIdStr.toULongLong() , idStr.toLongLong() > 0);
+    emit userFollowed(userIdStr , !idStr.isEmpty());
     emit requestFinished();
 }
 
-void GoodReadsApi::handleUnfollowUser(quint64 userId)
+void GoodReadsApi::handleUnfollowUser(const QString& userId)
 {
     bool ok = false;
     auto doc = GetDocumentFromReply(sender(), ok);

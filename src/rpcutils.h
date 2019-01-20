@@ -59,7 +59,7 @@ WorkPtr ParseWork(const QDomElement& element);
 SeriesPtr ParseSeries(const QDomElement& element);
 SeriesWorkPtr ParseSeriesWork(const QDomElement& element);
 MessagePtr ParseMessage(const QDomElement& element);
-quint64 ParseResourceId(const QDomElement& element);
+QString ParseResourceId(const QDomElement& element);
 NotificationPtr ParseNotification(const QDomElement& element);
 UpdatePtr ParseUpdate(const QDomElement& element);
 

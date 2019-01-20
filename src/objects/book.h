@@ -35,7 +35,7 @@ class Book : public QObject
 {
     Q_OBJECT
 
-    quint64 m_Id;
+    QString m_Id;
     QString m_ISBN;
     QString m_ISBN13;
     QString m_ASIN;
@@ -70,7 +70,7 @@ class Book : public QObject
     ReviewPtr m_Review;
     Reviews_t m_FriendReviews;
 
-    Q_PROPERTY(quint64 id READ GetId NOTIFY idChanged)
+    Q_PROPERTY(QString id READ GetId NOTIFY idChanged)
     Q_PROPERTY(QString isbn READ GetISBN NOTIFY isbnChanged)
     Q_PROPERTY(QString isbn13 READ GetISBN13 NOTIFY isbn13Changed)
     Q_PROPERTY(QString asin READ GetASIN NOTIFY asinChanged)
@@ -110,8 +110,8 @@ public:
     Book(QObject *parent = nullptr);
     ~Book();
 
-    quint64 GetId() const;
-    void SetId(quint64 id);
+    QString GetId() const;
+    void SetId(const QString& id);
     QString GetISBN() const;
     void SetISBN(const QString& isbn);
     QString GetISBN13() const;

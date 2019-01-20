@@ -27,7 +27,7 @@ THE SOFTWARE.
 namespace Sailreads
 {
 Friend::Friend()
-: m_Id(0)
+: m_Id("")
 , m_IsMutualFriend(false)
 {
 #ifdef QT_DEBUG
@@ -42,12 +42,12 @@ Friend::~Friend()
 #endif
 }
 
-quint64 Friend::GetId() const
+QString Friend::GetId() const
 {
     return m_Id;
 }
 
-void Friend::SetId(quint64 id)
+void Friend::SetId(const QString& id)
 {
     m_Id = id;
 }

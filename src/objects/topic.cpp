@@ -31,7 +31,7 @@ namespace Sailreads
 {
 Topic::Topic(QObject *parent)
 :QObject(parent)
-, m_Id(0)
+, m_Id("")
 , m_CommentsCount(0)
 , m_ContextId(0)
 , m_NewCommentsCount(0)
@@ -49,12 +49,12 @@ Topic::~Topic()
 #endif
 }
 
-quint64 Topic::GetId() const
+QString Topic::GetId() const
 {
     return m_Id;
 }
 
-void Topic::SetId(quint64 id)
+void Topic::SetId(const QString& id)
 {
     m_Id = id;
 }

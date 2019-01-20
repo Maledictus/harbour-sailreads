@@ -22,6 +22,7 @@ THE SOFTWARE.
 
 #pragma once
 
+#include <QString>
 #include <QDateTime>
 #include <QObject>
 
@@ -34,7 +35,7 @@ class UserStatusUpdate : public QObject
     Q_OBJECT
 
     quint64 m_Id;
-    quint64 m_UserId;
+    QString m_UserId;
     quint64 m_BookId;
     int m_Page;
     quint64 m_CommentsCount;
@@ -43,11 +44,11 @@ class UserStatusUpdate : public QObject
     QDateTime m_UpdateDate;
     int m_Percent;
     quint64 m_WorkId;
-    quint64 m_ReviewId;
+    QString m_ReviewId;
     BookPtr m_Book;
 
     Q_PROPERTY(quint64 id READ GetId NOTIFY idChanged)
-    Q_PROPERTY(quint64 userId READ GetUserId NOTIFY userIdChanged)
+    Q_PROPERTY(QString userId READ GetUserId NOTIFY userIdChanged)
     Q_PROPERTY(quint64 bookId READ GetBookId NOTIFY bookIdChanged)
     Q_PROPERTY(int page READ GetPage NOTIFY pageChanged)
     Q_PROPERTY(quint64 commentsCount READ GetCommentsCount NOTIFY commentsCountChanged)
@@ -56,7 +57,7 @@ class UserStatusUpdate : public QObject
     Q_PROPERTY(QDateTime updateDate READ GetUpdateDate NOTIFY updateDateChanged)
     Q_PROPERTY(int percent READ GetPercent NOTIFY percentChanged)
     Q_PROPERTY(quint64 workId READ GetWorkId NOTIFY workIdChanged)
-    Q_PROPERTY(quint64 reviewId READ GetReviewId NOTIFY reviewIdChanged)
+    Q_PROPERTY(QString reviewId READ GetReviewId NOTIFY reviewIdChanged)
     Q_PROPERTY(Book* book READ GetBook NOTIFY bookChanged)
 
 public:
@@ -64,8 +65,8 @@ public:
 
     quint64 GetId() const;
     void SetId(quint64 id);
-    quint64 GetUserId() const;
-    void SetUserId(quint64 id);
+    QString GetUserId() const;
+    void SetUserId(const QString& id);
     quint64 GetBookId() const;
     void SetBookId(quint64 id);
     int GetPage() const;
@@ -82,8 +83,8 @@ public:
     void SetPercent(int percent);
     quint64 GetWorkId() const;
     void SetWorkId(quint64 id);
-    quint64 GetReviewId() const;
-    void SetReviewId(quint64 id);
+    QString GetReviewId() const;
+    void SetReviewId(const QString& id);
     Book* GetBook() const;
     BookPtr GetBookPtr() const;
     void SetBook(const BookPtr& book);

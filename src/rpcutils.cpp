@@ -75,7 +75,7 @@ UserPtr ParseUser(const QDomElement& element)
     for (int i = 0, count = fieldsList.size(); i < count; ++i) {
         const auto& fieldElement = fieldsList.at(i).toElement();
         if (fieldElement.tagName() == "id") {
-            user->SetId(fieldElement.text().toULongLong());
+            user->SetId(fieldElement.text());
         }
         else if (fieldElement.tagName() == "name" || fieldElement.tagName() == "display_name") {
             user->SetUserName(fieldElement.text().trimmed());
@@ -389,7 +389,7 @@ Friend ParseFriend(const QDomElement& element)
     for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
         const auto& fieldElement = fieldsList.at (i).toElement ();
         if (fieldElement.tagName() == "id") {
-            fr.SetId(fieldElement.text().toULongLong());
+            fr.SetId(fieldElement.text());
         }
         else if (fieldElement.tagName() == "name") {
             fr.SetName(fieldElement.text().trimmed());
@@ -452,7 +452,7 @@ TopicPtr ParseTopic(const QDomElement& element)
     for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
         const auto& fieldElement = fieldsList.at (i).toElement ();
         if (fieldElement.tagName() == "id") {
-            topic->SetId(fieldElement.text().toULongLong());
+            topic->SetId(fieldElement.text());
         }
         else if (fieldElement.tagName() == "title") {
             topic->SetTitle(fieldElement.text().trimmed());
@@ -484,7 +484,7 @@ TopicPtr ParseTopic(const QDomElement& element)
             if (!author) {
                 author = std::make_shared<User>();
             }
-            author->SetId(fieldElement.text().toULongLong());
+            author->SetId(fieldElement.text());
             topic->SetAuthor(author);
         }
         else if (fieldElement.tagName() == "author_user_name") {
@@ -553,7 +553,7 @@ BookPtr ParseBook(const QDomElement& element)
     for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
         const auto& fieldElement = fieldsList.at (i).toElement ();
         if (fieldElement.tagName() == "id") {
-            book->SetId(fieldElement.text().toULongLong());
+            book->SetId(fieldElement.text());
         }
         else if (fieldElement.tagName() == "isbn") {
             book->SetISBN(fieldElement.text().trimmed());
@@ -669,7 +669,7 @@ ReviewPtr ParseReview(const QDomElement& element)
     for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
         const auto& fieldElement = fieldsList.at (i).toElement ();
         if (fieldElement.tagName() == "id") {
-            review->SetId(fieldElement.text().toULongLong());
+            review->SetId(fieldElement.text());
         }
         else if (fieldElement.tagName() == "book") {
             review->SetBook(ParseBook(fieldElement));
@@ -757,7 +757,7 @@ AuthorPtr ParseAuthor(const QDomElement& element)
     for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
         const auto& fieldElement = fieldsList.at (i).toElement ();
         if (fieldElement.tagName() == "id") {
-            author->SetId(fieldElement.text().toULongLong());
+            author->SetId(fieldElement.text());
         }
         else if (fieldElement.tagName() == "name") {
             author->SetName(fieldElement.text().trimmed());
@@ -820,7 +820,7 @@ AuthorPtr ParseAuthor(const QDomElement& element)
 
             QDomElement idElem = fieldElement.firstChildElement("id");
             if (!idElem.isNull()) {
-                author->SetUserId(idElem.text().toULongLong());
+                author->SetUserId(idElem.text());
             }
         }
         else if (fieldElement.tagName() == "books") {
@@ -989,7 +989,7 @@ MessagePtr ParseMessage(const QDomElement& element)
     return message;
 }
 
-quint64 ParseResourceId(const QDomElement& element)
+QString ParseResourceId(const QDomElement& element)
 {
     const auto& resourceList = element.childNodes();
     for (int i = 0, fieldsCount = resourceList.size(); i < fieldsCount; ++i) {
@@ -1005,7 +1005,7 @@ quint64 ParseResourceId(const QDomElement& element)
             for (int j = 0, frFieldsCount = friendList.size(); j < frFieldsCount; ++j) {
                 const auto& friendFieldElement = friendList.at(j).toElement ();
                 if (friendFieldElement.tagName() == "user_id") {
-                    return friendFieldElement.text().toULongLong();
+                    return friendFieldElement.text();
                 }
             }
         }
@@ -1074,10 +1074,10 @@ ReadStatusUpdate* ParseReadStatusUpdate(const QDomElement& element)
             rsu->SetId(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "review_id") {
-            rsu->SetReviewId(fieldElement.text().toULongLong());
+            rsu->SetReviewId(fieldElement.text());
         }
         else if (fieldElement.tagName() == "user_id") {
-            rsu->SetUserId(fieldElement.text().toULongLong());
+            rsu->SetUserId(fieldElement.text());
         }
         else if (fieldElement.tagName() == "old_status") {
             rsu->SetOldStatus(fieldElement.text());
@@ -1110,7 +1110,7 @@ UserStatusUpdate* ParseUserStatusUpdate(const QDomElement& element)
             usu->SetId(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "user_id") {
-            usu->SetUserId(fieldElement.text().toULongLong());
+            usu->SetUserId(fieldElement.text());
         }
         else if (fieldElement.tagName() == "book_id") {
             usu->SetBookId(fieldElement.text().toULongLong());
@@ -1139,7 +1139,7 @@ UserStatusUpdate* ParseUserStatusUpdate(const QDomElement& element)
             usu->SetWorkId(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "review_id") {
-            usu->SetReviewId(fieldElement.text().toULongLong());
+            usu->SetReviewId(fieldElement.text());
         }
         else if (fieldElement.tagName() == "book") {
             usu->SetBook(ParseBook(fieldElement));

@@ -434,7 +434,7 @@ Page {
                     indicator.size: BusyIndicatorSize.Medium
                     onClicked:  {
                         pageStack.push(Qt.resolvedUrl("BookPage.qml"),
-                                { bookId: book ? book.similarBooks[index].id : 0,
+                                { bookId: book ? book.similarBooks[index].id : "",
                                     book: book ? book.similarBooks[index] : undefined })
                     }
                 }

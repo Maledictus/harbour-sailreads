@@ -29,7 +29,7 @@ namespace Sailreads
 {
 AuthorSeriesModel::AuthorSeriesModel(QObject *parent)
 : BaseModel<SeriesPtr>(parent)
-, m_AuthorId(0)
+, m_AuthorId("")
 , m_HasMore(true)
 , m_CurrentPage(1)
 {
@@ -72,12 +72,12 @@ QHash<int, QByteArray> AuthorSeriesModel::roleNames() const
     return roles;
 }
 
-quint64 AuthorSeriesModel::GetAuthorId() const
+QString AuthorSeriesModel::GetAuthorId() const
 {
     return m_AuthorId;
 }
 
-void AuthorSeriesModel::SetAuthorId(quint64 id)
+void AuthorSeriesModel::SetAuthorId(const QString& id)
 {
     if (m_AuthorId != id) {
         m_AuthorId = id;
@@ -99,7 +99,7 @@ void AuthorSeriesModel::SetHasMore(bool has)
     }
 }
 
-void AuthorSeriesModel::handleGotAuthorSeries(quint64 authorId, const Series_t& series)
+void AuthorSeriesModel::handleGotAuthorSeries(const QString& authorId, const Series_t& series)
 {
     if (m_AuthorId != authorId) {
         return;
@@ -110,7 +110,7 @@ void AuthorSeriesModel::handleGotAuthorSeries(quint64 authorId, const Series_t& 
 
 void AuthorSeriesModel::loadAuthorSeries()
 {
-    if (m_AuthorId <= 0) {
+    if (m_AuthorId.isEmpty()) {
         return;
     }
     SailreadsManager::Instance()->loadAuthorSeries(this, m_AuthorId);

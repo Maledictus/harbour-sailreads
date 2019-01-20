@@ -30,8 +30,8 @@ class TopicCommentsModel: public BaseCommentsModel
 {
     Q_OBJECT
 
-    quint64 m_TopicId;
-    Q_PROPERTY(quint64 topicId READ GetTopicId WRITE SetTopicId NOTIFY topicIdChanged)
+    QString m_TopicId;
+    Q_PROPERTY(QString topicId READ GetTopicId WRITE SetTopicId NOTIFY topicIdChanged)
 
 public:
     explicit TopicCommentsModel(QObject *parent = nullptr);
@@ -39,12 +39,12 @@ public:
     virtual void classBegin() override;
     virtual void componentComplete() override;
 
-    quint64 GetTopicId() const;
-    void SetTopicId(quint64 id);
+    QString GetTopicId() const;
+    void SetTopicId(const QString& id);
 
 private slots:
     void handleGotGroupFolderTopic(const TopicPtr& topic);
-    void handleNewCommentAdded(quint64 resourceId, const Comment& comment);
+    void handleNewCommentAdded(const QString& resourceId, const Comment& comment);
 public slots:
     void fetchMoreContent();
 

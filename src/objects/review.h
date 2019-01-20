@@ -36,7 +36,7 @@ class Review: public QObject
 {
     Q_OBJECT
 
-    quint64 m_Id;
+    QString m_Id;
     BookPtr m_Book;
     int m_Rating;
     int m_Votes;
@@ -53,7 +53,7 @@ class Review: public QObject
     UserPtr m_User;
     CountedItems<Comment> m_Comments;
 
-    Q_PROPERTY(quint64 id READ GetId NOTIFY idChanged)
+    Q_PROPERTY(QString id READ GetId NOTIFY idChanged)
     Q_PROPERTY(Book* book READ GetBook NOTIFY bookChanged)
     Q_PROPERTY(int rating READ GetRating NOTIFY ratingChanged)
     Q_PROPERTY(int votes READ GetVotes NOTIFY votesChanged)
@@ -74,8 +74,8 @@ public:
     Review(QObject *parent = nullptr);
     ~Review();
 
-    quint64 GetId() const;
-    void SetId(quint64 id);
+    QString GetId() const;
+    void SetId(const QString& id);
     Book* GetBook() const;
     BookPtr GetBookPtr() const;
     void SetBook(const BookPtr& book);

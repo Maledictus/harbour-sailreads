@@ -33,7 +33,7 @@ namespace Sailreads
 {
 Book::Book(QObject *parent)
 : QObject(parent)
-, m_Id(0)
+, m_Id("")
 , m_TextReviewsCount(0)
 , m_NumPages(0)
 , m_PublicationYear(0)
@@ -55,12 +55,12 @@ Book::~Book()
 #endif
 }
 
-quint64 Book::GetId() const
+QString Book::GetId() const
 {
     return m_Id;
 }
 
-void Book::SetId(quint64 id)
+void Book::SetId(const QString& id)
 {
     m_Id = id;
 }

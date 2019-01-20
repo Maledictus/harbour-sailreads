@@ -23,7 +23,7 @@ void FollowersModel::fetchMoreContent()
 
 void FollowersModel::loadUsers()
 {
-    if (m_UserId <= 0) {
+    if (m_UserId.isEmpty()) {
         return;
     }
     SailreadsManager::Instance()->loadUserFollowers(this, m_UserId);

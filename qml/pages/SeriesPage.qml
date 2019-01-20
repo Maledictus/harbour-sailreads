@@ -85,7 +85,7 @@ Page {
             onClicked: {
                 pageStack.push(Qt.resolvedUrl("BookPage.qml"),
                         { bookId: (modelData.work !== null && modelData.work.bestBook !== null ?
-                                modelData.work.bestBook.id : 0) })
+                                modelData.work.bestBook.id : "") })
             }
         }
 

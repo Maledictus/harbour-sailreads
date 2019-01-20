@@ -34,11 +34,11 @@ class BookShelvesModel : public BaseModel<BookShelf>
 
     Q_ENUMS(BookShelfRoles)
 
-    quint64 m_UserId;
+    QString m_UserId;
     bool m_HasMore;
     quint64 m_CurrentPage;
 
-    Q_PROPERTY(quint64 userId READ GetUserId WRITE SetUserId NOTIFY userIdChanged)
+    Q_PROPERTY(QString userId READ GetUserId WRITE SetUserId NOTIFY userIdChanged)
     Q_PROPERTY(bool hasMore READ GetHasMore WRITE SetHasMore NOTIFY hasMoreChanged)
 
 public:
@@ -59,14 +59,15 @@ public:
     virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
     virtual QHash<int, QByteArray> roleNames() const override;
 
-    quint64 GetUserId() const;
-    void SetUserId(quint64 id);
+    QString GetUserId() const;
+    void SetUserId(const QString& id);
 
     bool GetHasMore() const;
     void SetHasMore(bool has);
 
 private slots:
-    void handleGotUserBookShelves(quint64 userId, const CountedItems<BookShelf> bookshelves);
+    void handleGotUserBookShelves(const QString& userId,
+            const CountedItems<BookShelf> bookshelves);
     void handleBookShelfAdded(const BookShelf& shelf);
     void handleBookShelfEdited(const BookShelf& shelf);
 public slots:

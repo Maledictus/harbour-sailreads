@@ -31,7 +31,7 @@ import "../components"
 Page {
     id: bookShelvesPage
 
-    property int userId: 0
+    property string userId: ""
     property string userName
     property bool busy: sailreadsManager.busy && bookShelvesPage.status === PageStatus.Active
 

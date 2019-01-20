@@ -28,7 +28,7 @@ namespace Sailreads
 {
 AuthorBooksModel::AuthorBooksModel(QObject *parent)
 : BaseBooksModel(parent)
-, m_AuthorId(0)
+, m_AuthorId("")
 {
 }
 
@@ -43,12 +43,12 @@ void AuthorBooksModel::componentComplete()
 {
 }
 
-quint64 AuthorBooksModel::GetAuthorId() const
+QString AuthorBooksModel::GetAuthorId() const
 {
     return m_AuthorId;
 }
 
-void AuthorBooksModel::SetAuthorId(quint64 authorId)
+void AuthorBooksModel::SetAuthorId(const QString& authorId)
 {
     if (m_AuthorId == authorId) {
         return;
@@ -67,13 +67,13 @@ void AuthorBooksModel::fetchMoreContent()
 
 void AuthorBooksModel::loadAuthorBooks()
 {
-    if (m_AuthorId <= 0) {
+    if (m_AuthorId.isEmpty()) {
         return;
     }
     SailreadsManager::Instance()->loadAuthorBooks(this, m_AuthorId);
 }
 
-void AuthorBooksModel::handleGotAuthorBooks(quint64 authorId, const CountedItems<BookPtr>& books)
+void AuthorBooksModel::handleGotAuthorBooks(const QString& authorId, const CountedItems<BookPtr>& books)
 {
     if (m_AuthorId != authorId) {
         return;

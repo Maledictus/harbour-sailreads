@@ -31,8 +31,6 @@ import "../utils/Utils.js" as Utils
 Page {
     id: groupFodlerTopicPage
 
-    property int groupId: 0
-    property int groupFolderId: 0
     property alias topicId: topicItem.topicId
     property bool busy: sailreadsManager.busy && groupFodlerTopicPage.status === PageStatus.Active
 

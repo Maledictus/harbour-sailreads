@@ -32,8 +32,8 @@ class AuthorBooksModel : public BaseBooksModel
 {
     Q_OBJECT
 
-    quint64 m_AuthorId;
-    Q_PROPERTY(quint64 authorId READ GetAuthorId WRITE SetAuthorId NOTIFY authorIdChanged)
+    QString m_AuthorId;
+    Q_PROPERTY(QString authorId READ GetAuthorId WRITE SetAuthorId NOTIFY authorIdChanged)
 
 public:
     AuthorBooksModel(QObject *parent = nullptr);
@@ -41,14 +41,14 @@ public:
     virtual void classBegin() override;
     virtual void componentComplete() override;
 
-    quint64 GetAuthorId() const;
-    void SetAuthorId(quint64 authorId);
+    QString GetAuthorId() const;
+    void SetAuthorId(const QString& authorId);
 
 public slots:
     virtual void fetchMoreContent() override;
     void loadAuthorBooks();
 private slots:
-    void handleGotAuthorBooks(quint64 authorId, const CountedItems<BookPtr>& books);
+    void handleGotAuthorBooks(const QString& authorId, const CountedItems<BookPtr>& books);
 
 signals:
     void authorIdChanged();

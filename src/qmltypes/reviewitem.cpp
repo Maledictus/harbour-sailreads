@@ -29,18 +29,18 @@ namespace Sailreads
 {
 ReviewItem::ReviewItem(QObject *parent)
 : ItemRequestCanceler(parent)
-, m_ReviewId(0)
+, m_ReviewId("")
 {
     connect(SailreadsManager::Instance(), &SailreadsManager::gotReview,
             this, &ReviewItem::handleGotReview);
 }
 
-quint64 ReviewItem::GetReviewId() const
+QString ReviewItem::GetReviewId() const
 {
     return m_ReviewId;
 }
 
-void ReviewItem::SetReviewId(quint64 reviewId)
+void ReviewItem::SetReviewId(const QString& reviewId)
 {
     if (m_ReviewId == reviewId) {
         return;
@@ -84,15 +84,18 @@ void ReviewItem::SetReview(const ReviewPtr& review)
 
 void ReviewItem::handleGotReview(const ReviewPtr& review)
 {
-    if (!review || m_ReviewId != review->GetId()) {
+    if (!review || (m_ReviewId != review->GetId() && !m_ReviewId.startsWith(review->GetId()))) {
         return;
     }
+
+    m_ReviewId = review->GetId();
+    emit reviewIdChanged();
     SetReview(review);
 }
 
 void ReviewItem::loadReview()
 {
-    if (m_ReviewId <= 0) {
+    if (m_ReviewId.isEmpty()) {
         return;
     }
     SailreadsManager::Instance()->loadReview(this, m_ReviewId);

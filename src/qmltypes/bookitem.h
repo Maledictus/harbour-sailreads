@@ -33,16 +33,16 @@ class BookItem: public ItemRequestCanceler
 {
     Q_OBJECT
 
-    quint64 m_BookId;
+    QString m_BookId;
     BookPtr m_Book;
 
-    Q_PROPERTY(quint64 bookId READ GetBookId WRITE SetBookId NOTIFY bookIdChanged)
+    Q_PROPERTY(QString bookId READ GetBookId WRITE SetBookId NOTIFY bookIdChanged)
     Q_PROPERTY(Book* book READ GetBook WRITE SetBook NOTIFY bookChanged)
 public:
     BookItem(QObject *parent = nullptr);
 
-    quint64 GetBookId() const;
-    void SetBookId(quint64 bookId);
+    QString GetBookId() const;
+    void SetBookId(const QString& bookId);
     Book* GetBook() const;
     void SetBook(Book *book);
     void SetBook(const BookPtr& book);

@@ -27,8 +27,8 @@ namespace Sailreads
 ReadStatusUpdate::ReadStatusUpdate(QObject *parent)
 : QObject(parent)
 , m_Id(0)
-, m_ReviewId(0)
-, m_UserId(0)
+, m_ReviewId("")
+, m_UserId("")
 {
 }
 
@@ -45,12 +45,12 @@ void ReadStatusUpdate::SetId(quint64 id)
     }
 }
 
-quint64 ReadStatusUpdate::GetReviewId() const
+QString ReadStatusUpdate::GetReviewId() const
 {
     return m_ReviewId;
 }
 
-void ReadStatusUpdate::SetReviewId(quint64 id)
+void ReadStatusUpdate::SetReviewId(const QString& id)
 {
     if (m_ReviewId != id) {
         m_ReviewId = id;
@@ -58,12 +58,12 @@ void ReadStatusUpdate::SetReviewId(quint64 id)
     }
 }
 
-quint64 ReadStatusUpdate::GetUserId() const
+QString ReadStatusUpdate::GetUserId() const
 {
     return m_UserId;
 }
 
-void ReadStatusUpdate::SetUserId(quint64 id)
+void ReadStatusUpdate::SetUserId(const QString& id)
 {
     if (m_UserId != id) {
         m_UserId = id;

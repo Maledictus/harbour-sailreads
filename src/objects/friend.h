@@ -30,7 +30,7 @@ namespace Sailreads
 {
 class Friend
 {
-    quint64 m_Id;
+    QString m_Id;
     QString m_Name;
     QUrl m_Url;
     QUrl m_AvatarUrl;
@@ -43,8 +43,8 @@ public:
     explicit Friend();
     ~Friend();
 
-    quint64 GetId() const;
-    void SetId(quint64 id);
+    QString GetId() const;
+    void SetId(const QString& id);
     QString GetName() const;
     void SetName(const QString& name);
     QUrl GetUrl() const;

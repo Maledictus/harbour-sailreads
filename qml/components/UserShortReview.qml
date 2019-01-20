@@ -89,7 +89,7 @@ Item {
             id: dateLabelItem
             visible: text !== ""
             font.pixelSize: headerFontSize
-            color: Theme.highlightColor
+            color: Theme.secondaryHighlightColor
         }
     }
 

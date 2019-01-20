@@ -30,7 +30,7 @@ namespace Sailreads
 {
 Review::Review(QObject *parent)
 : QObject(parent)
-, m_Id(0)
+, m_Id("")
 , m_Rating(0)
 , m_Votes(0)
 , m_ReadCount(0)
@@ -49,12 +49,12 @@ Review::~Review()
 #endif
 }
 
-quint64 Review::GetId() const
+QString Review::GetId() const
 {
     return m_Id;
 }
 
-void Review::SetId(quint64 id)
+void Review::SetId(const QString& id)
 {
     m_Id = id;
 }

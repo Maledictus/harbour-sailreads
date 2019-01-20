@@ -84,11 +84,11 @@ public slots:
     void authenticateUser();
     void logout();
 
-    void getUserInfo(QObject *requester, quint64 id);
+    void getUserInfo(QObject *requester, const QString& id);
     void loadUpdates(QObject *requester, const QString& scope, const QString& items,
             const QDateTime& dt = QDateTime());
-    void loadUserFollowings(QObject *requester, quint64 userId, int page = 1);
-    void loadUserFollowers(QObject *requester, quint64 userId, int page = 1);
+    void loadUserFollowings(QObject *requester, const QString& userId, int page = 1);
+    void loadUserFollowers(QObject *requester, const QString& userId, int page = 1);
 
     void loadMessages(QObject *requester, const QString& folder, int page = 1);
     void loadMessage(QObject *requester, quint64 messageId);
@@ -96,68 +96,69 @@ public slots:
 
     void loadNotifications(QObject *requester, const QString& pageToken);
 
-    void loadBookShelves(QObject *requester, quint64 id, int page = 1);
+    void loadBookShelves(QObject *requester, const QString& id, int page = 1);
     void addBookShelf(const QString& name, bool exclusive, bool sortable, bool featured,
             bool recommendFor);
     void editBookShelf(quint64 id, const QString& name, bool exclusive, bool sortable, bool featured,
             bool recommendFor);
 
-    void loadReviews(QObject *requester, quint64 userId, const QString& bookShelf, int page = 1,
+    void loadReviews(QObject *requester, const QString& userId, const QString& bookShelf, int page = 1,
             Qt::SortOrder order = Qt::DescendingOrder, const QString& sortField = "date_added");
-    void loadReview(QObject *requester, quint64 reviewId, int commentsPage = 1);
-    void searchReviews(QObject *requester, quint64 userId, const QString& searchText, int page = 1);
+    void loadReview(QObject *requester, const QString& reviewId, int commentsPage = 1);
+    void searchReviews(QObject *requester, const QString& userId,
+            const QString& searchText, int page = 1);
 
-    void loadBook(QObject *requester, quint64 bookId);
+    void loadBook(QObject *requester, const QString& bookId);
     void loadBookEditions(QObject *requester, quint64 workId, int page = 1);
 
     void loadSeries(QObject *requester, quint64 seriesId);
 
-    void loadFriends(QObject *requester, quint64 userId, int page = 1);
+    void loadFriends(QObject *requester, const QString& userId, int page = 1);
     void confirmFriendRequest(quint64 friendRequestId, bool confirm);
-    void followUser(quint64 id);
-    void unfollowUser(quint64 id);
-    void addAsFriend(quint64 id);
-    void removeFriend(quint64 id);
+    void followUser(const QString& userId);
+    void unfollowUser(const QString& userId);
+    void addAsFriend(const QString& userId);
+    void removeFriend(const QString& userId);
 
-    void loadGroups(QObject *requester, quint64 userId, int page = 1);
+    void loadGroups(QObject *requester, const QString& userId, int page = 1);
     void loadGroup(QObject *requester, quint64 groupId);
     void joinGroup(quint64 groupId);
     void searchGroup(QObject *requester, const QString& text, int page = 1);
     void loadGroupMembers(QObject *requester, quint64 groupId, int page = 1);
     void loadGroupFolderTopics(QObject *requester, const QString& groupFolderId,
             quint64 groupId, int page = 1);
-    void loadGroupFolderTopic(QObject *requester, quint64 topicId, int page = 1);
+    void loadGroupFolderTopic(QObject *requester, const QString& topicId, int page = 1);
 
     void addNewTopic(const QString& topic, const QString& subject, quint64 subjectId,
             const QString& folderId, bool question, bool updateFeed, bool digest,
             const QString& comment);
 
-    void addNewComment(const QString& type, quint64 resourceId, const QString& comment);
+    void addNewComment(const QString& type, const QString& resourceId, const QString& comment);
 
     void addBookToShelves(quint64 bookId, const QStringList& shelves);
 
-    void loadAuthorProfile(QObject *requester, quint64 authorId);
-    void loadAuthorBooks(QObject *requester, quint64 authorId, int page = 1);
-    void loadAuthorSeries(QObject *requester, quint64 authorId);
-    void followAuthor(quint64 authorId);
-    void unfollowAuthor(quint64 authorId, quint64 followingId);
+    void loadAuthorProfile(QObject *requester, const QString& authorId);
+    void loadAuthorBooks(QObject *requester, const QString& authorId, int page = 1);
+    void loadAuthorSeries(QObject *requester, const QString& authorId);
+    void followAuthor(const QString& authorId);
+    void unfollowAuthor(const QString& authorId, quint64 followingId);
 
 signals:
     void busyChanged();
     void loggedChanged();
     void authUserChanged();
 
-    void gotAuthUserId(quint64 authUserId);
+    void gotAuthUserId(const QString& authUserId);
     void gotUserProfile(const UserPtr& userProfile);
 
     void gotUpdates(const Updates_t& updates);
-    void gotUserUpdates(quint64 userId, const Updates_t& updates);
+    void gotUserUpdates(const QString& userId, const Updates_t& updates);
 
     void gotMessages(const QString& folder, const CountedItems<MessagePtr>& messages);
     void gotMessage(const MessagePtr& message);
     void gotNotifications(const QString& nextPageToken, const Notifications_t& notifications);
 
-    void gotUserBookShelves(quint64 userId, const CountedItems<BookShelf>& shelves);
+    void gotUserBookShelves(const QString& userId, const CountedItems<BookShelf>& shelves);
     void bookShelfAdded(const BookShelf& shelf);
     void bookShelfEdited(const BookShelf& shelf);
 
@@ -169,25 +170,25 @@ signals:
     void gotBookEditions(quint64 workId, const CountedItems<BookPtr>& books);
 
     void gotAuthorProfile(const AuthorPtr& author);
-    void authorFollowed(quint64 authorId, quint64 followingId);
-    void authorUnfollowed(quint64 authorId);
-    void gotAuthorBooks(quint64 authorId, const CountedItems<BookPtr>& books);
-    void gotAuthorSeries(quint64 authorId, const Series_t& series);
+    void authorFollowed(const QString& authorId, quint64 followingId);
+    void authorUnfollowed(const QString& authorId);
+    void gotAuthorBooks(const QString& authorId, const CountedItems<BookPtr>& books);
+    void gotAuthorSeries(const QString& authorId, const Series_t& series);
 
     void gotSeries(const SeriesPtr& series);
 
-    void gotUserFriends(quint64 userId, const CountedItems<Friend>& friends);
-    void gotUserFollowings(quint64 userId, const CountedItems<Friend>& friends);
-    void gotUserFollowers(quint64 userId, const CountedItems<Friend>& friends);
+    void gotUserFriends(const QString& userId, const CountedItems<Friend>& friends);
+    void gotUserFollowings(const QString& userId, const CountedItems<Friend>& friends);
+    void gotUserFollowers(const QString& userId, const CountedItems<Friend>& friends);
     void friendRequestConfirmed(quint64 friendRequestId, bool confirmed);
-    void userFollowed(quint64 userId, bool success);
-    void userUnfollowed(quint64 userId, bool success);
-    void friendAdded(quint64 userId);
-    void friendRemoved(quint64 userId);
+    void userFollowed(const QString& userId, bool success);
+    void userUnfollowed(const QString& userId, bool success);
+    void friendAdded(const QString& userId);
+    void friendRemoved(const QString& userId);
 
-    void newCommentAdded(quint64 resourceId, const Comment& comment);
+    void newCommentAdded(const QString& resourceId, const Comment& comment);
 
-    void gotUserGroups(quint64 userId, const CountedItems<GroupPtr>& groups);
+    void gotUserGroups(const QString& userId, const CountedItems<GroupPtr>& groups);
     void gotUserGroup(quint64 inGroupId, const GroupPtr& inGroup);
     void gotFoundGroups(const CountedItems<GroupPtr>& groups);
     void gotGroupMembers(quint64 groupId, const GroupMembers_t& members);

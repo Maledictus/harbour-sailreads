@@ -31,16 +31,16 @@ class UserGroupsModel : public GroupsModel
 {
     Q_OBJECT
 
-    quint64 m_UserId;
+    QString m_UserId;
     bool m_HasMore;
     quint64 m_CurrentPage;
-    Q_PROPERTY(quint64 userId READ GetUserId WRITE SetUserId NOTIFY userIdChanged)
+    Q_PROPERTY(QString userId READ GetUserId WRITE SetUserId NOTIFY userIdChanged)
     Q_PROPERTY(bool hasMore READ GetHasMore WRITE SetHasMore NOTIFY hasMoreChanged)
 public:
     explicit UserGroupsModel(QObject *parent = nullptr);
 
-    quint64 GetUserId() const;
-    void SetUserId(quint64 id);
+    QString GetUserId() const;
+    void SetUserId(const QString& id);
     bool GetHasMore() const;
     void SetHasMore(bool has);
 
@@ -48,7 +48,7 @@ public slots:
     void fetchMoreContent();
     void loadGroups();
 private slots:
-    void handleGotUserGroups(quint64 userId, const CountedItems<GroupPtr>& groups);
+    void handleGotUserGroups(const QString& userId, const CountedItems<GroupPtr>& groups);
 
 signals:
     void userIdChanged();

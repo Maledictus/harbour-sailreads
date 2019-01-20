@@ -35,16 +35,16 @@ class ReadStatusUpdate : public QObject
     Q_OBJECT
 
     quint64 m_Id;
-    quint64 m_ReviewId;
-    quint64 m_UserId;
+    QString m_ReviewId;
+    QString m_UserId;
     QString m_OldStatus;
     QString m_CurrentStatus;
     QDateTime m_UpdatedDate;
     BookPtr m_Book;
 
     Q_PROPERTY(quint64 id READ GetId NOTIFY idChanged)
-    Q_PROPERTY(quint64 reviewId READ GetReviewId NOTIFY reviewIdChanged)
-    Q_PROPERTY(quint64 userId READ GetUserId NOTIFY userIdChanged)
+    Q_PROPERTY(QString reviewId READ GetReviewId NOTIFY reviewIdChanged)
+    Q_PROPERTY(QString userId READ GetUserId NOTIFY userIdChanged)
     Q_PROPERTY(QString oldStatus READ GetOldStatus NOTIFY oldStatusChanged)
     Q_PROPERTY(QString currentStatus READ GetCurrentStatus NOTIFY currentStatusChanged)
     Q_PROPERTY(QDateTime updateDate READ GetUpdateDate NOTIFY updateDateChanged)
@@ -55,10 +55,10 @@ public:
 
     quint64 GetId() const;
     void SetId(quint64 id);
-    quint64 GetReviewId() const;
-    void SetReviewId(quint64 id);
-    quint64 GetUserId() const;
-    void SetUserId(quint64 id);
+    QString GetReviewId() const;
+    void SetReviewId(const QString& id);
+    QString GetUserId() const;
+    void SetUserId(const QString& id);
     QString GetOldStatus() const;
     void SetOldStatus(const QString& status);
     QString GetCurrentStatus() const;

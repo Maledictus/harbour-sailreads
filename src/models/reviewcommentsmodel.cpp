@@ -28,7 +28,7 @@ namespace Sailreads
 {
 ReviewCommentsModel::ReviewCommentsModel(QObject *parent)
 : BaseCommentsModel(parent)
-, m_ReviewId(0)
+, m_ReviewId("")
 {
 }
 
@@ -43,12 +43,12 @@ void ReviewCommentsModel::componentComplete()
 {
 }
 
-quint64 ReviewCommentsModel::GetReviewId() const
+QString ReviewCommentsModel::GetReviewId() const
 {
     return m_ReviewId;
 }
 
-void ReviewCommentsModel::SetReviewId(quint64 id)
+void ReviewCommentsModel::SetReviewId(const QString& id)
 {
     if (m_ReviewId != id) {
         m_ReviewId = id;
