@@ -91,7 +91,8 @@ ApplicationWindow {
                     { topicId: id })
             break
         case "read_statuses":
-            console.log("READ_STATUS: ", id)
+            pageStack.push(Qt.resolvedUrl("pages/ReadStatusPage.qml"),
+                    { readStatusId: id })
             break
         case "review/show":
             pageStack.push(Qt.resolvedUrl("pages/ReviewPage.qml"),

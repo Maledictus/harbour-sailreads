@@ -49,6 +49,7 @@ THE SOFTWARE.
 #include "models/groupfoldersmodel.h"
 #include "models/groupmembersmodel.h"
 #include "models/groupfoldertopicsmodel.h"
+#include "models/readstatuscommentsmodel.h"
 #include "models/reviewsmodel.h"
 #include "models/searchreviewsmodel.h"
 #include "models/updatesmodel.h"
@@ -212,6 +213,7 @@ void Application::start()
     qmlRegisterType<UpdatesModel>("harbour.sailreads", 1, 0, "UpdatesModel");
     qmlRegisterType<ProfileUpdatesModel>("harbour.sailreads", 1, 0, "ProfileUpdatesModel");
     qmlRegisterType<CommentsModel>("harbour.sailreads", 1, 0, "CommentsModel");
+    qmlRegisterType<ReadStatusCommentsModel>("harbour.sailreads", 1, 0, "ReadStatusCommentsModel");
 
     qmlRegisterType<UserProfile>("harbour.sailreads", 1, 0, "UserProfile");
     qmlRegisterType<GroupItem>("harbour.sailreads", 1, 0, "GroupItem");

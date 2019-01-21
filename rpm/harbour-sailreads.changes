@@ -18,6 +18,21 @@
 # - UI improvements
 # - Code improvements
 
+#* Sat Jan 12 2019 Oleg Linkin <maledictusdemagog@gmail.com> 0.3.5
+# - Sorting books on your shelves
+# - Search book on all your shelves
+# - Open native page from url: topic/user/author/review/book
+# - Update pullmenus(add busy indication)
+# - Add recent updates to profile page
+# - Add friends updates(Friends->Friends Updates) with filtering
+# - Improve sending and aboring network requests
+# - Fix group search(clear results on new search)
+# - Fix loading topics from general group folder
+# - Add possibility to create topics in general folder(Group->Add new topic)
+# - Show newly added comment if possible
+# - Fix friends reviews action text
+# - Rewrite group topic comments page
+
 * Sat Jan 12 2019 Oleg Linkin <maledictusdemagog@gmail.com> 0.3.0
  - Messages(only view)
  - Notificaitons(content opens in embeded webview)

@@ -1098,6 +1098,24 @@ Pull down to refresh or to search groups</source>
     </message>
 </context>
 <context>
+    <name>ReadStatusPage</name>
+    <message>
+        <location filename="../qml/pages/ReadStatusPage.qml" line="79"/>
+        <source>Refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ReadStatusPage.qml" line="116"/>
+        <source>Read Status</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ReadStatusPage.qml" line="249"/>
+        <source>Comments</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ReviewPage</name>
     <message>
         <location filename="../qml/pages/ReviewPage.qml" line="79"/>
