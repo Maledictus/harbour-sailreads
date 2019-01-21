@@ -153,8 +153,8 @@ Page {
             }
 
             PushUpMenu {
+                enabled: sailreadsManager.authUser.id === userId
                 MenuItem {
-                    visible: sailreadsManager.authUser.id === userId
                     text: qsTr("About")
                     onClicked: pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
                 }
