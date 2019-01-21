@@ -87,7 +87,6 @@ ApplicationWindow {
         var id = match[3]
         switch (path) {
         case "topic/show":
-            console.log("TOPIC: ", id)
             pageStack.push(Qt.resolvedUrl("pages/GroupFolderTopicPage.qml"),
                     { topicId: id })
             break
@@ -95,22 +94,18 @@ ApplicationWindow {
             console.log("READ_STATUS: ", id)
             break
         case "review/show":
-            console.log("REVIEW: ", id)
             pageStack.push(Qt.resolvedUrl("pages/ReviewPage.qml"),
                     { reviewId: id })
             break
         case "user/show":
-            console.log("USER: ", id)
             pageStack.push(Qt.resolvedUrl("pages/ProfilePage.qml"),
                     { userId : id })
             break
         case "book/show":
-            console.log("BOOK: ", id)
             pageStack.push(Qt.resolvedUrl("pages/BookPage.qml"),
                     { bookId: id })
             break
         case "author/show":
-            console.log("AUTHOR: ", id)
             pageStack.push(Qt.resolvedUrl("pages/AuthorPage.qml"),
                     { authorId: id })
             break

@@ -234,74 +234,74 @@ Page {
                 }
             }
 
-            SectionHeader {
-                text: qsTr("My review")
-                visible: false //TODObook && book.review
-            }
+//            SectionHeader {
+//                text: qsTr("My review")
+//                visible: false //TODObook && book.review
+//            }
 
-            Button {
-                anchors.horizontalCenter: parent.horizontalCenter
-                text: qsTr("Write a Review")
-                visible: false //TODO book && book.review && book.review.body === ""
-                onClicked: {
-                }
-            }
+//            Button {
+//                anchors.horizontalCenter: parent.horizontalCenter
+//                text: qsTr("Write a Review")
+//                visible: false //TODO book && book.review && book.review.body === ""
+//                onClicked: {
+//                }
+//            }
 
-            MoreButton {
-                id: bookShelvesButton
-                width: parent.width
-                height: Theme.itemSizeMedium
-                text: qsTr("Friends Reviews")
-                counter: book ? book.friendReviews.length : 0
-                busy: bookPage.busy
-                enabled: !busy
-                visible: book && book.friendReviews.length > 0
-                onClicked: {
-                    pageStack.push(Qt.resolvedUrl("UserReviewsPage.qml"),
-                            { usersReviews: book ? book.friendReviews : [] })
-                }
-            }
+//            MoreButton {
+//                id: bookShelvesButton
+//                width: parent.width
+//                height: Theme.itemSizeMedium
+//                text: qsTr("Friends Activity")
+//                counter: book ? book.friendReviews.length : 0
+//                busy: bookPage.busy
+//                enabled: !busy
+//                visible: book && book.friendReviews.length > 0
+//                onClicked: {
+//                    pageStack.push(Qt.resolvedUrl("UserReviewsPage.qml"),
+//                            { usersReviews: book ? book.friendReviews : [] })
+//                }
+//            }
 
-            SilicaListView {
-                id:friendsReviewsView
+//            SilicaListView {
+//                id:friendsReviewsView
 
-                visible: book && book.friendReviews.length > 0
+//                visible: book && book.friendReviews.length > 0
 
-                width: parent.width
-                height: contentHeight
-                delegate: ReviewListItem {
-                    userId: modelData.user.id
-                    userAvatarUrl: modelData.user.avatarUrl
-                    userName: modelData.user.userName
-                    reviewId: modelData.id
-                    reviewRate: modelData.rating
-                    reviewText: modelData.body
-                    reviewDate: modelData.updatedDate
-                    withBody: false
+//                width: parent.width
+//                height: contentHeight
+//                delegate: ReviewListItem {
+//                    userId: modelData.user.id
+//                    userAvatarUrl: modelData.user.avatarUrl
+//                    userName: modelData.user.userName
+//                    reviewId: modelData.id
+//                    reviewRate: modelData.rating
+//                    reviewText: modelData.body
+//                    reviewDate: modelData.updatedDate
+//                    withBody: false
 
-                    onUserClicked: {
-                        pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
-                                { userId: userId })
-                    }
+//                    onUserClicked: {
+//                        pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
+//                                { userId: userId })
+//                    }
 
-                    onClicked: {
-                        pageStack.push(Qt.resolvedUrl("ReviewPage.qml"),
-                                { reviewId: modelData.id, review: modelData })
-                    }
-                }
+//                    onClicked: {
+//                        pageStack.push(Qt.resolvedUrl("ReviewPage.qml"),
+//                                { reviewId: modelData.id, review: modelData })
+//                    }
+//                }
 
-                model: {
-                    var result = []
-                    if (book) {
-                        for (var i = 0; i < book.friendReviews.length; ++i) {
-                            if (i < 3) {
-                                result.push(book.friendReviews[i])
-                            }
-                        }
-                    }
-                    return result
-                }
-            }
+//                model: {
+//                    var result = []
+//                    if (book) {
+//                        for (var i = 0; i < book.friendReviews.length; ++i) {
+//                            if (i < 3) {
+//                                result.push(book.friendReviews[i])
+//                            }
+//                        }
+//                    }
+//                    return result
+//                }
+//            }
 
 
             SectionHeader {

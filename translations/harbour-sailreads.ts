@@ -1127,7 +1127,7 @@ Pull down to refresh or to search groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ReviewPage.qml" line="237"/>
+        <location filename="../qml/pages/ReviewPage.qml" line="240"/>
         <source>Comments</source>
         <translation type="unfinished"></translation>
     </message>
