@@ -42,6 +42,7 @@ void ReadStatusItem::SetReadStatusId(const QString& readStatusId)
 {
     if(m_ReadStatusId != readStatusId) {
         m_ReadStatusId = readStatusId;
+        loadReadStatus();
         emit readStatusIdChanged();
     }
 }
