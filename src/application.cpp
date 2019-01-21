@@ -53,6 +53,7 @@ THE SOFTWARE.
 #include "models/searchreviewsmodel.h"
 #include "models/updatesmodel.h"
 #include "models/profileupdatesmodel.h"
+#include "models/commentsmodel.h"
 #include "objects/author.h"
 #include "objects/book.h"
 #include "objects/group.h"
@@ -210,6 +211,7 @@ void Application::start()
     qmlRegisterType<SearchReviewsModel>("harbour.sailreads", 1, 0, "SearchReviewsModel");
     qmlRegisterType<UpdatesModel>("harbour.sailreads", 1, 0, "UpdatesModel");
     qmlRegisterType<ProfileUpdatesModel>("harbour.sailreads", 1, 0, "ProfileUpdatesModel");
+    qmlRegisterType<CommentsModel>("harbour.sailreads", 1, 0, "CommentsModel");
 
     qmlRegisterType<UserProfile>("harbour.sailreads", 1, 0, "UserProfile");
     qmlRegisterType<GroupItem>("harbour.sailreads", 1, 0, "GroupItem");

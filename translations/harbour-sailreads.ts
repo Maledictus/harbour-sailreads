@@ -687,32 +687,32 @@ Pull down to refresh</source>
 <context>
     <name>GroupFolderTopicPage</name>
     <message>
-        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="65"/>
+        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="68"/>
         <source>Topic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="77"/>
+        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="80"/>
         <source>Author</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="83"/>
+        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="86"/>
         <source>Group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="88"/>
+        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="91"/>
         <source>Folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="116"/>
+        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="119"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="106"/>
+        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="109"/>
         <source>Add comment</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1135,12 +1135,12 @@ Pull down to refresh or to search groups</source>
 <context>
     <name>Sailreads::Application</name>
     <message>
-        <location filename="../src/application.cpp" line="145"/>
+        <location filename="../src/application.cpp" line="148"/>
         <source>Authorized</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="145"/>
+        <location filename="../src/application.cpp" line="148"/>
         <source>Not authorized</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1176,17 +1176,17 @@ Pull down to refresh or to search groups</source>
 <context>
     <name>Sailreads::SailreadsManager</name>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="240"/>
+        <location filename="../src/sailreadsmanager.cpp" line="246"/>
         <source>Authorization user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="258"/>
+        <location filename="../src/sailreadsmanager.cpp" line="264"/>
         <source>Authentication user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="279"/>
+        <location filename="../src/sailreadsmanager.cpp" line="285"/>
         <source>Getting user profile...</source>
         <translation type="unfinished"></translation>
     </message>

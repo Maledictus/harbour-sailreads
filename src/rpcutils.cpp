@@ -1982,6 +1982,22 @@ ReadStatusPtr ParseReadStatus(const QDomDocument &doc)
 
     return ParseReadStatus(readStatusElement);
 }
+
+CountedItems<Comment> ParseComments(const QDomDocument& doc)
+{
+    const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
+    if (responseElement.isNull()) {
+        return CountedItems<Comment>();
+    }
+
+    const auto& commentsElement = responseElement.firstChildElement("comments");
+    if (commentsElement.isNull()) {
+        return CountedItems<Comment>();
+    }
+
+    return ParseComments(commentsElement);
+}
+
 }
 }
 }

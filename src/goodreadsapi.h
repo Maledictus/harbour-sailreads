@@ -139,6 +139,8 @@ public:
             const QString& folderId, bool question, bool updateFeed, bool digest,
             const QString& comment);
 
+    void GetComments(QObject *requester, const QString& resourceId, const QString& resourceType,
+            int page = 1);
     void AddNewComment(const QString& type, const QString& resourceId, const QString& comment);
 
     void GetFriends(QObject *requester, const QString& userId, int page = 1);
@@ -219,6 +221,7 @@ private slots:
     void handleGetGroupFolderTopic();
     void handleTopicAdded(const QString &folderId);
 
+    void handleGetComments(const QString& resourceId);
     void handleNewCommentAdded(const QString& resourceId);
 
     void handleGetFriends(const QString& userId);
@@ -288,6 +291,7 @@ signals:
     void gotGroupFolderTopic(const TopicPtr& topic);
     void gotNewGroupFolderTopic(const QString& folderId, const TopicPtr& topic);
 
+    void gotComments(const QString& resourceId, const CountedItems<Comment>& comments);
     void newCommentAdded(const QString& resourceId, const Comment& comment);
 
     void gotUserFriends(const QString& userId, const CountedItems<Friend>& friends);

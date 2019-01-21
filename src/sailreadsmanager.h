@@ -133,6 +133,8 @@ public slots:
             const QString& folderId, bool question, bool updateFeed, bool digest,
             const QString& comment);
 
+    void loadComments(QObject *requester, const QString& resourceId,
+            const QString& resourceType, int page = 1);
     void addNewComment(const QString& type, const QString& resourceId, const QString& comment);
 
     void addBookToShelves(quint64 bookId, const QStringList& shelves);
@@ -188,6 +190,7 @@ signals:
     void friendAdded(const QString& userId);
     void friendRemoved(const QString& userId);
 
+    void gotComments(const QString& resourceId, const CountedItems<Comment>& comments);
     void newCommentAdded(const QString& resourceId, const Comment& comment);
 
     void gotUserGroups(const QString& userId, const CountedItems<GroupPtr>& groups);

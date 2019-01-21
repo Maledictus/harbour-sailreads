@@ -110,6 +110,7 @@ MessagePtr ParseMessage(const QDomDocument& doc);
 Notifications_t ParseNotifications(const QDomDocument& doc);
 Updates_t ParseUpdates(const QDomDocument& doc);
 ReadStatusPtr ParseReadStatus(const QDomDocument& doc);
+CountedItems<Comment> ParseComments(const QDomDocument& doc);
 }
 }
 }

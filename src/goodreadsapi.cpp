@@ -531,7 +531,18 @@ void GoodReadsApi::AddNewTopic(const QString& topic, const QString& subject, qui
     auto reply = m_OAuth1->Post(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + "/topic.xml"), params);
     connect(reply, &QNetworkReply::finished,
-             this, [this, folderId]() { handleTopicAdded(folderId); });
+            this, [this, folderId]() { handleTopicAdded(folderId); });
+}
+
+void GoodReadsApi::GetComments(QObject *requester,
+        const QString& resourceId, const QString& resourceType, int page)
+{
+    auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + QString("/%1/%2/comments").arg(resourceType, resourceId)),
+            { { "format", "xml" }, { "page", page} });
+    m_Requester2Reply[requester] = reply;
+    connect(reply, &QNetworkReply::finished,
+            this, [this, resourceId]() { handleGetComments(resourceId); });
 }
 
 void GoodReadsApi::AddNewComment(const QString& type, const QString& resourceId, const QString& comment)
@@ -1445,6 +1456,18 @@ void GoodReadsApi::handleTopicAdded(const QString& folderId)
         return;
     }
     emit gotNewGroupFolderTopic(folderId, RpcUtils::Parser::ParseGroupFolderTopic(doc));
+    emit requestFinished();
+}
+
+void GoodReadsApi::handleGetComments(const QString& resourceId)
+{
+    bool ok = false;
+    auto doc = GetDocumentFromReply(sender(), ok);
+    if (!ok) {
+        emit requestFinished();
+        return;
+    }
+    emit gotComments(resourceId, RpcUtils::Parser::ParseComments(doc));
     emit requestFinished();
 }
 

@@ -188,6 +188,9 @@ void SailreadsManager::MakeConnections()
 
     connect(m_Api, &GoodReadsApi::gotNewGroupFolderTopic,
             this, &SailreadsManager::gotNewGroupFolderTopic);
+
+    connect(m_Api, &GoodReadsApi::gotComments,
+            this, &SailreadsManager::gotComments);
     connect(m_Api, &GoodReadsApi::newCommentAdded,
             this, &SailreadsManager::newCommentAdded);
 
@@ -468,6 +471,13 @@ void SailreadsManager::addNewTopic(const QString& topic, const QString& subject,
 {
     SetBusy(true);
     m_Api->AddNewTopic(topic, subject, subjectId, folderId, question, updateFeed, digest, comment);
+}
+
+void SailreadsManager::loadComments(QObject *requester, const QString& resourceId,
+        const QString& resourceType, int page)
+{
+    SetBusy(true);
+    m_Api->GetComments(requester, resourceId, resourceType, page);
 }
 
 void SailreadsManager::addNewComment(const QString& type, const QString& resourceId,
