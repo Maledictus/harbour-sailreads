@@ -63,12 +63,14 @@ THE SOFTWARE.
 #include "objects/user.h"
 #include "objects/work.h"
 #include "objects/groupfolder.h"
+#include "objects/readstatus.h"
 #include "objects/topic.h"
 #include "objects/update.h"
 #include "qmltypes/authorprofileitem.h"
 #include "qmltypes/bookitem.h"
 #include "qmltypes/groupitem.h"
 #include "qmltypes/messageitem.h"
+#include "qmltypes/readstatusitem.h"
 #include "qmltypes/reviewitem.h"
 #include "qmltypes/seriesitem.h"
 #include "qmltypes/topicitem.h"
@@ -170,6 +172,8 @@ void Application::start()
             "Work provides attached properties and can't be instantiated");
     qmlRegisterUncreatableType<Update>("harbour.sailreads", 1, 0, "Update",
             "Update provides attached properties and can't be instantiated");
+    qmlRegisterUncreatableType<ReadStatus>("harbour.sailreads", 1, 0, "ReadStatus",
+            "Update provides attached properties and can't be instantiated");
 
     qRegisterMetaType<QObjectList>("QObjectList");
     qRegisterMetaType<Author*>("Author*");
@@ -183,6 +187,7 @@ void Application::start()
     qRegisterMetaType<User*>("User*");
     qRegisterMetaType<Work*>("Work*");
     qRegisterMetaType<GroupFolder>("GroupFolder");
+    qRegisterMetaType<ReadStatus*>("ReadStatus*");
 
     qmlRegisterType<AuthorBooksModel>("harbour.sailreads", 1, 0, "AuthorBooksModel");
     qmlRegisterType<AuthorSeriesModel>("harbour.sailreads", 1, 0, "AuthorSeriesModel");
@@ -215,6 +220,7 @@ void Application::start()
     qmlRegisterType<User>("harbour.sailreads", 1, 0, "User");
     qmlRegisterType<ReviewItem>("harbour.sailreads", 1, 0, "ReviewItem");
     qmlRegisterType<MessageItem>("harbour.sailreads", 1, 0, "MessageItem");
+    qmlRegisterType<ReadStatusItem>("harbour.sailreads", 1, 0, "ReadStatusItem");
 
     ShowUI();
 }

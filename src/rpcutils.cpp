@@ -36,6 +36,7 @@ THE SOFTWARE.
 #include "objects/group.h"
 #include "objects/message.h"
 #include "objects/notification.h"
+#include "objects/readstatus.h"
 #include "objects/review.h"
 #include "objects/series.h"
 #include "objects/serieswork.h"
@@ -1265,6 +1266,56 @@ UpdatePtr ParseUpdate(const QDomElement& element)
     return update;
 }
 
+
+ReadStatusPtr ParseReadStatus(const QDomElement& element)
+{
+    ReadStatusPtr rs = std::make_shared<ReadStatus>();
+    const auto& fieldsList = element.childNodes();
+    for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
+        const auto& fieldElement = fieldsList.at (i).toElement ();
+        if (fieldElement.tagName() == "id") {
+            rs->SetId(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "header") {
+            rs->SetHeader(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "likes_count") {
+            rs->SetLikesCount(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "comments_count") {
+            rs->SetCommentsCount(fieldElement.text().toInt());
+        }
+        else if (fieldElement.tagName() == "liked") {
+            rs->SetIsLiked(fieldElement.text() == "true");
+        }
+        else if (fieldElement.tagName() == "created_at") {
+            rs->SetCreateDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
+                    Qt::ISODate));
+        }
+        else if (fieldElement.tagName() == "updated_at") {
+            rs->SetUpdateDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
+                    Qt::ISODate));
+        }
+        else if (fieldElement.tagName() == "status") {
+            rs->SetStatus(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "review_id") {
+            rs->SetReviewId(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "book") {
+            rs->SetBook(ParseBook(fieldElement));
+        }
+        else if (fieldElement.tagName() == "user") {
+            rs->SetUser(ParseUser(fieldElement));
+        }
+        else if (fieldElement.tagName() == "comments") {
+            rs->SetComments(ParseComments(fieldElement));
+        }
+    }
+    return rs;
+}
+
+
 GroupMembers_t ParseGroupMembers(const QDomElement& element)
 {
     GroupMembers_t members;
@@ -1915,6 +1966,21 @@ Updates_t ParseUpdates(const QDomDocument& doc)
     }
 
     return ParseUpdatesList(updatesElement);
+}
+
+ReadStatusPtr ParseReadStatus(const QDomDocument &doc)
+{
+    const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
+    if (responseElement.isNull()) {
+        return ReadStatusPtr();
+    }
+
+    const auto& readStatusElement = responseElement.firstChildElement("read_status");
+    if (readStatusElement.isNull()) {
+        return ReadStatusPtr();
+    }
+
+    return ParseReadStatus(readStatusElement);
 }
 }
 }

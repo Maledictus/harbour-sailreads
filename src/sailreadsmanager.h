@@ -143,6 +143,8 @@ public slots:
     void followAuthor(const QString& authorId);
     void unfollowAuthor(const QString& authorId, quint64 followingId);
 
+    void loadReadStatus(QObject *requester, const QString& id, int page = 1);
+
 signals:
     void busyChanged();
     void loggedChanged();
@@ -200,6 +202,8 @@ signals:
     void requestTokenChanged(const QString& requestToken);
 
     void authProgressChanged(const QString& progressMessage);
+
+    void gotReadStatus(const ReadStatusPtr& readStatus);
 };
 }
 

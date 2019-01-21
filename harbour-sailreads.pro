@@ -76,7 +76,9 @@ SOURCES += src/harbour-sailreads.cpp \
     src/objects/update/userstatusupdate.cpp \
     src/models/profileupdatesmodel.cpp \
     src/itemrequestcanceler.cpp \
-    src/modelrequestcanceler.cpp
+    src/modelrequestcanceler.cpp \
+    src/objects/readstatus.cpp \
+    src/qmltypes/readstatusitem.cpp
 
 
 HEADERS += src/application.h \
@@ -146,7 +148,9 @@ HEADERS += src/application.h \
     src/objects/update/userstatusupdate.h \
     src/models/profileupdatesmodel.h \
     src/itemrequestcanceler.h \
-    src/modelrequestcanceler.h
+    src/modelrequestcanceler.h \
+    src/objects/readstatus.h \
+    src/qmltypes/readstatusitem.h
 
 DISTFILES += translations/*.ts \
     sailreads.desktop \

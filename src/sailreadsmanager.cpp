@@ -201,6 +201,9 @@ void SailreadsManager::MakeConnections()
             this, &SailreadsManager::gotAuthorBooks);
     connect(m_Api, &GoodReadsApi::gotAuthorSeries,
             this, &SailreadsManager::gotAuthorSeries);
+
+    connect(m_Api, &GoodReadsApi::gotReadStatus,
+            this, &SailreadsManager::gotReadStatus);
 }
 
 void SailreadsManager::SetBusy(bool busy)
@@ -509,4 +512,11 @@ void SailreadsManager::unfollowAuthor(const QString& authorId, quint64 following
     SetBusy(true);
     m_Api->UnfollowAuthor(authorId, followingId);
 }
+
+void SailreadsManager::loadReadStatus(QObject *requester, const QString& id, int page)
+{
+    SetBusy(true);
+    m_Api->GetReadStatus(requester, id, page);
+}
+
 }

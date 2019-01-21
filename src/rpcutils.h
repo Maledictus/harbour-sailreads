@@ -62,6 +62,7 @@ MessagePtr ParseMessage(const QDomElement& element);
 QString ParseResourceId(const QDomElement& element);
 NotificationPtr ParseNotification(const QDomElement& element);
 UpdatePtr ParseUpdate(const QDomElement& element);
+ReadStatusPtr ParseReadStatus(const QDomElement& element);
 
 GroupMembers_t ParseGroupMembers(const QDomElement& element);
 GroupFolders_t ParseGroupFolders(const QDomElement& element);
@@ -108,6 +109,7 @@ CountedItems<MessagePtr> ParseMessages(const QDomDocument& doc);
 MessagePtr ParseMessage(const QDomDocument& doc);
 Notifications_t ParseNotifications(const QDomDocument& doc);
 Updates_t ParseUpdates(const QDomDocument& doc);
+ReadStatusPtr ParseReadStatus(const QDomDocument& doc);
 }
 }
 }

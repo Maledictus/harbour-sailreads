@@ -215,6 +215,6 @@ signals:
     void isFollowerChanged();
     void friendRequestIdChanged();
     void friendStatusChanged();
-    void favoriteAutorsChanged(QUrl favoriteAutors);
+    void favoriteAutorsChanged();
 };
 } // namespace Sailreads

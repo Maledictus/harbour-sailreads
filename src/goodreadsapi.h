@@ -156,7 +156,7 @@ public:
     void AddQuote(const QString& authorName, quint64 authorId, quint64 bookId, const QString& quote,
         const QStringList& tags);
 
-    void GetReadStatus(QObject *requester, quint64 readStatusId);
+    void GetReadStatus(QObject *requester, const QString& readStatusId, int page = 1);
 
     void GetRecentUserStatuses(QObject *requester);
     void GetUserStatus(QObject *requester, quint64 userStatusId);
@@ -298,5 +298,7 @@ signals:
     void userUnfollowed(const QString& userId, bool success);
     void friendAdded(const QString& userId);
     void friendRemoved(const QString& userId);
+
+    void gotReadStatus(const ReadStatusPtr& readStatus);
 };
 }
