@@ -104,6 +104,7 @@ Page {
             body: commentBody
             updateDate: commentUpdateDate
             onUserClicked: pageStack.push(Qt.resolvedUrl("ProfilePage.qml"), { userId: userId })
+            linkActivated: mainWindow.openPageFromUrl(link)
         }
         VerticalScrollDecorator{}
     }

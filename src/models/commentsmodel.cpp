@@ -78,6 +78,7 @@ void CommentsModel::handleGotComments(const QString& resourceId,
     if (m_ResourceId != resourceId) {
         return;
     }
+
     BaseCommentsModel::handleGotComments(comments);
 }
 
@@ -88,7 +89,7 @@ void CommentsModel::handleNewCommentAdded(const QString& resourceId, const Comme
     }
 
     if (!m_HasMore) {
-        AddItems(comment);
+        PrependItems(comment);
     }
 }
 

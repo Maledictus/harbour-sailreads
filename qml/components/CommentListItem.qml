@@ -4,11 +4,13 @@ import Sailfish.Silica 1.0
 import "../utils/Utils.js" as Utils
 
 ListItem {
+    id: listItem
     property var author
     property alias body: label.text
     property var updateDate
 
     signal userClicked(var userId)
+    signal linkActivated(var link)
 
     width: parent.width
     contentHeight: column.height + separator.height + Theme.paddingMedium
@@ -37,9 +39,7 @@ ListItem {
             textFormat: Text.StyledText
             font.pixelSize: Theme.fontSizeSmall
             linkColor: Theme.highlightColor
-            onLinkActivated: {
-                Qt.openUrlExternally(link)
-            }
+            onLinkActivated: listItem.linkActivated(link)
         }
     }
 

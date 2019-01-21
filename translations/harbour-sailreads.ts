@@ -687,33 +687,8 @@ Pull down to refresh</source>
 <context>
     <name>GroupFolderTopicPage</name>
     <message>
-        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="68"/>
-        <source>Topic</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="80"/>
-        <source>Author</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="86"/>
-        <source>Group</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="91"/>
-        <source>Folder</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="119"/>
+        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="74"/>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/GroupFolderTopicPage.qml" line="109"/>
-        <source>Add comment</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -975,6 +950,19 @@ Pull down to refresh or to search groups</source>
     </message>
 </context>
 <context>
+    <name>NewMessageItem</name>
+    <message>
+        <location filename="../qml/components/NewMessageItem.qml" line="45"/>
+        <source>Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/NewMessageItem.qml" line="52"/>
+        <source>Send</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>NotificationsPage</name>
     <message>
         <location filename="../qml/pages/NotificationsPage.qml" line="58"/>
@@ -1122,12 +1110,12 @@ Pull down to refresh or to search groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ReviewPage.qml" line="119"/>
+        <location filename="../qml/pages/ReviewPage.qml" line="120"/>
         <source>Review</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ReviewPage.qml" line="241"/>
+        <location filename="../qml/pages/ReviewPage.qml" line="242"/>
         <source>Comments</source>
         <translation type="unfinished"></translation>
     </message>

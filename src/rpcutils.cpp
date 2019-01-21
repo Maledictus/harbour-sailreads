@@ -24,6 +24,8 @@ THE SOFTWARE.
 
 #include "rpcutils.h"
 
+#include <algorithm>
+
 #include <QRegularExpression>
 #include <QtDebug>
 
@@ -1404,6 +1406,9 @@ CountedItems<Comment> ParseComments(const QDomElement& element)
         const auto& elem = nodes.at(i).toElement();
         comments.m_Items << ParseComment(elem);
     }
+
+//    std::reverse(comments.m_Items.begin(), comments.m_Items.end());
+
     return comments;
 }
 

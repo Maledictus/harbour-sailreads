@@ -44,6 +44,13 @@ public:
         return m_Items.count();
     }
 
+    void PrependItems(const T& item)
+    {
+        beginInsertRows(QModelIndex(), 0, 0);
+        m_Items.insert(0, item);
+        endInsertRows();
+    }
+
     void AddItems(const T& item)
     {
         beginInsertRows(QModelIndex(), rowCount(), rowCount());

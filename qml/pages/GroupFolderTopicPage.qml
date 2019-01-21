@@ -41,108 +41,86 @@ Page {
         }
     }
 
-    TopicItem {
-        id: topicItem
-    }
-
     Component.onDestruction: {
         topicItem.cancelRequest()
         topicThreadModel.cancelRequest()
     }
 
-    TopicCommentsModel {
-        id: topicThreadModel
-        topicId: groupFodlerTopicPage.topicId
+    TopicItem {
+        id: topicItem
     }
 
-    Column {
-        id: headerBox
-        parent: topicThreadView.headerItem ? topicThreadView.headerItem : groupFodlerTopicPage
-        width: parent.width
+    CommentsModel {
+        id: topicThreadModel
+        resourceType: "topic"
+        resourceId: topicItem.topicId
+    }
+
+    SilicaFlickable {
+        id: flickable
+        anchors.fill: parent
+        pressDelay: 0
+        contentHeight: height
 
         PageHeader {
-            id: pageHeader
-            title: topicItem.topic ? topicItem.topic.title : qsTr("Topic")
-        }
-
-        Column {
-            anchors {
-                left: parent.left
-                leftMargin: Theme.horizontalPageMargin
-                right: parent.right
-                rightMargin: Theme.horizontalPageMargin
-            }
-
-            KeyValueLabel {
-                key: qsTr("Author")
-                value: topicItem.topic ? topicItem.topic.author.userName : ""
-                truncationMode: TruncationMode.Fade
-                font.pixelSize: Theme.fontSizeSmall
-            }
-            KeyValueLabel {
-                key: qsTr("Group")
-                value: topicItem.topic ? topicItem.topic.group.name : ""
-                truncationMode: TruncationMode.Fade
-            }
-            KeyValueLabel {
-                key: qsTr("Folder")
-                value: topicItem.topic ? topicItem.topic.folder.name : ""
-                truncationMode: TruncationMode.Fade
-            }
-        }
-    }
-
-    SilicaListView {
-        id: topicThreadView
-
-        header: Item {
-            width: topicThreadView.width
-            height: headerBox.height
+            id: header
+            clip: true
+            title: topicItem.topic ? topicItem.topic.title : ""
         }
 
         PullDownMenu {
             busy: groupFodlerTopicPage.busy
             MenuItem {
-                text: qsTr("Add comment")
-                onClicked: {
-                    var dialog = pageStack.push("../dialogs/AddCommentDialog.qml")
-                    dialog.accepted.connect (function () {
-                        sailreadsManager.addNewComment("topic", groupFodlerTopicPage.topicId,
-                                dialog.comment)
-                    })
-                }
-            }
-            MenuItem {
                 text: qsTr("Refresh")
                 onClicked: {
-                    topicItem.loadTopic()
+                    topicThreadModel.loadComments()
                 }
             }
         }
 
-        anchors.fill: parent
-        cacheBuffer: groupFodlerTopicPage.height
-
-        model: topicThreadModel
-
-        function fetchMoreIfNeeded() {
-            if (!groupFodlerTopicPage.busy &&
-                    topicThreadModel.hasMore &&
-                    indexAt(contentX, contentY + height) > topicThreadModel.rowCount() - 2) {
-                topicThreadModel.fetchMoreContent()
+        SilicaListView {
+            id: topicThreadView
+            anchors {
+                top: header.bottom
+                bottom: parent.bottom
             }
-        }
-
-        onContentYChanged: fetchMoreIfNeeded()
-
-        delegate: CommentListItem {
             width: parent.width
-            author: commentAuthor
-            body: commentBody
-            updateDate: commentUpdateDate
-            onUserClicked: pageStack.push(Qt.resolvedUrl("ProfilePage.qml"), { userId: userId })
+            clip: true
+            cacheBuffer: groupFodlerTopicPage.height * 2
+            pressDelay: 0
+            verticalLayoutDirection: ListView.BottomToTop
+            model: topicThreadModel
+
+            header: NewMessageItem {
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                }
+                onSendMessage: {
+                    sailreadsManager.addNewComment("topic", groupFodlerTopicPage.topicId, message)
+                }
+            }
+
+            function fetchMoreIfNeeded() {
+                if (!groupFodlerTopicPage.busy &&
+                        topicThreadModel.hasMore &&
+                        indexAt(contentX, contentY) > topicThreadModel.rowCount() - 2) {
+                    topicThreadModel.fetchMoreContent()
+                }
+            }
+
+            onContentYChanged: fetchMoreIfNeeded()
+
+            delegate: CommentListItem {
+                width: parent.width
+                author: commentAuthor
+                body: commentBody
+                updateDate: commentUpdateDate
+                onUserClicked: pageStack.push(Qt.resolvedUrl("ProfilePage.qml"), { userId: userId })
+                onLinkActivated: mainWindow.openPageFromUrl(link)
+            }
+            VerticalScrollDecorator{}
         }
-        VerticalScrollDecorator{}
     }
 
     BusyIndicator {

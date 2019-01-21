@@ -249,6 +249,7 @@ QString Review::GetShortDescription() const
     else {
         return tr("rated it");
     }
+    return "";
 }
 
 void Review::Update(Review *newReview)
