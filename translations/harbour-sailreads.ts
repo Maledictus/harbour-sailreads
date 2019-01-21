@@ -376,33 +376,33 @@ Pull down to refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="309"/>
+        <location filename="../qml/pages/BookPage.qml" line="310"/>
         <source>Description</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="332"/>
+        <location filename="../qml/pages/BookPage.qml" line="333"/>
         <source>Series</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="356"/>
+        <location filename="../qml/pages/BookPage.qml" line="357"/>
         <source>Pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="363"/>
+        <location filename="../qml/pages/BookPage.qml" line="364"/>
         <source>Published</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="394"/>
+        <location filename="../qml/pages/BookPage.qml" line="395"/>
         <source>Other editions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="408"/>
-        <location filename="../qml/pages/BookPage.qml" line="415"/>
+        <location filename="../qml/pages/BookPage.qml" line="409"/>
+        <location filename="../qml/pages/BookPage.qml" line="416"/>
         <source>Similar Books</source>
         <translation type="unfinished"></translation>
     </message>
@@ -880,12 +880,12 @@ Pull down to refresh or to search groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MessagePage.qml" line="98"/>
+        <location filename="../qml/pages/MessagePage.qml" line="99"/>
         <source>Message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MessagePage.qml" line="134"/>
+        <location filename="../qml/pages/MessagePage.qml" line="136"/>
         <source>Message History</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1115,7 +1115,7 @@ Pull down to refresh or to search groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ReviewPage.qml" line="242"/>
+        <location filename="../qml/pages/ReviewPage.qml" line="245"/>
         <source>Comments</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1205,7 +1205,7 @@ Pull down to refresh or to search groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SeriesPage.qml" line="135"/>
+        <location filename="../qml/pages/SeriesPage.qml" line="133"/>
         <source>%1 works, %2 primary works</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1281,7 +1281,7 @@ Pull down to refresh or to search groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/UserReviewsPage.qml" line="79"/>
+        <location filename="../qml/pages/UserReviewsPage.qml" line="80"/>
         <source>Open on GoodReads.com</source>
         <translation type="unfinished"></translation>
     </message>

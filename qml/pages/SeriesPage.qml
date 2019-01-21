@@ -115,9 +115,7 @@ Page {
             color: Theme.highlightColor
             font.family: Theme.fontFamilyHeading
             font.pixelSize: Theme.fontSizeMedium
-            text: {
-                return seriesItem.series !== null ? seriesItem.series.title : ""
-            }
+            text: seriesItem.series !== null ? seriesItem.series.title : ""
         }
 
         Label {

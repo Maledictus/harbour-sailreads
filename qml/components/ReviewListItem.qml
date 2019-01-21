@@ -16,6 +16,7 @@ ListItem {
     property bool withBody: true
 
     signal userClicked(var userId)
+    signal linkActivated(var link)
 
     contentHeight: column.height
     clip: true
@@ -57,7 +58,7 @@ ListItem {
             linkColor: Theme.highlightColor
             truncationMode: TruncationMode.Fade
             width: parent.width
-            onLinkActivated: Qt.openUrlExternally(link)
+            onLinkActivated: listItem.linkActivated(link)
         }
     }
 }

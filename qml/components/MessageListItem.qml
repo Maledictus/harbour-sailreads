@@ -34,6 +34,8 @@ ListItem {
     property int posterId
     property var postDate
 
+    signal linkActivated(var link)
+
     contentHeight: column.height + separator.height + Theme.paddingMedium
     clip: true
 
@@ -59,7 +61,7 @@ ListItem {
             textFormat: Text.StyledText
             linkColor: Theme.highlightColor
             color: highlighted ? Theme.highlightColor : Theme.primaryColor
-            onLinkActivated: Qt.openUrlExternally(link)
+            onLinkActivated: listItem.linkActivated(link)
         }
     }
 

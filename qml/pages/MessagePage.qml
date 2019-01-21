@@ -82,6 +82,7 @@ Page {
 
             onClicked: pageStack.push(Qt.resolvedUrl("MessagePage.qml"),
                     { message: modelData, messageId: modelData.id })
+            onLinkActivated: mainWindow.openPageFromUrl(link)
         }
 
         VerticalScrollDecorator {}
@@ -128,6 +129,7 @@ Page {
                 wrapMode: Text.WordWrap
                 textFormat: Text.StyledText
                 linkColor: Theme.highlightColor
+                onLinkActivated: mainWindow.openPageFromUrl(link)
             }
 
             SectionHeader {

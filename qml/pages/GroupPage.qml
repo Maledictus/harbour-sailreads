@@ -101,7 +101,7 @@ Page {
                             sailreadsManager.joinGroup(groupId)
                         }
                         else {
-                            Qt.openUrlExternally(groupItem.group.url)
+                            mainWindow.openInBrowser(groupItem.group.url)
                         }
                     }
                 }

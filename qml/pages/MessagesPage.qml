@@ -136,6 +136,7 @@ Page {
 
             onClicked: pageStack.push(Qt.resolvedUrl("MessagePage.qml"),
                     { message: messageMessage, messageId: messageId })
+            onLinkActivated: mainWindow.openPageFromUrl(link)
         }
 
         VerticalScrollDecorator{}

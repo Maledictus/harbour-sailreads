@@ -68,6 +68,7 @@ Page {
                 pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
                         { userId: userId })
             }
+            onLinkActivated: mainWindow.openPageFromUrl(link)
 
             onClicked: {
                 pageStack.push(Qt.resolvedUrl("ReviewPage.qml"),

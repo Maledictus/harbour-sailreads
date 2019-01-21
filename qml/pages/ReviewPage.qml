@@ -189,6 +189,9 @@ Page {
                 text: review ? review.body : ""
                 width: parent.width
                 wrapMode: Text.WordWrap
+                textFormat: Text.StyledText
+                linkColor: Theme.highlightColor
+                onLinkActivated: mainWindow.openPageFromUrl(link)
             }
 
             Item {
