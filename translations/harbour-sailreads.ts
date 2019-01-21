@@ -372,37 +372,37 @@ Pull down to refresh</source>
     </message>
     <message>
         <location filename="../qml/pages/BookPage.qml" line="254"/>
-        <source>Friends Reviews</source>
+        <source>Friends Activity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="308"/>
+        <location filename="../qml/pages/BookPage.qml" line="309"/>
         <source>Description</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="331"/>
+        <location filename="../qml/pages/BookPage.qml" line="332"/>
         <source>Series</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="355"/>
+        <location filename="../qml/pages/BookPage.qml" line="356"/>
         <source>Pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="362"/>
+        <location filename="../qml/pages/BookPage.qml" line="363"/>
         <source>Published</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="393"/>
+        <location filename="../qml/pages/BookPage.qml" line="394"/>
         <source>Other editions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="407"/>
-        <location filename="../qml/pages/BookPage.qml" line="414"/>
+        <location filename="../qml/pages/BookPage.qml" line="408"/>
+        <location filename="../qml/pages/BookPage.qml" line="415"/>
         <source>Similar Books</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1127,7 +1127,7 @@ Pull down to refresh or to search groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ReviewPage.qml" line="240"/>
+        <location filename="../qml/pages/ReviewPage.qml" line="241"/>
         <source>Comments</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1142,6 +1142,34 @@ Pull down to refresh or to search groups</source>
     <message>
         <location filename="../src/application.cpp" line="145"/>
         <source>Not authorized</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Sailreads::Review</name>
+    <message>
+        <location filename="../src/objects/review.cpp" line="236"/>
+        <source>finished reading</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/objects/review.cpp" line="240"/>
+        <source>started reading</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/objects/review.cpp" line="243"/>
+        <source>is currently reading</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/objects/review.cpp" line="246"/>
+        <source>wants to read</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/objects/review.cpp" line="250"/>
+        <source>rated it</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1265,16 +1293,8 @@ Pull down to refresh or to search groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/UserReviewsPage.qml" line="78"/>
+        <location filename="../qml/pages/UserReviewsPage.qml" line="79"/>
         <source>Open on GoodReads.com</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>UserShortReview</name>
-    <message>
-        <location filename="../qml/components/UserShortReview.qml" line="76"/>
-        <source>rated it</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

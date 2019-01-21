@@ -132,6 +132,7 @@ Page {
 
                 userId: review && review.user ? review.user.id : ""
                 avatarImage.source: review ? review.user.avatarUrl : "qrc:/images/gra_small.png"
+                shortDescription: review ? review.shortDescription : ""
                 nameLabel.label.text: review ? review.user.userName : ""
                 ratingBox.rating: review ? review.rating : 0.0
                 dateLabel.text: review ?

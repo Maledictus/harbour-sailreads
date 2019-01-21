@@ -12,6 +12,7 @@ ListItem {
     property real reviewRate
     property string reviewText
     property var reviewDate
+    property string reviewShortDescription
     property bool withBody: true
 
     signal userClicked(var userId)
@@ -35,6 +36,7 @@ ListItem {
             userId: listItem.userId
             avatarImage.source: userAvatarUrl
             nameLabel.label.text: userName
+            shortDescription: reviewShortDescription
             ratingBox.rating: reviewRate
             dateLabel.text: Qt.formatDateTime(reviewDate)
             hasCommentImage.visible: !withBody && reviewText !== ""

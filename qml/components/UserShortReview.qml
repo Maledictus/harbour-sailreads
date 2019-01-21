@@ -29,6 +29,7 @@ Item {
 
     property alias avatarImage: avatarImageItem
     property alias nameLabel: nameLabelItem
+    property alias shortDescription: shortDescriptionLabel.text
     property alias ratingBox: ratingBoxItem
     property alias dateLabel: dateLabelItem
     property alias hasCommentImage: hasCommentImageItem
@@ -65,6 +66,7 @@ Item {
 
         Row {
             spacing: Theme.paddingMedium
+            width: parent.width
             ClickableLabel {
                 id: nameLabelItem
                 width: label.implicitWidth
@@ -73,14 +75,16 @@ Item {
             }
 
             Label {
-                text: qsTr("rated it")
+                id: shortDescriptionLabel
                 font.pixelSize: headerFontSize
                 color: Theme.highlightColor
+                wrapMode: Text.WordWrap
             }
         }
 
         RatingBox {
             id: ratingBoxItem
+            visible: rating > 0
             starIconSize: ratingIconSize
             color: Theme.highlightColor
         }

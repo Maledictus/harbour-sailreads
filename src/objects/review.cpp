@@ -229,6 +229,28 @@ void Review::SetComments(const CountedItems<Comment>& comments)
     m_Comments = comments;
 }
 
+QString Review::GetShortDescription() const
+{
+    if (!m_Rating) {
+        if (m_ReadDate.isValid() && !m_ReadDate.isNull()) {
+            return tr("finished reading");
+        }
+        else if (m_StartedDate.isValid() && !m_StartedDate.isNull() &&
+                 m_UpdatedDate == m_StartedDate) {
+            return tr("started reading");
+        }
+        else if (m_StartedDate.isValid() && !m_StartedDate.isNull()) {
+            return tr("is currently reading");
+        }
+        else if (m_AddedDate.isValid() && !m_AddedDate.isNull()) {
+            return tr("wants to read");
+        }
+    }
+    else {
+        return tr("rated it");
+    }
+}
+
 void Review::Update(Review *newReview)
 {
     if (!newReview) {

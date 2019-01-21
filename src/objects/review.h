@@ -68,7 +68,7 @@ class Review: public QObject
     Q_PROPERTY(QUrl url READ GetUrl NOTIFY urlChanged)
     Q_PROPERTY(QStringList shelvesList READ GetShelvesList NOTIFY shelvesListChanged)
     Q_PROPERTY(User* user READ GetUser NOTIFY userChanged)
-
+    Q_PROPERTY(QString shortDescription READ GetShortDescription NOTIFY shortDescriptionChanged)
 
 public:
     Review(QObject *parent = nullptr);
@@ -109,6 +109,7 @@ public:
     void SetUser(const UserPtr& user);
     CountedItems<Comment> GetComments() const;
     void SetComments(const CountedItems<Comment>& comments);
+    QString GetShortDescription() const;
 
     void Update(Review *newReview);
     void Update(const ReviewPtr& newReview);
@@ -129,5 +130,6 @@ signals:
     void urlChanged();
     void shelvesListChanged();
     void userChanged();
+    void shortDescriptionChanged();
 };
 } // namespace Sailreads

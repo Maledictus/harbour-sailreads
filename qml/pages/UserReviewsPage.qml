@@ -62,6 +62,7 @@ Page {
             reviewRate: modelData.rating
             reviewText: modelData.body
             reviewDate: modelData.updatedDate
+            reviewShortDescription: modelData.shortDescription
 
             onUserClicked: {
                 pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
