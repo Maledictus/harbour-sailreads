@@ -49,9 +49,6 @@ Page {
 
     ReadStatusItem {
         id: readStatusItem
-        onReadStatusChanged: {
-            commentsModel.resourceId = readStatusId
-        }
     }
 
     SilicaListView {

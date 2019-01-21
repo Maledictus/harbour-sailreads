@@ -1105,12 +1105,12 @@ Pull down to refresh or to search groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ReadStatusPage.qml" line="116"/>
+        <location filename="../qml/pages/ReadStatusPage.qml" line="115"/>
         <source>Read Status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ReadStatusPage.qml" line="249"/>
+        <location filename="../qml/pages/ReadStatusPage.qml" line="248"/>
         <source>Comments</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1141,12 +1141,12 @@ Pull down to refresh or to search groups</source>
 <context>
     <name>Sailreads::Application</name>
     <message>
-        <location filename="../src/application.cpp" line="148"/>
+        <location filename="../src/application.cpp" line="149"/>
         <source>Authorized</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="148"/>
+        <location filename="../src/application.cpp" line="149"/>
         <source>Not authorized</source>
         <translation type="unfinished"></translation>
     </message>
