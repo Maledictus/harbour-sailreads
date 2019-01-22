@@ -147,6 +147,8 @@ public slots:
 
     void loadReadStatus(QObject *requester, const QString& id, int page = 1);
 
+    void loadUserStatus(QObject *requester, const QString& id, int page = 1);
+
 signals:
     void busyChanged();
     void loggedChanged();
@@ -207,6 +209,8 @@ signals:
     void authProgressChanged(const QString& progressMessage);
 
     void gotReadStatus(const ReadStatusPtr& readStatus);
+
+    void gotUserStatus(const UserStatusPtr& userStatus);
 };
 }
 

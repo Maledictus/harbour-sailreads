@@ -80,7 +80,10 @@ SOURCES += src/harbour-sailreads.cpp \
     src/objects/readstatus.cpp \
     src/qmltypes/readstatusitem.cpp \
     src/models/commentsmodel.cpp \
-    src/models/readstatuscommentsmodel.cpp
+    src/models/readstatuscommentsmodel.cpp \
+    src/objects/userstatus.cpp \
+    src/qmltypes/userstatusitem.cpp \
+    src/models/userstatuscommentsmodel.cpp
 
 
 HEADERS += src/application.h \
@@ -154,7 +157,10 @@ HEADERS += src/application.h \
     src/objects/readstatus.h \
     src/qmltypes/readstatusitem.h \
     src/models/commentsmodel.h \
-    src/models/readstatuscommentsmodel.h
+    src/models/readstatuscommentsmodel.h \
+    src/objects/userstatus.h \
+    src/qmltypes/userstatusitem.h \
+    src/models/userstatuscommentsmodel.h
 
 DISTFILES += translations/*.ts \
     sailreads.desktop \

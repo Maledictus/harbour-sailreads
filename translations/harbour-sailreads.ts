@@ -1100,17 +1100,17 @@ Pull down to refresh or to search groups</source>
 <context>
     <name>ReadStatusPage</name>
     <message>
-        <location filename="../qml/pages/ReadStatusPage.qml" line="79"/>
+        <location filename="../qml/pages/ReadStatusPage.qml" line="76"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ReadStatusPage.qml" line="115"/>
+        <location filename="../qml/pages/ReadStatusPage.qml" line="112"/>
         <source>Read Status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ReadStatusPage.qml" line="248"/>
+        <location filename="../qml/pages/ReadStatusPage.qml" line="245"/>
         <source>Comments</source>
         <translation type="unfinished"></translation>
     </message>

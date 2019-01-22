@@ -207,6 +207,9 @@ void SailreadsManager::MakeConnections()
 
     connect(m_Api, &GoodReadsApi::gotReadStatus,
             this, &SailreadsManager::gotReadStatus);
+
+    connect(m_Api, &GoodReadsApi::gotUserStatus,
+            this, &SailreadsManager::gotUserStatus);
 }
 
 void SailreadsManager::SetBusy(bool busy)
@@ -527,6 +530,12 @@ void SailreadsManager::loadReadStatus(QObject *requester, const QString& id, int
 {
     SetBusy(true);
     m_Api->GetReadStatus(requester, id, page);
+}
+
+void SailreadsManager::loadUserStatus(QObject *requester, const QString &id, int page)
+{
+    SetBusy(true);
+    m_Api->GetUserStatus(requester, id, page);
 }
 
 }

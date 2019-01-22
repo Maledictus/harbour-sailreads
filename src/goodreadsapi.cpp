@@ -691,14 +691,14 @@ void GoodReadsApi::GetRecentUserStatuses(QObject *requester)
 //            this, &GoodReadsApi::handleGetRecentUserStatuses);
 }
 
-void GoodReadsApi::GetUserStatus(QObject *requester, quint64 userStatusId)
+void GoodReadsApi::GetUserStatus(QObject *requester, const QString& userStatusId, int page)
 {
-//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-//            QUrl(QString("https://www.goodreads.com/user_status/show/%1?format=xml")
-//                 .arg(userStatusId)));
-//    auto reply = m_NAM->get(QNetworkRequest(pair.first));
-//    connect(reply, &QNetworkReply::finished,
-//            this, &GoodReadsApi::handleGetUserStatus);
+    auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + QString("/user_status/show/%1").arg(userStatusId)),
+            { { "format", "xml" }, { "page", page } });
+    m_Requester2Reply[requester] = reply;
+    connect(reply, &QNetworkReply::finished,
+            this, &GoodReadsApi::handleGetUserStatus);
 }
 
 void GoodReadsApi::UpdateUserStatus(quint64 bookId, const QString& body, int percent, int page)
@@ -1690,8 +1690,7 @@ void GoodReadsApi::handleGetUserStatus()
         return;
     }
 
-    //TODO
-    qDebug() << doc.toByteArray();
+    emit gotUserStatus(RpcUtils::Parser::ParseUserStatus(doc));
     emit requestFinished();
 }
 

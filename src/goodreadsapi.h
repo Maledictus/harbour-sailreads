@@ -161,7 +161,7 @@ public:
     void GetReadStatus(QObject *requester, const QString& readStatusId, int page = 1);
 
     void GetRecentUserStatuses(QObject *requester);
-    void GetUserStatus(QObject *requester, quint64 userStatusId);
+    void GetUserStatus(QObject *requester, const QString& userStatusId, int page = 1);
     void UpdateUserStatus(quint64 bookId, const QString& body, int percent, int page = -1);
     void DeleteUserStatus(quint64 userStatusId);
 
@@ -304,5 +304,7 @@ signals:
     void friendRemoved(const QString& userId);
 
     void gotReadStatus(const ReadStatusPtr& readStatus);
+
+    void gotUserStatus(const UserStatusPtr& userStatus);
 };
 }

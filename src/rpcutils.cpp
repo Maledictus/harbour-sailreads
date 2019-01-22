@@ -45,6 +45,7 @@ THE SOFTWARE.
 #include "objects/topic.h"
 #include "objects/update.h"
 #include "objects/user.h"
+#include "objects/userstatus.h"
 #include "objects/work.h"
 
 namespace Sailreads
@@ -1317,6 +1318,63 @@ ReadStatusPtr ParseReadStatus(const QDomElement& element)
     return rs;
 }
 
+UserStatusPtr ParseUserStatus(const QDomElement& element)
+{
+    UserStatusPtr us = std::make_shared<UserStatus>();
+    UserStatuses_t prevStatutes;
+    const auto& fieldsList = element.childNodes();
+    for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
+        const auto& fieldElement = fieldsList.at (i).toElement ();
+        if (fieldElement.tagName() == "id") {
+            us->SetId(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "header") {
+            us->SetHeader(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "likes_count") {
+            us->SetLikesCount(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "comments_count") {
+            us->SetCommentsCount(fieldElement.text().toInt());
+        }
+        else if (fieldElement.tagName() == "liked") {
+            us->SetIsLiked(fieldElement.text() == "true");
+        }
+        else if (fieldElement.tagName() == "created_at") {
+            us->SetCreateDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
+                    Qt::ISODate));
+        }
+        else if (fieldElement.tagName() == "updated_at") {
+            us->SetUpdateDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
+                    Qt::ISODate));
+        }
+        else if (fieldElement.tagName() == "page") {
+            us->SetPage(fieldElement.text().toInt());
+        }
+        else if (fieldElement.tagName() == "percent") {
+            us->SetPercent(fieldElement.text().toInt());
+        }
+        else if (fieldElement.tagName() == "work_id") {
+            us->SetWorkId(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "book") {
+            us->SetBook(ParseBook(fieldElement));
+        }
+        else if (fieldElement.tagName() == "user") {
+            us->SetUser(ParseUser(fieldElement));
+        }
+        else if (fieldElement.tagName() == "comments") {
+            us->SetComments(ParseComments(fieldElement));
+        }
+        else if (fieldElement.tagName() == "user_status") {
+            prevStatutes << ParseUserStatus(fieldElement);
+        }
+    }
+
+    us->SetPreviousStatuses(prevStatutes);
+    return us;
+}
+
 
 GroupMembers_t ParseGroupMembers(const QDomElement& element)
 {
@@ -2001,6 +2059,21 @@ CountedItems<Comment> ParseComments(const QDomDocument& doc)
     }
 
     return ParseComments(commentsElement);
+}
+
+UserStatusPtr ParseUserStatus(const QDomDocument& doc)
+{
+    const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
+    if (responseElement.isNull()) {
+        return UserStatusPtr();
+    }
+
+    const auto& userStatusElement = responseElement.firstChildElement("user_status");
+    if (userStatusElement.isNull()) {
+        return UserStatusPtr();
+    }
+
+    return ParseUserStatus(userStatusElement);
 }
 
 }

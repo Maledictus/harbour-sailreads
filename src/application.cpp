@@ -50,6 +50,7 @@ THE SOFTWARE.
 #include "models/groupmembersmodel.h"
 #include "models/groupfoldertopicsmodel.h"
 #include "models/readstatuscommentsmodel.h"
+#include "models/userstatuscommentsmodel.h"
 #include "models/reviewsmodel.h"
 #include "models/searchreviewsmodel.h"
 #include "models/updatesmodel.h"
@@ -66,6 +67,7 @@ THE SOFTWARE.
 #include "objects/work.h"
 #include "objects/groupfolder.h"
 #include "objects/readstatus.h"
+#include "objects/userstatus.h"
 #include "objects/topic.h"
 #include "objects/update.h"
 #include "qmltypes/authorprofileitem.h"
@@ -73,6 +75,7 @@ THE SOFTWARE.
 #include "qmltypes/groupitem.h"
 #include "qmltypes/messageitem.h"
 #include "qmltypes/readstatusitem.h"
+#include "qmltypes/userstatusitem.h"
 #include "qmltypes/reviewitem.h"
 #include "qmltypes/seriesitem.h"
 #include "qmltypes/topicitem.h"
@@ -176,6 +179,8 @@ void Application::start()
             "Update provides attached properties and can't be instantiated");
     qmlRegisterUncreatableType<ReadStatus>("harbour.sailreads", 1, 0, "ReadStatus",
             "Update provides attached properties and can't be instantiated");
+    qmlRegisterUncreatableType<UserStatus>("harbour.sailreads", 1, 0, "ReadStatus",
+            "Update provides attached properties and can't be instantiated");
 
     qRegisterMetaType<QObjectList>("QObjectList");
     qRegisterMetaType<Author*>("Author*");
@@ -190,6 +195,7 @@ void Application::start()
     qRegisterMetaType<Work*>("Work*");
     qRegisterMetaType<GroupFolder>("GroupFolder");
     qRegisterMetaType<ReadStatus*>("ReadStatus*");
+    qRegisterMetaType<UserStatus*>("UserStatus*");
 
     qmlRegisterType<AuthorBooksModel>("harbour.sailreads", 1, 0, "AuthorBooksModel");
     qmlRegisterType<AuthorSeriesModel>("harbour.sailreads", 1, 0, "AuthorSeriesModel");
@@ -214,6 +220,7 @@ void Application::start()
     qmlRegisterType<ProfileUpdatesModel>("harbour.sailreads", 1, 0, "ProfileUpdatesModel");
     qmlRegisterType<CommentsModel>("harbour.sailreads", 1, 0, "CommentsModel");
     qmlRegisterType<ReadStatusCommentsModel>("harbour.sailreads", 1, 0, "ReadStatusCommentsModel");
+    qmlRegisterType<UserStatusCommentsModel>("harbour.sailreads", 1, 0, "UserStatusCommentsModel");
 
     qmlRegisterType<UserProfile>("harbour.sailreads", 1, 0, "UserProfile");
     qmlRegisterType<GroupItem>("harbour.sailreads", 1, 0, "GroupItem");
@@ -225,6 +232,7 @@ void Application::start()
     qmlRegisterType<ReviewItem>("harbour.sailreads", 1, 0, "ReviewItem");
     qmlRegisterType<MessageItem>("harbour.sailreads", 1, 0, "MessageItem");
     qmlRegisterType<ReadStatusItem>("harbour.sailreads", 1, 0, "ReadStatusItem");
+    qmlRegisterType<UserStatusItem>("harbour.sailreads", 1, 0, "UserStatusItem");
 
     ShowUI();
 }
