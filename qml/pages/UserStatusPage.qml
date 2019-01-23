@@ -30,11 +30,11 @@ import "../components"
 import "../utils/Utils.js" as Utils
 
 Page {
-    id: readStatusPage
+    id: userStatusPage
 
-    property alias readStatusId : readStatusItem.readStatusId
-    property alias readStatus : readStatusItem.readStatus
-    property bool busy: sailreadsManager.busy && readStatusPage.status === PageStatus.Active
+    property alias userStatusId : userStatusItem.userStatusId
+    property alias userStatus : userStatusItem.userStatus
+    property bool busy: sailreadsManager.busy && userStatusPage.status === PageStatus.Active
 
     function attachPage() {
         if (pageStack._currentContainer.attachedContainer === null
@@ -44,20 +44,20 @@ Page {
     }
 
     Component.onDestruction: {
-        readStatusItem.cancelRequest()
+        userStatusItem.cancelRequest()
     }
 
-    ReadStatusItem {
-        id: readStatusItem
+    UserStatusItem {
+        id: userStatusItem
     }
 
     SilicaListView {
         id: commentsView
         anchors.fill: parent
-        cacheBuffer: readStatusPage.height
+        cacheBuffer: userStatusPage.height
 
         function fetchMoreIfNeeded() {
-            if (!readStatusPage.busy &&
+            if (!userStatusPage.busy &&
                     commentsModel.hasMore &&
                     commentsModel.rowCount() > 0 &&
                     indexAt(contentX, contentY + height) > commentsModel.rowCount() - 2) {
@@ -65,29 +65,28 @@ Page {
             }
         }
 
-
         contentY: -headerItem.height
 
         onContentYChanged: fetchMoreIfNeeded()
 
         PullDownMenu {
-            busy: readStatusPage.busy
+            busy: userStatusPage.busy
              MenuItem {
                 text: qsTr("Refresh")
                 onClicked: {
-                    readStatusItem.loadReadStatus()
+                    userStatusItem.loaduserStatus()
                 }
             }
         }
 
         header: Item {
             width: commentsView.width
-            height: readStatusBox.height
+            height: userStatusBox.height
         }
 
-        model: ReadStatusCommentsModel {
+        model: UserStatusCommentsModel {
             id: commentsModel
-            readStatusId: readStatusItem.readStatusId
+            userStatusId: userStatusItem.userStatusId
         }
 
         delegate: CommentListItem {
@@ -102,14 +101,14 @@ Page {
     }
 
     Column {
-        id: readStatusBox
-        parent: commentsView.headerItem ? commentsView.headerItem : readStatusPage
+        id: userStatusBox
+        parent: commentsView.headerItem ? commentsView.headerItem : userStatusPage
         width: parent.width
 
         spacing: Theme.paddingMedium
 
         PageHeader {
-            title: qsTr("Read Status")
+            title: qsTr("User Status")
         }
 
         Column {
@@ -129,11 +128,11 @@ Page {
                     id: avatarImageItem
                     anchors.top: column.top
                     indicator.size: BusyIndicatorSize.Medium
-                    source: readStatus && readStatus.user ?
-                            readStatus.user.avatarUrl :
+                    source: userStatus && userStatus.user ?
+                            userStatus.user.avatarUrl :
                             "qrc:/images/gra_small.png"
                     onClicked: pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
-                            { userId: readStatus.user.id })
+                            { userId: userStatus.user.id })
                 }
 
                 Column {
@@ -143,7 +142,7 @@ Page {
                         width: parent.width
                         wrapMode: Text.WordWrap
                         color: Theme.highlightColor
-                        text: readStatus ? readStatus.header : ""
+                        text: userStatus ? userStatus.header : ""
                         font.family: Theme.fontFamilyHeading
                         linkColor: Theme.primaryColor
                         onLinkActivated: mainWindow.openPageFromUrl(link)
@@ -153,10 +152,33 @@ Page {
                         id: dateLabelItem
                         visible: text !== ""
                         color: Theme.secondaryColor
-                        text: readStatus ? Qt.formatDateTime(readStatus.updateDate) : ""
+                        text: userStatus ? Qt.formatDateTime(userStatus.updateDate) : ""
                         anchors.right: parent.right
                         font.pixelSize: Theme.fontSizeExtraSmall
                     }
+                }
+            }
+
+            Row {
+                id: progressRow
+                width:parent.width
+
+                spacing: Theme.paddingMedium
+
+                Label {
+                    id: progressLabel
+                    text: qsTr("Progress")
+                    color: Theme.highlightColor
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                ProgressBar {
+                    width: parent.width - progressLabel.width - Theme.paddingMedium
+                    minimumValue: 0
+                    maximumValue: 100
+                    value: userStatus ? userStatus.percent : 0
+                    highlighted: true
+                    enabled: false
                 }
             }
 
@@ -165,7 +187,7 @@ Page {
                 spacing: Theme.paddingMedium
                 BaseImage {
                     id: bookImage
-                    source: readStatus && readStatus.book ? readStatus.book.imageUrl : ""
+                    source: userStatus && userStatus.book ? userStatus.book.imageUrl : ""
                     height: Theme.coverSizeSmall.height
                     width: Theme.coverSizeSmall.width
                     indicator.size: BusyIndicatorSize.Medium
@@ -180,7 +202,7 @@ Page {
                         font.family: Theme.fontFamilyHeading
                         font.pixelSize: Theme.fontSizeMedium
                         color: Theme.highlightColor
-                        text: readStatus && readStatus.book ? readStatus.book.titleWithoutSeries : ""
+                        text: userStatus && userStatus.book ? userStatus.book.titleWithoutSeries : ""
                         wrapMode: Text.WordWrap
                         width: parent.width
                     }
@@ -189,8 +211,8 @@ Page {
                         textFormat: Text.RichText
                         font.pixelSize: Theme.fontSizeSmall
                         color: Theme.highlightColor
-                        text: readStatus && readStatus.book ?
-                                Utils.getAuthorsString(readStatus.book.authors, Theme.primaryColor) : ""
+                        text: userStatus && userStatus.book ?
+                                Utils.getAuthorsString(userStatus.book.authors, Theme.primaryColor) : ""
                     }
                 }
             }
@@ -205,7 +227,7 @@ Page {
                         left: parent.left
                         baseline: parent.verticalCenter
                     }
-                    label.text: readStatus ? readStatus.likesCount : 0
+                    label.text: userStatus ? userStatus.likesCount : 0
                     label.color: Theme.highlightColor
                     label.font.pixelSize: Theme.fontSizeExtraSmall
                     icon.source: "image://theme/icon-s-like?" + Theme.highlightColor
@@ -220,7 +242,7 @@ Page {
                         baseline: parent.verticalCenter
                     }
 
-                    label.text: readStatus ? readStatus.commentsCount : 0
+                    label.text: userStatus ? userStatus.commentsCount : 0
                     label.color: Theme.highlightColor
                     label.font.pixelSize: Theme.fontSizeExtraSmall
                     icon.source: "image://theme/icon-s-chat?" + Theme.highlightColor
@@ -251,7 +273,7 @@ Page {
     BusyIndicator {
         size: BusyIndicatorSize.Large
         anchors.centerIn: parent
-        running: readStatusPage.busy
+        running: userStatusPage.busy
         visible: running
     }
 }

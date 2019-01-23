@@ -168,14 +168,6 @@ DISTFILES += translations/*.ts \
     rpm/harbour-sailreads.spec \
     rpm/harbour-sailreads.changes
 
-QML_SOURCES = \
-        qml/*.qml \
-        qml/pages/*.qml \
-        qml/cover/*.qml \
-        qml/components/*.qml \
-        qml/dialogs/*.qml \
-        qml/utils/*.js
-
 RESOURCES += sailreads.qrc
 
 SAILFISHAPP_ICONS = 86x86 108x108 128x128 172x172
