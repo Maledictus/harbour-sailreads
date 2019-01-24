@@ -1110,7 +1110,7 @@ Pull down to refresh or to search groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ReadStatusPage.qml" line="198"/>
+        <location filename="../qml/pages/ReadStatusPage.qml" line="199"/>
         <source>Comments</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1317,7 +1317,7 @@ Pull down to refresh or to search groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/UserStatusPage.qml" line="198"/>
+        <location filename="../qml/pages/UserStatusPage.qml" line="199"/>
         <source>Comments</source>
         <translation type="unfinished"></translation>
     </message>

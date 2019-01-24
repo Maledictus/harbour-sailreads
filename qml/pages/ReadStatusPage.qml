@@ -185,9 +185,10 @@ Page {
                         bottom: parent.bottom
                     }
 
-                    icon.source: "image://theme/icon-m-like?" + (pressed ?
-                            Theme.highlightColor :
-                            Theme.primaryColor)
+                    icon.source: "image://theme/icon-m-like?" +
+                            (pressed || (readStatus && readStatus.isLiked) ?
+                                Theme.highlightColor :
+                                Theme.primaryColor)
                     onClicked: {
                         //TODO like review
                     }
