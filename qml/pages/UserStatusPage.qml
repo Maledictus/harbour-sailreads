@@ -160,29 +160,6 @@ Page {
             }
 
             Row {
-                id: progressRow
-                width:parent.width
-
-                spacing: Theme.paddingMedium
-
-                Label {
-                    id: progressLabel
-                    text: qsTr("Progress")
-                    color: Theme.highlightColor
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-
-                ProgressBar {
-                    width: parent.width - progressLabel.width - Theme.paddingMedium
-                    minimumValue: 0
-                    maximumValue: 100
-                    value: userStatus ? userStatus.percent : 0
-                    highlighted: true
-                    enabled: false
-                }
-            }
-
-            Row {
                 width: parent.width
                 spacing: Theme.paddingMedium
                 BaseImage {
