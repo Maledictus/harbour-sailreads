@@ -30,6 +30,7 @@ MouseArea {
 
     signal linkActivated(var link)
 
+    property alias text: textLabel.text
     property alias label: textLabel
 
     property bool down: pressed && containsMouse

@@ -134,39 +134,17 @@ Page {
                 onLinkActivated: mainWindow.openPageFromUrl(link)
             }
 
-            Row {
+            ShortBookRow {
                 width: parent.width
-                spacing: Theme.paddingMedium
-                BaseImage {
-                    id: bookImage
-                    source: readStatus && readStatus.book ? readStatus.book.imageUrl : ""
-                    height: Theme.coverSizeSmall.height
-                    width: Theme.coverSizeSmall.width
-                    indicator.size: BusyIndicatorSize.Medium
-                    onClicked: {
-
-                    }
-                }
-
-                Column {
-                    width: parent.width - bookImage.width - Theme.paddingMedium
-                    Label {
-                        font.family: Theme.fontFamilyHeading
-                        font.pixelSize: Theme.fontSizeMedium
-                        color: Theme.highlightColor
-                        text: readStatus && readStatus.book ? readStatus.book.titleWithoutSeries : ""
-                        wrapMode: Text.WordWrap
-                        width: parent.width
-                    }
-
-                    Label {
-                        textFormat: Text.RichText
-                        font.pixelSize: Theme.fontSizeSmall
-                        color: Theme.highlightColor
-                        text: readStatus && readStatus.book ?
-                                Utils.getAuthorsString(readStatus.book.authors, Theme.primaryColor) : ""
-                    }
-                }
+                bookImage: readStatus && readStatus.book ? readStatus.book.imageUrl : ""
+                bookTitle: readStatus && readStatus.book ? readStatus.book.titleWithoutSeries : ""
+                bookAuthors: readStatus && readStatus.book ?
+                        Utils.getAuthorsString(readStatus.book.authors, Theme.primaryColor) : ""
+                onBookClicked: pageStack.push(Qt.resolvedUrl("BookPage.qml"),
+                        { bookId: readStatus && readStatus.book ? readStatus.book.id : "",
+                            book : readStatus ? readStatus.book : null })
+                onAuthorLinkActivated: pageStack.push(Qt.resolvedUrl("AuthorPage.qml"),
+                        { authorId : link })
             }
 
             Item {
