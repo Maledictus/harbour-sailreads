@@ -166,7 +166,8 @@ DISTFILES += translations/*.ts \
     sailreads.desktop \
     rpm/harbour-sailreads.changes.run.in \
     rpm/harbour-sailreads.spec \
-    rpm/harbour-sailreads.changes
+    rpm/harbour-sailreads.changes \
+    qml/components/UserStatusRow.qml
 
 RESOURCES += sailreads.qrc
 

@@ -122,42 +122,16 @@ Page {
 
             spacing: Theme.paddingMedium
 
-            Row {
+            UserStatusRow {
                 width: parent.width
-                spacing: Theme.paddingMedium
-                BaseImage {
-                    id: avatarImageItem
-                    anchors.top: column.top
-                    indicator.size: BusyIndicatorSize.Medium
-                    source: readStatus && readStatus.user ?
-                            readStatus.user.avatarUrl :
-                            "qrc:/images/gra_small.png"
-                    onClicked: pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
-                            { userId: readStatus.user.id })
-                }
-
-                Column {
-                    id: column
-                    width: parent.width - avatarImageItem.width - Theme.paddingMedium
-                    Label {
-                        width: parent.width
-                        wrapMode: Text.WordWrap
-                        color: Theme.highlightColor
-                        text: readStatus ? readStatus.header : ""
-                        font.family: Theme.fontFamilyHeading
-                        linkColor: Theme.primaryColor
-                        onLinkActivated: mainWindow.openPageFromUrl(link)
-                    }
-
-                    Label {
-                        id: dateLabelItem
-                        visible: text !== ""
-                        color: Theme.secondaryColor
-                        text: readStatus ? Qt.formatDateTime(readStatus.updateDate) : ""
-                        anchors.right: parent.right
-                        font.pixelSize: Theme.fontSizeExtraSmall
-                    }
-                }
+                userAvatar: readStatus && readStatus.user ?
+                        readStatus.user.avatarUrl :
+                        "qrc:/images/gra_small.png"
+                userHeader: readStatus ? readStatus.header : ""
+                postDate: readStatus ? Qt.formatDateTime(readStatus.updateDate) : ""
+                onUserClicked: pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
+                        { userId: readStatus && readStatus.user ? readStatus.user.id : "" })
+                onLinkActivated: mainWindow.openPageFromUrl(link)
             }
 
             Row {

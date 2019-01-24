@@ -121,42 +121,17 @@ Page {
 
             spacing: Theme.paddingMedium
 
-            Row {
+            UserStatusRow {
                 width: parent.width
-                spacing: Theme.paddingMedium
-                BaseImage {
-                    id: avatarImageItem
-                    anchors.top: column.top
-                    indicator.size: BusyIndicatorSize.Medium
-                    source: userStatus && userStatus.user ?
-                            userStatus.user.avatarUrl :
-                            "qrc:/images/gra_small.png"
-                    onClicked: pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
-                            { userId: userStatus.user.id })
-                }
-
-                Column {
-                    id: column
-                    width: parent.width - avatarImageItem.width - Theme.paddingMedium
-                    Label {
-                        width: parent.width
-                        wrapMode: Text.WordWrap
-                        color: Theme.highlightColor
-                        text: userStatus ? userStatus.header : ""
-                        font.family: Theme.fontFamilyHeading
-                        linkColor: Theme.primaryColor
-                        onLinkActivated: mainWindow.openPageFromUrl(link)
-                    }
-
-                    Label {
-                        id: dateLabelItem
-                        visible: text !== ""
-                        color: Theme.secondaryColor
-                        text: userStatus ? Qt.formatDateTime(userStatus.updateDate) : ""
-                        anchors.right: parent.right
-                        font.pixelSize: Theme.fontSizeExtraSmall
-                    }
-                }
+                userAvatar: userStatus && userStatus.user ?
+                        userStatus.user.avatarUrl :
+                        "qrc:/images/gra_small.png"
+                userHeader: userStatus ? userStatus.header : ""
+                postBody: userStatus ? userStatus.body : ""
+                postDate: userStatus ? Qt.formatDateTime(userStatus.updateDate) : ""
+                onUserClicked: pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
+                        { userId: userStatus && userStatus.user ? userStatus.user.id : "" })
+                onLinkActivated: mainWindow.openPageFromUrl(link)
             }
 
             Row {
@@ -232,7 +207,7 @@ Page {
                         bottom: parent.bottom
                     }
 
-                    icon.source: "image://theme/icon-m-like?" + (pressed ?
+                    icon.source: "image://theme/icon-m-like?" + (pressed || (userStatus && userStatus.isLiked) ?
                             Theme.highlightColor :
                             Theme.primaryColor)
                     onClicked: {
