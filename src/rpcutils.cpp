@@ -47,6 +47,7 @@ THE SOFTWARE.
 #include "objects/user.h"
 #include "objects/userstatus.h"
 #include "objects/work.h"
+#include "objects/recommendation.h"
 
 namespace Sailreads
 {
@@ -1375,6 +1376,39 @@ UserStatusPtr ParseUserStatus(const QDomElement& element)
     return us;
 }
 
+RecommendationPtr ParseRecommendation(const QDomElement& element)
+{
+    RecommendationPtr recommendation = std::make_shared<Recommendation>();
+    const auto& fieldsList = element.childNodes();
+    for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
+        const auto& fieldElement = fieldsList.at (i).toElement ();
+        if (fieldElement.tagName() == "id") {
+            recommendation->SetId(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "likes_count") {
+            recommendation->SetLikesCount(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "created_at") {
+            recommendation->SetCreateDate(QDateTime::fromString(fieldElement.text(), Qt::ISODate));
+        }
+        else if (fieldElement.tagName() == "rating_id") {
+            recommendation->SetRatingId(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "book") {
+            recommendation->SetBook(ParseBook(fieldElement));
+        }
+        else if (fieldElement.tagName() == "from_user") {
+            recommendation->SetFromUser(ParseUser(fieldElement));
+        }
+        else if (fieldElement.tagName() == "to_user") {
+            recommendation->SetToUser(ParseUser(fieldElement));
+        }
+        else if (fieldElement.tagName() == "comments") {
+            recommendation->SetComments(ParseComments(fieldElement));
+        }
+    }
+    return recommendation;
+}
 
 GroupMembers_t ParseGroupMembers(const QDomElement& element)
 {
@@ -2074,6 +2108,21 @@ UserStatusPtr ParseUserStatus(const QDomDocument& doc)
     }
 
     return ParseUserStatus(userStatusElement);
+}
+
+RecommendationPtr ParseRecommendation(const QDomDocument& doc)
+{
+    const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
+    if (responseElement.isNull()) {
+        return RecommendationPtr();
+    }
+
+    const auto& recommendationElement = responseElement.firstChildElement("recommendation");
+    if (recommendationElement.isNull()) {
+        return RecommendationPtr();
+    }
+
+    return ParseRecommendation(recommendationElement);
 }
 
 }

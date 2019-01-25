@@ -87,6 +87,7 @@ function getAuthorsString(authorsList, color) {
     return result
 }
 
+
 function getSeriesString(seriesList, color) {
     if (seriesList.length === 0) {
         return "";

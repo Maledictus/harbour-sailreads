@@ -115,7 +115,8 @@ ApplicationWindow {
                     { userStatusId: id })
             break
         case "recommendations":
-            console.log("RECOMMENDATION: ", id)
+            pageStack.push(Qt.resolvedUrl("pages/RecommendationPage.qml"),
+                    { recommendationId: id })
             break
         case "user_challenges":
             console.log("USER_CHALLENGE: ", id)

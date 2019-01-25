@@ -725,7 +725,17 @@ void GoodReadsApi::DeleteUserStatus(quint64 userStatusId)
 //                    .arg(userStatusId)), "POST");
 //    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
 //    connect(reply, &QNetworkReply::finished,
-//             this, &GoodReadsApi::handleDeleteUserStatus);
+    //             this, &GoodReadsApi::handleDeleteUserStatus);
+}
+
+void GoodReadsApi::GetRecommendation(QObject *requester, quint64 id, int page)
+{
+    auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + QString("/recommendations/%1").arg(id)),
+            { { "format", "xml" }, { "page", page } });
+    m_Requester2Reply[requester] = reply;
+    connect(reply, &QNetworkReply::finished,
+            this, &GoodReadsApi::handleGetRecommendation);
 }
 
 namespace
@@ -1719,6 +1729,19 @@ void GoodReadsApi::handleDeleteUserStatus()
 
     //TODO
     qDebug() << doc.toByteArray();
+    emit requestFinished();
+}
+
+void GoodReadsApi::handleGetRecommendation()
+{
+    bool ok = false;
+    auto doc = GetDocumentFromReply(sender(), ok);
+    if (!ok) {
+        emit requestFinished();
+        return;
+    }
+
+    emit gotRecommendation(RpcUtils::Parser::ParseRecommendation(doc));
     emit requestFinished();
 }
 }

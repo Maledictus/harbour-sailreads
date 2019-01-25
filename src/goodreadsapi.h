@@ -165,6 +165,8 @@ public:
     void UpdateUserStatus(quint64 bookId, const QString& body, int percent, int page = -1);
     void DeleteUserStatus(quint64 userStatusId);
 
+    void GetRecommendation(QObject *requester, quint64 id, int page = 1);
+
 private:
     QDomDocument GetDocumentFromReply(QObject *sender, bool& ok);
     QByteArray GetReply(QObject *sender, bool& ok);
@@ -245,6 +247,8 @@ private slots:
     void handleUpdateUserStatus();
     void handleDeleteUserStatus();
 
+    void handleGetRecommendation();
+
 signals:
     void requestFinished();
 
@@ -306,5 +310,7 @@ signals:
     void gotReadStatus(const ReadStatusPtr& readStatus);
 
     void gotUserStatus(const UserStatusPtr& userStatus);
+
+    void gotRecommendation(const RecommendationPtr& recommendation);
 };
 }

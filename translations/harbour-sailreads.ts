@@ -1116,6 +1116,29 @@ Pull down to refresh or to search groups</source>
     </message>
 </context>
 <context>
+    <name>RecommendationPage</name>
+    <message>
+        <location filename="../qml/pages/RecommendationPage.qml" line="76"/>
+        <source>Refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/RecommendationPage.qml" line="112"/>
+        <source>Recommendation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/RecommendationPage.qml" line="148"/>
+        <source>%1 recommended the book %2 to %3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/RecommendationPage.qml" line="221"/>
+        <source>Comments</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ReviewPage</name>
     <message>
         <location filename="../qml/pages/ReviewPage.qml" line="79"/>
@@ -1141,12 +1164,12 @@ Pull down to refresh or to search groups</source>
 <context>
     <name>Sailreads::Application</name>
     <message>
-        <location filename="../src/application.cpp" line="152"/>
+        <location filename="../src/application.cpp" line="155"/>
         <source>Authorized</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="152"/>
+        <location filename="../src/application.cpp" line="155"/>
         <source>Not authorized</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1182,17 +1205,17 @@ Pull down to refresh or to search groups</source>
 <context>
     <name>Sailreads::SailreadsManager</name>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="249"/>
+        <location filename="../src/sailreadsmanager.cpp" line="252"/>
         <source>Authorization user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="267"/>
+        <location filename="../src/sailreadsmanager.cpp" line="270"/>
         <source>Authentication user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="288"/>
+        <location filename="../src/sailreadsmanager.cpp" line="291"/>
         <source>Getting user profile...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1335,94 +1358,94 @@ Pull down to refresh or to search groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/utils/Utils.js" line="109"/>
+        <location filename="../qml/utils/Utils.js" line="110"/>
         <source>Title</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/utils/Utils.js" line="110"/>
+        <location filename="../qml/utils/Utils.js" line="111"/>
         <source>Author</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/utils/Utils.js" line="111"/>
+        <location filename="../qml/utils/Utils.js" line="112"/>
         <source>Average rating</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/utils/Utils.js" line="112"/>
+        <location filename="../qml/utils/Utils.js" line="113"/>
         <source>Number of ratings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/utils/Utils.js" line="113"/>
+        <location filename="../qml/utils/Utils.js" line="114"/>
         <source>First published date</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/utils/Utils.js" line="114"/>
+        <location filename="../qml/utils/Utils.js" line="115"/>
         <source>Pages count</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/utils/Utils.js" line="115"/>
+        <location filename="../qml/utils/Utils.js" line="116"/>
         <source>Date updated</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/utils/Utils.js" line="116"/>
+        <location filename="../qml/utils/Utils.js" line="117"/>
         <source>Your rating</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/utils/Utils.js" line="117"/>
+        <location filename="../qml/utils/Utils.js" line="118"/>
         <source>Date started</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/utils/Utils.js" line="118"/>
+        <location filename="../qml/utils/Utils.js" line="119"/>
         <source>Date finished</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/utils/Utils.js" line="119"/>
+        <location filename="../qml/utils/Utils.js" line="120"/>
         <source>Review written</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/utils/Utils.js" line="122"/>
+        <location filename="../qml/utils/Utils.js" line="123"/>
         <source>Date added</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/utils/Utils.js" line="128"/>
-        <location filename="../qml/utils/Utils.js" line="132"/>
+        <location filename="../qml/utils/Utils.js" line="129"/>
+        <location filename="../qml/utils/Utils.js" line="133"/>
         <source>Friends</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/utils/Utils.js" line="129"/>
+        <location filename="../qml/utils/Utils.js" line="130"/>
         <source>Top friends and followings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/utils/Utils.js" line="130"/>
+        <location filename="../qml/utils/Utils.js" line="131"/>
         <source>Top friends</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/utils/Utils.js" line="138"/>
-        <location filename="../qml/utils/Utils.js" line="142"/>
+        <location filename="../qml/utils/Utils.js" line="139"/>
+        <location filename="../qml/utils/Utils.js" line="143"/>
         <source>Everything</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/utils/Utils.js" line="139"/>
+        <location filename="../qml/utils/Utils.js" line="140"/>
         <source>Books</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/utils/Utils.js" line="140"/>
+        <location filename="../qml/utils/Utils.js" line="141"/>
         <source>Reviews</source>
         <translation type="unfinished"></translation>
     </message>

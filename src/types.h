@@ -112,4 +112,7 @@ typedef QList<ReadStatusPtr> ReadStatuses_t;
 class UserStatus;
 typedef std::shared_ptr<UserStatus> UserStatusPtr;
 typedef QList<UserStatusPtr> UserStatuses_t;
+
+class Recommendation;
+typedef std::shared_ptr<Recommendation> RecommendationPtr;
 }

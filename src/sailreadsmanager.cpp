@@ -210,6 +210,9 @@ void SailreadsManager::MakeConnections()
 
     connect(m_Api, &GoodReadsApi::gotUserStatus,
             this, &SailreadsManager::gotUserStatus);
+
+    connect(m_Api, &GoodReadsApi::gotRecommendation,
+            this, &SailreadsManager::gotRecommendation);
 }
 
 void SailreadsManager::SetBusy(bool busy)
@@ -536,6 +539,12 @@ void SailreadsManager::loadUserStatus(QObject *requester, const QString &id, int
 {
     SetBusy(true);
     m_Api->GetUserStatus(requester, id, page);
+}
+
+void SailreadsManager::loadRecommendation(QObject *requester, quint64 id, int page)
+{
+    SetBusy(true);
+    m_Api->GetRecommendation(requester, id, page);
 }
 
 }

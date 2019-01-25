@@ -56,6 +56,7 @@ THE SOFTWARE.
 #include "models/updatesmodel.h"
 #include "models/profileupdatesmodel.h"
 #include "models/commentsmodel.h"
+#include "models/recommendationcommentsmodel.h"
 #include "objects/author.h"
 #include "objects/book.h"
 #include "objects/group.h"
@@ -70,6 +71,7 @@ THE SOFTWARE.
 #include "objects/userstatus.h"
 #include "objects/topic.h"
 #include "objects/update.h"
+#include "objects/recommendation.h"
 #include "qmltypes/authorprofileitem.h"
 #include "qmltypes/bookitem.h"
 #include "qmltypes/groupitem.h"
@@ -80,6 +82,7 @@ THE SOFTWARE.
 #include "qmltypes/seriesitem.h"
 #include "qmltypes/topicitem.h"
 #include "qmltypes/userprofile.h"
+#include "qmltypes/recommendationitem.h"
 #include "settings/accountsettings.h"
 #include "settings/applicationsettings.h"
 #include "authserver.h"
@@ -196,6 +199,7 @@ void Application::start()
     qRegisterMetaType<GroupFolder>("GroupFolder");
     qRegisterMetaType<ReadStatus*>("ReadStatus*");
     qRegisterMetaType<UserStatus*>("UserStatus*");
+    qRegisterMetaType<Recommendation*>("Recommendation*");
 
     qmlRegisterType<AuthorBooksModel>("harbour.sailreads", 1, 0, "AuthorBooksModel");
     qmlRegisterType<AuthorSeriesModel>("harbour.sailreads", 1, 0, "AuthorSeriesModel");
@@ -221,6 +225,7 @@ void Application::start()
     qmlRegisterType<CommentsModel>("harbour.sailreads", 1, 0, "CommentsModel");
     qmlRegisterType<ReadStatusCommentsModel>("harbour.sailreads", 1, 0, "ReadStatusCommentsModel");
     qmlRegisterType<UserStatusCommentsModel>("harbour.sailreads", 1, 0, "UserStatusCommentsModel");
+    qmlRegisterType<RecommendationCommentsModel>("harbour.sailreads", 1, 0, "RecommendationCommentsModel");
 
     qmlRegisterType<UserProfile>("harbour.sailreads", 1, 0, "UserProfile");
     qmlRegisterType<GroupItem>("harbour.sailreads", 1, 0, "GroupItem");
@@ -233,6 +238,7 @@ void Application::start()
     qmlRegisterType<MessageItem>("harbour.sailreads", 1, 0, "MessageItem");
     qmlRegisterType<ReadStatusItem>("harbour.sailreads", 1, 0, "ReadStatusItem");
     qmlRegisterType<UserStatusItem>("harbour.sailreads", 1, 0, "UserStatusItem");
+    qmlRegisterType<RecommendationItem>("harbour.sailreads", 1, 0, "RecommendationItem");
 
     ShowUI();
 }
