@@ -26,11 +26,10 @@ import QtQuick 2.2
 import Sailfish.Silica 1.0
 
 Row {
-    id: row
-
     property alias icon: image
     property alias label: labelItem
 
+    spacing: Theme.paddingSmall
     Image {
         id: image
         anchors.verticalCenter: parent.verticalCenter
@@ -38,6 +37,8 @@ Row {
 
     Label {
         id: labelItem
+        font.pixelSize: Theme.fontSizeExtraSmall
+        color: Theme.highlightColor
         anchors.verticalCenter: parent.verticalCenter
     }
 }

@@ -32,6 +32,8 @@ Row {
     property alias bookImage: bookImageItem.source
     property alias bookTitle: bookTitleLabel.text
     property alias bookAuthors: authorsLabel.text
+    property real bookAverageRating
+    property int bookRatingsCount
 
     signal bookClicked()
     signal authorLinkActivated(var link)
@@ -60,11 +62,33 @@ Row {
         }
 
         Label {
+            width: parent.width
             id: authorsLabel
             textFormat: Text.RichText
             font.pixelSize: Theme.fontSizeSmall
             color: Theme.highlightColor
             onLinkActivated: authorLinkActivated(link)
+        }
+
+        RatingBox {
+            id: ratingBox
+            rating: bookAverageRating
+            color: Theme.highlightColor
+            starIconSize: Theme.iconSizeSmall
+        }
+
+        KeyValueLabel {
+            id: averageRatingLabel
+            key: qsTr("Average rating")
+            visible: value !== ""
+            value: Number(bookAverageRating).toLocaleString(Qt.locale(), 'f', 2)
+        }
+
+        KeyValueLabel {
+            id: ratingsCountLabel
+            key: qsTr("Ratings count")
+            visible: value !== ""
+            value: Number(bookRatingsCount).toLocaleString(Qt.locale(), 'f', 0)
         }
     }
 }

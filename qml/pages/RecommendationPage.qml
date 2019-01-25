@@ -162,6 +162,9 @@ Page {
                 bookTitle: recommendation && recommendation.book ? recommendation.book.titleWithoutSeries : ""
                 bookAuthors: recommendation && recommendation.book ?
                         Utils.getAuthorsString(recommendation.book.authors, Theme.primaryColor) : ""
+                bookAverageRating: recommendation && recommendation.book ? recommendation.book.averageRating : 0.0
+                bookRatingsCount: recommendation && recommendation.book ? recommendation.book.ratingsCount : 0
+
                 onBookClicked: pageStack.push(Qt.resolvedUrl("BookPage.qml"),
                         { bookId: recommendation && recommendation.book ? recommendation.book.id : "",
                             book : recommendation ? recommendation.book : null })
@@ -172,41 +175,30 @@ Page {
             Item {
                 width: parent.width
                 height: likeButton.height
-                IconText {
-                    id: voteIcon
-
+                Row {
+                    spacing: Theme.paddingLarge
                     anchors {
                         left: parent.left
-                        baseline: parent.verticalCenter
-                    }
-                    label.text: recommendation ? recommendation.likesCount : 0
-                    label.color: Theme.highlightColor
-                    label.font.pixelSize: Theme.fontSizeExtraSmall
-                    icon.source: "image://theme/icon-s-like?" + Theme.highlightColor
-                }
-
-                IconText {
-                    id: commentsIcon
-
-                    anchors {
-                        left: voteIcon.right
-                        leftMargin: Theme.paddingLarge
-                        baseline: parent.verticalCenter
+                        right: likeButton.left
+                        verticalCenter: parent.verticalCenter
                     }
 
-                    label.text: recommendation ? recommendation.commentsCount : 0
-                    label.color: Theme.highlightColor
-                    label.font.pixelSize: Theme.fontSizeExtraSmall
-                    icon.source: "image://theme/icon-s-chat?" + Theme.highlightColor
-                }
+                    IconText {
+                        label.text: recommendation ? recommendation.likesCount : 0
+                        icon.source: "image://theme/icon-s-like?" + Theme.highlightColor
+                    }
 
+                    IconText {
+                        label.text: recommendation ? recommendation.commentsCount : 0
+                        icon.source: "image://theme/icon-s-chat?" + Theme.highlightColor
+                    }
+                }
                 IconButton {
                     id: likeButton
                     anchors {
                         right: parent.right
-                        bottom: parent.bottom
+                        verticalCenter: parent.verticalCenter
                     }
-
                     icon.source: "image://theme/icon-m-like?" +
                             (pressed || (recommendation && recommendation.isLiked) ?
                                 Theme.highlightColor :

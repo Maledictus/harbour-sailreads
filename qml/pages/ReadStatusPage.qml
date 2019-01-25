@@ -140,6 +140,9 @@ Page {
                 bookTitle: readStatus && readStatus.book ? readStatus.book.titleWithoutSeries : ""
                 bookAuthors: readStatus && readStatus.book ?
                         Utils.getAuthorsString(readStatus.book.authors, Theme.primaryColor) : ""
+                bookAverageRating: readStatus && readStatus.book ? readStatus.book.averageRating : 0.0
+                bookRatingsCount: readStatus && readStatus.book ? readStatus.book.ratingsCount : 0
+
                 onBookClicked: pageStack.push(Qt.resolvedUrl("BookPage.qml"),
                         { bookId: readStatus && readStatus.book ? readStatus.book.id : "",
                             book : readStatus ? readStatus.book : null })
@@ -155,7 +158,7 @@ Page {
 
                     anchors {
                         left: parent.left
-                        baseline: parent.verticalCenter
+                        bottom: likeButton.bottom
                     }
                     label.text: readStatus ? readStatus.likesCount : 0
                     label.color: Theme.highlightColor
@@ -169,7 +172,7 @@ Page {
                     anchors {
                         left: voteIcon.right
                         leftMargin: Theme.paddingLarge
-                        baseline: parent.verticalCenter
+                        bottom: likeButton.bottom
                     }
 
                     label.text: readStatus ? readStatus.commentsCount : 0

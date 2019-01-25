@@ -140,6 +140,9 @@ Page {
                 bookTitle: userStatus && userStatus.book ? userStatus.book.titleWithoutSeries : ""
                 bookAuthors: userStatus && userStatus.book ?
                                  Utils.getAuthorsString(userStatus.book.authors, Theme.primaryColor) : ""
+                bookAverageRating: userStatus && userStatus.book ? userStatus.book.averageRating : 0.0
+                bookRatingsCount: userStatus && userStatus.book ? userStatus.book.ratingsCount : 0
+
                 onBookClicked: pageStack.push(Qt.resolvedUrl("BookPage.qml"),
                         { bookId: userStatus && userStatus.book ? userStatus.book.id : "",
                             book : userStatus ? userStatus.book : null })
