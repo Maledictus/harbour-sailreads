@@ -61,7 +61,7 @@ Page {
         filterRegExp: new RegExp("true")
         dynamicSortFilter: true
         sourceModel: BookShelvesModel {
-            userId: userProfile.user ? userProfile.user.id : ""
+            userId: profilePage.userId
         }
     }
 
@@ -294,7 +294,7 @@ Page {
                     shelfBooksCount: bookShelfBooksCount
                     onClicked: {
                         pageStack.push(Qt.resolvedUrl("BookReviewsPage.qml"),
-                                { userId: userProfile.user.id, userName: userProfile.user.userName,
+                                { userId: profilePage.userId, userName: userProfile.user.userName,
                                     bookShelfId: bookShelfId, bookShelf: bookShelfName })
                     }
                 }
@@ -319,9 +319,13 @@ Page {
                 enabled: !busy
                 visible: userProfile.user ? userProfile.user.friendsCount > 0 : false
                 onClicked: {
-                    pageStack.push(Qt.resolvedUrl("FriendsPage.qml"), {
-                        userId: userProfile.user ? userProfile.user.id : ""
-                   })
+                    if (sailreadsManager.authUser && sailreadsManager.authUser.id === userId &&
+                            applicationSettings.value("friends/showFriendsUpdates", false)) {
+                        pageStack.push(Qt.resolvedUrl("FriendsUpdatesPage.qml"))
+                        return
+                    }
+
+                    pageStack.push(Qt.resolvedUrl("FriendsPage.qml"), { userId: profilePage.userId })
                 }
             }
 
@@ -334,9 +338,7 @@ Page {
                 busy: profilePage.busy
                 enabled: !busy
                 onClicked: {
-                    pageStack.push(Qt.resolvedUrl("GroupsPage.qml"), {
-                        userId: userProfile.user ? userProfile.user.id : ""
-                    })
+                    pageStack.push(Qt.resolvedUrl("GroupsPage.qml"), { userId: profilePage.userId })
                 }
             }
 
@@ -382,7 +384,7 @@ Page {
                 }
 
                 model: ProfileUpdatesModel {
-                    userId: userProfile.userId
+                    userId: profilePage.userId
                 }
 
                 BusyIndicator {

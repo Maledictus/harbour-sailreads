@@ -57,6 +57,7 @@ Page {
                 text: qsTr("Friends updates")
                 visible: sailreadsManager.authUser && sailreadsManager.authUser.id === userId
                 onClicked: {
+                    applicationSettings.setValue("friends/showFriendsUpdates", true)
                     pageStack.replace(Qt.resolvedUrl("FriendsUpdatesPage.qml"))
                 }
             }

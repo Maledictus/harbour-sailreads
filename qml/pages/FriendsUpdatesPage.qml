@@ -63,8 +63,11 @@ Page {
             busy: friendsUpdatesPage.busy
             MenuItem {
                 text: qsTr("Friends")
-                onClicked: pageStack.replace(Qt.resolvedUrl("FriendsPage.qml"),
+                onClicked: {
+                    applicationSettings.setValue("friends/showFriendsUpdates", false)
+                    pageStack.replace(Qt.resolvedUrl("FriendsPage.qml"),
                         { userId: sailreadsManager.authUser ? sailreadsManager.authUser.id : "" })
+                }
             }
             MenuItem {
                 text: qsTr("Filter")
