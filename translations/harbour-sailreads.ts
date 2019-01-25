@@ -1133,7 +1133,7 @@ Pull down to refresh or to search groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/RecommendationPage.qml" line="221"/>
+        <location filename="../qml/pages/RecommendationPage.qml" line="215"/>
         <source>Comments</source>
         <translation type="unfinished"></translation>
     </message>

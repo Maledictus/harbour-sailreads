@@ -118,11 +118,7 @@ ApplicationWindow {
             pageStack.push(Qt.resolvedUrl("pages/RecommendationPage.qml"),
                     { recommendationId: id })
             break
-        case "user_challenges":
-            console.log("USER_CHALLENGE: ", id)
-            break
         default:
-            console.log("OPEN IN BROWSER: ", url)
             openInBrowser(url)
             break
         }
