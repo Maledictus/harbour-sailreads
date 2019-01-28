@@ -91,10 +91,8 @@ Page {
                 busy: profilePage.busy
                 MenuItem {
                     visible: sailreadsManager.authUser.id === userId
-                    text: qsTr("Logout")
-                    onClicked: {
-                        remorse.execute(qsTr("Logout"), function() { sailreadsManager.logout() } )
-                    }
+                    text: qsTr("Settings")
+                    onClicked: pageStack.push(Qt.resolvedUrl("SettingsPage.qml"))
                 }
 
                 MenuItem {
@@ -149,14 +147,6 @@ Page {
                     onClicked: {
                         userProfile.loadProfile()
                     }
-                }
-            }
-
-            PushUpMenu {
-                enabled: sailreadsManager.authUser.id === userId
-                MenuItem {
-                    text: qsTr("About")
-                    onClicked: pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
                 }
             }
 
