@@ -72,7 +72,7 @@ ApplicationWindow {
     }
 
     function openInBrowser(url) {
-        if (applicationSettings.value("main/embeded_browser", true) === true) {
+        if (applicationSettings.useEmbededBrowser) {
             pageStack.push(Qt.resolvedUrl("pages/WebViewPage.qml"), { url: url })
         }
         else {

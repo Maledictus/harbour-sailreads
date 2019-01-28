@@ -35,9 +35,17 @@ class ApplicationSettings : public QObject
     Q_OBJECT
 
     QSettings m_Settings;
+    bool m_UseEmbededBrowser;
+    bool m_ShowYourRecentUpdates;
+    bool m_ShowFriendsUpdates;
 
     ApplicationSettings(QObject *parent = 0);
+
+    Q_PROPERTY(bool useEmbededBrowser MEMBER m_UseEmbededBrowser NOTIFY useEmbededBrowserChanged)
+    Q_PROPERTY(bool showYourRecentUpdates MEMBER m_ShowYourRecentUpdates NOTIFY showYourRecentUpdatesChanged)
+    Q_PROPERTY(bool showFriendsUpdates MEMBER m_ShowFriendsUpdates NOTIFY showFriendsUpdatesChanged)
 public:
+    ~ApplicationSettings();
     ApplicationSettings(const ApplicationSettings& as) = delete;
     void operator=(const ApplicationSettings& as) = delete;
 
@@ -47,5 +55,10 @@ public:
             const QVariant& def = QVariant()) const;
     Q_INVOKABLE void setValue(const QString& key, const QVariant& value);
     Q_INVOKABLE void remove(const QString& key);
+
+signals:
+    void useEmbededBrowserChanged();
+    void showYourRecentUpdatesChanged();
+    void showFriendsUpdatesChanged();
 };
 } // namespace Sailreads

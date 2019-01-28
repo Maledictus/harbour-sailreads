@@ -310,7 +310,7 @@ Page {
                 visible: userProfile.user ? userProfile.user.friendsCount > 0 : false
                 onClicked: {
                     if (sailreadsManager.authUser && sailreadsManager.authUser.id === userId &&
-                            applicationSettings.value("friends/showFriendsUpdates", false)) {
+                            applicationSettings.showFriendsUpdates) {
                         pageStack.push(Qt.resolvedUrl("FriendsUpdatesPage.qml"))
                         return
                     }
@@ -358,10 +358,15 @@ Page {
 
             SectionHeader {
                 text: qsTr("Recent updates")
+                visible: (sailreadsManager.authUser && sailreadsManager.authUser.id !== userId) ||
+                    applicationSettings.showYourRecentUpdates
             }
 
             SilicaListView {
                 id: recentUpdatesView
+
+                visible: (sailreadsManager.authUser && sailreadsManager.authUser.id !== userId) ||
+                    applicationSettings.showYourRecentUpdates
 
                 width: parent.width
                 height: contentHeight

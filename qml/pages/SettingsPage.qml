@@ -61,16 +61,20 @@ Page {
 
             TextSwitch {
                 text: qsTr("Show friends updates on friends page")
-                checked: applicationSettings.value("friends/showFriendsUpdates", false) === true
-                onCheckedChanged: applicationSettings.setValue("friends/showFriendsUpdates", checked)
+                checked: applicationSettings.showFriendsUpdates
+                onCheckedChanged: applicationSettings.showFriendsUpdates = checked
             }
 
             TextSwitch {
                 text: qsTr("Use embeded webview to show web content")
-                checked: applicationSettings.value("main/embeded_browser", true) === true
-                onCheckedChanged: {
-                    applicationSettings.setValue("main/embeded_browser", checked)
-                }
+                checked: applicationSettings.useEmbededBrowser
+                onCheckedChanged: applicationSettings.useEmbededBrowser = checked
+            }
+
+            TextSwitch {
+                text: qsTr("Show your recent updates on profile page")
+                checked: applicationSettings.showYourRecentUpdates
+                onCheckedChanged:applicationSettings.showYourRecentUpdates = checked
             }
         }
     }
