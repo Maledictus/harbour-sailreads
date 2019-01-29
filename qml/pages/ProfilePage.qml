@@ -91,10 +91,8 @@ Page {
                 busy: profilePage.busy
                 MenuItem {
                     visible: sailreadsManager.authUser.id === userId
-                    text: qsTr("Logout")
-                    onClicked: {
-                        remorse.execute(qsTr("Logout"), function() { sailreadsManager.logout() } )
-                    }
+                    text: qsTr("Settings")
+                    onClicked: pageStack.push(Qt.resolvedUrl("SettingsPage.qml"))
                 }
 
                 MenuItem {
@@ -149,14 +147,6 @@ Page {
                     onClicked: {
                         userProfile.loadProfile()
                     }
-                }
-            }
-
-            PushUpMenu {
-                enabled: sailreadsManager.authUser.id === userId
-                MenuItem {
-                    text: qsTr("About")
-                    onClicked: pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
                 }
             }
 
@@ -320,7 +310,7 @@ Page {
                 visible: userProfile.user ? userProfile.user.friendsCount > 0 : false
                 onClicked: {
                     if (sailreadsManager.authUser && sailreadsManager.authUser.id === userId &&
-                            applicationSettings.value("friends/showFriendsUpdates", false)) {
+                            applicationSettings.showFriendsUpdates) {
                         pageStack.push(Qt.resolvedUrl("FriendsUpdatesPage.qml"))
                         return
                     }
@@ -368,10 +358,15 @@ Page {
 
             SectionHeader {
                 text: qsTr("Recent updates")
+                visible: (sailreadsManager.authUser && sailreadsManager.authUser.id !== userId) ||
+                    applicationSettings.showYourRecentUpdates
             }
 
             SilicaListView {
                 id: recentUpdatesView
+
+                visible: (sailreadsManager.authUser && sailreadsManager.authUser.id !== userId) ||
+                    applicationSettings.showYourRecentUpdates
 
                 width: parent.width
                 height: contentHeight

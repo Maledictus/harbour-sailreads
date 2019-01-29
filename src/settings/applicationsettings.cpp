@@ -24,6 +24,7 @@ THE SOFTWARE.
 
 #include "applicationsettings.h"
 
+#include <QtDebug>
 #include <QCoreApplication>
 #include <QDir>
 #include <QStandardPaths>
@@ -35,7 +36,25 @@ ApplicationSettings::ApplicationSettings(QObject *parent)
 , m_Settings(QDir(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
              .filePath(QCoreApplication::applicationName()) + "/sailreads.conf",
         QSettings::IniFormat)
+, m_UseEmbededBrowser(value("main/useEmbededBrowser", true).toBool())
+, m_ShowYourRecentUpdates(value("main/showRecentUpdates", true).toBool())
+, m_ShowFriendsUpdates(value("friends/showFriendsUpdates", false).toBool())
 {
+#ifdef QT_DEBUG
+    qDebug() << this << "CONSTRUCTED";
+#endif
+}
+
+ApplicationSettings::~ApplicationSettings()
+{
+#ifdef QT_DEBUG
+    qDebug() << this << "DESTRUCTED";
+#endif
+
+    m_Settings.setValue("main/useEmbededBrowser", m_UseEmbededBrowser);
+    m_Settings.setValue("main/showRecentUpdates", m_ShowYourRecentUpdates);
+    m_Settings.setValue("friends/showFriendsUpdates", m_ShowFriendsUpdates);
+    m_Settings.sync();
 }
 
 ApplicationSettings* ApplicationSettings::Instance(QObject *parent)

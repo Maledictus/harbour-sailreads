@@ -64,7 +64,6 @@ Page {
             MenuItem {
                 text: qsTr("Friends")
                 onClicked: {
-                    applicationSettings.setValue("friends/showFriendsUpdates", false)
                     pageStack.replace(Qt.resolvedUrl("FriendsPage.qml"),
                         { userId: sailreadsManager.authUser ? sailreadsManager.authUser.id : "" })
                 }
