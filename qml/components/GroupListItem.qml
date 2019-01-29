@@ -78,7 +78,7 @@ ListItem {
         KeyValueLabel {
             id: groupMembersLabel
             key: qsTr("Members")
-            value: Number(usersCount).toLocaleString(Qt.locale(), 'f', 0)
+            value: "%L1".arg(usersCount)
         }
     }
 

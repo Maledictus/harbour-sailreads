@@ -180,7 +180,9 @@ Page {
                         width: parent.width
                         visible: value !== ""
                         key: qsTr("Followers")
-                        value: authorProfile.author ? authorProfile.author.followersCount : ""
+                        value: authorProfile.author ?
+                                "%L1".arg(authorProfile.author.followersCount) :
+                                ""
                     }
 
                     Row {
@@ -195,7 +197,7 @@ Page {
                             font.pixelSize: Theme.fontSizeSmall
                             color: Theme.highlightColor
                             anchors.verticalCenter: ratingBox.verticalCenter
-                            text: Number(ratingBox.rating).toLocaleString(Qt.locale(), 'f', 2)
+                            text: Number(ratingBox.rating).toLocaleString()
                         }
                     }
 
@@ -205,7 +207,8 @@ Page {
                         visible: value !== ""
                         key: qsTr("Ratings")
                         value: authorProfile.author ?
-                                Number(authorProfile.author.ratingsCount).toLocaleString() : ""
+                                "%L1".arg(Number(authorProfile.author.ratingsCount)
+                                        .toLocaleString(Qt.locale(), 'f', 0)) : ""
                     }
                     KeyValueLabel {
                         font.pixelSize: Theme.fontSizeSmall
@@ -213,7 +216,8 @@ Page {
                         visible: value !== ""
                         key: qsTr("Reviews")
                         value: authorProfile.author ?
-                                Number(authorProfile.author.textReviewsCount).toLocaleString() : ""
+                                "%L1".arg(authorProfile.author.textReviewsCount) :
+                                ""
                     }
                 }
             }

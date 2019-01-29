@@ -205,8 +205,7 @@ Page {
                     visible: value !== ""
                     font.pixelSize: Theme.fontSizeSmall
                     key: qsTr("Members")
-                    value: groupItem.group ? Number(groupItem.group.usersCount)
-                                .toLocaleString(Qt.locale(), 'f', 0) : 0
+                    value: "%L1".arg(groupItem.group ? groupItem.group.usersCount : 0)
                 }
             }
 

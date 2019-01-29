@@ -69,6 +69,8 @@ Page {
             height: headerBox.height
         }
 
+        contentY: -headerItem.height
+
         delegate: BookListItem {
             width: seriesView.width
             clip: true
@@ -118,21 +120,28 @@ Page {
             text: seriesItem.series !== null ? seriesItem.series.title : ""
         }
 
-        Label {
+        Row {
             anchors {
                 left: parent.left
                 leftMargin: Theme.horizontalPageMargin
                 right: parent.right
                 rightMargin: Theme.horizontalPageMargin
             }
-            font.pixelSize: Theme.fontSizeTiny
-            width: parent.width
-            wrapMode: Text.WordWrap
-            color: Theme.highlightColor
-            visible: seriesItem.series !== null
-            text: qsTr("%1 works, %2 primary works")
-                    .arg(Number(seriesItem.series !== null ? seriesItem.series.seriesWorksCount : 0).toFixed())
-                    .arg(Number(seriesItem.series !== null ? seriesItem.series.primaryWorkCount : 0).toFixed())
+            spacing: Theme.paddingMedium
+            Label {
+                font.pixelSize: Theme.fontSizeTiny
+                wrapMode: Text.WordWrap
+                color: Theme.highlightColor
+                visible: seriesItem.series !== null
+                text: qsTr("%Ln work(s)", "", seriesItem.series ? seriesItem.series.seriesWorksCount : 0)
+            }
+            Label {
+                font.pixelSize: Theme.fontSizeTiny
+                wrapMode: Text.WordWrap
+                color: Theme.highlightColor
+                visible: seriesItem.series !== null
+                text: qsTr("%Ln primary work(s)", "", seriesItem.series ? seriesItem.series.primaryWorkCount : 0)
+            }
         }
 
         Item {
@@ -144,7 +153,6 @@ Page {
                 "a:link { color:" + Theme.highlightColor + "; }" +
                 "p { color:" + Theme.primaryColor + "; }" +
                 "</style>"
-
 
         CollapsedLabel {
             anchors {

@@ -191,8 +191,7 @@ Page {
                     color: Theme.highlightColor
                     Layout.alignment: Qt.AlignRight
                     font.pixelSize: Theme.fontSizeSmall
-                    text: qsTr("%1 ratings").arg(Number(book ? book.ratingsCount : 0.0)
-                            .toLocaleString(Qt.locale(), 'f', 0))
+                    text: qsTr("%Ln rating(s)", "", book && book.work ? book.work.ratingsCount : 0)
                 }
             }
 

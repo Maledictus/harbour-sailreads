@@ -81,14 +81,14 @@ Row {
             id: averageRatingLabel
             key: qsTr("Average rating")
             visible: value !== ""
-            value: Number(bookAverageRating).toLocaleString(Qt.locale(), 'f', 2)
+            value: Number(bookAverageRating).toLocaleString()
         }
 
         KeyValueLabel {
             id: ratingsCountLabel
             key: qsTr("Ratings count")
             visible: value !== ""
-            value: Number(bookRatingsCount).toLocaleString(Qt.locale(), 'f', 0)
+            value: "%L1".arg(bookRatingsCount)
         }
     }
 }

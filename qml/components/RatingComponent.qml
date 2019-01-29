@@ -46,7 +46,12 @@ Row {
     Label {
         font.pixelSize: Theme.fontSizeExtraSmall
         color: parent.color
-        text: qsTr("%1 / %2 ratings").arg(Number(averageRating).toLocaleString(Qt.locale(), 'f', 2))
-                .arg(Number(ratingsCount).toLocaleString(Qt.locale(), 'f', 0))
+        text: qsTr("%1 /").arg(Number(averageRating).toLocaleString(Qt.locale(), 'f', 2))
+    }
+
+    Label {
+        font.pixelSize: Theme.fontSizeExtraSmall
+        color: parent.color
+        text: qsTr("%Ln rating(s)", "", ratingsCount)
     }
 }

@@ -134,10 +134,10 @@ QObjectList Series::GetSeriesWorks() const
 void Series::SetSeriesWorks(const SeriesWorks_t& seriesWorks)
 {
     m_SeriesWorks = seriesWorks;
-    m_RatingsCount = std::accumulate (m_SeriesWorks.begin(), m_SeriesWorks.end(),
+    m_RatingsCount = std::accumulate(m_SeriesWorks.begin(), m_SeriesWorks.end(),
             0, [](int i, decltype(m_SeriesWorks.front()) sw)
             { return i + sw->GetWorkPtr()->GetRatingsCount(); });
-    const quint64 ratingSum = std::accumulate (m_SeriesWorks.begin(), m_SeriesWorks.end(),
+    const quint64 ratingSum = std::accumulate(m_SeriesWorks.begin(), m_SeriesWorks.end(),
             0, [](int i, decltype(m_SeriesWorks.front()) sw)
             { return i + sw->GetWorkPtr()->GetRatingSum(); });
     m_AverageRating = m_RatingsCount > 0 ?
