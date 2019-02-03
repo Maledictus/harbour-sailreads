@@ -27,32 +27,26 @@ import Sailfish.Silica 1.0
 
 Row {
     property int rating: 0
-    property int userVote: 0
 
     Repeater {
         id: ratingBox
         model: 5
-
-        Image {
+        IconButton {
             readonly property int _vote: (index + 1)
-            readonly property bool _selected: userVote > 0 ? _vote <= userVote : _vote <= rating
-
+            readonly property bool _selected: _vote <= rating
             width: Theme.iconSizeMedium
             height: Theme.iconSizeMedium
-            //TODO
-            source:  (_selected ? "image://theme/icon-m-favorite-selected" :
-                    "image://theme/icon-m-favorite") + "?" + Theme.highlightColor
-
-            MouseArea {
-                anchors.fill: parent
-                preventStealing: true
-                onClicked: {
-//                    if (userVote !== parent._vote) {
-//                        userVote = parent._vote
-//                    }
-//                    else {
-//                        --userVote
-//                    }
+            icon.source: _selected ?
+                    ("image://theme/icon-m-favorite-selected?" +
+                            (pressed ? Theme.highlightColor : Theme.primaryColor)) :
+                    ("image://theme/icon-m-favorite?" +
+                            (pressed ? Theme.highlightColor : Theme.primaryColor))
+            onClicked: {
+                if (rating !== _vote) {
+                    rating = _vote
+                }
+                else {
+                    --rating
                 }
             }
         }
