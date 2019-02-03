@@ -172,8 +172,7 @@ DISTFILES += translations/*.ts \
     sailreads.desktop \
     rpm/harbour-sailreads.changes.run.in \
     rpm/harbour-sailreads.spec \
-    rpm/harbour-sailreads.changes \
-    qml/components/UserStatusRow.qml \
+    rpm/harbour-sailreads.changes
 
 RESOURCES += sailreads.qrc
 
@@ -209,10 +208,12 @@ SOURCES = qml/harbour-sailreads.qml \
     qml/components/ClickableLabel.qml \
     qml/components/FriendListItem.qml \
     qml/components/RatingBox.qml \
+    qml/components/UserStatusRow.qml \
     qml/cover/CoverPage.qml \
     qml/dialogs/AddGroupFolderTopicDialog.qml \
     qml/dialogs/BooksReviewsSortingDialog.qml \
     qml/dialogs/UpdatesFilterDialog.qml \
+    qml/dialogs/AddEditReviewDialog.qml \
     qml/dialogs/AddEditShelfDialog.qml \
     qml/dialogs/AddBookToShelvesDialog.qml \
     qml/dialogs/AddCommentDialog.qml \

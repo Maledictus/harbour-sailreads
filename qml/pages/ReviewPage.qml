@@ -68,13 +68,25 @@ Page {
             }
         }
 
-
         contentY: -headerItem.height
 
         onContentYChanged: fetchMoreIfNeeded()
 
         PullDownMenu {
             busy: reviewPage.busy
+            MenuItem {
+                text: qsTr("Edit review")
+                visible: sailreadsManager.authUser &&
+                         review && review.user &&
+                         sailreadsManager.authUser.id === review.user.id
+                onClicked: {
+                    var editDialog = pageStack.push("../dialogs/AddEditReviewDialog.qml",
+                            { mode: "edit", book: review.book, rating: review.rating, reviewText: review.body })
+                    editDialog.accepted.connect(function () {
+                        sailreadsManager.editReview(review.id, editDialog.rating, editDialog.reviewText)
+                    })
+                }
+            }
             MenuItem {
                 text: qsTr("Open on GoodReads.com")
                 onClicked: mainWindow.openInBrowser(review.url)
@@ -150,47 +162,35 @@ Page {
                 }
             }
 
-            Row {
+            ShortBookRow {
                 width: parent.width
-                spacing: Theme.paddingMedium
-                BaseImage {
-                    id: bookImage
-                    source: review && review.book ? review.book.imageUrl : ""
-                    height: Theme.coverSizeSmall.height
-                    width: Theme.coverSizeSmall.width
-                    indicator.size: BusyIndicatorSize.Medium
-                    onClicked: {
+                bookImage: review && review.book ? review.book.imageUrl : ""
+                bookTitle: review && review.book ? review.book.titleWithoutSeries : ""
+                bookAuthors: review && review.book ?
+                        Utils.getAuthorsString(review.book.authors, Theme.primaryColor) : ""
+                bookAverageRating: review && review.book ? review.book.averageRating : 0.0
+                bookRatingsCount: review && review.book ? review.book.ratingsCount : 0
 
-                    }
-                }
+                onBookClicked: pageStack.push(Qt.resolvedUrl("BookPage.qml"),
+                        { bookId: review && review.book ? review.book.id : "",
+                            book : review ? review.book : null })
+                onAuthorLinkActivated: pageStack.push(Qt.resolvedUrl("AuthorPage.qml"),
+                        { authorId : link })
+            }
 
-                Column {
-                    width: parent.width - bookImage.width - Theme.paddingMedium
-                    Label {
-                        font.family: Theme.fontFamilyHeading
-                        font.pixelSize: Theme.fontSizeMedium
-                        color: Theme.highlightColor
-                        text: review && review.book ? review.book.titleWithoutSeries : ""
-                        wrapMode: Text.WordWrap
-                        width: parent.width
-                    }
-
-                    Label {
-                        textFormat: Text.RichText
-                        font.pixelSize: Theme.fontSizeSmall
-                        color: Theme.highlightColor
-                        text: review && review.book ?
-                                Utils.getAuthorsString(review.book.authors, Theme.primaryColor) : ""
-                    }
-                }
+            SectionHeader {
+                text: qsTr("Review")
+                visible: review && review.body !== ""
             }
 
             Label {
                 text: review ? review.body : ""
+                visible: review && review.body !== ""
                 width: parent.width
                 wrapMode: Text.WordWrap
                 textFormat: Text.StyledText
                 linkColor: Theme.highlightColor
+                color: Theme.highlightColor
                 onLinkActivated: mainWindow.openPageFromUrl(link)
             }
 

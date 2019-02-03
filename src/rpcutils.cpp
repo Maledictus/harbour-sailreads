@@ -755,6 +755,50 @@ ReviewPtr ParseReview(const QDomElement& element)
     return review;
 }
 
+ReviewInfo ParseReviewInfo(const QDomElement& element)
+{
+    ReviewInfo info;
+    const auto& fieldsList = element.childNodes();
+    for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
+        const auto& fieldElement = fieldsList.at (i).toElement ();
+        if (fieldElement.tagName() == "id") {
+            info.m_ReviewId = fieldElement.text();
+        }
+        else if (fieldElement.tagName() == "user-id") {
+            info.m_UserId = fieldElement.text();
+        }
+        else if (fieldElement.tagName() == "book-id") {
+            info.m_BookId = fieldElement.text();
+        }
+        else if (fieldElement.tagName() == "rating") {
+            info.m_Rating = fieldElement.text().toInt();
+        }
+        else if (fieldElement.tagName() == "review") {
+            info.m_Review = fieldElement.text();
+        }
+        else if (fieldElement.tagName() == "read-at") {
+            info.m_ReadDate = QDateTime::fromString(fieldElement.text(), Qt::ISODate);
+        }
+        else if (fieldElement.tagName() == "updated-at") {
+            info.m_UpdateDate = QDateTime::fromString(fieldElement.text(), Qt::ISODate);
+        }
+        else if (fieldElement.tagName() == "created-at") {
+            info.m_CreateDate = QDateTime::fromString(fieldElement.text(), Qt::ISODate);
+        }
+        else if (fieldElement.tagName() == "started-at") {
+            info.m_StartedDate = QDateTime::fromString(fieldElement.text(), Qt::ISODate);
+        }
+        else if (fieldElement.tagName() == "work-id") {
+            info.m_WorkId = fieldElement.text().toULongLong();
+        }
+        else if (fieldElement.tagName() == "read-count") {
+            info.m_ReadCount = fieldElement.text().toInt();
+        }
+    }
+
+    return info;
+}
+
 AuthorPtr ParseAuthor(const QDomElement& element)
 {
     AuthorPtr author = std::make_shared<Author>();
@@ -1938,6 +1982,16 @@ ReviewPtr ParseReview(const QDomDocument& doc)
     }
 
     return ParseReview(responseElement.firstChildElement("review"));
+}
+
+ReviewInfo ParseReviewInfo(const QDomDocument& doc)
+{
+    const auto& reviewElement = doc.firstChildElement("review");
+    if (reviewElement.isNull()) {
+        return ReviewInfo();
+    }
+
+    return ParseReviewInfo(reviewElement);
 }
 
 Series_t ParseAuthorSeries(const QDomDocument& doc)

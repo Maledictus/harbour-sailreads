@@ -50,6 +50,7 @@ public:
 
 private slots:
     void handleGotReview(const ReviewPtr& review);
+    void handleGotReviewInfo(const ReviewInfo& reviewInfo);
 public slots:
     void loadReview();
 

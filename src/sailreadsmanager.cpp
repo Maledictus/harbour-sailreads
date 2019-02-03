@@ -149,6 +149,8 @@ void SailreadsManager::MakeConnections()
             this, &SailreadsManager::gotReview);
     connect(m_Api, &GoodReadsApi::gotFoundReviews,
             this, &SailreadsManager::gotFoundReviews);
+    connect(m_Api, &GoodReadsApi::gotReviewInfo,
+            this, &SailreadsManager::gotReviewInfo);
 
     connect(m_Api, &GoodReadsApi::gotUserFriends,
             this, &SailreadsManager::gotUserFriends);
@@ -373,6 +375,12 @@ void SailreadsManager::searchReviews(QObject *requester, const QString& userId,
 {
     SetBusy(true);
     m_Api->SearchReviews(requester, userId, searchText, page);
+}
+
+void SailreadsManager::editReview(const QString& reviewId, int rating, const QString& reviewText)
+{
+    SetBusy(true);
+    m_Api->EditReview(reviewId, rating, reviewText);
 }
 
 void SailreadsManager::loadBook(QObject *requester, const QString& bookId)

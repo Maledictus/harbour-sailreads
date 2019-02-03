@@ -49,6 +49,7 @@ public:
 
 private slots:
     void handleGotBook(const BookPtr& book);
+    void handleGotReviewInfo(const ReviewInfo& reviewInfo);
 public slots:
     void loadBook();
 

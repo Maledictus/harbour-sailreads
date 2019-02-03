@@ -106,9 +106,8 @@ public:
 
     void AddReview(quint64 bookId, const QString& review, int rating, const QDateTime& readAt,
             const QString& shelf);
-    void EditReview(quint64 reviewId, const QString& review, int rating, const QDateTime& readAt,
-            bool finished, const QString& shelf);
-    void DeleteReview(quint64 reviewId);
+    void EditReview(const QString& reviewId, int rating, const QString& review);
+    void DeleteReview(const QString& reviewId);
 
     void GetBook(QObject *requester, const QString& bookId);
     void GetBookEditions(QObject *requester, quint64 workId, int page);
@@ -273,6 +272,7 @@ signals:
     void gotReviews(quint64 bookShelfId, const CountedItems<ReviewPtr>& reviews);
     void gotReview(const ReviewPtr& review);
     void gotFoundReviews(const CountedItems<ReviewPtr>& reviews);
+    void gotReviewInfo(const ReviewInfo& reviewInfo);
 
     void gotBook(const BookPtr& book);
     void gotBookEditions(quint64 workId, const CountedItems<BookPtr>& books);

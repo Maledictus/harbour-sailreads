@@ -33,6 +33,8 @@ ReviewItem::ReviewItem(QObject *parent)
 {
     connect(SailreadsManager::Instance(), &SailreadsManager::gotReview,
             this, &ReviewItem::handleGotReview);
+    connect(SailreadsManager::Instance(), &SailreadsManager::gotReviewInfo,
+            this, &ReviewItem::handleGotReviewInfo);
 }
 
 QString ReviewItem::GetReviewId() const
@@ -91,6 +93,22 @@ void ReviewItem::handleGotReview(const ReviewPtr& review)
     m_ReviewId = review->GetId();
     emit reviewIdChanged();
     SetReview(review);
+}
+
+void ReviewItem::handleGotReviewInfo(const ReviewInfo& reviewInfo)
+{
+    if (!m_Review || m_Review->GetId() != reviewInfo.m_ReviewId) {
+        return;
+    }
+
+    m_Review->SetRating(reviewInfo.m_Rating);
+    m_Review->SetAddedDate(reviewInfo.m_CreateDate);
+    m_Review->SetUpdatedDate(reviewInfo.m_UpdateDate);
+    m_Review->SetReadDate(reviewInfo.m_ReadDate);
+    m_Review->SetStartedDate(reviewInfo.m_StartedDate);
+    m_Review->SetReadCount(reviewInfo.m_ReadCount);
+    m_Review->SetBody(reviewInfo.m_Review);
+    emit reviewChanged();
 }
 
 void ReviewItem::loadReview()

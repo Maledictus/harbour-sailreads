@@ -23,6 +23,7 @@ THE SOFTWARE.
 #include "bookitem.h"
 
 #include "../objects/book.h"
+#include "../objects/review.h"
 #include "../sailreadsmanager.h"
 
 namespace Sailreads
@@ -33,6 +34,8 @@ BookItem::BookItem(QObject *parent)
 {
     connect(SailreadsManager::Instance(), &SailreadsManager::gotBook,
             this, &BookItem::handleGotBook);
+    connect(SailreadsManager::Instance(), &SailreadsManager::gotReviewInfo,
+            this, &BookItem::handleGotReviewInfo);
 }
 
 QString BookItem::GetBookId() const
@@ -90,6 +93,22 @@ void BookItem::handleGotBook(const BookPtr& book)
     m_BookId = book->GetId();
     emit bookIdChanged();
     SetBook(book);
+}
+
+void BookItem::handleGotReviewInfo(const ReviewInfo& reviewInfo)
+{
+    if (!m_Book || m_BookId != reviewInfo.m_BookId || !m_Book->GetReviewPtr() ||
+            m_Book->GetReviewPtr()->GetId() != reviewInfo.m_ReviewId) {
+        return;
+    }
+    m_Book->GetReviewPtr()->SetRating(reviewInfo.m_Rating);
+    m_Book->GetReviewPtr()->SetAddedDate(reviewInfo.m_CreateDate);
+    m_Book->GetReviewPtr()->SetUpdatedDate(reviewInfo.m_UpdateDate);
+    m_Book->GetReviewPtr()->SetReadDate(reviewInfo.m_ReadDate);
+    m_Book->GetReviewPtr()->SetStartedDate(reviewInfo.m_StartedDate);
+    m_Book->GetReviewPtr()->SetReadCount(reviewInfo.m_ReadCount);
+    m_Book->GetReviewPtr()->SetBody(reviewInfo.m_Review);
+    emit bookChanged();
 }
 
 void BookItem::loadBook()

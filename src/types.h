@@ -24,6 +24,7 @@ THE SOFTWARE.
 
 #include <memory>
 
+#include <QDateTime>
 #include <QString>
 #include <QUrl>
 
@@ -53,6 +54,21 @@ struct CountedItems
     , m_EndIndex(0)
     , m_Count(0)
     {}
+};
+
+struct ReviewInfo
+{
+    QString m_ReviewId;
+    QString m_UserId;
+    QString m_BookId;
+    int m_Rating;
+    QString m_Review;
+    QDateTime m_ReadDate;
+    QDateTime m_StartedDate;
+    QDateTime m_UpdateDate;
+    QDateTime m_CreateDate;
+    quint64 m_WorkId;
+    int m_ReadCount;
 };
 
 class User;

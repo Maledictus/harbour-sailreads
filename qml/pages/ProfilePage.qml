@@ -90,14 +90,14 @@ Page {
             PullDownMenu {
                 busy: profilePage.busy
                 MenuItem {
-                    visible: sailreadsManager.authUser.id === userId
+                    visible: sailreadsManager.authUser && sailreadsManager.authUser.id === userId
                     text: qsTr("Settings")
                     onClicked: pageStack.push(Qt.resolvedUrl("SettingsPage.qml"))
                 }
 
                 MenuItem {
                     visible: userProfile.user &&
-                        (sailreadsManager.authUser.id !== userId) &&
+                        (sailreadsManager.authUser && sailreadsManager.authUser.id !== userId) &&
                         !userProfile.user.isFriend &&
                         userProfile.user.friendStatus != User.FriendRequestSent
                     text: userProfile.user ?
@@ -114,7 +114,7 @@ Page {
 
                 MenuItem {
                     visible: userProfile.user &&
-                        (sailreadsManager.authUser.id !== userId) &&
+                        (sailreadsManager.authUser && sailreadsManager.authUser.id !== userId) &&
                         !userProfile.user.isFriend
                     enabled: userProfile.user &&
                             (userProfile.user.friendStatus == User.NotAFriend ||

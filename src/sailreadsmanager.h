@@ -107,6 +107,7 @@ public slots:
     void loadReview(QObject *requester, const QString& reviewId, int commentsPage = 1);
     void searchReviews(QObject *requester, const QString& userId,
             const QString& searchText, int page = 1);
+    void editReview(const QString& reviewId, int rating, const QString& reviewText);
 
     void loadBook(QObject *requester, const QString& bookId);
     void loadBookEditions(QObject *requester, quint64 workId, int page = 1);
@@ -173,6 +174,7 @@ signals:
     void gotReviews(quint64 bookShelfId, const CountedItems<ReviewPtr>& reviews);
     void gotReview(const ReviewPtr& review);
     void gotFoundReviews(const CountedItems<ReviewPtr>& reviews);
+    void gotReviewInfo(const ReviewInfo& reviewInfo);
 
     void gotBook(const BookPtr& book);
     void gotBookEditions(quint64 workId, const CountedItems<BookPtr>& books);

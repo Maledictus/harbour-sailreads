@@ -69,6 +69,13 @@ Page {
 
             spacing: Theme.paddingSmall
 
+            anchors {
+                left: parent.left
+                leftMargin: Theme.horizontalPageMargin
+                right: parent.right
+                rightMargin: Theme.horizontalPageMargin
+            }
+
             PullDownMenu {
                 busy: bookPage.busy
                 MenuItem {
@@ -113,12 +120,6 @@ Page {
                 text: book ? book.title : ""
                 wrapMode: Text.WordWrap
                 maximumLineCount: 2
-                anchors {
-                    left: parent.left
-                    leftMargin: Theme.horizontalPageMargin
-                    right: parent.right
-                    rightMargin: Theme.horizontalPageMargin
-                }
                 color: Theme.highlightColor
                 horizontalAlignment: Text.AlignHCenter
                 font.family: Theme.fontFamilyHeading
@@ -126,12 +127,7 @@ Page {
 
             Label {
                 id: authorsLabel
-                anchors {
-                    left: parent.left
-                    leftMargin: Theme.horizontalPageMargin
-                    right: parent.right
-                    rightMargin: Theme.horizontalPageMargin
-                }
+                width: parent.width
                 textFormat: Text.RichText
                 font.pixelSize: Theme.fontSizeExtraSmall
                 wrapMode: Text.WordWrap
@@ -166,13 +162,7 @@ Page {
             }
 
             RowLayout {
-                anchors {
-                    left: parent.left
-                    leftMargin: Theme.horizontalPageMargin
-                    right: parent.right
-                    rightMargin: Theme.horizontalPageMargin
-                }
-
+                width: parent.width
                 RatingBox {
                     Layout.alignment: Qt.AlignLeft
                     color: Theme.highlightColor
@@ -202,18 +192,9 @@ Page {
             }
 
             Column {
-                anchors {
-                    left: parent.left
-                    leftMargin: Theme.horizontalPageMargin
-                    right: parent.right
-                    rightMargin: Theme.horizontalPageMargin
-                }
-
+                width: parent.width
                 Label {
-                    anchors {
-                        horizontalCenter: parent.horizontalCenter
-                    }
-
+                    anchors.horizontalCenter: parent.horizontalCenter
                     color: Theme.highlightColor
                     font.pixelSize: Theme.fontSizeMedium
                     horizontalAlignment: Text.AlignHCenter
@@ -222,35 +203,79 @@ Page {
                 }
 
                 VotingBox {
+                    enabled: !bookPage.busy
                     rating: book && book.review ? book.review.rating : 0
                     anchors {
                         horizontalCenter: parent.horizontalCenter
-                    }
-                    onUserVoteChanged: {
-                        //TODO send vote
-                        console.log(userVote)
                     }
                 }
             }
 
             SectionHeader {
-                text: qsTr("My review")
-                visible: false //TODObook && book.review
+                text: qsTr("Your review")
+                visible: book && book.review
             }
 
-            Button {
-                anchors.horizontalCenter: parent.horizontalCenter
-                text: qsTr("Write a Review")
-                visible: false //TODO book && book.review && book.review.body === ""
-                onClicked: {
+            Component {
+                id: addReviewComponent
+                Item {
+                    height: childrenRect.height
+                    Button {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        text: qsTr("Write a review")
+                        onClicked: {
+                            var editDialog = pageStack.push("../dialogs/AddEditReviewDialog.qml",
+                                    { mode: "edit", book: book, rating: book.review.rating,
+                                        reviewText: book.review.body })
+                            editDialog.accepted.connect(function () {
+                                    sailreadsManager.editReview(book.review.id, editDialog.rating,
+                                            editDialog.reviewText)
+                            })
+                        }
+                    }
                 }
+            }
+
+            Component {
+                id: showReviewComponent
+                Item {
+                    height: childrenRect.height
+                    Column {
+                        width: parent.width
+                        spacing: Theme.paddingSmall
+                        ClickableLabel {
+                            width: parent.width
+                            label.text: book && book.review ? book.review.body : ""
+                            onClicked: pageStack.push(Qt.resolvedUrl("ReviewPage.qml"),
+                                    { reviewId: book && book.review ? book.review.id : "" })
+                        }
+                        Label {
+                            text: book && book.review ? Qt.formatDateTime(book.review.updatedDate) : ""
+                            visible: text !== ""
+                            color: Theme.secondaryColor
+                            anchors.right: parent.right
+                            font.pixelSize: Theme.fontSizeExtraSmall
+                        }
+                    }
+                }
+            }
+
+            Loader {
+                width: parent.width
+                sourceComponent: book && book.review && book.review.body === "" ?
+                        addReviewComponent :
+                        showReviewComponent
+            }
+
+            SectionHeader {
+                text: qsTr("Friends activity")
             }
 
             MoreButton {
                 id: bookShelvesButton
                 width: parent.width
                 height: Theme.itemSizeMedium
-                text: qsTr("Friends Activity")
+                text: qsTr("Friends Review")
                 counter: book ? book.friendReviews.length : 0
                 busy: bookPage.busy
                 enabled: !busy
@@ -310,13 +335,7 @@ Page {
             }
 
             Column {
-                anchors {
-                    left: parent.left
-                    leftMargin: Theme.horizontalPageMargin
-                    right: parent.right
-                    rightMargin: Theme.horizontalPageMargin
-                }
-
+                width: parent.width
                 Row {
                     width: parent.width
                     height: seriesValueLabel.height
@@ -419,12 +438,7 @@ Page {
             SilicaListView {
                 orientation: Qt.Horizontal
                 height: Theme.iconSizeLarge * 1.5
-                anchors {
-                    left: parent.left
-                    leftMargin: Theme.horizontalPageMargin
-                    right: parent.right
-                    rightMargin: Theme.horizontalPageMargin
-                }
+                width: parent.width
                 clip: true
                 model: book ? book.similarBooks : undefined
                 spacing: Theme.paddingSmall

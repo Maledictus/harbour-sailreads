@@ -80,7 +80,7 @@ Page {
                         applicationSettings.setValue(bookShelfId + "/sortOrder", reviewsPage.sortOrder)
                         reviewsPage.sortField = dialog.field
                         applicationSettings.setValue(bookShelfId + "/sortField", reviewsPage.sortField)
-                        reviewsModel.update()
+                        reviewsModel.loadReviews()
                     })
                 }
             }

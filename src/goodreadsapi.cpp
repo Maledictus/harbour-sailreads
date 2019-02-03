@@ -273,31 +273,27 @@ void GoodReadsApi::AddReview(quint64 bookId, const QString& review, int rating,
 //            this, &GoodReadsApi::handleAddReview);
 }
 
-void GoodReadsApi::EditReview(quint64 reviewId, const QString& review, int rating,
-    const QDateTime& readAt, bool finished, const QString& shelf)
+void GoodReadsApi::EditReview(const QString& reviewId, int rating, const QString& review)
 {
-//    QString url = QString("https://www.goodreads.com/review/%1.xml?review[review]=%2")
-//            .arg(reviewId).arg(review);
-//    if (rating > 0) {
-//        url.append("&review[rating]=" + QString::number(rating));
-//    }
-//    if (readAt.isValid()) {
-//        url.append("&review[read_at]=" + readAt.toString("yyyy-MM-dd"));
-//    }
-//    if (finished) {
-//        url.append("&finished=true");
-//    }
-//    if (!shelf.isEmpty()) {
-//        url.append("&shelf=" + shelf);
-//    }
-//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-//            QUrl(url), "PUT");
-//    auto reply = m_NAM->put(QNetworkRequest(pair.first), pair.second);
-//    connect(reply, &QNetworkReply::finished,
-//            this, &GoodReadsApi::handleEditReview);
+    const QVariantMap params = { { "id", reviewId },
+        { "review[rating]", rating },
+        { "review[review]", review } };
+
+    QUrl url(m_BaseUrl + QString("/review/%1.xml").arg(reviewId));
+    QUrlQuery query = QUrlQuery(url.query());
+    for (auto it = params.begin(), end = params.end(); it != end; ++it) {
+        query.addQueryItem(it.key(), it.value().toString());
+    }
+    url.setQuery(query);
+
+    qDebug() << url.toString();
+    QNetworkReply *reply = m_OAuth1->Put(m_AccessToken, m_AccessTokenSecret,
+            url, QVariantMap());
+    connect(reply, &QNetworkReply::finished,
+            this, &GoodReadsApi::handleEditReview);
 }
 
-void GoodReadsApi::DeleteReview(quint64 reviewId)
+void GoodReadsApi::DeleteReview(const QString& reviewId)
 {
 //    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
 //            QUrl(QString("https://www.goodreads.com/review/destroy/%1?format=xml").arg(reviewId)),
@@ -1104,8 +1100,7 @@ void GoodReadsApi::handleEditReview()
         return;
     }
 
-    //TODO
-    qDebug() << doc.toByteArray();
+    emit gotReviewInfo(RpcUtils::Parser::ParseReviewInfo(doc));
     emit requestFinished();
 }
 
