@@ -49,7 +49,6 @@ Item {
         id: avatarImageItem
         anchors {
             left: parent.left
-            verticalCenter: parent.verticalCenter
         }
         indicator.size: BusyIndicatorSize.Medium
         onClicked: userClicked(userId)
