@@ -203,11 +203,12 @@ Page {
                 }
 
                 VotingBox {
-                    enabled: !bookPage.busy
+                    enabled: book && !bookPage.busy
                     rating: book && book.review ? book.review.rating : 0
-                    anchors {
-                        horizontalCenter: parent.horizontalCenter
-                    }
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    onUserVoted: book && book.review ?
+                            sailreadsManager.editReview(book.review.id, userVote, book.review.body) :
+                            sailreadsManager.addReview(book.id, userVote)
                 }
             }
 

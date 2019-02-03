@@ -104,8 +104,7 @@ public:
     void GetReview(QObject *requester, const QString& reviewId, int commentsPage);
     void SearchReviews(QObject *requester, const QString& userId, const QString& searchText, int page = 1);
 
-    void AddReview(quint64 bookId, const QString& review, int rating, const QDateTime& readAt,
-            const QString& shelf);
+    void AddReview(const QString& bookId, int rating, const QString& review);
     void EditReview(const QString& reviewId, int rating, const QString& review);
     void DeleteReview(const QString& reviewId);
 

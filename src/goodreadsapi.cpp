@@ -252,25 +252,15 @@ void GoodReadsApi::SearchReviews(QObject *requester, const QString& userId,
             this, &GoodReadsApi::handleSearchReviews);
 }
 
-void GoodReadsApi::AddReview(quint64 bookId, const QString& review, int rating,
-    const QDateTime& readAt, const QString& shelf)
+void GoodReadsApi::AddReview(const QString& bookId, int rating, const QString& review)
 {
-//    QString url = QString("https://www.goodreads.com/review.xml?book_id=%1&review[review]=%2")
-//            .arg(bookId).arg(review);
-//    if (rating > 0) {
-//        url.append("&review[rating]=" + QString::number(rating));
-//    }
-//    if (readAt.isValid()) {
-//        url.append("&review[read_at]=" + readAt.toString("yyyy-MM-dd"));
-//    }
-//    if (!shelf.isEmpty()) {
-//        url.append("&shelf=" + shelf);
-//    }
-//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-//            QUrl(url), "POST");
-//    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
-//    connect(reply, &QNetworkReply::finished,
-//            this, &GoodReadsApi::handleAddReview);
+    const QVariantMap params = { { "book_id", bookId },
+        { "review[rating]", rating },
+        { "review[review]", review } };
+    QNetworkReply *reply = m_OAuth1->Post(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + "/review.xml"), params);
+    connect(reply, &QNetworkReply::finished,
+            this, &GoodReadsApi::handleAddReview);
 }
 
 void GoodReadsApi::EditReview(const QString& reviewId, int rating, const QString& review)
@@ -286,7 +276,6 @@ void GoodReadsApi::EditReview(const QString& reviewId, int rating, const QString
     }
     url.setQuery(query);
 
-    qDebug() << url.toString();
     QNetworkReply *reply = m_OAuth1->Put(m_AccessToken, m_AccessTokenSecret,
             url, QVariantMap());
     connect(reply, &QNetworkReply::finished,
@@ -1086,8 +1075,7 @@ void GoodReadsApi::handleAddReview()
         return;
     }
 
-    //TODO
-    qDebug() << doc.toByteArray();
+    emit gotReviewInfo(RpcUtils::Parser::ParseReviewInfo(doc));
     emit requestFinished();
 }
 

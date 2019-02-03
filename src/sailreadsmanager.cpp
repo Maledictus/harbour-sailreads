@@ -377,6 +377,12 @@ void SailreadsManager::searchReviews(QObject *requester, const QString& userId,
     m_Api->SearchReviews(requester, userId, searchText, page);
 }
 
+void SailreadsManager::addReview(const QString& bookId, int rating, const QString& reviewText)
+{
+    SetBusy(true);
+    m_Api->AddReview(bookId, rating, reviewText);
+}
+
 void SailreadsManager::editReview(const QString& reviewId, int rating, const QString& reviewText)
 {
     SetBusy(true);

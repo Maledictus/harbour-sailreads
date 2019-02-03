@@ -28,6 +28,8 @@ import Sailfish.Silica 1.0
 Row {
     property int rating: 0
 
+    signal userVoted(int userVote)
+
     Repeater {
         id: ratingBox
         model: 5
@@ -48,6 +50,7 @@ Row {
                 else {
                     --rating
                 }
+                userVoted(rating)
             }
         }
     }
