@@ -247,6 +247,9 @@ Page {
                         ClickableLabel {
                             width: parent.width
                             label.text: book && book.review ? book.review.body : ""
+                            label.maximumLineCount: 5
+                            label.elide: Text.ElideRight
+                            label.truncationMode: TruncationMode.Fade
                             onClicked: pageStack.push(Qt.resolvedUrl("ReviewPage.qml"),
                                     { reviewId: book && book.review ? book.review.id : "" })
                         }

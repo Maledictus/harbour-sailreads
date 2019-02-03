@@ -107,8 +107,9 @@ public slots:
     void loadReview(QObject *requester, const QString& reviewId, int commentsPage = 1);
     void searchReviews(QObject *requester, const QString& userId,
             const QString& searchText, int page = 1);
-    void addReview(const QString& bookId, int rating, const QString& reviewText);
+    void addReview(const QString& bookId, int rating, const QString& reviewText = QString());
     void editReview(const QString& reviewId, int rating, const QString& reviewText);
+    void removeReview(const QString& bookId, const QString& reviewId);
 
     void loadBook(QObject *requester, const QString& bookId);
     void loadBookEditions(QObject *requester, quint64 workId, int page = 1);

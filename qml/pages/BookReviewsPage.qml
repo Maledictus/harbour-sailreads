@@ -111,6 +111,7 @@ Page {
         onContentYChanged: fetchMoreIfNeeded()
 
         delegate: BookListItem {
+            id: rootDelegateItem
             width: reviewsView.width
             clip: true
 
@@ -119,6 +120,8 @@ Page {
             authors: reviewBook.authorsString
             averageRating: reviewBook.averageRating
             ratingsCount: reviewBook.ratingsCount
+
+            RemorseItem { id: remorse }
 
             onClicked: {
                 pageStack.push(Qt.resolvedUrl("BookPage.qml"),

@@ -106,7 +106,7 @@ public:
 
     void AddReview(const QString& bookId, int rating, const QString& review);
     void EditReview(const QString& reviewId, int rating, const QString& review);
-    void DeleteReview(const QString& reviewId);
+    void DeleteReview(const QString& bookId, const QString& reviewId);
 
     void GetBook(QObject *requester, const QString& bookId);
     void GetBookEditions(QObject *requester, quint64 workId, int page);
@@ -193,7 +193,7 @@ private slots:
     void handleSearchReviews();
     void handleAddReview();
     void handleEditReview();
-    void handleDeleteReview();
+    void handleDeleteReview(const QString& reviewId);
 
     void handleGetBook();
     void handleGetBookEditions(quint64 workId);

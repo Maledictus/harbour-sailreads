@@ -389,6 +389,12 @@ void SailreadsManager::editReview(const QString& reviewId, int rating, const QSt
     m_Api->EditReview(reviewId, rating, reviewText);
 }
 
+void SailreadsManager::removeReview(const QString& bookId, const QString& reviewId)
+{
+    SetBusy(true);
+    m_Api->DeleteReview(bookId, reviewId);
+}
+
 void SailreadsManager::loadBook(QObject *requester, const QString& bookId)
 {
     SetBusy(true);

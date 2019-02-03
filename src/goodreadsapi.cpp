@@ -282,14 +282,12 @@ void GoodReadsApi::EditReview(const QString& reviewId, int rating, const QString
             this, &GoodReadsApi::handleEditReview);
 }
 
-void GoodReadsApi::DeleteReview(const QString& reviewId)
+void GoodReadsApi::DeleteReview(const QString& bookId, const QString& reviewId)
 {
-//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-//            QUrl(QString("https://www.goodreads.com/review/destroy/%1?format=xml").arg(reviewId)),
-//                    "DELETE");
-//    auto reply = m_NAM->deleteResource(QNetworkRequest(pair.first));
-//    connect(reply, &QNetworkReply::finished,
-//            this, &GoodReadsApi::handleDeleteReview);
+    auto reply = m_OAuth1->DeleteResource(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + QString("/review/destroy/%1?id=%2&format=xml").arg(bookId, reviewId)));
+    connect(reply, &QNetworkReply::finished,
+            this, [this, reviewId]() { handleDeleteReview(reviewId); });
 }
 
 void GoodReadsApi::GetBook(QObject *requester, const QString& bookId)
@@ -1092,7 +1090,7 @@ void GoodReadsApi::handleEditReview()
     emit requestFinished();
 }
 
-void GoodReadsApi::handleDeleteReview()
+void GoodReadsApi::handleDeleteReview(const QString& reviewId)
 {
     bool ok = false;
     auto doc = GetDocumentFromReply(sender(), ok);
