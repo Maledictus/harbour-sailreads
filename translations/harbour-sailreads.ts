@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1">
+<TS version="2.1" language="en_US">
 <context>
     <name>AboutPage</name>
     <message>
@@ -608,14 +608,16 @@ Pull down to refresh</source>
         <location filename="../qml/components/FriendListItem.qml" line="66"/>
         <source>%Ln book(s)</source>
         <translation type="unfinished">
-            <numerusform></numerusform>
+            <numerusform>%Ln book</numerusform>
+            <numerusform>%Ln books</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location filename="../qml/components/FriendListItem.qml" line="72"/>
         <source>%Ln friend(s)</source>
         <translation type="unfinished">
-            <numerusform></numerusform>
+            <numerusform>%Ln friend</numerusform>
+            <numerusform>%Ln friends</numerusform>
         </translation>
     </message>
 </context>
@@ -1136,7 +1138,8 @@ Pull down to refresh or to search groups</source>
         <location filename="../qml/components/RatingComponent.qml" line="55"/>
         <source>%Ln rating(s)</source>
         <translation type="unfinished">
-            <numerusform></numerusform>
+            <numerusform>%Ln rating</numerusform>
+            <numerusform>%Ln ratings</numerusform>
         </translation>
     </message>
 </context>
