@@ -273,6 +273,7 @@ Page {
 
             SectionHeader {
                 text: qsTr("Friends activity")
+                visible: book && book.friendReviews.length > 0
             }
 
             MoreButton {
@@ -283,7 +284,7 @@ Page {
                 counter: book ? book.friendReviews.length : 0
                 busy: bookPage.busy
                 enabled: !busy
-                visible: book && book.friendReviews.length > 0
+                visible: book && book.friendReviews.length > 3
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("UserReviewsPage.qml"),
                             { usersReviews: book ? book.friendReviews : [] })
