@@ -30,8 +30,8 @@ class RecommendationCommentsModel: public BaseCommentsModel
 {
     Q_OBJECT
 
-    quint64 m_RecommendationId;
-    Q_PROPERTY(quint64 recommendationId READ GetRecommendationId WRITE SetRecommendationId NOTIFY recommendationIdChanged)
+    QString m_RecommendationId;
+    Q_PROPERTY(QString recommendationId READ GetRecommendationId WRITE SetRecommendationId NOTIFY recommendationIdChanged)
 
 public:
     explicit RecommendationCommentsModel(QObject *parent = nullptr);
@@ -39,11 +39,12 @@ public:
     virtual void classBegin() override;
     virtual void componentComplete() override;
 
-    quint64 GetRecommendationId() const;
-    void SetRecommendationId(quint64 id);
+    QString GetRecommendationId() const;
+    void SetRecommendationId(const QString& id);
 
 private slots:
     void handleGotRecommendation(const RecommendationPtr& recommendation);
+    void handleNewCommentAdded(const QString& resourceId, const Comment& comment);
 public slots:
     void fetchMoreContent();
 

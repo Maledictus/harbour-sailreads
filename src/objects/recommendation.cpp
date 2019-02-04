@@ -31,7 +31,6 @@ namespace Sailreads
 {
 Recommendation::Recommendation(QObject *parent)
 : QObject(parent)
-, m_Id()
 , m_LikesCount(0)
 , m_RatingId(0)
 {
@@ -47,12 +46,12 @@ Recommendation::~Recommendation()
 #endif
 }
 
-quint64 Recommendation::GetId() const
+QString Recommendation::GetId() const
 {
     return m_Id;
 }
 
-void Recommendation::SetId(quint64 id)
+void Recommendation::SetId(const QString& id)
 {
     if (m_Id != id) {
         m_Id = id;

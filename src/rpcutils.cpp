@@ -1427,7 +1427,7 @@ RecommendationPtr ParseRecommendation(const QDomElement& element)
     for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
         const auto& fieldElement = fieldsList.at (i).toElement ();
         if (fieldElement.tagName() == "id") {
-            recommendation->SetId(fieldElement.text().toULongLong());
+            recommendation->SetId(fieldElement.text());
         }
         else if (fieldElement.tagName() == "likes_count") {
             recommendation->SetLikesCount(fieldElement.text().toULongLong());

@@ -35,7 +35,7 @@ class Recommendation : public QObject
 {
     Q_OBJECT
 
-    quint64 m_Id;
+    QString m_Id;
     QDateTime m_CreateDate;
     BookPtr m_Book;
     UserPtr m_FromUser;
@@ -44,7 +44,7 @@ class Recommendation : public QObject
     quint64 m_RatingId;
     CountedItems<Comment> m_Comments;
 
-    Q_PROPERTY(quint64 id READ GetId NOTIFY idChanged)
+    Q_PROPERTY(QString id READ GetId NOTIFY idChanged)
     Q_PROPERTY(QDateTime createDate READ GetCreateDate NOTIFY createDateChanged)
     Q_PROPERTY(Book* book READ GetBook NOTIFY bookChanged)
     Q_PROPERTY(User* fromUser READ GetFromUser NOTIFY fromUserChanged)
@@ -58,8 +58,8 @@ public:
     Recommendation(QObject *parent = nullptr);
     virtual ~Recommendation();
 
-    quint64 GetId() const;
-    void SetId(quint64 id);
+    QString GetId() const;
+    void SetId(const QString& id);
     QDateTime GetCreateDate() const;
     void SetCreateDate(const QDateTime& dt);
     Book* GetBook() const;

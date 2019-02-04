@@ -1178,22 +1178,28 @@ Pull down to refresh or to search groups</source>
 <context>
     <name>RecommendationPage</name>
     <message>
-        <location filename="../qml/pages/RecommendationPage.qml" line="76"/>
+        <location filename="../qml/pages/RecommendationPage.qml" line="73"/>
+        <location filename="../qml/pages/RecommendationPage.qml" line="92"/>
+        <source>Add comment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/RecommendationPage.qml" line="82"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/RecommendationPage.qml" line="112"/>
+        <location filename="../qml/pages/RecommendationPage.qml" line="131"/>
         <source>Recommendation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/RecommendationPage.qml" line="148"/>
+        <location filename="../qml/pages/RecommendationPage.qml" line="167"/>
         <source>%1 recommended the book %2 to %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/RecommendationPage.qml" line="213"/>
+        <location filename="../qml/pages/RecommendationPage.qml" line="207"/>
         <source>Comments</source>
         <translation type="unfinished"></translation>
     </message>

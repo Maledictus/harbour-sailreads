@@ -152,7 +152,7 @@ public slots:
 
     void loadUserStatus(QObject *requester, const QString& id, int page = 1);
 
-    void loadRecommendation(QObject *requester, quint64 id, int page = 1);
+    void loadRecommendation(QObject *requester, const QString& id, int page = 1);
 
 signals:
     void busyChanged();

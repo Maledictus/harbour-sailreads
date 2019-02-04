@@ -64,18 +64,37 @@ Page {
                 commentsModel.fetchMoreContent()
             }
         }
-
-
         contentY: -headerItem.height
-
         onContentYChanged: fetchMoreIfNeeded()
 
         PullDownMenu {
             busy: recommendationPage.busy
+            MenuItem {
+                text: qsTr("Add comment")
+                onClicked: {
+                    var dialog = pageStack.push(Qt.resolvedUrl("../dialogs/AddCommentDialog.qml"))
+                    dialog.accepted.connect(function () {
+                        sailreadsManager.addNewComment("recommendation", recommendationId, dialog.comment)
+                    })
+                }
+            }
              MenuItem {
                 text: qsTr("Refresh")
                 onClicked: {
                     recommendationItem.loadRecommendation()
+                }
+            }
+        }
+
+        PushUpMenu {
+            busy: recommendationPage.busy
+            MenuItem {
+                text: qsTr("Add comment")
+                onClicked: {
+                    var dialog = pageStack.push(Qt.resolvedUrl("../dialogs/AddCommentDialog.qml"))
+                    dialog.accepted.connect(function () {
+                        sailreadsManager.addNewComment("recommendation", recommendationId, dialog.comment)
+                    })
                 }
             }
         }
@@ -172,40 +191,15 @@ Page {
                         { authorId : link })
             }
 
-            Item {
+            BaseActionsItem {
                 width: parent.width
-                height: likeButton.height
-                Row {
-                    spacing: Theme.paddingLarge
-                    anchors {
-                        left: parent.left
-                        right: likeButton.left
-                        verticalCenter: parent.verticalCenter
-                    }
-
-                    IconText {
-                        label.text: recommendation ? recommendation.likesCount : 0
-                        icon.source: "image://theme/icon-s-like?" + Theme.highlightColor
-                    }
-
-                    IconText {
-                        label.text: recommendation ? recommendation.commentsCount : 0
-                        icon.source: "image://theme/icon-s-chat?" + Theme.highlightColor
-                    }
-                }
-                IconButton {
-                    id: likeButton
-                    anchors {
-                        right: parent.right
-                        verticalCenter: parent.verticalCenter
-                    }
-                    icon.source: "image://theme/icon-m-like?" +
-                            (pressed || (recommendation && recommendation.isLiked) ?
-                                Theme.highlightColor :
-                                Theme.primaryColor)
-                    onClicked: {
-                        //TODO like review
-                    }
+                likesCount: recommendation ? recommendation.likesCount : 0
+                commentsCount: recommendation && recommendation.commentsCount >= commentsView.count ?
+                        recommendation.commentsCount : commentsView.count
+                editButton.visible: false
+                onLike: {  } //TODO
+                onOpenInBrowser: {
+                    mainWindow.openInBrowser("https://www.goodreads.com/recommendations/%1".arg(recommendationId))
                 }
             }
 

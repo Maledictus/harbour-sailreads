@@ -27,21 +27,19 @@ THE SOFTWARE.
 
 namespace Sailreads
 {
-
 RecommendationItem::RecommendationItem(QObject *parent)
 : ItemRequestCanceler(parent)
-, m_RecommendationId(0)
 {
     connect(SailreadsManager::Instance(this), &SailreadsManager::gotRecommendation,
             this, &RecommendationItem::handleGotRecommendation);
 }
 
-quint64 RecommendationItem::GetRecommendationId() const
+QString RecommendationItem::GetRecommendationId() const
 {
     return m_RecommendationId;
 }
 
-void RecommendationItem::SetRecommendationId(quint64 id)
+void RecommendationItem::SetRecommendationId(const QString& id)
 {
     if (m_RecommendationId != id) {
         m_RecommendationId = id;

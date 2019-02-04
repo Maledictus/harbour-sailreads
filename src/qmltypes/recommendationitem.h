@@ -33,16 +33,16 @@ class RecommendationItem: public ItemRequestCanceler
 {
     Q_OBJECT
 
-    quint64 m_RecommendationId;
+    QString m_RecommendationId;
     RecommendationPtr m_Recommendation;
 
-    Q_PROPERTY(quint64 recommendationId READ GetRecommendationId WRITE SetRecommendationId NOTIFY recommendationIdChanged)
+    Q_PROPERTY(QString recommendationId READ GetRecommendationId WRITE SetRecommendationId NOTIFY recommendationIdChanged)
     Q_PROPERTY(Recommendation* recommendation READ GetRecommendation NOTIFY recommendationChanged)
 public:
     RecommendationItem(QObject *parent = nullptr);
 
-    quint64 GetRecommendationId() const;
-    void SetRecommendationId(quint64 id);
+    QString GetRecommendationId() const;
+    void SetRecommendationId(const QString& id);
     Recommendation* GetRecommendation() const;
     void SetRecommendation(const RecommendationPtr& recommendation);
 

@@ -28,7 +28,6 @@ namespace Sailreads
 {
 RecommendationCommentsModel::RecommendationCommentsModel(QObject *parent)
 : BaseCommentsModel(parent)
-, m_RecommendationId(0)
 {
 }
 
@@ -36,19 +35,21 @@ void RecommendationCommentsModel::classBegin()
 {
     auto sm = SailreadsManager::Instance();
     connect(sm, &SailreadsManager::gotRecommendation,
-            this, &RecommendationCommentsModel::handleGotRecommendation);
+            this, &RecommendationCommentsModel::handleGotRecommendation);\
+    connect(sm, &SailreadsManager::newCommentAdded,
+            this, &RecommendationCommentsModel::handleNewCommentAdded);
 }
 
 void RecommendationCommentsModel::componentComplete()
 {
 }
 
-quint64 RecommendationCommentsModel::GetRecommendationId() const
+QString RecommendationCommentsModel::GetRecommendationId() const
 {
     return m_RecommendationId;
 }
 
-void RecommendationCommentsModel::SetRecommendationId(quint64 id)
+void RecommendationCommentsModel::SetRecommendationId(const QString& id)
 {
     if (m_RecommendationId != id) {
         m_RecommendationId = id;
@@ -73,4 +74,13 @@ void RecommendationCommentsModel::handleGotRecommendation(const RecommendationPt
     handleGotComments(recommendation->GetComments());
 }
 
+void RecommendationCommentsModel::handleNewCommentAdded(const QString& resourceId, const Comment& comment)
+{
+    if (resourceId != m_RecommendationId) {
+        return;
+    }
+    if (!m_HasMore) {
+        AddItems(comment);
+    }
+}
 } // namespace Sailreads

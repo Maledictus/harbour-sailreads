@@ -711,7 +711,7 @@ void GoodReadsApi::DeleteUserStatus(quint64 userStatusId)
     //             this, &GoodReadsApi::handleDeleteUserStatus);
 }
 
-void GoodReadsApi::GetRecommendation(QObject *requester, quint64 id, int page)
+void GoodReadsApi::GetRecommendation(QObject *requester, const QString& id, int page)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/recommendations/%1").arg(id)),

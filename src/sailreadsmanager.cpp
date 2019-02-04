@@ -561,7 +561,7 @@ void SailreadsManager::loadUserStatus(QObject *requester, const QString &id, int
     m_Api->GetUserStatus(requester, id, page);
 }
 
-void SailreadsManager::loadRecommendation(QObject *requester, quint64 id, int page)
+void SailreadsManager::loadRecommendation(QObject *requester, const QString& id, int page)
 {
     SetBusy(true);
     m_Api->GetRecommendation(requester, id, page);

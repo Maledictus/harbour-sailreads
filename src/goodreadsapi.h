@@ -163,7 +163,7 @@ public:
     void UpdateUserStatus(quint64 bookId, const QString& body, int percent, int page = -1);
     void DeleteUserStatus(quint64 userStatusId);
 
-    void GetRecommendation(QObject *requester, quint64 id, int page = 1);
+    void GetRecommendation(QObject *requester, const QString& id, int page = 1);
 
 private:
     QDomDocument GetDocumentFromReply(QObject *sender, bool& ok);
