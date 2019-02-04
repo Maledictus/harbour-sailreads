@@ -383,13 +383,6 @@ Pull down to refresh</source>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
-    <message numerus="yes">
-        <location filename="../qml/pages/BookPage.qml" line="184"/>
-        <source>%Ln rating(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-        </translation>
-    </message>
     <message>
         <location filename="../qml/pages/BookPage.qml" line="202"/>
         <source>My Rating</source>
@@ -472,16 +465,6 @@ Pull down to refresh</source>
     <message>
         <location filename="../qml/pages/BookReviewsPage.qml" line="98"/>
         <source>There are no books reviews. Pull down to refresh</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/BookReviewsPage.qml" line="129"/>
-        <source>Remove from my book</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/BookReviewsPage.qml" line="131"/>
-        <source>Removing</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1228,65 +1211,6 @@ Pull down to refresh or to search groups</source>
     </message>
 </context>
 <context>
-    <name>Sailreads::Application</name>
-    <message>
-        <location filename="../src/application.cpp" line="155"/>
-        <source>Authorized</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/application.cpp" line="155"/>
-        <source>Not authorized</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>Sailreads::Review</name>
-    <message>
-        <location filename="../src/objects/review.cpp" line="236"/>
-        <source>finished reading</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/objects/review.cpp" line="240"/>
-        <source>started reading</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/objects/review.cpp" line="243"/>
-        <source>is currently reading</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/objects/review.cpp" line="246"/>
-        <source>wants to read</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/objects/review.cpp" line="250"/>
-        <source>rated it</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>Sailreads::SailreadsManager</name>
-    <message>
-        <location filename="../src/sailreadsmanager.cpp" line="254"/>
-        <source>Authorization user...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/sailreadsmanager.cpp" line="272"/>
-        <source>Authentication user...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/sailreadsmanager.cpp" line="293"/>
-        <source>Getting user profile...</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>SearchBookReviewPage</name>
     <message>
         <location filename="../qml/pages/SearchBookReviewPage.qml" line="59"/>
@@ -1310,20 +1234,6 @@ Pull down to refresh or to search groups</source>
         <location filename="../qml/pages/SeriesPage.qml" line="106"/>
         <source>Series</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message numerus="yes">
-        <location filename="../qml/pages/SeriesPage.qml" line="136"/>
-        <source>%Ln work(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-        </translation>
-    </message>
-    <message numerus="yes">
-        <location filename="../qml/pages/SeriesPage.qml" line="143"/>
-        <source>%Ln primary work(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-        </translation>
     </message>
 </context>
 <context>
@@ -1469,111 +1379,6 @@ Pull down to refresh or to search groups</source>
     <message>
         <location filename="../qml/pages/UserStatusPage.qml" line="202"/>
         <source>Comments</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>Utils</name>
-    <message>
-        <location filename="../qml/utils/Utils.js" line="33"/>
-        <source>Today</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/utils/Utils.js" line="38"/>
-        <source>Yesterday</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/utils/Utils.js" line="110"/>
-        <source>Title</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/utils/Utils.js" line="111"/>
-        <source>Author</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/utils/Utils.js" line="112"/>
-        <source>Average rating</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/utils/Utils.js" line="113"/>
-        <source>Number of ratings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/utils/Utils.js" line="114"/>
-        <source>First published date</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/utils/Utils.js" line="115"/>
-        <source>Pages count</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/utils/Utils.js" line="116"/>
-        <source>Date updated</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/utils/Utils.js" line="117"/>
-        <source>Your rating</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/utils/Utils.js" line="118"/>
-        <source>Date started</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/utils/Utils.js" line="119"/>
-        <source>Date finished</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/utils/Utils.js" line="120"/>
-        <source>Review written</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/utils/Utils.js" line="123"/>
-        <source>Date added</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/utils/Utils.js" line="129"/>
-        <location filename="../qml/utils/Utils.js" line="133"/>
-        <source>Friends</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/utils/Utils.js" line="130"/>
-        <source>Top friends and followings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/utils/Utils.js" line="131"/>
-        <source>Top friends</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/utils/Utils.js" line="139"/>
-        <location filename="../qml/utils/Utils.js" line="143"/>
-        <source>Everything</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/utils/Utils.js" line="140"/>
-        <source>Books</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/utils/Utils.js" line="141"/>
-        <source>Reviews</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
