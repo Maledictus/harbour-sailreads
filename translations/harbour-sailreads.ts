@@ -1170,7 +1170,7 @@ Pull down to refresh or to search groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ReadStatusPage.qml" line="186"/>
+        <location filename="../qml/pages/ReadStatusPage.qml" line="188"/>
         <source>Comments</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1199,7 +1199,7 @@ Pull down to refresh or to search groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/RecommendationPage.qml" line="208"/>
+        <location filename="../qml/pages/RecommendationPage.qml" line="211"/>
         <source>Comments</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1224,7 +1224,7 @@ Pull down to refresh or to search groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ReviewPage.qml" line="223"/>
+        <location filename="../qml/pages/ReviewPage.qml" line="225"/>
         <source>Comments</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1245,27 +1245,27 @@ Pull down to refresh or to search groups</source>
 <context>
     <name>Sailreads::Review</name>
     <message>
-        <location filename="../src/objects/review.cpp" line="236"/>
+        <location filename="../src/objects/review.cpp" line="237"/>
         <source>finished reading</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/objects/review.cpp" line="240"/>
+        <location filename="../src/objects/review.cpp" line="241"/>
         <source>started reading</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/objects/review.cpp" line="243"/>
+        <location filename="../src/objects/review.cpp" line="244"/>
         <source>is currently reading</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/objects/review.cpp" line="246"/>
+        <location filename="../src/objects/review.cpp" line="247"/>
         <source>wants to read</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/objects/review.cpp" line="250"/>
+        <location filename="../src/objects/review.cpp" line="251"/>
         <source>rated it</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1273,17 +1273,17 @@ Pull down to refresh or to search groups</source>
 <context>
     <name>Sailreads::SailreadsManager</name>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="254"/>
+        <location filename="../src/sailreadsmanager.cpp" line="259"/>
         <source>Authorization user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="272"/>
+        <location filename="../src/sailreadsmanager.cpp" line="277"/>
         <source>Authentication user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="293"/>
+        <location filename="../src/sailreadsmanager.cpp" line="298"/>
         <source>Getting user profile...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1478,7 +1478,7 @@ Pull down to refresh or to search groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/UserStatusPage.qml" line="203"/>
+        <location filename="../qml/pages/UserStatusPage.qml" line="205"/>
         <source>Comments</source>
         <translation type="unfinished"></translation>
     </message>
