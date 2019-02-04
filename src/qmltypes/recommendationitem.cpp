@@ -32,6 +32,10 @@ RecommendationItem::RecommendationItem(QObject *parent)
 {
     connect(SailreadsManager::Instance(this), &SailreadsManager::gotRecommendation,
             this, &RecommendationItem::handleGotRecommendation);
+    connect(SailreadsManager::Instance(this), &SailreadsManager::likeAdded,
+            this, &RecommendationItem::handleLikeAdded);
+    connect(SailreadsManager::Instance(this), &SailreadsManager::likeRemoved,
+            this, &RecommendationItem::handleLikeRemoved);
 }
 
 QString RecommendationItem::GetRecommendationId() const
@@ -67,6 +71,28 @@ void RecommendationItem::handleGotRecommendation(const RecommendationPtr& recomm
         return;
     }
     SetRecommendation(recommendation);
+}
+
+void RecommendationItem::handleLikeAdded(const QString& resourceId, quint64 ratingId)
+{
+    if (m_Recommendation && resourceId != m_RecommendationId) {
+        return;
+    }
+
+    m_Recommendation->SetRatingId(ratingId);
+    m_Recommendation->SetLikesCount(m_Recommendation->GetLikesCount() + 1);
+    emit recommendationChanged();
+}
+
+void RecommendationItem::handleLikeRemoved(const QString& resourceId)
+{
+    if (m_Recommendation && resourceId != m_RecommendationId) {
+        return;
+    }
+
+    m_Recommendation->SetRatingId(0);
+    m_Recommendation->SetLikesCount(m_Recommendation->GetLikesCount() - 1);
+    emit recommendationChanged();
 }
 
 void RecommendationItem::loadRecommendation()

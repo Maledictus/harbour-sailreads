@@ -198,7 +198,10 @@ Page {
                         recommendation.commentsCount : commentsView.count
                 editButton.visible: false
                 isLiked: recommendation && recommendation.isLiked
-                onLike: {  } //TODO
+                busy: recommendationPage.busy
+                onLike: isLiked ?
+                        sailreadsManager.unlikeResource(recommendationId, recommendation.ratingId) :
+                        sailreadsManager.likeResource(recommendationId, "Recommendation")
                 onOpenInBrowser: {
                     mainWindow.openInBrowser("https://www.goodreads.com/recommendations/%1".arg(recommendationId))
                 }

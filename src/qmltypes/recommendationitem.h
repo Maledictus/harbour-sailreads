@@ -48,6 +48,8 @@ public:
 
 private slots:
     void handleGotRecommendation(const RecommendationPtr& recommendation);
+    void handleLikeAdded(const QString& resourceId, quint64 ratingId);
+    void handleLikeRemoved(const QString& resourceId);
 public slots:
     void loadRecommendation();
 
