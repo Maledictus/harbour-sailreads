@@ -32,6 +32,7 @@ UserStatus::UserStatus(QObject *parent)
 , m_LikesCount(0)
 , m_CommentsCount(0)
 , m_IsLiked(false)
+, m_RatingId(0)
 , m_Page(0)
 , m_Percent(0)
 , m_WorkId(0)
@@ -141,15 +142,25 @@ void UserStatus::SetCommentsCount(quint64 count)
 
 bool UserStatus::GetIsLiked() const
 {
-    return m_IsLiked;
+    return m_RatingId > 0;
 }
 
 void UserStatus::SetIsLiked(bool isLiked)
 {
-    if (m_IsLiked != isLiked) {
-        m_IsLiked = isLiked;
+}
+
+void UserStatus::SetRatingId(quint64 ratingId)
+{
+    if (m_RatingId != ratingId) {
+        m_RatingId = ratingId;
+        emit ratingIdChanged();
         emit isLikedChanged();
     }
+}
+
+quint64 UserStatus::GetRatingId() const
+{
+    return m_RatingId;
 }
 
 int UserStatus::GetPage() const

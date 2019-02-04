@@ -48,6 +48,8 @@ public:
 
 private slots:
     void handleGotUserStatus(const UserStatusPtr& userStatus);
+    void handleLikeAdded(const QString& resourceId, quint64 ratingId);
+    void handleLikeRemoved(const QString& resourceId);
 public slots:
     void loadUserStatus();
 

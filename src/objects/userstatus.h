@@ -43,6 +43,7 @@ class UserStatus : public QObject
     quint64 m_LikesCount;
     quint64 m_CommentsCount;
     bool m_IsLiked;
+    quint64 m_RatingId;
     int m_Page;
     int m_Percent;
     quint64 m_WorkId;
@@ -58,6 +59,8 @@ class UserStatus : public QObject
     Q_PROPERTY(QDateTime updateDate READ GetUpdateDate NOTIFY updateDateChanged)
     Q_PROPERTY(quint64 likesCount READ GetLikesCount NOTIFY likesCountChanged)
     Q_PROPERTY(quint64 commentsCount READ GetCommentsCount NOTIFY commentsCountChanged)
+    Q_PROPERTY(bool isLiked READ GetIsLiked NOTIFY isLikedChanged)
+    Q_PROPERTY(quint64 ratingId READ GetRatingId NOTIFY ratingIdChanged)
     Q_PROPERTY(int page READ GetPage NOTIFY pageChanged)
     Q_PROPERTY(int percent READ GetPercent NOTIFY percentChanged)
     Q_PROPERTY(quint64 workId READ GetWorkId NOTIFY workIdChanged)
@@ -84,6 +87,8 @@ public:
     void SetCommentsCount(quint64 count);
     bool GetIsLiked() const;
     void SetIsLiked(bool isLiked);
+    void SetRatingId(quint64 ratingId);
+    quint64 GetRatingId() const;
     int GetPage() const;
     void SetPage(int page);
     int GetPercent() const;
@@ -110,6 +115,7 @@ signals:
     void likesCountChanged();
     void commentsCountChanged();
     void isLikedChanged();
+    void ratingIdChanged();
     void pageChanged();
     void percentChanged();
     void workIdChanged();

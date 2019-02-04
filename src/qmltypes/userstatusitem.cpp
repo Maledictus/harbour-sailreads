@@ -32,6 +32,10 @@ UserStatusItem::UserStatusItem(QObject *parent)
 {
     connect(SailreadsManager::Instance(this), &SailreadsManager::gotUserStatus,
             this, &UserStatusItem::handleGotUserStatus);
+    connect(SailreadsManager::Instance(this), &SailreadsManager::likeAdded,
+            this, &UserStatusItem::handleLikeAdded);
+    connect(SailreadsManager::Instance(this), &SailreadsManager::likeRemoved,
+            this, &UserStatusItem::handleLikeRemoved);
 }
 
 QString UserStatusItem::GetUserStatusId() const
@@ -65,6 +69,28 @@ void UserStatusItem::handleGotUserStatus(const UserStatusPtr &userStatus)
         return;
     }
     SetUserStatus(userStatus);
+}
+
+void UserStatusItem::handleLikeAdded(const QString& resourceId, quint64 ratingId)
+{
+    if (m_UserStatus && resourceId != m_UserStatusId) {
+        return;
+    }
+
+    m_UserStatus->SetRatingId(ratingId);
+    m_UserStatus->SetLikesCount(m_UserStatus->GetLikesCount() + 1);
+    emit userStatusChanged();
+}
+
+void UserStatusItem::handleLikeRemoved(const QString& resourceId)
+{
+    if (m_UserStatus && resourceId != m_UserStatusId) {
+        return;
+    }
+
+    m_UserStatus->SetRatingId(0);
+    m_UserStatus->SetLikesCount(m_UserStatus->GetLikesCount() - 1);
+    emit userStatusChanged();
 }
 
 void UserStatusItem::loadUserStatus()
