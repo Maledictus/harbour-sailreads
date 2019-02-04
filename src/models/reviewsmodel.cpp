@@ -131,8 +131,8 @@ QVariant ReviewsModel::data(const QModelIndex& index, int role) const
         return QVariant::fromValue(review->GetBook());
     case Rating:
         return review->GetRating();
-    case Votes:
-        return review->GetVotes();
+    case LikesCount:
+        return review->GetLikesCount();
     case Shelves:
         return review->GetShelvesList();
     case AddedDate:
@@ -166,7 +166,7 @@ QHash<int, QByteArray> ReviewsModel::roleNames() const
     roles[Id] = "reviewId";
     roles[Book] = "reviewBook";
     roles[Rating] = "reviewRating";
-    roles[Votes] = "reviewVotes";
+    roles[LikesCount] = "reviewLikesCount";
     roles[Shelves] = "reviewShelves";
     roles[AddedDate] = "reviewAddDate";
     roles[UpdatedDate] = "reviewUpdateDate";

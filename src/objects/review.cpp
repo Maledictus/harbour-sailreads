@@ -32,10 +32,11 @@ Review::Review(QObject *parent)
 : QObject(parent)
 , m_Id("")
 , m_Rating(0)
-, m_Votes(0)
+, m_LikesCount(0)
 , m_ReadCount(0)
 , m_CommentsCount(0)
 , m_Owned(0)
+, m_RatingId(0)
 {
 #ifdef QT_DEBUG
     qDebug() << this << "CONSTRUCTED";
@@ -84,14 +85,14 @@ void Review::SetRating(int rating)
     m_Rating = rating;
 }
 
-int Review::GetVotes() const
+int Review::GetLikesCount() const
 {
-    return m_Votes;
+    return m_LikesCount;
 }
 
-void Review::SetVotes(int votes)
+void Review::SetLikesCount(int votes)
 {
-    m_Votes = votes;
+    m_LikesCount = votes;
 }
 
 BookShelves_t Review::GetShelves() const
@@ -252,6 +253,25 @@ QString Review::GetShortDescription() const
     return "";
 }
 
+bool Review::GetIsLiked() const
+{
+    return m_RatingId > 0;
+}
+
+void Review::SetRatingId(quint64 ratingId)
+{
+    if (m_RatingId != ratingId) {
+        m_RatingId = ratingId;
+        emit ratingIdChanged();
+        emit isLikedChanged();
+    }
+}
+
+quint64 Review::GetRatingId() const
+{
+    return m_RatingId;
+}
+
 void Review::Update(Review *newReview)
 {
     if (!newReview) {
@@ -261,7 +281,7 @@ void Review::Update(Review *newReview)
     SetId(newReview->GetId());
     SetBook(newReview->GetBookPtr());
     SetRating(newReview->GetRating());
-    SetVotes(newReview->GetVotes());
+    SetLikesCount(newReview->GetLikesCount());
     SetShelves(newReview->GetShelves());
     SetAddedDate(newReview->GetAddedDate());
     SetUpdatedDate(newReview->GetUpdatedDate());

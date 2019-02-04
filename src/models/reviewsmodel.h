@@ -58,7 +58,7 @@ public:
         Id = Qt::UserRole + 1,
         Book,
         Rating,
-        Votes,
+        LikesCount,
         Shelves,
         AddedDate,
         UpdatedDate,

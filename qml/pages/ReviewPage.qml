@@ -198,13 +198,15 @@ Page {
 
             BaseActionsItem {
                 width: parent.width
-                likesCount: review ? review.votes : 0
+                likesCount: review ? review.likesCount : 0
                 commentsCount: review && review.commentsCount >= commentsView.count ?
                         review.commentsCount : commentsView.count
                 editButton.visible: sailreadsManager.authUser &&
                         review && review.user && sailreadsManager.authUser.id === review.user.id
                 isLiked: review && review.isLiked
-                onLike: {  } //TODO
+                onLike: isLiked ?
+                        sailreadsManager.unlikeResource(reviewId, review.ratingId) :
+                        sailreadsManager.likeResource(reviewId, "Review")
                 onEdit: {
                     var editDialog = pageStack.push("../dialogs/AddEditReviewDialog.qml",
                             { mode: "edit", book: review.book, rating: review.rating, reviewText: review.body })

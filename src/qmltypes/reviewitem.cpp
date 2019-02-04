@@ -35,6 +35,10 @@ ReviewItem::ReviewItem(QObject *parent)
             this, &ReviewItem::handleGotReview);
     connect(SailreadsManager::Instance(), &SailreadsManager::gotReviewInfo,
             this, &ReviewItem::handleGotReviewInfo);
+    connect(SailreadsManager::Instance(this), &SailreadsManager::likeAdded,
+            this, &ReviewItem::handleLikeAdded);
+    connect(SailreadsManager::Instance(this), &SailreadsManager::likeRemoved,
+            this, &ReviewItem::handleLikeRemoved);
 }
 
 QString ReviewItem::GetReviewId() const
@@ -108,6 +112,28 @@ void ReviewItem::handleGotReviewInfo(const ReviewInfo& reviewInfo)
     m_Review->SetStartedDate(reviewInfo.m_StartedDate);
     m_Review->SetReadCount(reviewInfo.m_ReadCount);
     m_Review->SetBody(reviewInfo.m_Review);
+    emit reviewChanged();
+}
+
+void ReviewItem::handleLikeAdded(const QString& resourceId, quint64 ratingId)
+{
+    if (m_Review && resourceId != m_ReviewId) {
+        return;
+    }
+
+    m_Review->SetRatingId(ratingId);
+    m_Review->SetLikesCount(m_Review->GetLikesCount() + 1);
+    emit reviewChanged();
+}
+
+void ReviewItem::handleLikeRemoved(const QString& resourceId)
+{
+    if (m_Review && resourceId != m_ReviewId) {
+        return;
+    }
+
+    m_Review->SetRatingId(0);
+    m_Review->SetLikesCount(m_Review->GetLikesCount() - 1);
     emit reviewChanged();
 }
 

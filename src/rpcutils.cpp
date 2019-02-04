@@ -683,7 +683,7 @@ ReviewPtr ParseReview(const QDomElement& element)
             review->SetRating(fieldElement.text().toInt());
         }
         else if (fieldElement.tagName() == "votes") {
-            review->SetVotes(fieldElement.text().toInt());
+            review->SetLikesCount(fieldElement.text().toInt());
         }
         else if (fieldElement.tagName() == "spoiler_flag") {
             //TODO
@@ -1333,8 +1333,8 @@ ReadStatusPtr ParseReadStatus(const QDomElement& element)
         else if (fieldElement.tagName() == "comments_count") {
             rs->SetCommentsCount(fieldElement.text().toInt());
         }
-        else if (fieldElement.tagName() == "liked") {
-            rs->SetIsLiked(fieldElement.text() == "true");
+        else if (fieldElement.tagName() == "rating_id") {
+            rs->SetRatingId(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "created_at") {
             rs->SetCreateDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
@@ -1382,8 +1382,8 @@ UserStatusPtr ParseUserStatus(const QDomElement& element)
         else if (fieldElement.tagName() == "comments_count") {
             us->SetCommentsCount(fieldElement.text().toInt());
         }
-        else if (fieldElement.tagName() == "liked") {
-            us->SetIsLiked(fieldElement.text() == "true");
+        else if (fieldElement.tagName() == "rating_id") {
+            us->SetRatingId(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "created_at") {
             us->SetCreateDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),

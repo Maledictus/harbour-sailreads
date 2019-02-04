@@ -52,6 +52,8 @@ public:
 private slots:
     void handleGotReview(const ReviewPtr& review);
     void handleGotReviewInfo(const ReviewInfo& reviewInfo);
+    void handleLikeAdded(const QString& resourceId, quint64 ratingId);
+    void handleLikeRemoved(const QString& resourceId);
 public slots:
     void loadReview();
 

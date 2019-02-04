@@ -39,7 +39,7 @@ class Review: public QObject
     QString m_Id;
     BookPtr m_Book;
     int m_Rating;
-    int m_Votes;
+    int m_LikesCount;
     BookShelves_t m_Shelves;
     QDateTime m_AddedDate;
     QDateTime m_UpdatedDate;
@@ -52,11 +52,12 @@ class Review: public QObject
     QUrl m_Url;
     UserPtr m_User;
     CountedItems<Comment> m_Comments;
+    quint64 m_RatingId;
 
     Q_PROPERTY(QString id READ GetId NOTIFY idChanged)
     Q_PROPERTY(Book* book READ GetBook NOTIFY bookChanged)
     Q_PROPERTY(int rating READ GetRating NOTIFY ratingChanged)
-    Q_PROPERTY(int votes READ GetVotes NOTIFY votesChanged)
+    Q_PROPERTY(int likesCount READ GetLikesCount NOTIFY likesCountChanged)
     Q_PROPERTY(QDateTime addedDate READ GetAddedDate NOTIFY addedDateChanged)
     Q_PROPERTY(QDateTime updatedDate READ GetUpdatedDate NOTIFY updatedDateChanged)
     Q_PROPERTY(QDateTime readDate READ GetReadDate NOTIFY readDateChanged)
@@ -69,6 +70,8 @@ class Review: public QObject
     Q_PROPERTY(QStringList shelvesList READ GetShelvesList NOTIFY shelvesListChanged)
     Q_PROPERTY(User* user READ GetUser NOTIFY userChanged)
     Q_PROPERTY(QString shortDescription READ GetShortDescription NOTIFY shortDescriptionChanged)
+    Q_PROPERTY(bool isLiked READ GetIsLiked NOTIFY isLikedChanged)
+    Q_PROPERTY(quint64 ratingId READ GetRatingId NOTIFY ratingIdChanged)
 
 public:
     Review(QObject *parent = nullptr);
@@ -81,8 +84,8 @@ public:
     void SetBook(const BookPtr& book);
     int GetRating() const;
     void SetRating(int rating);
-    int GetVotes() const;
-    void SetVotes(int votes);
+    int GetLikesCount() const;
+    void SetLikesCount(int count);
     BookShelves_t GetShelves() const;
     void SetShelves(const BookShelves_t& shelves);
     QStringList GetShelvesList() const;
@@ -110,6 +113,9 @@ public:
     CountedItems<Comment> GetComments() const;
     void SetComments(const CountedItems<Comment>& comments);
     QString GetShortDescription() const;
+    bool GetIsLiked() const;
+    void SetRatingId(quint64 ratingId);
+    quint64 GetRatingId() const;
 
     void Update(Review *newReview);
     void Update(const ReviewPtr& newReview);
@@ -118,7 +124,7 @@ signals:
     void idChanged();
     void bookChanged();
     void ratingChanged();
-    void votesChanged();
+    void likesCountChanged();
     void addedDateChanged();
     void updatedDateChanged();
     void readDateChanged();
@@ -131,5 +137,7 @@ signals:
     void shelvesListChanged();
     void userChanged();
     void shortDescriptionChanged();
+    void isLikedChanged();
+    void ratingIdChanged();
 };
 } // namespace Sailreads
