@@ -181,7 +181,7 @@ void GoodReadsApi::GetBookShelves(QObject *requester, const QString& userId, int
             this, [this, userId]() { handleGetBookShelves(userId); });
 }
 
-void GoodReadsApi::AddBookShelf(const QString& name, bool exclusive, bool sortable, bool featured,
+void GoodReadsApi::AddBookShelf(const QString& name, bool exclusive, bool /*sortable*/, bool /*featured*/,
         bool recommendFor)
 {
     const QVariantMap params = { { "user_shelf[name]", name },
@@ -341,7 +341,7 @@ void GoodReadsApi::GetAuthorSeries(QObject *requester, const QString& authorId)
             this, [this, authorId]() { handleGetAuthorSeries(authorId); });
 }
 
-void GoodReadsApi::GetWorkSeries(QObject *requester, quint64 workId)
+void GoodReadsApi::GetWorkSeries(QObject */*requester*/, quint64 /*workId*/)
 {
 }
 
@@ -617,7 +617,7 @@ void GoodReadsApi::AddFriend(const QString& userId)
             this, [this, userId]() { handleAddFriend(userId); });
 }
 
-void GoodReadsApi::RemoveFriend(const QString& userId)
+void GoodReadsApi::RemoveFriend(const QString& /*userId*/)
 {
 //    auto reply = m_OAuth1->Post(m_AccessToken, m_AccessTokenSecret,
 //            QUrl(m_BaseUrl + QString("/friend/destroy/%1").arg(userId)),
