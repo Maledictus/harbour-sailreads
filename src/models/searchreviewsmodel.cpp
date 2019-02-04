@@ -68,7 +68,11 @@ void SearchReviewsModel::fetchMoreContent()
 
 void SearchReviewsModel::handleGotFoundReviews(const CountedItems<ReviewPtr>& reviews)
 {
-    if (reviews.m_BeginIndex == 1) {
+    if (!reviews.m_BeginIndex && !reviews.m_EndIndex)
+    {
+        Clear();
+    }
+    else if (reviews.m_BeginIndex == 1) {
         m_CurrentPage = 1;
         SetItems(reviews.m_Items);
     }

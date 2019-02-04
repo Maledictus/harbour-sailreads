@@ -89,7 +89,11 @@ void BaseBooksModel::SetHasMore(bool has)
 
 void BaseBooksModel::handleGotBooks(const CountedItems<BookPtr>& books)
 {
-    if (books.m_BeginIndex == 1) {
+    if (!books.m_BeginIndex && !books.m_EndIndex)
+    {
+        Clear();
+    }
+    else if (books.m_BeginIndex == 1) {
         m_CurrentPage = 1;
         SetItems(books.m_Items);
     }

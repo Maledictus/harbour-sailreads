@@ -66,7 +66,11 @@ void FoundGroupsModel::fetchMoreContent(const QString& text)
 
 void FoundGroupsModel::handleGotFoundGroups(const CountedItems<GroupPtr>& groups)
 {
-    if (groups.m_BeginIndex == 1) {
+    if (!groups.m_BeginIndex && !groups.m_EndIndex)
+    {
+        Clear();
+    }
+    else if (groups.m_BeginIndex == 1) {
         m_CurrentPage = 1;
         SetItems(groups.m_Items);
     }

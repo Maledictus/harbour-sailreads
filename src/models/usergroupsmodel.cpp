@@ -83,7 +83,11 @@ void UserGroupsModel::handleGotUserGroups(const QString& userId, const CountedIt
         return;
     }
 
-    if (groups.m_BeginIndex == 1) {
+    if (!groups.m_BeginIndex && !groups.m_EndIndex)
+    {
+        Clear();
+    }
+    else if (groups.m_BeginIndex == 1) {
         m_CurrentPage = 1;
         SetItems(groups.m_Items);
     }

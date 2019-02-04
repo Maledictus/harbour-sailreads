@@ -131,7 +131,11 @@ void BookShelvesModel::handleGotUserBookShelves(const QString& userId,
         return;
     }
 
-    if (bookshelves.m_BeginIndex == 1) {
+    if (!bookshelves.m_BeginIndex && !bookshelves.m_EndIndex)
+    {
+        Clear();
+    }
+    else if (bookshelves.m_BeginIndex == 1) {
         m_CurrentPage = 1;
         SetItems(bookshelves.m_Items);
     }

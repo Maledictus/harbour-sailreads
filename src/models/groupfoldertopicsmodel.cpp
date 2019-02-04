@@ -157,7 +157,11 @@ void GroupFolderTopicsModel::handleGotGroupFolderTopics(const QString& groupdFol
         return;
     }
 
-    if (topics.m_BeginIndex == 1) {
+    if (!topics.m_BeginIndex && !topics.m_EndIndex)
+    {
+        Clear();
+    }
+    else if (topics.m_BeginIndex == 1) {
         m_CurrentPage = 1;
         SetItems(topics.m_Items);
     }

@@ -135,7 +135,11 @@ void FriendsModel::handleGotUserFriends(const QString& userId, const CountedItem
         return;
     }
 
-    if (friends.m_BeginIndex == 1) {
+    if (!friends.m_BeginIndex && !friends.m_EndIndex)
+    {
+        Clear();
+    }
+    else if (friends.m_BeginIndex == 1) {
         m_CurrentPage = 1;
         SetItems(friends.m_Items);
     }

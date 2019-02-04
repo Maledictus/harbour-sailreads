@@ -83,7 +83,11 @@ void BaseCommentsModel::SetHasMore(bool has)
 
 void BaseCommentsModel::handleGotComments(const CountedItems<Comment>& comments)
 {
-    if (comments.m_BeginIndex == 1) {
+    if (!comments.m_BeginIndex && !comments.m_EndIndex)
+    {
+        Clear();
+    }
+    else if (comments.m_BeginIndex == 1) {
         m_CurrentPage = 1;
         SetItems(comments.m_Items);
     }
