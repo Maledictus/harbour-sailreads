@@ -24,6 +24,7 @@ THE SOFTWARE.
 
 #include <QObject>
 
+#include "../objects/comment.h"
 #include "../itemrequestcanceler.h"
 #include "../types.h"
 

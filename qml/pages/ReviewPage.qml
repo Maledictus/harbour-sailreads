@@ -75,27 +75,29 @@ Page {
         PullDownMenu {
             busy: reviewPage.busy
             MenuItem {
-                text: qsTr("Edit review")
-                visible: sailreadsManager.authUser &&
-                         review && review.user &&
-                         sailreadsManager.authUser.id === review.user.id
+                text: qsTr("Add comment")
                 onClicked: {
-                    var editDialog = pageStack.push("../dialogs/AddEditReviewDialog.qml",
-                            { mode: "edit", book: review.book, rating: review.rating, reviewText: review.body })
-                    editDialog.accepted.connect(function () {
-                        sailreadsManager.editReview(review.id, editDialog.rating, editDialog.reviewText)
+                    var dialog = pageStack.push(Qt.resolvedUrl("../dialogs/AddCommentDialog.qml"))
+                    dialog.accepted.connect(function () {
+                        sailreadsManager.addNewComment("review", reviewId, dialog.comment)
                     })
                 }
             }
             MenuItem {
-                text: qsTr("Open on GoodReads.com")
-                onClicked: mainWindow.openInBrowser(review.url)
-            }
-
-            MenuItem {
                 text: qsTr("Refresh")
+                onClicked: reviewItem.loadReview()
+            }
+        }
+
+        PushUpMenu {
+            busy: reviewPage.busy
+            MenuItem {
+                text: qsTr("Add comment")
                 onClicked: {
-                    reviewItem.loadReview()
+                    var dialog = pageStack.push(Qt.resolvedUrl("../dialogs/AddCommentDialog.qml"))
+                    dialog.accepted.connect(function () {
+                        sailreadsManager.addNewComment("review", reviewId, dialog.comment)
+                    })
                 }
             }
         }
@@ -194,49 +196,24 @@ Page {
                 onLinkActivated: mainWindow.openPageFromUrl(link)
             }
 
-            Item {
+            BaseActionsItem {
                 width: parent.width
-                height: likeButton.height
-                IconText {
-                    id: voteIcon
-
-                    anchors {
-                        left: parent.left
-                        baseline: parent.verticalCenter
-                    }
-                    label.text: review ? review.votes : 0
-                    label.color: Theme.highlightColor
-                    label.font.pixelSize: Theme.fontSizeExtraSmall
-                    icon.source: "image://theme/icon-s-like?" + Theme.highlightColor
+                likesCount: review ? review.votes : 0
+                commentsCount: review && review.commentsCount >= commentsView.count ?
+                        review.commentsCount : commentsView.count
+                editButton.visible: sailreadsManager.authUser &&
+                        review && review.user && sailreadsManager.authUser.id === review.user.id
+                onLike: {  } //TODO
+                onEdit: {
+                    var editDialog = pageStack.push("../dialogs/AddEditReviewDialog.qml",
+                            { mode: "edit", book: review.book, rating: review.rating, reviewText: review.body })
+                    editDialog.accepted.connect(function () {
+                        sailreadsManager.editReview(review.id, editDialog.rating, editDialog.reviewText)
+                    })
                 }
-
-                IconText {
-                    id: commentsIcon
-
-                    anchors {
-                        left: voteIcon.right
-                        leftMargin: Theme.paddingLarge
-                        baseline: parent.verticalCenter
-                    }
-
-                    label.text: review ? review.commentsCount : 0
-                    label.color: Theme.highlightColor
-                    label.font.pixelSize: Theme.fontSizeExtraSmall
-                    icon.source: "image://theme/icon-s-chat?" + Theme.highlightColor
-                }
-
-                IconButton {
-                    id: likeButton
-                    anchors {
-                        right: parent.right
-                        bottom: parent.bottom
-                    }
-
-                    icon.source: "image://theme/icon-m-like?" + (pressed ?
-                            Theme.highlightColor :
-                            Theme.primaryColor)
-                    onClicked: {
-                        //TODO like review
+                onOpenInBrowser: {
+                    if (review) {
+                        mainWindow.openInBrowser(review.url)
                     }
                 }
             }

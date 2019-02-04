@@ -37,6 +37,8 @@ void ReviewCommentsModel::classBegin()
     auto sm = SailreadsManager::Instance();
     connect(sm, &SailreadsManager::gotReview,
             this, &ReviewCommentsModel::handleGotReview);
+    connect(sm, &SailreadsManager::newCommentAdded,
+            this, &ReviewCommentsModel::handleNewCommentAdded);
 }
 
 void ReviewCommentsModel::componentComplete()
@@ -71,6 +73,16 @@ void ReviewCommentsModel::handleGotReview(const ReviewPtr& review)
         return;
     }
     handleGotComments(review->GetComments());
+}
+
+void ReviewCommentsModel::handleNewCommentAdded(const QString& resourceId, const Comment& comment)
+{
+    if (resourceId != m_ReviewId) {
+        return;
+    }
+    if (!m_HasMore) {
+        AddItems(comment);
+    }
 }
 
 } // namespace Sailreads

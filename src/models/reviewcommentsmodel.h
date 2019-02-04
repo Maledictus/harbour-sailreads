@@ -44,6 +44,7 @@ public:
 
 private slots:
     void handleGotReview(const ReviewPtr& review);
+    void handleNewCommentAdded(const QString& resourceId, const Comment& comment);
 public slots:
     void fetchMoreContent();
 
