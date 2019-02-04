@@ -215,6 +215,11 @@ void SailreadsManager::MakeConnections()
 
     connect(m_Api, &GoodReadsApi::gotRecommendation,
             this, &SailreadsManager::gotRecommendation);
+
+    connect(m_Api, &GoodReadsApi::likeAdded,
+            this, &SailreadsManager::likeAdded);
+    connect(m_Api, &GoodReadsApi::likeRemoved,
+            this, &SailreadsManager::likeRemoved);
 }
 
 void SailreadsManager::SetBusy(bool busy)
@@ -565,6 +570,18 @@ void SailreadsManager::loadRecommendation(QObject *requester, const QString& id,
 {
     SetBusy(true);
     m_Api->GetRecommendation(requester, id, page);
+}
+
+void SailreadsManager::likeResource(const QString& resourceId, const QString& resourceType)
+{
+    SetBusy(true);
+    m_Api->LikeResource(resourceId, resourceType);
+}
+
+void SailreadsManager::unlikeResource(const QString& resourceId, quint64 ratingId)
+{
+    SetBusy(true);
+    m_Api->UnlikeResource(resourceId, ratingId);
 }
 
 }

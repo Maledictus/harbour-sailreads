@@ -154,6 +154,8 @@ public slots:
 
     void loadRecommendation(QObject *requester, const QString& id, int page = 1);
 
+    void likeResource(const QString& resourceId, const QString& resourceType);
+    void unlikeResource(const QString& resourceId, quint64 ratingId);
 signals:
     void busyChanged();
     void loggedChanged();
@@ -219,6 +221,9 @@ signals:
     void gotUserStatus(const UserStatusPtr& userStatus);
 
     void gotRecommendation(const RecommendationPtr& recommendation);
+
+    void likeAdded(const QString& resourceId, quint64 ratingId);
+    void likeRemoved(const QString& resourceId);
 };
 }
 

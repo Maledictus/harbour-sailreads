@@ -165,6 +165,9 @@ public:
 
     void GetRecommendation(QObject *requester, const QString& id, int page = 1);
 
+    void LikeResource(const QString& resourceId, const QString& resourceType);
+    void UnlikeResource(const QString& resourceId, quint64 ratingId);
+
 private:
     QDomDocument GetDocumentFromReply(QObject *sender, bool& ok);
     QByteArray GetReply(QObject *sender, bool& ok);
@@ -247,6 +250,9 @@ private slots:
 
     void handleGetRecommendation();
 
+    void handleLikeResource(const QString& resourceId);
+    void handleUnlikeResource(const QString& resourceId);
+
 signals:
     void requestFinished();
 
@@ -311,5 +317,8 @@ signals:
     void gotUserStatus(const UserStatusPtr& userStatus);
 
     void gotRecommendation(const RecommendationPtr& recommendation);
+
+    void likeAdded(const QString& resourceId, quint64 ratingId);
+    void likeRemoved(const QString& resourceId);
 };
 }

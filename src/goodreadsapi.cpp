@@ -721,6 +721,25 @@ void GoodReadsApi::GetRecommendation(QObject *requester, const QString& id, int 
             this, &GoodReadsApi::handleGetRecommendation);
 }
 
+void GoodReadsApi::LikeResource(const QString& resourceId, const QString& resourceType)
+{
+    auto reply = m_OAuth1->Post(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + "/rating?format=xml"),
+            { { "rating[rating]", 1 },
+              { "rating[resource_id]", resourceId },
+              { "rating[resource_type]", resourceType } });
+    connect(reply, &QNetworkReply::finished,
+            this, [this, resourceId]() { handleLikeResource(resourceId); });
+}
+
+void GoodReadsApi::UnlikeResource(const QString& resourceId, quint64 ratingId)
+{
+    auto reply = m_OAuth1->DeleteResource(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + QString("/rating?id=%1&format=xml").arg(ratingId)));
+    connect(reply, &QNetworkReply::finished,
+            this, [this, resourceId]() { handleUnlikeResource(resourceId); });
+}
+
 namespace
 {
 QString GetQueryResult(QXmlQuery& query, const QString& request)
@@ -1723,6 +1742,37 @@ void GoodReadsApi::handleGetRecommendation()
     }
 
     emit gotRecommendation(RpcUtils::Parser::ParseRecommendation(doc));
+    emit requestFinished();
+}
+
+void GoodReadsApi::handleLikeResource(const QString& resourceId)
+{
+    bool ok = false;
+    auto doc = GetDocumentFromReply(sender(), ok);
+    if (!ok) {
+        emit requestFinished();
+        return;
+    }
+
+    QXmlQuery query;
+    query.setFocus(doc.toByteArray());
+    const QString ratingId(GetQueryResult(query, "/GoodreadsResponse/rating/id/text()"));
+    emit likeAdded(resourceId, ratingId.toULongLong());
+    emit requestFinished();
+}
+
+void GoodReadsApi::handleUnlikeResource(const QString& resourceId)
+{
+    bool ok = false;
+    auto doc = GetReply(sender(), ok);
+    if (!ok) {
+        emit requestFinished();
+        return;
+    }
+
+    if (doc.isEmpty()) {
+        emit likeRemoved(resourceId);
+    }
     emit requestFinished();
 }
 }
