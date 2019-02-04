@@ -1170,7 +1170,7 @@ Pull down to refresh or to search groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ReadStatusPage.qml" line="185"/>
+        <location filename="../qml/pages/ReadStatusPage.qml" line="186"/>
         <source>Comments</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1199,7 +1199,7 @@ Pull down to refresh or to search groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/RecommendationPage.qml" line="207"/>
+        <location filename="../qml/pages/RecommendationPage.qml" line="208"/>
         <source>Comments</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1224,7 +1224,7 @@ Pull down to refresh or to search groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ReviewPage.qml" line="222"/>
+        <location filename="../qml/pages/ReviewPage.qml" line="223"/>
         <source>Comments</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1478,7 +1478,7 @@ Pull down to refresh or to search groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/UserStatusPage.qml" line="202"/>
+        <location filename="../qml/pages/UserStatusPage.qml" line="203"/>
         <source>Comments</source>
         <translation type="unfinished"></translation>
     </message>

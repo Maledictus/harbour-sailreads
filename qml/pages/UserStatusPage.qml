@@ -192,6 +192,7 @@ Page {
                 commentsCount: userStatus && userStatus.commentsCount >= commentsView.count ?
                         userStatus.commentsCount : commentsView.count
                 editButton.visible: false
+                isLiked: userStatus && userStatus.isLiked
                 onLike: {  } //TODO
                 onOpenInBrowser: {
                     mainWindow.openInBrowser("https://www.goodreads.com/user_status/show/%1".arg(userStatusId))

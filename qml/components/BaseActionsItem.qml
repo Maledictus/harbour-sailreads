@@ -32,6 +32,7 @@ Item {
 
     property int likesCount: 0
     property int commentsCount: 0
+    property bool isLiked: false
     property alias editButton: editButtonItem
 
     signal like()
@@ -69,7 +70,7 @@ Item {
             right: editButton.visible ? editButton.left : webButton.left
             bottom: parent.bottom
         }
-        icon.source: "image://theme/icon-m-like?" + (pressed ?
+        icon.source: "image://theme/icon-m-like?" + (isLiked ?
                 Theme.highlightColor :
                 Theme.primaryColor)
         onClicked: like()
@@ -81,9 +82,7 @@ Item {
             right: webButton.left
             bottom: parent.bottom
         }
-        icon.source: "image://theme/icon-m-edit?" + (pressed ?
-                Theme.highlightColor :
-                Theme.primaryColor)
+        icon.source: "image://theme/icon-m-edit"
         onClicked: edit()
     }
 
@@ -93,9 +92,7 @@ Item {
             right: parent.right
             bottom: parent.bottom
         }
-        icon.source: "image://theme/icon-m-link?" + (pressed ?
-                Theme.highlightColor :
-                Theme.primaryColor)
+        icon.source: "image://theme/icon-m-link"
         onClicked: openInBrowser()
     }
 }

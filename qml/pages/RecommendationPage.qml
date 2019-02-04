@@ -197,6 +197,7 @@ Page {
                 commentsCount: recommendation && recommendation.commentsCount >= commentsView.count ?
                         recommendation.commentsCount : commentsView.count
                 editButton.visible: false
+                isLiked: recommendation && recommendation.isLiked
                 onLike: {  } //TODO
                 onOpenInBrowser: {
                     mainWindow.openInBrowser("https://www.goodreads.com/recommendations/%1".arg(recommendationId))

@@ -203,6 +203,7 @@ Page {
                         review.commentsCount : commentsView.count
                 editButton.visible: sailreadsManager.authUser &&
                         review && review.user && sailreadsManager.authUser.id === review.user.id
+                isLiked: review && review.isLiked
                 onLike: {  } //TODO
                 onEdit: {
                     var editDialog = pageStack.push("../dialogs/AddEditReviewDialog.qml",
