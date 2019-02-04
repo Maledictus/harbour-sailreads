@@ -34,6 +34,7 @@ Item {
     property int commentsCount: 0
     property bool isLiked: false
     property alias editButton: editButtonItem
+    property bool busy: false
 
     signal like()
     signal edit()
@@ -70,6 +71,7 @@ Item {
             right: editButton.visible ? editButton.left : webButton.left
             bottom: parent.bottom
         }
+        enabled: !busy
         icon.source: "image://theme/icon-m-like?" + (isLiked ?
                 Theme.highlightColor :
                 Theme.primaryColor)
