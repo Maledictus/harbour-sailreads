@@ -176,7 +176,9 @@ Page {
                         readStatus.commentsCount : commentsView.count
                 editButton.visible: false
                 isLiked: readStatus && readStatus.isLiked
-                onLike: {  } //TODO
+                onLike: isLiked ?
+                            sailreadsManager.unlikeResource(readStatusId, readStatus.ratingId) :
+                            sailreadsManager.likeResource(readStatusId, "ReadStatus")
                 onOpenInBrowser: {
                     mainWindow.openInBrowser("https://www.goodreads.com/read_statuses/%1".arg(readStatusId))
                 }

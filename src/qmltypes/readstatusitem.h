@@ -48,6 +48,8 @@ public:
 
 private slots:
     void handleGotReadStatus(const ReadStatusPtr& readStatus);
+    void handleLikeAdded(const QString& resourceId, quint64 ratingId);
+    void handleLikeRemoved(const QString& resourceId);
 public slots:
     void loadReadStatus();
 

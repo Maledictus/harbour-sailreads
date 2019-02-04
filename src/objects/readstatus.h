@@ -40,6 +40,7 @@ class ReadStatus : public QObject
     quint64 m_LikesCount;
     quint64 m_CommentsCount;
     bool m_IsLiked;
+    quint64 m_RatingId;
     QDateTime m_CreateDate;
     QDateTime m_UpdateDate;
     QString m_Status;
@@ -53,6 +54,7 @@ class ReadStatus : public QObject
     Q_PROPERTY(quint64 likesCount READ GetLikesCount NOTIFY likesCountChanged)
     Q_PROPERTY(quint64 commentsCount READ GetCommentsCount NOTIFY commentsCountChanged)
     Q_PROPERTY(bool isLiked READ GetIsLiked NOTIFY isLikedChanged)
+    Q_PROPERTY(quint64 ratingId READ GetRatingId NOTIFY ratingIdChanged)
     Q_PROPERTY(QDateTime createDate READ GetCreateDate NOTIFY createDateChanged)
     Q_PROPERTY(QDateTime updateDate READ GetUpdateDate NOTIFY updateDateChanged)
     Q_PROPERTY(QString status READ GetStatus NOTIFY statusChanged)
@@ -74,6 +76,8 @@ public:
     void SetCommentsCount(quint64 count);
     bool GetIsLiked() const;
     void SetIsLiked(bool isLiked);
+    void SetRatingId(quint64 ratingId);
+    quint64 GetRatingId() const;
     QDateTime GetCreateDate() const;
     void SetCreateDate(const QDateTime& dt);
     QDateTime GetUpdateDate() const;
@@ -97,6 +101,7 @@ signals:
     void likesCountChanged();
     void commentsCountChanged();
     void isLikedChanged();
+    void ratingIdChanged();
     void createDateChanged();
     void updateDateChanged();
     void statusChanged();

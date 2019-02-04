@@ -31,6 +31,10 @@ ReadStatusItem::ReadStatusItem(QObject *parent)
 {
     connect(SailreadsManager::Instance(this), &SailreadsManager::gotReadStatus,
             this, &ReadStatusItem::handleGotReadStatus);
+    connect(SailreadsManager::Instance(this), &SailreadsManager::likeAdded,
+            this, &ReadStatusItem::handleLikeAdded);
+    connect(SailreadsManager::Instance(this), &SailreadsManager::likeRemoved,
+            this, &ReadStatusItem::handleLikeRemoved);
 }
 
 QString ReadStatusItem::GetReadStatusId() const
@@ -64,6 +68,28 @@ void ReadStatusItem::handleGotReadStatus(const ReadStatusPtr& readStatus)
         return;
     }
     SetReadStatus(readStatus);
+}
+
+void ReadStatusItem::handleLikeAdded(const QString& resourceId, quint64 ratingId)
+{
+    if (m_ReadStatus && resourceId != m_ReadStatusId) {
+        return;
+    }
+
+    m_ReadStatus->SetRatingId(ratingId);
+    m_ReadStatus->SetLikesCount(m_ReadStatus->GetLikesCount() + 1);
+    emit readStatusChanged();
+}
+
+void ReadStatusItem::handleLikeRemoved(const QString& resourceId)
+{
+    if (m_ReadStatus && resourceId != m_ReadStatusId) {
+        return;
+    }
+
+    m_ReadStatus->SetRatingId(0);
+    m_ReadStatus->SetLikesCount(m_ReadStatus->GetLikesCount() - 1);
+    emit readStatusChanged();
 }
 
 void ReadStatusItem::loadReadStatus()
