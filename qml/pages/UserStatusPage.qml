@@ -71,10 +71,30 @@ Page {
 
         PullDownMenu {
             busy: userStatusPage.busy
+            MenuItem {
+                text: qsTr("Add comment")
+                onClicked: {
+                    var dialog = pageStack.push(Qt.resolvedUrl("../dialogs/AddCommentDialog.qml"))
+                    dialog.accepted.connect(function () {
+                        sailreadsManager.addNewComment("user_status", userStatusId, dialog.comment)
+                    })
+                }
+            }
              MenuItem {
                 text: qsTr("Refresh")
+                onClicked: userStatusItem.loadUserStatus()
+            }
+        }
+
+        PushUpMenu {
+            busy: userStatusPage.busy
+            MenuItem {
+                text: qsTr("Add comment")
                 onClicked: {
-                    userStatusItem.loaduserStatus()
+                    var dialog = pageStack.push(Qt.resolvedUrl("../dialogs/AddCommentDialog.qml"))
+                    dialog.accepted.connect(function () {
+                        sailreadsManager.addNewComment("user_status", userStatusId, dialog.comment)
+                    })
                 }
             }
         }
@@ -108,7 +128,7 @@ Page {
         spacing: Theme.paddingMedium
 
         PageHeader {
-            title: qsTr("User Status")
+            title: qsTr("Status update")
         }
 
         Column {
@@ -150,51 +170,31 @@ Page {
                         { authorId : link })
             }
 
-            Item {
+            SectionHeader {
+                text: qsTr("Status update")
+                visible: userStatus && userStatus.body !== ""
+            }
+
+            Label {
+                text: userStatus ? userStatus.body : ""
+                visible: userStatus && userStatus.body !== ""
                 width: parent.width
-                height: likeButton.height
-                IconText {
-                    id: voteIcon
+                wrapMode: Text.WordWrap
+                textFormat: Text.StyledText
+                linkColor: Theme.highlightColor
+                color: Theme.highlightColor
+                onLinkActivated: mainWindow.openPageFromUrl(link)
+            }
 
-                    anchors {
-                        left: parent.left
-                        baseline: parent.verticalCenter
-                    }
-                    label.text: userStatus ? userStatus.likesCount : 0
-                    label.color: Theme.highlightColor
-                    label.font.pixelSize: Theme.fontSizeExtraSmall
-                    icon.source: "image://theme/icon-s-like?" + Theme.highlightColor
-                }
-
-                IconText {
-                    id: commentsIcon
-
-                    anchors {
-                        left: voteIcon.right
-                        leftMargin: Theme.paddingLarge
-                        baseline: parent.verticalCenter
-                    }
-
-                    label.text: userStatus ? userStatus.commentsCount : 0
-                    label.color: Theme.highlightColor
-                    label.font.pixelSize: Theme.fontSizeExtraSmall
-                    icon.source: "image://theme/icon-s-chat?" + Theme.highlightColor
-                }
-
-                IconButton {
-                    id: likeButton
-                    anchors {
-                        right: parent.right
-                        bottom: parent.bottom
-                    }
-
-                    icon.source: "image://theme/icon-m-like?" +
-                            (pressed || (userStatus && userStatus.isLiked) ?
-                                Theme.highlightColor :
-                                Theme.primaryColor)
-                    onClicked: {
-                        //TODO like review
-                    }
+            BaseActionsItem {
+                width: parent.width
+                likesCount: userStatus ? userStatus.likesCount : 0
+                commentsCount: userStatus && userStatus.commentsCount >= commentsView.count ?
+                        userStatus.commentsCount : commentsView.count
+                editButton.visible: false
+                onLike: {  } //TODO
+                onOpenInBrowser: {
+                    mainWindow.openInBrowser("https://www.goodreads.com/user_status/show/%1".arg(userStatusId))
                 }
             }
 

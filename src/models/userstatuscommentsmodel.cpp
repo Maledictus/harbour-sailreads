@@ -36,6 +36,8 @@ void UserStatusCommentsModel::classBegin()
     auto sm = SailreadsManager::Instance();
     connect(sm, &SailreadsManager::gotUserStatus,
             this, &UserStatusCommentsModel::handleGotUserStatus);
+    connect(sm, &SailreadsManager::newCommentAdded,
+            this, &UserStatusCommentsModel::handleNewCommentAdded);
 }
 
 void UserStatusCommentsModel::componentComplete()
@@ -70,6 +72,16 @@ void UserStatusCommentsModel::handleGotUserStatus(const UserStatusPtr& userStatu
         return;
     }
     handleGotComments(userStatus->GetComments());
+}
+
+void UserStatusCommentsModel::handleNewCommentAdded(const QString& resourceId, const Comment& comment)
+{
+    if (resourceId != m_UserStatusId) {
+        return;
+    }
+    if (!m_HasMore) {
+        AddItems(comment);
+    }
 }
 
 } // namespace Sailreads
