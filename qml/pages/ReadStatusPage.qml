@@ -64,18 +64,37 @@ Page {
                 commentsModel.fetchMoreContent()
             }
         }
-
-
         contentY: -headerItem.height
-
         onContentYChanged: fetchMoreIfNeeded()
 
         PullDownMenu {
             busy: readStatusPage.busy
-             MenuItem {
+            MenuItem {
+                text: qsTr("Add comment")
+                onClicked: {
+                    var dialog = pageStack.push(Qt.resolvedUrl("../dialogs/AddCommentDialog.qml"))
+                    dialog.accepted.connect(function () {
+                        sailreadsManager.addNewComment("read_status", readStatusId, dialog.comment)
+                    })
+                }
+            }
+            MenuItem {
                 text: qsTr("Refresh")
                 onClicked: {
                     readStatusItem.loadReadStatus()
+                }
+            }
+        }
+
+        PushUpMenu {
+            busy: readStatusPage.busy
+            MenuItem {
+                text: qsTr("Add comment")
+                onClicked: {
+                    var dialog = pageStack.push(Qt.resolvedUrl("../dialogs/AddCommentDialog.qml"))
+                    dialog.accepted.connect(function () {
+                        sailreadsManager.addNewComment("read_status", readStatusId, dialog.comment)
+                    })
                 }
             }
         }
@@ -109,7 +128,7 @@ Page {
         spacing: Theme.paddingMedium
 
         PageHeader {
-            title: qsTr("Read Status")
+            title: qsTr("Status update")
         }
 
         Column {
@@ -150,51 +169,15 @@ Page {
                         { authorId : link })
             }
 
-            Item {
+            BaseActionsItem {
                 width: parent.width
-                height: likeButton.height
-                IconText {
-                    id: voteIcon
-
-                    anchors {
-                        left: parent.left
-                        bottom: likeButton.bottom
-                    }
-                    label.text: readStatus ? readStatus.likesCount : 0
-                    label.color: Theme.highlightColor
-                    label.font.pixelSize: Theme.fontSizeExtraSmall
-                    icon.source: "image://theme/icon-s-like?" + Theme.highlightColor
-                }
-
-                IconText {
-                    id: commentsIcon
-
-                    anchors {
-                        left: voteIcon.right
-                        leftMargin: Theme.paddingLarge
-                        bottom: likeButton.bottom
-                    }
-
-                    label.text: readStatus ? readStatus.commentsCount : 0
-                    label.color: Theme.highlightColor
-                    label.font.pixelSize: Theme.fontSizeExtraSmall
-                    icon.source: "image://theme/icon-s-chat?" + Theme.highlightColor
-                }
-
-                IconButton {
-                    id: likeButton
-                    anchors {
-                        right: parent.right
-                        bottom: parent.bottom
-                    }
-
-                    icon.source: "image://theme/icon-m-like?" +
-                            (pressed || (readStatus && readStatus.isLiked) ?
-                                Theme.highlightColor :
-                                Theme.primaryColor)
-                    onClicked: {
-                        //TODO like review
-                    }
+                likesCount: readStatus ? readStatus.likesCount : 0
+                commentsCount: readStatus && readStatus.commentsCount >= commentsView.count ?
+                        readStatus.commentsCount : commentsView.count
+                editButton.visible: false
+                onLike: {  } //TODO
+                onOpenInBrowser: {
+                    mainWindow.openInBrowser("https://www.goodreads.com/read_statuses/%1".arg(readStatusId))
                 }
             }
 

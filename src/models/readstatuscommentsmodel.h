@@ -44,6 +44,7 @@ public:
 
 private slots:
     void handleGotReadStatus(const ReadStatusPtr& readStatus);
+    void handleNewCommentAdded(const QString& resourceId, const Comment& comment);
 public slots:
     void fetchMoreContent();
 
