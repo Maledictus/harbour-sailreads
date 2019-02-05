@@ -42,6 +42,8 @@ THE SOFTWARE.
 #include "models/topiccommentsmodel.h"
 #include "models/reviewcommentsmodel.h"
 #include "models/friendsmodel.h"
+#include "models/friendsrequestsmodel.h"
+#include "models/friendsrecommendationsmodel.h"
 #include "models/followersmodel.h"
 #include "models/followingsmodel.h"
 #include "models/usergroupsmodel.h"
@@ -226,6 +228,8 @@ void Application::start()
     qmlRegisterType<ReadStatusCommentsModel>("harbour.sailreads", 1, 0, "ReadStatusCommentsModel");
     qmlRegisterType<UserStatusCommentsModel>("harbour.sailreads", 1, 0, "UserStatusCommentsModel");
     qmlRegisterType<RecommendationCommentsModel>("harbour.sailreads", 1, 0, "RecommendationCommentsModel");
+    qmlRegisterType<FriendsRequestsModel>("harbour.sailreads", 1, 0, "FriendsRequestsModel");
+    qmlRegisterType<FriendsRecommendationsModel>("harbour.sailreads", 1, 0, "FriendsRecommendationsModel");
 
     qmlRegisterType<UserProfile>("harbour.sailreads", 1, 0, "UserProfile");
     qmlRegisterType<GroupItem>("harbour.sailreads", 1, 0, "GroupItem");
