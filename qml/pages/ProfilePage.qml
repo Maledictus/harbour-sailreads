@@ -333,27 +333,15 @@ Page {
             }
 
             MoreButton {
-                id: messagesButton
+                id: inboxButton
                 width: parent.width
                 height: Theme.itemSizeMedium
-                text: qsTr("Messages")
+                text: qsTr("Inbox")
                 counter: ""
                 visible: sailreadsManager.authUser && userId === sailreadsManager.authUser.id
                 busy: profilePage.busy
                 enabled: !busy
-                onClicked: pageStack.push(Qt.resolvedUrl("MessagesPage.qml"))
-            }
-
-            MoreButton {
-                id: notificationButton
-                width: parent.width
-                height: Theme.itemSizeMedium
-                text: qsTr("Notifications")
-                counter: ""
-                visible: sailreadsManager.authUser && userId === sailreadsManager.authUser.id
-                busy: profilePage.busy
-                enabled: !busy
-                onClicked: pageStack.push(Qt.resolvedUrl("NotificationsPage.qml"))
+                onClicked: pageStack.push(Qt.resolvedUrl("InboxPage.qml"))
             }
 
             SectionHeader {
