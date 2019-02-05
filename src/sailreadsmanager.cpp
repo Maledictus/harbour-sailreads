@@ -132,6 +132,10 @@ void SailreadsManager::MakeConnections()
             this, &SailreadsManager::gotMessage);
     connect(m_Api, &GoodReadsApi::gotNotifications,
             this, &SailreadsManager::gotNotifications);
+    connect(m_Api, &GoodReadsApi::gotFriendsRequests,
+            this, &SailreadsManager::gotFriendsRequests);
+    connect(m_Api, &GoodReadsApi::gotFriendsRecommendations,
+            this, &SailreadsManager::gotFriendsRecommendations);
 
     connect(m_Api, &GoodReadsApi::gotUpdates,
             this, &SailreadsManager::gotUpdates);
@@ -340,6 +344,18 @@ void SailreadsManager::loadNotifications(QObject *requester, const QString& page
 {
     SetBusy(true);
     m_Api->GetNotifications(requester, pageToken);
+}
+
+void SailreadsManager::loadFriendsRequests(QObject *requester, int page)
+{
+    SetBusy(true);
+    m_Api->GetFriendRequests(requester, page);
+}
+
+void SailreadsManager::loadFriendsRecommendations(QObject *requester, int page)
+{
+    SetBusy(true);
+    m_Api->GetFriendRequests(requester, page);
 }
 
 void SailreadsManager::loadBookShelves(QObject *requester, const QString& id, int page)

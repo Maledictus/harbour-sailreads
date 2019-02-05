@@ -32,6 +32,8 @@ THE SOFTWARE.
 #include "objects/bookshelf.h"
 #include "objects/comment.h"
 #include "objects/friend.h"
+#include "objects/friendrequest.h"
+#include "objects/friendrecommendation.h"
 #include "objects/groupmember.h"
 #include "types.h"
 
@@ -95,6 +97,9 @@ public slots:
     void markMessageAsRead(quint64 messageId);
 
     void loadNotifications(QObject *requester, const QString& pageToken);
+
+    void loadFriendsRequests(QObject *requester, int page = 1);
+    void loadFriendsRecommendations(QObject *requester, int page = 1);
 
     void loadBookShelves(QObject *requester, const QString& id, int page = 1);
     void addBookShelf(const QString& name, bool exclusive, bool sortable, bool featured,
@@ -170,6 +175,8 @@ signals:
     void gotMessages(const QString& folder, const CountedItems<MessagePtr>& messages);
     void gotMessage(const MessagePtr& message);
     void gotNotifications(const QString& nextPageToken, const Notifications_t& notifications);
+    void gotFriendsRequests(const CountedItems<FriendRequest>& requests);
+    void gotFriendsRecommendations(const CountedItems<FriendRecommendation>& recommendations);
 
     void gotUserBookShelves(const QString& userId, const CountedItems<BookShelf>& shelves);
     void bookShelfAdded(const BookShelf& shelf);
