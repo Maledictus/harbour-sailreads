@@ -29,6 +29,7 @@ MouseArea {
     id: mouseArea
     property alias icon: image
     property alias text: lbl.text
+    property alias fontSize: lbl.font.pixelSize
     property bool selected: false
 
     height: childrenRect.height
@@ -45,6 +46,8 @@ MouseArea {
             anchors.horizontalCenter: parent.horizontalCenter
             horizontalAlignment: Qt.AlignHCenter
             font.pixelSize: Theme.fontSizeSmall
+            width: parent.width
+            elide: Text.ElideRight
             color: selected || pressed ? Theme.highlightColor : Theme.primaryColor
         }
     }
