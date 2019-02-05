@@ -35,6 +35,8 @@ FriendsRecommendationsModel::FriendsRecommendationsModel(QObject *parent)
 {
     connect(SailreadsManager::Instance(), &SailreadsManager::gotFriendsRecommendations,
             this, &FriendsRecommendationsModel::handleGotFriendsRecommendations);
+    connect(SailreadsManager::Instance(), &SailreadsManager::friendRecommendationConfirmed,
+            this, &FriendsRecommendationsModel::handleFriendRecommendationConfirmed);
 }
 
 bool FriendsRecommendationsModel::GetHasMore() const
@@ -109,6 +111,22 @@ void FriendsRecommendationsModel::handleGotFriendsRecommendations(const CountedI
     if (m_HasMore) {
         ++m_CurrentPage;
     }
+}
+
+void FriendsRecommendationsModel::handleFriendRecommendationConfirmed(quint64 friendRecommendationId, bool confirm)
+{
+    auto it = std::find_if(m_Items.begin(), m_Items.end(),
+            [friendRecommendationId](decltype(m_Items.front()) fr) {
+                return fr.GetId() == friendRecommendationId;
+            });
+    if (it == m_Items.end()) {
+        return;
+    }
+
+    const int pos = std::distance(m_Items.begin(), it);
+    beginRemoveRows(QModelIndex(), pos, pos);
+    m_Items.removeAt(pos);
+    endRemoveRows();
 }
 
 } // namespace Sailreads

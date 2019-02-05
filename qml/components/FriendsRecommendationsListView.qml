@@ -51,9 +51,119 @@ SilicaListView {
     }
     onActiveChanged: fetchMoreIfNeeded()
     onContentYChanged: fetchMoreIfNeeded()
-
     delegate: ListItem {
-    }
+        id: listItem
+        contentHeight: mainColumn.height + separator.height + Theme.paddingMedium
+        clip: true
+        Item {
+            id: mainColumn
+            height: Math.max(userAvatar.height, column.height)
+            anchors {
+                left: parent.left
+                leftMargin: Theme.horizontalPageMargin
+                right: parent.right
+                rightMargin: Theme.horizontalPageMargin
+            }
 
+            BaseImage {
+                id: userAvatar
+                anchors {
+                    top: parent.top
+                    topMargin: Theme.paddingSmall
+                }
+                width: Theme.iconSizeMedium
+                height: Theme.iconSizeMedium
+                source: friendRecommendationRecommendedUser ?
+                        friendRecommendationRecommendedUser.avatarUrl :
+                        "qrc:/images/gra_small.png"
+                defaultImage: "qrc:/images/gra_small.png"
+                indicator.size: BusyIndicatorSize.Small
+                enabled: false
+            }
+
+            Column {
+                id: column
+                anchors {
+                    left: userAvatar.right
+                    leftMargin: Theme.paddingMedium
+                    right: acceptButton.left
+                    rightMargin: Theme.paddingMedium
+                }
+
+                Label {
+                    width: parent.width
+                    wrapMode: Text.WordWrap
+                    linkColor: Theme.highlightColor
+                    text: friendRecommendationRecommendedUser ?
+                            friendRecommendationRecommendedUser.userName :
+                            ""
+                    color: highlighted ? Theme.highlightColor : Theme.primaryColor
+                }
+
+
+                Label {
+                    id: recLabel
+                    text: {
+                        if (friendRecommendationRecommenderUser) {
+                            var style = "<style>a:link { color:" + Theme.primaryColor + "; }</style>"
+                            var urlStr = "%1<a href=\"%2\" style=\"text-decoration:none;\">%3</a>"
+                                    .arg(style)
+                                    .arg(friendRecommendationRecommenderUser.id)
+                                    .arg(friendRecommendationRecommenderUser.userName)
+                            return qsTr("Recommended by %1").arg(urlStr)
+                        }
+                        return ""
+                    }
+                    textFormat: Label.RichText
+                    font.pixelSize: Theme.fontSizeSmall
+                    color: Theme.highlightColor
+                    visible: text !== ""
+                    width: parent.width
+                    wrapMode: Text.WordWrap
+                    onLinkActivated: pageStack.push(Qt.resolvedUrl("../pages/ProfilePage.qml"),
+                            { userId: link })
+                }
+
+                Label {
+                    anchors.left: parent.left
+                    anchors.rightMargin: Theme.horizontalPageMargin
+                    font.pixelSize: Theme.fontSizeTiny
+                    text: Qt.formatDateTime(friendRecommendationCreateDate)
+                    color: highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor
+                }
+            }
+
+            IconButton {
+                id: acceptButton
+                anchors {
+                    right: ignoreButton.left
+                    rightMargin: Theme.paddingSmall
+                }
+                icon.source: "image://theme/icon-m-acknowledge"
+                onClicked: sailreadsManager.confirmFriendRecommendationRequest(friendRecommendationId, true)
+            }
+
+            IconButton {
+                id: ignoreButton
+                anchors.right: parent.right
+                icon.source: "image://theme/icon-m-clear"
+                onClicked: sailreadsManager.confirmFriendRecommendationRequest(friendRecommendationId, false)
+            }
+
+            Separator {
+                id: separator
+                anchors {
+                    top: mainColumn.bottom
+                    topMargin: Theme.paddingMedium
+                }
+                width: parent.width
+                color: Theme.primaryColor
+                horizontalAlignment: Qt.AlignHCenter
+            }
+
+        }
+        onClicked: pageStack.push(Qt.resolvedUrl("../pages/ProfilePage.qml"),
+                { userId: friendRecommendationRecommendedUser ? friendRecommendationRecommendedUser.id : "" })
+    }
     VerticalScrollDecorator{}
 }

@@ -164,6 +164,8 @@ void SailreadsManager::MakeConnections()
             this, &SailreadsManager::gotUserFollowings);
     connect(m_Api, &GoodReadsApi::friendRequestConfirmed,
             this, &SailreadsManager::friendRequestConfirmed);
+    connect(m_Api, &GoodReadsApi::friendRecommendationConfirmed,
+            this, &SailreadsManager::friendRecommendationConfirmed);
     connect(m_Api, &GoodReadsApi::userFollowed,
             this, &SailreadsManager::userFollowed);
     connect(m_Api, &GoodReadsApi::userUnfollowed,
@@ -444,6 +446,12 @@ void SailreadsManager::confirmFriendRequest(quint64 friendRequestId, bool confir
 {
     SetBusy(true);
     m_Api->ConfirmFriendRequest(friendRequestId, confirm);
+}
+
+void SailreadsManager::confirmFriendRecommendationRequest(quint64 friendRecommendationId, bool confirm)
+{
+    SetBusy(true);
+    m_Api->ConfirmFriendRecommendation(friendRecommendationId, confirm);
 }
 
 void SailreadsManager::followUser(const QString& userId)

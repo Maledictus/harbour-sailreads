@@ -148,8 +148,7 @@ public:
     void GetUserFollowings(QObject *requester, const QString& userId, int page = 1);
     void GetFriendRequests(QObject *requester, int page);
     void ConfirmFriendRequest(quint64 friendRequestId, bool confirm);
-    void ConfirmFriendRecommendation(quint64 friendRecommendationId);
-    void DeclineFriendRecommendation(quint64 friendRecommendationId);
+    void ConfirmFriendRecommendation(quint64 friendRecommendationId, bool confirm);
     void AddFriend(const QString& userId);
     void RemoveFriend(const QString& userId);
     void FollowUser(const QString& userId);
@@ -234,8 +233,7 @@ private slots:
     void handleGetUserFollowings(const QString& userId);
     void handleGetFriendRequests();
     void handleConfirmFriendRequest(quint64 friendRequestId, bool confirm);
-    void handleConfirmFriendRecommendation();
-    void handleDeclineFriendRecommendation();
+    void handleConfirmFriendRecommendation(quint64 friendRecommendationId, bool confirm);
     void handleAddFriend(const QString& userId);
     void handleRemoveFriend(const QString& userId);
     void handleFollowUser();
@@ -312,6 +310,7 @@ signals:
     void gotUserFollowings(const QString& userId, const CountedItems<Friend>& followings);
     void gotUserFollowers(const QString& userId, const CountedItems<Friend>& followers);
     void friendRequestConfirmed(quint64 friendRequestId, bool confirmed);
+    void friendRecommendationConfirmed(quint64 friendRecommendationId, bool confirmed);
     void userFollowed(const QString& userId, bool success);
     void userUnfollowed(const QString& userId, bool success);
     void friendAdded(const QString& userId);

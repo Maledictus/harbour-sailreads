@@ -123,6 +123,7 @@ public slots:
 
     void loadFriends(QObject *requester, const QString& userId, int page = 1);
     void confirmFriendRequest(quint64 friendRequestId, bool confirm);
+    void confirmFriendRecommendationRequest(quint64 friendRecommendationId, bool confirm);
     void followUser(const QString& userId);
     void unfollowUser(const QString& userId);
     void addAsFriend(const QString& userId);
@@ -202,6 +203,7 @@ signals:
     void gotUserFollowings(const QString& userId, const CountedItems<Friend>& friends);
     void gotUserFollowers(const QString& userId, const CountedItems<Friend>& friends);
     void friendRequestConfirmed(quint64 friendRequestId, bool confirmed);
+    void friendRecommendationConfirmed(quint64 friendRecommendationId, bool confirmed);
     void userFollowed(const QString& userId, bool success);
     void userUnfollowed(const QString& userId, bool success);
     void friendAdded(const QString& userId);

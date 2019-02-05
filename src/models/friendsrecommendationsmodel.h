@@ -59,7 +59,7 @@ public slots:
     void loadFriendsRecommendations();
 private slots:
     void handleGotFriendsRecommendations(const CountedItems<FriendRecommendation>& friendsRequests);
-
+    void handleFriendRecommendationConfirmed(quint64 friendRecommendationId, bool confirm);
 signals:
     void hasMoreChanged();
 };

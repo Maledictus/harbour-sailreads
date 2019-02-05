@@ -589,12 +589,16 @@ void GoodReadsApi::ConfirmFriendRequest(quint64 friendRequestId, bool confirm)
             });
 }
 
-void GoodReadsApi::ConfirmFriendRecommendation(quint64 friendRecommendationId)
+void GoodReadsApi::ConfirmFriendRecommendation(quint64 friendRecommendationId, bool confirm)
 {
-}
-
-void GoodReadsApi::DeclineFriendRecommendation(quint64 friendRecommendationId)
-{
+    auto reply = m_OAuth1->Post(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + "/friend/confirm_recommendation.xml"),
+            { { "id", friendRecommendationId }, { "response", (confirm ? "Y" : "N") } });
+    connect(reply, &QNetworkReply::finished,
+            this,
+            [this, friendRecommendationId, confirm]() {
+                handleConfirmFriendRecommendation(friendRecommendationId, confirm);
+            });
 }
 
 void GoodReadsApi::AddFriend(const QString& userId)
@@ -1532,41 +1536,30 @@ void GoodReadsApi::handleGetFriendRequests()
 void GoodReadsApi::handleConfirmFriendRequest(quint64 friendRequestId, bool confirm)
 {
     bool ok = false;
-    auto doc = GetDocumentFromReply(sender(), ok);
+    auto doc = GetReply(sender(), ok);
     if (!ok) {
         emit requestFinished();
         return;
     }
 
-    emit friendRequestConfirmed(friendRequestId, confirm);
+    if (doc.isEmpty()) {
+        emit friendRequestConfirmed(friendRequestId, confirm);
+    }
     emit requestFinished();
 }
 
-void GoodReadsApi::handleConfirmFriendRecommendation()
+void GoodReadsApi::handleConfirmFriendRecommendation(quint64 friendRecommendationId, bool confirm)
 {
     bool ok = false;
-    auto doc = GetDocumentFromReply(sender(), ok);
+    auto doc = GetReply(sender(), ok);
     if (!ok) {
         emit requestFinished();
         return;
     }
 
-    //TODO
-    qDebug() << doc.toByteArray();
-    emit requestFinished();
-}
-
-void GoodReadsApi::handleDeclineFriendRecommendation()
-{
-    bool ok = false;
-    auto doc = GetDocumentFromReply(sender(), ok);
-    if (!ok) {
-        emit requestFinished();
-        return;
+    if (doc.isEmpty()) {
+        emit friendRecommendationConfirmed(friendRecommendationId, confirm);
     }
-
-    //TODO
-    qDebug() << doc.toByteArray();
     emit requestFinished();
 }
 
