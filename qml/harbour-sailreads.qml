@@ -63,7 +63,8 @@ ApplicationWindow {
 
     Component {
         id: splashScreenComponent
-        SplashScreenPage {}
+//        SplashScreenPage {}
+        InboxPage{}
     }
 
     Component {

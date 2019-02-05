@@ -53,6 +53,118 @@ SilicaListView {
     onContentYChanged: fetchMoreIfNeeded()
 
     delegate: ListItem {
+        id: listItem
+        contentHeight: mainColumn.height + separator.height + Theme.paddingMedium
+        clip: true
+        Column {
+            id: mainColumn
+            width: parent.width
+            Item {
+                height: Math.max(userAvatar.height, column.height)
+                anchors {
+                    left: parent.left
+                    leftMargin: Theme.horizontalPageMargin
+                    right: parent.right
+                    rightMargin: Theme.horizontalPageMargin
+                }
+
+                BaseImage {
+                    id: userAvatar
+                    anchors {
+                        top: parent.top
+                        topMargin: Theme.paddingSmall
+                    }
+                    width: Theme.iconSizeMedium
+                    height: Theme.iconSizeMedium
+                    source: friendRequestFromUser ?
+                            friendRequestFromUser.avatarUrl :
+                            "qrc:/images/gra_small.png"
+                    defaultImage: "qrc:/images/gra_small.png"
+                    indicator.size: BusyIndicatorSize.Small
+                    enabled: false
+                }
+
+                Column {
+                    id: column
+                    anchors {
+                        left: userAvatar.right
+                        leftMargin: Theme.paddingMedium
+                        right: messageButton.visible ? messageButton.left : acceptButton.left
+                        rightMargin: Theme.paddingMedium
+                    }
+
+                    Label {
+                        width: parent.width
+                        wrapMode: Text.WordWrap
+                        linkColor: Theme.highlightColor
+                        text: friendRequestFromUser ? friendRequestFromUser.userName : ""
+                        color: highlighted ? Theme.highlightColor : Theme.primaryColor
+                    }
+
+                    Label {
+                        anchors.left: parent.left
+                        anchors.rightMargin: Theme.horizontalPageMargin
+                        font.pixelSize: Theme.fontSizeTiny
+                        text: Qt.formatDateTime(friendRequestCreateDate)
+                        color: highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor
+                    }
+                }
+
+                IconButton {
+                    id: messageButton
+                    anchors {
+                        right: acceptButton.left
+                        rightMargin: Theme.paddingSmall
+                    }
+                    visible: friendRequestMessage !== ""
+                    icon.source: "image://theme/icon-m-file-document"
+                    onClicked: messageLabel.visible = !messageLabel.visible
+                }
+
+                IconButton {
+                    id: acceptButton
+                    anchors {
+                        right: ignoreButton.left
+                        rightMargin: Theme.paddingSmall
+                    }
+                    icon.source: "image://theme/icon-m-acknowledge"
+                    onClicked: sailreadsManager.confirmFriendRequest(friendRequestId, true)
+                }
+
+                IconButton {
+                    id: ignoreButton
+                    anchors.right: parent.right
+                    icon.source: "image://theme/icon-m-clear"
+                    onClicked: sailreadsManager.confirmFriendRequest(friendRequestId, false)
+                }
+            }
+            Label {
+                id: messageLabel
+                anchors {
+                    left: parent.left
+                    leftMargin: Theme.horizontalPageMargin
+                    right: parent.right
+                    rightMargin: Theme.horizontalPageMargin
+                }
+                wrapMode: Text.WordWrap
+                visible: false
+                text: friendRequestMessage
+            }
+        }
+
+        Separator {
+            id: separator
+            anchors {
+                top: mainColumn.bottom
+                topMargin: Theme.paddingMedium
+            }
+            width: parent.width
+            color: Theme.primaryColor
+            horizontalAlignment: Qt.AlignHCenter
+        }
+
+        onClicked: pageStack.push(Qt.resolvedUrl("../pages/ProfilePage.qml"),
+                { userId: friendRequestFromUser ? friendRequestFromUser.id : "" })
     }
 
     VerticalScrollDecorator{}

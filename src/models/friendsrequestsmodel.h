@@ -59,7 +59,7 @@ public slots:
     void loadFriendsRequests();
 private slots:
     void handleGotFriendsRequests(const CountedItems<FriendRequest>& friendsRequests);
-
+    void handleFriendRequestConfirmed(quint64 friendRequestId, bool confirmed);
 signals:
     void hasMoreChanged();
 };

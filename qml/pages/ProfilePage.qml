@@ -117,26 +117,16 @@ Page {
                         (sailreadsManager.authUser && sailreadsManager.authUser.id !== userId) &&
                         !userProfile.user.isFriend
                     enabled: userProfile.user &&
-                            (userProfile.user.friendStatus == User.NotAFriend ||
-                                userProfile.user.friendStatus == User.FriendRequestReceived)
+                            userProfile.user.friendStatus == User.NotAFriend
                     text: {
                         if (userProfile.user &&
                                 userProfile.user.friendStatus == User.FriendRequestSent) {
                             return qsTr("Friend request was sent")
                         }
-                        else if (userProfile.user &&
-                                userProfile.user.friendStatus == User.FriendRequestReceived) {
-                            return qsTr("Accept friend request")
-                        }
-
                         return qsTr("Add as a friend")
                     }
                     onClicked: {
-                        if (userProfile.user &&
-                                userProfile.user.friendStatus == User.FriendRequestReceived) {
-                            sailreadsManager.confirmFriendRequest(userProfile.user.friendRequestId, true)
-                        }
-                        else {
+                        if (userProfile.user && userProfile.user.friendStatus == User.NotAFriend) {
                             sailreadsManager.addAsFriend(userId)
                         }
                     }

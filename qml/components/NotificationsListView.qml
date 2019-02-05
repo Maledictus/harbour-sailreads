@@ -98,6 +98,7 @@ SilicaListView {
                 }
                 Label {
                     anchors.right: parent.right
+                    anchors.rightMargin: Theme.horizontalPageMargin
                     font.pixelSize: Theme.fontSizeTiny
                     text: Qt.formatDateTime(notificationCreateDate)
                     color: highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor
