@@ -32,6 +32,7 @@ THE SOFTWARE.
 #include "objects/comment.h"
 #include "objects/friend.h"
 #include "objects/friendrequest.h"
+#include "objects/friendrecommendation.h"
 #include "objects/groupfolder.h"
 #include "objects/groupmember.h"
 #include "types.h"
@@ -50,6 +51,7 @@ GroupFolder ParseGroupFolder(const QDomElement& element);
 GroupPtr ParseGroup(const QDomElement& element);
 Friend ParseFriend(const QDomElement& element);
 FriendRequest ParseFriendRequest(const QDomElement& element);
+FriendRecommendation ParseFriendRecommendation(const QDomElement& element);
 TopicPtr ParseTopic(const QDomElement& element);
 Comment ParseComment(const QDomElement& element);
 BookPtr ParseBook(const QDomElement& element);
@@ -72,6 +74,8 @@ GroupFolders_t ParseGroupFolders(const QDomElement& element);
 BookShelves_t ParseBookShelves(const QDomElement& element);
 Groups_t ParseGroups(const QDomElement& element);
 Friends_t ParseFriends(const QDomElement& element);
+FriendsRequests_t ParseFriendsRequests(const QDomElement& element);
+FriendsRecommendations_t ParseFriendsRecommendations(const QDomElement& element);
 Topics_t ParseTopics(const QDomElement& element);
 Authors_t ParseAuthors(const QDomElement& element);
 CountedItems<Comment> ParseComments(const QDomElement& element);
@@ -117,6 +121,8 @@ ReadStatusPtr ParseReadStatus(const QDomDocument& doc);
 CountedItems<Comment> ParseComments(const QDomDocument& doc);
 UserStatusPtr ParseUserStatus(const QDomDocument& doc);
 RecommendationPtr ParseRecommendation(const QDomDocument& doc);
+CountedItems<FriendRequest> ParseFriendsRequests(const QDomDocument& doc);
+CountedItems<FriendRecommendation> ParseFriendsRecommendations(const QDomDocument& doc);
 }
 }
 }

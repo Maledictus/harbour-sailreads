@@ -450,6 +450,30 @@ FriendRequest ParseFriendRequest(const QDomElement& element)
     return fr;
 }
 
+FriendRecommendation ParseFriendRecommendation(const QDomElement& element)
+{
+    FriendRecommendation fr;
+    const auto& fieldsList = element.childNodes();
+    for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
+        const auto& fieldElement = fieldsList.at (i).toElement ();
+        if (fieldElement.tagName() == "id") {
+            fr.SetId(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "created_at" && !fieldElement.text().isEmpty()) {
+            fr.SetCreateDate(QDateTime::fromString(PrepareDateTimeString(fieldElement.text()),
+                    Qt::ISODate));
+        }
+        else if (fieldElement.tagName() == "recommender_user") {
+            fr.SetRecommenderUser(ParseUser(fieldElement));
+        }
+        else if (fieldElement.tagName() == "recommended_user") {
+            fr.SetRecommendedUser(ParseUser(fieldElement));
+        }
+    }
+
+    return fr;
+}
+
 TopicPtr ParseTopic(const QDomElement& element)
 {
     TopicPtr topic = std::make_shared<Topic>();
@@ -1509,6 +1533,28 @@ Friends_t ParseFriends(const QDomElement& element)
     return friends;
 }
 
+FriendsRequests_t ParseFriendsRequests(const QDomElement& element)
+{
+    FriendsRequests_t requests;
+    const auto& nodes = element.childNodes();
+    for (int i = 0, count = nodes.size(); i < count; ++i) {
+        const auto& elem = nodes.at(i).toElement();
+        requests << ParseFriendRequest(elem);
+    }
+    return requests;
+}
+
+FriendsRecommendations_t ParseFriendsRecommendations(const QDomElement& element)
+{
+    FriendsRecommendations_t recommendations;
+    const auto& nodes = element.childNodes();
+    for (int i = 0, count = nodes.size(); i < count; ++i) {
+        const auto& elem = nodes.at(i).toElement();
+        recommendations << ParseFriendRecommendation(elem);
+    }
+    return recommendations;
+}
+
 Topics_t ParseTopics(const QDomElement& element)
 {
     Topics_t topics;
@@ -2177,6 +2223,56 @@ RecommendationPtr ParseRecommendation(const QDomDocument& doc)
     }
 
     return ParseRecommendation(recommendationElement);
+}
+
+CountedItems<FriendRequest> ParseFriendsRequests(const QDomDocument &doc)
+{
+    const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
+    if (responseElement.isNull()) {
+        return CountedItems<FriendRequest>();
+    }
+
+    const auto& requestsElement = responseElement.firstChildElement("requests");
+    if (requestsElement.isNull()) {
+        return CountedItems<FriendRequest>();
+    }
+
+    const auto& friendsRequestsElement = requestsElement.firstChildElement("friend_requests");
+    if (friendsRequestsElement.isNull()) {
+        return CountedItems<FriendRequest>();
+    }
+
+    CountedItems<FriendRequest> friendsRequests;
+    friendsRequests.m_BeginIndex = friendsRequestsElement.attribute("start").toULongLong();
+    friendsRequests.m_EndIndex = friendsRequestsElement.attribute("end").toULongLong();
+    friendsRequests.m_Count = friendsRequestsElement.attribute("total").toULongLong();
+    friendsRequests.m_Items = ParseFriendsRequests(friendsRequestsElement);
+    return friendsRequests;
+}
+
+CountedItems<FriendRecommendation> ParseFriendsRecommendations(const QDomDocument& doc)
+{
+    const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
+    if (responseElement.isNull()) {
+        return CountedItems<FriendRecommendation>();
+    }
+
+    const auto& requestsElement = responseElement.firstChildElement("requests");
+    if (requestsElement.isNull()) {
+        return CountedItems<FriendRecommendation>();
+    }
+
+    const auto& recommendationsElement = requestsElement.firstChildElement("friend_recommendations");
+    if (recommendationsElement.isNull()) {
+        return CountedItems<FriendRecommendation>();
+    }
+
+    CountedItems<FriendRecommendation> friendsRecommendations;
+    friendsRecommendations.m_BeginIndex = recommendationsElement.attribute("start").toULongLong();
+    friendsRecommendations.m_EndIndex = recommendationsElement.attribute("end").toULongLong();
+    friendsRecommendations.m_Count = recommendationsElement.attribute("total").toULongLong();
+    friendsRecommendations.m_Items = ParseFriendsRecommendations(recommendationsElement);
+    return friendsRecommendations;
 }
 
 }

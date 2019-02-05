@@ -36,6 +36,8 @@ THE SOFTWARE.
 #include "objects/bookshelf.h"
 #include "objects/comment.h"
 #include "objects/friend.h"
+#include "objects/friendrequest.h"
+#include "objects/friendrecommendation.h"
 #include "objects/groupfolder.h"
 #include "objects/groupmember.h"
 #include "types.h"
@@ -269,6 +271,9 @@ signals:
 
     void gotMessages(const QString& folder, const CountedItems<MessagePtr>& messages);
     void gotMessage(const MessagePtr& message);
+
+    void gotFriendsRequests(const CountedItems<FriendRequest>& requests);
+    void gotFriendsRecommendations(const CountedItems<FriendRecommendation>& recommendations);
 
     void gotUserBookShelves(const QString& userId, const CountedItems<BookShelf>& shelves);
     void bookShelfAdded(const BookShelf& shelf);

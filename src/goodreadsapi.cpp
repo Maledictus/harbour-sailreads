@@ -591,22 +591,10 @@ void GoodReadsApi::ConfirmFriendRequest(quint64 friendRequestId, bool confirm)
 
 void GoodReadsApi::ConfirmFriendRecommendation(quint64 friendRecommendationId)
 {
-//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-//            QUrl(QString("https://www.goodreads.com/friend/confirm_recommendation.xml?id=%1&response=%2")
-//                 .arg(friendRecommendationId).arg("Y")), "POST");
-//    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
-//    connect(reply, &QNetworkReply::finished,
-//             this, &GoodReadsApi::handleConfirmFriendRecommendation);
 }
 
 void GoodReadsApi::DeclineFriendRecommendation(quint64 friendRecommendationId)
 {
-//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-//            QUrl(QString("https://www.goodreads.com/friend/confirm_recommendation.xml?id=%1&response=%2")
-//                 .arg(friendRecommendationId).arg("N")), "POST");
-//    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
-//    connect(reply, &QNetworkReply::finished,
-//            this, &GoodReadsApi::handleDeclineFriendRecommendation);
 }
 
 void GoodReadsApi::AddFriend(const QString& userId)
@@ -619,11 +607,6 @@ void GoodReadsApi::AddFriend(const QString& userId)
 
 void GoodReadsApi::RemoveFriend(const QString& /*userId*/)
 {
-//    auto reply = m_OAuth1->Post(m_AccessToken, m_AccessTokenSecret,
-//            QUrl(m_BaseUrl + QString("/friend/destroy/%1").arg(userId)),
-//                { { "format", "xml" } });
-//    connect(reply, &QNetworkReply::finished,
-//            this, [this, userId]() { handleRemoveFriend(userId); });
 }
 
 void GoodReadsApi::FollowUser(const QString& userId)
@@ -1541,8 +1524,8 @@ void GoodReadsApi::handleGetFriendRequests()
         return;
     }
 
-    //TODO
-    qDebug() << doc.toByteArray();
+    emit gotFriendsRequests(RpcUtils::Parser::ParseFriendsRequests(doc));
+    emit gotFriendsRecommendations(RpcUtils::Parser::ParseFriendsRecommendations(doc));
     emit requestFinished();
 }
 
