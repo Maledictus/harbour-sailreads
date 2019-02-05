@@ -22,30 +22,46 @@ THE SOFTWARE.
 
 #pragma once
 
-#include <QDateTime>
-
+#include "basemodel.h"
+#include "../objects/friendrequest.h"
 #include "../types.h"
 
 namespace Sailreads
 {
-class FriendRequest
+class FriendsRequestsModel : public BaseModel<FriendRequest>
 {
-    quint64 m_Id;
-    QDateTime m_CreatedAt;
-    QString m_Message;
-    UserPtr m_FromUser;
-public:
-    FriendRequest();
-    ~FriendRequest();
+    Q_OBJECT
 
-    quint64 GetId() const;
-    void SetId(quint64 id);
-    QDateTime GetCreatedAt() const;
-    void SetCreatedAt(const QDateTime& createdAt);
-    QString GetMessage() const;
-    void SetMessage(const QString& message);
-    UserPtr GetFromUser() const;
-    void SetFromUser(const UserPtr& fromUser);
+    bool m_HasMore;
+    quint64 m_CurrentPage;
+
+    Q_PROPERTY(bool hasMore READ GetHasMore WRITE SetHasMore NOTIFY hasMoreChanged)
+
+public:
+    enum FriendRequestRoles
+    {
+        Id = Qt::UserRole + 1,
+        CreateDate,
+        FromUser,
+        Message
+    };
+
+    FriendsRequestsModel(QObject *parent = nullptr);
+
+    bool GetHasMore() const;
+    void SetHasMore(bool has);
+
+    virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
+    virtual QHash<int, QByteArray> roleNames() const override;
+
+public slots:
+    void fetchMoreContent();
+    void loadFriendsRequests();
+private slots:
+    void handleGotFriendsRequests(const CountedItems<FriendRequest>& friendsRequests);
+
+signals:
+    void hasMoreChanged();
 };
-typedef QList<FriendRequest> FriendsRequests_t;
+
 } // namespace Sailreads
