@@ -686,6 +686,22 @@ Pull down to refresh</source>
     </message>
 </context>
 <context>
+    <name>FriendsRecommendationsListView</name>
+    <message>
+        <location filename="../qml/components/FriendsRecommendationsListView.qml" line="38"/>
+        <source>There are no friends recommendations. Pull down to refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>FriendsRequestsListView</name>
+    <message>
+        <location filename="../qml/components/FriendsRequestsListView.qml" line="38"/>
+        <source>There are no friends requests. Pull down to refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>FriendsUpdatesPage</name>
     <message>
         <location filename="../qml/pages/FriendsUpdatesPage.qml" line="65"/>
@@ -897,6 +913,70 @@ Pull down to refresh or to search groups</source>
     </message>
 </context>
 <context>
+    <name>InboxPage</name>
+    <message>
+        <location filename="../qml/pages/InboxPage.qml" line="40"/>
+        <source>Inbox</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/InboxPage.qml" line="44"/>
+        <source>Saved</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/InboxPage.qml" line="48"/>
+        <source>Sent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/InboxPage.qml" line="52"/>
+        <source>Trash</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/InboxPage.qml" line="96"/>
+        <source>Select folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/InboxPage.qml" line="104"/>
+        <source>Refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/InboxPage.qml" line="149"/>
+        <location filename="../qml/pages/InboxPage.qml" line="212"/>
+        <source>Notifications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/InboxPage.qml" line="182"/>
+        <source>Friends Requests</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/InboxPage.qml" line="192"/>
+        <source>Friends Recommendations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/InboxPage.qml" line="222"/>
+        <source>Messages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/InboxPage.qml" line="232"/>
+        <source>Requests</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/InboxPage.qml" line="242"/>
+        <source>Recommendations</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>LoginPage</name>
     <message>
         <location filename="../qml/pages/LoginPage.qml" line="50"/>
@@ -959,6 +1039,19 @@ Pull down to refresh or to search groups</source>
     </message>
 </context>
 <context>
+    <name>MessagesListView</name>
+    <message>
+        <location filename="../qml/components/MessagesListView.qml" line="39"/>
+        <source>There are no messages in this folder. Pull down to refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/MessagesListView.qml" line="63"/>
+        <source>Mark as read</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>MessagesPage</name>
     <message>
         <location filename="../qml/pages/MessagesPage.qml" line="37"/>
@@ -1011,6 +1104,14 @@ Pull down to refresh or to search groups</source>
     <message>
         <location filename="../qml/components/NewMessageItem.qml" line="52"/>
         <source>Send</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>NotificationsListView</name>
+    <message>
+        <location filename="../qml/components/NotificationsListView.qml" line="45"/>
+        <source>There are no notifications. Pull down to refresh</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1121,16 +1222,11 @@ Pull down to refresh or to search groups</source>
     </message>
     <message>
         <location filename="../qml/pages/ProfilePage.qml" line="339"/>
-        <source>Messages</source>
+        <source>Inbox</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="351"/>
-        <source>Notifications</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="360"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="348"/>
         <source>Recent updates</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1226,65 +1322,6 @@ Pull down to refresh or to search groups</source>
     <message>
         <location filename="../qml/pages/ReviewPage.qml" line="225"/>
         <source>Comments</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>Sailreads::Application</name>
-    <message>
-        <location filename="../src/application.cpp" line="155"/>
-        <source>Authorized</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/application.cpp" line="155"/>
-        <source>Not authorized</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>Sailreads::Review</name>
-    <message>
-        <location filename="../src/objects/review.cpp" line="237"/>
-        <source>finished reading</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/objects/review.cpp" line="241"/>
-        <source>started reading</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/objects/review.cpp" line="244"/>
-        <source>is currently reading</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/objects/review.cpp" line="247"/>
-        <source>wants to read</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/objects/review.cpp" line="251"/>
-        <source>rated it</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>Sailreads::SailreadsManager</name>
-    <message>
-        <location filename="../src/sailreadsmanager.cpp" line="259"/>
-        <source>Authorization user...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/sailreadsmanager.cpp" line="277"/>
-        <source>Authentication user...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/sailreadsmanager.cpp" line="298"/>
-        <source>Getting user profile...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1480,111 +1517,6 @@ Pull down to refresh or to search groups</source>
     <message>
         <location filename="../qml/pages/UserStatusPage.qml" line="205"/>
         <source>Comments</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>Utils</name>
-    <message>
-        <location filename="../qml/utils/Utils.js" line="33"/>
-        <source>Today</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/utils/Utils.js" line="38"/>
-        <source>Yesterday</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/utils/Utils.js" line="110"/>
-        <source>Title</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/utils/Utils.js" line="111"/>
-        <source>Author</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/utils/Utils.js" line="112"/>
-        <source>Average rating</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/utils/Utils.js" line="113"/>
-        <source>Number of ratings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/utils/Utils.js" line="114"/>
-        <source>First published date</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/utils/Utils.js" line="115"/>
-        <source>Pages count</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/utils/Utils.js" line="116"/>
-        <source>Date updated</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/utils/Utils.js" line="117"/>
-        <source>Your rating</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/utils/Utils.js" line="118"/>
-        <source>Date started</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/utils/Utils.js" line="119"/>
-        <source>Date finished</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/utils/Utils.js" line="120"/>
-        <source>Review written</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/utils/Utils.js" line="123"/>
-        <source>Date added</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/utils/Utils.js" line="129"/>
-        <location filename="../qml/utils/Utils.js" line="133"/>
-        <source>Friends</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/utils/Utils.js" line="130"/>
-        <source>Top friends and followings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/utils/Utils.js" line="131"/>
-        <source>Top friends</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/utils/Utils.js" line="139"/>
-        <location filename="../qml/utils/Utils.js" line="143"/>
-        <source>Everything</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/utils/Utils.js" line="140"/>
-        <source>Books</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/utils/Utils.js" line="141"/>
-        <source>Reviews</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

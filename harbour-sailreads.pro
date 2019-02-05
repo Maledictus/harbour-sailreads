@@ -86,7 +86,10 @@ SOURCES += src/harbour-sailreads.cpp \
     src/models/userstatuscommentsmodel.cpp \
     src/objects/recommendation.cpp \
     src/qmltypes/recommendationitem.cpp \
-    src/models/recommendationcommentsmodel.cpp
+    src/models/recommendationcommentsmodel.cpp \
+    src/models/friendsrequestsmodel.cpp \
+    src/models/friendsrecommendationsmodel.cpp \
+    src/objects/friendrecommendation.cpp
 
 
 HEADERS += src/application.h \
@@ -166,7 +169,10 @@ HEADERS += src/application.h \
     src/models/userstatuscommentsmodel.h \
     src/objects/recommendation.h \
     src/qmltypes/recommendationitem.h \
-    src/models/recommendationcommentsmodel.h
+    src/models/recommendationcommentsmodel.h \
+    src/models/friendsrequestsmodel.h \
+    src/models/friendsrecommendationsmodel.h \
+    src/objects/friendrecommendation.h
 
 DISTFILES += translations/*.ts \
     sailreads.desktop \
@@ -183,6 +189,7 @@ TRANSLATIONS += translations/harbour-sailreads.ts
 lupdate_only {
 SOURCES = qml/harbour-sailreads.qml \
     qml/components/NavigationBar.qml \
+    qml/components/MessagesListView.qml \
     qml/components/GroupListItem.qml \
     qml/components/VotingBox.qml \
     qml/components/ShortBookRow.qml \
@@ -193,6 +200,8 @@ SOURCES = qml/harbour-sailreads.qml \
     qml/components/MessageListItem.qml \
     qml/components/PosterHeaderItem.qml \
     qml/components/IconText.qml \
+    qml/components/BaseActionsItem.qml \
+    qml/components/FriendsRequestsListView.qml \
     qml/components/BoxBackground.qml \
     qml/components/RatingComponent.qml \
     qml/components/CommentListItem.qml \
@@ -200,26 +209,28 @@ SOURCES = qml/harbour-sailreads.qml \
     qml/components/UserShortReview.qml \
     qml/components/BookShelfListItem.qml \
     qml/components/NewMessageItem.qml \
+    qml/components/FriendsRecommendationsListView.qml \
     qml/components/CollapsedLabel.qml \
     qml/components/UpdateListItem.qml \
     qml/components/MessagesFolder.qml \
     qml/components/MoreButton.qml \
+    qml/components/NotificationsListView.qml \
     qml/components/BookListItem.qml \
     qml/components/ClickableLabel.qml \
     qml/components/FriendListItem.qml \
     qml/components/RatingBox.qml \
-    qml/components/UserStatusRow.qml \
     qml/cover/CoverPage.qml \
     qml/dialogs/AddGroupFolderTopicDialog.qml \
     qml/dialogs/BooksReviewsSortingDialog.qml \
     qml/dialogs/UpdatesFilterDialog.qml \
-    qml/dialogs/AddEditReviewDialog.qml \
     qml/dialogs/AddEditShelfDialog.qml \
     qml/dialogs/AddBookToShelvesDialog.qml \
     qml/dialogs/AddCommentDialog.qml \
+    qml/dialogs/AddEditReviewDialog.qml \
     qml/pages/SearchBookReviewPage.qml \
     qml/pages/GroupMembersPage.qml \
     qml/pages/BookReviewsPage.qml \
+    qml/pages/InboxPage.qml \
     qml/pages/MessagesPage.qml \
     qml/pages/SettingsPage.qml \
     qml/pages/ReadStatusPage.qml \
