@@ -5,6 +5,8 @@ import harbour.sailreads 1.0
 ListItem {
     id: listItem
 
+    property real contentMargin
+
     property int userId
     property url userAvatarUrl
     property string userName
@@ -25,9 +27,9 @@ ListItem {
         id: column
         anchors {
             left: parent.left
-            leftMargin: Theme.horizontalPageMargin
+            leftMargin: contentMargin
             right: parent.right
-            rightMargin: Theme.horizontalPageMargin
+            rightMargin: contentMargin
         }
 
         UserShortReview {

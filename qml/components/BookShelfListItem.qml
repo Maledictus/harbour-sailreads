@@ -50,7 +50,7 @@ ListItem {
             rightMargin: Theme.horizontalPageMargin
             verticalCenter: parent.verticalCenter
         }
-        color: Theme.secondaryColor
+        color: highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor
     }
 }
 

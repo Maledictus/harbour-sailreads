@@ -422,33 +422,33 @@ Pull down to refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="339"/>
+        <location filename="../qml/pages/BookPage.qml" line="340"/>
         <source>Description</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="356"/>
+        <location filename="../qml/pages/BookPage.qml" line="357"/>
         <source>Series</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="380"/>
+        <location filename="../qml/pages/BookPage.qml" line="381"/>
         <source>Pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="387"/>
+        <location filename="../qml/pages/BookPage.qml" line="388"/>
         <source>Published</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="418"/>
+        <location filename="../qml/pages/BookPage.qml" line="419"/>
         <source>Other editions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="432"/>
-        <location filename="../qml/pages/BookPage.qml" line="439"/>
+        <location filename="../qml/pages/BookPage.qml" line="433"/>
+        <location filename="../qml/pages/BookPage.qml" line="440"/>
         <source>Similar Books</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1315,12 +1315,12 @@ Pull down to refresh or to search groups</source>
     </message>
     <message>
         <location filename="../qml/pages/ReviewPage.qml" line="134"/>
-        <location filename="../qml/pages/ReviewPage.qml" line="184"/>
+        <location filename="../qml/pages/ReviewPage.qml" line="183"/>
         <source>Review</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ReviewPage.qml" line="225"/>
+        <location filename="../qml/pages/ReviewPage.qml" line="224"/>
         <source>Comments</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1549,7 +1549,7 @@ Pull down to refresh or to search groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/UserReviewsPage.qml" line="80"/>
+        <location filename="../qml/pages/UserReviewsPage.qml" line="81"/>
         <source>Open on GoodReads.com</source>
         <translation type="unfinished"></translation>
     </message>

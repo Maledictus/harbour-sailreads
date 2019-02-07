@@ -52,6 +52,7 @@ ListItem {
             width: parent.width
             postDate: Qt.formatDateTime(postDate)
             onClicked: pageStack.push(Qt.resolvedUrl("ProfilePage.qml"), { userId: posterId })
+            highlighted: listItem.highlighted || down
         }
         Label {
             id: subjectLabel

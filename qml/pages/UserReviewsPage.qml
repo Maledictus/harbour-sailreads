@@ -56,6 +56,7 @@ Page {
 
         delegate: ReviewListItem {
             userId: modelData.user.id
+            contentMargin: Theme.horizontalPageMargin
             userAvatarUrl: modelData.user.avatarUrl
             userName: modelData.user.userName
             reviewId: modelData.id

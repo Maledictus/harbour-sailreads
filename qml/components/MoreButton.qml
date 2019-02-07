@@ -42,7 +42,9 @@ BackgroundItem {
             rightMargin: Theme.paddingMedium
             verticalCenter: parent.verticalCenter
         }
-        color: Theme.secondaryColor
+        color: (morePanel.highlighted || !morePanel.enabled) ?
+                Theme.secondaryHighlightColor :
+                Theme.secondaryColor
     }
 
     Label {

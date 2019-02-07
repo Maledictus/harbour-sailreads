@@ -144,7 +144,6 @@ Page {
 
             UserShortReview {
                 width: parent.width
-
                 userId: review && review.user ? review.user.id : ""
                 avatarImage.source: review ? review.user.avatarUrl : "qrc:/images/gra_small.png"
                 shortDescription: review ? review.shortDescription : ""

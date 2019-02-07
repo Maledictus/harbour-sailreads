@@ -49,6 +49,8 @@ Item {
         id: avatarImageItem
         anchors {
             left: parent.left
+            top: parent.top
+            topMargin: Theme.paddingSmall
         }
         defaultImage: "qrc:/images/gra_small.png"
         indicator.size: BusyIndicatorSize.Medium
@@ -72,6 +74,7 @@ Item {
                 width: label.implicitWidth
                 label.font.pixelSize: headerFontSize
                 onClicked: userClicked(userId)
+                highlighted: headerRow.highlighted || down
             }
 
             Label {
