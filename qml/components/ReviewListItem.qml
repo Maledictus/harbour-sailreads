@@ -47,6 +47,7 @@ ListItem {
             headerFontSize: Theme.fontSizeExtraSmall
             ratingIconSize: Theme.iconSizeExtraSmall
             highlighted: listItem.highlighted
+            onUserClicked: listItem.userClicked(userId)
         }
 
         Label {
