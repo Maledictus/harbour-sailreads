@@ -119,6 +119,7 @@ Page {
                     id: avatarImage
                     width: Theme.iconSizeExtraLarge * 1.5
                     height: Theme.iconSizeExtraLarge * 1.5
+                    defaultImage: "qrc:/images/gra_small.png"
                     source: {
                         if (authorProfile.author) {
                             if (authorProfile.author.largeImageUrl.toString() !== "") {

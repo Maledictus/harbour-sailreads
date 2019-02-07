@@ -78,7 +78,7 @@ SilicaListView {
                     height: Theme.iconSizeMedium
                     source: friendRequestFromUser ?
                             friendRequestFromUser.avatarUrl :
-                            "qrc:/images/gra_small.png"
+                            ""
                     defaultImage: "qrc:/images/gra_small.png"
                     indicator.size: BusyIndicatorSize.Small
                     enabled: false

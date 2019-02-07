@@ -46,6 +46,7 @@ ListItem {
             height: Theme.iconSizeLarge
             width: Theme.iconSizeMedium
             source: friendAvatarUrl
+            defaultImage: "qrc:/images/gra_small.png"
             horizontalAlignment: Image.AlignLeft
             verticalAlignment: Image.AlignTop
         }

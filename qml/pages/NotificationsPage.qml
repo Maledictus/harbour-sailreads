@@ -110,6 +110,7 @@ Page {
                     width: Theme.iconSizeMedium
                     height: Theme.iconSizeMedium
                     source: notificationActors.length > 0 ? notificationActors[0].avatarUrl : ""
+                    defaultImage: "qrc:/images/gra_small.png"
                     indicator.size: BusyIndicatorSize.Small
                     enabled: false
                 }

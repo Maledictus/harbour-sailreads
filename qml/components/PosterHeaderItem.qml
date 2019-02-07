@@ -45,11 +45,7 @@ MouseArea {
         width: Theme.iconSizeMedium
         height: Theme.iconSizeMedium
         source: posterAvatar.length > 0 ? posterAvatar : posterDefaultAvatar
-        onStatusChanged: {
-            if (status === Image.Error) {
-                source = posterDefaultAvatar
-            }
-        }
+        defaultImage: posterDefaultAvatar
         indicator.size: BusyIndicatorSize.Small
         enabled: false
     }

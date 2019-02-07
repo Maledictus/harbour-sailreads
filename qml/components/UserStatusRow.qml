@@ -43,6 +43,7 @@ Row {
     BaseImage {
         id: avatarImageItem
         anchors.top: column.top
+        defaultImage: "qrc:/images/gra_small.png"
         indicator.size: BusyIndicatorSize.Medium
         onClicked: userClicked()
     }

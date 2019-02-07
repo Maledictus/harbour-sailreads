@@ -155,6 +155,7 @@ Page {
                     width: Theme.iconSizeExtraLarge
                     height: Theme.iconSizeExtraLarge
                     source: userProfile.user ? userProfile.user.avatarUrl : ""
+                    defaultImage: "qrc:/images/gra_small.png"
                     indicator.size: BusyIndicatorSize.Medium
                 }
 

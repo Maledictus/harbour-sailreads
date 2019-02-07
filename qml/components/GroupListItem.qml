@@ -48,6 +48,7 @@ ListItem {
         }
         height: Theme.iconSizeLarge
         width: Theme.iconSizeMedium
+        defaultImage: "qrc:/images/grga.jpg"
         horizontalAlignment: Image.AlignLeft
         verticalAlignment: Image.AlignTop
         indicator.size: BusyIndicatorSize.Medium

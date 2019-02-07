@@ -50,6 +50,7 @@ Item {
         anchors {
             left: parent.left
         }
+        defaultImage: "qrc:/images/gra_small.png"
         indicator.size: BusyIndicatorSize.Medium
         onClicked: userClicked(userId)
     }
