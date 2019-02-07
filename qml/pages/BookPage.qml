@@ -284,7 +284,7 @@ Page {
                 counter: book ? book.friendReviews.length : 0
                 busy: bookPage.busy
                 enabled: !busy
-                visible: true//book && book.friendReviews.length > 3
+                visible: book && book.friendReviews.length > 3
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("UserReviewsPage.qml"),
                             { usersReviews: book ? book.friendReviews : [] })
