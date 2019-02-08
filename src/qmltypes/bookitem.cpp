@@ -36,6 +36,8 @@ BookItem::BookItem(QObject *parent)
             this, &BookItem::handleGotBook);
     connect(SailreadsManager::Instance(), &SailreadsManager::gotReviewInfo,
             this, &BookItem::handleGotReviewInfo);
+    connect(SailreadsManager::Instance(), &SailreadsManager::bookAddedToShelves,
+            this, &BookItem::handleBookAddedToShelves);
 }
 
 QString BookItem::GetBookId() const
@@ -108,6 +110,28 @@ void BookItem::handleGotReviewInfo(const ReviewInfo& reviewInfo)
     m_Book->GetReviewPtr()->SetStartedDate(reviewInfo.m_StartedDate);
     m_Book->GetReviewPtr()->SetReadCount(reviewInfo.m_ReadCount);
     m_Book->GetReviewPtr()->SetBody(reviewInfo.m_Review);
+    emit bookChanged();
+}
+
+void BookItem::handleBookAddedToShelves(const QString& bookId, const ReviewPtr& review)
+{
+    if (!m_Book || m_BookId != bookId) {
+        return;
+    }
+
+    if (!m_Book->GetReview())
+    {
+        m_Book->SetReview(review);
+    }
+    else if (m_Book->GetReview()->GetId() == review->GetId())
+    {
+        m_Book->GetReview()->SetUpdatedDate(review->GetUpdatedDate());
+        m_Book->GetReview()->SetAddedDate(review->GetAddedDate());
+        m_Book->GetReview()->SetReadDate(review->GetReadDate());
+        m_Book->GetReview()->SetStartedDate(review->GetStartedDate());
+        m_Book->GetReview()->SetRating(review->GetRating());
+        m_Book->GetReview()->SetShelves(review->GetShelves());
+    }
     emit bookChanged();
 }
 

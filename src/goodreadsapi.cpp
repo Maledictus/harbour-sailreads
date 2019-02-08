@@ -31,7 +31,9 @@ THE SOFTWARE.
 #include <QUrlQuery>
 #include <QXmlQuery>
 
+#include "objects/book.h"
 #include "objects/group.h"
+#include "objects/review.h"
 #include "objects/series.h"
 #include "oauth1.h"
 #include "rpcutils.h"
@@ -345,33 +347,25 @@ void GoodReadsApi::GetWorkSeries(QObject */*requester*/, quint64 /*workId*/)
 {
 }
 
-void GoodReadsApi::AddBookToShelf(quint64 bookId, const QString& shelfName)
+void GoodReadsApi::AddBookToShelf(const QString& bookId, const QString& shelfName)
 {
-//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-//            QUrl(QString("https://www.goodreads.com/shelf/add_to_shelf.xml?book_id=%1&name=%2")
-//                 .arg(bookId).arg(shelfName)), "POST");
-//    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
-//    connect(reply, &QNetworkReply::finished,
-//            this, &GoodReadsApi::handleAddBookToShelf);
+    QNetworkReply *reply = m_OAuth1->Post(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + QString("/shelf/add_to_shelf.xml?book_id=%1&name=%2&a=")
+                    .arg(bookId, shelfName)), {});
+    connect(reply, &QNetworkReply::finished,
+            this, [this, bookId]() { handleAddBookToShelf(bookId); });
 }
 
-void GoodReadsApi::AddBooksToShelves(const QList<quint64>& bookIds, const QStringList& shelvesName)
+void GoodReadsApi::AddBooksToShelves(const QStringList& bookIds, const QStringList& shelvesName)
 {
-//    QStringList bookIdsStringList;
-//    std::transform(bookIds.begin(), bookIds.end(),
-//            std::back_inserter(bookIdsStringList),
-//            [](decltype(bookIds.front()) bookId)
-//            { return QString::number(bookId); });
-
-//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-//            QUrl(QString("https://www.goodreads.com/shelf/add_books_to_shelves.xml?bookids=%1&shelves=%2")
-//                 .arg(bookIdsStringList.join(",")).arg(shelvesName.join(","))), "POST");
-//    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
-//    connect(reply, &QNetworkReply::finished,
-//            this, &GoodReadsApi::handleAddBooksToShelves);
+    QNetworkReply *reply = m_OAuth1->Post(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + QString("/shelf/add_books_to_shelves.xml?bookids=%1&shelves=%2")
+                    .arg(bookIds.join(','), shelvesName.join(','))), {});
+    connect(reply, &QNetworkReply::finished,
+            this, &GoodReadsApi::handleAddBooksToShelves);
 }
 
-void GoodReadsApi::RemoveBookFromShelf(quint64 bookId, const QString& shelfName)
+void GoodReadsApi::RemoveBookFromShelf(const QString &bookId, const QString& shelfName)
 {
 //    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
 //            QUrl(QString("https://www.goodreads.com/shelf/add_to_shelf.xml?book_id=%1&name=%2&a=remove")
@@ -1190,7 +1184,7 @@ void GoodReadsApi::handleGetWorkSeries()
     emit requestFinished();
 }
 
-void GoodReadsApi::handleAddBookToShelf()
+void GoodReadsApi::handleAddBookToShelf(const QString& bookId)
 {
     bool ok = false;
     auto doc = GetDocumentFromReply(sender(), ok);
@@ -1199,8 +1193,7 @@ void GoodReadsApi::handleAddBookToShelf()
         return;
     }
 
-    //TODO
-    qDebug() << doc.toByteArray();
+    emit bookAddedToShelves(bookId, RpcUtils::Parser::ParseBookShelfAddedReview(doc));
     emit requestFinished();
 }
 
@@ -1213,12 +1206,14 @@ void GoodReadsApi::handleAddBooksToShelves()
         return;
     }
 
-    //TODO
-    qDebug() << doc.toByteArray();
+    Reviews_t reviews = RpcUtils::Parser::ParseBookShelfAddedReviews(doc);
+    for (const auto& review : reviews) {
+        emit bookAddedToShelves(review->GetBook()->GetId(), review);
+    }
     emit requestFinished();
 }
 
-void GoodReadsApi::handleRemoveBookFromShelf()
+void GoodReadsApi::handleRemoveBookFromShelf(const QString& bookId)
 {
     bool ok = false;
     auto doc = GetDocumentFromReply(sender(), ok);

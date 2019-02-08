@@ -146,7 +146,9 @@ public slots:
             const QString& resourceType, int page = 1);
     void addNewComment(const QString& type, const QString& resourceId, const QString& comment);
 
-    void addBookToShelves(quint64 bookId, const QStringList& shelves);
+    void addBookToShelf(const QString& bookId, const QString& shelf);
+    void addBookToShelves(const QString& bookId, const QStringList& shelves);
+    void removeBookFromShelf(const QString& bookId, const QString& shelf);
 
     void loadAuthorProfile(QObject *requester, const QString& authorId);
     void loadAuthorBooks(QObject *requester, const QString& authorId, int page = 1);
@@ -233,6 +235,8 @@ signals:
 
     void likeAdded(const QString& resourceId, quint64 ratingId);
     void likeRemoved(const QString& resourceId);
+
+    void bookAddedToShelves(const QString& bookId, const ReviewPtr& review);
 };
 }
 

@@ -79,20 +79,21 @@ Page {
             PullDownMenu {
                 busy: bookPage.busy
                 MenuItem {
-                    visible: false //TODO
-                    text: qsTr("Add to Bookshelves")
+                    visible: book && book.review
+                    text: qsTr("Edit bookshelves")
                     onClicked: {
-//                        var dialog = pageStack.push("../dialogs/AddBookToShelvesDialog.qml",
-//                                { usedShelves: book.review.shelvesList })
-//                        dialog.accepted.connect (function () {
-//                            sailreadsManager.addBookToShelves(bookId, dialog.newShelves)
-//                        })
+                        var dialog = pageStack.push("../dialogs/AddBookToShelvesDialog.qml",
+                                { usedShelves: book.review.shelvesList })
+                        dialog.accepted.connect (function () {
+                            sailreadsManager.addBookToShelves(bookId, dialog.newShelves)
+                        })
                     }
                 }
 
                 MenuItem {
-                    visible: false //TODO book && book.review && book.review.shelvesList.length === 0
+                    visible: book && !book.review
                     text: qsTr("Want to Read")
+                    onClicked: sailreadsManager.addBookToShelves(book.id, ["to-read"])
                 }
 
                 MenuItem {
@@ -447,6 +448,7 @@ Page {
                 width: parent.width
                 clip: true
                 model: book ? book.similarBooks : undefined
+                visible: book && book.similarBooks.length > 0
                 spacing: Theme.paddingSmall
                 delegate: BaseImage {
                     height: 1.5 * width

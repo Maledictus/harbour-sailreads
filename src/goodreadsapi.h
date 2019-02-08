@@ -118,9 +118,9 @@ public:
     void GetAuthorSeries(QObject *requester, const QString& authorId);
     void GetWorkSeries(QObject *requester, quint64 workId);
 
-    void AddBookToShelf(quint64 bookId, const QString& shelfName);
-    void AddBooksToShelves(const QList<quint64>& bookIds, const QStringList& shelvesName);
-    void RemoveBookFromShelf(quint64 bookId, const QString& shelfName);
+    void AddBookToShelf(const QString& bookId, const QString& shelfName);
+    void AddBooksToShelves(const QStringList& bookIds, const QStringList& shelvesName);
+    void RemoveBookFromShelf(const QString& bookId, const QString& shelfName);
 
     void GetAuthor(QObject *requester, const QString& authorId);
     void GetAuthorBooks(QObject *requester, const QString& authorId, int page = 1);
@@ -207,9 +207,9 @@ private slots:
     void handleGetAuthorSeries(const QString& authorId);
     void handleGetWorkSeries();
 
-    void handleAddBookToShelf();
+    void handleAddBookToShelf(const QString& bookId);
     void handleAddBooksToShelves();
-    void handleRemoveBookFromShelf();
+    void handleRemoveBookFromShelf(const QString& bookId);
 
     void handleGetAuthor();
     void handleGetAuthorBooks(const QString& authorId);
@@ -324,5 +324,7 @@ signals:
 
     void likeAdded(const QString& resourceId, quint64 ratingId);
     void likeRemoved(const QString& resourceId);
+
+    void bookAddedToShelves(const QString& bookId, const ReviewPtr& review);
 };
 }

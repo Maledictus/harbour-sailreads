@@ -226,6 +226,9 @@ void SailreadsManager::MakeConnections()
             this, &SailreadsManager::likeAdded);
     connect(m_Api, &GoodReadsApi::likeRemoved,
             this, &SailreadsManager::likeRemoved);
+
+    connect(m_Api, &GoodReadsApi::bookAddedToShelves,
+            this, &SailreadsManager::bookAddedToShelves);
 }
 
 void SailreadsManager::SetBusy(bool busy)
@@ -542,10 +545,22 @@ void SailreadsManager::addNewComment(const QString& type, const QString& resourc
     m_Api->AddNewComment(type, resourceId, comment);
 }
 
-void SailreadsManager::addBookToShelves(quint64 bookId, const QStringList& shelves)
+void SailreadsManager::addBookToShelf(const QString& bookId, const QString& shelf)
+{
+    SetBusy(true);
+    m_Api->AddBookToShelf(bookId, shelf);
+}
+
+void SailreadsManager::addBookToShelves(const QString& bookId, const QStringList& shelves)
 {
     SetBusy(true);
     m_Api->AddBooksToShelves({ bookId }, shelves);
+}
+
+void SailreadsManager::removeBookFromShelf(const QString &bookId, const QString &shelf)
+{
+    SetBusy(true);
+    m_Api->RemoveBookFromShelf(bookId, shelf);
 }
 
 void SailreadsManager::loadAuthorProfile(QObject *requester, const QString& authorId)

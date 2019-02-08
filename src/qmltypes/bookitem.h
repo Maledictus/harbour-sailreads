@@ -50,6 +50,7 @@ public:
 private slots:
     void handleGotBook(const BookPtr& book);
     void handleGotReviewInfo(const ReviewInfo& reviewInfo);
+    void handleBookAddedToShelves(const QString& bookId, const ReviewPtr& review);
 public slots:
     void loadBook();
 

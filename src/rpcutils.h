@@ -56,6 +56,7 @@ TopicPtr ParseTopic(const QDomElement& element);
 Comment ParseComment(const QDomElement& element);
 BookPtr ParseBook(const QDomElement& element);
 ReviewPtr ParseReview(const QDomElement& element);
+ReviewPtr ParseReviewFromShelf(const QDomElement& element);
 ReviewInfo ParseReviewInfo(const QDomElement& element);
 AuthorPtr ParseAuthor(const QDomElement& element);
 WorkPtr ParseWork(const QDomElement& element);
@@ -123,6 +124,8 @@ UserStatusPtr ParseUserStatus(const QDomDocument& doc);
 RecommendationPtr ParseRecommendation(const QDomDocument& doc);
 CountedItems<FriendRequest> ParseFriendsRequests(const QDomDocument& doc);
 CountedItems<FriendRecommendation> ParseFriendsRecommendations(const QDomDocument& doc);
+ReviewPtr ParseBookShelfAddedReview(const QDomDocument& doc);
+Reviews_t ParseBookShelfAddedReviews(const QDomDocument& doc);
 }
 }
 }

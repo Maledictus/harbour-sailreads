@@ -694,6 +694,7 @@ BookPtr ParseBook(const QDomElement& element)
 ReviewPtr ParseReview(const QDomElement& element)
 {
     ReviewPtr review = std::make_shared<Review>();
+    BookPtr book = std::make_shared<Book>();
     const auto& fieldsList = element.childNodes();
     for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
         const auto& fieldElement = fieldsList.at (i).toElement ();
@@ -701,7 +702,10 @@ ReviewPtr ParseReview(const QDomElement& element)
             review->SetId(fieldElement.text());
         }
         else if (fieldElement.tagName() == "book") {
-            review->SetBook(ParseBook(fieldElement));
+            book = ParseBook(fieldElement);
+        }
+        else if (fieldElement.tagName() == "book_id") {
+            book->SetId(fieldElement.text());
         }
         else if (fieldElement.tagName() == "rating") {
             review->SetRating(fieldElement.text().toInt());
@@ -776,6 +780,39 @@ ReviewPtr ParseReview(const QDomElement& element)
         }
     }
 
+    review->SetBook(book);
+
+    return review;
+}
+
+ReviewPtr ParseReviewFromShelf(const QDomElement& element)
+{
+    ReviewPtr review = std::make_shared<Review>();
+    BookShelf shelf;
+    const auto& fieldsList = element.childNodes();
+    for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
+        const auto& fieldElement = fieldsList.at(i).toElement();
+        if (fieldElement.tagName() == "review-id") {
+            review->SetId(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "updated-at") {
+            review->SetUpdatedDate(QDateTime::fromString(fieldElement.text(), Qt::ISODate));
+        }
+        else if (fieldElement.tagName() == "created-at") {
+            review->SetAddedDate(QDateTime::fromString(fieldElement.text(), Qt::ISODate));
+        }
+        else if (fieldElement.tagName() == "user-shelf-id") {
+            shelf.SetId(fieldElement.text().toULong());
+        }
+        else if (fieldElement.tagName() == "name") {
+            shelf.SetName(fieldElement.text());
+        }
+        else if (fieldElement.tagName() == "exclusive") {
+            shelf.SetExclusive(fieldElement.text() == "true");
+        }
+    }
+
+    review->SetShelves({ shelf });
     return review;
 }
 
@@ -1662,7 +1699,7 @@ Reviews_t ParseReviewsList(const QDomElement& element)
     const auto& reviewsList = element.childNodes();
     Reviews_t reviews;
     for (int i = 0, cnt = reviewsList.size(); i < cnt; ++i) {
-        reviews << ParseReview(reviewsList.at (i).toElement());
+        reviews << ParseReview(reviewsList.at(i).toElement());
     }
     return reviews;
 }
@@ -2273,6 +2310,31 @@ CountedItems<FriendRecommendation> ParseFriendsRecommendations(const QDomDocumen
     friendsRecommendations.m_Count = recommendationsElement.attribute("total").toULongLong();
     friendsRecommendations.m_Items = ParseFriendsRecommendations(recommendationsElement);
     return friendsRecommendations;
+}
+
+ReviewPtr ParseBookShelfAddedReview(const QDomDocument& doc)
+{
+    const auto& shelfElement = doc.firstChildElement("shelf");
+    if (shelfElement.isNull()) {
+        return ReviewPtr();
+    }
+
+    return ParseReviewFromShelf(shelfElement);
+}
+
+Reviews_t ParseBookShelfAddedReviews(const QDomDocument& doc)
+{
+    const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
+    if (responseElement.isNull()) {
+        return Reviews_t();
+    }
+
+    const auto& reviewsElement = responseElement.firstChildElement("reviews");
+    if (reviewsElement.isNull()) {
+        return Reviews_t();
+    }
+
+    return ParseReviewsList(reviewsElement);
 }
 
 }
