@@ -38,6 +38,10 @@ BookItem::BookItem(QObject *parent)
             this, &BookItem::handleGotReviewInfo);
     connect(SailreadsManager::Instance(), &SailreadsManager::bookAddedToShelves,
             this, &BookItem::handleBookAddedToShelves);
+    connect(SailreadsManager::Instance(), &SailreadsManager::bookAddedToShelf,
+            this, &BookItem::handleBookAddedToShelf);
+    connect(SailreadsManager::Instance(), &SailreadsManager::bookRemovedFromShelf,
+            this, &BookItem::handleBookRemovedFromShelf);
 }
 
 QString BookItem::GetBookId() const
@@ -110,6 +114,50 @@ void BookItem::handleGotReviewInfo(const ReviewInfo& reviewInfo)
     m_Book->GetReviewPtr()->SetStartedDate(reviewInfo.m_StartedDate);
     m_Book->GetReviewPtr()->SetReadCount(reviewInfo.m_ReadCount);
     m_Book->GetReviewPtr()->SetBody(reviewInfo.m_Review);
+    emit bookChanged();
+}
+
+void BookItem::handleBookAddedToShelf(const QString& bookId, const ReviewPtr& review)
+{
+    if (!m_Book || m_BookId != bookId || !m_Book->GetReview()) {
+        return;
+    }
+
+    if (m_Book->GetReview()->GetId() == review->GetId())
+    {
+        if (!review->GetShelves()[0].GetExclusive())
+        {
+            m_Book->GetReview()->SetShelves(m_Book->GetReview()->GetShelves() + review->GetShelves());
+        }
+        else
+        {
+            auto shelves = m_Book->GetReview()->GetShelves();
+            for(int i = 0; i < shelves.count(); ++i) {
+                if(shelves.at(i).GetExclusive()) {
+                    shelves.removeAt(i);
+                }
+            }
+            m_Book->GetReview()->SetShelves(shelves + review->GetShelves());
+        }
+
+        emit bookChanged();
+    }
+}
+
+void BookItem::handleBookRemovedFromShelf(const QString& bookId, const QString& shelfName)
+{
+    if (!m_Book || m_BookId != bookId || !m_Book->GetReview()) {
+        return;
+    }
+
+    auto shelves = m_Book->GetReview()->GetShelves();
+    for(int i = 0; i < shelves.count(); ++i) {
+        if(shelves.at(i).GetName() == shelfName) {
+            shelves.removeAt(i);
+            break;
+        }
+    }
+    m_Book->GetReview()->SetShelves(shelves);
     emit bookChanged();
 }
 

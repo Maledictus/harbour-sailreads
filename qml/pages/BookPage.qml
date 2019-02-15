@@ -82,8 +82,8 @@ Page {
                     visible: book && book.review
                     text: qsTr("Edit bookshelves")
                     onClicked: {
-                        pageStack.push("../dialogs/AddBookToShelvesDialog.qml",
-                                { usedShelves: book.review.shelvesList })
+                        pageStack.push("../pages/AddBookToShelvesPage.qml",
+                                { usedShelves: book.review.shelvesList, bookId: bookId, book: book })
                     }
                 }
 

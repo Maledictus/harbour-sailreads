@@ -238,6 +238,8 @@ signals:
     void likeRemoved(const QString& resourceId);
 
     void bookAddedToShelves(const QString& bookId, const ReviewPtr& review);
+    void bookAddedToShelf(const QString& bookId, const ReviewPtr& review);
+    void bookRemovedFromShelf(const QString& bookId, const QString& shelfName);
 };
 }
 

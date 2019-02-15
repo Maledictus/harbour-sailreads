@@ -22,6 +22,7 @@ THE SOFTWARE.
 
 #include "bookshelvesmodel.h"
 
+#include "../objects/review.h"
 #include "../objects/user.h"
 #include "../sailreadsmanager.h"
 
@@ -41,6 +42,10 @@ BookShelvesModel::BookShelvesModel(QObject *parent)
             this, &BookShelvesModel::handleBookShelfAdded);
     connect(sm, &SailreadsManager::bookShelfEdited,
             this, &BookShelvesModel::handleBookShelfEdited);
+    connect(sm, &SailreadsManager::bookAddedToShelf,
+            this, &BookShelvesModel::handleBookAddedToShelf);
+    connect(sm, &SailreadsManager::bookRemovedFromShelf,
+            this, &BookShelvesModel::handleBookRemovedFromShelf);
 }
 
 QVariant BookShelvesModel::data(const QModelIndex& index, int role) const
@@ -185,6 +190,46 @@ void BookShelvesModel::handleBookShelfEdited(const BookShelf& shelf)
     {
         int pos = std::distance(m_Items.begin(), it);
         m_Items[pos] = shelf;
+        emit dataChanged(index(pos), index(pos));
+    }
+}
+
+void BookShelvesModel::handleBookAddedToShelf(const QString& bookId, const ReviewPtr& review)
+{
+    if (!SailreadsManager::Instance()->GetAuthUser() ||
+            m_UserId != SailreadsManager::Instance()->GetAuthUser()->GetId()) {
+        return;
+    }
+
+    for (const auto& shelf : review->GetShelves())
+    {
+        auto it = std::find_if(m_Items.begin(), m_Items.end(),
+                [shelf](decltype(m_Items.front()) oldShelf)
+                { return oldShelf.GetId() == shelf.GetId(); });
+        if (it != m_Items.end())
+        {
+            int pos = std::distance(m_Items.begin(), it);
+            m_Items[pos].SetBooksCount(m_Items[pos].GetBooksCount() + 1);
+            emit dataChanged(index(pos), index(pos));
+        }
+    }
+}
+
+void BookShelvesModel::handleBookRemovedFromShelf(const QString&, const QString& shelfName)
+{
+    if (!SailreadsManager::Instance()->GetAuthUser() ||
+            m_UserId != SailreadsManager::Instance()->GetAuthUser()->GetId()) {
+        return;
+    }
+
+    auto it = std::find_if(m_Items.begin(), m_Items.end(),
+            [shelfName](decltype(m_Items.front()) shelf)
+            { return shelf.GetName() == shelfName; });
+    if (it != m_Items.end())
+    {
+        int pos = std::distance(m_Items.begin(), it);
+        m_Items[pos].SetBooksCount(m_Items[pos].GetBooksCount() >= 1 ?
+                m_Items[pos].GetBooksCount() - 1 : 0);
         emit dataChanged(index(pos), index(pos));
     }
 }

@@ -229,6 +229,10 @@ void SailreadsManager::MakeConnections()
 
     connect(m_Api, &GoodReadsApi::bookAddedToShelves,
             this, &SailreadsManager::bookAddedToShelves);
+    connect(m_Api, &GoodReadsApi::bookAddedToShelf,
+            this, &SailreadsManager::bookAddedToShelf);
+    connect(m_Api, &GoodReadsApi::bookRemovedFromShelf,
+            this, &SailreadsManager::bookRemovedFromShelf);
 }
 
 void SailreadsManager::SetBusy(bool busy)
@@ -563,7 +567,7 @@ void SailreadsManager::addBookToShelves(const QString& bookId, const QStringList
     m_Api->AddBooksToShelves({ bookId }, shelves);
 }
 
-void SailreadsManager::removeBookFromShelf(const QString &bookId, const QString &shelf)
+void SailreadsManager::removeBookFromShelf(const QString& bookId, const QString& shelf)
 {
     SetBusy(true);
     m_Api->RemoveBookFromShelf(bookId, shelf);

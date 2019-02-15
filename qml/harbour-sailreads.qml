@@ -65,7 +65,7 @@ ApplicationWindow {
     Component {
         id: splashScreenComponent
         SplashScreenPage {}
-        //AddBookToShelvesDialog {}
+        //AddBookToShelvesPage { bookId: "36470561" }
         //BookPage { bookId: "36470561" }
     }
 

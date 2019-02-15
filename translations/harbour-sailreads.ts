@@ -55,24 +55,29 @@
     </message>
 </context>
 <context>
-    <name>AddBookToShelvesDialog</name>
+    <name>AddBookToShelvesPage</name>
     <message>
-        <location filename="../qml/dialogs/AddBookToShelvesDialog.qml" line="61"/>
+        <location filename="../qml/pages/AddBookToShelvesPage.qml" line="77"/>
         <source>Edit bookshelves</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddBookToShelvesDialog.qml" line="66"/>
+        <location filename="../qml/pages/AddBookToShelvesPage.qml" line="82"/>
+        <source>Add bookshelf</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AddBookToShelvesPage.qml" line="111"/>
         <source>Bookshelf</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddBookToShelvesDialog.qml" line="84"/>
+        <location filename="../qml/pages/AddBookToShelvesPage.qml" line="136"/>
         <source>Tags</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddBookToShelvesDialog.qml" line="90"/>
+        <location filename="../qml/pages/AddBookToShelvesPage.qml" line="142"/>
         <source>Search</source>
         <translation type="unfinished"></translation>
     </message>
@@ -495,7 +500,7 @@ Pull down to refresh</source>
     </message>
     <message>
         <location filename="../qml/pages/BookShelvesPage.qml" line="77"/>
-        <source>Add shelf</source>
+        <source>Add bookshelf</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1374,17 +1379,17 @@ Pull down to refresh or to search groups</source>
 <context>
     <name>Sailreads::SailreadsManager</name>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="268"/>
+        <location filename="../src/sailreadsmanager.cpp" line="272"/>
         <source>Authorization user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="286"/>
+        <location filename="../src/sailreadsmanager.cpp" line="290"/>
         <source>Authentication user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="307"/>
+        <location filename="../src/sailreadsmanager.cpp" line="311"/>
         <source>Getting user profile...</source>
         <translation type="unfinished"></translation>
     </message>

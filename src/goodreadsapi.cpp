@@ -258,8 +258,7 @@ void GoodReadsApi::SearchReviews(QObject *requester, const QString& userId,
         const QString& searchText, int page)
 {
     const QVariantMap params = { { "v", 2 }, { "search[query]", searchText }, { "page", page },
-        { "per_page", 50 }, { "format", "xml" }
-    };
+        { "per_page", 50 }, { "format", "xml" } };
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/review/list/%1").arg(userId)), params);
     m_Requester2Reply[requester] = reply;
@@ -378,14 +377,13 @@ void GoodReadsApi::AddBooksToShelves(const QStringList& bookIds, const QStringLi
             this, &GoodReadsApi::handleAddBooksToShelves);
 }
 
-void GoodReadsApi::RemoveBookFromShelf(const QString &bookId, const QString& shelfName)
+void GoodReadsApi::RemoveBookFromShelf(const QString& bookId, const QString& shelfName)
 {
-//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-//            QUrl(QString("https://www.goodreads.com/shelf/add_to_shelf.xml?book_id=%1&name=%2&a=remove")
-//                 .arg(bookId).arg(shelfName)), "POST");
-//    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
-//    connect(reply, &QNetworkReply::finished,
-//            this, &GoodReadsApi::handleRemoveBookFromShelf);
+    QNetworkReply *reply = m_OAuth1->Post(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + QString("/shelf/add_to_shelf.xml?book_id=%1&name=%2&a=remove")
+                    .arg(bookId, shelfName)), {});
+    connect(reply, &QNetworkReply::finished,
+            this, [this, bookId]() { handleRemoveBookFromShelf(bookId); });
 }
 
 void GoodReadsApi::GetAuthor(QObject *requester, const QString& authorId)
@@ -1225,7 +1223,7 @@ void GoodReadsApi::handleAddBookToShelf(const QString& bookId)
         return;
     }
 
-    emit bookAddedToShelves(bookId, RpcUtils::Parser::ParseBookShelfAddedReview(doc));
+    emit bookAddedToShelf(bookId, RpcUtils::Parser::ParseBookShelfAddedReview(doc));
     emit requestFinished();
 }
 
@@ -1254,8 +1252,10 @@ void GoodReadsApi::handleRemoveBookFromShelf(const QString& bookId)
         return;
     }
 
-    //TODO
-    qDebug() << doc.toByteArray();
+    QXmlQuery query;
+    query.setFocus(doc.toByteArray());
+    const QString shelfName(GetQueryResult(query, "/hash/name/text()"));
+    emit bookRemovedFromShelf(bookId, shelfName);
     emit requestFinished();
 }
 

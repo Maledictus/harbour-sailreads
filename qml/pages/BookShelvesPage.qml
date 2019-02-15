@@ -74,7 +74,7 @@ Page {
             }
 
             MenuItem {
-                text: qsTr("Add shelf")
+                text: qsTr("Add bookshelf")
                 onClicked: {
                     var dialog = pageStack.push("../dialogs/AddEditShelfDialog.qml")
                     dialog.accepted.connect (function () {
