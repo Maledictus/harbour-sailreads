@@ -224,9 +224,9 @@ SOURCES = qml/harbour-sailreads.qml \
     qml/dialogs/BooksReviewsSortingDialog.qml \
     qml/dialogs/UpdatesFilterDialog.qml \
     qml/dialogs/AddEditShelfDialog.qml \
-    qml/dialogs/AddBookToShelvesDialog.qml \
     qml/dialogs/AddCommentDialog.qml \
     qml/dialogs/AddEditReviewDialog.qml \
+    qml/pages/AddBookToShelvesPage.qml \
     qml/pages/SearchBookReviewPage.qml \
     qml/pages/GroupMembersPage.qml \
     qml/pages/BookReviewsPage.qml \

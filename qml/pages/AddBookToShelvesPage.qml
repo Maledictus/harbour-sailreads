@@ -34,13 +34,29 @@ Page {
 
     property bool busy: sailreadsManager.busy && editBookshelvesPage.status === PageStatus.Active
 
+    property string bookId
+    property var book
     property var usedShelves: []
 
     BookShelvesModel {
         id: bookShelvesModel
-        //"12934309" "51756959" sailreadsManager.authUser.id
+        //"12934309" "87293405" "51756959" sailreadsManager.authUser.id
         userId: sailreadsManager.authUser.id
         preloadAll: true
+
+        onHasMoreChanged: {
+            if (!hasMore) {
+                for (var i = 0; i < contextMenu.children.length; ++i) {
+                    console.log(contextMenu.children[i].text)
+                    if (usedShelves.indexOf(contextMenu.children[i].text) > -1) {
+                        bookShelvesComboBox.currentIndex = i
+                        bookShelvesComboBox.prevIndex = i
+                        return
+                    }
+                }
+                bookShelvesComboBox.currentIndex = 0
+            }
+        }
     }
 
     Component.onCompleted: {
@@ -48,6 +64,7 @@ Page {
             bookShelvesModel.loadAllBookShelves()
         }
     }
+
 
     SilicaFlickable {
         anchors.fill: parent
@@ -61,10 +78,51 @@ Page {
                 title: qsTr("Edit bookshelves")
             }
 
+            PullDownMenu {
+                MenuItem {
+                    text: qsTr("Add bookshelf")
+                    onClicked: {
+                        var dialog = pageStack.push("../dialogs/AddEditShelfDialog.qml")
+                        dialog.accepted.connect (function () {
+                            sailreadsManager.addBookShelf(dialog.name, dialog.exclusive,
+                                    dialog.sortable, dialog.featured, dialog.recommendFor)
+                        })
+                    }
+                }
+            }
+
+            ShortBookRow {
+                anchors {
+                    left: parent.left
+                    leftMargin: Theme.horizontalPageMargin
+                    right: parent.right
+                    rightMargin: Theme.horizontalPageMargin
+                }
+
+                width: parent.width
+                bookImage: book ? book.imageUrl : ""
+                bookTitle: book ? book.title: ""
+                bookAuthors: book ? Utils.getAuthorsString(book.authors, Theme.primaryColor) : ""
+                bookAverageRating: book ? book.averageRating : 0
+            }
+
             ComboBox {
+                id: bookShelvesComboBox
                 width: parent.width
                 label: qsTr("Bookshelf")
+
+                property int prevIndex: -1
+                function update(index) {
+                    if (index === prevIndex) {
+                        return
+                    }
+                    prevIndex = index
+                    sailreadsManager.addBookToShelf(bookId, contextMenu.children[index].text)
+                }
+
                 menu: ContextMenu {
+                    id: contextMenu
+                    onActivated: bookShelvesComboBox.update(index)
                     Repeater {
                         width: parent.width
                         delegate: MenuItem {
@@ -88,7 +146,7 @@ Page {
                 anchors.left: parent.left
                 anchors.right: parent.right
                 placeholderText: qsTr("Search")
-                onTextChanged: tagsModel.filterRegExp = new RegExp(text)
+                onTextChanged: tagsModel.filterRegExp = new RegExp(text, "i")
             }
 
             Flow {
@@ -105,8 +163,6 @@ Page {
                     model: BaseProxyModel {
                         id: tagsModel
                         filterRole: BookShelvesModel.Name
-                        filterRegExp: new RegExp("")
-                        filterCaseSensitivity: Qt.CaseInsensitive
                         dynamicSortFilter: true
                         sourceModel: BaseProxyModel {
                             filterRole: BookShelvesModel.Exclusive
@@ -123,10 +179,10 @@ Page {
                         selected: usedShelves.indexOf(bookShelfName) > -1
                         onClicked: {
                             if (selected) {
-                                console.log("remove from")
+                                sailreadsManager.removeBookFromShelf(bookId, bookShelfName)
                             }
                             else {
-                                console.log("add to")
+                                sailreadsManager.addBookToShelf(bookId, bookShelfName)
                             }
 
                             selected = !selected
