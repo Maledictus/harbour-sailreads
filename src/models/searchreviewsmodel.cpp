@@ -22,6 +22,7 @@ THE SOFTWARE.
 
 #include "searchreviewsmodel.h"
 
+#include "../objects/user.h"
 #include "../sailreadsmanager.h"
 
 namespace Sailreads
@@ -39,6 +40,7 @@ QString SearchReviewsModel::GetSearchText() const
 void SearchReviewsModel::SetSearchText(const QString& searchText)
 {
     if (m_SearchText != searchText) {
+        Clear();
         m_SearchText = searchText;
         m_CurrentPage = 1;
         m_HasMore = true;
@@ -49,6 +51,8 @@ void SearchReviewsModel::SetSearchText(const QString& searchText)
 
 void SearchReviewsModel::classBegin()
 {
+    m_UserId = SailreadsManager::Instance()->GetAuthUser() ?
+            SailreadsManager::Instance()->GetAuthUser()->GetId() : "";
     auto sm = SailreadsManager::Instance();
     connect(sm, &SailreadsManager::gotFoundReviews,
             this, &SearchReviewsModel::handleGotFoundReviews);
@@ -60,7 +64,7 @@ void SearchReviewsModel::componentComplete()
 
 void SearchReviewsModel::fetchMoreContent()
 {
-    if (m_SearchText.isEmpty()) {
+    if (m_SearchText.isEmpty() || m_UserId.isEmpty()) {
         return;
     }
     SailreadsManager::Instance()->searchReviews(this, m_UserId, m_SearchText, m_CurrentPage);

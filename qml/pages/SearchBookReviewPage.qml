@@ -67,7 +67,7 @@ Page {
 
                 EnterKey.enabled: text.length > 0
                 EnterKey.iconSource: "image://theme/icon-m-enter-accept"
-                EnterKey.onClicked: sailreadsManager.searchReviews(sailreadsManager.authUser.id, text)
+                EnterKey.onClicked: foundBookReviewsModel.searchText = text
             }
         }
 
