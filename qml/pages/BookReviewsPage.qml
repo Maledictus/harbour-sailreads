@@ -63,7 +63,7 @@ Page {
         anchors.fill: parent
         header: PageHeader {
             title: "%1: %2".arg(userName).arg(bookShelf)
-            description: qsTr("Sorted by %1, %2")
+            description: "%1, %2"
                     .arg(Utils.humanReadableSortField(reviewsModel.sortField))
                     .arg(reviewsModel.sortOrder === Qt.AscendingOrder ? "▲" : "▼")
         }
