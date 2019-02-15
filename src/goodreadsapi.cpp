@@ -183,6 +183,19 @@ void GoodReadsApi::GetBookShelves(QObject *requester, const QString& userId, int
             this, [this, userId]() { handleGetBookShelves(userId); });
 }
 
+void GoodReadsApi::GetAllBookShelves(QObject *requester, const QString& userId, int page)
+{
+    QNetworkReply *reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + "/shelf/list"),
+            { { "user_id", userId }, { "page", page }, { "format", "xml" } });
+    m_Requester2Reply[requester] = reply;
+    connect(reply, &QNetworkReply::finished,
+            this, [this, requester, userId, page]()
+            {
+                handleGetAllBookShelves(requester, userId, page);
+            });
+}
+
 void GoodReadsApi::AddBookShelf(const QString& name, bool exclusive, bool /*sortable*/, bool /*featured*/,
         bool recommendFor)
 {
@@ -996,6 +1009,25 @@ void GoodReadsApi::handleGetBookShelves(const QString& userId)
 
     emit gotUserBookShelves(userId, RpcUtils::Parser::ParseBookShelves(doc));
     emit requestFinished();
+}
+
+void GoodReadsApi::handleGetAllBookShelves(QObject *requester, const QString& userId, int page)
+{
+    bool ok = false;
+    auto doc = GetDocumentFromReply(sender(), ok);
+    if (!ok) {
+        emit requestFinished();
+        return;
+    }
+
+    CountedItems<BookShelf> bookShelves = RpcUtils::Parser::ParseBookShelves(doc);
+    emit gotUserBookShelves(userId, bookShelves);
+    if (bookShelves.m_EndIndex != bookShelves.m_Count) {
+        GetAllBookShelves(requester, userId, ++page);
+    }
+    else {
+        emit requestFinished();
+    }
 }
 
 void GoodReadsApi::handleAddBookShelf()

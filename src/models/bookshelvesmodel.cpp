@@ -32,6 +32,7 @@ BookShelvesModel::BookShelvesModel(QObject *parent)
 , m_UserId("")
 , m_HasMore(true)
 , m_CurrentPage(1)
+, m_PreloadAll(false)
 {
     auto sm = SailreadsManager::Instance();
     connect(sm, &SailreadsManager::gotUserBookShelves,
@@ -111,6 +112,19 @@ void BookShelvesModel::SetHasMore(bool has)
     }
 }
 
+bool BookShelvesModel::GetPreloadAll() const
+{
+    return m_PreloadAll;
+}
+
+void BookShelvesModel::SetPreloadAll(bool preload)
+{
+    if (m_PreloadAll != preload) {
+        m_PreloadAll = preload;
+        emit preloadAllChanged();
+    }
+}
+
 void BookShelvesModel::fetchMoreContent()
 {
     SailreadsManager::Instance()->loadBookShelves(this, m_UserId, m_CurrentPage);
@@ -122,6 +136,14 @@ void BookShelvesModel::loadBookShelves()
         return;
     }
     SailreadsManager::Instance()->loadBookShelves(this, m_UserId);
+}
+
+void BookShelvesModel::loadAllBookShelves()
+{
+    if (m_UserId.isEmpty()) {
+        return;
+    }
+    SailreadsManager::Instance()->loadAllBookShelves(this, m_UserId);
 }
 
 void BookShelvesModel::handleGotUserBookShelves(const QString& userId,

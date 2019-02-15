@@ -82,11 +82,8 @@ Page {
                     visible: book && book.review
                     text: qsTr("Edit bookshelves")
                     onClicked: {
-                        var dialog = pageStack.push("../dialogs/AddBookToShelvesDialog.qml",
+                        pageStack.push("../dialogs/AddBookToShelvesDialog.qml",
                                 { usedShelves: book.review.shelvesList })
-                        dialog.accepted.connect (function () {
-                            sailreadsManager.addBookToShelves(bookId, dialog.newShelves)
-                        })
                     }
                 }
 

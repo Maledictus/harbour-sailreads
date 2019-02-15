@@ -37,9 +37,11 @@ class BookShelvesModel : public BaseModel<BookShelf>
     QString m_UserId;
     bool m_HasMore;
     quint64 m_CurrentPage;
+    bool m_PreloadAll;
 
     Q_PROPERTY(QString userId READ GetUserId WRITE SetUserId NOTIFY userIdChanged)
     Q_PROPERTY(bool hasMore READ GetHasMore WRITE SetHasMore NOTIFY hasMoreChanged)
+    Q_PROPERTY(bool preloadAll READ GetPreloadAll WRITE SetPreloadAll NOTIFY preloadAllChanged)
 
 public:
     enum BookShelfRoles
@@ -65,6 +67,9 @@ public:
     bool GetHasMore() const;
     void SetHasMore(bool has);
 
+    bool GetPreloadAll() const;
+    void SetPreloadAll(bool preload);
+
 private slots:
     void handleGotUserBookShelves(const QString& userId,
             const CountedItems<BookShelf> bookshelves);
@@ -73,9 +78,11 @@ private slots:
 public slots:
     void fetchMoreContent();
     void loadBookShelves();
+    void loadAllBookShelves();
 
 signals:
     void userIdChanged();
     void hasMoreChanged();
+    void preloadAllChanged();
 };
 } // namespace Sailreads

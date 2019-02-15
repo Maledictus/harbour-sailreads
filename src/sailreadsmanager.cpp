@@ -369,6 +369,12 @@ void SailreadsManager::loadBookShelves(QObject *requester, const QString& id, in
     m_Api->GetBookShelves(requester, id, page);
 }
 
+void SailreadsManager::loadAllBookShelves(QObject *requester, const QString &id, int page)
+{
+    SetBusy(true);
+    m_Api->GetAllBookShelves(requester, id, page);
+}
+
 void SailreadsManager::addBookShelf(const QString& name, bool exclusive, bool sortable,
         bool featured, bool recommendFor)
 {

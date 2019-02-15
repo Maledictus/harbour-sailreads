@@ -26,82 +26,121 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 import harbour.sailreads 1.0
 
-Dialog {
-    id: addBookToShelvesDialog
+import "../components"
+import "../utils/Utils.js" as Utils
 
-    property bool busy: sailreadsManager.busy && addBookToShelvesDialog.status === PageStatus.Active
+Page {
+    id: editBookshelvesPage
+
+    property bool busy: sailreadsManager.busy && editBookshelvesPage.status === PageStatus.Active
 
     property var usedShelves: []
-    property var newShelves: []
 
     BookShelvesModel {
         id: bookShelvesModel
-        userId: {
-            return sailreadsManager.authUser.id
+        //"12934309" "51756959" sailreadsManager.authUser.id
+        userId: sailreadsManager.authUser.id
+        preloadAll: true
+    }
+
+    Component.onCompleted: {
+        if (bookShelvesModel.preloadAll) {
+            bookShelvesModel.loadAllBookShelves()
         }
     }
 
-    SilicaListView {
-        id: bookshelvesView
+    SilicaFlickable {
         anchors.fill: parent
+        contentHeight: column.height + Theme.paddingMedium
+        Column {
+            id: column
+            width: parent.width
+            spacing: Theme.paddingMedium
 
-        header: DialogHeader {
-            acceptText: qsTr("Add")
-            cancelText: qsTr("Cancel")
-        }
-
-        ViewPlaceholder {
-            enabled: !busy && !bookshelvesView.count
-            text: qsTr("There are no bookshelves")
-        }
-
-        spacing: Theme.paddingSmall
-
-        cacheBuffer: addBookToShelvesDialog.height
-        model: bookShelvesModel
-
-        function fetchMoreIfNeeded() {
-            if (!addBookToShelvesDialog.busy &&
-                    bookShelvesModel.hasMore &&
-                    indexAt(contentX, contentY + height) > bookShelvesModel.rowCount() - 2) {
-                bookShelvesModel.fetchMoreContent()
+            PageHeader {
+                title: qsTr("Edit bookshelves")
             }
-        }
 
-        onContentYChanged: fetchMoreIfNeeded()
-
-        delegate: ListItem {
-            id: rootDelegateItem
-
-            width: bookshelvesView.width
-
-            TextSwitch {
-                id: bookshelfSwitch
-                text: bookShelfName
-                checked: usedShelves.indexOf(bookShelfName) !== -1
-                onCheckedChanged: {
-                    if (checked) {
-                        newShelves.push(bookShelfName)
+            ComboBox {
+                width: parent.width
+                label: qsTr("Bookshelf")
+                menu: ContextMenu {
+                    Repeater {
+                        width: parent.width
+                        delegate: MenuItem {
+                            text: bookShelfName
+                        }
+                        model: BaseProxyModel {
+                            filterRole: BookShelvesModel.Exclusive
+                            filterRegExp: new RegExp("true")
+                            dynamicSortFilter: true
+                            sourceModel: bookShelvesModel
+                        }
                     }
-                    else {
-                        var index = newShelves.indexOf(bookShelfName);
-                        if (index > -1) {
-                            newShelves.splice(index, 1);
+                }
+            }
+
+            SectionHeader {
+                text: qsTr("Tags")
+            }
+
+            SearchField {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                placeholderText: qsTr("Search")
+                onTextChanged: tagsModel.filterRegExp = new RegExp(text)
+            }
+
+            Flow {
+                id: tagsFlow
+                spacing: Theme.paddingMedium
+                anchors {
+                    left: parent.left
+                    leftMargin: Theme.horizontalPageMargin
+                    right: parent.right
+                    rightMargin: Theme.horizontalPageMargin
+                }
+
+                Repeater {
+                    model: BaseProxyModel {
+                        id: tagsModel
+                        filterRole: BookShelvesModel.Name
+                        filterRegExp: new RegExp("")
+                        filterCaseSensitivity: Qt.CaseInsensitive
+                        dynamicSortFilter: true
+                        sourceModel: BaseProxyModel {
+                            filterRole: BookShelvesModel.Exclusive
+                            filterRegExp: new RegExp("false")
+                            dynamicSortFilter: true
+                            sourceModel: bookShelvesModel
+                        }
+                    }
+
+                    delegate: TagDelegate {
+                        view: tagsFlow
+                        name: bookShelfName
+                        count: bookShelfBooksCount
+                        selected: usedShelves.indexOf(bookShelfName) > -1
+                        onClicked: {
+                            if (selected) {
+                                console.log("remove from")
+                            }
+                            else {
+                                console.log("add to")
+                            }
+
+                            selected = !selected
                         }
                     }
                 }
             }
         }
-
-        VerticalScrollDecorator {}
     }
 
     BusyIndicator {
         size: BusyIndicatorSize.Large
         anchors.centerIn: parent
-        running: addBookToShelvesDialog.busy
+        running: editBookshelvesPage.busy
         visible: running
     }
-
-    canAccept: bookshelvesView.count > 0
 }

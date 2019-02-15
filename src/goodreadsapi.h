@@ -95,6 +95,7 @@ public:
     void MarkMessageAsRead(quint64 messageId);
 
     void GetBookShelves(QObject *requester, const QString& userId, int page = 1);
+    void GetAllBookShelves(QObject *requester, const QString& userId, int page = 1);
     void AddBookShelf(const QString& name, bool exclusive, bool sortable, bool featured,
             bool recommendFor);
     void EditBookShelf(quint64 id, const QString& name, bool exclusive, bool sortable, bool featured,
@@ -189,6 +190,7 @@ private slots:
     void handleMarkMessageAsRead();
 
     void handleGetBookShelves(const QString& userId);
+    void handleGetAllBookShelves(QObject *requester, const QString& userId, int page);
     void handleAddBookShelf();
     void handleEditBookShelf();
 

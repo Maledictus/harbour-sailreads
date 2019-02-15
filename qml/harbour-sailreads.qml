@@ -28,6 +28,7 @@ import Nemo.Notifications 1.0
 import harbour.sailreads 1.0
 import "cover"
 import "pages"
+import "dialogs"
 
 ApplicationWindow {
     id: mainWindow
@@ -64,6 +65,7 @@ ApplicationWindow {
     Component {
         id: splashScreenComponent
         SplashScreenPage {}
+        //AddBookToShelvesDialog {}
         //BookPage { bookId: "36470561" }
     }
 

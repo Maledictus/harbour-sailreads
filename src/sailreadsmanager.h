@@ -102,6 +102,7 @@ public slots:
     void loadFriendsRecommendations(QObject *requester, int page = 1);
 
     void loadBookShelves(QObject *requester, const QString& id, int page = 1);
+    void loadAllBookShelves(QObject *requester, const QString& id, int page = 1);
     void addBookShelf(const QString& name, bool exclusive, bool sortable, bool featured,
             bool recommendFor);
     void editBookShelf(quint64 id, const QString& name, bool exclusive, bool sortable, bool featured,
