@@ -201,12 +201,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="117"/>
+        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="118"/>
         <source>Recommend For</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="118"/>
+        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="119"/>
         <source>If you would like GoodReads to try to make recommendations for books in this shelf</source>
         <translation type="unfinished"></translation>
     </message>
@@ -492,16 +492,21 @@ Pull down to refresh</source>
     </message>
     <message>
         <location filename="../qml/pages/BookReviewsPage.qml" line="74"/>
+        <source>Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BookReviewsPage.qml" line="79"/>
         <source>Sort</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookReviewsPage.qml" line="89"/>
+        <location filename="../qml/pages/BookReviewsPage.qml" line="94"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookReviewsPage.qml" line="98"/>
+        <location filename="../qml/pages/BookReviewsPage.qml" line="103"/>
         <source>There are no books reviews. Pull down to refresh</source>
         <translation type="unfinished"></translation>
     </message>

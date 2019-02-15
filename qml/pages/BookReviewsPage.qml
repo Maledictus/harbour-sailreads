@@ -71,6 +71,11 @@ Page {
         PullDownMenu {
             busy: reviewsPage.busy
             MenuItem {
+                text: qsTr("Search")
+                visible: sailreadsManager.authUser
+                onClicked: pageStack.push("../pages/SearchBookReviewPage.qml")
+            }
+            MenuItem {
                 text: qsTr("Sort")
                 onClicked: {
                     var dialog = pageStack.push("../dialogs/BooksReviewsSortingDialog.qml",
