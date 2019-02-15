@@ -63,7 +63,7 @@
     </message>
     <message>
         <location filename="../qml/pages/AddBookToShelvesPage.qml" line="83"/>
-        <source>Add bookshelf</source>
+        <source>Add new shelf or tag</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -156,37 +156,57 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="58"/>
-        <source>Shelf name</source>
+        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="70"/>
+        <source>Type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="66"/>
-        <source>Exclusive</source>
+        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="73"/>
+        <source>Add as many tags to a book as you like. Try creating a tag like magic-realism, african-writers or female-protagonists.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="67"/>
-        <source>A book can only be on one of the exclisive shelves</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="84"/>
-        <source>Featured</source>
+        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="77"/>
+        <source>Books can only be on one shelf at a time. Want to Read, Currently-Reading and Read are the default shelves.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="85"/>
+        <source>Tag</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="88"/>
+        <source>Shelf</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="99"/>
+        <source>Tag name (e.g. modern-heroine)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="100"/>
+        <source>Shelf name (e.g. abandoned)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="109"/>
+        <source>Featured</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="110"/>
         <source>You may choose one shelf to feature on the top of your profile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="92"/>
+        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="117"/>
         <source>Recommend For</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="93"/>
+        <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="118"/>
         <source>If you would like GoodReads to try to make recommendations for books in this shelf</source>
         <translation type="unfinished"></translation>
     </message>
@@ -500,7 +520,7 @@ Pull down to refresh</source>
     </message>
     <message>
         <location filename="../qml/pages/BookShelvesPage.qml" line="77"/>
-        <source>Add bookshelf</source>
+        <source>Add new shelf or tag</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

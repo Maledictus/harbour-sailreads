@@ -80,7 +80,7 @@ Page {
 
             PullDownMenu {
                 MenuItem {
-                    text: qsTr("Add bookshelf")
+                    text: qsTr("Add new shelf or tag")
                     onClicked: {
                         var dialog = pageStack.push("../dialogs/AddEditShelfDialog.qml")
                         dialog.accepted.connect (function () {

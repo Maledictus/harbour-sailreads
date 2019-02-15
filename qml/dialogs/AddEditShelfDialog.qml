@@ -29,7 +29,7 @@ Dialog {
     id: addEditShelfDialog
 
     property alias name: shelfNameField.text
-    property alias exclusive: exclusiveShelfSwitch.checked
+    property bool exclusive: false
     property bool sortable: false
     property alias featured: featutredShelfSwitch.checked
     property alias recommendFor: recommendForShelfSwitch.checked
@@ -50,31 +50,56 @@ Dialog {
             cancelText: qsTr("Cancel")
         }
 
+        ComboBox {
+            id: typeComboBox
+
+            property var typeCategories: [false, true]
+
+            function update() {
+                addEditShelfDialog.exclusive = typeCategories[currentIndex]
+            }
+            currentIndex: {
+                for (var i = 0; i < typeCategories.length; ++i) {
+                    if (addEditShelfDialog.exclusive === typeCategories[i]) {
+                        return i
+                    }
+                }
+                return 0
+            }
+
+            label: qsTr("Type")
+            description: {
+                if (!addEditShelfDialog.exclusive) {
+                    return qsTr("Add as many tags to a book as you like. Try creating a tag like " +
+                            "magic-realism, african-writers or female-protagonists.")
+                }
+                else {
+                    return qsTr("Books can only be on one shelf at a time. Want to Read, " +
+                            "Currently-Reading and Read are the default shelves.")
+                }
+            }
+
+            menu: ContextMenu {
+                onClosed: typeComboBox.update()
+                MenuItem {
+                    text: qsTr("Tag")
+                }
+                MenuItem {
+                    text: qsTr("Shelf")
+                }
+            }
+        }
+
         TextField {
             id: shelfNameField
 
             width: parent.width
 
-            placeholderText: qsTr("Shelf name")
+            placeholderText: !addEditShelfDialog.exclusive ?
+                    qsTr("Tag name (e.g. modern-heroine)") :
+                    qsTr("Shelf name (e.g. abandoned)")
             maximumLength: 35
         }
-
-        TextSwitch {
-            id: exclusiveShelfSwitch
-
-            width: parent.width
-            text: qsTr("Exclusive")
-            description: qsTr("A book can only be on one of the exclisive shelves")
-        }
-
-//        TextSwitch {
-//            id: sortableShelfSwitch
-
-//            visible: mode !== "add"
-//            width: parent.width
-//            text: qsTr("Sortable")
-//            description: qsTr("You can enable shelf sorting to customize the order of your books on shelf")
-//        }
 
         TextSwitch {
             id: featutredShelfSwitch
@@ -89,6 +114,7 @@ Dialog {
             id: recommendForShelfSwitch
 
             width: parent.width
+            checked: true
             text: qsTr("Recommend For")
             description: qsTr("If you would like GoodReads to try to make recommendations for books in this shelf")
         }
