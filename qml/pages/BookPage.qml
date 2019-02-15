@@ -101,7 +101,7 @@ Page {
 
             PageHeader {
                 title: book ? book.title : ""
-                description: book && book.review && book.review.shelvesList.length > 0 ? book.review.shelvesList[0] : ""
+                description: book && book.review ? book.review.exclusiveShelf : ""
             }
 
             BaseImage {

@@ -68,6 +68,7 @@ class Review: public QObject
     Q_PROPERTY(quint64 owned READ GetOwned NOTIFY ownedChanged)
     Q_PROPERTY(QUrl url READ GetUrl NOTIFY urlChanged)
     Q_PROPERTY(QStringList shelvesList READ GetShelvesList NOTIFY shelvesListChanged)
+    Q_PROPERTY(QString exclusiveShelf READ GetExclusiveShelf NOTIFY exclusiveShelfChanged)
     Q_PROPERTY(User* user READ GetUser NOTIFY userChanged)
     Q_PROPERTY(QString shortDescription READ GetShortDescription NOTIFY shortDescriptionChanged)
     Q_PROPERTY(bool isLiked READ GetIsLiked NOTIFY isLikedChanged)
@@ -89,6 +90,7 @@ public:
     BookShelves_t GetShelves() const;
     void SetShelves(const BookShelves_t& shelves);
     QStringList GetShelvesList() const;
+    QString GetExclusiveShelf() const;
     QDateTime GetAddedDate() const;
     void SetAddedDate(const QDateTime& addedDate);
     QDateTime GetUpdatedDate() const;
@@ -135,6 +137,7 @@ signals:
     void ownedChanged();
     void urlChanged();
     void shelvesListChanged();
+    void exclusiveShelfChanged();
     void userChanged();
     void shortDescriptionChanged();
     void isLikedChanged();

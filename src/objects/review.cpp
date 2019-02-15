@@ -114,6 +114,16 @@ QStringList Review::GetShelvesList() const
     return list;
 }
 
+QString Review::GetExclusiveShelf() const
+{
+    for (const auto& shelf : m_Shelves) {
+        if (shelf.GetExclusive()) {
+            return shelf.GetName();
+        }
+    }
+    return "";
+}
+
 QDateTime Review::GetAddedDate() const
 {
     return m_AddedDate;

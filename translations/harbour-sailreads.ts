@@ -57,27 +57,27 @@
 <context>
     <name>AddBookToShelvesPage</name>
     <message>
-        <location filename="../qml/pages/AddBookToShelvesPage.qml" line="77"/>
+        <location filename="../qml/pages/AddBookToShelvesPage.qml" line="78"/>
         <source>Edit bookshelves</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddBookToShelvesPage.qml" line="82"/>
+        <location filename="../qml/pages/AddBookToShelvesPage.qml" line="83"/>
         <source>Add bookshelf</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddBookToShelvesPage.qml" line="111"/>
+        <location filename="../qml/pages/AddBookToShelvesPage.qml" line="112"/>
         <source>Bookshelf</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddBookToShelvesPage.qml" line="136"/>
+        <location filename="../qml/pages/AddBookToShelvesPage.qml" line="142"/>
         <source>Tags</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddBookToShelvesPage.qml" line="142"/>
+        <location filename="../qml/pages/AddBookToShelvesPage.qml" line="148"/>
         <source>Search</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1351,27 +1351,27 @@ Pull down to refresh or to search groups</source>
 <context>
     <name>Sailreads::Review</name>
     <message>
-        <location filename="../src/objects/review.cpp" line="237"/>
+        <location filename="../src/objects/review.cpp" line="247"/>
         <source>finished reading</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/objects/review.cpp" line="241"/>
+        <location filename="../src/objects/review.cpp" line="251"/>
         <source>started reading</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/objects/review.cpp" line="244"/>
+        <location filename="../src/objects/review.cpp" line="254"/>
         <source>is currently reading</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/objects/review.cpp" line="247"/>
+        <location filename="../src/objects/review.cpp" line="257"/>
         <source>wants to read</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/objects/review.cpp" line="251"/>
+        <location filename="../src/objects/review.cpp" line="261"/>
         <source>rated it</source>
         <translation type="unfinished"></translation>
     </message>

@@ -727,6 +727,7 @@ ReviewPtr ParseReview(const QDomElement& element)
                 BookShelf shelf;
                 shelf.SetId(shelfElement.attribute("id").toULongLong());
                 shelf.SetName(shelfElement.attribute("name"));
+                shelf.SetExclusive(shelfElement.attribute("exclusive") == "true");
                 shelves << shelf;
             }
             review->SetShelves(shelves);
