@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-import QtQuick 2.0
+import QtQuick 2.6
 import Sailfish.Silica 1.0
 import harbour.sailreads 1.0
 
@@ -75,7 +75,6 @@ Page {
 
     BookShelvesModel {
         id: bookShelvesModel
-        //"12934309" "87293405" "51756959" sailreadsManager.authUser.id
         userId: sailreadsManager.authUser.id
         preloadAll: true
 

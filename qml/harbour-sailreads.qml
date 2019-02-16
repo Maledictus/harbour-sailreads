@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-import QtQuick 2.2
+import QtQuick 2.6
 import Sailfish.Silica 1.0
 import Nemo.Notifications 1.0
 import harbour.sailreads 1.0
@@ -65,7 +65,6 @@ ApplicationWindow {
     Component {
         id: splashScreenComponent
         SplashScreenPage {}
-        //BookPage { bookId: "36470561" }
     }
 
     Component {

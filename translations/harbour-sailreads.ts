@@ -57,12 +57,12 @@
 <context>
     <name>AddBookToShelvesPage</name>
     <message>
-        <location filename="../qml/pages/AddBookToShelvesPage.qml" line="108"/>
+        <location filename="../qml/pages/AddBookToShelvesPage.qml" line="107"/>
         <source>Add to My Books</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddBookToShelvesPage.qml" line="113"/>
+        <location filename="../qml/pages/AddBookToShelvesPage.qml" line="112"/>
         <source>Add new shelf or tag</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1145,7 +1145,7 @@ Pull down to refresh or to search groups</source>
 <context>
     <name>NotificationsListView</name>
     <message>
-        <location filename="../qml/components/NotificationsListView.qml" line="45"/>
+        <location filename="../qml/components/NotificationsListView.qml" line="44"/>
         <source>There are no notifications. Pull down to refresh</source>
         <translation type="unfinished"></translation>
     </message>
