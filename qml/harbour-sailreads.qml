@@ -65,6 +65,7 @@ ApplicationWindow {
     Component {
         id: splashScreenComponent
         SplashScreenPage {}
+        //SearchPage{}
         //BookPage { bookId: "36470561" }
     }
 

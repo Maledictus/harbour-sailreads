@@ -100,13 +100,13 @@ Item {
         }
     }
 
-    Image {
+    HighlightImage {
         id: hasCommentImageItem
         anchors {
             right: parent.right
             verticalCenter: reviewHeader.verticalCenter
         }
-        source: "image://theme/icon-m-note" +
-                (highlighted ? "?" + Theme.highlightColor : "")
+        highlighted: headerRow.highlighted
+        source: "image://theme/icon-m-note"
     }
 }

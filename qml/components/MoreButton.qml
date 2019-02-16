@@ -61,7 +61,7 @@ BackgroundItem {
                : Theme.primaryColor
     }
 
-    Image {
+    HighlightImage {
         id: moreImage
         anchors {
             right: parent.right
@@ -69,8 +69,8 @@ BackgroundItem {
             verticalCenter: parent.verticalCenter
         }
         visible: morePanel.enabled && !busy
-        source: "image://theme/icon-m-right?"
-                + (morePanel.highlighted ? Theme.highlightColor : Theme.primaryColor)
+        highlighted: morePanel.highlighted
+        source: "image://theme/icon-m-right"
     }
 
     BusyIndicator {

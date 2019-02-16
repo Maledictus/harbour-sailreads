@@ -32,13 +32,17 @@ MouseArea {
     property alias fontSize: lbl.font.pixelSize
     property bool selected: false
 
+    property bool down: pressed && containsMouse
+    property bool highlighted: down
+
     height: childrenRect.height
     Column {
         width: parent.width
-        Image {
+        HighlightImage {
             id: image
             anchors.horizontalCenter: parent.horizontalCenter
             horizontalAlignment: Qt.AlignHCenter
+            highlighted: mouseArea.highlighted || mouseArea.selected
         }
 
         Label {
@@ -48,7 +52,8 @@ MouseArea {
             font.pixelSize: Theme.fontSizeSmall
             width: parent.width
             elide: Text.ElideRight
-            color: selected || pressed ? Theme.highlightColor : Theme.primaryColor
+            color: mouseArea.highlighted || mouseArea.selected ?
+                    Theme.highlightColor : Theme.primaryColor
         }
     }
 }

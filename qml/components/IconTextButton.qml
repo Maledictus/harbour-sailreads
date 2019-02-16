@@ -25,31 +25,33 @@ THE SOFTWARE.
 import QtQuick 2.2
 import Sailfish.Silica 1.0
 
-Row {
-    property int rating: 0
+MouseArea {
+    property alias icon: image
+    property alias label: labelItem
 
-    signal userVoted(int userVote)
+    property bool down: pressed && containsMouse
+    property bool highlighted: down
 
-    Repeater {
-        id: ratingBox
-        model: 5
-        IconButton {
-            readonly property int _vote: (index + 1)
-            readonly property bool _selected: _vote <= rating
-            width: Theme.iconSizeMedium
-            height: Theme.iconSizeMedium
-            icon.source: _selected ?
-                    "image://theme/icon-m-favorite-selected" :
-                    "image://theme/icon-m-favorite"
-            onClicked: {
-                if (rating !== _vote) {
-                    rating = _vote
-                }
-                else {
-                    --rating
-                }
-                userVoted(rating)
-            }
+    width: parent ? parent.width : Screen.width
+    implicitHeight: Math.max(image.height, labelItem.height)
+
+    HighlightImage {
+        id: image
+        anchors.left: parent.left
+        highlighted: parent.highlighted
+        opacity: parent.enabled ? 1.0 : 0.4
+    }
+
+    Label {
+        id: labelItem
+        anchors {
+            left: image.right
+            leftMargin: Theme.paddingSmall
+            right: parent.right
+            verticalCenter: parent.verticalCenter
         }
+        wrapMode: Text.NoWrap
+        truncationMode: TruncationMode.Fade
+        color: highlighted ? Theme.highlightColor : Theme.primaryColor
     }
 }

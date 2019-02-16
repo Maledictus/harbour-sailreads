@@ -207,8 +207,7 @@ Page {
 
             NavigationButton {
                 width: parent.width / 4
-                icon.source: "image://Theme/icon-m-region?"+ (pressed || selected ?
-                        Theme.highlightColor : Theme.primaryColor)
+                icon.source: "image://Theme/icon-m-region"
                 text: qsTr("Notifications")
                 fontSize: Theme.fontSizeExtraSmall
                 selected: slideshowView.currentIndex == 0
@@ -217,8 +216,7 @@ Page {
 
             NavigationButton {
                 width: parent.width / 4
-                icon.source: "image://Theme/icon-m-mail?"+ (pressed || selected ?
-                        Theme.highlightColor : Theme.primaryColor)
+                icon.source: "image://Theme/icon-m-mail"
                 text: qsTr("Messages")
                 fontSize: Theme.fontSizeExtraSmall
                 selected: slideshowView.currentIndex == 1
@@ -227,8 +225,7 @@ Page {
 
             NavigationButton {
                 width: parent.width / 4
-                icon.source: "image://Theme/icon-m-add?"+ (pressed || selected ?
-                        Theme.highlightColor : Theme.primaryColor)
+                icon.source: "image://Theme/icon-m-add"
                 text: qsTr("Requests")
                 fontSize: Theme.fontSizeExtraSmall
                 selected: slideshowView.currentIndex == 2
@@ -237,8 +234,7 @@ Page {
 
             NavigationButton {
                 width: parent.width / 4
-                icon.source: "image://Theme/icon-m-like?"+ (pressed || selected ?
-                        Theme.highlightColor : Theme.primaryColor)
+                icon.source: "image://Theme/icon-m-like"
                 text: qsTr("Recommendations")
                 fontSize: Theme.fontSizeExtraSmall
                 selected: slideshowView.currentIndex == 3

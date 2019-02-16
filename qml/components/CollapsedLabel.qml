@@ -97,12 +97,13 @@ MouseArea {
         }
     }
 
-    Image {
+    HighlightImage {
         anchors {
             right: parent.right
             bottom: parent.bottom
         }
-        source: "image://theme/icon-lock-more" + (highlighted ? "?" + Theme.highlightColor : "")
+        highlighted: detailsBackground.highlighted
+        source: "image://theme/icon-lock-more"
     }
 
     onClicked: {
