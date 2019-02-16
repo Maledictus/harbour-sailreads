@@ -114,6 +114,7 @@ public:
     void GetBook(QObject *requester, const QString& bookId);
     void GetBookEditions(QObject *requester, quint64 workId, int page);
     void SearchBooks(QObject *requester, const QString& query, const QString& key, int page);
+    void SwitchToBookEdition(const QString& reviewId, const QString& bookId);
 
     void GetSeries(QObject *requester, quint64 seriesId);
     void GetAuthorSeries(QObject *requester, const QString& authorId);
@@ -206,6 +207,7 @@ private slots:
     void handleGetBook();
     void handleGetBookEditions(quint64 workId);
     void handleSearchBook();
+    void handleSwitchToBookEdition(const QString& reviewId, const QString& bookId);
 
     void handleGetSeries();
     void handleGetAuthorSeries(const QString& authorId);
@@ -291,6 +293,7 @@ signals:
     void gotBook(const BookPtr& book);
     void gotBookEditions(quint64 workId, const CountedItems<BookPtr>& books);
     void gotFoundBooks(const CountedItems<BookPtr>& books);
+    void bookEditionSwitched(const QString& reviewId, const QString& bookId);
 
     void gotAuthorProfile(const AuthorPtr& authorProfile);
     void gotAuthorBooks(const QString& authorId, const CountedItems<BookPtr>& books);

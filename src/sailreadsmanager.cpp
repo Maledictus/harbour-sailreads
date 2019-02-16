@@ -194,6 +194,8 @@ void SailreadsManager::MakeConnections()
             this, &SailreadsManager::gotBookEditions);
     connect(m_Api, &GoodReadsApi::gotFoundBooks,
             this, &SailreadsManager::gotFoundBooks);
+    connect(m_Api, &GoodReadsApi::bookEditionSwitched,
+            this, &SailreadsManager::bookEditionSwitched);
 
     connect(m_Api, &GoodReadsApi::gotSeries,
             this, &SailreadsManager::gotSeries);
@@ -458,6 +460,12 @@ void SailreadsManager::searchBooks(QObject *requester, const QString& searchText
 {
     SetBusy(true);
     m_Api->SearchBooks(requester, searchText, searchField, page);
+}
+
+void SailreadsManager::switchToBookEdition(const QString& reviewId, const QString& bookId)
+{
+    SetBusy(true);
+    m_Api->SwitchToBookEdition(reviewId, bookId);
 }
 
 void SailreadsManager::loadSeries(QObject *requester, quint64 seriesId)

@@ -401,18 +401,28 @@ Pull down to refresh</source>
 <context>
     <name>BookEditionsPage</name>
     <message>
-        <location filename="../qml/pages/BookEditionsPage.qml" line="52"/>
+        <location filename="../qml/pages/BookEditionsPage.qml" line="55"/>
         <source>Book Editions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookEditionsPage.qml" line="58"/>
+        <location filename="../qml/pages/BookEditionsPage.qml" line="61"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookEditionsPage.qml" line="67"/>
+        <location filename="../qml/pages/BookEditionsPage.qml" line="70"/>
         <source>There are no book editions. Pull down to refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BookEditionsPage.qml" line="105"/>
+        <source>Switch to This Edition</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BookEditionsPage.qml" line="106"/>
+        <source>Selected Edition</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -497,8 +507,8 @@ Pull down to refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="432"/>
-        <location filename="../qml/pages/BookPage.qml" line="439"/>
+        <location filename="../qml/pages/BookPage.qml" line="434"/>
+        <location filename="../qml/pages/BookPage.qml" line="441"/>
         <source>Similar Books</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1419,17 +1429,17 @@ Pull down to refresh or to search groups</source>
 <context>
     <name>Sailreads::SailreadsManager</name>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="282"/>
+        <location filename="../src/sailreadsmanager.cpp" line="284"/>
         <source>Authorization user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="300"/>
+        <location filename="../src/sailreadsmanager.cpp" line="302"/>
         <source>Authentication user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="321"/>
+        <location filename="../src/sailreadsmanager.cpp" line="323"/>
         <source>Getting user profile...</source>
         <translation type="unfinished"></translation>
     </message>

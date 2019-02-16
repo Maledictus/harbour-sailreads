@@ -32,7 +32,10 @@ Page {
     id: bookEditionsPage
 
     property bool busy: sailreadsManager.busy && bookEditionsPage.status === PageStatus.Active
+    property string reviewId
     property alias workId: bookEditionsModel.workId
+
+    property var parentPage
 
     function attachPage() {
         if (pageStack._currentContainer.attachedContainer === null
@@ -94,8 +97,29 @@ Page {
                 pageStack.push(Qt.resolvedUrl("BookPage.qml"),
                         { bookId: bookId, book: bookBook })
             }
+
+            menu: ContextMenu {
+                hasContent: bookBook.review
+                MenuItem {
+                    text: bookBook.review.book.id !== bookId ?
+                            qsTr("Switch to This Edition") :
+                            qsTr("Selected Edition")
+                    enabled: bookBook.review.book.id !== bookId
+                    onClicked: sailreadsManager.switchToBookEdition(bookBook.review.id, bookId)
+
+                }
+            }
         }
         VerticalScrollDecorator {}
+    }
+
+    Connections {
+        target: sailreadsManager
+        onBookEditionSwitched: {
+            if (bookEditionsPage.reviewId === reviewId) {
+                parentPage.bookId = bookId;
+            }
+        }
     }
 
     BusyIndicator {

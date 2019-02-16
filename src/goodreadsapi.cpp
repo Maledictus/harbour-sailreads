@@ -336,6 +336,16 @@ void GoodReadsApi::SearchBooks(QObject *requester, const QString& query, const Q
             this, &GoodReadsApi::handleSearchBook);
 }
 
+void GoodReadsApi::SwitchToBookEdition(const QString& reviewId, const QString& bookId)
+{
+    auto reply = m_OAuth1->Post(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + QString("/review/switch_edition/%1").arg(reviewId)),
+            { { "book_id", bookId }, { "format", "xml" } });
+    connect(reply, &QNetworkReply::finished,
+            this, [this, reviewId, bookId]()
+            { handleSwitchToBookEdition(reviewId, bookId); });
+}
+
 void GoodReadsApi::GetSeries(QObject *requester, quint64 seriesId)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
@@ -1175,6 +1185,19 @@ void GoodReadsApi::handleSearchBook()
     }
 
     emit gotFoundBooks(RpcUtils::Parser::ParseFoundBooks(doc));
+    emit requestFinished();
+}
+
+void GoodReadsApi::handleSwitchToBookEdition(const QString& reviewId, const QString& bookId)
+{
+    bool ok = false;
+    auto doc = GetDocumentFromReply(sender(), ok);
+    if (!ok) {
+        emit requestFinished();
+        return;
+    }
+
+    emit bookEditionSwitched(reviewId, bookId);
     emit requestFinished();
 }
 
