@@ -190,80 +190,85 @@ TRANSLATIONS += translations/harbour-sailreads.ts
 
 lupdate_only {
 SOURCES = qml/harbour-sailreads.qml \
-    qml/components/NavigationBar.qml \
-    qml/components/MessagesListView.qml \
-    qml/components/GroupListItem.qml \
-    qml/components/VotingBox.qml \
-    qml/components/ShortBookRow.qml \
-    qml/components/NavigationButton.qml \
+    qml/components/BaseActionsItem.qml \ \
     qml/components/BaseImage.qml \
-    qml/components/UserStatusRow.qml \
-    qml/components/ReviewListItem.qml \
-    qml/components/MessageListItem.qml \
-    qml/components/PosterHeaderItem.qml \
-    qml/components/IconText.qml \
-    qml/components/BaseActionsItem.qml \
-    qml/components/FriendsRequestsListView.qml \
-    qml/components/BoxBackground.qml \
-    qml/components/RatingComponent.qml \
-    qml/components/CommentListItem.qml \
-    qml/components/KeyValueLabel.qml \
-    qml/components/UserShortReview.qml \
-    qml/components/BookShelfListItem.qml \
-    qml/components/NewMessageItem.qml \
-    qml/components/FriendsRecommendationsListView.qml \
-    qml/components/CollapsedLabel.qml \
-    qml/components/UpdateListItem.qml \
-    qml/components/MessagesFolder.qml \
-    qml/components/MoreButton.qml \
-    qml/components/NotificationsListView.qml \
     qml/components/BookListItem.qml \
+    qml/components/BookShelfListItem.qml \
+    qml/components/BoxBackground.qml \
     qml/components/ClickableLabel.qml \
+    qml/components/CollapsedLabel.qml \
+    qml/components/CommentListItem.qml \
     qml/components/FriendListItem.qml \
+    qml/components/FriendsRecommendationsListView.qml \
+    qml/components/FriendsRequestsListView.qml \
+    qml/components/GroupListItem.qml \
+    qml/components/HighlightImage.qml \
+    qml/components/HighlightImageBase.qml \
+    qml/components/IconText.qml \
+    qml/components/IconTextButton.qml \
+    qml/components/KeyValueLabel.qml \
+    qml/components/MessageListItem.qml \
+    qml/components/MessagesFolder.qml \
+    qml/components/MessagesListView.qml \
+    qml/components/MoreButton.qml \
+    qml/components/NavigationBar.qml \
+    qml/components/NavigationButton.qml \
+    qml/components/NewMessageItem.qml \
+    qml/components/NotificationsListView.qml \
+    qml/components/PosterHeaderItem.qml \
     qml/components/RatingBox.qml \
+    qml/components/RatingComponent.qml \
+    qml/components/ReviewListItem.qml \
+    qml/components/ShortBookRow.qml \
+    qml/components/TagDelegate.qml \
+    qml/components/UpdateListItem.qml \
+    qml/components/UserShortReview.qml \
+    qml/components/UserStatusRow.qml \
+    qml/components/VotingBox.qml \
     qml/cover/CoverPage.qml \
+    qml/dialogs/AddCommentDialog.qml \
+    qml/dialogs/AddEditReviewDialog.qml \
+    qml/dialogs/AddEditShelfDialog.qml \
     qml/dialogs/AddGroupFolderTopicDialog.qml \
     qml/dialogs/BooksReviewsSortingDialog.qml \
     qml/dialogs/UpdatesFilterDialog.qml \
-    qml/dialogs/AddEditShelfDialog.qml \
-    qml/dialogs/AddCommentDialog.qml \
-    qml/dialogs/AddEditReviewDialog.qml \
-    qml/pages/AddBookToShelvesPage.qml \
-    qml/pages/SearchBookReviewPage.qml \
-    qml/pages/GroupMembersPage.qml \
-    qml/pages/BookReviewsPage.qml \
-    qml/pages/InboxPage.qml \
-    qml/pages/MessagesPage.qml \
-    qml/pages/SettingsPage.qml \
-    qml/pages/ReadStatusPage.qml \
-    qml/pages/BooksPage.qml \
-    qml/pages/GroupFolderTopicPage.qml \
-    qml/pages/BookPage.qml \
-    qml/pages/UserReviewsPage.qml \
-    qml/pages/ProfilePage.qml \
-    qml/pages/SplashScreenPage.qml \
-    qml/pages/AuthorBooksPage.qml \
-    qml/pages/ReviewPage.qml \
-    qml/pages/AuthorizationPage.qml \
     qml/pages/AboutPage.qml \
-    qml/pages/NotificationsPage.qml \
-    qml/pages/BookEditionsPage.qml \
-    qml/pages/StatusPage.qml \
-    qml/pages/UserStatusPage.qml \
-    qml/pages/GroupsPage.qml \
-    qml/pages/SeriesPage.qml \
-    qml/pages/FriendsPage.qml \
-    qml/pages/BookShelvesPage.qml \
-    qml/pages/GroupSearchPage.qml \
-    qml/pages/AuthorSeriesPage.qml \
+    qml/pages/AddBookToShelvesPage.qml \
+    qml/pages/AuthorBooksPage.qml \
     qml/pages/AuthorPage.qml \
+    qml/pages/AuthorSeriesPage.qml \
+    qml/pages/AuthorizationPage.qml \
+    qml/pages/BookEditionsPage.qml \
+    qml/pages/BookPage.qml \
+    qml/pages/BookReviewsPage.qml \
+    qml/pages/BookShelvesPage.qml \
+    qml/pages/BooksPage.qml \
+    qml/pages/FriendsPage.qml \
+    qml/pages/FriendsUpdatesPage.qml \
+    qml/pages/GroupFolderPage.qml \
+    qml/pages/GroupFolderTopicPage.qml \
+    qml/pages/GroupMembersPage.qml \
+    qml/pages/GroupPage.qml \
+    qml/pages/GroupSearchPage.qml \
+    qml/pages/GroupsPage.qml \
+    qml/pages/InboxPage.qml \
+    qml/pages/LoginPage.qml \
     qml/pages/MessagePage.qml \
     qml/pages/MessagesFolderSelectorPage.qml \
+    qml/pages/MessagesPage.qml \
+    qml/pages/NotificationsPage.qml \
+    qml/pages/ProfilePage.qml \
+    qml/pages/ReadStatusPage.qml \
     qml/pages/RecommendationPage.qml \
-    qml/pages/GroupFolderPage.qml \
-    qml/pages/FriendsUpdatesPage.qml \
+    qml/pages/ReviewPage.qml \
+    qml/pages/SearchBookReviewPage.qml \
+    qml/pages/SearchPage.qml \
+    qml/pages/SeriesPage.qml \
+    qml/pages/SettingsPage.qml \
+    qml/pages/SplashScreenPage.qml \
+    qml/pages/StatusPage.qml \
+    qml/pages/UserReviewsPage.qml \
+    qml/pages/UserStatusPage.qml \
     qml/pages/WebAuthorizationPage.qml \
-    qml/pages/GroupPage.qml \
-    qml/pages/WebViewPage.qml \
-    qml/pages/LoginPage.qml
+    qml/pages/WebViewPage.qml
 }
