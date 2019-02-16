@@ -122,6 +122,10 @@ public:
     void Update(Review *newReview);
     void Update(const ReviewPtr& newReview);
 
+public slots:
+    void updateShelves(Review *newReview);
+    void updateShelves(const ReviewPtr& newReview);
+
 signals:
     void idChanged();
     void bookChanged();

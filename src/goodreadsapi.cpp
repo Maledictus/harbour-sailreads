@@ -209,7 +209,7 @@ void GoodReadsApi::AddBookShelf(const QString& name, bool exclusive, bool /*sort
 }
 
 void GoodReadsApi::EditBookShelf(quint64 id, const QString& name, bool exclusive,
-        bool sortable, bool featured, bool recommendFor)
+        bool /*sortable*/, bool featured, bool recommendFor)
 {
     const QVariantMap params = { { "user_shelf[name]", name },
         { "user_shelf[exclusive_flag]", (exclusive ? "true" : "false") },
@@ -366,7 +366,7 @@ void GoodReadsApi::AddBookToShelf(const QString& bookId, const QString& shelfNam
             QUrl(m_BaseUrl + QString("/shelf/add_to_shelf.xml?book_id=%1&name=%2&a=")
                     .arg(bookId, shelfName)), {});
     connect(reply, &QNetworkReply::finished,
-            this, [this, bookId]() { handleAddBookToShelf(bookId); });
+            this, [this, bookId, shelfName]() { handleAddBookToShelf(bookId, shelfName); });
 }
 
 void GoodReadsApi::AddBooksToShelves(const QStringList& bookIds, const QStringList& shelvesName)
@@ -375,7 +375,7 @@ void GoodReadsApi::AddBooksToShelves(const QStringList& bookIds, const QStringLi
             QUrl(m_BaseUrl + QString("/shelf/add_books_to_shelves.xml?bookids=%1&shelves=%2")
                     .arg(bookIds.join(','), shelvesName.join(','))), {});
     connect(reply, &QNetworkReply::finished,
-            this, &GoodReadsApi::handleAddBooksToShelves);
+            this, [this, bookIds, shelvesName]() { handleAddBooksToShelves(bookIds, shelvesName); });
 }
 
 void GoodReadsApi::RemoveBookFromShelf(const QString& bookId, const QString& shelfName)
@@ -1214,7 +1214,7 @@ void GoodReadsApi::handleGetWorkSeries()
     emit requestFinished();
 }
 
-void GoodReadsApi::handleAddBookToShelf(const QString& bookId)
+void GoodReadsApi::handleAddBookToShelf(const QString& bookId, const QString& shelfName)
 {
     bool ok = false;
     auto doc = GetDocumentFromReply(sender(), ok);
@@ -1223,11 +1223,12 @@ void GoodReadsApi::handleAddBookToShelf(const QString& bookId)
         return;
     }
 
-    emit bookAddedToShelf(bookId, RpcUtils::Parser::ParseBookShelfAddedReview(doc));
+    emit bookAddedToShelf(bookId, shelfName, RpcUtils::Parser::ParseBookShelfAddedReview(doc));
     emit requestFinished();
 }
 
-void GoodReadsApi::handleAddBooksToShelves()
+void GoodReadsApi::handleAddBooksToShelves(const QStringList& /*bookIds*/,
+        const QStringList& shelvesName)
 {
     bool ok = false;
     auto doc = GetDocumentFromReply(sender(), ok);
@@ -1238,7 +1239,7 @@ void GoodReadsApi::handleAddBooksToShelves()
 
     Reviews_t reviews = RpcUtils::Parser::ParseBookShelfAddedReviews(doc);
     for (const auto& review : reviews) {
-        emit bookAddedToShelves(review->GetBook()->GetId(), review);
+        emit bookAddedToShelves(review->GetBook()->GetId(), shelvesName, review);
     }
     emit requestFinished();
 }

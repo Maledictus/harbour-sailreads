@@ -233,6 +233,11 @@ void SailreadsManager::MakeConnections()
 
     connect(m_Api, &GoodReadsApi::bookAddedToShelves,
             this, &SailreadsManager::bookAddedToShelves);
+    connect(m_Api, &GoodReadsApi::bookAddedToShelves,
+            this, [this](const QString& bookId, const QStringList& shelves, const ReviewPtr& review)
+            {
+                emit reviewUpdated(bookId, shelves, review.get());
+            });
     connect(m_Api, &GoodReadsApi::bookAddedToShelf,
             this, &SailreadsManager::bookAddedToShelf);
     connect(m_Api, &GoodReadsApi::bookRemovedFromShelf,

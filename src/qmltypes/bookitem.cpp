@@ -38,8 +38,6 @@ BookItem::BookItem(QObject *parent)
             this, &BookItem::handleGotReviewInfo);
     connect(SailreadsManager::Instance(), &SailreadsManager::bookAddedToShelves,
             this, &BookItem::handleBookAddedToShelves);
-    connect(SailreadsManager::Instance(), &SailreadsManager::bookAddedToShelf,
-            this, &BookItem::handleBookAddedToShelf);
     connect(SailreadsManager::Instance(), &SailreadsManager::bookRemovedFromShelf,
             this, &BookItem::handleBookRemovedFromShelf);
 }
@@ -117,29 +115,19 @@ void BookItem::handleGotReviewInfo(const ReviewInfo& reviewInfo)
     emit bookChanged();
 }
 
-void BookItem::handleBookAddedToShelf(const QString& bookId, const ReviewPtr& review)
+void BookItem::handleBookAddedToShelves(const QString& bookId, const QStringList&,
+        const ReviewPtr& review)
 {
-    if (!m_Book || m_BookId != bookId || !m_Book->GetReview()) {
+    if (!m_Book || m_BookId != bookId) {
         return;
     }
 
-    if (m_Book->GetReview()->GetId() == review->GetId())
-    {
-        if (!review->GetShelves()[0].GetExclusive())
-        {
-            m_Book->GetReview()->SetShelves(m_Book->GetReview()->GetShelves() + review->GetShelves());
-        }
-        else
-        {
-            auto shelves = m_Book->GetReview()->GetShelves();
-            for(int i = 0; i < shelves.count(); ++i) {
-                if(shelves.at(i).GetExclusive()) {
-                    shelves.removeAt(i);
-                }
-            }
-            m_Book->GetReview()->SetShelves(shelves + review->GetShelves());
-        }
-
+    if (!m_Book->GetReview()) {
+        m_Book->SetReview(review);
+        emit bookChanged();
+    }
+    else if (m_Book->GetReview()->GetId() == review->GetId()) {
+        m_Book->GetReview()->updateShelves(review);
         emit bookChanged();
     }
 }
@@ -158,28 +146,6 @@ void BookItem::handleBookRemovedFromShelf(const QString& bookId, const QString& 
         }
     }
     m_Book->GetReview()->SetShelves(shelves);
-    emit bookChanged();
-}
-
-void BookItem::handleBookAddedToShelves(const QString& bookId, const ReviewPtr& review)
-{
-    if (!m_Book || m_BookId != bookId) {
-        return;
-    }
-
-    if (!m_Book->GetReview())
-    {
-        m_Book->SetReview(review);
-    }
-    else if (m_Book->GetReview()->GetId() == review->GetId())
-    {
-        m_Book->GetReview()->SetUpdatedDate(review->GetUpdatedDate());
-        m_Book->GetReview()->SetAddedDate(review->GetAddedDate());
-        m_Book->GetReview()->SetReadDate(review->GetReadDate());
-        m_Book->GetReview()->SetStartedDate(review->GetStartedDate());
-        m_Book->GetReview()->SetRating(review->GetRating());
-        m_Book->GetReview()->SetShelves(review->GetShelves());
-    }
     emit bookChanged();
 }
 

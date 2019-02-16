@@ -25,6 +25,7 @@ THE SOFTWARE.
 #include <QtDebug>
 
 #include "../objects/book.h"
+#include "../objects/review.h"
 #include "../objects/work.h"
 #include "../sailreadsmanager.h"
 
@@ -67,6 +68,8 @@ void FoundBooksModel::classBegin()
     auto sm = SailreadsManager::Instance();
     connect(sm, &SailreadsManager::gotFoundBooks,
             this, &FoundBooksModel::handleGotFoundBooks);
+    connect(SailreadsManager::Instance(), &SailreadsManager::bookAddedToShelves,
+            this, &FoundBooksModel::handleBookAddedToShelves);
 }
 
 void FoundBooksModel::componentComplete()
@@ -132,6 +135,32 @@ void FoundBooksModel::handleGotFoundBooks(const CountedItems<BookPtr>& books)
     SetHasMore(books.m_EndIndex != books.m_Count);
     if (m_HasMore) {
         ++m_CurrentPage;
+    }
+}
+
+void FoundBooksModel::handleBookAddedToShelves(const QString& bookId, const QStringList&,
+        const ReviewPtr& review)
+{
+    auto it = std::find_if(m_Items.begin(), m_Items.end(),
+            [bookId](decltype(m_Items.front()) book)
+            { return book->GetId() == bookId; });
+    if (it != m_Items.end())
+    {
+        int pos = std::distance(m_Items.begin(), it);
+        if (!m_Items[pos]->GetReview())
+        {
+            m_Items[pos]->SetReview(review);
+        }
+        else if (m_Items[pos]->GetReview()->GetId() == review->GetId())
+        {
+            m_Items[pos]->GetReview()->SetUpdatedDate(review->GetUpdatedDate());
+            m_Items[pos]->GetReview()->SetAddedDate(review->GetAddedDate());
+            m_Items[pos]->GetReview()->SetReadDate(review->GetReadDate());
+            m_Items[pos]->GetReview()->SetStartedDate(review->GetStartedDate());
+            m_Items[pos]->GetReview()->SetRating(review->GetRating());
+            m_Items[pos]->GetReview()->SetShelves(review->GetShelves());
+        }
+        emit dataChanged(index(pos), index(pos));
     }
 }
 } // namespace Sailreads

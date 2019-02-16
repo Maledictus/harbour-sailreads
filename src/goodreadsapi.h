@@ -209,8 +209,8 @@ private slots:
     void handleGetAuthorSeries(const QString& authorId);
     void handleGetWorkSeries();
 
-    void handleAddBookToShelf(const QString& bookId);
-    void handleAddBooksToShelves();
+    void handleAddBookToShelf(const QString& bookId, const QString& shelfName);
+    void handleAddBooksToShelves(const QStringList& bookIds, const QStringList& shelvesName);
     void handleRemoveBookFromShelf(const QString& bookId);
 
     void handleGetAuthor();
@@ -328,8 +328,8 @@ signals:
     void likeAdded(const QString& resourceId, quint64 ratingId);
     void likeRemoved(const QString& resourceId);
 
-    void bookAddedToShelf(const QString& bookId, const ReviewPtr& review);
-    void bookAddedToShelves(const QString& bookId, const ReviewPtr& review);
+    void bookAddedToShelf(const QString& bookId, const QString& shelf, const ReviewPtr& review);
+    void bookAddedToShelves(const QString& bookId, const QStringList& shelves, const ReviewPtr& review);
     void bookRemovedFromShelf(const QString& bookId, const QString& shelfName);
 };
 }

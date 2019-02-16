@@ -36,7 +36,42 @@ Page {
 
     property string bookId
     property var book
-    property var usedShelves: []
+    property var review
+
+    Connections {
+        target: sailreadsManager
+        onReviewUpdated: {
+            if (editBookshelvesPage.bookId != bookId) {
+                return
+            }
+            if (editBookshelvesPage.review && editBookshelvesPage.review.id === review.id) {
+                editBookshelvesPage.review.updateShelves(review)
+            }
+            else {
+                editBookshelvesPage.review = review
+            }
+
+            for (var i = 0; i < contextMenu.children.length; ++i) {
+                if (review.shelvesList.indexOf(contextMenu.children[i].text) > -1) {
+                    bookShelvesComboBox.currentIndex = i
+                    bookShelvesComboBox.prevIndex = i
+                    return
+                }
+            }
+            bookShelvesComboBox.currentIndex = -1
+        }
+    }
+
+    function setSelectedShelf() {
+        for (var i = 0; i < contextMenu.children.length; ++i) {
+            if (review.shelvesList.indexOf(contextMenu.children[i].text) > -1) {
+                bookShelvesComboBox.currentIndex = i
+                bookShelvesComboBox.prevIndex = i
+                return
+            }
+        }
+        bookShelvesComboBox.currentIndex = -1
+    }
 
     BookShelvesModel {
         id: bookShelvesModel
@@ -45,15 +80,11 @@ Page {
         preloadAll: true
 
         onHasMoreChanged: {
-            if (!hasMore) {
-                for (var i = 0; i < contextMenu.children.length; ++i) {
-                    if (usedShelves.indexOf(contextMenu.children[i].text) > -1) {
-                        bookShelvesComboBox.currentIndex = i
-                        bookShelvesComboBox.prevIndex = i
-                        return
-                    }
-                }
-                bookShelvesComboBox.currentIndex = 0
+            if (!hasMore && review) {
+                setSelectedShelf()
+            }
+            else {
+                bookShelvesComboBox.currentIndex = -1
             }
         }
     }
@@ -115,8 +146,9 @@ Page {
                     if (index === prevIndex) {
                         return
                     }
+                    sailreadsManager.addBookToShelves(bookId, [ contextMenu.children[index].text ])
+
                     prevIndex = index
-                    sailreadsManager.addBookToShelf(bookId, contextMenu.children[index].text)
                 }
 
                 menu: ContextMenu {
@@ -175,13 +207,13 @@ Page {
                         view: tagsFlow
                         name: bookShelfName
                         count: bookShelfBooksCount
-                        selected: usedShelves.indexOf(bookShelfName) > -1
+                        selected: review ? review.shelvesList.indexOf(bookShelfName) > -1 : false
                         onClicked: {
                             if (selected) {
                                 sailreadsManager.removeBookFromShelf(bookId, bookShelfName)
                             }
                             else {
-                                sailreadsManager.addBookToShelf(bookId, bookShelfName)
+                                sailreadsManager.addBookToShelves(bookId, [bookShelfName])
                             }
 
                             selected = !selected

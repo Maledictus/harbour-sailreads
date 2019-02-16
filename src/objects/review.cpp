@@ -57,7 +57,10 @@ QString Review::GetId() const
 
 void Review::SetId(const QString& id)
 {
-    m_Id = id;
+    if (m_Id != id) {
+        m_Id = id;
+        emit idChanged();
+    }
 }
 
 Book* Review::GetBook() const
@@ -72,7 +75,10 @@ BookPtr Review::GetBookPtr() const
 
 void Review::SetBook(const BookPtr& book)
 {
-    m_Book = book;
+    if (m_Book != book) {
+        m_Book = book;
+        emit bookChanged();
+    }
 }
 
 int Review::GetRating() const
@@ -82,7 +88,10 @@ int Review::GetRating() const
 
 void Review::SetRating(int rating)
 {
-    m_Rating = rating;
+    if (m_Rating != rating) {
+        m_Rating = rating;
+        emit ratingChanged();
+    }
 }
 
 int Review::GetLikesCount() const
@@ -92,7 +101,10 @@ int Review::GetLikesCount() const
 
 void Review::SetLikesCount(int votes)
 {
-    m_LikesCount = votes;
+    if (m_LikesCount != votes) {
+        m_LikesCount = votes;
+        emit likesCountChanged();
+    }
 }
 
 BookShelves_t Review::GetShelves() const
@@ -103,6 +115,8 @@ BookShelves_t Review::GetShelves() const
 void Review::SetShelves(const BookShelves_t& shelves)
 {
     m_Shelves = shelves;
+    emit shelvesListChanged();
+    emit exclusiveShelfChanged();
 }
 
 QStringList Review::GetShelvesList() const
@@ -131,7 +145,10 @@ QDateTime Review::GetAddedDate() const
 
 void Review::SetAddedDate(const QDateTime& addedDate)
 {
-    m_AddedDate = addedDate;
+    if (m_AddedDate != addedDate) {
+        m_AddedDate = addedDate;
+        emit addedDateChanged();
+    }
 }
 
 QDateTime Review::GetUpdatedDate() const
@@ -141,7 +158,10 @@ QDateTime Review::GetUpdatedDate() const
 
 void Review::SetUpdatedDate(const QDateTime& updatedDate)
 {
-    m_UpdatedDate = updatedDate;
+    if (m_UpdatedDate != updatedDate) {
+        m_UpdatedDate = updatedDate;
+        emit updatedDateChanged();
+    }
 }
 
 QDateTime Review::GetReadDate() const
@@ -151,7 +171,10 @@ QDateTime Review::GetReadDate() const
 
 void Review::SetReadDate(const QDateTime& readDate)
 {
-    m_ReadDate = readDate;
+    if (m_ReadDate != readDate) {
+        m_ReadDate = readDate;
+        emit readDateChanged();
+    }
 }
 
 QDateTime Review::GetStartedDate() const
@@ -161,7 +184,10 @@ QDateTime Review::GetStartedDate() const
 
 void Review::SetStartedDate(const QDateTime& startedDate)
 {
-    m_StartedDate = startedDate;
+    if (m_StartedDate != startedDate) {
+        m_StartedDate = startedDate;
+        emit startedDateChanged();
+    }
 }
 
 int Review::GetReadCount() const
@@ -171,7 +197,10 @@ int Review::GetReadCount() const
 
 void Review::SetReadCount(int readCount)
 {
-    m_ReadCount = readCount;
+    if (m_ReadCount != readCount) {
+        m_ReadCount = readCount;
+        emit readCountChanged();
+    }
 }
 
 QString Review::GetBody() const
@@ -181,7 +210,10 @@ QString Review::GetBody() const
 
 void Review::SetBody(const QString& body)
 {
-    m_Body = body;
+    if (m_Body != body) {
+        m_Body = body;
+        emit bodyChanged();
+    }
 }
 
 quint64 Review::GetCommentsCount() const
@@ -191,7 +223,10 @@ quint64 Review::GetCommentsCount() const
 
 void Review::SetCommentsCount(const quint64& commentsCount)
 {
-    m_CommentsCount = commentsCount;
+    if (m_CommentsCount != commentsCount) {
+        m_CommentsCount = commentsCount;
+        emit commentsCountChanged();
+    }
 }
 
 quint64 Review::GetOwned() const
@@ -201,7 +236,10 @@ quint64 Review::GetOwned() const
 
 void Review::SetOwned(const quint64& owned)
 {
-    m_Owned = owned;
+    if (m_Owned != owned) {
+        m_Owned = owned;
+        emit ownedChanged();
+    }
 }
 
 QUrl Review::GetUrl() const
@@ -211,7 +249,10 @@ QUrl Review::GetUrl() const
 
 void Review::SetUrl(const QUrl& url)
 {
-    m_Url = url;
+    if (m_Url != url) {
+        m_Url = url;
+        emit urlChanged();
+    }
 }
 
 User *Review::GetUser() const
@@ -226,8 +267,10 @@ UserPtr Review::GetUserPtr() const
 
 void Review::SetUser(const UserPtr& user)
 {
-    m_User = user;
-    emit userChanged();
+    if (m_User != user) {
+        m_User = user;
+        emit userChanged();
+    }
 }
 
 CountedItems<Comment> Review::GetComments() const
@@ -282,6 +325,25 @@ quint64 Review::GetRatingId() const
     return m_RatingId;
 }
 
+void Review::updateShelves(Review *newReview)
+{
+    if (!newReview) {
+        return;
+    }
+
+    SetUpdatedDate(newReview->GetUpdatedDate());
+    SetAddedDate(newReview->GetAddedDate());
+    SetReadDate(newReview->GetReadDate());
+    SetStartedDate(newReview->GetStartedDate());
+    SetRating(newReview->GetRating());
+    SetShelves(newReview->GetShelves());
+}
+
+void Review::updateShelves(const ReviewPtr& newReview)
+{
+    updateShelves(newReview.get());
+}
+
 void Review::Update(Review *newReview)
 {
     if (!newReview) {
@@ -314,4 +376,5 @@ void Review::Update(const ReviewPtr& newReview)
     Update(newReview.get());
     SetComments(newReview->GetComments());
 }
+
 } // namespace Sailreads

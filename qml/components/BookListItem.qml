@@ -32,6 +32,7 @@ ListItem {
     property alias authors: authorsLabel.text
     property real averageRating: 0.0
     property real ratingsCount: 0.0
+    property alias bookShelfButton : bookShelfButtonItem
 
     contentHeight: row.height + separator.height + Theme.paddingMedium
     clip: true
@@ -89,8 +90,8 @@ ListItem {
             }
 
             IconTextButton {
-                icon.source: "image://Theme/icon-m-add"
-                label.text: "Want to Read"
+                id: bookShelfButtonItem
+                visible: false
                 label.font.pixelSize: Theme.fontSizeMedium
             }
         }

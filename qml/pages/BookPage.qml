@@ -79,20 +79,11 @@ Page {
             PullDownMenu {
                 busy: bookPage.busy
                 MenuItem {
-                    visible: book && book.review
-                    text: qsTr("Edit dates read")
+                    visible: book
+                    text: qsTr("Add to My Books")
                     onClicked: {
                         pageStack.push("../pages/AddBookToShelvesPage.qml",
-                                { usedShelves: book.review.shelvesList, bookId: bookId, book: book })
-                    }
-                }
-
-                MenuItem {
-                    visible: book && book.review
-                    text: qsTr("Edit bookshelves")
-                    onClicked: {
-                        pageStack.push("../pages/AddBookToShelvesPage.qml",
-                                { usedShelves: book.review.shelvesList, bookId: bookId, book: book })
+                                { bookId: bookId, book: book, review: book.review })
                     }
                 }
 

@@ -42,8 +42,8 @@ BookShelvesModel::BookShelvesModel(QObject *parent)
             this, &BookShelvesModel::handleBookShelfAdded);
     connect(sm, &SailreadsManager::bookShelfEdited,
             this, &BookShelvesModel::handleBookShelfEdited);
-    connect(sm, &SailreadsManager::bookAddedToShelf,
-            this, &BookShelvesModel::handleBookAddedToShelf);
+    connect(sm, &SailreadsManager::bookAddedToShelves,
+            this, &BookShelvesModel::handleBookAddedToShelves);
     connect(sm, &SailreadsManager::bookRemovedFromShelf,
             this, &BookShelvesModel::handleBookRemovedFromShelf);
 }
@@ -194,7 +194,8 @@ void BookShelvesModel::handleBookShelfEdited(const BookShelf& shelf)
     }
 }
 
-void BookShelvesModel::handleBookAddedToShelf(const QString&, const ReviewPtr& review)
+void BookShelvesModel::handleBookAddedToShelves(const QString& /*bookId*/, const QStringList& shelves,
+        const ReviewPtr& review)
 {
     if (!SailreadsManager::Instance()->GetAuthUser() ||
             m_UserId != SailreadsManager::Instance()->GetAuthUser()->GetId()) {
@@ -206,7 +207,7 @@ void BookShelvesModel::handleBookAddedToShelf(const QString&, const ReviewPtr& r
         auto it = std::find_if(m_Items.begin(), m_Items.end(),
                 [shelf](decltype(m_Items.front()) oldShelf)
                 { return oldShelf.GetId() == shelf.GetId(); });
-        if (it != m_Items.end())
+        if (it != m_Items.end() && shelves.contains(shelf.GetName()))
         {
             int pos = std::distance(m_Items.begin(), it);
             m_Items[pos].SetBooksCount(m_Items[pos].GetBooksCount() + 1);

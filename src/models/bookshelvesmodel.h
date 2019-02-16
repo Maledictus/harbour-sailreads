@@ -75,7 +75,8 @@ private slots:
             const CountedItems<BookShelf> bookshelves);
     void handleBookShelfAdded(const BookShelf& shelf);
     void handleBookShelfEdited(const BookShelf& shelf);
-    void handleBookAddedToShelf(const QString& bookId, const ReviewPtr& review);
+    void handleBookAddedToShelves(const QString& bookId, const QStringList& shelves,
+            const ReviewPtr& review);
     void handleBookRemovedFromShelf(const QString& bookId, const QString& shelfName);
 public slots:
     void fetchMoreContent();

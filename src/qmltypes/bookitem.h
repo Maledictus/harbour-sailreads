@@ -50,9 +50,9 @@ public:
 private slots:
     void handleGotBook(const BookPtr& book);
     void handleGotReviewInfo(const ReviewInfo& reviewInfo);
-    void handleBookAddedToShelf(const QString& bookId, const ReviewPtr& review);
+    void handleBookAddedToShelves(const QString& bookId, const QStringList& shevles,
+            const ReviewPtr& review);
     void handleBookRemovedFromShelf(const QString& bookId, const QString& shelfName);
-    void handleBookAddedToShelves(const QString& bookId, const ReviewPtr& review);
 public slots:
     void loadBook();
 

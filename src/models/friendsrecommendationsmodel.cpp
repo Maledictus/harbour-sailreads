@@ -113,7 +113,8 @@ void FriendsRecommendationsModel::handleGotFriendsRecommendations(const CountedI
     }
 }
 
-void FriendsRecommendationsModel::handleFriendRecommendationConfirmed(quint64 friendRecommendationId, bool confirm)
+void FriendsRecommendationsModel::handleFriendRecommendationConfirmed(quint64 friendRecommendationId,
+        bool)
 {
     auto it = std::find_if(m_Items.begin(), m_Items.end(),
             [friendRecommendationId](decltype(m_Items.front()) fr) {

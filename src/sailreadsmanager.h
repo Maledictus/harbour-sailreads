@@ -240,8 +240,10 @@ signals:
     void likeAdded(const QString& resourceId, quint64 ratingId);
     void likeRemoved(const QString& resourceId);
 
-    void bookAddedToShelves(const QString& bookId, const ReviewPtr& review);
-    void bookAddedToShelf(const QString& bookId, const ReviewPtr& review);
+    void reviewUpdated(const QString& bookId, const QStringList& shelves, Review *review);
+
+    void bookAddedToShelves(const QString& bookId, const QStringList& shelves, const ReviewPtr& review);
+    void bookAddedToShelf(const QString& bookId, const QString& shelf, const ReviewPtr& review);
     void bookRemovedFromShelf(const QString& bookId, const QString& shelfName);
 };
 }
