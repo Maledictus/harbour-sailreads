@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-import QtQuick 2.0
+import QtQuick 2.5
 import Sailfish.Silica 1.0
 import harbour.sailreads 1.0
 
@@ -41,66 +41,72 @@ MouseArea {
     property bool highlighted: down || selected
 
     implicitHeight: mainRect.height
-    width: childrenRect.width
+    width: mainRect.width
 
     Rectangle {
         id: mainRect
-        width: Math.min(row.width, view.width)
-        height: Theme.itemSizeExtraSmall
+        color: highlighted ?
+                Theme.rgba(Theme.highlightBackgroundColor, Theme.highlightBackgroundOpacity) :
+                Theme.rgba(Theme.primaryColor, 0.2)
 
-        color: highlighted ? Theme.rgba(Theme.highlightBackgroundColor, Theme.highlightBackgroundOpacity)
-                          : Theme.rgba(Theme.primaryColor, 0.2)
+        property int spacing: Theme.paddingSmall
+        property real clipWidth: {
+            var maxWidth = view ? view.width : Screen.width
+            return maxWidth - height - spacing;
+        }
+
+        height: Math.max(Theme.itemSizeExtraSmall, textMetricsNumber.width) + spacing
+        width: height + textLabel.width + 2 * spacing
         radius: height / 2
 
-        Row {
-            id: row
-            height: parent.height
-            width: countRect.width + nameLabel.implicitWidth + 2 * Theme.paddingMedium
-            spacing: Theme.paddingSmall
-            Rectangle {
-                id: countRect
-                width: fakeLabel.width + 2 * Theme.paddingMedium
-                height: parent.height
-                color: highlighted ? Theme.rgba(Theme.highlightBackgroundColor, Theme.highlightBackgroundOpacity)
-                                   : Theme.rgba(Theme.primaryColor, 0.3)
-                radius: height / 2
+        TextMetrics {
+            id: textMetricsLabel
+            text: name
+            font: textLabel.font
+            elideWidth: mainRect.clipWidth
+            elide: mainRect.clipWidth > 0 ? Qt.ElideRight : Qt.ElideNone
+        }
 
-                Label {
-                    id: fakeLabel
-                    visible: false
-                    anchors.left: parent.left
-                    anchors.leftMargin: Theme.paddingMedium
-                    anchors.verticalCenter: parent.verticalCenter
-                    text: "999"
-                }
+        TextMetrics {
+            id: textMetricsNumber
+            text: count
+            font: textNumber.font
+        }
 
-                Label {
-                    anchors {
-                        left: parent.left
-                        leftMargin: Theme.paddingSmall
-                        right: parent.right
-                        rightMargin: Theme.paddingSmall
-                        verticalCenter: parent.verticalCenter
-                    }
-                    horizontalAlignment: Text.AlignHCenter
-                    text: count
-                    truncationMode: TruncationMode.Fade
-                    wrapMode: Text.NoWrap
-                    font.bold: true
-                    color: highlighted ? Theme.rgba(Theme.highlightColor, 0.6) :
-                               Theme.rgba(Theme.primaryColor, 0.6)
-                }
+        Rectangle {
+            id: rectCircle
+            anchors {
+                left: parent.left
+                verticalCenter: parent.verticalCenter
             }
+            height: parent.height
+            width: height
+            radius: parent.radius
+            color: highlighted ?
+                    Theme.rgba(Theme.highlightBackgroundColor, Theme.highlightBackgroundOpacity) :
+                    Theme.rgba(Theme.primaryColor, 0.3)
 
             Label {
-                id: nameLabel
-                text: name
-                width: mainRect.width - countRect.width
+                id: textNumber
+                anchors.centerIn: parent
+                color: highlighted ? Theme.rgba(Theme.highlightColor, 0.6) :
+                           Theme.rgba(Theme.primaryColor, 0.6)
                 wrapMode: Text.NoWrap
-                truncationMode: TruncationMode.Fade
-                color: highlighted ? Theme.highlightColor : Theme.primaryColor
-                anchors.verticalCenter: parent.verticalCenter
+                font.bold: true
+                text: count
             }
+        }
+
+        Label {
+            id: textLabel
+            anchors {
+                left: rectCircle.right
+                leftMargin: mainRect.spacing / 2
+                verticalCenter:parent.verticalCenter
+            }
+            color: highlighted ? Theme.highlightColor : Theme.primaryColor
+            wrapMode: Text.NoWrap
+            text: textMetricsLabel.elidedText
         }
     }
 }
