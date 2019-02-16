@@ -164,6 +164,7 @@ Page {
             visible: seriesItem.series && seriesItem.series.description !== ""
             text: seriesItem.series !== null ? (headerBox._style + seriesItem.series.description) : ""
             onLinkActivated: mainWindow.openPageFromUrl(link)
+            onHeightChanged: seriesView.contentY = -headerBox.height
         }
 
         Item {
