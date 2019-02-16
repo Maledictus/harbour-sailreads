@@ -87,6 +87,12 @@ ListItem {
                 ratingsCount: listItem.ratingsCount
                 color: Theme.highlightColor
             }
+
+            IconTextButton {
+                icon.source: "image://Theme/icon-m-add"
+                label.text: "Want to Read"
+                label.font.pixelSize: Theme.fontSizeMedium
+            }
         }
     }
 

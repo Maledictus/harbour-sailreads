@@ -47,7 +47,6 @@ Page {
         onHasMoreChanged: {
             if (!hasMore) {
                 for (var i = 0; i < contextMenu.children.length; ++i) {
-                    console.log(contextMenu.children[i].text)
                     if (usedShelves.indexOf(contextMenu.children[i].text) > -1) {
                         bookShelvesComboBox.currentIndex = i
                         bookShelvesComboBox.prevIndex = i
@@ -75,7 +74,7 @@ Page {
             spacing: Theme.paddingMedium
 
             PageHeader {
-                title: qsTr("Edit bookshelves")
+                title: qsTr("Add to My Books")
             }
 
             PullDownMenu {
