@@ -46,6 +46,7 @@ class Work: public QObject
     int m_OriginalPublicationDay;
     QString m_OriginalTitle;
     QString m_RatingDist;
+    qreal m_AverageRating;
 
     Q_PROPERTY(quint64 id READ GetId NOTIFY idChanged)
     Q_PROPERTY(int booksCount READ GetBooksCount NOTIFY booksCountChanged)
@@ -91,6 +92,7 @@ public:
     QString GetRatingDist() const;
     void SetRatingDist(const QString& ratingDist);
     qreal GetAverageRating() const;
+    void SetAverageRating(const qreal& averageRating);
     Book* GetBestBook() const;
     void SetBestBook(const BookPtr& book);
 

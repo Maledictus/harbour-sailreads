@@ -166,7 +166,7 @@ Page {
             ShortBookRow {
                 width: parent.width
                 bookImage: review && review.book ? review.book.imageUrl : ""
-                bookTitle: review && review.book ? review.book.titleWithoutSeries : ""
+                bookTitle: review && review.book ? review.book.title : ""
                 bookAuthors: review && review.book ?
                         Utils.getAuthorsString(review.book.authors, Theme.primaryColor) : ""
                 bookAverageRating: review && review.book ? review.book.averageRating : 0.0

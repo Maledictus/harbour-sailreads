@@ -286,6 +286,7 @@ signals:
 
     void gotBook(const BookPtr& book);
     void gotBookEditions(quint64 workId, const CountedItems<BookPtr>& books);
+    void gotFoundBooks(const CountedItems<BookPtr>& books);
 
     void gotAuthorProfile(const AuthorPtr& authorProfile);
     void gotAuthorBooks(const QString& authorId, const CountedItems<BookPtr>& books);

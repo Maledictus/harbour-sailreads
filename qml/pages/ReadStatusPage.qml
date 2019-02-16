@@ -156,7 +156,7 @@ Page {
             ShortBookRow {
                 width: parent.width
                 bookImage: readStatus && readStatus.book ? readStatus.book.imageUrl : ""
-                bookTitle: readStatus && readStatus.book ? readStatus.book.titleWithoutSeries : ""
+                bookTitle: readStatus && readStatus.book ? readStatus.book.title : ""
                 bookAuthors: readStatus && readStatus.book ?
                         Utils.getAuthorsString(readStatus.book.authors, Theme.primaryColor) : ""
                 bookAverageRating: readStatus && readStatus.book ? readStatus.book.averageRating : 0.0

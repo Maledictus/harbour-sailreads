@@ -69,6 +69,7 @@ UpdatePtr ParseUpdate(const QDomElement& element);
 ReadStatusPtr ParseReadStatus(const QDomElement& element);
 UserStatusPtr ParseUserStatus(const QDomElement& element);
 RecommendationPtr ParseRecommendation(const QDomElement& element);
+BookPtr ParseBookFromWork(const QDomElement& element);
 
 GroupMembers_t ParseGroupMembers(const QDomElement& element);
 GroupFolders_t ParseGroupFolders(const QDomElement& element);
@@ -92,6 +93,7 @@ CountedItems<MessagePtr> ParseMessages(const QDomElement& element);
 Notifications_t ParseNotifications(const QDomElement& element);
 Users_t ParseUsers(const QDomElement& element);
 Updates_t ParseUpdatesList(const QDomElement& element);
+Books_t ParseBooksFromWorksList(const QDomElement& element);
 
 UserPtr ParseUser(const QDomDocument& doc);
 CountedItems<BookShelf> ParseBookShelves(const QDomDocument& doc);
@@ -126,6 +128,7 @@ CountedItems<FriendRequest> ParseFriendsRequests(const QDomDocument& doc);
 CountedItems<FriendRecommendation> ParseFriendsRecommendations(const QDomDocument& doc);
 ReviewPtr ParseBookShelfAddedReview(const QDomDocument& doc);
 Reviews_t ParseBookShelfAddedReviews(const QDomDocument& doc);
+CountedItems<BookPtr> ParseFoundBooks(const QDomDocument& doc);
 }
 }
 }

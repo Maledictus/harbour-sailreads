@@ -178,7 +178,7 @@ Page {
             ShortBookRow {
                 width: parent.width
                 bookImage: recommendation && recommendation.book ? recommendation.book.imageUrl : ""
-                bookTitle: recommendation && recommendation.book ? recommendation.book.titleWithoutSeries : ""
+                bookTitle: recommendation && recommendation.book ? recommendation.book.title : ""
                 bookAuthors: recommendation && recommendation.book ?
                         Utils.getAuthorsString(recommendation.book.authors, Theme.primaryColor) : ""
                 bookAverageRating: recommendation && recommendation.book ? recommendation.book.averageRating : 0.0

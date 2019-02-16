@@ -187,10 +187,14 @@ void SailreadsManager::MakeConnections()
             this, &SailreadsManager::gotGroupFolderTopics);
     connect(m_Api, &GoodReadsApi::gotGroupFolderTopic,
             this, &SailreadsManager::gotGroupFolderTopic);
+
     connect(m_Api, &GoodReadsApi::gotBook,
             this, &SailreadsManager::gotBook);
     connect(m_Api, &GoodReadsApi::gotBookEditions,
             this, &SailreadsManager::gotBookEditions);
+    connect(m_Api, &GoodReadsApi::gotFoundBooks,
+            this, &SailreadsManager::gotFoundBooks);
+
     connect(m_Api, &GoodReadsApi::gotSeries,
             this, &SailreadsManager::gotSeries);
 
@@ -441,6 +445,13 @@ void SailreadsManager::loadBookEditions(QObject *requester, quint64 workId, int 
 {
     SetBusy(true);
     m_Api->GetBookEditions(requester, workId, page);
+}
+
+void SailreadsManager::searchBooks(QObject *requester, const QString& searchText,
+        const QString& searchField, int page)
+{
+    SetBusy(true);
+    m_Api->SearchBooks(requester, searchText, searchField, page);
 }
 
 void SailreadsManager::loadSeries(QObject *requester, quint64 seriesId)

@@ -89,7 +89,8 @@ SOURCES += src/harbour-sailreads.cpp \
     src/models/recommendationcommentsmodel.cpp \
     src/models/friendsrequestsmodel.cpp \
     src/models/friendsrecommendationsmodel.cpp \
-    src/objects/friendrecommendation.cpp
+    src/objects/friendrecommendation.cpp \
+    src/models/foundbooksmodel.cpp
 
 
 HEADERS += src/application.h \
@@ -172,7 +173,8 @@ HEADERS += src/application.h \
     src/models/recommendationcommentsmodel.h \
     src/models/friendsrequestsmodel.h \
     src/models/friendsrecommendationsmodel.h \
-    src/objects/friendrecommendation.h
+    src/objects/friendrecommendation.h \
+    src/models/foundbooksmodel.h
 
 DISTFILES += translations/*.ts \
     sailreads.desktop \

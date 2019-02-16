@@ -39,7 +39,14 @@ CoverBackground {
     }
 
     CoverActionList {
-        id: coverAction
+        id: actionsList
+        CoverAction {
+            iconSource: "image://theme/icon-cover-search"
+            onTriggered: {
+                pageStack.push("../pages/SearchPage.qml", {}, PageStackAction.Immediate);
+                mainWindow.activate()
+            }
+        }
     }
 }
 

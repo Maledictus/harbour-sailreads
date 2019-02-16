@@ -990,6 +990,9 @@ WorkPtr ParseWork(const QDomElement& element)
         else if (fieldElement.tagName() == "rating_dist") {
             work->SetRatingDist(fieldElement.text().trimmed());
         }
+        else if (fieldElement.tagName() == "average_rating") {
+            work->SetAverageRating(fieldElement.text().toDouble());
+        }
         else if (fieldElement.tagName() == "best_book") {
             work->SetBestBook(ParseBook(fieldElement));
         }
@@ -1516,6 +1519,45 @@ RecommendationPtr ParseRecommendation(const QDomElement& element)
     return recommendation;
 }
 
+BookPtr ParseBookFromWork(const QDomElement& element)
+{
+    BookPtr book = std::make_shared<Book>();
+    WorkPtr work = std::make_shared<Work>();
+    const auto& fieldsList = element.childNodes();
+    for (int i = 0, fieldsCount = fieldsList.size(); i < fieldsCount; ++i) {
+        const auto& fieldElement = fieldsList.at (i).toElement ();
+        if (fieldElement.tagName() == "id") {
+            work->SetId(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "books_count") {
+            work->SetBooksCount(fieldElement.text().toInt());
+        }
+        else if (fieldElement.tagName() == "ratings_count") {
+            work->SetRatingsCount(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "text_reviews_count") {
+            work->SetTextReviewsCount(fieldElement.text().toULongLong());
+        }
+        else if (fieldElement.tagName() == "original_publication_year") {
+            work->SetOriginalPublicationYear(fieldElement.text().toInt());
+        }
+        else if (fieldElement.tagName() == "original_publication_month") {
+            work->SetOriginalPublicationMonth(fieldElement.text().toInt());
+        }
+        else if (fieldElement.tagName() == "original_publication_day") {
+            work->SetOriginalPublicationDay(fieldElement.text().toInt());
+        }
+        else if (fieldElement.tagName() == "average_rating") {
+            work->SetAverageRating(fieldElement.text().toDouble());
+        }
+        else if (fieldElement.tagName() == "best_book") {
+            book = ParseBook(fieldElement);
+        }
+    }
+    book->SetWork(work);
+    return book;
+}
+
 GroupMembers_t ParseGroupMembers(const QDomElement& element)
 {
     GroupMembers_t members;
@@ -1790,6 +1832,16 @@ Updates_t ParseUpdatesList(const QDomElement& element)
     Updates_t result;
     for (int i = 0, cnt = updatesList.size(); i < cnt; ++i) {
         result << ParseUpdate(updatesList.at (i).toElement());
+    }
+    return result;
+}
+
+Books_t ParseBooksFromWorksList(const QDomElement& element)
+{
+    const auto& booksList = element.childNodes();
+    Books_t result;
+    for (int i = 0, cnt = booksList.size(); i < cnt; ++i) {
+        result << ParseBookFromWork(booksList.at(i).toElement());
     }
     return result;
 }
@@ -2336,6 +2388,35 @@ Reviews_t ParseBookShelfAddedReviews(const QDomDocument& doc)
     }
 
     return ParseReviewsList(reviewsElement);
+}
+
+CountedItems<BookPtr> ParseFoundBooks(const QDomDocument &doc)
+{
+    const auto& responseElement = doc.firstChildElement("GoodreadsResponse");
+    if (responseElement.isNull()) {
+        return CountedItems<BookPtr>();
+    }
+
+    const auto& searchElement = responseElement.firstChildElement("search");
+    if (searchElement.isNull()) {
+        return CountedItems<BookPtr>();
+    }
+
+    CountedItems<BookPtr> books;
+    const auto& beginIndexElement = searchElement.firstChildElement("results-start");
+    const auto& endIndexElement = searchElement.firstChildElement("results-end");
+    const auto& countIndexElement = searchElement.firstChildElement("total-results");
+    books.m_BeginIndex = beginIndexElement.text().toULongLong();
+    books.m_EndIndex = endIndexElement.text().toULongLong();
+    books.m_Count = countIndexElement.text().toULongLong();
+
+    const auto& resultsElement = searchElement.firstChildElement("results");
+    if (resultsElement.isNull()) {
+        return books;
+    }
+
+    books.m_Items = ParseBooksFromWorksList(resultsElement);
+    return books;
 }
 
 }

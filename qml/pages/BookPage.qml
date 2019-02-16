@@ -80,6 +80,15 @@ Page {
                 busy: bookPage.busy
                 MenuItem {
                     visible: book && book.review
+                    text: qsTr("Edit dates read")
+                    onClicked: {
+                        pageStack.push("../pages/AddBookToShelvesPage.qml",
+                                { usedShelves: book.review.shelvesList, bookId: bookId, book: book })
+                    }
+                }
+
+                MenuItem {
+                    visible: book && book.review
                     text: qsTr("Edit bookshelves")
                     onClicked: {
                         pageStack.push("../pages/AddBookToShelvesPage.qml",
@@ -238,8 +247,9 @@ Page {
             Component {
                 id: showReviewComponent
                 Item {
-                    height: childrenRect.height
+                    height: column.height
                     Column {
+                        id: column
                         width: parent.width
                         spacing: Theme.paddingSmall
                         ClickableLabel {

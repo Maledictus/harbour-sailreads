@@ -65,7 +65,7 @@ Dialog {
 
                 width: parent.width
                 bookImage: book ? book.imageUrl : ""
-                bookTitle: book ? book.titleWithoutSeries : ""
+                bookTitle: book ? book.title : ""
                 bookAuthors: book ?
                         Utils.getAuthorsString(book.authors, Theme.primaryColor) : ""
                 bookAverageRating: book ? book.averageRating : 0.0

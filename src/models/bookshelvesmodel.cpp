@@ -194,7 +194,7 @@ void BookShelvesModel::handleBookShelfEdited(const BookShelf& shelf)
     }
 }
 
-void BookShelvesModel::handleBookAddedToShelf(const QString& bookId, const ReviewPtr& review)
+void BookShelvesModel::handleBookAddedToShelf(const QString&, const ReviewPtr& review)
 {
     if (!SailreadsManager::Instance()->GetAuthUser() ||
             m_UserId != SailreadsManager::Instance()->GetAuthUser()->GetId()) {

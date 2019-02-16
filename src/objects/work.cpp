@@ -36,6 +36,7 @@ Work::Work(QObject *parent)
 , m_OriginalPublicationYear(0)
 , m_OriginalPublicationMonth(0)
 , m_OriginalPublicationDay(0)
+, m_AverageRating(-1)
 {
 #ifdef QT_DEBUG
     qDebug() << this << "CONSTRUCTED";
@@ -171,7 +172,13 @@ void Work::SetRatingDist(const QString& ratingDist)
 
 qreal Work::GetAverageRating() const
 {
-    return m_RatingsCount > 0 ? static_cast<qreal>(m_RatingSum) / m_RatingsCount : 0;
+    return m_AverageRating > 0.0 ? m_AverageRating :
+            m_RatingsCount > 0 ? static_cast<qreal>(m_RatingSum) / m_RatingsCount : 0;
+}
+
+void Work::SetAverageRating(const qreal& averageRating)
+{
+    m_AverageRating = averageRating;
 }
 
 Book *Work::GetBestBook() const

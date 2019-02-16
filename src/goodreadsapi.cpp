@@ -325,14 +325,15 @@ void GoodReadsApi::GetBookEditions(QObject *requester, quint64 workId, int page)
 
 void GoodReadsApi::SearchBooks(QObject *requester, const QString& query, const QString& key, int page)
 {
-//    //TODO make simple request
-//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-//            QUrl(QString("https://www.goodreads.com/search/index.xml?q=%1&search[field]=%2&page=%3")
-//                 .arg(query).arg(key).arg(page)), "GET");
-//    auto reply = m_NAM->get(QNetworkRequest(pair.first));
-//    m_CurrentReply = reply;
-//    connect(reply, &QNetworkReply::finished,
-//            this, &GoodReadsApi::handleSearchBook);
+    QVariantMap params = {
+        { "q", query }, { "search[field]", key },
+        { "format", "xml" }, { "page", page }
+    };
+    auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + "/search/index.xml"), params);
+    m_Requester2Reply[requester] = reply;
+    connect(reply, &QNetworkReply::finished,
+            this, &GoodReadsApi::handleSearchBook);
 }
 
 void GoodReadsApi::GetSeries(QObject *requester, quint64 seriesId)
@@ -1120,7 +1121,7 @@ void GoodReadsApi::handleEditReview()
     emit requestFinished();
 }
 
-void GoodReadsApi::handleDeleteReview(const QString& reviewId)
+void GoodReadsApi::handleDeleteReview(const QString&)
 {
     bool ok = false;
     auto doc = GetDocumentFromReply(sender(), ok);
@@ -1169,8 +1170,7 @@ void GoodReadsApi::handleSearchBook()
         return;
     }
 
-    //TODO
-    qDebug() << doc.toByteArray();
+    emit gotFoundBooks(RpcUtils::Parser::ParseFoundBooks(doc));
     emit requestFinished();
 }
 
