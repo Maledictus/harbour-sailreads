@@ -1555,6 +1555,8 @@ BookPtr ParseBookFromWork(const QDomElement& element)
         }
     }
     book->SetWork(work);
+    book->SetAverageRating(work->GetAverageRating());
+    book->SetRatingsCount(work->GetRatingsCount());
     return book;
 }
 

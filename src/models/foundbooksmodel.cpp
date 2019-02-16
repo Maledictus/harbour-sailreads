@@ -55,9 +55,9 @@ QVariant FoundBooksModel::data(const QModelIndex &index, int role) const
     case Authors:
         return bookItem->GetAuthorsString();
     case AverageRating:
-        return bookItem->GetWork()->GetAverageRating();
+        return bookItem->GetAverageRating();
     case RatingsCount:
-        return bookItem->GetWork()->GetRatingsCount();
+        return bookItem->GetRatingsCount();
     default:
         return QVariant();
     }
