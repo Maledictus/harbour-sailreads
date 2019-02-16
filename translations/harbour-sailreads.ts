@@ -67,17 +67,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddBookToShelvesPage.qml" line="142"/>
+        <location filename="../qml/pages/AddBookToShelvesPage.qml" line="147"/>
         <source>Bookshelf</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddBookToShelvesPage.qml" line="174"/>
+        <location filename="../qml/pages/AddBookToShelvesPage.qml" line="179"/>
         <source>Tags</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddBookToShelvesPage.qml" line="180"/>
+        <location filename="../qml/pages/AddBookToShelvesPage.qml" line="185"/>
         <source>Search</source>
         <translation type="unfinished"></translation>
     </message>

@@ -134,6 +134,12 @@ Page {
                 bookTitle: book ? book.title: ""
                 bookAuthors: book ? Utils.getAuthorsString(book.authors, Theme.primaryColor) : ""
                 bookAverageRating: book ? book.averageRating : 0
+                bookRatingsCount: book ? book.ratingsCount : 0
+                onBookClicked: pageStack.push(Qt.resolvedUrl("BookPage.qml"),
+                        { bookId: book ? book.id : "",
+                            book : book })
+                onAuthorLinkActivated: pageStack.push(Qt.resolvedUrl("AuthorPage.qml"),
+                        { authorId : link })
             }
 
             ComboBox {
