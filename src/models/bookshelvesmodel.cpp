@@ -22,6 +22,8 @@ THE SOFTWARE.
 
 #include "bookshelvesmodel.h"
 
+#include <QtDebug>
+
 #include "../objects/review.h"
 #include "../objects/user.h"
 #include "../sailreadsmanager.h"
@@ -194,20 +196,32 @@ void BookShelvesModel::handleBookShelfEdited(const BookShelf& shelf)
     }
 }
 
-void BookShelvesModel::handleBookAddedToShelves(const QString& /*bookId*/, const QStringList& shelves,
-        const ReviewPtr& review)
+void BookShelvesModel::handleBookAddedToShelves(const QString& /*bookId*/,
+        const QStringList& /*shelves*/, const QStringList& oldShelves, const ReviewPtr& review)
 {
     if (!SailreadsManager::Instance()->GetAuthUser() ||
             m_UserId != SailreadsManager::Instance()->GetAuthUser()->GetId()) {
         return;
     }
 
+    for (const auto& shelf : oldShelves)
+    {
+        auto it = std::find_if(m_Items.begin(), m_Items.end(),
+                [shelf](decltype(m_Items.front()) oldShelf)
+                { return oldShelf.GetName() == shelf; });
+        if (it != m_Items.end())
+        {
+            int pos = std::distance(m_Items.begin(), it);
+            m_Items[pos].SetBooksCount(m_Items[pos].GetBooksCount() - 1);
+            emit dataChanged(index(pos), index(pos));
+        }
+    }
     for (const auto& shelf : review->GetShelves())
     {
         auto it = std::find_if(m_Items.begin(), m_Items.end(),
                 [shelf](decltype(m_Items.front()) oldShelf)
                 { return oldShelf.GetId() == shelf.GetId(); });
-        if (it != m_Items.end() && shelves.contains(shelf.GetName()))
+        if (it != m_Items.end())
         {
             int pos = std::distance(m_Items.begin(), it);
             m_Items[pos].SetBooksCount(m_Items[pos].GetBooksCount() + 1);

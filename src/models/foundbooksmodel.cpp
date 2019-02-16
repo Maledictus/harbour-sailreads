@@ -139,7 +139,7 @@ void FoundBooksModel::handleGotFoundBooks(const CountedItems<BookPtr>& books)
 }
 
 void FoundBooksModel::handleBookAddedToShelves(const QString& bookId, const QStringList&,
-        const ReviewPtr& review)
+        const QStringList& /*oldShelves*/, const ReviewPtr& review)
 {
     auto it = std::find_if(m_Items.begin(), m_Items.end(),
             [bookId](decltype(m_Items.front()) book)

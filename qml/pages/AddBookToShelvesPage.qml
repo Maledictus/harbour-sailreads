@@ -146,7 +146,8 @@ Page {
                     if (index === prevIndex) {
                         return
                     }
-                    sailreadsManager.addBookToShelves(bookId, [ contextMenu.children[index].text ])
+                    sailreadsManager.addBookToShelves(bookId, [ contextMenu.children[index].text ],
+                            review ? review.shelvesList : [])
 
                     prevIndex = index
                 }
@@ -213,7 +214,8 @@ Page {
                                 sailreadsManager.removeBookFromShelf(bookId, bookShelfName)
                             }
                             else {
-                                sailreadsManager.addBookToShelves(bookId, [bookShelfName])
+                                sailreadsManager.addBookToShelves(bookId, [bookShelfName],
+                                        review ? review.shelvesList : [])
                             }
 
                             selected = !selected

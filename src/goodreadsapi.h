@@ -119,8 +119,10 @@ public:
     void GetAuthorSeries(QObject *requester, const QString& authorId);
     void GetWorkSeries(QObject *requester, quint64 workId);
 
-    void AddBookToShelf(const QString& bookId, const QString& shelfName);
-    void AddBooksToShelves(const QStringList& bookIds, const QStringList& shelvesName);
+    void AddBookToShelf(const QString& bookId, const QString& shelfName,
+            const QStringList& oldShelves);
+    void AddBooksToShelves(const QStringList& bookIds, const QStringList& shelvesName,
+            const QStringList& oldShelves);
     void RemoveBookFromShelf(const QString& bookId, const QString& shelfName);
 
     void GetAuthor(QObject *requester, const QString& authorId);
@@ -209,8 +211,10 @@ private slots:
     void handleGetAuthorSeries(const QString& authorId);
     void handleGetWorkSeries();
 
-    void handleAddBookToShelf(const QString& bookId, const QString& shelfName);
-    void handleAddBooksToShelves(const QStringList& bookIds, const QStringList& shelvesName);
+    void handleAddBookToShelf(const QString& bookId, const QString& shelfName,
+            const QStringList& oldShelves);
+    void handleAddBooksToShelves(const QStringList& bookIds, const QStringList& shelvesName,
+            const QStringList& oldShelves);
     void handleRemoveBookFromShelf(const QString& bookId);
 
     void handleGetAuthor();
@@ -328,8 +332,10 @@ signals:
     void likeAdded(const QString& resourceId, quint64 ratingId);
     void likeRemoved(const QString& resourceId);
 
-    void bookAddedToShelf(const QString& bookId, const QString& shelf, const ReviewPtr& review);
-    void bookAddedToShelves(const QString& bookId, const QStringList& shelves, const ReviewPtr& review);
+    void bookAddedToShelf(const QString& bookId, const QString& shelf,
+            const QStringList& oldShelves, const ReviewPtr& review);
+    void bookAddedToShelves(const QString& bookId, const QStringList& shelves,
+            const QStringList& oldShelves, const ReviewPtr& review);
     void bookRemovedFromShelf(const QString& bookId, const QString& shelfName);
 };
 }

@@ -116,7 +116,7 @@ void BookItem::handleGotReviewInfo(const ReviewInfo& reviewInfo)
 }
 
 void BookItem::handleBookAddedToShelves(const QString& bookId, const QStringList&,
-        const ReviewPtr& review)
+        const QStringList& /*oldShelves*/, const ReviewPtr& review)
 {
     if (!m_Book || m_BookId != bookId) {
         return;

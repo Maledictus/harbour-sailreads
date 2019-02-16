@@ -234,9 +234,10 @@ void SailreadsManager::MakeConnections()
     connect(m_Api, &GoodReadsApi::bookAddedToShelves,
             this, &SailreadsManager::bookAddedToShelves);
     connect(m_Api, &GoodReadsApi::bookAddedToShelves,
-            this, [this](const QString& bookId, const QStringList& shelves, const ReviewPtr& review)
+            this, [this](const QString& bookId, const QStringList& /*shelves*/,
+                    const QStringList& /*oldShelves*/, const ReviewPtr& review)
             {
-                emit reviewUpdated(bookId, shelves, review.get());
+                emit reviewUpdated(bookId, review.get());
             });
     connect(m_Api, &GoodReadsApi::bookAddedToShelf,
             this, &SailreadsManager::bookAddedToShelf);
@@ -571,16 +572,18 @@ void SailreadsManager::addNewComment(const QString& type, const QString& resourc
     m_Api->AddNewComment(type, resourceId, comment);
 }
 
-void SailreadsManager::addBookToShelf(const QString& bookId, const QString& shelf)
+void SailreadsManager::addBookToShelf(const QString& bookId, const QString& shelf,
+        const QStringList& oldShelves)
 {
     SetBusy(true);
-    m_Api->AddBookToShelf(bookId, shelf);
+    m_Api->AddBookToShelf(bookId, shelf, oldShelves);
 }
 
-void SailreadsManager::addBookToShelves(const QString& bookId, const QStringList& shelves)
+void SailreadsManager::addBookToShelves(const QString& bookId, const QStringList& shelves,
+        const QStringList& oldShelves)
 {
     SetBusy(true);
-    m_Api->AddBooksToShelves({ bookId }, shelves);
+    m_Api->AddBooksToShelves({ bookId }, shelves, oldShelves);
 }
 
 void SailreadsManager::removeBookFromShelf(const QString& bookId, const QString& shelf)

@@ -72,12 +72,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddBookToShelvesPage.qml" line="173"/>
+        <location filename="../qml/pages/AddBookToShelvesPage.qml" line="174"/>
         <source>Tags</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddBookToShelvesPage.qml" line="179"/>
+        <location filename="../qml/pages/AddBookToShelvesPage.qml" line="180"/>
         <source>Search</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1399,17 +1399,17 @@ Pull down to refresh or to search groups</source>
 <context>
     <name>Sailreads::SailreadsManager</name>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="281"/>
+        <location filename="../src/sailreadsmanager.cpp" line="282"/>
         <source>Authorization user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="299"/>
+        <location filename="../src/sailreadsmanager.cpp" line="300"/>
         <source>Authentication user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="320"/>
+        <location filename="../src/sailreadsmanager.cpp" line="321"/>
         <source>Getting user profile...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1536,12 +1536,12 @@ Pull down to refresh or to search groups</source>
 <context>
     <name>ShortBookRow</name>
     <message>
-        <location filename="../qml/components/ShortBookRow.qml" line="82"/>
+        <location filename="../qml/components/ShortBookRow.qml" line="83"/>
         <source>Average rating</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/ShortBookRow.qml" line="89"/>
+        <location filename="../qml/components/ShortBookRow.qml" line="90"/>
         <source>Ratings count</source>
         <translation type="unfinished"></translation>
     </message>

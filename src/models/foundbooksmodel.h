@@ -56,7 +56,7 @@ public slots:
 private slots:
     void handleGotFoundBooks(const CountedItems<BookPtr>& books);
     void handleBookAddedToShelves(const QString& bookId, const QStringList& shelves,
-            const ReviewPtr& review);
+            const QStringList& oldShelves, const ReviewPtr& review);
 
 signals:
     void searchChanged();
