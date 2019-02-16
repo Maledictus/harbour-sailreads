@@ -423,7 +423,7 @@ Page {
                     pageStack.push(Qt.resolvedUrl("BookEditionsPage.qml"),
                         { workId: book && book.work ? book.work.id : 0,
                             reviewId: book && book.review ? book.review.id : "",
-                            parentPage: bookPage })
+                            bookId: bookPage.bookId, parentPage: bookPage })
                 }
             }
 

@@ -401,27 +401,27 @@ Pull down to refresh</source>
 <context>
     <name>BookEditionsPage</name>
     <message>
-        <location filename="../qml/pages/BookEditionsPage.qml" line="55"/>
+        <location filename="../qml/pages/BookEditionsPage.qml" line="56"/>
         <source>Book Editions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookEditionsPage.qml" line="61"/>
+        <location filename="../qml/pages/BookEditionsPage.qml" line="62"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookEditionsPage.qml" line="70"/>
+        <location filename="../qml/pages/BookEditionsPage.qml" line="71"/>
         <source>There are no book editions. Pull down to refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookEditionsPage.qml" line="105"/>
+        <location filename="../qml/pages/BookEditionsPage.qml" line="106"/>
         <source>Switch to This Edition</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookEditionsPage.qml" line="106"/>
+        <location filename="../qml/pages/BookEditionsPage.qml" line="107"/>
         <source>Selected Edition</source>
         <translation type="unfinished"></translation>
     </message>

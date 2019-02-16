@@ -32,6 +32,7 @@ Page {
     id: bookEditionsPage
 
     property bool busy: sailreadsManager.busy && bookEditionsPage.status === PageStatus.Active
+    property string bookId
     property string reviewId
     property alias workId: bookEditionsModel.workId
 
@@ -101,10 +102,10 @@ Page {
             menu: ContextMenu {
                 hasContent: bookBook.review
                 MenuItem {
-                    text: bookBook.review.book.id !== bookId ?
+                    text: bookEditionsPage.bookId !== bookId ?
                             qsTr("Switch to This Edition") :
                             qsTr("Selected Edition")
-                    enabled: bookBook.review.book.id !== bookId
+                    enabled: bookEditionsPage.bookId !== bookId
                     onClicked: sailreadsManager.switchToBookEdition(bookBook.review.id, bookId)
 
                 }
@@ -117,6 +118,7 @@ Page {
         target: sailreadsManager
         onBookEditionSwitched: {
             if (bookEditionsPage.reviewId === reviewId) {
+                bookEditionsPage.bookId = bookId
                 parentPage.bookId = bookId;
             }
         }
