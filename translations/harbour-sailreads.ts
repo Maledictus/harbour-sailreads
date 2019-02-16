@@ -277,6 +277,11 @@ Pull down to refresh</source>
         <source>Want to Read</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../qml/pages/AuthorBooksPage.qml" line="114"/>
+        <source>Add to My Books</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AuthorPage</name>
@@ -348,6 +353,11 @@ Pull down to refresh</source>
     <message>
         <location filename="../qml/pages/AuthorPage.qml" line="304"/>
         <source>Want to Read</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AuthorPage.qml" line="318"/>
+        <source>Add to My Books</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1450,27 +1460,27 @@ Pull down to refresh or to search groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SearchPage.qml" line="123"/>
+        <location filename="../qml/pages/SearchPage.qml" line="122"/>
         <source>Search</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SearchPage.qml" line="145"/>
+        <location filename="../qml/pages/SearchPage.qml" line="144"/>
         <source>Field</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SearchPage.qml" line="151"/>
+        <location filename="../qml/pages/SearchPage.qml" line="150"/>
         <source>Title and Author</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SearchPage.qml" line="152"/>
+        <location filename="../qml/pages/SearchPage.qml" line="151"/>
         <source>Title</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SearchPage.qml" line="153"/>
+        <location filename="../qml/pages/SearchPage.qml" line="152"/>
         <source>Author</source>
         <translation type="unfinished"></translation>
     </message>

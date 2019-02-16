@@ -103,8 +103,7 @@ Page {
                     text: qsTr("Add to My Books")
                     onClicked: {
                         pageStack.push("AddBookToShelvesPage.qml",
-                                { usedShelves: bookBook.review ? bookBook.review.shelvesList : [],
-                                    bookId: bookBook.id, book: bookBook, review: bookBook.review })
+                                { bookId: bookBook.id, book: bookBook, review: bookBook.review })
                     }
                 }
             }

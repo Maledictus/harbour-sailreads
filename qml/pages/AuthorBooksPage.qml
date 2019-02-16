@@ -109,6 +109,16 @@ Page {
                 }
             }
 
+            menu: ContextMenu {
+                MenuItem {
+                    text: qsTr("Add to My Books")
+                    onClicked: {
+                        pageStack.push("AddBookToShelvesPage.qml",
+                                { bookId: bookBook.id, book: bookBook, review: bookBook.review })
+                    }
+                }
+            }
+
             onClicked: {
                 pageStack.push(Qt.resolvedUrl("BookPage.qml"),
                         { book: bookBook, bookId: bookId })

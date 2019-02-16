@@ -300,7 +300,7 @@ Page {
                     ratingsCount: modelData.ratingsCount
 
                     bookShelfButton.visible: true
-                    selected: bookBook.review
+                    selected: modelData.review
                     bookShelfButton.label.text: !selected ? qsTr("Want to Read") :
                             (modelData.review ? modelData.review.exclusiveShelf : "")
                     bookShelfButton.onClicked: {
@@ -310,6 +310,16 @@ Page {
                         else {
                             pageStack.push("AddBookToShelvesPage.qml",
                                     { bookId: modelData.id, book: modelData, review: modelData.review })
+                        }
+                    }
+
+                    menu: ContextMenu {
+                        MenuItem {
+                            text: qsTr("Add to My Books")
+                            onClicked: {
+                                pageStack.push("AddBookToShelvesPage.qml",
+                                        { bookId: modelData.id, book: modelData, review: modelData.review })
+                            }
                         }
                     }
 
