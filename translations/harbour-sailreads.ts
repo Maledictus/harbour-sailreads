@@ -272,6 +272,11 @@
 Pull down to refresh</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../qml/pages/AuthorBooksPage.qml" line="103"/>
+        <source>Want to Read</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AuthorPage</name>
@@ -338,6 +343,11 @@ Pull down to refresh</source>
     <message>
         <location filename="../qml/pages/AuthorPage.qml" line="271"/>
         <source>Books</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AuthorPage.qml" line="307"/>
+        <source>Want to Read</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
