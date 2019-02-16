@@ -51,7 +51,7 @@ Row {
 
     Column {
         id: column
-        width: parent.width - bookImageItem.width - Theme.paddingMedium
+        width: parent.width - bookImageItem.width - 2 * Theme.paddingMedium
         ClickableLabel {
             id: bookTitleLabel
             width: parent.width
@@ -65,6 +65,7 @@ Row {
             width: parent.width
             id: authorsLabel
             textFormat: Text.RichText
+            wrapMode: Text.WordWrap
             font.pixelSize: Theme.fontSizeSmall
             color: Theme.highlightColor
             onLinkActivated: authorLinkActivated(link)
