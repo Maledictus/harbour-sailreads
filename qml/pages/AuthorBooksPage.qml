@@ -96,15 +96,9 @@ Page {
             ratingsCount: bookRatingsCount
 
             bookShelfButton.visible: true
-            property bool selected: bookBook.review
-            bookShelfButton.icon.source: !selected ? "image://Theme/icon-m-add" :
-                    "image://Theme/icon-m-acknowledge"
-            bookShelfButton.icon.highlighted: selected || bookShelfButton.highlighted || highlighted
+            selected: bookBook.review
             bookShelfButton.label.text: !selected ? qsTr("Want to Read") :
                     (bookBook.review ? bookBook.review.exclusiveShelf : "")
-            bookShelfButton.label.color: selected || bookShelfButton.highlighted || highlighted ?
-                    Theme.highlightColor : Theme.primaryColor
-            bookShelfButton.label.font.pixelSize: Theme.fontSizeMedium
             bookShelfButton.onClicked: {
                 if (!selected) {
                     sailreadsManager.addBookToShelves(bookId, ["to-read"])
