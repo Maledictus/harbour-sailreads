@@ -52,7 +52,6 @@ void UserQuotesModel::SetUserId(const QString& userId)
     if (m_UserId != userId) {
         m_UserId = userId;
         m_CurrentPage = 1;
-        loadUserQuotes();
         emit userIdChanged();
     }
 }
@@ -71,6 +70,8 @@ void UserQuotesModel::loadUserQuotes()
         return;
     }
     Clear();
+    m_HasMore = true;
+    m_CurrentPage = 1;
     SailreadsManager::Instance()->loadUserQuotes(this, m_UserId);
 }
 

@@ -2421,6 +2421,35 @@ CountedItems<BookPtr> ParseFoundBooks(const QDomDocument &doc)
     return books;
 }
 
+Quotes_t ParseUserQuotes(const QDomDocument& doc)
+{
+    const auto& rssElement = doc.firstChildElement("rss");
+    if (rssElement.isNull()) {
+        return Quotes_t();
+    }
+
+    const auto& channelElement = rssElement.firstChildElement("channel");
+    if (channelElement.isNull()) {
+        return Quotes_t();
+    }
+
+    Quotes_t quotes;
+    const auto& itemsList = channelElement.elementsByTagName("item");
+    for (int i = 0, cnt = itemsList.size(); i < cnt; ++i) {
+        Quote quote;
+        const auto& fieldsList = itemsList.at(i).childNodes();
+        for (int j = 0, count = fieldsList.size(); j < count; ++j) {
+            const auto& fieldElement = fieldsList.at(j).toElement();
+            if (fieldElement.tagName() == "description") {
+                QString description = fieldElement.text();
+                quote.SetQuote(description.replace("&quot;", "\""));
+            }
+        }
+        quotes << quote;
+    }
+    return quotes;
+}
+
 }
 }
 }

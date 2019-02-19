@@ -50,6 +50,5 @@ private slots:
 
 signals:
     void userIdChanged();
-
 };
 } // namespace Sailreads

@@ -35,6 +35,7 @@ THE SOFTWARE.
 #include "objects/friendrequest.h"
 #include "objects/friendrecommendation.h"
 #include "objects/groupmember.h"
+#include "objects/quote.h"
 #include "types.h"
 
 namespace Sailreads

@@ -273,6 +273,7 @@ SOURCES = qml/harbour-sailreads.qml \
     qml/pages/SettingsPage.qml \
     qml/pages/SplashScreenPage.qml \
     qml/pages/StatusPage.qml \
+    qml/pages/UserQuotesPage.qml \
     qml/pages/UserReviewsPage.qml \
     qml/pages/UserStatusPage.qml \
     qml/pages/WebAuthorizationPage.qml \

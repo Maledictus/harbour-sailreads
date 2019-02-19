@@ -40,6 +40,7 @@ THE SOFTWARE.
 #include "objects/friendrecommendation.h"
 #include "objects/groupfolder.h"
 #include "objects/groupmember.h"
+#include "objects/quote.h"
 #include "types.h"
 
 class QNetworkAccessManager;

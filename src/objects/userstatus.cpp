@@ -145,7 +145,7 @@ bool UserStatus::GetIsLiked() const
     return m_RatingId > 0;
 }
 
-void UserStatus::SetIsLiked(bool isLiked)
+void UserStatus::SetIsLiked(bool)
 {
 }
 

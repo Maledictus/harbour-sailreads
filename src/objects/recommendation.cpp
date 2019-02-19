@@ -135,9 +135,6 @@ void Recommendation::SetLikesCount(quint64 count)
 {
     if (m_LikesCount != count) {
         m_LikesCount = count;
-        if (m_LikesCount < 0) {
-            m_LikesCount = 0;
-        }
         emit likesCountChanged();
     }
 }

@@ -1693,7 +1693,7 @@ void GoodReadsApi::handleUnfollowUser(const QString& userId)
     emit requestFinished();
 }
 
-void GoodReadsApi::handleGotUserQuotes(const QString &userId)
+void GoodReadsApi::handleGotUserQuotes(const QString& userId)
 {
     bool ok = false;
     auto doc = GetDocumentFromReply(sender(), ok);
@@ -1702,8 +1702,7 @@ void GoodReadsApi::handleGotUserQuotes(const QString &userId)
         return;
     }
 
-    //TODO
-    qDebug() << doc.toByteArray();
+    emit gotUserQuotes(userId, RpcUtils::Parser::ParseUserQuotes(doc));
     emit requestFinished();
 }
 

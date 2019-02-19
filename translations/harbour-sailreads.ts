@@ -1291,7 +1291,7 @@ Pull down to refresh or to search groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="350"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="351"/>
         <source>Recent updates</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1393,12 +1393,12 @@ Pull down to refresh or to search groups</source>
 <context>
     <name>Sailreads::Application</name>
     <message>
-        <location filename="../src/application.cpp" line="158"/>
+        <location filename="../src/application.cpp" line="159"/>
         <source>Authorized</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="158"/>
+        <location filename="../src/application.cpp" line="159"/>
         <source>Not authorized</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1434,17 +1434,17 @@ Pull down to refresh or to search groups</source>
 <context>
     <name>Sailreads::SailreadsManager</name>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="284"/>
+        <location filename="../src/sailreadsmanager.cpp" line="287"/>
         <source>Authorization user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="302"/>
+        <location filename="../src/sailreadsmanager.cpp" line="305"/>
         <source>Authentication user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="323"/>
+        <location filename="../src/sailreadsmanager.cpp" line="326"/>
         <source>Getting user profile...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1647,12 +1647,12 @@ Pull down to refresh or to search groups</source>
 <context>
     <name>UserQuotesPage</name>
     <message>
-        <location filename="../qml/pages/UserQuotesPage.qml" line="53"/>
-        <source>User Quotes</source>
+        <location filename="../qml/pages/UserQuotesPage.qml" line="55"/>
+        <source>%1: Quotes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/UserQuotesPage.qml" line="59"/>
+        <location filename="../qml/pages/UserQuotesPage.qml" line="61"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>

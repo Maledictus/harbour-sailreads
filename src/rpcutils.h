@@ -35,6 +35,7 @@ THE SOFTWARE.
 #include "objects/friendrecommendation.h"
 #include "objects/groupfolder.h"
 #include "objects/groupmember.h"
+#include "objects/quote.h"
 #include "types.h"
 
 namespace Sailreads
@@ -129,6 +130,7 @@ CountedItems<FriendRecommendation> ParseFriendsRecommendations(const QDomDocumen
 ReviewPtr ParseBookShelfAddedReview(const QDomDocument& doc);
 Reviews_t ParseBookShelfAddedReviews(const QDomDocument& doc);
 CountedItems<BookPtr> ParseFoundBooks(const QDomDocument& doc);
+Quotes_t ParseUserQuotes(const QDomDocument& doc);
 }
 }
 }

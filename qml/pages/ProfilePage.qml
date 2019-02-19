@@ -343,7 +343,8 @@ Page {
                 counter: ""
                 busy: profilePage.busy
                 enabled: !busy
-                onClicked: pageStack.push(Qt.resolvedUrl("UserQuotesPage.qml"), { userId: userId })
+                onClicked: pageStack.push(Qt.resolvedUrl("UserQuotesPage.qml"),
+                        { userId: userId, userName: userProfile.user.userName })
             }
 
             SectionHeader {

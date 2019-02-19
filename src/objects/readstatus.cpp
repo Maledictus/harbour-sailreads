@@ -104,7 +104,7 @@ bool ReadStatus::GetIsLiked() const
     return m_RatingId > 0;
 }
 
-void ReadStatus::SetIsLiked(bool isLiked)
+void ReadStatus::SetIsLiked(bool)
 {
 }
 

@@ -54,4 +54,5 @@ public:
     void SetBookLink(const QUrl& bookLink);
 };
 
+typedef QList<Quote> Quotes_t;
 } // namespace Sailreads

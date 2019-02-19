@@ -32,7 +32,8 @@ import "../utils/Utils.js" as Utils
 Page {
     id: userQuotesPage
 
-    property string userId
+    property alias userId: userQuotesModel.userId
+    property string userName
     property bool busy: sailreadsManager.busy && userQuotesPage.status === PageStatus.Active
 
     function attachPage() {
@@ -43,23 +44,22 @@ Page {
     }
 
     Component.onDestruction: {
-    //    bookEditionsModel.cancelRequest()
+        userQuotesModel.cancelRequest()
     }
 
     SilicaListView {
         id: quotesView
         anchors.fill: parent
+        cacheBuffer: userQuotesPage.height
         header: PageHeader {
-            title: qsTr("User Quotes")
+            title: qsTr("%1: Quotes").arg(userName)
         }
 
         PullDownMenu {
-            busy: quotesView.busy
+            busy: userQuotesPage.busy
             MenuItem {
                 text: qsTr("Refresh")
-                onClicked: {
-//                    bookEditionsModel.loadBookEditions()
-                }
+                onClicked: userQuotesModel.loadUserQuotes()
             }
         }
 
@@ -67,22 +67,47 @@ Page {
             enabled: !sailreadsManager.busy && quotesView.count === 0
             text: qsTr("There are no quotes. Pull down to refresh")
         }
-//        model: BookEditionsModel {
-//            id: bookEditionsModel
-//        }
+        model: UserQuotesModel {
+            id: userQuotesModel
+        }
 
         function fetchMoreIfNeeded() {
-//            if (!userQuotesPage.busy &&
-//                    bookEditionsModel.hasMore &&
-//                    indexAt(contentX, contentY + height) > bookEditionsModel.rowCount() - 2) {
-//                bookEditionsModel.fetchMoreContent()
-//            }
+            if (!userQuotesPage.busy &&
+                    userQuotesModel.hasMore &&
+                    indexAt(contentX, contentY + height) > userQuotesModel.rowCount() - 2) {
+                userQuotesModel.fetchMoreContent()
+            }
         }
 
         onContentYChanged: fetchMoreIfNeeded()
 
         delegate: ListItem {
+            width: parent.width
+            contentHeight: lbl.height + separator.height + Theme.paddingMedium
+            clip: true
+            Label {
+                id: lbl
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                    margins: Theme.horizontalPageMargin
+                }
+                wrapMode: Text.WordWrap
+                text: quoteBody
+                horizontalAlignment: Qt.AlignJustify
+            }
 
+            Separator {
+                id: separator
+                anchors {
+                    top: lbl.bottom
+                    topMargin: Theme.paddingMedium
+                }
+
+                width: parent.width
+                color: Theme.primaryColor
+                horizontalAlignment: Qt.AlignHCenter
+            }
         }
         VerticalScrollDecorator {}
     }
