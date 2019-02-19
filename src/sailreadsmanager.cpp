@@ -245,6 +245,9 @@ void SailreadsManager::MakeConnections()
             this, &SailreadsManager::bookAddedToShelf);
     connect(m_Api, &GoodReadsApi::bookRemovedFromShelf,
             this, &SailreadsManager::bookRemovedFromShelf);
+
+    connect(m_Api, &GoodReadsApi::gotUserQuotes,
+            this, &SailreadsManager::gotUserQuotes);
 }
 
 void SailreadsManager::SetBusy(bool busy)
@@ -658,6 +661,12 @@ void SailreadsManager::unlikeResource(const QString& resourceId, quint64 ratingI
 {
     SetBusy(true);
     m_Api->UnlikeResource(resourceId, ratingId);
+}
+
+void SailreadsManager::loadUserQuotes(QObject *requester, const QString& userId, int page)
+{
+    SetBusy(true);
+    m_Api->LoadUserQuotes(requester, userId, page);
 }
 
 }

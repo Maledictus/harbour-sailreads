@@ -335,6 +335,17 @@ Page {
                 onClicked: pageStack.push(Qt.resolvedUrl("InboxPage.qml"))
             }
 
+            MoreButton {
+                id: quotesButton
+                width: parent.width
+                height: Theme.itemSizeMedium
+                text: qsTr("Quotes")
+                counter: ""
+                busy: profilePage.busy
+                enabled: !busy
+                onClicked: pageStack.push(Qt.resolvedUrl("UserQuotesPage.qml"), { userId: userId })
+            }
+
             SectionHeader {
                 text: qsTr("Recent updates")
                 visible: (sailreadsManager.authUser && sailreadsManager.authUser.id !== userId) ||

@@ -649,6 +649,15 @@ void GoodReadsApi::UnfollowUser(const QString& userId)
             this, [this, userId]() { handleUnfollowUser(userId); });
 }
 
+void GoodReadsApi::LoadUserQuotes(QObject *requester, const QString &userId, int page)
+{
+    auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + QString("/quotes/list_rss/%1?page=%2").arg(userId).arg(page)));
+    m_Requester2Reply[requester] = reply;
+    connect(reply, &QNetworkReply::finished,
+            this, [this, userId]() { handleGotUserQuotes(userId); });
+}
+
 void GoodReadsApi::AddQuote(const QString& authorName, quint64 authorId, quint64 bookId,
     const QString& quote, const QStringList& tags)
 {
@@ -1681,6 +1690,20 @@ void GoodReadsApi::handleUnfollowUser(const QString& userId)
     query.setFocus(doc.toByteArray());
     const QString resultStr(GetQueryResult(query, "/hash/status/text()"));
     emit userUnfollowed(userId, resultStr == "success");
+    emit requestFinished();
+}
+
+void GoodReadsApi::handleGotUserQuotes(const QString &userId)
+{
+    bool ok = false;
+    auto doc = GetDocumentFromReply(sender(), ok);
+    if (!ok) {
+        emit requestFinished();
+        return;
+    }
+
+    //TODO
+    qDebug() << doc.toByteArray();
     emit requestFinished();
 }
 

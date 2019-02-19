@@ -60,6 +60,7 @@ THE SOFTWARE.
 #include "models/profileupdatesmodel.h"
 #include "models/commentsmodel.h"
 #include "models/recommendationcommentsmodel.h"
+#include "models/userquotesmodel.h"
 #include "objects/author.h"
 #include "objects/book.h"
 #include "objects/group.h"
@@ -232,6 +233,7 @@ void Application::start()
     qmlRegisterType<FriendsRequestsModel>("harbour.sailreads", 1, 0, "FriendsRequestsModel");
     qmlRegisterType<FriendsRecommendationsModel>("harbour.sailreads", 1, 0, "FriendsRecommendationsModel");
     qmlRegisterType<FoundBooksModel>("harbour.sailreads", 1, 0, "FoundBooksModel");
+    qmlRegisterType<UserQuotesModel>("harbour.sailreads", 1, 0, "UserQuotesModel");
 
     qmlRegisterType<UserProfile>("harbour.sailreads", 1, 0, "UserProfile");
     qmlRegisterType<GroupItem>("harbour.sailreads", 1, 0, "GroupItem");

@@ -131,4 +131,7 @@ typedef QList<UserStatusPtr> UserStatuses_t;
 
 class Recommendation;
 typedef std::shared_ptr<Recommendation> RecommendationPtr;
+
+class Quote;
+typedef QList<Quote> Quotes_t;
 }

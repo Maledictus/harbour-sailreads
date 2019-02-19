@@ -158,6 +158,7 @@ public:
     void FollowUser(const QString& userId);
     void UnfollowUser(const QString& userId);
 
+    void LoadUserQuotes(QObject *requester, const QString& userId, int page = 1);
     void AddQuote(const QString& authorName, quint64 authorId, quint64 bookId, const QString& quote,
         const QStringList& tags);
 
@@ -247,6 +248,7 @@ private slots:
     void handleFollowUser();
     void handleUnfollowUser(const QString& userId);
 
+    void handleGotUserQuotes(const QString& userId);
     void handleAddQuote();
 
     void handleGetReadStatus();
@@ -340,5 +342,7 @@ signals:
     void bookAddedToShelves(const QString& bookId, const QStringList& shelves,
             const QStringList& oldShelves, const ReviewPtr& review);
     void bookRemovedFromShelf(const QString& bookId, const QString& shelfName);
+
+    void gotUserQuotes(const QString& userId, const Quotes_t& quotes);
 };
 }

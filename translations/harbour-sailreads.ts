@@ -1286,7 +1286,12 @@ Pull down to refresh or to search groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="339"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="342"/>
+        <source>Quotes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ProfilePage.qml" line="350"/>
         <source>Recent updates</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1636,6 +1641,24 @@ Pull down to refresh or to search groups</source>
     <message>
         <location filename="../qml/dialogs/UpdatesFilterDialog.qml" line="104"/>
         <source>Top friends only</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>UserQuotesPage</name>
+    <message>
+        <location filename="../qml/pages/UserQuotesPage.qml" line="53"/>
+        <source>User Quotes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/UserQuotesPage.qml" line="59"/>
+        <source>Refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/UserQuotesPage.qml" line="68"/>
+        <source>There are no quotes. Pull down to refresh</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
