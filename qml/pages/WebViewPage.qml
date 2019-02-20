@@ -29,10 +29,10 @@ import QtWebKit 3.0
 Page {
     id: webViewPage
 
-    property string content
+    property string content: ""
     property alias url : webView.url
 
-    onContentChanged:  {
+    onContentChanged: {
         webView.loadHtml(content)
     }
 
@@ -75,13 +75,13 @@ Page {
             }
             }
         }
+    }
 
-        BusyIndicator {
-            id: webviewBusyIndicator
-            anchors.centerIn: parent
-            visible: running;
-            running: webView.loading
-            size: BusyIndicatorSize.Large
-        }
+    BusyIndicator {
+        id: webviewBusyIndicator
+        anchors.centerIn: parent
+        visible: running;
+        running: webView.loading
+        size: BusyIndicatorSize.Large
     }
 }

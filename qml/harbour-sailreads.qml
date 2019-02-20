@@ -64,9 +64,9 @@ ApplicationWindow {
 
     Component {
         id: splashScreenComponent
-        SplashScreenPage {}
+        //SplashScreenPage {}
         //12934309
-        //UserQuotesPage {userId: "71848701"}
+        BookPage { bookId: "16096968" }
     }
 
     Component {

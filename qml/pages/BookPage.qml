@@ -68,14 +68,6 @@ Page {
             width: parent.width
 
             spacing: Theme.paddingSmall
-
-            anchors {
-                left: parent.left
-                leftMargin: Theme.horizontalPageMargin
-                right: parent.right
-                rightMargin: Theme.horizontalPageMargin
-            }
-
             PullDownMenu {
                 busy: bookPage.busy
                 MenuItem {
@@ -167,7 +159,12 @@ Page {
             }
 
             RowLayout {
-                width: parent.width
+                anchors {
+                    left: parent.left
+                    leftMargin: Theme.horizontalPageMargin
+                    right: parent.right
+                    rightMargin: Theme.horizontalPageMargin
+                }
                 RatingBox {
                     Layout.alignment: Qt.AlignLeft
                     color: Theme.highlightColor
@@ -196,25 +193,22 @@ Page {
                 horizontalAlignment: Qt.AlignHCenter
             }
 
-            Column {
-                width: parent.width
-                Label {
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    color: Theme.highlightColor
-                    font.pixelSize: Theme.fontSizeMedium
-                    horizontalAlignment: Text.AlignHCenter
-                    text: book && book.review && book.review.rating > 0 ?
-                            qsTr("My Rating") : qsTr("Rate this book")
-                }
+            Label {
+                anchors.horizontalCenter: parent.horizontalCenter
+                color: Theme.highlightColor
+                font.pixelSize: Theme.fontSizeMedium
+                horizontalAlignment: Text.AlignHCenter
+                text: book && book.review && book.review.rating > 0 ?
+                        qsTr("My Rating") : qsTr("Rate this book")
+            }
 
-                VotingBox {
-                    enabled: book && !bookPage.busy
-                    rating: book && book.review ? book.review.rating : 0
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    onUserVoted: book && book.review ?
-                            sailreadsManager.editReview(book.review.id, userVote, book.review.body) :
-                            sailreadsManager.addReview(book.id, userVote)
-                }
+            VotingBox {
+                enabled: book && !bookPage.busy
+                rating: book && book.review ? book.review.rating : 0
+                anchors.horizontalCenter: parent.horizontalCenter
+                onUserVoted: book && book.review ?
+                        sailreadsManager.editReview(book.review.id, userVote, book.review.body) :
+                        sailreadsManager.addReview(book.id, userVote)
             }
 
             SectionHeader {
@@ -306,7 +300,7 @@ Page {
                 height: contentHeight
                 delegate: ReviewListItem {
                     userId: modelData.user.id
-                    contentMargin: Theme.paddingSmall
+                    contentMargin: Theme.horizontalPageMargin
                     userAvatarUrl: modelData.user.avatarUrl
                     userName: modelData.user.userName
                     reviewId: modelData.id
@@ -341,13 +335,18 @@ Page {
                 }
             }
 
-
             SectionHeader {
                 text: qsTr("Description")
             }
 
             Column {
                 width: parent.width
+                anchors {
+                    left: parent.left
+                    leftMargin: Theme.horizontalPageMargin
+                    right: parent.right
+                    rightMargin: Theme.horizontalPageMargin
+                }
                 Row {
                     width: parent.width
                     height: seriesValueLabel.height

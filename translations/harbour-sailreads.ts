@@ -429,22 +429,22 @@ Pull down to refresh</source>
 <context>
     <name>BookPage</name>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="83"/>
+        <location filename="../qml/pages/BookPage.qml" line="75"/>
         <source>Add to My Books</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="92"/>
+        <location filename="../qml/pages/BookPage.qml" line="84"/>
         <source>Want to Read</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="97"/>
+        <location filename="../qml/pages/BookPage.qml" line="89"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../qml/pages/BookPage.qml" line="189"/>
+        <location filename="../qml/pages/BookPage.qml" line="181"/>
         <source>%Ln rating(s)</source>
         <translation type="unfinished">
             <numerusform>%Ln rating</numerusform>
@@ -452,69 +452,69 @@ Pull down to refresh</source>
         </translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="207"/>
+        <location filename="../qml/pages/BookPage.qml" line="197"/>
         <source>My Rating</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="207"/>
+        <location filename="../qml/pages/BookPage.qml" line="197"/>
         <source>Rate this book</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="221"/>
+        <location filename="../qml/pages/BookPage.qml" line="210"/>
         <source>Your review</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="231"/>
+        <location filename="../qml/pages/BookPage.qml" line="220"/>
         <source>Write a review</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="281"/>
+        <location filename="../qml/pages/BookPage.qml" line="270"/>
         <source>Friends activity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="289"/>
+        <location filename="../qml/pages/BookPage.qml" line="278"/>
         <source>Friends Review</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="346"/>
+        <location filename="../qml/pages/BookPage.qml" line="334"/>
         <source>Description</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="363"/>
+        <location filename="../qml/pages/BookPage.qml" line="351"/>
         <source>Series</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="387"/>
+        <location filename="../qml/pages/BookPage.qml" line="375"/>
         <source>Pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="394"/>
+        <location filename="../qml/pages/BookPage.qml" line="382"/>
         <source>Published</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="425"/>
+        <location filename="../qml/pages/BookPage.qml" line="413"/>
         <source>Other editions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="104"/>
-        <location filename="../qml/pages/BookPage.qml" line="440"/>
+        <location filename="../qml/pages/BookPage.qml" line="96"/>
+        <location filename="../qml/pages/BookPage.qml" line="428"/>
         <source>Community Reviews</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="453"/>
-        <location filename="../qml/pages/BookPage.qml" line="460"/>
+        <location filename="../qml/pages/BookPage.qml" line="441"/>
+        <location filename="../qml/pages/BookPage.qml" line="448"/>
         <source>Similar Books</source>
         <translation type="unfinished"></translation>
     </message>
