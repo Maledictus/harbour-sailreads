@@ -437,6 +437,19 @@ Page {
             MoreButton {
                 width: parent.width
                 height: Theme.itemSizeMedium
+                text: qsTr("Community Reviews")
+                busy: bookPage.busy
+                enabled: !busy
+                visible: book ? book.reviewsWidgetContent !== "" : false
+                onClicked: {
+                    pageStack.push(Qt.resolvedUrl("WebViewPage.qml"),
+                            { url: book.reviewsUrl })
+                }
+            }
+
+            MoreButton {
+                width: parent.width
+                height: Theme.itemSizeMedium
                 text: qsTr("Similar Books")
                 counter: book ? book.similarBooks.length : 0
                 busy: bookPage.busy
@@ -469,20 +482,6 @@ Page {
                 }
                 HorizontalScrollDecorator{}
             }
-
-//TODO
-//            MoreButton {
-//                width: parent.width
-//                height: Theme.itemSizeMedium
-//                text: qsTr("Community Reviews")
-//                busy: bookPage.busy
-//                enabled: !busy
-//                visible: book ? book.reviewsWidgetContent !== "" : false
-//                onClicked: {
-//                    pageStack.push(Qt.resolvedUrl("CommunityReviewsPage.qml"),
-//                            { content: book.reviewsWidgetContent })
-//                }
-//            }
         }
 
         VerticalScrollDecorator {}

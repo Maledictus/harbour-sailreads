@@ -100,6 +100,7 @@ class Book : public QObject
     Q_PROPERTY(int publishedYear READ GetPublishedYear NOTIFY publishedYearChanged)
     Q_PROPERTY(bool isEBook READ GetIsEBook NOTIFY isEBookChanged)
     Q_PROPERTY(QString reviewsWidgetContent READ GetReviewsWidgetContent NOTIFY reviewsWidgetContentChanged)
+    Q_PROPERTY(QUrl reviewsUrl READ GetReviewsUrl NOTIFY reviewsUrlChanged)
     Q_PROPERTY(Work* work READ GetWork NOTIFY workChanged)
     Q_PROPERTY(QObjectList similarBooks READ GetSimilarBooks NOTIFY  similarBooksChanged)
     Q_PROPERTY(QObjectList seriesList READ GetSeriesList NOTIFY seriesListChanged)
@@ -170,6 +171,7 @@ public:
     void SetIsEBook(bool ebook);
     QString GetReviewsWidgetContent() const;
     void SetReviewsWidgetContent(const QString& content);
+    QUrl GetReviewsUrl() const;
     QObjectList GetSimilarBooks() const;
     Books_t GetSimilarBooksPtr() const;
     void SetSimilarBooks(const Books_t& books);
@@ -220,6 +222,7 @@ signals:
     void publishedYearChanged();
     void isEBookChanged();
     void reviewsWidgetContentChanged();
+    void reviewsUrlChanged();
     void workChanged();
     void similarBooksChanged();
     void seriesListChanged();

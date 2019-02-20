@@ -22,6 +22,7 @@ THE SOFTWARE.
 
 #include "book.h"
 
+#include <QRegularExpression>
 #include <QtDebug>
 
 #include "author.h"
@@ -367,6 +368,16 @@ QString Book::GetReviewsWidgetContent() const
 void Book::SetReviewsWidgetContent(const QString& content)
 {
     m_ReviewsWidgetContent = content;
+}
+
+QUrl Book::GetReviewsUrl() const
+{
+    QRegularExpression exp("<iframe.+src=\"(.+?)\".+>.*<\/iframe>");
+    QRegularExpressionMatch match = exp.match(m_ReviewsWidgetContent);
+    if (match.hasMatch() && !match.captured(1).isNull()) {
+        return QUrl(match.captured(1));
+    }
+    return QUrl();
 }
 
 QObjectList Book::GetSimilarBooks() const

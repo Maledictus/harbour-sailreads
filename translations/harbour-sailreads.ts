@@ -508,12 +508,13 @@ Pull down to refresh</source>
     </message>
     <message>
         <location filename="../qml/pages/BookPage.qml" line="104"/>
+        <location filename="../qml/pages/BookPage.qml" line="440"/>
         <source>Community Reviews</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="440"/>
-        <location filename="../qml/pages/BookPage.qml" line="447"/>
+        <location filename="../qml/pages/BookPage.qml" line="453"/>
+        <location filename="../qml/pages/BookPage.qml" line="460"/>
         <source>Similar Books</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1820,6 +1821,14 @@ Pull down to refresh or to search groups</source>
     <message>
         <location filename="../qml/pages/WebAuthorizationPage.qml" line="86"/>
         <source>Authorization process...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>WebViewPage</name>
+    <message>
+        <location filename="../qml/pages/WebViewPage.qml" line="44"/>
+        <source>Community Reviews</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
