@@ -99,6 +99,13 @@ Page {
                 }
             }
 
+            PushUpMenu {
+                MenuItem {
+                    text: qsTr("Community Reviews")
+                    onClicked: mainWindow.openInBrowser(book.link)
+                }
+            }
+
             PageHeader {
                 title: book ? book.title : ""
                 description: book && book.review ? book.review.exclusiveShelf : ""
@@ -426,7 +433,6 @@ Page {
                             bookId: bookPage.bookId, parentPage: bookPage })
                 }
             }
-
 
             MoreButton {
                 width: parent.width

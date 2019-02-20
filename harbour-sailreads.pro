@@ -196,7 +196,7 @@ TRANSLATIONS += translations/harbour-sailreads.ts
 
 lupdate_only {
 SOURCES = qml/harbour-sailreads.qml \
-    qml/components/BaseActionsItem.qml \ \
+    qml/components/BaseActionsItem.qml \
     qml/components/BaseImage.qml \
     qml/components/BookListItem.qml \
     qml/components/BookShelfListItem.qml \
@@ -277,5 +277,5 @@ SOURCES = qml/harbour-sailreads.qml \
     qml/pages/UserReviewsPage.qml \
     qml/pages/UserStatusPage.qml \
     qml/pages/WebAuthorizationPage.qml \
-    qml/pages/WebViewPage.qml
+    qml/pages/WebViewPage.qml \
 }
