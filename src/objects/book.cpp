@@ -372,7 +372,7 @@ void Book::SetReviewsWidgetContent(const QString& content)
 
 QUrl Book::GetReviewsUrl() const
 {
-    QRegularExpression exp("<iframe.+src=\"(.+?)\".+>.*<\/iframe>");
+    QRegularExpression exp("<iframe.+src=\"(.+?)\".+>.*</iframe>");
     QRegularExpressionMatch match = exp.match(m_ReviewsWidgetContent);
     if (match.hasMatch() && !match.captured(1).isNull()) {
         return QUrl(match.captured(1));
