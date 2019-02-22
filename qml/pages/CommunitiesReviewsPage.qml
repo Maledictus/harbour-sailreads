@@ -27,24 +27,36 @@ import Sailfish.Silica 1.0
 import QtWebKit 3.0
 
 Page {
-    id: webViewPage
+    id: communitiesReviewsPage
 
+    property string content: ""
     property alias url : webView.url
+
+    onContentChanged: {
+        webView.loadHtml(content)
+    }
 
     SilicaWebView {
         id: webView
         anchors.fill: parent
+
+        header: PageHeader{
+            title: qsTr("Community Reviews")
+        }
 
         experimental.userAgent: "Mozilla/5.0 (Maemo; Linux; U; Sailfish; Mobile; rv:38.0) Gecko/38.0 Firefox/38.0"
 
         experimental.preferences.webGLEnabled: true
         experimental.preferences.notificationsEnabled: true
         experimental.preferences.javascriptEnabled: true
+        experimental.preferences.localStorageEnabled: true
         experimental.overview: true
+
         experimental.userScripts: [ Qt.resolvedUrl("../helper/userscript.js") ]
         experimental.preferences.navigatorQtObjectEnabled: true
 
         experimental.onMessageReceived: {
+            console.log("AAAA", message.data)
             var data = null
             try {
                 data = JSON.parse(message.data)

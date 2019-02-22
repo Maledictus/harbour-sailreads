@@ -421,6 +421,19 @@ Page {
             MoreButton {
                 width: parent.width
                 height: Theme.itemSizeMedium
+                text: qsTr("Community Reviews")
+                busy: bookPage.busy
+                enabled: !busy
+                visible: book ? book.reviewsWidgetContent !== "" : false
+                onClicked: {
+                    pageStack.push(Qt.resolvedUrl("CommunitiesReviewsPage.qml"),
+                            { url: book.reviewsUrl } )
+                }
+            }
+
+            MoreButton {
+                width: parent.width
+                height: Theme.itemSizeMedium
                 text: qsTr("Other editions")
                 counter: ""
                 busy: bookPage.busy
@@ -433,18 +446,6 @@ Page {
                 }
             }
 
-            MoreButton {
-                width: parent.width
-                height: Theme.itemSizeMedium
-                text: qsTr("Community Reviews")
-                busy: bookPage.busy
-                enabled: !busy
-                visible: book ? book.reviewsWidgetContent !== "" : false
-                onClicked: {
-                    pageStack.push(Qt.resolvedUrl("WebViewPage.qml"),
-                            { url: book.reviewsUrl })
-                }
-            }
 
             MoreButton {
                 width: parent.width
