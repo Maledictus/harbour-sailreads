@@ -111,43 +111,52 @@ Page {
                 indicator.size: BusyIndicatorSize.Medium
             }
 
-            Label {
-                id: titleLabel
-                width: parent.width
-                text: book ? book.title : ""
-                wrapMode: Text.WordWrap
-                maximumLineCount: 2
-                color: Theme.highlightColor
-                horizontalAlignment: Text.AlignHCenter
-                font.family: Theme.fontFamilyHeading
-            }
-
-            Label {
-                id: authorsLabel
-                width: parent.width
-                textFormat: Text.RichText
-                font.pixelSize: Theme.fontSizeExtraSmall
-                wrapMode: Text.WordWrap
-                horizontalAlignment: height < 2 * font.pixelSize ? Text.AlignHCenter : Text.AlignJustify
-                Component.onCompleted: {
-                    var result = ""
-                    if (book !== null) {
-                        result = Utils.getAuthorsString(book.authors, Theme.primaryColor)
-                    }
-                    text = result
+            Column {
+                anchors {
+                    left: parent.left
+                    leftMargin: Theme.horizontalPageMargin
+                    right: parent.right
+                    rightMargin: Theme.horizontalPageMargin
                 }
-                onLinkActivated: {
-                    if (book) {
-                        var author
-                        for (var i = 0; i < book.authors.length; ++i) {
-                            if (Number(book.authors[i].id).toFixed() === Number(link).toFixed()) {
-                                author = book.authors[i]
-                                break
-                            }
-                        }
 
-                        pageStack.push(Qt.resolvedUrl("AuthorPage.qml"),
-                                { authorId: Number(link).toFixed(), author: author })
+                Label {
+                    id: titleLabel
+                    width: parent.width
+                    text: book ? book.title : ""
+                    wrapMode: Text.WordWrap
+                    maximumLineCount: 2
+                    color: Theme.highlightColor
+                    horizontalAlignment: Text.AlignHCenter
+                    font.family: Theme.fontFamilyHeading
+                }
+
+                Label {
+                    id: authorsLabel
+                    width: parent.width
+                    textFormat: Text.RichText
+                    font.pixelSize: Theme.fontSizeExtraSmall
+                    wrapMode: Text.WordWrap
+                    horizontalAlignment: height < 2 * font.pixelSize ? Text.AlignHCenter : Text.AlignJustify
+                    Component.onCompleted: {
+                        var result = ""
+                        if (book !== null) {
+                            result = Utils.getAuthorsString(book.authors, Theme.primaryColor)
+                        }
+                        text = result
+                    }
+                    onLinkActivated: {
+                        if (book) {
+                            var author
+                            for (var i = 0; i < book.authors.length; ++i) {
+                                if (Number(book.authors[i].id).toFixed() === Number(link).toFixed()) {
+                                    author = book.authors[i]
+                                    break
+                                }
+                            }
+
+                            pageStack.push(Qt.resolvedUrl("AuthorPage.qml"),
+                                    { authorId: Number(link).toFixed(), author: author })
+                        }
                     }
                 }
             }
