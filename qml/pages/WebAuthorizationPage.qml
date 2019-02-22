@@ -55,14 +55,14 @@ Page {
                 processIndicator.visible = false
             }
         }
+    }
 
-        BusyIndicator {
-            id: webviewBusyIndicator
-            anchors.centerIn: parent
-            visible: true;
-            running: true
-            size: BusyIndicatorSize.Large
-        }
+    BusyIndicator {
+        id: webviewBusyIndicator
+        anchors.centerIn: parent
+        visible: true;
+        running: true
+        size: BusyIndicatorSize.Large
     }
 
     Connections {
