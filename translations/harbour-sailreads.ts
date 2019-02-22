@@ -1675,6 +1675,11 @@ Pull down to refresh or to search groups</source>
         <source>There are no quotes. Pull down to refresh</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../qml/pages/UserQuotesPage.qml" line="114"/>
+        <source>Copy to clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>UserReviewsPage</name>

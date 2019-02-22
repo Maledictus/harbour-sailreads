@@ -108,6 +108,13 @@ Page {
                 color: Theme.primaryColor
                 horizontalAlignment: Qt.AlignHCenter
             }
+
+            menu: ContextMenu {
+                MenuItem {
+                    text: qsTr("Copy to clipboard")
+                    onClicked: Clipboard.text = quoteBody
+                }
+            }
         }
         VerticalScrollDecorator {}
     }
