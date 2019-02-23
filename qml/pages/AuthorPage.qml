@@ -64,7 +64,7 @@ Page {
             width: parent.width
 
             PageHeader {
-                title: "Author: %1".arg(authorProfile.author ? authorProfile.author.name : "")
+                title: "Author: %1".arg(author ? author.name : "")
             }
 
             PullDownMenu {
@@ -80,17 +80,17 @@ Page {
 
                 MenuItem {
                     text: {
-                        return authorProfile.author && authorProfile.author.followingId > 0 ?
+                        return author && author.followingId > 0 ?
                                qsTr("Unfollow") :
                                qsTr("Follow")
                     }
                     onClicked: {
-                        if (authorProfile.author && authorProfile.author.followingId > 0) {
-                            sailreadsManager.unfollowAuthor(authorProfile.author.id,
-                                    authorProfile.author.followingId);
+                        if (author && author.followingId > 0) {
+                            sailreadsManager.unfollowAuthor(author.id,
+                                    author.followingId);
                         }
                         else {
-                            sailreadsManager.followAuthor(authorProfile.author.id);
+                            sailreadsManager.followAuthor(author.id);
                         }
                     }
                 }
@@ -121,11 +121,11 @@ Page {
                     height: Theme.iconSizeExtraLarge * 1.5
                     defaultImage: "qrc:/images/gra_small.png"
                     source: {
-                        if (authorProfile.author) {
-                            if (authorProfile.author.largeImageUrl.toString() !== "") {
-                                return authorProfile.author.largeImageUrl
+                        if (author) {
+                            if (author.largeImageUrl.toString() !== "") {
+                                return author.largeImageUrl
                             }
-                            return authorProfile.author.imageUrl
+                            return author.imageUrl
                         }
                         return ""
                     }
@@ -136,7 +136,7 @@ Page {
                     width: parent.width - Theme.iconSizeExtraLarge - Theme.paddingMedium
 
                     Row {
-                        visible: authorProfile.author && authorProfile.author.isGoodreadsAuthor
+                        visible: author && author.isGoodreadsAuthor
                         spacing: Theme.paddingMedium
                         property color color: Theme.highlightColor
                         Image {
@@ -156,8 +156,8 @@ Page {
                         width: parent.width
                         visible: value !== ""
                         key: qsTr("Born")
-                        value: authorProfile.author && authorProfile.author.birthDate ?
-                               Qt.formatDate(authorProfile.author.birthDate) :
+                        value: author && author.birthDate ?
+                               Qt.formatDate(author.birthDate) :
                                ""
                     }
                     KeyValueLabel {
@@ -165,8 +165,8 @@ Page {
                         width: parent.width
                         visible: value !== ""
                         key: qsTr("Died")
-                        value: authorProfile.author && authorProfile.author.deathDate ?
-                                Qt.formatDate(authorProfile.author.deathDate) :
+                        value: author && author.deathDate ?
+                                Qt.formatDate(author.deathDate) :
                                 ""
                     }
                     KeyValueLabel {
@@ -174,15 +174,15 @@ Page {
                         width: parent.width
                         visible: value !== ""
                         key: qsTr("Influences")
-                        value: authorProfile.author ? authorProfile.author.influences : ""
+                        value: author ? author.influences : ""
                     }
                     KeyValueLabel {
                         font.pixelSize: Theme.fontSizeSmall
                         width: parent.width
                         visible: value !== ""
                         key: qsTr("Followers")
-                        value: authorProfile.author ?
-                                "%L1".arg(authorProfile.author.followersCount) :
+                        value: author ?
+                                "%L1".arg(author.followersCount) :
                                 ""
                     }
 
@@ -190,7 +190,7 @@ Page {
                         spacing: Theme.paddingSmall
                         RatingBox {
                             id: ratingBox
-                            rating: authorProfile.author ? authorProfile.author.averageRating : 0.0
+                            rating: author ? author.averageRating : 0.0
                             color: Theme.highlightColor
                         }
 
@@ -207,8 +207,8 @@ Page {
                         width: parent.width
                         visible: value !== ""
                         key: qsTr("Ratings")
-                        value: authorProfile.author ?
-                                "%L1".arg(Number(authorProfile.author.ratingsCount)
+                        value: author ?
+                                "%L1".arg(Number(author.ratingsCount)
                                         .toLocaleString(Qt.locale(), 'f', 0)) : ""
                     }
                     KeyValueLabel {
@@ -216,8 +216,8 @@ Page {
                         width: parent.width
                         visible: value !== ""
                         key: qsTr("Reviews")
-                        value: authorProfile.author ?
-                                "%L1".arg(authorProfile.author.textReviewsCount) :
+                        value: author ?
+                                "%L1".arg(author.textReviewsCount) :
                                 ""
                     }
                 }
@@ -243,9 +243,22 @@ Page {
                     right: parent.right
                     rightMargin: Theme.horizontalPageMargin
                 }
-                visible: authorProfile.author && authorProfile.author.about !== ""
-                text: authorProfile.author ? (column._style + authorProfile.author.about) : ""
+                visible: author && author.about !== ""
+                text: author ? (column._style + author.about) : ""
                 onLinkActivated: mainWindow.openPageFromUrl(link)
+            }
+
+            MoreButton {
+                width: parent.width
+                height: Theme.itemSizeMedium
+                text: qsTr("Quotes")
+                counter: ""
+                busy: authorPage.busy
+                enabled: !busy
+                onClicked: {
+                    pageStack.push(Qt.resolvedUrl("AuthorQuotesPage.qml"),
+                        { authorId: authorId, authorName: author ? author.name : "" })
+                }
             }
 
             MoreButton {
@@ -258,8 +271,8 @@ Page {
                 enabled: !busy
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("AuthorSeriesPage.qml"), {
-                        authorId: authorProfile.author ? authorProfile.author.id : "",
-                        authorName: authorProfile.author ? authorProfile.author.name : ""
+                        authorId: author ? author.id : "",
+                        authorName: author ? author.name : ""
                     })
                 }
             }
@@ -269,13 +282,13 @@ Page {
                 width: parent.width
                 height: Theme.itemSizeMedium
                 text: qsTr("Books")
-                counter: authorProfile.author ? authorProfile.author.worksCount : 0
+                counter: author ? author.worksCount : 0
                 busy: authorPage.busy
                 enabled: !busy
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("AuthorBooksPage.qml"), {
-                        authorId: authorProfile.author ? authorProfile.author.id : "",
-                        authorName: authorProfile.author ? authorProfile.author.name : ""
+                        authorId: author ? author.id : "",
+                        authorName: author ? author.name : ""
                     })
                 }
             }
@@ -287,7 +300,7 @@ Page {
                 height: contentHeight
                 clip: true
 
-                model: authorProfile.author ? authorProfile.author.books : null
+                model: author ? author.books : null
 
                 ViewPlaceholder {
                     enabled: !sailreadsManager.busy && booksView.count === 0

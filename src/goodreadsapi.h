@@ -162,6 +162,7 @@ public:
 
     void LoadUserQuotes(QObject *requester, const QString& userId, int page = 1);
     void LoadBookQuotes(QObject *requester, quint64 workId, int page = 1);
+    void LoadAuthorQuotes(QObject *requester, const QString& authorId, int page = 1);
     void AddQuote(const QString& authorName, quint64 authorId, quint64 bookId, const QString& quote,
         const QStringList& tags);
 
@@ -254,6 +255,7 @@ private slots:
 
     void handleGotUserQuotes(const QString& userId);
     void handleGotBookQuotes(quint64 workId);
+    void handleGotAuthorQuotes(const QString& authorId);
     void handleAddQuote();
 
     void handleGetReadStatus();
@@ -350,5 +352,6 @@ signals:
 
     void gotUserQuotes(const QString& userId, const Quotes_t& quotes);
     void gotBookQuotes(quint64 workId, const PageCountedItems<Quote>& quotes);
+    void gotAuthorQuotes(const QString& authorId, const PageCountedItems<Quote>& quotes);
 };
 }

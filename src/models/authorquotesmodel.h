@@ -1,6 +1,4 @@
 /*
-The MIT License (MIT)
-
 Copyright (c) 2018-2019 Oleg Linkin <maledictusdemagog@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -22,41 +20,35 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-import QtQuick 2.6
-import Sailfish.Silica 1.0
-import harbour.sailreads 1.0
+#pragma once
 
-import "../components"
+#include "quotesbasemodel.h"
 
-Row {
-    id: row
-    property string key
-    property string value
-    property color keyColor: Theme.secondaryHighlightColor
-    property bool highlighted: false
+namespace Sailreads
+{
+class AuthorQuotesModel : public QuotesBaseModel
+{
+    Q_OBJECT
 
-    signal clicked()
-    signal linkActivated(var link)
+    QString m_AuthorId;
+    Q_PROPERTY(QString authorId READ GetAuthorId WRITE SetAuthorId NOTIFY authorIdChanged)
 
-    width: parent ? parent.width : Screen.Width
-    height: Math.max(keyLabel.height, valueLabel.height)
-    spacing: Theme.paddingSmall
+public:
+    AuthorQuotesModel(QObject *parent = nullptr);
 
-    Label {
-        id: keyLabel
-        text: key
-        color: keyColor
-        wrapMode: Text.NoWrap
-        font.pixelSize: Theme.fontSizeExtraSmall
-        textFormat: Text.StyledText
-    }
-    ClickableLabel {
-        id: valueLabel
-        text: value
-        width: parent.width - keyLabel.width - row.spacing
-        label.font.pixelSize: Theme.fontSizeExtraSmall
-        onClicked: row.clicked()
-        highlighted: row.highlighted || down
-        onLinkActivated: row.linkActivated(link)
-    }
-}
+    virtual void classBegin() override;
+    virtual void componentComplete() override;
+
+    QString GetAuthorId() const;
+    void SetAuthorId(const QString& authorId);
+
+public slots:
+    virtual void fetchMoreContent() override;
+    void loadAuthorQuotes();
+private slots:
+    void handleGotAuthorQuotes(const QString& authorId, const PageCountedItems<Quote>& quotes);
+
+signals:
+    void authorIdChanged();
+};
+} // namespace Sailreads

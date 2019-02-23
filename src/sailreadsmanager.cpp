@@ -250,6 +250,8 @@ void SailreadsManager::MakeConnections()
             this, &SailreadsManager::gotUserQuotes);
     connect(m_Api, &GoodReadsApi::gotBookQuotes,
             this, &SailreadsManager::gotBookQuotes);
+    connect(m_Api, &GoodReadsApi::gotAuthorQuotes,
+            this, &SailreadsManager::gotAuthorQuotes);
 }
 
 void SailreadsManager::SetBusy(bool busy)
@@ -675,6 +677,12 @@ void SailreadsManager::loadBookQuotes(QObject *requester, quint64 workId, int pa
 {
     SetBusy(true);
     m_Api->LoadBookQuotes(requester, workId, page);
+}
+
+void SailreadsManager::loadAuthorQuotes(QObject *requester, const QString& authorId, int page)
+{
+    SetBusy(true);
+    m_Api->LoadAuthorQuotes(requester, authorId, page);
 }
 
 }

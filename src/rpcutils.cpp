@@ -1562,20 +1562,30 @@ BookPtr ParseBookFromWork(const QDomElement& element)
 
 Quote ParseQuoteFromArticle(const QString& article)
 {
-    QRegularExpression quoteExp("<div\\s+class=\\'quoteContainer\\'>.*?"
-                "<a\\s+aria-label=\\\"(.+?)\\\"\\s+?href=\\\"(.+?)\\\">.+?"
-                "<div\\s+class=\\'quoteContentContainer\\'>.+?<blockquote\\s+class=\\'quoteBody\\'\\s*>"
-                "(.+?)<\\/blockquote>.+?<span\\s+class=\\'quoteBook\\'>.*?"
+    QRegularExpression authorExp("<div\\s+class=\\'quoteContainer.*?\\'>.*?"
+                "<a\\s+aria-label=\\\"(.+?)\\\"\\s+?href=\\\"(.+?)\\\">",
+            QRegularExpression::DotMatchesEverythingOption);
+    QRegularExpression quoteExp("<div\\s+class=\\'quoteContentContainer\\'>.+?"
+                "<blockquote\\s+class=\\'quoteBody\\'\\s*>(.+?)<\\/blockquote>",
+            QRegularExpression::DotMatchesEverythingOption);
+    QRegularExpression bookExp("<span\\s+class=\\'quoteBook\\'>.*?"
                 "<a\\s+class=\\\"gr-hyperlink\\\"\\s+href=\\\"(.+?)\\\">(.+?)<\\/a>.*?<\\/span>",
             QRegularExpression::DotMatchesEverythingOption);
-    QRegularExpressionMatch match = quoteExp.match(article);
+
     Quote quote;
-    if (match.hasMatch() && match.lastCapturedIndex() == 5) {
+    QRegularExpressionMatch match = authorExp.match(article);
+    if (match.hasMatch()) {
         quote.SetAuthor(match.captured(1));
         quote.SetAuthorLink(QUrl("https://www.goodreads.com" + match.captured(2)));
-        quote.SetQuote(match.captured(3));
-        quote.SetBookLink(QUrl("https://www.goodreads.com" + match.captured(4)));
-        quote.SetBook(match.captured(5));
+    }
+    match = quoteExp.match(article);
+    if (match.hasMatch()) {
+        quote.SetQuote(match.captured(1));
+    }
+    match = bookExp.match(article);
+    if (match.hasMatch()) {
+        quote.SetBookLink(QUrl("https://www.goodreads.com" + match.captured(1)));
+        quote.SetBook(match.captured(2));
     }
     return quote;
 }

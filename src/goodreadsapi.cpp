@@ -662,10 +662,21 @@ void GoodReadsApi::LoadUserQuotes(QObject *requester, const QString &userId, int
 void GoodReadsApi::LoadBookQuotes(QObject *requester, quint64 workId, int page)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
-            QUrl(m_BaseUrl + QString("/work/quotes/%1?format=json&page=%2").arg(workId).arg(page)));
+            QUrl(m_BaseUrl + QString("/work/quotes/%1").arg(workId)),
+            { { "format", "json" }, { "page", page } });
     m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this, [this, workId]() { handleGotBookQuotes(workId); });
+}
+
+void GoodReadsApi::LoadAuthorQuotes(QObject *requester, const QString& authorId, int page)
+{
+    auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + QString("/author/quotes/%1").arg(authorId)),
+            { { "format", "json" }, { "page", page } });
+    m_Requester2Reply[requester] = reply;
+    connect(reply, &QNetworkReply::finished,
+            this, [this, authorId]() { handleGotAuthorQuotes(authorId); });
 }
 
 void GoodReadsApi::AddQuote(const QString& authorName, quint64 authorId, quint64 bookId,
@@ -1754,6 +1765,19 @@ void GoodReadsApi::handleGotBookQuotes(quint64 workId)
     }
 
     emit gotBookQuotes(workId, RpcUtils::Parser::ParseJsonQuotes(doc));
+    emit requestFinished();
+}
+
+void GoodReadsApi::handleGotAuthorQuotes(const QString& authorId)
+{
+    bool ok = false;
+    auto doc = GetJsonDocumentFromReply(sender(), ok);
+    if (!ok) {
+        emit requestFinished();
+        return;
+    }
+
+    emit gotAuthorQuotes(authorId, RpcUtils::Parser::ParseJsonQuotes(doc));
     emit requestFinished();
 }
 

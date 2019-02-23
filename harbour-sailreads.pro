@@ -94,7 +94,8 @@ SOURCES += src/harbour-sailreads.cpp \
     src/objects/quote.cpp \
     src/models/quotesbasemodel.cpp \
     src/models/userquotesmodel.cpp \
-    src/models/bookquotesmodel.cpp
+    src/models/bookquotesmodel.cpp \
+    src/models/authorquotesmodel.cpp
 
 
 HEADERS += src/application.h \
@@ -182,7 +183,8 @@ HEADERS += src/application.h \
     src/objects/quote.h \
     src/models/quotesbasemodel.h \
     src/models/userquotesmodel.h \
-    src/models/bookquotesmodel.h
+    src/models/bookquotesmodel.h \
+    src/models/authorquotesmodel.h
 
 DISTFILES += translations/*.ts \
     sailreads.desktop \
