@@ -62,12 +62,12 @@ Item {
         anchors {
             left: avatarImageItem.right
             leftMargin: Theme.paddingMedium
-            right: hasCommentImageItem.left
+            right: hasCommentImageItem.visible ? hasCommentImageItem.left : parent.right
             rightMargin: Theme.paddingMedium
         }
 
-        Row {
-            spacing: Theme.paddingMedium
+        Flow {
+            spacing: Theme.paddingSmall
             width: parent.width
             ClickableLabel {
                 id: nameLabelItem
