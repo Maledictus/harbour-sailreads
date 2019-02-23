@@ -444,7 +444,7 @@ Pull down to refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../qml/pages/BookPage.qml" line="195"/>
+        <location filename="../qml/pages/BookPage.qml" line="188"/>
         <source>%Ln rating(s)</source>
         <translation type="unfinished">
             <numerusform>%Ln rating</numerusform>
@@ -452,69 +452,68 @@ Pull down to refresh</source>
         </translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="211"/>
+        <location filename="../qml/pages/BookPage.qml" line="204"/>
         <source>My Rating</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="211"/>
+        <location filename="../qml/pages/BookPage.qml" line="204"/>
         <source>Rate this book</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="224"/>
+        <location filename="../qml/pages/BookPage.qml" line="217"/>
         <source>Your review</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="234"/>
+        <location filename="../qml/pages/BookPage.qml" line="227"/>
         <source>Write a review</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="284"/>
+        <location filename="../qml/pages/BookPage.qml" line="277"/>
         <source>Friends activity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="292"/>
+        <location filename="../qml/pages/BookPage.qml" line="285"/>
         <source>Friends Review</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="348"/>
+        <location filename="../qml/pages/BookPage.qml" line="341"/>
         <source>Description</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="371"/>
+        <location filename="../qml/pages/BookPage.qml" line="364"/>
         <source>Series</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="395"/>
+        <location filename="../qml/pages/BookPage.qml" line="388"/>
         <source>Pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="402"/>
+        <location filename="../qml/pages/BookPage.qml" line="395"/>
         <source>Published</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="446"/>
+        <location filename="../qml/pages/BookPage.qml" line="440"/>
         <source>Other editions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="96"/>
-        <location filename="../qml/pages/BookPage.qml" line="433"/>
+        <location filename="../qml/pages/BookPage.qml" line="426"/>
         <source>Community Reviews</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="462"/>
-        <location filename="../qml/pages/BookPage.qml" line="469"/>
+        <location filename="../qml/pages/BookPage.qml" line="456"/>
+        <location filename="../qml/pages/BookPage.qml" line="463"/>
         <source>Similar Books</source>
         <translation type="unfinished"></translation>
     </message>

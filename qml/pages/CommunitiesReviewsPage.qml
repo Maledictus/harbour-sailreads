@@ -56,7 +56,6 @@ Page {
         experimental.preferences.navigatorQtObjectEnabled: true
 
         experimental.onMessageReceived: {
-            console.log("AAAA", message.data)
             var data = null
             try {
                 data = JSON.parse(message.data)
