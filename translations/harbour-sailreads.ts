@@ -472,48 +472,48 @@ Pull down to refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="277"/>
+        <location filename="../qml/pages/BookPage.qml" line="282"/>
         <source>Friends activity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="285"/>
+        <location filename="../qml/pages/BookPage.qml" line="290"/>
         <source>Friends Review</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="341"/>
+        <location filename="../qml/pages/BookPage.qml" line="346"/>
         <source>Description</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="364"/>
+        <location filename="../qml/pages/BookPage.qml" line="369"/>
         <source>Series</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="388"/>
+        <location filename="../qml/pages/BookPage.qml" line="393"/>
         <source>Pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="395"/>
+        <location filename="../qml/pages/BookPage.qml" line="400"/>
         <source>Published</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="439"/>
+        <location filename="../qml/pages/BookPage.qml" line="444"/>
         <source>Other editions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="426"/>
+        <location filename="../qml/pages/BookPage.qml" line="431"/>
         <source>Community Reviews</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="455"/>
-        <location filename="../qml/pages/BookPage.qml" line="462"/>
+        <location filename="../qml/pages/BookPage.qml" line="460"/>
+        <location filename="../qml/pages/BookPage.qml" line="467"/>
         <source>Similar Books</source>
         <translation type="unfinished"></translation>
     </message>
@@ -864,7 +864,7 @@ Pull down to refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupMembersPage.qml" line="108"/>
+        <location filename="../qml/pages/GroupMembersPage.qml" line="110"/>
         <source>Comments</source>
         <translation type="unfinished"></translation>
     </message>

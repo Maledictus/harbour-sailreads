@@ -244,7 +244,12 @@ Page {
                     height: column.height
                     Column {
                         id: column
-                        width: parent.width
+                        anchors {
+                            left: parent.left
+                            leftMargin: Theme.horizontalPageMargin
+                            right: parent.right
+                            rightMargin: Theme.horizontalPageMargin
+                        }
                         spacing: Theme.paddingSmall
                         ClickableLabel {
                             width: parent.width

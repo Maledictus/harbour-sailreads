@@ -81,6 +81,7 @@ Page {
         onContentYChanged: fetchMoreIfNeeded()
 
         delegate: ListItem {
+            id: listItem
             width: groupMembersView.cellWidth
             height: groupMembersView.cellHeight
             Column {
@@ -99,6 +100,7 @@ Page {
                     font.family: Theme.fontFamilyHeading
                     truncationMode: TruncationMode.Fade
                     text: groupMemberFirstName
+                    color: listItem.highlighted ? Theme.highlightColor: Theme.primaryColor
                 }
 
                 KeyValueLabel {
