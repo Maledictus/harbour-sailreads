@@ -21,19 +21,6 @@ window.open = function (url, windowName, windowFeatures) {
     navigator.qt.postMessage( JSON.stringify(link) );
 }
 
-//window.onerror = function (errorMsg, url, lineNumber, column, errorObj) {
-//    var err = new Object({'type':'error', 'msg': errorMsg, 'url' : url, 'line': lineNumber, 'strace' : errorObj});
-//    navigator.qt.postMessage( JSON.stringify(err) );
-//}
-
-// virtual keyboard hook
-window.document.addEventListener('click', (function(e) {
-    if (e.srcElement.tagName === ('INPUT'||'TEXTAREA'||'FORM')) {
-        var inputContext = new Object({'type':'input', 'state':'show'})
-        navigator.qt.postMessage(JSON.stringify(inputContext))
-    }
-}), true);
-
 document.documentElement.addEventListener('click', (function(e) {
     var node = e.target;
     while(node) {
@@ -41,16 +28,6 @@ document.documentElement.addEventListener('click', (function(e) {
         node = node.parentNode;
     }
 }), true);
-
-//var frames = document.documentElement.getElementsByTagName('iframe');
-
-//for (var i=0; i<frames.length; i++) {
-//    frames[i].onload = function() {
-//        var link = new Object({'type':'link', 'pageX': 0, 'pageY': 0, 'target': '_blank'})
-//        if (this.contentWindow.location != "") link.href = this.contentWindow.location
-//        navigator.qt.postMessage( JSON.stringify(link) );
-//    }
-//}
 
 function findTag(element, tagN) {
     var currelement = element
