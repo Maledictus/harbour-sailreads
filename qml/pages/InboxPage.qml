@@ -59,13 +59,6 @@ Page {
         trashBookmarksFilter
     ]
 
-    function attachPage() {
-        if (pageStack._currentContainer.attachedContainer === null
-                && sailreadsManager.logged) {
-            //pageStack.pushAttached(Qt.resolvedUrl("StatusPage.qml"))
-        }
-    }
-
     Component.onDestruction: {
         switch (slideshowView.currentIndex) {
         case 0:

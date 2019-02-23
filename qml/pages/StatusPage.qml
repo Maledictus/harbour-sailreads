@@ -26,11 +26,73 @@ import QtQuick 2.6
 import Sailfish.Silica 1.0
 import harbour.sailreads 1.0
 
+import "../pages"
 import "../components"
 import "../utils/Utils.js" as Utils
 
 Page {
     id: statusPage
 
+    property bool busy: sailreadsManager.busy && statusPage.status === PageStatus.Active
+    property var reviewsModel: mainWindow.currentlyReadingModel
 
+    SilicaListView {
+        id: reviewsView
+        anchors.fill: parent
+        header: PageHeader {
+            title: qsTr("Currently-Reading books")
+        }
+
+        PullDownMenu {
+            busy: statusPage.busy
+            MenuItem {
+                text: qsTr("Refresh")
+                onClicked: reviewsModel.loadReviews()
+            }
+        }
+
+        ViewPlaceholder {
+            enabled: !sailreadsManager.busy && reviewsView.count === 0
+            text: qsTr("There are no currently-reading books")
+            hintText: qsTr("Pull down to refresh")
+        }
+
+        model: reviewsModel
+
+        function fetchMoreIfNeeded() {
+            if (!statusPage.busy &&
+                    reviewsModel.hasMore &&
+                    indexAt(contentX, contentY + height) > reviewsModel.rowCount() - 2) {
+                reviewsModel.fetchMoreContent()
+            }
+        }
+
+        onContentYChanged: fetchMoreIfNeeded()
+
+        delegate: BookListItem {
+            id: rootDelegateItem
+            width: reviewsView.width
+            clip: true
+
+            imageUrl: reviewBook.imageUrl
+            title: reviewBook.title
+            authors: reviewBook.authorsString
+            averageRating: reviewBook.averageRating
+            ratingsCount: reviewBook.ratingsCount
+
+            onClicked: {
+                pageStack.push(Qt.resolvedUrl("BookPage.qml"),
+                        { bookId: reviewBook.id, book: reviewBook })
+            }
+        }
+
+        VerticalScrollDecorator {}
+    }
+
+    BusyIndicator {
+        size: BusyIndicatorSize.Large
+        anchors.centerIn: parent
+        running: statusPage.busy
+        visible: running
+    }
 }

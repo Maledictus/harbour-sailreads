@@ -34,13 +34,6 @@ Page {
     property alias topicId: topicItem.topicId
     property bool busy: sailreadsManager.busy && groupFodlerTopicPage.status === PageStatus.Active
 
-    function attachPage() {
-        if (pageStack._currentContainer.attachedContainer === null
-                && sailreadsManager.logged) {
-            //pageStack.pushAttached(Qt.resolvedUrl("StatusPage.qml"))
-        }
-    }
-
     Component.onDestruction: {
         topicItem.cancelRequest()
         topicThreadModel.cancelRequest()

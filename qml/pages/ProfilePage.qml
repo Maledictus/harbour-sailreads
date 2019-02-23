@@ -39,11 +39,15 @@ Page {
     function attachPage() {
         if (pageStack._currentContainer.attachedContainer === null
                 && sailreadsManager.logged) {
-            //pageStack.pushAttached(Qt.resolvedUrl("StatusPage.qml"))
+            pageStack.pushAttached(Qt.resolvedUrl("StatusPage.qml"))
         }
     }
 
-    RemorsePopup { id: remorse }
+    onStatusChanged: {
+        if (status === PageStatus.Active) {
+            attachPage()
+        }
+    }
 
     Component.onDestruction: {
         userProfile.cancelRequest()
@@ -51,6 +55,9 @@ Page {
 
     UserProfile {
         id: userProfile
+        onUserChanged: {
+            mainWindow.currentlyReadingModel.bookShelfId = user.currentlyReadingShelfId
+        }
     }
 
     BaseProxyModel {

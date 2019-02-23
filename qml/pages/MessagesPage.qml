@@ -60,13 +60,6 @@ Page {
         messagesModel.folder = messagesFolder.key
     }
 
-    function attachPage() {
-        if (pageStack._currentContainer.attachedContainer === null
-                && sailreadsManager.logged) {
-            //pageStack.pushAttached(Qt.resolvedUrl("StatusPage.qml"))
-        }
-    }
-
     Component.onDestruction: {
         messagesModel.cancelRequest()
     }
@@ -116,8 +109,6 @@ Page {
         }
 
         onContentYChanged: fetchMoreIfNeeded()
-
-        RemorseItem { id: remorse }
 
         delegate: MessageListItem {
             posterImage: messageFromUser.avatarUrl

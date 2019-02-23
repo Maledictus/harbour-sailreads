@@ -32,13 +32,6 @@ Page {
 
     property bool busy: sailreadsManager.busy && notificationsPage.status === PageStatus.Active
 
-    function attachPage() {
-        if (pageStack._currentContainer.attachedContainer === null
-                && sailreadsManager.logged) {
-            //pageStack.pushAttached(Qt.resolvedUrl("StatusPage.qml"))
-        }
-    }
-
     Component.onDestruction: {
         notificationsModel.cancelRequest()
     }

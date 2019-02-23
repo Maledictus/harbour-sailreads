@@ -299,11 +299,23 @@ BookShelves_t User::GetBookShelves() const
 void User::SetBookShelves(const BookShelves_t& shelves)
 {
     m_BookShelves = shelves;
+    emit currentlyReadingShelfIdChanged();
 }
 
 quint32 User::GetBookShelvesCount() const
 {
     return m_BookShelves.count();
+}
+
+quint64 User::GetCurrentlyReadingShelfId() const
+{
+    auto it = std::find_if(m_BookShelves.begin(), m_BookShelves.end(),
+            [](decltype(m_BookShelves.front()) bookshelf)
+            {
+                return bookshelf.GetExclusive() &&
+                        bookshelf.GetName() == "currently-reading";
+            });
+    return it->GetId();
 }
 
 void User::SetIsFriend(bool isFriend)

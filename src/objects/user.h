@@ -99,6 +99,7 @@ class User : public QObject
     Q_PROPERTY(quint64 friendRequestId READ GetFriendRequestId NOTIFY friendRequestIdChanged)
     Q_PROPERTY(int friendStatus READ GetFriendStatus NOTIFY friendStatusChanged)
     Q_PROPERTY(QString favoriteAutors READ GetFavoritesAuthorsString NOTIFY favoriteAutorsChanged)
+    Q_PROPERTY(quint64 currentlyReadingShelfId READ GetCurrentlyReadingShelfId NOTIFY currentlyReadingShelfIdChanged)
 
 public:
     enum FriendStatus
@@ -168,6 +169,7 @@ public:
     BookShelves_t GetBookShelves() const;
     void SetBookShelves(const BookShelves_t& shelves);
     quint32 GetBookShelvesCount() const;
+    quint64 GetCurrentlyReadingShelfId() const;
     void SetIsFriend(bool isFriend);
     bool GetIsFriend() const;
     void SetIsFollowing(bool following);
@@ -216,5 +218,6 @@ signals:
     void friendRequestIdChanged();
     void friendStatusChanged();
     void favoriteAutorsChanged();
+    void currentlyReadingShelfIdChanged();
 };
 } // namespace Sailreads

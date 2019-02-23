@@ -34,13 +34,6 @@ Page {
     property alias messageId: messageItem.messageId
     property alias message: messageItem.message
 
-    function attachPage() {
-        if (pageStack._currentContainer.attachedContainer === null
-                && sailreadsManager.logged) {
-            //pageStack.pushAttached(Qt.resolvedUrl("StatusPage.qml"))
-        }
-    }
-
     Component.onDestruction: {
         messageItem.cancelRequest()
     }

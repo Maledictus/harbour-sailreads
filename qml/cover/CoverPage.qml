@@ -30,20 +30,53 @@
 
 import QtQuick 2.6
 import Sailfish.Silica 1.0
+import harbour.sailreads 1.0
 
 CoverBackground {
-    Label {
-        id: label
-        anchors.centerIn: parent
-        text: qsTr("Sailreads")
+    id: cover
+    property alias model: bookCover.model
+
+    DefaultCover {
+        id: defaultCover
+        visible: !bookCover.visible
+    }
+
+    BookCover {
+        id: bookCover
+        anchors.bottomMargin: coverActionArea.height;
     }
 
     CoverActionList {
-        id: actionsList
+        enabled: defaultCover.visible
         CoverAction {
             iconSource: "image://theme/icon-cover-search"
             onTriggered: {
                 pageStack.push("../pages/SearchPage.qml", {}, PageStackAction.Immediate);
+                mainWindow.activate()
+            }
+        }
+    }
+
+    CoverActionList {
+        enabled: bookCover.visible
+        CoverAction {
+            iconSource: "image://theme/icon-cover-search"
+            onTriggered: {
+                pageStack.push("../pages/SearchPage.qml", {}, PageStackAction.Immediate);
+                mainWindow.activate()
+            }
+        }
+        CoverAction {
+            iconSource: "image://theme/icon-cover-sync"
+            onTriggered: {
+                if (pageStack._currentContainer.attachedContainer !== null) {
+                    pageStack.navigateForward(PageStackAction.Immediate)
+                }
+                else {
+                    pageStack.push(Qt.resolvedUrl("../pages/StatusPage.qml"), {},
+                            PageStackAction.Immediate)
+                }
+
                 mainWindow.activate()
             }
         }

@@ -35,13 +35,6 @@ Page {
     property string userId: ""
     property bool busy: sailreadsManager.busy && friendsPage.status === PageStatus.Active
 
-    function attachPage() {
-        if (pageStack._currentContainer.attachedContainer === null
-                && sailreadsManager.logged) {
-            //pageStack.pushAttached(Qt.resolvedUrl("StatusPage.qml"))
-        }
-    }
-
     Component.onDestruction: {
         friendsModel.cancelRequest()
     }
@@ -129,21 +122,6 @@ Page {
                     delegate: FriendListItem {
                         id: rootDelegateItem
                         width: friendsView.width
-
-//                        RemorseItem { id: remorse }
-
-//                        menu: ContextMenu {
-//                            hasContent: userId === sailreadsManager.authUser.id
-//                            MenuItem {
-//                                text: qsTr("Remove")
-//                                onClicked: {
-//                                    remorse.execute(rootDelegateItem, qsTr("Removing"), function() {
-//                                        sailreadsManager.removeFriend(friendId)
-//                                    })
-//                                }
-//                            }
-//                        }
-
                         onClicked: {
                             pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
                                     { userId: friendId })
@@ -183,14 +161,14 @@ Page {
                         id: rootDelegateItem2
                         width: followingsView.width
 
-                        RemorseItem { id: remorse2 }
+                        RemorseItem { id: remorse }
 
                         menu: ContextMenu {
                             hasContent: userId === sailreadsManager.authUser.id
                             MenuItem {
                                 text: qsTr("Unfollow")
                                 onClicked: {
-                                    remorse2.execute(rootDelegateItem, qsTr("Unfollowing"), function() {
+                                    remorse.execute(rootDelegateItem, qsTr("Unfollowing"), function() {
                                         sailreadsManager.unfollowUser(friendId)
                                     })
                                 }

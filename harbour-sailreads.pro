@@ -205,6 +205,7 @@ SOURCES = qml/harbour-sailreads.qml \
     qml/components/BookListItem.qml \
     qml/components/BookShelfListItem.qml \
     qml/components/BoxBackground.qml \
+    qml/components/ClickableKeyValueLabel.qml \
     qml/components/ClickableLabel.qml \
     qml/components/CollapsedLabel.qml \
     qml/components/CommentListItem.qml \
@@ -235,7 +236,9 @@ SOURCES = qml/harbour-sailreads.qml \
     qml/components/UserShortReview.qml \
     qml/components/UserStatusRow.qml \
     qml/components/VotingBox.qml \
+    qml/cover/BookCover.qml \
     qml/cover/CoverPage.qml \
+    qml/cover/DefaultCover.qml \
     qml/dialogs/AddCommentDialog.qml \
     qml/dialogs/AddEditReviewDialog.qml \
     qml/dialogs/AddEditShelfDialog.qml \
@@ -246,13 +249,16 @@ SOURCES = qml/harbour-sailreads.qml \
     qml/pages/AddBookToShelvesPage.qml \
     qml/pages/AuthorBooksPage.qml \
     qml/pages/AuthorPage.qml \
+    qml/pages/AuthorQuotesPage.qml \
     qml/pages/AuthorSeriesPage.qml \
     qml/pages/AuthorizationPage.qml \
     qml/pages/BookEditionsPage.qml \
     qml/pages/BookPage.qml \
+    qml/pages/BookQuotesPage.qml \
     qml/pages/BookReviewsPage.qml \
     qml/pages/BookShelvesPage.qml \
     qml/pages/BooksPage.qml \
+    qml/pages/CommunitiesReviewsPage.qml \
     qml/pages/FriendsPage.qml \
     qml/pages/FriendsUpdatesPage.qml \
     qml/pages/GroupFolderPage.qml \

@@ -37,13 +37,6 @@ Page {
     property string contentFilter: applicationSettings.value("friends/updatesContentFilter", "all")
     property string scopeFilter: applicationSettings.value("friends/updatesScopeFilter","friends")
 
-    function attachPage() {
-        if (pageStack._currentContainer.attachedContainer === null
-                && sailreadsManager.logged) {
-            //pageStack.pushAttached(Qt.resolvedUrl("StatusPage.qml"))
-        }
-    }
-
     Component.onDestruction: {
         updatesModel.cancelRequest()
     }

@@ -33,7 +33,7 @@ import "dialogs"
 ApplicationWindow {
     id: mainWindow
 
-    cover: CoverPage { }
+    cover: CoverPage { model: currentlyReadingModel }
 
     _defaultPageOrientations: Orientation.All
 
@@ -42,8 +42,23 @@ ApplicationWindow {
 
     initialPage: alreadyLogged ? splashScreenComponent : loginComponent
 
+    property alias currentlyReadingModel: currentlyReadingStatusModel
+
     Notification {
         id: notification
+    }
+
+    ReviewsModel {
+        id: currentlyReadingStatusModel
+        userId: sailreadsManager.authUser ? sailreadsManager.authUser.id : ""
+        bookShelf: "currently-reading"
+        sortField: "date_updated"
+        sortOrder: Qt.DescendingOrder
+        onBookShelfIdChanged: {
+            if (sailreadsManager.authUser && sailreadsManager.authUser.id === userId) {
+                loadReviews()
+            }
+        }
     }
 
     Connections {
