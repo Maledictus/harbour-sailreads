@@ -68,7 +68,8 @@ Page {
 
         ViewPlaceholder {
             enabled: !sailreadsManager.busy && authorSeriesView.count === 0
-            text: qsTr ("There are no series.\nPull down to refresh")
+            text: qsTr ("There are no series")
+            hintText: qsTr("Pull down to refresh")
         }
 
         cacheBuffer: authorSeriesPage.height

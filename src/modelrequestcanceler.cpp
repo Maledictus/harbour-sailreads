@@ -28,7 +28,21 @@ namespace Sailreads
 {
 ModelRequestCanceler::ModelRequestCanceler(QObject *parent)
 : QAbstractListModel(parent)
+, m_Fetching(false)
 {
+}
+
+bool ModelRequestCanceler::GetFetching() const
+{
+    return m_Fetching;
+}
+
+void ModelRequestCanceler::SetFetching(bool fetching)
+{
+    if (m_Fetching != fetching) {
+        m_Fetching = fetching;
+        emit fetchingChanged();
+    }
 }
 
 void ModelRequestCanceler::cancelRequest()

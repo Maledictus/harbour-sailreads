@@ -101,6 +101,12 @@ Page {
                 }
             }
 
+            ViewPlaceholder {
+                enabled: !sailreadsManager.busy && topicThreadView.count === 0
+                text: qsTr("There are no messages")
+                hintText: qsTr("Pull down to refresh")
+            }
+
             function fetchMoreIfNeeded() {
                 if (!groupFodlerTopicPage.busy &&
                         topicThreadModel.hasMore &&

@@ -100,7 +100,8 @@ Page {
 
         ViewPlaceholder {
             enabled: !sailreadsManager.busy && reviewsView.count === 0
-            text: qsTr("There are no books reviews. Pull down to refresh")
+            text: qsTr("There are no books reviews")
+            hintText: qsTr("Pull down to refresh")
         }
 
         model: reviewsModel

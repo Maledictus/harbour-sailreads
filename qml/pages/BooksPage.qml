@@ -51,6 +51,11 @@ Page {
 
         model: booksPage.books
 
+        ViewPlaceholder {
+            enabled: !sailreadsManager.busy && booksView.count === 0
+            text: qsTr("There are no books")
+        }
+
         delegate: BookListItem {
             width: booksView.width
             clip: true

@@ -130,12 +130,14 @@ void UpdatesModel::fetchMoreContent()
 {
     SailreadsManager::Instance(this)->loadUpdates(this, m_UpdateScope, m_UpdateItems,
             m_Items.size() > 0 ? m_Items.last()->GetUpdatedDate() : QDateTime());
+    SetFetching(true);
 }
 
 void UpdatesModel::loadUpdates()
 {
     SetItems({});
     SailreadsManager::Instance(this)->loadUpdates(this, m_UpdateScope, m_UpdateItems);
+    SetFetching(true);
 }
 
 void UpdatesModel::handleGotUpdates(const Updates_t& updates)
@@ -146,6 +148,7 @@ void UpdatesModel::handleGotUpdates(const Updates_t& updates)
     else {
         SetHasMore(false);
     }
+    SetFetching(false);
 }
 
 } // namespace Sailreads

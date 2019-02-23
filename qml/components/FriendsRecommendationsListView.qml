@@ -35,7 +35,8 @@ SilicaListView {
     clip: true
     ViewPlaceholder {
         enabled: !busy && friendsRecommendationsView.count === 0
-        text: qsTr("There are no friends recommendations. Pull down to refresh")
+        text: qsTr("There are no friends recommendations")
+        hintText: qsTr("Pull down to refresh")
     }
 
     model: FriendsRecommendationsModel {

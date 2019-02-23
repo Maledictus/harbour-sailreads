@@ -29,10 +29,21 @@ namespace Sailreads
 class ModelRequestCanceler : public QAbstractListModel
 {
     Q_OBJECT
+
+protected:
+    bool m_Fetching;
+    Q_PROPERTY(bool fetching READ GetFetching NOTIFY fetchingChanged)
+
 public:
     ModelRequestCanceler(QObject *parent = nullptr);
 
+    bool GetFetching() const;
+    void SetFetching(bool fetching);
+
 public slots:
     void cancelRequest();
+
+signals:
+    void fetchingChanged();
 };
 } // namespace Sailreads

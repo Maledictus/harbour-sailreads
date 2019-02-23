@@ -75,7 +75,8 @@ Page {
 
         ViewPlaceholder {
             enabled: !sailreadsManager.busy && groupsView.count === 0
-            text: qsTr ("There are no groups.\nPull down to refresh or to search groups")
+            text: qsTr ("There are no groups")
+            hintText: qsTr("Pull down to refresh")
         }
 
         cacheBuffer: groupsPage.height

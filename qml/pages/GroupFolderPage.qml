@@ -83,6 +83,12 @@ Page {
             }
         }
 
+        ViewPlaceholder {
+            enabled: !sailreadsManager.busy && topicsView.count === 0
+            text: qsTr("There are no topics")
+            hintText: qsTr("Pull down to refresh")
+        }
+
         function fetchMoreIfNeeded() {
             if (!folderPage.busy &&
                     topicsModel.hasMore &&

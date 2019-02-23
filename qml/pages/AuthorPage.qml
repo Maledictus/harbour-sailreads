@@ -289,6 +289,12 @@ Page {
 
                 model: authorProfile.author ? authorProfile.author.books : null
 
+                ViewPlaceholder {
+                    enabled: !sailreadsManager.busy && booksView.count === 0
+                    text: qsTr("There are no books")
+                    hintText: qsTr("Pull down to refresh")
+                }
+
                 delegate: BookListItem {
                     width: booksView.width
                     clip: true

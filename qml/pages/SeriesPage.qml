@@ -64,6 +64,12 @@ Page {
             }
         }
 
+        ViewPlaceholder {
+            enabled: !sailreadsManager.busy && seriesView.count === 0
+            text: qsTr("There are no books in this series")
+            hintText: qsTr("Pull down to refresh")
+        }
+
         header: Item {
             width: seriesView.width
             height: headerBox.height

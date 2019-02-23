@@ -68,7 +68,8 @@ Page {
 
         ViewPlaceholder {
             enabled: !sailreadsManager.busy && bookEditionsView.count === 0
-            text: qsTr("There are no book editions. Pull down to refresh")
+            text: qsTr("There are no book editions")
+            hintText: qsTr("Pull down to refresh")
         }
         model: BookEditionsModel {
             id: bookEditionsModel

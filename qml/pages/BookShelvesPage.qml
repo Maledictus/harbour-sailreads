@@ -93,7 +93,8 @@ Page {
 
         ViewPlaceholder {
             enabled: !sailreadsManager.busy && bookShelvesView.count === 0
-            text: qsTr("There are no bookshelves. Pull down to refresh")
+            text: qsTr("There are no bookshelves")
+            hintText: qsTr("Pull down to refresh")
         }
 
         cacheBuffer: bookShelvesPage.height

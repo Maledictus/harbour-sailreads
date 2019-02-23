@@ -56,6 +56,13 @@ Page {
         anchors.fill: parent
         cacheBuffer: recommendationPage.height
 
+        ViewPlaceholder {
+            y: 0
+            enabled: !sailreadsManager.busy && commentsView.count === 0
+            text: qsTr("There are no comments")
+            hintText: qsTr("Pull down to refresh")
+        }
+
         function fetchMoreIfNeeded() {
             if (!recommendationPage.busy &&
                     commentsModel.hasMore &&

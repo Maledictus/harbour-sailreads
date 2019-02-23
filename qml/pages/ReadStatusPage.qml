@@ -55,13 +55,6 @@ Page {
         id: commentsView
         anchors.fill: parent
         cacheBuffer: readStatusPage.height
-
-        ViewPlaceholder {
-            y: headerItem.height + Theme.paddingLarge
-            enabled: !sailreadsManager.busy && commentsView.count === 0
-            text: qsTr("There are no comments")
-        }
-
         function fetchMoreIfNeeded() {
             if (!readStatusPage.busy &&
                     commentsModel.hasMore &&
@@ -123,6 +116,14 @@ Page {
             onUserClicked: pageStack.push(Qt.resolvedUrl("ProfilePage.qml"), { userId: userId })
             onLinkActivated: mainWindow.openPageFromUrl(link)
         }
+
+        ViewPlaceholder {
+            y: 0
+            enabled: !sailreadsManager.busy && commentsView.count === 0
+            text: qsTr("There are no comments")
+            hintText: qsTr("Pull down to refresh")
+        }
+
         VerticalScrollDecorator{}
     }
 

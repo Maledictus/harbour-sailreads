@@ -106,7 +106,8 @@ Page {
 
                     ViewPlaceholder {
                         enabled: !sailreadsManager.busy && friendsView.count === 0
-                        text: qsTr("There are no friends. Pull down to refresh")
+                        text: qsTr("There are no friends")
+                        hintText: qsTr("Pull down to refresh")
                     }
 
                     cacheBuffer: friendsPage.height
@@ -158,7 +159,8 @@ Page {
 
                     ViewPlaceholder {
                         enabled: !sailreadsManager.busy && followingsView.count === 0
-                        text: qsTr("There are no followings. Pull down to refresh")
+                        text: qsTr("There are no followings")
+                        hintText: qsTr("Pull down to refresh")
                     }
 
                     cacheBuffer: friendsPage.height
@@ -210,7 +212,8 @@ Page {
 
                     ViewPlaceholder {
                         enabled: !sailreadsManager.busy && followersView.count === 0
-                        text: qsTr("There are no followers. Pull down to refresh")
+                        text: qsTr("There are no followers")
+                        hintText: qsTr("Pull down to refresh")
                     }
 
                     cacheBuffer: friendsPage.height

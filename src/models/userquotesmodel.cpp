@@ -62,6 +62,7 @@ void UserQuotesModel::fetchMoreContent()
         return;
     }
     SailreadsManager::Instance()->loadUserQuotes(this, m_UserId, m_CurrentPage);
+    SetFetching(true);
 }
 
 void UserQuotesModel::loadUserQuotes()
@@ -73,6 +74,7 @@ void UserQuotesModel::loadUserQuotes()
     m_HasMore = true;
     m_CurrentPage = 1;
     SailreadsManager::Instance()->loadUserQuotes(this, m_UserId);
+    SetFetching(true);
 }
 
 void UserQuotesModel::handleGotUserQuotes(const QString& userId, const Quotes_t& quotes)
@@ -88,6 +90,7 @@ void UserQuotesModel::handleGotUserQuotes(const QString& userId, const Quotes_t&
     if (m_HasMore) {
         ++m_CurrentPage;
     }
+    SetFetching(false);
 }
 
 } // namespace Sailreads

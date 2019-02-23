@@ -64,6 +64,7 @@ void UserStatusCommentsModel::fetchMoreContent()
     }
 
     SailreadsManager::Instance()->loadUserStatus(this, m_UserStatusId, m_CurrentPage);
+    SetFetching(true);
 }
 
 void UserStatusCommentsModel::handleGotUserStatus(const UserStatusPtr& userStatus)
@@ -72,6 +73,7 @@ void UserStatusCommentsModel::handleGotUserStatus(const UserStatusPtr& userStatu
         return;
     }
     handleGotComments(userStatus->GetComments());
+    SetFetching(false);
 }
 
 void UserStatusCommentsModel::handleNewCommentAdded(const QString& resourceId, const Comment& comment)

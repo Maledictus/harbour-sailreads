@@ -61,6 +61,7 @@ void TopicCommentsModel::SetTopicId(const QString& id)
 void TopicCommentsModel::fetchMoreContent()
 {
     SailreadsManager::Instance()->loadGroupFolderTopic(this, m_TopicId, m_CurrentPage);
+    SetFetching(true);
 }
 
 void TopicCommentsModel::handleGotGroupFolderTopic(const TopicPtr& topic)
@@ -69,6 +70,7 @@ void TopicCommentsModel::handleGotGroupFolderTopic(const TopicPtr& topic)
         return;
     }
     handleGotComments(topic->GetComments());
+    SetFetching(false);
 }
 
 void TopicCommentsModel::handleNewCommentAdded(const QString& resourceId, const Comment& comment)

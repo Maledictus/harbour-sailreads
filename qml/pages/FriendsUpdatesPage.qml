@@ -90,6 +90,12 @@ Page {
             }
         }
 
+        ViewPlaceholder {
+            enabled: !sailreadsManager.busy && friendsUpdatesView.count === 0
+            text: qsTr("There are friends updates")
+            hintText: qsTr("Pull down to refresh")
+        }
+
         header: PageHeader {
             title: qsTr("Friends updates")
             description: qsTr("%1, %2")
@@ -108,7 +114,6 @@ Page {
         }
 
         onContentYChanged: fetchMoreIfNeeded()
-
 
         delegate: UpdateListItem {
             imageUrl: updateImageUrl

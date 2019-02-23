@@ -41,7 +41,8 @@ SilicaListView {
 
     ViewPlaceholder {
         enabled: !busy && notificationsView.count === 0
-        text: qsTr("There are no notifications. Pull down to refresh")
+        text: qsTr("There are no notifications")
+        hintText: qsTr("Pull down to refresh")
     }
 
     function fetchMoreIfNeeded() {

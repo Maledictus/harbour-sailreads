@@ -36,7 +36,8 @@ SilicaListView {
     clip: true
     ViewPlaceholder {
         enabled: !busy && messagesView.count === 0
-        text: qsTr("There are no messages in this folder. Pull down to refresh")
+        text: qsTr("There are no messages in this folder")
+        hintText: qsTr("Pull down to refresh")
     }
 
     function fetchMoreIfNeeded() {

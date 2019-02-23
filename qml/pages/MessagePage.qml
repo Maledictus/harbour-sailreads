@@ -64,6 +64,13 @@ Page {
             }
         }
 
+
+        ViewPlaceholder {
+            enabled: !sailreadsManager.busy && messageHistoryView.count === 0
+            text: qsTr("There are no messages")
+            hintText: qsTr("Pull down to refresh")
+        }
+
         header: Item {
             width: messageHistoryView.width
             height: messageBox.height
