@@ -190,7 +190,7 @@ Page {
                 width: parent.width
                 wrapMode: Text.WordWrap
                 textFormat: Text.StyledText
-                linkColor: Theme.highlightColor
+                linkColor: Theme.primaryColor
                 color: Theme.highlightColor
                 onLinkActivated: mainWindow.openPageFromUrl(link)
             }
