@@ -1560,6 +1560,26 @@ BookPtr ParseBookFromWork(const QDomElement& element)
     return book;
 }
 
+Quote ParseQuoteFromArticle(const QString& article)
+{
+    QRegularExpression quoteExp("<div\\s+class=\\'quoteContainer\\'>.*?"
+                "<a\\s+aria-label=\\\"(.+?)\\\"\\s+?href=\\\"(.+?)\\\">.+?"
+                "<div\\s+class=\\'quoteContentContainer\\'>.+?<blockquote\\s+class=\\'quoteBody\\'\\s*>"
+                "(.+?)<\\/blockquote>.+?<span\\s+class=\\'quoteBook\\'>.*?"
+                "<a\\s+class=\\\"gr-hyperlink\\\"\\s+href=\\\"(.+?)\\\">(.+?)<\\/a>.*?<\\/span>",
+            QRegularExpression::DotMatchesEverythingOption);
+    QRegularExpressionMatch match = quoteExp.match(article);
+    Quote quote;
+    if (match.hasMatch() && match.lastCapturedIndex() == 5) {
+        quote.SetAuthor(match.captured(1));
+        quote.SetAuthorLink(QUrl("https://www.goodreads.com" + match.captured(2)));
+        quote.SetQuote(match.captured(3));
+        quote.SetBookLink(QUrl("https://www.goodreads.com" + match.captured(4)));
+        quote.SetBook(match.captured(5));
+    }
+    return quote;
+}
+
 GroupMembers_t ParseGroupMembers(const QDomElement& element)
 {
     GroupMembers_t members;
@@ -1846,6 +1866,20 @@ Books_t ParseBooksFromWorksList(const QDomElement& element)
         result << ParseBookFromWork(booksList.at(i).toElement());
     }
     return result;
+}
+
+Quotes_t ParseJsonQuotesContent(const QString& htmlContent)
+{
+    Quotes_t quotes;
+    QRegularExpression articlesExp("<article>(.+?)</article>",
+            QRegularExpression::DotMatchesEverythingOption);
+    QRegularExpressionMatchIterator it = articlesExp.globalMatch(htmlContent);
+    while (it.hasNext()) {
+        QRegularExpressionMatch match = it.next();
+        QString article = match.captured(1);
+        quotes << ParseQuoteFromArticle(article);
+    }
+    return quotes;
 }
 
 UserPtr ParseUser(const QDomDocument& doc)
@@ -2447,6 +2481,27 @@ Quotes_t ParseUserQuotes(const QDomDocument& doc)
         }
         quotes << quote;
     }
+    return quotes;
+}
+
+PageCountedItems<Quote> ParseJsonQuotes(const QJsonDocument& doc)
+{
+    if (!doc.isObject()) {
+        return PageCountedItems<Quote>();
+    }
+
+    QJsonObject object = doc.object();
+    if (!object.contains("ok") || !object["ok"].toBool()) {
+        return PageCountedItems<Quote>();
+    }
+
+    PageCountedItems<Quote> quotes;
+    if (object.contains("page") && object.contains("total_pages")) {
+        quotes.m_Page = object["page"].toInt();
+        quotes.m_PagesCount = object["total_pages"].toInt();
+        quotes.m_Items = ParseJsonQuotesContent(object["content_html"].toString());
+    }
+
     return quotes;
 }
 

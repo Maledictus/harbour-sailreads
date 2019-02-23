@@ -56,6 +56,19 @@ struct CountedItems
     {}
 };
 
+template<typename T>
+struct PageCountedItems
+{
+    int m_Page;
+    int m_PagesCount;
+    QList<T> m_Items;
+
+    PageCountedItems()
+    : m_Page(0)
+    , m_PagesCount(0)
+    {}
+};
+
 struct ReviewInfo
 {
     QString m_ReviewId;

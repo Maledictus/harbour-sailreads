@@ -30,11 +30,11 @@ import "../components"
 import "../utils/Utils.js" as Utils
 
 Page {
-    id: userQuotesPage
+    id: bookQuotesPage
 
-    property alias userId: userQuotesModel.userId
-    property string userName
-    property bool busy: sailreadsManager.busy && userQuotesPage.status === PageStatus.Active
+    property alias workId: bookQuotesModel.workId
+    property string bookTitle
+    property bool busy: sailreadsManager.busy && bookQuotesPage.status === PageStatus.Active
 
     function attachPage() {
         if (pageStack._currentContainer.attachedContainer === null
@@ -44,22 +44,22 @@ Page {
     }
 
     Component.onDestruction: {
-        userQuotesModel.cancelRequest()
+        bookQuotesModel.cancelRequest()
     }
 
     SilicaListView {
         id: quotesView
         anchors.fill: parent
-        cacheBuffer: userQuotesPage.height
+        cacheBuffer: bookQuotesPage.height
         header: PageHeader {
-            title: qsTr("Quotes: %1").arg(userName)
+            title: qsTr("Quotes: %1").arg(bookTitle)
         }
 
         PullDownMenu {
-            busy: userQuotesPage.busy
+            busy: bookQuotesPage.busy
             MenuItem {
                 text: qsTr("Refresh")
-                onClicked: userQuotesModel.loadUserQuotes()
+                onClicked: bookQuotesModel.loadBookQuotes()
             }
         }
 
@@ -69,15 +69,15 @@ Page {
             hintText: qsTr("Pull down to refresh")
         }
 
-        model: UserQuotesModel {
-            id: userQuotesModel
+        model: BookQuotesModel {
+            id: bookQuotesModel
         }
 
         function fetchMoreIfNeeded() {
-            if (!userQuotesPage.busy &&
-                    userQuotesModel.hasMore &&
-                    indexAt(contentX, contentY + height) > userQuotesModel.rowCount() - 2) {
-                userQuotesModel.fetchMoreContent()
+            if (!bookQuotesPage.busy &&
+                    bookQuotesModel.hasMore &&
+                    indexAt(contentX, contentY + height) > bookQuotesModel.rowCount() - 2) {
+                bookQuotesModel.fetchMoreContent()
             }
         }
 
@@ -89,18 +89,18 @@ Page {
             contentHeight: lbl.height + separator.height + Theme.paddingMedium
             clip: true
             Label {
-                id: lbl
                 anchors {
                     left: parent.left
                     right: parent.right
                     margins: Theme.horizontalPageMargin
                 }
+                id: lbl
+                width: parent.width
                 wrapMode: Text.WordWrap
                 text: quoteBody
                 color: listItem.highlighted ? Theme.highlightColor : Theme.primaryColor
                 horizontalAlignment: Qt.AlignJustify
             }
-
             Separator {
                 id: separator
                 anchors {
@@ -126,7 +126,7 @@ Page {
     BusyIndicator {
         size: BusyIndicatorSize.Large
         anchors.centerIn: parent
-        running: userQuotesPage.busy
+        running: bookQuotesPage.busy
         visible: running
     }
 }

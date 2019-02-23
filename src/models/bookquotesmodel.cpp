@@ -20,73 +20,84 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-#include "userquotesmodel.h"
+#include "bookquotesmodel.h"
 
 #include "../sailreadsmanager.h"
 
 namespace Sailreads
 {
-UserQuotesModel::UserQuotesModel(QObject *parent)
+BookQuotesModel::BookQuotesModel(QObject *parent)
 : QuotesBaseModel(parent)
+, m_WorkId(0)
 {
 }
 
-void UserQuotesModel::classBegin()
+void BookQuotesModel::classBegin()
 {
     auto sm = SailreadsManager::Instance();
-    connect(sm, &SailreadsManager::gotUserQuotes,
-            this, &UserQuotesModel::handleGotUserQuotes);
+    connect(sm, &SailreadsManager::gotBookQuotes,
+            this, &BookQuotesModel::handleGotBookQuotes);
 }
 
-void UserQuotesModel::componentComplete()
+void BookQuotesModel::componentComplete()
 {
 }
 
-QString UserQuotesModel::GetUserId() const
+quint64 BookQuotesModel::GetWorkId() const
 {
-    return m_UserId;
+    return m_WorkId;
 }
 
-void UserQuotesModel::SetUserId(const QString& userId)
+void BookQuotesModel::SetWorkId(quint64 workId)
 {
-    if (m_UserId != userId) {
-        m_UserId = userId;
+    if (m_WorkId != workId) {
+        m_WorkId = workId;
         m_CurrentPage = 1;
         SetHasMore(true);
-        emit userIdChanged();
+        emit workIdChanged();
     }
 }
 
-void UserQuotesModel::fetchMoreContent()
+void BookQuotesModel::fetchMoreContent()
 {
-    if (m_UserId.isEmpty()) {
+    if (!m_WorkId) {
         return;
     }
-    SailreadsManager::Instance()->loadUserQuotes(this, m_UserId, m_CurrentPage);
+    SailreadsManager::Instance()->loadBookQuotes(this, m_WorkId, m_CurrentPage);
     SetFetching(true);
 }
 
-void UserQuotesModel::loadUserQuotes()
+void BookQuotesModel::loadBookQuotes()
 {
-    if (m_UserId.isEmpty()) {
+    if (!m_WorkId) {
         return;
     }
     Clear();
     m_HasMore = true;
     m_CurrentPage = 1;
-    SailreadsManager::Instance()->loadUserQuotes(this, m_UserId);
+    SailreadsManager::Instance()->loadBookQuotes(this, m_WorkId);
     SetFetching(true);
 }
 
-void UserQuotesModel::handleGotUserQuotes(const QString& userId, const Quotes_t& quotes)
+void BookQuotesModel::handleGotBookQuotes(quint64 workId, const PageCountedItems<Quote>& quotes)
 {
-    if (m_UserId != userId || quotes.isEmpty()) {
+    if (m_WorkId != workId || !quotes.m_Items.count()) {
         return;
     }
 
-    AddItems(quotes);
-    static const int quotesCountInAnswer = 30;
-    SetHasMore(quotes.count() == quotesCountInAnswer);
+    if (!quotes.m_Page && !quotes.m_PagesCount)
+    {
+        Clear();
+    }
+    else if (quotes.m_Page == 1) {
+        m_CurrentPage = quotes.m_Page;
+        SetItems(quotes.m_Items);
+    }
+    else {
+        AddItems(quotes.m_Items);
+    }
+
+    SetHasMore(quotes.m_Page != quotes.m_PagesCount);
     if (m_HasMore) {
         ++m_CurrentPage;
     }

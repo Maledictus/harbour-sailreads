@@ -26,6 +26,8 @@ THE SOFTWARE.
 
 #include <QDomDocument>
 #include <QDomElement>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include <QPair>
 
 #include "objects/bookshelf.h"
@@ -72,6 +74,8 @@ UserStatusPtr ParseUserStatus(const QDomElement& element);
 RecommendationPtr ParseRecommendation(const QDomElement& element);
 BookPtr ParseBookFromWork(const QDomElement& element);
 
+Quote ParseQuoteFromArticle(const QString& article);
+
 GroupMembers_t ParseGroupMembers(const QDomElement& element);
 GroupFolders_t ParseGroupFolders(const QDomElement& element);
 BookShelves_t ParseBookShelves(const QDomElement& element);
@@ -95,6 +99,8 @@ Notifications_t ParseNotifications(const QDomElement& element);
 Users_t ParseUsers(const QDomElement& element);
 Updates_t ParseUpdatesList(const QDomElement& element);
 Books_t ParseBooksFromWorksList(const QDomElement& element);
+
+Quotes_t ParseJsonQuotesContent(const QString& htmlContent);
 
 UserPtr ParseUser(const QDomDocument& doc);
 CountedItems<BookShelf> ParseBookShelves(const QDomDocument& doc);
@@ -131,6 +137,8 @@ ReviewPtr ParseBookShelfAddedReview(const QDomDocument& doc);
 Reviews_t ParseBookShelfAddedReviews(const QDomDocument& doc);
 CountedItems<BookPtr> ParseFoundBooks(const QDomDocument& doc);
 Quotes_t ParseUserQuotes(const QDomDocument& doc);
+
+PageCountedItems<Quote> ParseJsonQuotes(const QJsonDocument& doc);
 }
 }
 }

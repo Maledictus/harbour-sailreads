@@ -214,6 +214,7 @@ QNetworkReply* OAuth1::Get(const QString& accessToken, const QString& accessToke
         const QUrl& url, const QVariantMap& parameters)
 {
     QNetworkRequest request(url);
+    request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
     SignRequest(request, parameters, QNetworkAccessManager::GetOperation,
             accessToken, accessTokenSecret);
     return m_NAM->get(request);

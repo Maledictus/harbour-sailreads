@@ -37,6 +37,7 @@ THE SOFTWARE.
 #include "models/baseproxymodel.h"
 #include "models/bookshelvesmodel.h"
 #include "models/bookeditionsmodel.h"
+#include "models/bookquotesmodel.h"
 #include "models/messagesmodel.h"
 #include "models/notificationsmodel.h"
 #include "models/topiccommentsmodel.h"
@@ -234,6 +235,7 @@ void Application::start()
     qmlRegisterType<FriendsRecommendationsModel>("harbour.sailreads", 1, 0, "FriendsRecommendationsModel");
     qmlRegisterType<FoundBooksModel>("harbour.sailreads", 1, 0, "FoundBooksModel");
     qmlRegisterType<UserQuotesModel>("harbour.sailreads", 1, 0, "UserQuotesModel");
+    qmlRegisterType<BookQuotesModel>("harbour.sailreads", 1, 0, "BookQuotesModel");
 
     qmlRegisterType<UserProfile>("harbour.sailreads", 1, 0, "UserProfile");
     qmlRegisterType<GroupItem>("harbour.sailreads", 1, 0, "GroupItem");

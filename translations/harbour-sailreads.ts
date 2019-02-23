@@ -526,6 +526,11 @@
     </message>
     <message>
         <location filename="../qml/pages/BookPage.qml" line="444"/>
+        <source>Quotes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BookPage.qml" line="458"/>
         <source>Other editions</source>
         <translation type="unfinished"></translation>
     </message>
@@ -535,9 +540,37 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="460"/>
-        <location filename="../qml/pages/BookPage.qml" line="467"/>
+        <location filename="../qml/pages/BookPage.qml" line="474"/>
+        <location filename="../qml/pages/BookPage.qml" line="481"/>
         <source>Similar Books</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>BookQuotesPage</name>
+    <message>
+        <location filename="../qml/pages/BookQuotesPage.qml" line="55"/>
+        <source>Quotes: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BookQuotesPage.qml" line="61"/>
+        <source>Refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BookQuotesPage.qml" line="68"/>
+        <source>There are no quotes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BookQuotesPage.qml" line="69"/>
+        <source>Pull down to refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BookQuotesPage.qml" line="118"/>
+        <source>Copy to clipboard</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1558,12 +1591,12 @@
 <context>
     <name>Sailreads::Application</name>
     <message>
-        <location filename="../src/application.cpp" line="159"/>
+        <location filename="../src/application.cpp" line="160"/>
         <source>Authorized</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="159"/>
+        <location filename="../src/application.cpp" line="160"/>
         <source>Not authorized</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1599,17 +1632,17 @@
 <context>
     <name>Sailreads::SailreadsManager</name>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="287"/>
+        <location filename="../src/sailreadsmanager.cpp" line="289"/>
         <source>Authorization user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="305"/>
+        <location filename="../src/sailreadsmanager.cpp" line="307"/>
         <source>Authentication user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="326"/>
+        <location filename="../src/sailreadsmanager.cpp" line="328"/>
         <source>Getting user profile...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1823,7 +1856,7 @@
     <name>UserQuotesPage</name>
     <message>
         <location filename="../qml/pages/UserQuotesPage.qml" line="55"/>
-        <source>%1: Quotes</source>
+        <source>Quotes: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

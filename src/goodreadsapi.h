@@ -28,6 +28,7 @@ THE SOFTWARE.
 #include <memory>
 
 #include <QDomDocument>
+#include <QJsonDocument>
 #include <QMap>
 #include <QObject>
 #include <QUrl>
@@ -160,6 +161,7 @@ public:
     void UnfollowUser(const QString& userId);
 
     void LoadUserQuotes(QObject *requester, const QString& userId, int page = 1);
+    void LoadBookQuotes(QObject *requester, quint64 workId, int page = 1);
     void AddQuote(const QString& authorName, quint64 authorId, quint64 bookId, const QString& quote,
         const QStringList& tags);
 
@@ -177,6 +179,7 @@ public:
 
 private:
     QDomDocument GetDocumentFromReply(QObject *sender, bool& ok);
+    QJsonDocument GetJsonDocumentFromReply(QObject *sender, bool& ok);
     QByteArray GetReply(QObject *sender, bool& ok);
 
 private slots:
@@ -250,6 +253,7 @@ private slots:
     void handleUnfollowUser(const QString& userId);
 
     void handleGotUserQuotes(const QString& userId);
+    void handleGotBookQuotes(quint64 workId);
     void handleAddQuote();
 
     void handleGetReadStatus();
@@ -345,5 +349,6 @@ signals:
     void bookRemovedFromShelf(const QString& bookId, const QString& shelfName);
 
     void gotUserQuotes(const QString& userId, const Quotes_t& quotes);
+    void gotBookQuotes(quint64 workId, const PageCountedItems<Quote>& quotes);
 };
 }

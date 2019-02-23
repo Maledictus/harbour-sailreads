@@ -173,6 +173,7 @@ public slots:
     void unlikeResource(const QString& resourceId, quint64 ratingId);
 
     void loadUserQuotes(QObject *requester, const QString& userId, int page = 1);
+    void loadBookQuotes(QObject *requester, quint64 workId, int page = 1);
 
 signals:
     void busyChanged();
@@ -257,6 +258,7 @@ signals:
     void bookRemovedFromShelf(const QString& bookId, const QString& shelfName);
 
     void gotUserQuotes(const QString& userId, const Quotes_t& quotes);
+    void gotBookQuotes(quint64 workId, const PageCountedItems<Quote>& quotes);
 };
 }
 

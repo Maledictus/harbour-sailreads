@@ -441,6 +441,20 @@ Page {
             MoreButton {
                 width: parent.width
                 height: Theme.itemSizeMedium
+                text: qsTr("Quotes")
+                counter: ""
+                busy: bookPage.busy
+                enabled: !busy
+                onClicked: {
+                    pageStack.push(Qt.resolvedUrl("BookQuotesPage.qml"),
+                        { workId: book && book.work ? book.work.id : -1,
+                            bookTitle: book ? book.title : "" })
+                }
+            }
+
+            MoreButton {
+                width: parent.width
+                height: Theme.itemSizeMedium
                 text: qsTr("Other editions")
                 counter: ""
                 busy: bookPage.busy

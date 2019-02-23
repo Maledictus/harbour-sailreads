@@ -652,10 +652,20 @@ void GoodReadsApi::UnfollowUser(const QString& userId)
 void GoodReadsApi::LoadUserQuotes(QObject *requester, const QString &userId, int page)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
-            QUrl(m_BaseUrl + QString("/quotes/list_rss/%1?page=%2").arg(userId).arg(page)));
+            QUrl(m_BaseUrl + QString("/quotes/list_rss/%1").arg(userId)),
+            { { "page", page } });
     m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this, [this, userId]() { handleGotUserQuotes(userId); });
+}
+
+void GoodReadsApi::LoadBookQuotes(QObject *requester, quint64 workId, int page)
+{
+    auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + QString("/work/quotes/%1?format=json&page=%2").arg(workId).arg(page)));
+    m_Requester2Reply[requester] = reply;
+    connect(reply, &QNetworkReply::finished,
+            this, [this, workId]() { handleGotBookQuotes(workId); });
 }
 
 void GoodReadsApi::AddQuote(const QString& authorName, quint64 authorId, quint64 bookId,
@@ -791,6 +801,22 @@ QDomDocument ParseDocument(const QByteArray& data, bool& ok)
     return document;
 }
 
+QJsonDocument ParseJsonDocument(const QByteArray& data, bool& ok)
+{
+    QJsonParseError error;
+    QJsonDocument document = QJsonDocument::fromJson(QString::fromUtf8(data).toUtf8(), &error);
+    if (document.isNull()) {
+        qWarning() << Q_FUNC_INFO
+                << error.errorString();
+        ok = false;
+    }
+    else
+    {
+        ok = true;
+    }
+    return document;
+}
+
 QUrl GetRedirectedUrl(const QDomDocument& doc)
 {
     QXmlQuery query;
@@ -851,6 +877,18 @@ QDomDocument GoodReadsApi::GetDocumentFromReply(QObject *sender, bool& ok)
 
     ok = false;
     return ParseDocument(data, ok);
+}
+
+QJsonDocument GoodReadsApi::GetJsonDocumentFromReply(QObject *sender, bool& ok)
+{
+    QJsonDocument doc;
+    QByteArray data = GetReply(sender, ok);
+    if (!ok || data.isEmpty()) {
+        return doc;
+    }
+
+    ok = false;
+    return ParseJsonDocument(data, ok);
 }
 
 void GoodReadsApi::handleObtainRequestToken()
@@ -1703,6 +1741,19 @@ void GoodReadsApi::handleGotUserQuotes(const QString& userId)
     }
 
     emit gotUserQuotes(userId, RpcUtils::Parser::ParseUserQuotes(doc));
+    emit requestFinished();
+}
+
+void GoodReadsApi::handleGotBookQuotes(quint64 workId)
+{
+    bool ok = false;
+    auto doc = GetJsonDocumentFromReply(sender(), ok);
+    if (!ok) {
+        emit requestFinished();
+        return;
+    }
+
+    emit gotBookQuotes(workId, RpcUtils::Parser::ParseJsonQuotes(doc));
     emit requestFinished();
 }
 
