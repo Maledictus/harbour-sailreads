@@ -502,7 +502,7 @@ Pull down to refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="440"/>
+        <location filename="../qml/pages/BookPage.qml" line="439"/>
         <source>Other editions</source>
         <translation type="unfinished"></translation>
     </message>
@@ -512,8 +512,8 @@ Pull down to refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="456"/>
-        <location filename="../qml/pages/BookPage.qml" line="463"/>
+        <location filename="../qml/pages/BookPage.qml" line="455"/>
+        <location filename="../qml/pages/BookPage.qml" line="462"/>
         <source>Similar Books</source>
         <translation type="unfinished"></translation>
     </message>

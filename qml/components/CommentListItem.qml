@@ -3,7 +3,7 @@ import Sailfish.Silica 1.0
 
 import "../utils/Utils.js" as Utils
 
-ListItem {
+Item {
     id: listItem
     property var author
     property alias body: label.text
@@ -13,7 +13,7 @@ ListItem {
     signal linkActivated(var link)
 
     width: parent.width
-    contentHeight: column.height + separator.height + Theme.paddingMedium
+    height: column.height + separator.height + Theme.paddingMedium
     clip: true
     Column {
         id: column
@@ -38,7 +38,8 @@ ListItem {
             wrapMode: Text.WordWrap
             textFormat: Text.StyledText
             font.pixelSize: Theme.fontSizeSmall
-            linkColor: Theme.highlightColor
+            linkColor: Theme.primaryColor
+            color: Theme.highlightColor
             onLinkActivated: listItem.linkActivated(link)
         }
     }
