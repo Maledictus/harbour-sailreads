@@ -59,6 +59,12 @@ Page {
         anchors.fill: parent
         cacheBuffer: reviewPage.height
 
+        ViewPlaceholder {
+            y: headerItem.height + Theme.paddingLarge
+            enabled: !sailreadsManager.busy && commentsView.count === 0
+            text: qsTr("There are no comments")
+        }
+
         function fetchMoreIfNeeded() {
             if (!reviewPage.busy &&
                     commentsModel.hasMore &&

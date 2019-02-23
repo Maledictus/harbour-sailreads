@@ -67,6 +67,7 @@ Page {
             enabled: !sailreadsManager.busy && quotesView.count === 0
             text: qsTr("There are no quotes. Pull down to refresh")
         }
+
         model: UserQuotesModel {
             id: userQuotesModel
         }

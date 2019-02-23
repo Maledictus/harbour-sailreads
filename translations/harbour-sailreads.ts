@@ -1696,24 +1696,29 @@ Pull down to refresh or to search groups</source>
 <context>
     <name>UserStatusPage</name>
     <message>
-        <location filename="../qml/pages/UserStatusPage.qml" line="75"/>
-        <location filename="../qml/pages/UserStatusPage.qml" line="92"/>
+        <location filename="../qml/pages/UserStatusPage.qml" line="61"/>
+        <source>There are no comments</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/UserStatusPage.qml" line="79"/>
+        <location filename="../qml/pages/UserStatusPage.qml" line="96"/>
         <source>Add comment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/UserStatusPage.qml" line="84"/>
+        <location filename="../qml/pages/UserStatusPage.qml" line="88"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/UserStatusPage.qml" line="131"/>
-        <location filename="../qml/pages/UserStatusPage.qml" line="174"/>
+        <location filename="../qml/pages/UserStatusPage.qml" line="135"/>
+        <location filename="../qml/pages/UserStatusPage.qml" line="178"/>
         <source>Status update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/UserStatusPage.qml" line="205"/>
+        <location filename="../qml/pages/UserStatusPage.qml" line="209"/>
         <source>Comments</source>
         <translation type="unfinished"></translation>
     </message>

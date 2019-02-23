@@ -56,6 +56,12 @@ Page {
         anchors.fill: parent
         cacheBuffer: userStatusPage.height
 
+        ViewPlaceholder {
+            y: headerItem.height + Theme.paddingLarge
+            enabled: !sailreadsManager.busy && commentsView.count === 0
+            text: qsTr("There are no comments")
+        }
+
         function fetchMoreIfNeeded() {
             if (!userStatusPage.busy &&
                     commentsModel.hasMore &&
@@ -66,7 +72,6 @@ Page {
         }
 
         contentY: -headerItem.height
-
         onContentYChanged: fetchMoreIfNeeded()
 
         PullDownMenu {
