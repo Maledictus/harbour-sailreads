@@ -66,7 +66,7 @@ ApplicationWindow {
         id: splashScreenComponent
         SplashScreenPage {}
         //12934309
-        //BookPage { bookId: "16096968" }
+        //BookPage { bookId: "41045262" }
     }
 
     Component {
@@ -86,6 +86,11 @@ ApplicationWindow {
     function openPageFromUrl(url) {
         var str = url.toString();
         var match = /(https?:\/\/)?www.goodreads.com\/(.*)\/(\d+)/.exec(url)
+        if (match === null) {
+            openInBrowser(url)
+            return
+        }
+
         var path = match[2]
         var id = match[3]
         switch (path) {
