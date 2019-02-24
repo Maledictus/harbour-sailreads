@@ -36,8 +36,19 @@ MouseArea {
     property bool down: pressed && containsMouse
     property bool highlighted: down
 
-    width: parent ? parent.width : Screen.width
+    width: {
+        var w = parent ? parent.width : Screen.Width;
+        return textMetricsLabel.width + Theme.paddingMedium < w ?
+                textMetricsLabel.width + Theme.paddingMedium : w
+    }
     implicitHeight: label.height
+
+    TextMetrics {
+        id: textMetricsLabel
+        font.pixelSize: textLabel.font.pixelSize
+        text: textLabel.text
+        elide: Qt.ElideNone
+    }
 
     Label {
         id: textLabel
@@ -46,6 +57,7 @@ MouseArea {
         wrapMode: Text.WordWrap
         color: highlighted ? Theme.highlightColor : Theme.primaryColor
         linkColor: Theme.highlightColor
+        truncationMode: TruncationMode.Fade
         onLinkActivated: clickableLabel.linkActivated(link)
     }
 }

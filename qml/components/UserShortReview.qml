@@ -73,7 +73,6 @@ Item {
                 id: nameLabelItem
                 label.font.pixelSize: headerFontSize
                 label.wrapMode: Text.NoWrap
-                label.maximumLineCount: 1
                 label.truncationMode: TruncationMode.Fade
                 onClicked: userClicked(userId)
                 highlighted: headerRow.highlighted || down
