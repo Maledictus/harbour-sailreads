@@ -106,7 +106,7 @@ void GoodReadsApi::GetUserInfo(QObject *requester, const QString& id)
              this, &GoodReadsApi::handleGetUserInfo);
 }
 
-void GoodReadsApi::CompareBooks(const QString& userId)
+void GoodReadsApi::CompareBooks(const QString&)
 {
 //    //TODO make simple request
 //    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
@@ -683,8 +683,8 @@ void GoodReadsApi::LoadAuthorQuotes(QObject *requester, const QString& authorId,
             this, [this, authorId]() { handleGotAuthorQuotes(authorId); });
 }
 
-void GoodReadsApi::AddQuote(const QString& authorName, quint64 authorId, quint64 bookId,
-    const QString& quote, const QStringList& tags)
+void GoodReadsApi::AddQuote(const QString&/* authorName*/, quint64/* authorId*/, quint64/* bookId*/,
+    const QString&/* quote*/, const QStringList&/* tags*/)
 {
 //    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
 //            QUrl(QString("https://www.goodreads.com/quotes?format=xml&quote[author_name]=%1&"
@@ -706,7 +706,7 @@ void GoodReadsApi::GetReadStatus(QObject *requester, const QString& readStatusId
             this, &GoodReadsApi::handleGetReadStatus);
 }
 
-void GoodReadsApi::GetRecentUserStatuses(QObject *requester)
+void GoodReadsApi::GetRecentUserStatuses(QObject */*requester*/)
 {
 //    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
 //            QUrl(QString("https://www.goodreads.com/user_status/index.xml")));
@@ -737,7 +737,7 @@ void GoodReadsApi::UpdateReadingProgress(const QString& bookId, const QString& k
             this, &GoodReadsApi::handleUpdateReadingProgress);
 }
 
-void GoodReadsApi::DeleteUserStatus(quint64 userStatusId)
+void GoodReadsApi::DeleteUserStatus(quint64/* userStatusId*/)
 {
 //    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
 //            QUrl(QString("https://www.goodreads.com/user_status/destroy/%1?format=xml")
