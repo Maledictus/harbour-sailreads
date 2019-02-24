@@ -325,6 +325,45 @@ quint64 Review::GetRatingId() const
     return m_RatingId;
 }
 
+bool Review::GetSpoilerFlag() const
+{
+    return m_SpoilerFlag;
+}
+
+void Review::SetSpoilerFlag(bool set)
+{
+    if (m_SpoilerFlag != set) {
+        m_SpoilerFlag = set;
+        emit spoilerFlagChanged();
+    }
+}
+
+UserStatuses_t Review::GetUserStatuses() const
+{
+    return m_UserStatuses;
+}
+
+void Review::SetUserStatuses(const UserStatuses_t& userStatuses)
+{
+    m_UserStatuses = userStatuses;
+    emit lastUserStatusChanged();
+}
+
+UserStatus* Review::GetLastUserStatus() const
+{
+    return m_UserStatuses.isEmpty() ? nullptr : m_UserStatuses.first().get();
+}
+
+ReadStatuses_t Review::GetReadStatuses() const
+{
+    return m_ReadStatuses;
+}
+
+void Review::SetReadStatuses(const ReadStatuses_t& readStatues)
+{
+    m_ReadStatuses = readStatues;
+}
+
 void Review::updateShelves(Review *newReview)
 {
     if (!newReview) {
@@ -375,6 +414,8 @@ void Review::Update(const ReviewPtr& newReview)
 
     Update(newReview.get());
     SetComments(newReview->GetComments());
+    SetUserStatuses(newReview->GetUserStatuses());
+    SetReadStatuses(newReview->GetReadStatuses());
 }
 
 } // namespace Sailreads

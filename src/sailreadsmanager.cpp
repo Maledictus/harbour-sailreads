@@ -438,10 +438,11 @@ void SailreadsManager::addReview(const QString& bookId, int rating, const QStrin
     m_Api->AddReview(bookId, rating, reviewText);
 }
 
-void SailreadsManager::editReview(const QString& reviewId, int rating, const QString& reviewText)
+void SailreadsManager::editReview(const QString& reviewId, int rating, const QString& reviewText,
+        bool finished)
 {
     SetBusy(true);
-    m_Api->EditReview(reviewId, rating, reviewText);
+    m_Api->EditReview(reviewId, rating, reviewText, finished);
 }
 
 void SailreadsManager::removeReview(const QString& bookId, const QString& reviewId)
@@ -647,6 +648,13 @@ void SailreadsManager::loadUserStatus(QObject *requester, const QString &id, int
 {
     SetBusy(true);
     m_Api->GetUserStatus(requester, id, page);
+}
+
+void SailreadsManager::updateReadingProgress(const QString& bookId, const QString& key, int value,
+        const QString& comment)
+{
+    SetBusy(true);
+    m_Api->UpdateReadingProgress(bookId, key, value, comment);
 }
 
 void SailreadsManager::loadRecommendation(QObject *requester, const QString& id, int page)

@@ -221,7 +221,7 @@ Page {
                         sailreadsManager.likeResource(reviewId, "Review")
                 onEdit: {
                     var editDialog = pageStack.push("../dialogs/AddEditReviewDialog.qml",
-                            { mode: "edit", book: review.book, rating: review.rating, reviewText: review.body })
+                            { mode: "edit", review: review })
                     editDialog.accepted.connect(function () {
                         sailreadsManager.editReview(review.id, editDialog.rating, editDialog.reviewText)
                     })

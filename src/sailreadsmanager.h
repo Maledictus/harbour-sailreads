@@ -115,7 +115,8 @@ public slots:
     void searchReviews(QObject *requester, const QString& userId,
             const QString& searchText, int page = 1);
     void addReview(const QString& bookId, int rating, const QString& reviewText = QString());
-    void editReview(const QString& reviewId, int rating, const QString& reviewText);
+    void editReview(const QString& reviewId, int rating, const QString& reviewText,
+        bool finished = false);
     void removeReview(const QString& bookId, const QString& reviewId);
 
     void loadBook(QObject *requester, const QString& bookId);
@@ -166,6 +167,8 @@ public slots:
     void loadReadStatus(QObject *requester, const QString& id, int page = 1);
 
     void loadUserStatus(QObject *requester, const QString& id, int page = 1);
+    void updateReadingProgress(const QString& bookId, const QString& key, int value,
+            const QString& comment);
 
     void loadRecommendation(QObject *requester, const QString& id, int page = 1);
 

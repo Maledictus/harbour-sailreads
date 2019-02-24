@@ -32,8 +32,7 @@ ListItem {
     property alias authors: authorsLabel.text
     property real averageRating: 0.0
     property real ratingsCount: 0.0
-    property alias bookShelfButton : bookShelfButtonItem
-    property alias selected : bookShelfButtonItem.selected
+    property alias customItem: customInnerItem
 
     contentHeight: row.height + separator.height + Theme.paddingMedium
     clip: true
@@ -90,16 +89,10 @@ ListItem {
                 color: Theme.highlightColor
             }
 
-            IconTextButton {
-                id: bookShelfButtonItem
-                property bool selected: false
-                visible: false
-                label.font.pixelSize: Theme.fontSizeMedium
-                label.color: selected || highlighted || listItem.highlighted ?
-                        Theme.highlightColor : Theme.primaryColor
-                icon.source: !selected ? "image://Theme/icon-m-add" :
-                        "image://Theme/icon-m-acknowledge"
-                icon.highlighted: selected || highlighted || listItem.highlighted
+            Item {
+                id: customInnerItem
+                width: parent.width
+                height: childrenRect.height
             }
         }
     }

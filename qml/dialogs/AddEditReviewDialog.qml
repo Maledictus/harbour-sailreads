@@ -33,9 +33,25 @@ import "../utils/Utils.js" as Utils
 Dialog {
     id: addEditReviewDialog
 
-    property var book
+    property var review
     property alias rating: ratingBox.rating
     property alias reviewText: reviewTextArea.text
+    property bool finished: false
+    property var parentPage: null
+
+    onReviewChanged: {
+        if (review) {
+            rating = review.rating
+            reviewText = review.body
+        }
+    }
+
+    onParentPageChanged: {
+        if (parentPage) {
+            acceptDestination = parentPage
+            acceptDestinationAction = PageStackAction.Pop
+        }
+    }
 
     property string mode: "add"
 
@@ -64,12 +80,12 @@ Dialog {
                 }
 
                 width: parent.width
-                bookImage: book ? book.imageUrl : ""
-                bookTitle: book ? book.title : ""
-                bookAuthors: book ?
-                        Utils.getAuthorsString(book.authors, Theme.primaryColor) : ""
-                bookAverageRating: book ? book.averageRating : 0.0
-                bookRatingsCount: book ? book.ratingsCount : 0
+                bookImage: review && review.book ? review.book.imageUrl : ""
+                bookTitle: review && review.book ? review.book.title : ""
+                bookAuthors: review && review.book ?
+                        Utils.getAuthorsString(review.book.authors, Theme.primaryColor) : ""
+                bookAverageRating: review && review.book ? review.book.averageRating : 0.0
+                bookRatingsCount: review && review.book ? review.book.ratingsCount : 0
             }
 
             Separator {
@@ -103,4 +119,14 @@ Dialog {
             }
         }
     }
+
+    onAccepted: {
+        if (parentPage) {
+            sailreadsManager.editReview(review.id, addEditReviewDialog.rating,
+                    addEditReviewDialog.reviewText, finished)
+        }
+    }
+
+    canAccept: mode === "edit" || (mode === "add" && (rating >= 1 || reviewText !== ""))
+
 }

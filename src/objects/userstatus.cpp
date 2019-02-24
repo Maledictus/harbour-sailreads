@@ -33,8 +33,8 @@ UserStatus::UserStatus(QObject *parent)
 , m_CommentsCount(0)
 , m_IsLiked(false)
 , m_RatingId(0)
-, m_Page(0)
-, m_Percent(0)
+, m_Page(-1)
+, m_Percent(-1)
 , m_WorkId(0)
 {
 #ifdef QT_DEBUG

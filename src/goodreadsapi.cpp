@@ -277,11 +277,15 @@ void GoodReadsApi::AddReview(const QString& bookId, int rating, const QString& r
             this, &GoodReadsApi::handleAddReview);
 }
 
-void GoodReadsApi::EditReview(const QString& reviewId, int rating, const QString& review)
+void GoodReadsApi::EditReview(const QString& reviewId, int rating, const QString& review,
+        bool finished)
 {
-    const QVariantMap params = { { "id", reviewId },
+    QVariantMap params = { { "id", reviewId },
         { "review[rating]", rating },
         { "review[review]", review } };
+    if (finished) {
+        params.insert("finished", finished);
+    }
 
     QUrl url(m_BaseUrl + QString("/review/%1.xml").arg(reviewId));
     QUrlQuery query = QUrlQuery(url.query());
@@ -721,21 +725,16 @@ void GoodReadsApi::GetUserStatus(QObject *requester, const QString& userStatusId
             this, &GoodReadsApi::handleGetUserStatus);
 }
 
-void GoodReadsApi::UpdateUserStatus(quint64 bookId, const QString& body, int percent, int page)
+void GoodReadsApi::UpdateReadingProgress(const QString& bookId, const QString& key, int value,
+        const QString& comment)
 {
-//    QString url(QString("https://www.goodreads.com/user_status.xml?user_status[book_id]=%1&"
-//                "user_status[body]=%2").arg(bookId).arg(body));
-//    if(page > 0) {
-//        url.append("&user_status[page]=" + QString::number(page));
-//    }
-//    else if (percent > 0) {
-//        url.append("&user_status[percent]=" + QString::number(percent));
-//    }
-//    const auto& pair = m_OAuthWrapper->MakeSignedUrl(m_AccessToken, m_AccessTokenSecret,
-//            QUrl(url), "POST");
-//    auto reply = m_NAM->post(PreparePostRequest(pair.first), pair.second);
-//    connect(reply, &QNetworkReply::finished,
-//             this, &GoodReadsApi::handleUpdateUserStatus);
+    auto reply = m_OAuth1->Post(m_AccessToken, m_AccessTokenSecret,
+            QUrl(m_BaseUrl + "/user_status.xml"),
+            { { "user_status[book_id]", bookId },
+              { QString("user_status[%1]").arg(key), value },
+              { "user_status[body]", comment } });
+    connect(reply, &QNetworkReply::finished,
+            this, &GoodReadsApi::handleUpdateReadingProgress);
 }
 
 void GoodReadsApi::DeleteUserStatus(quint64 userStatusId)
@@ -1835,7 +1834,7 @@ void GoodReadsApi::handleGetUserStatus()
     emit requestFinished();
 }
 
-void GoodReadsApi::handleUpdateUserStatus()
+void GoodReadsApi::handleUpdateReadingProgress()
 {
     bool ok = false;
     auto doc = GetDocumentFromReply(sender(), ok);
@@ -1845,7 +1844,6 @@ void GoodReadsApi::handleUpdateUserStatus()
     }
 
     //TODO
-    qDebug() << doc.toByteArray();
     emit requestFinished();
 }
 

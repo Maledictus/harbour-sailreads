@@ -110,7 +110,7 @@ public:
     void SearchReviews(QObject *requester, const QString& userId, const QString& searchText, int page = 1);
 
     void AddReview(const QString& bookId, int rating, const QString& review);
-    void EditReview(const QString& reviewId, int rating, const QString& review);
+    void EditReview(const QString& reviewId, int rating, const QString& review, bool finished);
     void DeleteReview(const QString& bookId, const QString& reviewId);
 
     void GetBook(QObject *requester, const QString& bookId);
@@ -170,7 +170,8 @@ public:
 
     void GetRecentUserStatuses(QObject *requester);
     void GetUserStatus(QObject *requester, const QString& userStatusId, int page = 1);
-    void UpdateUserStatus(quint64 bookId, const QString& body, int percent, int page = -1);
+    void UpdateReadingProgress(const QString& bookId, const QString& key, int value,
+            const QString& comment);
     void DeleteUserStatus(quint64 userStatusId);
 
     void GetRecommendation(QObject *requester, const QString& id, int page = 1);
@@ -262,7 +263,7 @@ private slots:
 
     void handleGetRecentUserStatuses();
     void handleGetUserStatus();
-    void handleUpdateUserStatus();
+    void handleUpdateReadingProgress();
     void handleDeleteUserStatus();
 
     void handleGetRecommendation();

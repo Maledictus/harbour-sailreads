@@ -315,6 +315,7 @@ Page {
                 }
 
                 delegate: BookListItem {
+                    id: delegate
                     width: booksView.width
                     clip: true
 
@@ -324,17 +325,24 @@ Page {
                     averageRating: modelData.averageRating
                     ratingsCount: modelData.ratingsCount
 
-                    bookShelfButton.visible: true
-                    selected: modelData.review
-                    bookShelfButton.label.text: !selected ? qsTr("Want to Read") :
-                            (modelData.review ? modelData.review.exclusiveShelf : "")
-                    bookShelfButton.onClicked: {
-                        if (!selected) {
-                            sailreadsManager.addBookToShelves(modelData.id, ["to-read"])
-                        }
-                        else {
-                            pageStack.push("AddBookToShelvesPage.qml",
-                                    { bookId: modelData.id, book: modelData, review: modelData.review })
+                    IconTextButton {
+                        parent: delegate.customItem
+                        label.font.pixelSize: Theme.fontSizeMedium
+                        label.color: modelData.review || highlighted || delegate.highlighted ?
+                                Theme.highlightColor : Theme.primaryColor
+                        label.text: !modelData.review ? qsTr("Want to Read") :
+                                (modelData.review ? modelData.review.exclusiveShelf : "")
+                        icon.source: !modelData.review ? "image://Theme/icon-m-add" :
+                                "image://Theme/icon-m-acknowledge"
+                        icon.highlighted: modelData.review || highlighted || delegate.highlighted
+                        onClicked: {
+                            if (!modelData.review) {
+                                sailreadsManager.addBookToShelves(bookId, ["to-read"])
+                            }
+                            else {
+                                pageStack.push("AddBookToShelvesPage.qml",
+                                        { bookId: modelData.id, book: modelData, review: modelData.review })
+                            }
                         }
                     }
 

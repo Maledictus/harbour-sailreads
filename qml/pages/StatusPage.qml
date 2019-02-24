@@ -40,7 +40,7 @@ Page {
         id: reviewsView
         anchors.fill: parent
         header: PageHeader {
-            title: qsTr("Currently-Reading books")
+            title: qsTr("Update reading progress")
         }
 
         PullDownMenu {
@@ -70,7 +70,7 @@ Page {
         onContentYChanged: fetchMoreIfNeeded()
 
         delegate: BookListItem {
-            id: rootDelegateItem
+            id: delegate
             width: reviewsView.width
             clip: true
 
@@ -80,9 +80,20 @@ Page {
             averageRating: reviewBook.averageRating
             ratingsCount: reviewBook.ratingsCount
 
+            menu: ContextMenu {
+                MenuItem {
+                    text: qsTr("Show book")
+                    onClicked: {
+                        pageStack.push(Qt.resolvedUrl("BookPage.qml"),
+                            { bookId: reviewBook.id, book: reviewBook })
+                    }
+                }
+            }
+
             onClicked: {
-                pageStack.push(Qt.resolvedUrl("BookPage.qml"),
-                        { bookId: reviewBook.id, book: reviewBook })
+                pageStack.push(Qt.resolvedUrl("../dialogs/UpdateReadingProgressDialog.qml"),
+                        { bookId: reviewBook.id, book: reviewBook, parentPage: statusPage,
+                            reviewId: reviewId })
             }
         }
 

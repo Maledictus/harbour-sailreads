@@ -714,7 +714,7 @@ ReviewPtr ParseReview(const QDomElement& element)
             review->SetLikesCount(fieldElement.text().toInt());
         }
         else if (fieldElement.tagName() == "spoiler_flag") {
-            //TODO
+            review->SetSpoilerFlag(fieldElement.text() == "true");
         }
         else if (fieldElement.tagName() == "spoilers_state") {
             //TODO
@@ -779,6 +779,12 @@ ReviewPtr ParseReview(const QDomElement& element)
         else if (fieldElement.tagName() == "comments") {
             review->SetComments(ParseComments(fieldElement));
         }
+        else if (fieldElement.tagName() == "user_statuses") {
+            review->SetUserStatuses(ParseUserStatusesList(fieldElement));
+        }
+        else if (fieldElement.tagName() == "read_statuses") {
+            review->SetReadStatuses(ParseReadStatusesList(fieldElement));
+        }
     }
 
     review->SetBook(book);
@@ -834,6 +840,9 @@ ReviewInfo ParseReviewInfo(const QDomElement& element)
         }
         else if (fieldElement.tagName() == "rating") {
             info.m_Rating = fieldElement.text().toInt();
+        }
+        else if (fieldElement.tagName() == "read-status") {
+            info.m_ReadStatus = fieldElement.text();
         }
         else if (fieldElement.tagName() == "review") {
             info.m_Review = fieldElement.text();
@@ -1392,7 +1401,8 @@ ReadStatusPtr ParseReadStatus(const QDomElement& element)
         else if (fieldElement.tagName() == "header") {
             rs->SetHeader(fieldElement.text());
         }
-        else if (fieldElement.tagName() == "likes_count") {
+        else if (fieldElement.tagName() == "likes_count" ||
+                 fieldElement.tagName() == "ratings_count") {
             rs->SetLikesCount(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "comments_count") {
@@ -1441,7 +1451,8 @@ UserStatusPtr ParseUserStatus(const QDomElement& element)
         else if (fieldElement.tagName() == "header") {
             us->SetHeader(fieldElement.text());
         }
-        else if (fieldElement.tagName() == "likes_count") {
+        else if (fieldElement.tagName() == "likes_count" ||
+                 fieldElement.tagName() == "ratings_count") {
             us->SetLikesCount(fieldElement.text().toULongLong());
         }
         else if (fieldElement.tagName() == "comments_count") {
@@ -1459,10 +1470,10 @@ UserStatusPtr ParseUserStatus(const QDomElement& element)
                     Qt::ISODate));
         }
         else if (fieldElement.tagName() == "page") {
-            us->SetPage(fieldElement.text().toInt());
+            us->SetPage(fieldElement.text().isEmpty() ? -1 : fieldElement.text().toInt());
         }
         else if (fieldElement.tagName() == "percent") {
-            us->SetPercent(fieldElement.text().toInt());
+            us->SetPercent(fieldElement.text().isEmpty() ? -1 : fieldElement.text().toInt());
         }
         else if (fieldElement.tagName() == "work_id") {
             us->SetWorkId(fieldElement.text().toULongLong());
@@ -1874,6 +1885,26 @@ Books_t ParseBooksFromWorksList(const QDomElement& element)
     Books_t result;
     for (int i = 0, cnt = booksList.size(); i < cnt; ++i) {
         result << ParseBookFromWork(booksList.at(i).toElement());
+    }
+    return result;
+}
+
+UserStatuses_t ParseUserStatusesList(const QDomElement& element)
+{
+    const auto& usList = element.childNodes();
+    UserStatuses_t result;
+    for (int i = 0, cnt = usList.size(); i < cnt; ++i) {
+        result << ParseUserStatus(usList.at(i).toElement());
+    }
+    return result;
+}
+
+ReadStatuses_t ParseReadStatusesList(const QDomElement& element)
+{
+    const auto& rsList = element.childNodes();
+    ReadStatuses_t result;
+    for (int i = 0, cnt = rsList.size(); i < cnt; ++i) {
+        result << ParseReadStatus(rsList.at(i).toElement());
     }
     return result;
 }

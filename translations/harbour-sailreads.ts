@@ -103,37 +103,37 @@
 <context>
     <name>AddEditReviewDialog</name>
     <message>
-        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="54"/>
+        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="70"/>
         <source>Add</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="54"/>
+        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="70"/>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="55"/>
+        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="71"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="89"/>
+        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="105"/>
         <source>My Rating</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="89"/>
+        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="105"/>
         <source>Rate this book</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="101"/>
+        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="117"/>
         <source>Write a review</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="102"/>
+        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="118"/>
         <source>Review</source>
         <translation type="unfinished"></translation>
     </message>
@@ -277,12 +277,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AuthorBooksPage.qml" line="107"/>
+        <location filename="../qml/pages/AuthorBooksPage.qml" line="111"/>
         <source>Want to Read</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AuthorBooksPage.qml" line="121"/>
+        <location filename="../qml/pages/AuthorBooksPage.qml" line="129"/>
         <source>Add to My Books</source>
         <translation type="unfinished"></translation>
     </message>
@@ -370,12 +370,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AuthorPage.qml" line="329"/>
+        <location filename="../qml/pages/AuthorPage.qml" line="333"/>
         <source>Want to Read</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AuthorPage.qml" line="343"/>
+        <location filename="../qml/pages/AuthorPage.qml" line="351"/>
         <source>Add to My Books</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1107,12 +1107,12 @@
 <context>
     <name>GroupSearchPage</name>
     <message>
-        <location filename="../qml/pages/GroupSearchPage.qml" line="98"/>
+        <location filename="../qml/pages/GroupSearchPage.qml" line="91"/>
         <source>Search group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupSearchPage.qml" line="114"/>
+        <location filename="../qml/pages/GroupSearchPage.qml" line="107"/>
         <source>Search</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1680,12 +1680,12 @@
 <context>
     <name>SearchBookReviewPage</name>
     <message>
-        <location filename="../qml/pages/SearchBookReviewPage.qml" line="65"/>
+        <location filename="../qml/pages/SearchBookReviewPage.qml" line="52"/>
         <source>Search review</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SearchBookReviewPage.qml" line="72"/>
+        <location filename="../qml/pages/SearchBookReviewPage.qml" line="59"/>
         <source>Search</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1693,37 +1693,37 @@
 <context>
     <name>SearchPage</name>
     <message>
-        <location filename="../qml/pages/SearchPage.qml" line="90"/>
+        <location filename="../qml/pages/SearchPage.qml" line="81"/>
         <source>Want to Read</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SearchPage.qml" line="109"/>
+        <location filename="../qml/pages/SearchPage.qml" line="104"/>
         <source>Add to My Books</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SearchPage.qml" line="128"/>
+        <location filename="../qml/pages/SearchPage.qml" line="123"/>
         <source>Search</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SearchPage.qml" line="150"/>
+        <location filename="../qml/pages/SearchPage.qml" line="145"/>
         <source>Field</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SearchPage.qml" line="156"/>
+        <location filename="../qml/pages/SearchPage.qml" line="151"/>
         <source>Title and Author</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SearchPage.qml" line="157"/>
+        <location filename="../qml/pages/SearchPage.qml" line="152"/>
         <source>Title</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SearchPage.qml" line="158"/>
+        <location filename="../qml/pages/SearchPage.qml" line="153"/>
         <source>Author</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1823,7 +1823,7 @@
     <name>StatusPage</name>
     <message>
         <location filename="../qml/pages/StatusPage.qml" line="43"/>
-        <source>Currently-Reading books</source>
+        <source>Update reading progress</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1839,6 +1839,72 @@
     <message>
         <location filename="../qml/pages/StatusPage.qml" line="57"/>
         <source>Pull down to refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/StatusPage.qml" line="85"/>
+        <source>Show book</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>UpdateReadingProgressDialog</name>
+    <message>
+        <location filename="../qml/dialogs/UpdateReadingProgressDialog.qml" line="81"/>
+        <source>Update</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/UpdateReadingProgressDialog.qml" line="82"/>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/UpdateReadingProgressDialog.qml" line="88"/>
+        <source>I&apos;m finished!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/UpdateReadingProgressDialog.qml" line="131"/>
+        <source>Progress</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/UpdateReadingProgressDialog.qml" line="135"/>
+        <source>Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/UpdateReadingProgressDialog.qml" line="138"/>
+        <location filename="../qml/dialogs/UpdateReadingProgressDialog.qml" line="206"/>
+        <location filename="../qml/dialogs/UpdateReadingProgressDialog.qml" line="207"/>
+        <source>Percent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/UpdateReadingProgressDialog.qml" line="152"/>
+        <source>On page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/UpdateReadingProgressDialog.qml" line="168"/>
+        <location filename="../qml/dialogs/UpdateReadingProgressDialog.qml" line="169"/>
+        <source>Page number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/UpdateReadingProgressDialog.qml" line="180"/>
+        <source>of %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/UpdateReadingProgressDialog.qml" line="218"/>
+        <source>% read</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/UpdateReadingProgressDialog.qml" line="240"/>
+        <source>What do you think? (Optional)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

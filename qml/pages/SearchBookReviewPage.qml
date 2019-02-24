@@ -33,19 +33,6 @@ Page {
 
     property bool busy: sailreadsManager.busy && searchBookReviewPage.status === PageStatus.Active
 
-    function attachPage() {
-        if (pageStack._currentContainer.attachedContainer === null
-                && sailreadsManager.logged) {
-            pageStack.pushAttached(Qt.resolvedUrl("StatusPage.qml"))
-        }
-    }
-
-    onStatusChanged: {
-        if (status === PageStatus.Active) {
-            attachPage()
-        }
-    }
-
     Component.onDestruction: {
         foundBookReviewsModel.cancelRequest()
     }

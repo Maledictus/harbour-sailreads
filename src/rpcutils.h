@@ -99,6 +99,8 @@ Notifications_t ParseNotifications(const QDomElement& element);
 Users_t ParseUsers(const QDomElement& element);
 Updates_t ParseUpdatesList(const QDomElement& element);
 Books_t ParseBooksFromWorksList(const QDomElement& element);
+UserStatuses_t ParseUserStatusesList(const QDomElement& element);
+ReadStatuses_t ParseReadStatusesList(const QDomElement& element);
 
 Quotes_t ParseJsonQuotesContent(const QString& htmlContent);
 

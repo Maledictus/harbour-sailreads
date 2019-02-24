@@ -93,6 +93,7 @@ Page {
         onContentYChanged: fetchMoreIfNeeded()
 
         delegate: BookListItem {
+            id: delegate
             width: authorBooksView.width
             clip: true
 
@@ -102,17 +103,24 @@ Page {
             averageRating: bookAverageRating
             ratingsCount: bookRatingsCount
 
-            bookShelfButton.visible: true
-            selected: bookBook.review
-            bookShelfButton.label.text: !selected ? qsTr("Want to Read") :
-                    (bookBook.review ? bookBook.review.exclusiveShelf : "")
-            bookShelfButton.onClicked: {
-                if (!selected) {
-                    sailreadsManager.addBookToShelves(bookId, ["to-read"])
-                }
-                else {
-                    pageStack.push("AddBookToShelvesPage.qml",
-                            { bookId: bookBook.id, book: bookBook, review: bookBook.review })
+            IconTextButton {
+                parent: delegate.customItem
+                label.font.pixelSize: Theme.fontSizeMedium
+                label.color: bookBook.review || highlighted || delegate.highlighted ?
+                        Theme.highlightColor : Theme.primaryColor
+                label.text: !bookBook.review ? qsTr("Want to Read") :
+                        (bookBook.review ? bookBook.review.exclusiveShelf : "")
+                icon.source: !bookBook.review ? "image://Theme/icon-m-add" :
+                        "image://Theme/icon-m-acknowledge"
+                icon.highlighted: bookBook.review || highlighted || delegate.highlighted
+                onClicked: {
+                    if (!bookBook.review) {
+                        sailreadsManager.addBookToShelves(bookId, ["to-read"])
+                    }
+                    else {
+                        pageStack.push("AddBookToShelvesPage.qml",
+                                { bookId: bookBook.id, book: bookBook, review: bookBook.review })
+                    }
                 }
             }
 

@@ -82,6 +82,7 @@ ApplicationWindow {
         SplashScreenPage {}
         //12934309
         //BookPage { bookId: "41045262" }
+        //UpdateReadingProgressDialog{ bookId: "41045262" }
     }
 
     Component {

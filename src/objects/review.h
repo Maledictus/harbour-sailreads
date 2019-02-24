@@ -53,6 +53,9 @@ class Review: public QObject
     UserPtr m_User;
     CountedItems<Comment> m_Comments;
     quint64 m_RatingId;
+    bool m_SpoilerFlag;
+    UserStatuses_t m_UserStatuses;
+    ReadStatuses_t m_ReadStatuses;
 
     Q_PROPERTY(QString id READ GetId NOTIFY idChanged)
     Q_PROPERTY(Book* book READ GetBook NOTIFY bookChanged)
@@ -73,6 +76,8 @@ class Review: public QObject
     Q_PROPERTY(QString shortDescription READ GetShortDescription NOTIFY shortDescriptionChanged)
     Q_PROPERTY(bool isLiked READ GetIsLiked NOTIFY isLikedChanged)
     Q_PROPERTY(quint64 ratingId READ GetRatingId NOTIFY ratingIdChanged)
+    Q_PROPERTY(bool spoilerFlag READ GetSpoilerFlag NOTIFY spoilerFlagChanged)
+    Q_PROPERTY(UserStatus* lastUserStatus READ GetLastUserStatus NOTIFY lastUserStatusChanged)
 
 public:
     Review(QObject *parent = nullptr);
@@ -118,6 +123,13 @@ public:
     bool GetIsLiked() const;
     void SetRatingId(quint64 ratingId);
     quint64 GetRatingId() const;
+    bool GetSpoilerFlag() const;
+    void SetSpoilerFlag(bool set);
+    UserStatuses_t GetUserStatuses() const;
+    void SetUserStatuses(const UserStatuses_t& userStatuses);
+    UserStatus* GetLastUserStatus() const;
+    ReadStatuses_t GetReadStatuses() const;
+    void SetReadStatuses(const ReadStatuses_t& readStatues);
 
     void Update(Review *newReview);
     void Update(const ReviewPtr& newReview);
@@ -146,5 +158,7 @@ signals:
     void shortDescriptionChanged();
     void isLikedChanged();
     void ratingIdChanged();
+    void spoilerFlagChanged();
+    void lastUserStatusChanged();
 };
 } // namespace Sailreads

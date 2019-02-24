@@ -82,6 +82,7 @@ struct ReviewInfo
     QDateTime m_CreateDate;
     quint64 m_WorkId;
     int m_ReadCount;
+    QString m_ReadStatus;
 };
 
 class User;

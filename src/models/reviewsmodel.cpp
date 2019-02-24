@@ -185,6 +185,8 @@ void ReviewsModel::classBegin()
 {
     connect(SailreadsManager::Instance(), &SailreadsManager::gotReviews,
             this, &ReviewsModel::handleGotReviews);
+    connect(SailreadsManager::Instance(), &SailreadsManager::gotReviewInfo,
+            this, &ReviewsModel::handleGotReviewInfo);
 }
 
 void ReviewsModel::componentComplete()
@@ -236,4 +238,17 @@ void ReviewsModel::handleGotReviews(quint64 booksShelfId, const CountedItems<Rev
     }
 }
 
+void ReviewsModel::handleGotReviewInfo(const ReviewInfo& reviewInfo)
+{
+    auto it = std::find_if(m_Items.begin(), m_Items.end(),
+            [reviewInfo](decltype(m_Items.front()) review)
+            { return reviewInfo.m_ReviewId == review->GetId(); });
+    if (it == m_Items.end() || m_BookShelf == reviewInfo.m_ReadStatus) {
+        return;
+    }
+    const int pos = std::distance(m_Items.begin(), it);
+    beginRemoveRows(QModelIndex(), pos, pos);
+    m_Items.removeAt(pos);
+    endRemoveRows();
+}
 }
