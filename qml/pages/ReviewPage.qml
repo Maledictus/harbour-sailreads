@@ -65,13 +65,6 @@ Page {
         anchors.fill: parent
         cacheBuffer: reviewPage.height
 
-        ViewPlaceholder {
-            y: 0
-            enabled: !sailreadsManager.busy && commentsView.count === 0
-            text: qsTr("There are no comments")
-            hintText: qsTr("Pull down to refresh")
-        }
-
         function fetchMoreIfNeeded() {
             if (!reviewPage.busy &&
                     commentsModel.hasMore &&
@@ -82,7 +75,6 @@ Page {
         }
 
         contentY: -headerItem.height
-
         onContentYChanged: fetchMoreIfNeeded()
 
         PullDownMenu {
