@@ -71,8 +71,10 @@ Item {
             width: parent.width
             ClickableLabel {
                 id: nameLabelItem
-                width: label.implicitWidth
                 label.font.pixelSize: headerFontSize
+                label.wrapMode: Text.NoWrap
+                label.maximumLineCount: 1
+                label.truncationMode: TruncationMode.Fade
                 onClicked: userClicked(userId)
                 highlighted: headerRow.highlighted || down
             }

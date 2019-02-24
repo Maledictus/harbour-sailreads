@@ -56,7 +56,9 @@ Page {
     UserProfile {
         id: userProfile
         onUserChanged: {
-            mainWindow.currentlyReadingModel.bookShelfId = user.currentlyReadingShelfId
+            if (user && sailreadsManager.authUser && sailreadsManager.authUser.id === user.id) {
+                mainWindow.currentlyReadingModel.bookShelfId = user.currentlyReadingShelfId
+            }
         }
     }
 
@@ -261,6 +263,7 @@ Page {
                 width: parent.width
                 height: Theme.itemSizeMedium
                 text: qsTr("Bookshelves")
+                visible: userProfile.user && !userProfile.user.isPrivate
                 counter: userProfile.user ? userProfile.user.bookShelvesCount : 0
                 busy: profilePage.busy
                 enabled: !busy
@@ -277,6 +280,7 @@ Page {
 
                 width: parent.width
                 height: contentHeight
+                visible: userProfile.user && !userProfile.user.isPrivate
                 delegate: BookShelfListItem {
                     shelfName: bookShelfName
                     shelfBooksCount: bookShelfBooksCount
@@ -305,7 +309,7 @@ Page {
                 counter: userProfile.user ? userProfile.user.friendsCount : 0
                 busy: profilePage.busy
                 enabled: !busy
-                visible: userProfile.user ? userProfile.user.friendsCount > 0 : false
+                visible: userProfile.user && userProfile.user.isPrivate
                 onClicked: {
                     if (sailreadsManager.authUser && sailreadsManager.authUser.id === userId &&
                             applicationSettings.showFriendsUpdates) {
@@ -323,6 +327,7 @@ Page {
                 height: Theme.itemSizeMedium
                 text: qsTr("Groups")
                 counter: userProfile.user ? userProfile.user.groupsCount : 0
+                visible: userProfile.user && !userProfile.user.isPrivate
                 busy: profilePage.busy
                 enabled: !busy
                 onClicked: {
@@ -349,6 +354,7 @@ Page {
                 text: qsTr("Quotes")
                 counter: ""
                 busy: profilePage.busy
+                visible: userProfile.user && !userProfile.user.isPrivate
                 enabled: !busy
                 onClicked: pageStack.push(Qt.resolvedUrl("UserQuotesPage.qml"),
                         { userId: userId, userName: userProfile.user.userName })
@@ -356,15 +362,17 @@ Page {
 
             SectionHeader {
                 text: qsTr("Recent updates")
-                visible: (sailreadsManager.authUser && sailreadsManager.authUser.id !== userId) ||
-                    applicationSettings.showYourRecentUpdates
+                visible: (sailreadsManager.authUser && sailreadsManager.authUser.id !== userId &&
+                            userProfile.user && !userProfile.user.isPrivate) ||
+                        applicationSettings.showYourRecentUpdates
             }
 
             SilicaListView {
                 id: recentUpdatesView
 
-                visible: (sailreadsManager.authUser && sailreadsManager.authUser.id !== userId) ||
-                    applicationSettings.showYourRecentUpdates
+                visible: (sailreadsManager.authUser && sailreadsManager.authUser.id !== userId &&
+                          userProfile.user && !userProfile.user.isPrivate) ||
+                      applicationSettings.showYourRecentUpdates
 
                 width: parent.width
                 height: contentHeight

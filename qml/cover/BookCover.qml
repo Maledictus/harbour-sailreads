@@ -90,37 +90,3 @@ Item {
         }
     }
 }
-//    Label {
-//        id: coverHeaderCount
-//        text: listView.count
-//        x: Theme.paddingLarge
-//        y: Theme.paddingMedium
-//        font.pixelSize: Theme.fontSizeHuge
-//    }
-
-//    Label {
-//        id: unreadLabel
-
-//        text: qsTr("%1 bookmarks").arg(filter)
-//        font.pixelSize: Theme.fontSizeExtraSmall
-//        maximumLineCount: 2
-//        wrapMode: Text.WordWrap
-//        lineHeight: 0.8
-//        height: implicitHeight/0.8
-//        verticalAlignment: Text.AlignVCenter
-//        anchors {
-//            right: parent.right
-//            rightMargin: Theme.paddingLarge
-//            left: coverHeaderCount.right
-//            leftMargin: Theme.paddingMedium
-//            baseline: coverHeaderCount.baseline
-//            baselineOffset: lineCount > 1 ? -implicitHeight/2 : -(height-implicitHeight)/2
-//        }
-//    }
-
-//    OpacityRampEffect {
-//        offset: 0.5
-//        sourceItem: unreadLabel
-//        enabled: unreadLabel.implicitWidth > Math.ceil(unreadLabel.width)
-//    }
-

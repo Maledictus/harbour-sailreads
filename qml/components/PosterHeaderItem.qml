@@ -61,7 +61,7 @@ MouseArea {
 
         font.bold: true
         font.family: Theme.fontFamilyHeading
-        elide: Text.ElideRight
+        truncationMode: TruncationMode.Fade
         textFormat: Text.StyledText
 
         color: highlighted ? Theme.highlightColor : Theme.primaryColor

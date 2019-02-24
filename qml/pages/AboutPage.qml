@@ -186,22 +186,22 @@ Page {
                 }
             }
 
-//           SectionHeader {
-//               text: qsTr("Gratitude")
-//           }
+            SectionHeader {
+               text: qsTr("Gratitude")
+            }
 
-//           ButtonLayout {
-//               width: parent.width
-//               Button {
-//                   text: qsTr("Developers")
-//                   onClicked: pageStack.push(Qt.resolvedUrl("DevelopersPage.qml"))
-//               }
+            ButtonLayout {
+               width: parent.width
+               Button {
+                   text: qsTr("Developers")
+                   onClicked: pageStack.push(Qt.resolvedUrl("../pages/DevelopersPage.qml"))
+               }
 
-//               Button {
-//                   text: qsTr("Translators")
-//                   onClicked: pageStack.push(Qt.resolvedUrl("TranslatorsPage.qml"))
-//               }
-//           }
+               Button {
+                   text: qsTr("Translators")
+                   onClicked: pageStack.push(Qt.resolvedUrl("../pages/TranslatorsPage.qml"))
+               }
+            }
         }
 
         VerticalScrollDecorator{}

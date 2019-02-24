@@ -808,7 +808,7 @@
     <message>
         <location filename="../qml/pages/models/DevelopersModel.qml" line="29"/>
         <source>Developers</source>
-        <translation type="unfinished">Разработчики</translation>
+        <translation>Разработчики</translation>
     </message>
 </context>
 <context>
@@ -816,12 +816,12 @@
     <message>
         <location filename="../qml/pages/DevelopersPage.qml" line="14"/>
         <source>Development</source>
-        <translation type="unfinished">Разработка</translation>
+        <translation>Разработка</translation>
     </message>
     <message>
         <location filename="../qml/pages/DevelopersPage.qml" line="19"/>
         <source>Source Code</source>
-        <translation type="unfinished"></translation>
+        <translation>Исходный код</translation>
     </message>
 </context>
 <context>
@@ -1054,9 +1054,9 @@
         <translation>Обновить</translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupMembersPage.qml" line="103"/>
+        <location filename="../qml/pages/GroupMembersPage.qml" line="102"/>
         <source>Comments</source>
-        <translation>Комментарии</translation>
+        <translation type="unfinished">Комментарии</translation>
     </message>
 </context>
 <context>
@@ -1440,32 +1440,32 @@
     <message>
         <location filename="../qml/pages/ProfilePage.qml" line="101"/>
         <source>Settings</source>
-        <translation>Настройки</translation>
+        <translation type="unfinished">Настройки</translation>
     </message>
     <message>
         <location filename="../qml/pages/ProfilePage.qml" line="111"/>
         <source>Unfollow user</source>
-        <translation>Отписаться</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/ProfilePage.qml" line="111"/>
         <source>Follow user</source>
-        <translation>Подписаться</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/ProfilePage.qml" line="131"/>
         <source>Friend request was sent</source>
-        <translation>Запрос в друзья был отправлен</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/ProfilePage.qml" line="133"/>
         <source>Add as a friend</source>
-        <translation>Добавить в друзья</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/ProfilePage.qml" line="143"/>
         <source>Refresh</source>
-        <translation>Обновить</translation>
+        <translation type="unfinished">Обновить</translation>
     </message>
     <message>
         <location filename="../qml/pages/ProfilePage.qml" line="175"/>
@@ -1663,12 +1663,12 @@
     <message>
         <location filename="../src/application.cpp" line="161"/>
         <source>Authorized</source>
-        <translation type="unfinished"></translation>
+        <translation>Авторизовано</translation>
     </message>
     <message>
         <location filename="../src/application.cpp" line="161"/>
         <source>Not authorized</source>
-        <translation type="unfinished"></translation>
+        <translation>Не авторизовано</translation>
     </message>
 </context>
 <context>
@@ -1676,45 +1676,45 @@
     <message>
         <location filename="../src/objects/review.cpp" line="290"/>
         <source>finished reading</source>
-        <translation type="unfinished"></translation>
+        <translation>завершил чтение</translation>
     </message>
     <message>
         <location filename="../src/objects/review.cpp" line="294"/>
         <source>started reading</source>
-        <translation type="unfinished"></translation>
+        <translation>приступил к чтению</translation>
     </message>
     <message>
         <location filename="../src/objects/review.cpp" line="297"/>
         <source>is currently reading</source>
-        <translation type="unfinished"></translation>
+        <translation>сейчас читает</translation>
     </message>
     <message>
         <location filename="../src/objects/review.cpp" line="300"/>
         <source>wants to read</source>
-        <translation type="unfinished"></translation>
+        <translation>хочет прочитать</translation>
     </message>
     <message>
         <location filename="../src/objects/review.cpp" line="304"/>
         <source>rated it</source>
-        <translation type="unfinished"></translation>
+        <translation>оценил</translation>
     </message>
 </context>
 <context>
     <name>Sailreads::SailreadsManager</name>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="291"/>
+        <location filename="../src/sailreadsmanager.cpp" line="295"/>
         <source>Authorization user...</source>
-        <translation type="unfinished"></translation>
+        <translation>Авторизация пользователя</translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="309"/>
+        <location filename="../src/sailreadsmanager.cpp" line="313"/>
         <source>Authentication user...</source>
-        <translation type="unfinished"></translation>
+        <translation>Аутентификация пользователя</translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="330"/>
+        <location filename="../src/sailreadsmanager.cpp" line="334"/>
         <source>Getting user profile...</source>
-        <translation type="unfinished"></translation>
+        <translation>Получение профиля пользователя</translation>
     </message>
 </context>
 <context>
@@ -1894,22 +1894,22 @@
     <message>
         <location filename="../qml/pages/TranslatorsPage.qml" line="14"/>
         <source>Translations</source>
-        <translation type="unfinished">Переводы</translation>
+        <translation>Переводы</translation>
     </message>
     <message>
         <location filename="../qml/pages/TranslatorsPage.qml" line="52"/>
         <source>Coordinators</source>
-        <translation type="unfinished"></translation>
+        <translation>Координаторы</translation>
     </message>
     <message>
         <location filename="../qml/pages/TranslatorsPage.qml" line="57"/>
         <source>Translators</source>
-        <translation type="unfinished">Переводчики</translation>
+        <translation>Переводчики</translation>
     </message>
     <message>
         <location filename="../qml/pages/TranslatorsPage.qml" line="62"/>
         <source>Reviewers</source>
-        <translation type="unfinished"></translation>
+        <translation>Рецензенты</translation>
     </message>
 </context>
 <context>
@@ -2117,104 +2117,104 @@
     <message>
         <location filename="../qml/utils/Utils.js" line="33"/>
         <source>Today</source>
-        <translation type="unfinished"></translation>
+        <translation>Сегодня</translation>
     </message>
     <message>
         <location filename="../qml/utils/Utils.js" line="38"/>
         <source>Yesterday</source>
-        <translation type="unfinished"></translation>
+        <translation>Вчера</translation>
     </message>
     <message>
         <location filename="../qml/utils/Utils.js" line="110"/>
         <source>Title</source>
-        <translation type="unfinished">Название</translation>
+        <translation>Название</translation>
     </message>
     <message>
         <location filename="../qml/utils/Utils.js" line="111"/>
         <source>Author</source>
-        <translation type="unfinished">Автор</translation>
+        <translation>Автор</translation>
     </message>
     <message>
         <location filename="../qml/utils/Utils.js" line="112"/>
         <source>Average rating</source>
-        <translation type="unfinished">Средняя оценка</translation>
+        <translation>Средняя оценка</translation>
     </message>
     <message>
         <location filename="../qml/utils/Utils.js" line="113"/>
         <source>Number of ratings</source>
-        <translation type="unfinished">Количество оценок</translation>
+        <translation>Количество оценок</translation>
     </message>
     <message>
         <location filename="../qml/utils/Utils.js" line="114"/>
         <source>First published date</source>
-        <translation type="unfinished">Дата первой публикации</translation>
+        <translation>Дата первой публикации</translation>
     </message>
     <message>
         <location filename="../qml/utils/Utils.js" line="115"/>
         <source>Pages count</source>
-        <translation type="unfinished">Количество страниц</translation>
+        <translation>Количество страниц</translation>
     </message>
     <message>
         <location filename="../qml/utils/Utils.js" line="116"/>
         <source>Date updated</source>
-        <translation type="unfinished">Дата обновления</translation>
+        <translation>Дата обновления</translation>
     </message>
     <message>
         <location filename="../qml/utils/Utils.js" line="117"/>
         <source>Your rating</source>
-        <translation type="unfinished">Ваша оценка</translation>
+        <translation>Ваша оценка</translation>
     </message>
     <message>
         <location filename="../qml/utils/Utils.js" line="118"/>
         <source>Date started</source>
-        <translation type="unfinished">Дата начала чтения</translation>
+        <translation>Дата начала чтения</translation>
     </message>
     <message>
         <location filename="../qml/utils/Utils.js" line="119"/>
         <source>Date finished</source>
-        <translation type="unfinished">Дата завершения чтения</translation>
+        <translation>Дата завершения чтения</translation>
     </message>
     <message>
         <location filename="../qml/utils/Utils.js" line="120"/>
         <source>Review written</source>
-        <translation type="unfinished">Количество рецензии</translation>
+        <translation>Количество рецензии</translation>
     </message>
     <message>
         <location filename="../qml/utils/Utils.js" line="123"/>
         <source>Date added</source>
-        <translation type="unfinished">Дата добавления</translation>
+        <translation>Дата добавления</translation>
     </message>
     <message>
         <location filename="../qml/utils/Utils.js" line="129"/>
         <location filename="../qml/utils/Utils.js" line="133"/>
         <source>Friends</source>
-        <translation type="unfinished">Друзья</translation>
+        <translation>Друзья</translation>
     </message>
     <message>
         <location filename="../qml/utils/Utils.js" line="130"/>
         <source>Top friends and followings</source>
-        <translation type="unfinished"></translation>
+        <translation>Лучшие друзья и подписчики</translation>
     </message>
     <message>
         <location filename="../qml/utils/Utils.js" line="131"/>
         <source>Top friends</source>
-        <translation type="unfinished"></translation>
+        <translation>Лучшие друзья</translation>
     </message>
     <message>
         <location filename="../qml/utils/Utils.js" line="139"/>
         <location filename="../qml/utils/Utils.js" line="143"/>
         <source>Everything</source>
-        <translation type="unfinished">Все</translation>
+        <translation>Все</translation>
     </message>
     <message>
         <location filename="../qml/utils/Utils.js" line="140"/>
         <source>Books</source>
-        <translation type="unfinished">Книги</translation>
+        <translation>Книги</translation>
     </message>
     <message>
         <location filename="../qml/utils/Utils.js" line="141"/>
         <source>Reviews</source>
-        <translation type="unfinished">Рецензии</translation>
+        <translation>Рецензии</translation>
     </message>
 </context>
 <context>

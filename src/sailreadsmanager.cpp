@@ -117,14 +117,18 @@ void SailreadsManager::MakeConnections()
                     emit authUserChanged();
                 }
                 emit gotUserProfile(profile);
-                CountedItems<BookShelf> items;
-                items.m_Items = profile->GetBookShelves();
-                items.m_BeginIndex = 1;
-                items.m_EndIndex = items.m_Items.size();
-                items.m_Count = items.m_Items.size();
+                if (!profile->GetBookShelves().isEmpty()) {
+                    CountedItems<BookShelf> items;
+                    items.m_Items = profile->GetBookShelves();
+                    items.m_BeginIndex = 1;
+                    items.m_EndIndex = items.m_Items.size();
+                    items.m_Count = items.m_Items.size();
 
-                emit gotUserBookShelves(profile->GetId(), items);
-                emit gotUserUpdates(profile->GetId(), profile->GetRecentUpdates());
+                    emit gotUserBookShelves(profile->GetId(), items);
+                }
+                if (!profile->GetRecentUpdates().isEmpty()) {
+                    emit gotUserUpdates(profile->GetId(), profile->GetRecentUpdates());
+                }
             });
     connect(m_Api, &GoodReadsApi::gotMessages,
             this, &SailreadsManager::gotMessages);

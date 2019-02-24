@@ -57,8 +57,8 @@ Page {
             }
         }
 
-        cellHeight: Theme.itemSizeMedium
         cellWidth: Math.floor(groupMembersPage.width / 2)
+        cellHeight: Theme.itemSizeExtraLarge
         cacheBuffer: groupMembersPage.height
 
         model: groupMembersModel
@@ -76,10 +76,9 @@ Page {
         delegate: ListItem {
             id: listItem
             width: groupMembersView.cellWidth
-            height: groupMembersView.cellHeight
+            contentHeight: column.height
             Column {
                 id: column
-
                 anchors {
                     right: parent.right
                     rightMargin: Theme.horizontalPageMargin

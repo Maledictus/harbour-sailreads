@@ -1051,7 +1051,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupMembersPage.qml" line="103"/>
+        <location filename="../qml/pages/GroupMembersPage.qml" line="102"/>
         <source>Comments</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1698,17 +1698,17 @@
 <context>
     <name>Sailreads::SailreadsManager</name>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="291"/>
+        <location filename="../src/sailreadsmanager.cpp" line="295"/>
         <source>Authorization user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="309"/>
+        <location filename="../src/sailreadsmanager.cpp" line="313"/>
         <source>Authentication user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="330"/>
+        <location filename="../src/sailreadsmanager.cpp" line="334"/>
         <source>Getting user profile...</source>
         <translation type="unfinished"></translation>
     </message>

@@ -175,7 +175,7 @@ UserPtr ParseUser(const QDomElement& element)
         else if (fieldElement.tagName() == "user_statuses") {
             // No any sense to implement this
         }
-     }
+    }
     return user;
 }
 
