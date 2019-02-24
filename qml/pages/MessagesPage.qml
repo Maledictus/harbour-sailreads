@@ -89,7 +89,7 @@ Page {
         }
 
         header: PageHeader {
-            title: "Messages: %1".arg(messagesFolder.name)
+            title: qsTr("Messages: %1").arg(messagesFolder.name)
         }
 
         model: messagesModel

@@ -56,10 +56,8 @@ ListItem {
             wrapMode: Text.WordWrap
             font.pixelSize: Theme.fontSizeSmall
             color: Theme.primaryColor
-            elide: Text.ElideRight
             visible: withBody && text !== ""
             linkColor: Theme.highlightColor
-            truncationMode: TruncationMode.Fade
             width: parent.width
             onLinkActivated: listItem.linkActivated(link)
         }

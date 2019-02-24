@@ -51,7 +51,6 @@ MouseArea {
             horizontalAlignment: Qt.AlignHCenter
             font.pixelSize: Theme.fontSizeSmall
             width: parent.width
-            elide: Text.ElideRight
             color: mouseArea.highlighted || mouseArea.selected ?
                     Theme.highlightColor : Theme.primaryColor
         }

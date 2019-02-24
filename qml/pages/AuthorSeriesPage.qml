@@ -98,7 +98,6 @@ Page {
 
                 Label {
                     font.family: Theme.fontFamilyHeading
-                    elide: Text.ElideRight
                     width: parent.width
                     truncationMode: TruncationMode.Fade
                     text: qsTr("%1").arg(seriesTitle)

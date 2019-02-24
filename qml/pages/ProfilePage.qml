@@ -309,7 +309,7 @@ Page {
                 counter: userProfile.user ? userProfile.user.friendsCount : 0
                 busy: profilePage.busy
                 enabled: !busy
-                visible: userProfile.user && userProfile.user.isPrivate
+                visible: userProfile.user && !userProfile.user.isPrivate
                 onClicked: {
                     if (sailreadsManager.authUser && sailreadsManager.authUser.id === userId &&
                             applicationSettings.showFriendsUpdates) {
