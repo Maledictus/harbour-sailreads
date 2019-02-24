@@ -191,7 +191,7 @@ Page {
                     color: Theme.highlightColor
                     Layout.alignment: Qt.AlignRight
                     font.pixelSize: Theme.fontSizeSmall
-                    text: qsTr("%Ln rating(s)", "", book && book.work ? book.work.ratingsCount : 0)
+                    text: qsTr("%Ln ratings", "", book && book.work ? book.work.ratingsCount : 0)
                 }
             }
 

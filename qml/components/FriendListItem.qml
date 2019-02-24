@@ -64,13 +64,13 @@ ListItem {
             Label {
                 truncationMode: TruncationMode.Fade
                 font.pixelSize: Theme.fontSizeExtraSmall
-                text: qsTr("%Ln book(s)", "", friendBooksCount)
+                text: qsTr("%Ln books", "", friendBooksCount)
                 color: Theme.highlightColor
             }
             Label {
                 truncationMode: TruncationMode.Fade
                 font.pixelSize: Theme.fontSizeExtraSmall
-                text: qsTr("%Ln friend(s)", "", friendFriendsCount)
+                text: qsTr("%Ln friends", "", friendFriendsCount)
                 color: Theme.highlightColor
             }
         }

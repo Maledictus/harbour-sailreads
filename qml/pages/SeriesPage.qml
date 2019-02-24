@@ -145,14 +145,14 @@ Page {
                 wrapMode: Text.WordWrap
                 color: Theme.highlightColor
                 visible: seriesItem.series !== null
-                text: qsTr("%Ln work(s)", "", seriesItem.series ? seriesItem.series.seriesWorksCount : 0)
+                text: qsTr("%Ln works", "", seriesItem.series ? seriesItem.series.seriesWorksCount : 0)
             }
             Label {
                 font.pixelSize: Theme.fontSizeTiny
                 wrapMode: Text.WordWrap
                 color: Theme.highlightColor
                 visible: seriesItem.series !== null
-                text: qsTr("%Ln primary work(s)", "", seriesItem.series ? seriesItem.series.primaryWorkCount : 0)
+                text: qsTr("%Ln primary works", "", seriesItem.series ? seriesItem.series.primaryWorkCount : 0)
             }
         }
 

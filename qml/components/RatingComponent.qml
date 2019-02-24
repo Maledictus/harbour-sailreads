@@ -52,6 +52,6 @@ Row {
     Label {
         font.pixelSize: Theme.fontSizeExtraSmall
         color: parent.color
-        text: qsTr("%Ln rating(s)", "", ratingsCount)
+        text: qsTr("%Ln ratings", "", ratingsCount)
     }
 }
