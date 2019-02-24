@@ -33,6 +33,7 @@ import "../utils/Utils.js" as Utils
 Dialog {
     id: addEditReviewDialog
 
+    property var book
     property var review
     property alias rating: ratingBox.rating
     property alias reviewText: reviewTextArea.text
@@ -41,6 +42,7 @@ Dialog {
 
     onReviewChanged: {
         if (review) {
+            book = review.book
             rating = review.rating
             reviewText = review.body
         }
@@ -80,12 +82,12 @@ Dialog {
                 }
 
                 width: parent.width
-                bookImage: review && review.book ? review.book.imageUrl : ""
-                bookTitle: review && review.book ? review.book.title : ""
-                bookAuthors: review && review.book ?
-                        Utils.getAuthorsString(review.book.authors, Theme.primaryColor) : ""
-                bookAverageRating: review && review.book ? review.book.averageRating : 0.0
-                bookRatingsCount: review && review.book ? review.book.ratingsCount : 0
+                bookImage: book ? book.imageUrl : ""
+                bookTitle: book ? book.title : ""
+                bookAuthors: book ?
+                        Utils.getAuthorsString(book.authors, Theme.primaryColor) : ""
+                bookAverageRating: book ? book.averageRating : 0.0
+                bookRatingsCount: book ? book.ratingsCount : 0
             }
 
             Separator {
@@ -121,7 +123,7 @@ Dialog {
     }
 
     onAccepted: {
-        if (parentPage) {
+        if (parentPage && review) {
             sailreadsManager.editReview(review.id, addEditReviewDialog.rating,
                     addEditReviewDialog.reviewText, finished)
         }

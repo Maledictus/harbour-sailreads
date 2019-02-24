@@ -118,37 +118,37 @@
 <context>
     <name>AddEditReviewDialog</name>
     <message>
-        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="70"/>
+        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="72"/>
         <source>Add</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="70"/>
+        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="72"/>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="71"/>
+        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="73"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="105"/>
+        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="107"/>
         <source>My Rating</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="105"/>
+        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="107"/>
         <source>Rate this book</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="117"/>
+        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="119"/>
         <source>Write a review</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="118"/>
+        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="120"/>
         <source>Review</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1565,22 +1565,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ReadStatusPage.qml" line="129"/>
-        <source>There are no comments</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/ReadStatusPage.qml" line="130"/>
-        <source>Pull down to refresh</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/ReadStatusPage.qml" line="144"/>
+        <location filename="../qml/pages/ReadStatusPage.qml" line="137"/>
         <source>Status update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ReadStatusPage.qml" line="201"/>
+        <location filename="../qml/pages/ReadStatusPage.qml" line="194"/>
         <source>Comments</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1588,38 +1578,28 @@
 <context>
     <name>RecommendationPage</name>
     <message>
-        <location filename="../qml/pages/RecommendationPage.qml" line="68"/>
-        <source>There are no comments</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/RecommendationPage.qml" line="69"/>
-        <source>Pull down to refresh</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/RecommendationPage.qml" line="86"/>
-        <location filename="../qml/pages/RecommendationPage.qml" line="105"/>
+        <location filename="../qml/pages/RecommendationPage.qml" line="79"/>
+        <location filename="../qml/pages/RecommendationPage.qml" line="98"/>
         <source>Add comment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/RecommendationPage.qml" line="95"/>
+        <location filename="../qml/pages/RecommendationPage.qml" line="88"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/RecommendationPage.qml" line="144"/>
+        <location filename="../qml/pages/RecommendationPage.qml" line="137"/>
         <source>Recommendation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/RecommendationPage.qml" line="180"/>
+        <location filename="../qml/pages/RecommendationPage.qml" line="173"/>
         <source>%1 recommended the book %2 to %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/RecommendationPage.qml" line="224"/>
+        <location filename="../qml/pages/RecommendationPage.qml" line="217"/>
         <source>Comments</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1627,34 +1607,24 @@
 <context>
     <name>ReviewPage</name>
     <message>
-        <location filename="../qml/pages/ReviewPage.qml" line="71"/>
-        <source>There are no comments</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/ReviewPage.qml" line="72"/>
-        <source>Pull down to refresh</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/ReviewPage.qml" line="91"/>
-        <location filename="../qml/pages/ReviewPage.qml" line="108"/>
+        <location filename="../qml/pages/ReviewPage.qml" line="83"/>
+        <location filename="../qml/pages/ReviewPage.qml" line="100"/>
         <source>Add comment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ReviewPage.qml" line="100"/>
+        <location filename="../qml/pages/ReviewPage.qml" line="92"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ReviewPage.qml" line="147"/>
-        <location filename="../qml/pages/ReviewPage.qml" line="196"/>
+        <location filename="../qml/pages/ReviewPage.qml" line="139"/>
+        <location filename="../qml/pages/ReviewPage.qml" line="188"/>
         <source>Review</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ReviewPage.qml" line="237"/>
+        <location filename="../qml/pages/ReviewPage.qml" line="229"/>
         <source>Comments</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2079,34 +2049,24 @@
 <context>
     <name>UserStatusPage</name>
     <message>
-        <location filename="../qml/pages/UserStatusPage.qml" line="68"/>
-        <source>There are no comments</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/UserStatusPage.qml" line="69"/>
-        <source>Pull down to refresh</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/UserStatusPage.qml" line="87"/>
-        <location filename="../qml/pages/UserStatusPage.qml" line="104"/>
+        <location filename="../qml/pages/UserStatusPage.qml" line="80"/>
+        <location filename="../qml/pages/UserStatusPage.qml" line="97"/>
         <source>Add comment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/UserStatusPage.qml" line="96"/>
+        <location filename="../qml/pages/UserStatusPage.qml" line="89"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/UserStatusPage.qml" line="143"/>
-        <location filename="../qml/pages/UserStatusPage.qml" line="186"/>
+        <location filename="../qml/pages/UserStatusPage.qml" line="136"/>
+        <location filename="../qml/pages/UserStatusPage.qml" line="179"/>
         <source>Status update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/UserStatusPage.qml" line="217"/>
+        <location filename="../qml/pages/UserStatusPage.qml" line="210"/>
         <source>Comments</source>
         <translation type="unfinished"></translation>
     </message>

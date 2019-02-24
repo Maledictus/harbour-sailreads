@@ -288,7 +288,7 @@ void Book::SetAverageRating(const qreal& averageRating)
 
 quint64 Book::GetRatingsCount() const
 {
-    return m_RatingsCount;
+    return m_Work ? std::max(m_RatingsCount, m_Work->GetRatingsCount()) : m_RatingsCount;
 }
 
 void Book::SetRatingsCount(const quint64& ratingsCount)
