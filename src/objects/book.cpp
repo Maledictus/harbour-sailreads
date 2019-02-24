@@ -141,7 +141,7 @@ quint64 Book::GetTextReviewsCount() const
     return m_TextReviewsCount;
 }
 
-void Book::SetTextReviewsCount(const quint64& textReviewsCount)
+void Book::SetTextReviewsCount(quint64 textReviewsCount)
 {
     m_TextReviewsCount = textReviewsCount;
 }

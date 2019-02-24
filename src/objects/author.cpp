@@ -108,7 +108,7 @@ qreal Author::GetAverageRating() const
     return m_AverageRating;
 }
 
-void Author::SetAverageRating(const qreal& averageRating)
+void Author::SetAverageRating(qreal averageRating)
 {
     m_AverageRating = averageRating;
 }
@@ -118,7 +118,7 @@ quint64 Author::GetRatingsCount() const
     return m_RatingsCount;
 }
 
-void Author::SetRatingsCount(const quint64& ratingsCount)
+void Author::SetRatingsCount(quint64 ratingsCount)
 {
     m_RatingsCount = ratingsCount;
 }
@@ -128,7 +128,7 @@ quint64 Author::GetTextReviewsCount() const
     return m_TextReviewsCount;
 }
 
-void Author::SetTextReviewsCount(const quint64& textReviewsCount)
+void Author::SetTextReviewsCount(quint64 textReviewsCount)
 {
     m_TextReviewsCount = textReviewsCount;
 }
@@ -270,6 +270,18 @@ Books_t Author::GetBooksPtr() const
 void Author::SetBooks(const Books_t& books)
 {
     m_Books = books;
+    if (!m_Books.isEmpty()) {
+        const auto& book = m_Books.front();
+        const auto& authors = book->GetAuthorsPtr();
+        auto it = std::find_if(authors.begin(), authors.end(),
+                [this](decltype(authors.front()) author)
+                { return m_Id == author->GetId(); });
+        if (it != authors.end()) {
+            SetAverageRating(std::max(m_AverageRating, (*it)->GetAverageRating()));
+            SetRatingsCount(std::max(m_RatingsCount, (*it)->GetRatingsCount()));
+            SetTextReviewsCount(std::max(m_TextReviewsCount, (*it)->GetTextReviewsCount()));
+        }
+    }
 }
 
 quint64 Author::GetFollowingId() const

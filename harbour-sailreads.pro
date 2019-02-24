@@ -196,7 +196,10 @@ RESOURCES += sailreads.qrc
 
 SAILFISHAPP_ICONS = 86x86 108x108 128x128 172x172
 
-TRANSLATIONS += translations/harbour-sailreads.ts
+TRANSLATIONS += translations/harbour-sailreads.ts \
+    translations/harbour-sailreads-ru.ts \
+    translations/harbour-sailreads-nl.ts \
+    translations/harbour-sailreads-nl_BE.ts
 
 lupdate_only {
 SOURCES = qml/harbour-sailreads.qml \
@@ -244,6 +247,7 @@ SOURCES = qml/harbour-sailreads.qml \
     qml/dialogs/AddEditShelfDialog.qml \
     qml/dialogs/AddGroupFolderTopicDialog.qml \
     qml/dialogs/BooksReviewsSortingDialog.qml \
+    qml/dialogs/UpdateReadingProgressDialog.qml \
     qml/dialogs/UpdatesFilterDialog.qml \
     qml/pages/AboutPage.qml \
     qml/pages/AddBookToShelvesPage.qml \

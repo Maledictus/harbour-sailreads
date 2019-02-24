@@ -128,7 +128,7 @@ public:
     QString GetLanguage() const;
     void SetLanguage(const QString& lang);
     quint64 GetTextReviewsCount() const;
-    void SetTextReviewsCount(const quint64& textReviewsCount);
+    void SetTextReviewsCount(quint64 textReviewsCount);
     QString GetTitle() const;
     void SetTitle(const QString& title);
     QString GetTitleWithoutSeries() const;

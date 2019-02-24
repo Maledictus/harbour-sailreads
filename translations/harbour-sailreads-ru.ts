@@ -118,37 +118,37 @@
 <context>
     <name>AddEditReviewDialog</name>
     <message>
-        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="70"/>
+        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="72"/>
         <source>Add</source>
         <translation>Добавить</translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="70"/>
+        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="72"/>
         <source>Edit</source>
         <translation>Править</translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="71"/>
+        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="73"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="105"/>
+        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="107"/>
         <source>My Rating</source>
         <translation>Моя Оценка</translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="105"/>
+        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="107"/>
         <source>Rate this book</source>
         <translation>Оценить эту книгу</translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="117"/>
+        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="119"/>
         <source>Write a review</source>
         <translation>Написать рецензию</translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="118"/>
+        <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="120"/>
         <source>Review</source>
         <translation>Рецензия</translation>
     </message>
@@ -1373,7 +1373,7 @@
     <message>
         <location filename="../qml/pages/MessagesPage.qml" line="92"/>
         <source>Messages: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Сообщения: %1</translation>
     </message>
     <message>
         <location filename="../qml/pages/MessagesPage.qml" line="99"/>
@@ -1569,22 +1569,12 @@
         <translation>Добавить комментарий</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ReadStatusPage.qml" line="129"/>
-        <source>There are no comments</source>
-        <translation>Комментарии отсутствуют</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/ReadStatusPage.qml" line="130"/>
-        <source>Pull down to refresh</source>
-        <translation>Потяните вниз для обновления</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/ReadStatusPage.qml" line="144"/>
+        <location filename="../qml/pages/ReadStatusPage.qml" line="137"/>
         <source>Status update</source>
         <translation>Обновление статуса</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ReadStatusPage.qml" line="201"/>
+        <location filename="../qml/pages/ReadStatusPage.qml" line="194"/>
         <source>Comments</source>
         <translation>Комментарии</translation>
     </message>
@@ -1592,38 +1582,28 @@
 <context>
     <name>RecommendationPage</name>
     <message>
-        <location filename="../qml/pages/RecommendationPage.qml" line="68"/>
-        <source>There are no comments</source>
-        <translation>Комментарии отсутствуют</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/RecommendationPage.qml" line="69"/>
-        <source>Pull down to refresh</source>
-        <translation>Потяните вниз для обновления</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/RecommendationPage.qml" line="86"/>
-        <location filename="../qml/pages/RecommendationPage.qml" line="105"/>
+        <location filename="../qml/pages/RecommendationPage.qml" line="79"/>
+        <location filename="../qml/pages/RecommendationPage.qml" line="98"/>
         <source>Add comment</source>
         <translation>Добавить комментарий</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RecommendationPage.qml" line="95"/>
+        <location filename="../qml/pages/RecommendationPage.qml" line="88"/>
         <source>Refresh</source>
         <translation>Обновить</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RecommendationPage.qml" line="144"/>
+        <location filename="../qml/pages/RecommendationPage.qml" line="137"/>
         <source>Recommendation</source>
         <translation>Рекомендация</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RecommendationPage.qml" line="180"/>
+        <location filename="../qml/pages/RecommendationPage.qml" line="173"/>
         <source>%1 recommended the book %2 to %3</source>
         <translation>%1 рекомендует книгу %2 %3</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RecommendationPage.qml" line="224"/>
+        <location filename="../qml/pages/RecommendationPage.qml" line="217"/>
         <source>Comments</source>
         <translation>Комментарии</translation>
     </message>
@@ -1631,34 +1611,24 @@
 <context>
     <name>ReviewPage</name>
     <message>
-        <location filename="../qml/pages/ReviewPage.qml" line="71"/>
-        <source>There are no comments</source>
-        <translation>Комментарии отсутствуют</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/ReviewPage.qml" line="72"/>
-        <source>Pull down to refresh</source>
-        <translation>Потяните вниз для обновления</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/ReviewPage.qml" line="91"/>
-        <location filename="../qml/pages/ReviewPage.qml" line="108"/>
+        <location filename="../qml/pages/ReviewPage.qml" line="83"/>
+        <location filename="../qml/pages/ReviewPage.qml" line="100"/>
         <source>Add comment</source>
         <translation>Добавить комментарий</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ReviewPage.qml" line="100"/>
+        <location filename="../qml/pages/ReviewPage.qml" line="92"/>
         <source>Refresh</source>
         <translation>Обновить</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ReviewPage.qml" line="147"/>
-        <location filename="../qml/pages/ReviewPage.qml" line="196"/>
+        <location filename="../qml/pages/ReviewPage.qml" line="139"/>
+        <location filename="../qml/pages/ReviewPage.qml" line="188"/>
         <source>Review</source>
         <translation>Отзыв</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ReviewPage.qml" line="237"/>
+        <location filename="../qml/pages/ReviewPage.qml" line="229"/>
         <source>Comments</source>
         <translation>Комментарии</translation>
     </message>
@@ -2085,34 +2055,24 @@
 <context>
     <name>UserStatusPage</name>
     <message>
-        <location filename="../qml/pages/UserStatusPage.qml" line="68"/>
-        <source>There are no comments</source>
-        <translation>Комментарии отсутствуют</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/UserStatusPage.qml" line="69"/>
-        <source>Pull down to refresh</source>
-        <translation>Потяните вниз для обновления</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/UserStatusPage.qml" line="87"/>
-        <location filename="../qml/pages/UserStatusPage.qml" line="104"/>
+        <location filename="../qml/pages/UserStatusPage.qml" line="80"/>
+        <location filename="../qml/pages/UserStatusPage.qml" line="97"/>
         <source>Add comment</source>
         <translation>Добавить комментарий</translation>
     </message>
     <message>
-        <location filename="../qml/pages/UserStatusPage.qml" line="96"/>
+        <location filename="../qml/pages/UserStatusPage.qml" line="89"/>
         <source>Refresh</source>
         <translation>Обновить</translation>
     </message>
     <message>
-        <location filename="../qml/pages/UserStatusPage.qml" line="143"/>
-        <location filename="../qml/pages/UserStatusPage.qml" line="186"/>
+        <location filename="../qml/pages/UserStatusPage.qml" line="136"/>
+        <location filename="../qml/pages/UserStatusPage.qml" line="179"/>
         <source>Status update</source>
         <translation>Обвноления статуса</translation>
     </message>
     <message>
-        <location filename="../qml/pages/UserStatusPage.qml" line="217"/>
+        <location filename="../qml/pages/UserStatusPage.qml" line="210"/>
         <source>Comments</source>
         <translation>Комментарии</translation>
     </message>

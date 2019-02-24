@@ -100,11 +100,11 @@ public:
     QUrl GetLink() const;
     void SetLink(const QUrl& link);
     qreal GetAverageRating() const;
-    void SetAverageRating(const qreal& averageRating);
+    void SetAverageRating(qreal averageRating);
     quint64 GetRatingsCount() const;
-    void SetRatingsCount(const quint64& ratingsCount);
+    void SetRatingsCount(quint64 ratingsCount);
     quint64 GetTextReviewsCount() const;
-    void SetTextReviewsCount(const quint64& textReviewsCount);
+    void SetTextReviewsCount(quint64 textReviewsCount);
     quint64 GetFansCount() const;
     void SetFansCount(quint64 fansCount);
     quint64 GetFollowersCount() const;
