@@ -132,7 +132,7 @@ Page {
                     width: parent.width
                     visible: value !== ""
                     key: qsTr("Last update")
-                    value: Utils.generateDateString(topicLastCommentDate, "dd MMM yyyy hh:mm")
+                    value: Utils.generateDateString(topicLastCommentDate, "dd.MM.yy hh:mm")
                     font.bold: topicUnreadCount > 0
                 }
             }

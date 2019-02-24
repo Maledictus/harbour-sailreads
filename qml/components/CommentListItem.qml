@@ -27,7 +27,7 @@ Item {
         PosterHeaderItem {
             width: parent.width
             posterName: author ? author.userName.toUpperCase() : ""
-            postDate: Utils.generateDateString(updateDate, "dd MMM yyyy hh:mm")
+            postDate: Utils.generateDateString(updateDate, "dd.MM.yy hh:mm")
             posterAvatar: author ? author.avatarUrl : ""
             onClicked: userClicked(author.id)
         }

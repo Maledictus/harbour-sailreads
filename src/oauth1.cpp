@@ -371,5 +371,9 @@ void OAuth1::SignRequest(QNetworkRequest& request, const QVariantMap& signingPar
         request.setHeader(QNetworkRequest::ContentTypeHeader,
                 QStringLiteral("application/x-www-form-urlencoded"));
     }
+
+#ifdef QT_DEBUG
+    qDebug() << request.url();
+#endif
 }
 } // namespace Sailreads

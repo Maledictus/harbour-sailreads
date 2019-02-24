@@ -74,7 +74,7 @@ ListItem {
         KeyValueLabel {
             id: groupLastActivityLabel
             key: qsTr("Last activity")
-            value: Utils.generateDateString(lastActivity, "dd MMM yyyy hh:mm")
+            value: Utils.generateDateString(lastActivity, "dd.MM.yy hh:mm")
         }
         KeyValueLabel {
             id: groupMembersLabel

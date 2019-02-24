@@ -163,7 +163,7 @@ Page {
                 nameLabel.label.text: review ? review.user.userName : ""
                 ratingBox.rating: review ? review.rating : 0.0
                 dateLabel.text: review ?
-                        Utils.generateDateString(review.updatedDate, "dd MMM yyyy hh:mm") :
+                        Utils.generateDateString(review.updatedDate, "dd.MM.yy hh:mm") :
                         ""
                 hasCommentImage.visible: false
 

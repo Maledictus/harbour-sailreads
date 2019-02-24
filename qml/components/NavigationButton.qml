@@ -45,12 +45,20 @@ MouseArea {
             highlighted: mouseArea.highlighted || mouseArea.selected
         }
 
+        TextMetrics {
+            id: textMetricsLabel
+            font.pixelSize: lbl.font.pixelSize
+            text: lbl.text
+            elide: Qt.ElideNone
+        }
+
         Label {
             id: lbl
             anchors.horizontalCenter: parent.horizontalCenter
-            horizontalAlignment: Qt.AlignHCenter
+            horizontalAlignment: width < textMetricsLabel.width ? Qt.AlignLeft : Qt.AlignHCenter
             font.pixelSize: Theme.fontSizeSmall
             width: parent.width
+            truncationMode: TruncationMode.Fade
             color: mouseArea.highlighted || mouseArea.selected ?
                     Theme.highlightColor : Theme.primaryColor
         }

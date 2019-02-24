@@ -148,7 +148,7 @@ Page {
                         font.pixelSize: Theme.fontSizeSmall
                         key: qsTr("Last activity")
                         value: groupItem.group ?
-                                Utils.generateDateString(groupItem.group.lastActivity, "dd MMM yyyy hh:mm") :
+                                Utils.generateDateString(groupItem.group.lastActivity, "dd.MM.yy hh:mm") :
                                 ""
                     }
                 }

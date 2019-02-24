@@ -145,12 +145,12 @@
     <message>
         <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="117"/>
         <source>Write a review</source>
-        <translation>Написать отзыв</translation>
+        <translation>Написать рецензию</translation>
     </message>
     <message>
         <location filename="../qml/dialogs/AddEditReviewDialog.qml" line="118"/>
         <source>Review</source>
-        <translation>Отзыв</translation>
+        <translation>Рецензия</translation>
     </message>
 </context>
 <context>
@@ -198,12 +198,12 @@
     <message>
         <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="99"/>
         <source>Tag name (e.g. modern-heroine)</source>
-        <translation>Название тега (например, современная героиня)</translation>
+        <translation>Тег (напр., современная героиня)</translation>
     </message>
     <message>
         <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="100"/>
         <source>Shelf name (e.g. abandoned)</source>
-        <translation>Название полки (например, отложено)</translation>
+        <translation>Полка (напр., отложено)</translation>
     </message>
     <message>
         <location filename="../qml/dialogs/AddEditShelfDialog.qml" line="109"/>
@@ -451,12 +451,12 @@
         <translation>Потяните вниз для обновления</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AuthorSeriesPage.qml" line="104"/>
+        <location filename="../qml/pages/AuthorSeriesPage.qml" line="103"/>
         <source>%1</source>
         <translation>%1</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AuthorSeriesPage.qml" line="109"/>
+        <location filename="../qml/pages/AuthorSeriesPage.qml" line="108"/>
         <source>Books</source>
         <translation>Книги</translation>
     </message>
@@ -540,47 +540,47 @@
         <translation>Написать рецензию</translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="288"/>
+        <location filename="../qml/pages/BookPage.qml" line="287"/>
         <source>Friends activity</source>
         <translation>Активность друзей</translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="296"/>
+        <location filename="../qml/pages/BookPage.qml" line="295"/>
         <source>Friends Review</source>
         <translation>Рецензии друзей</translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="352"/>
+        <location filename="../qml/pages/BookPage.qml" line="351"/>
         <source>Description</source>
         <translation>Описание</translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="375"/>
+        <location filename="../qml/pages/BookPage.qml" line="374"/>
         <source>Series</source>
         <translation>Серии</translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="399"/>
+        <location filename="../qml/pages/BookPage.qml" line="398"/>
         <source>Pages</source>
-        <translation>Страниц</translation>
+        <translation>Страницы</translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="406"/>
+        <location filename="../qml/pages/BookPage.qml" line="405"/>
         <source>Published</source>
         <translation>Опубликована</translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="450"/>
+        <location filename="../qml/pages/BookPage.qml" line="449"/>
         <source>Quotes</source>
         <translation>Цитаты</translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="464"/>
+        <location filename="../qml/pages/BookPage.qml" line="463"/>
         <source>Other editions</source>
         <translation>Другие издания</translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="437"/>
+        <location filename="../qml/pages/BookPage.qml" line="436"/>
         <source>Community Reviews</source>
         <translation>Рецензии сообщества</translation>
     </message>
@@ -594,8 +594,8 @@
         </translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookPage.qml" line="480"/>
-        <location filename="../qml/pages/BookPage.qml" line="487"/>
+        <location filename="../qml/pages/BookPage.qml" line="479"/>
+        <location filename="../qml/pages/BookPage.qml" line="486"/>
         <source>Similar Books</source>
         <translation>Похожие книги</translation>
     </message>
@@ -691,7 +691,7 @@
     <message>
         <location filename="../qml/pages/BookShelvesPage.qml" line="126"/>
         <source>Edit</source>
-        <translation>Править</translation>
+        <translation>Редактировать</translation>
     </message>
 </context>
 <context>
@@ -717,7 +717,7 @@
     <message>
         <location filename="../qml/dialogs/BooksReviewsSortingDialog.qml" line="60"/>
         <source>Sorting order</source>
-        <translation>Порядок сортировки</translation>
+        <translation>Порядок</translation>
     </message>
     <message>
         <location filename="../qml/dialogs/BooksReviewsSortingDialog.qml" line="64"/>
@@ -732,7 +732,7 @@
     <message>
         <location filename="../qml/dialogs/BooksReviewsSortingDialog.qml" line="91"/>
         <source>Sorting field</source>
-        <translation>Поле для сортировки</translation>
+        <translation>Поле</translation>
     </message>
     <message>
         <location filename="../qml/dialogs/BooksReviewsSortingDialog.qml" line="95"/>
@@ -787,7 +787,7 @@
     <message>
         <location filename="../qml/dialogs/BooksReviewsSortingDialog.qml" line="125"/>
         <source>Date finished</source>
-        <translation>Дата завершения чтения</translation>
+        <translation>Дата прочтения</translation>
     </message>
     <message>
         <location filename="../qml/dialogs/BooksReviewsSortingDialog.qml" line="128"/>
@@ -889,7 +889,7 @@
         <location filename="../qml/pages/FriendsPage.qml" line="136"/>
         <location filename="../qml/pages/FriendsPage.qml" line="247"/>
         <source>Followings</source>
-        <translation>Подписчики</translation>
+        <translation>Подписки</translation>
     </message>
     <message>
         <location filename="../qml/pages/FriendsPage.qml" line="169"/>
@@ -1007,7 +1007,7 @@
     <message>
         <location filename="../qml/pages/GroupFolderPage.qml" line="134"/>
         <source>Last update</source>
-        <translation>Последнее обновление</translation>
+        <translation>Обновлено</translation>
     </message>
 </context>
 <context>
@@ -1033,7 +1033,7 @@
     <message>
         <location filename="../qml/components/GroupListItem.qml" line="76"/>
         <source>Last activity</source>
-        <translation>Последняя активность</translation>
+        <translation>Обновлено</translation>
     </message>
     <message>
         <location filename="../qml/components/GroupListItem.qml" line="81"/>
@@ -1056,7 +1056,7 @@
     <message>
         <location filename="../qml/pages/GroupMembersPage.qml" line="102"/>
         <source>Comments</source>
-        <translation type="unfinished">Комментарии</translation>
+        <translation>Комментарии</translation>
     </message>
 </context>
 <context>
@@ -1089,7 +1089,7 @@
     <message>
         <location filename="../qml/pages/GroupPage.qml" line="149"/>
         <source>Last activity</source>
-        <translation>Последняя активность</translation>
+        <translation>Обновлено</translation>
     </message>
     <message>
         <location filename="../qml/pages/GroupPage.qml" line="173"/>
@@ -1263,7 +1263,7 @@
     <message>
         <location filename="../qml/pages/LoginPage.qml" line="67"/>
         <source>To login via Amazon you should first of all unlink amazon account from goodreads one</source>
-        <translation>Для авторизации через Amazon вы для начала должны отключить учётную запись amazon от goodreads.</translation>
+        <translation>Для авторизации через Amazon вы, для начала, должны отключить учётную запись amazon от goodreads.</translation>
     </message>
     <message>
         <location filename="../qml/pages/LoginPage.qml" line="72"/>
@@ -1371,6 +1371,11 @@
         <translation>Обновить</translation>
     </message>
     <message>
+        <location filename="../qml/pages/MessagesPage.qml" line="92"/>
+        <source>Messages: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../qml/pages/MessagesPage.qml" line="99"/>
         <source>There are no messages in this folder</source>
         <translation>Сообщения отсутствуют в этой папке</translation>
@@ -1438,97 +1443,97 @@
 <context>
     <name>ProfilePage</name>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="101"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="103"/>
         <source>Settings</source>
-        <translation type="unfinished">Настройки</translation>
+        <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="111"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="113"/>
         <source>Unfollow user</source>
-        <translation type="unfinished"></translation>
+        <translation>Отписаться</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="111"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="113"/>
         <source>Follow user</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="131"/>
-        <source>Friend request was sent</source>
-        <translation type="unfinished"></translation>
+        <translation>Подписаться</translation>
     </message>
     <message>
         <location filename="../qml/pages/ProfilePage.qml" line="133"/>
+        <source>Friend request was sent</source>
+        <translation>Запрос в друзья был отправлен</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ProfilePage.qml" line="135"/>
         <source>Add as a friend</source>
-        <translation type="unfinished"></translation>
+        <translation>Добавить в друзья</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="143"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="145"/>
         <source>Refresh</source>
-        <translation type="unfinished">Обновить</translation>
+        <translation>Обновить</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="175"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="177"/>
         <source>Details</source>
         <translation>Подробности</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="185"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="187"/>
         <source>Joined</source>
         <translation>Присоединился</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="192"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="194"/>
         <source>Last active</source>
-        <translation>Последняя активность</translation>
+        <translation>Был активен</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="211"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="213"/>
         <source>Interests</source>
         <translation>Интересы</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="220"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="222"/>
         <source>Favorite books</source>
         <translation>Любимые книги</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="225"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="227"/>
         <source>Favorite authors</source>
         <translation>Любимые авторы</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="249"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="251"/>
         <source>About me</source>
         <translation>Обо мне</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="263"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="265"/>
         <source>Bookshelves</source>
         <translation>Книжные полки</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="304"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="308"/>
         <source>Friends</source>
         <translation>Друзья</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="324"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="328"/>
         <source>Groups</source>
         <translation>Группы</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="337"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="342"/>
         <source>Inbox</source>
         <translation>Входящие</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="349"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="354"/>
         <source>Quotes</source>
         <translation>Цитаты</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="358"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="364"/>
         <source>Recent updates</source>
         <translation>Недавние обновления</translation>
     </message>
@@ -1937,38 +1942,38 @@
     <message>
         <location filename="../qml/dialogs/UpdateReadingProgressDialog.qml" line="135"/>
         <source>Pages</source>
-        <translation>Страниц</translation>
+        <translation>Страницы</translation>
     </message>
     <message>
         <location filename="../qml/dialogs/UpdateReadingProgressDialog.qml" line="138"/>
+        <location filename="../qml/dialogs/UpdateReadingProgressDialog.qml" line="205"/>
         <location filename="../qml/dialogs/UpdateReadingProgressDialog.qml" line="206"/>
-        <location filename="../qml/dialogs/UpdateReadingProgressDialog.qml" line="207"/>
         <source>Percent</source>
-        <translation>Проценты</translation>
+        <translation>Процент</translation>
     </message>
     <message>
         <location filename="../qml/dialogs/UpdateReadingProgressDialog.qml" line="152"/>
         <source>On page</source>
-        <translation>На странице</translation>
+        <translation>Страница</translation>
     </message>
     <message>
+        <location filename="../qml/dialogs/UpdateReadingProgressDialog.qml" line="167"/>
         <location filename="../qml/dialogs/UpdateReadingProgressDialog.qml" line="168"/>
-        <location filename="../qml/dialogs/UpdateReadingProgressDialog.qml" line="169"/>
         <source>Page number</source>
-        <translation>Номер страницы</translation>
+        <translation>Страница</translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/UpdateReadingProgressDialog.qml" line="180"/>
+        <location filename="../qml/dialogs/UpdateReadingProgressDialog.qml" line="179"/>
         <source>of %1</source>
         <translation>из %1</translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/UpdateReadingProgressDialog.qml" line="218"/>
+        <location filename="../qml/dialogs/UpdateReadingProgressDialog.qml" line="217"/>
         <source>% read</source>
         <translation>% прочитано</translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/UpdateReadingProgressDialog.qml" line="240"/>
+        <location filename="../qml/dialogs/UpdateReadingProgressDialog.qml" line="239"/>
         <source>What do you think? (Optional)</source>
         <translation>Что вы об этом думаете? (Необязательно)</translation>
     </message>
@@ -2172,7 +2177,7 @@
     <message>
         <location filename="../qml/utils/Utils.js" line="119"/>
         <source>Date finished</source>
-        <translation>Дата завершения чтения</translation>
+        <translation>Дата прочтения</translation>
     </message>
     <message>
         <location filename="../qml/utils/Utils.js" line="120"/>

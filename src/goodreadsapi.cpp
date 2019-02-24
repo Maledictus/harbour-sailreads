@@ -857,6 +857,9 @@ QByteArray GoodReadsApi::GetReply(QObject *sender, bool& ok)
         return data;
     }
 
+#ifdef QT_DEBUG
+    qDebug() << reply->error() << reply->errorString();
+#endif
     //Disable warning on request cancel
     if (reply->error() == QNetworkReply::OperationCanceledError) {
         ok = true;

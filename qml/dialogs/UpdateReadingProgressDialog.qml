@@ -157,7 +157,6 @@ Dialog {
                             font.pixelSize: pageField.font.pixelSize
                             text: "Page number"
                             elide: Qt.ElideNone
-
                         }
                         TextField {
                             id: pageField
