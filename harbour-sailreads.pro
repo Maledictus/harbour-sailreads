@@ -1,6 +1,6 @@
 TARGET = harbour-sailreads
 
-VERSION = 0.4.0
+VERSION = 1.0.0
 
 QT += network xmlpatterns xml
 
@@ -199,7 +199,8 @@ SAILFISHAPP_ICONS = 86x86 108x108 128x128 172x172
 TRANSLATIONS += translations/harbour-sailreads.ts \
     translations/harbour-sailreads-ru.ts \
     translations/harbour-sailreads-nl.ts \
-    translations/harbour-sailreads-nl_BE.ts
+    translations/harbour-sailreads-nl_BE.ts \
+    translations/harbour-sailreads-zh_CN.ts
 
 lupdate_only {
 SOURCES = qml/harbour-sailreads.qml \
@@ -291,5 +292,5 @@ SOURCES = qml/harbour-sailreads.qml \
     qml/pages/UserReviewsPage.qml \
     qml/pages/UserStatusPage.qml \
     qml/pages/WebAuthorizationPage.qml \
-    qml/pages/WebViewPage.qml \
+    qml/pages/WebViewPage.qml
 }

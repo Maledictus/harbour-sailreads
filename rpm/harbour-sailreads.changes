@@ -12,11 +12,28 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
-# Wed Jan 02 2019 Oleg Linkin <maledictusdemagog@gmail.com> 0.2.2
-# - Add author's series page
-# - Add book editions page
-# - UI improvements
-# - Code improvements
+* Mon Feb 25 2019 Oleg Linkin <maledictusdemagog@gmail.com> 1.0.0
+ - Add Recommendation page
+ - Add simple settings page
+ - View/Edit review
+ - Set book rating
+ - Use icon buttons for actions on UserStatus/ReadStatus/Review pages
+ - Implement like/unlike possibility
+ - Make Inbox with notifications, messages, friend requests and friend recommendations
+ - Approve/Decline friend requests and recommendations
+ - Add/Edit book shelves
+ - Fix reviews search
+ - Update bookshelf creating/editing with shelf/tag division
+ - Cover with search and update progress buttons
+ - Switch book editions
+ - User/Author/Book quotes
+ - Community reviews on embede webview
+ - Update reading progress possibility
+ - Fixes for Sailfish styleguide
+ - Add RU, NL, NL_BE, ZH_CN translations
+ - Fix localizations issues
+ - Code improvements
+ - Bugfixing
 
 * Fri Jan 25 2019 Oleg Linkin <maledictusdemagog@gmail.com> 0.4.0
  - Sorting books on your shelves
