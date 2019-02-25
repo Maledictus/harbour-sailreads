@@ -56,7 +56,6 @@ void BookEditionsModel::SetWorkId(quint64 workId)
 
     m_WorkId = workId;
     m_CurrentPage = 1;
-    loadBookEditions();
     emit workIdChanged();
 }
 
@@ -70,6 +69,7 @@ void BookEditionsModel::loadBookEditions()
     if (m_WorkId <= 0) {
         return;
     }
+    Clear();
     SailreadsManager::Instance()->loadBookEditions(this, m_WorkId);
 }
 
@@ -78,7 +78,12 @@ void BookEditionsModel::handleGotBookEditions(quint64 workId, const CountedItems
     if (m_WorkId != workId) {
         return;
     }
-    handleGotBooks(books);
+
+    AddItems(books.m_Items);
+    SetHasMore(books.m_Count);
+    if (m_HasMore) {
+        ++m_CurrentPage;
+    }
 }
 
 } // namespace Sailreads
