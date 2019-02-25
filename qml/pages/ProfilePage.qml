@@ -142,6 +142,12 @@ Page {
                 }
 
                 MenuItem {
+                    visible: sailreadsManager.authUser && sailreadsManager.authUser.id === userId
+                    text: qsTr("Search")
+                    onClicked: pageStack.push(Qt.resolvedUrl("../pages/SearchPage.qml"))
+                }
+
+                MenuItem {
                     text: qsTr("Refresh")
                     onClicked: {
                         userProfile.loadProfile()

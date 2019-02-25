@@ -51,8 +51,6 @@ void SearchReviewsModel::SetSearchText(const QString& searchText)
 
 void SearchReviewsModel::classBegin()
 {
-    m_UserId = SailreadsManager::Instance()->GetAuthUser() ?
-            SailreadsManager::Instance()->GetAuthUser()->GetId() : "";
     auto sm = SailreadsManager::Instance();
     connect(sm, &SailreadsManager::gotFoundReviews,
             this, &SearchReviewsModel::handleGotFoundReviews);

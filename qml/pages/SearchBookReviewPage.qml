@@ -31,6 +31,7 @@ import "../components"
 Page {
     id: searchBookReviewPage
 
+    property alias userId: foundBookReviewsModel.userId
     property bool busy: sailreadsManager.busy && searchBookReviewPage.status === PageStatus.Active
 
     Component.onDestruction: {

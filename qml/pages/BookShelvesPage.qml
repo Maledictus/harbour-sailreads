@@ -75,8 +75,7 @@ Page {
             busy: bookShelvesPage.busy
             MenuItem {
                 text: qsTr("Search")
-                visible: sailreadsManager.authUser
-                onClicked: pageStack.push(Qt.resolvedUrl("../pages/SearchBookReviewPage.qml"))
+                onClicked: pageStack.push(Qt.resolvedUrl("../pages/SearchBookReviewPage.qml"), { userId: userId })
             }
 
             MenuItem {
