@@ -206,6 +206,7 @@ void Application::start()
     qRegisterMetaType<ReadStatus*>("ReadStatus*");
     qRegisterMetaType<UserStatus*>("UserStatus*");
     qRegisterMetaType<Recommendation*>("Recommendation*");
+    qRegisterMetaType<AuthorBooksModel*>("AuthorBooksModel*");
 
     qmlRegisterType<AuthorBooksModel>("harbour.sailreads", 1, 0, "AuthorBooksModel");
     qmlRegisterType<AuthorSeriesModel>("harbour.sailreads", 1, 0, "AuthorSeriesModel");

@@ -306,7 +306,7 @@ Page {
                 height: contentHeight
                 clip: true
 
-                model: author ? author.books : null
+                model: authorProfile.shortBooksModel
 
                 ViewPlaceholder {
                     enabled: !sailreadsManager.busy && booksView.count === 0
@@ -319,29 +319,29 @@ Page {
                     width: booksView.width
                     clip: true
 
-                    imageUrl: modelData.imageUrl
-                    title: modelData.title
-                    authors: modelData.authorsString
-                    averageRating: modelData.averageRating
-                    ratingsCount: modelData.ratingsCount
+                    imageUrl: bookImageUrl
+                    title: bookTitle
+                    authors: bookAuthors
+                    averageRating: bookAverageRating
+                    ratingsCount: bookRatingsCount
 
                     IconTextButton {
                         parent: delegate.customItem
                         label.font.pixelSize: Theme.fontSizeMedium
-                        label.color: modelData.review || highlighted || delegate.highlighted ?
+                        label.color: bookBook.review || highlighted || delegate.highlighted ?
                                 Theme.highlightColor : Theme.primaryColor
-                        label.text: !modelData.review ? qsTr("Want to Read") :
-                                (modelData.review ? modelData.review.exclusiveShelf : "")
-                        icon.source: !modelData.review ? "image://Theme/icon-m-add" :
+                        label.text: !bookBook.review ? qsTr("Want to Read") :
+                                (bookBook.review ? bookBook.review.exclusiveShelf : "")
+                        icon.source: !bookBook.review ? "image://Theme/icon-m-add" :
                                 "image://Theme/icon-m-acknowledge"
-                        icon.highlighted: modelData.review || highlighted || delegate.highlighted
+                        icon.highlighted: bookBook.review || highlighted || delegate.highlighted
                         onClicked: {
-                            if (!modelData.review) {
-                                sailreadsManager.addBookToShelves(modelData.id, ["to-read"])
+                            if (!bookBook.review) {
+                                sailreadsManager.addBookToShelves(bookBook.id, ["to-read"])
                             }
                             else {
                                 pageStack.push(Qt.resolvedUrl("../pages/AddBookToShelvesPage.qml"),
-                                        { bookId: modelData.id, book: modelData, review: modelData.review })
+                                        { bookId: bookBook.id, book: bookBook, review: bookBook.review })
                             }
                         }
                     }
@@ -351,14 +351,14 @@ Page {
                             text: qsTr("Add to My Books")
                             onClicked: {
                                 pageStack.push(Qt.resolvedUrl("../pages/AddBookToShelvesPage.qml"),
-                                        { bookId: modelData.id, book: modelData, review: modelData.review })
+                                        { bookId: bookBook.id, book: bookBook, review: bookBook.review })
                             }
                         }
                     }
 
                     onClicked: {
                         pageStack.push(Qt.resolvedUrl("../pages/BookPage.qml"),
-                                { book: modelData, bookId: modelData.id })
+                                { book: bookBook, bookId: bookBook.id })
                     }
                 }
             }

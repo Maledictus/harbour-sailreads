@@ -22,6 +22,9 @@ THE SOFTWARE.
 
 #include "authorprofileitem.h"
 
+#include <QtDebug>
+
+#include "../models/authorbooksmodel.h"
 #include "../objects/author.h"
 #include "../sailreadsmanager.h"
 
@@ -30,6 +33,7 @@ namespace Sailreads
 AuthorProfileItem::AuthorProfileItem(QObject *parent)
 : ItemRequestCanceler(parent)
 , m_AuthorId("")
+, m_ShortBooksModel(new AuthorBooksModel(this))
 {
     connect(SailreadsManager::Instance(), &SailreadsManager::gotAuthorProfile,
             this, &AuthorProfileItem::handleGotAuthorProfile);
@@ -37,6 +41,8 @@ AuthorProfileItem::AuthorProfileItem(QObject *parent)
             this, &AuthorProfileItem::handleAuthorFollowed);
     connect(SailreadsManager::Instance(), &SailreadsManager::authorUnfollowed,
             this, &AuthorProfileItem::handleAuthorUnfollowed);
+    connect(SailreadsManager::Instance(), &SailreadsManager::bookAddedToShelves,
+            m_ShortBooksModel, &AuthorBooksModel::handleBookAddedToShelves);
 }
 
 QString AuthorProfileItem::GetAuthorId() const
@@ -51,6 +57,7 @@ void AuthorProfileItem::SetAuthorId(const QString& authorId)
     }
 
     m_AuthorId = authorId;
+    m_ShortBooksModel->SetAuthorId(m_AuthorId);
     loadAuthorProfile();
     emit authorIdChanged();
 }
@@ -71,6 +78,11 @@ void AuthorProfileItem::SetAuthor(Author *author)
     }
     m_Author->Update(author);
     emit authorChanged();
+}
+
+AuthorBooksModel* AuthorProfileItem::GetShortBooksModel() const
+{
+    return m_ShortBooksModel;
 }
 
 void AuthorProfileItem::SetAuthor(const AuthorPtr& author)
@@ -102,6 +114,13 @@ void AuthorProfileItem::handleGotAuthorProfile(const AuthorPtr& author)
     m_AuthorId = author->GetId();
     emit authorIdChanged();
     SetAuthor(author);
+    CountedItems<BookPtr> books;
+    books.m_Items = author->GetBooksPtr();
+    books.m_BeginIndex = 1;
+    books.m_EndIndex = books.m_Items.size();
+    books.m_Count = books.m_EndIndex;
+    m_ShortBooksModel->handleGotAuthorBooks(m_AuthorId, books);
+    emit shortBooksModelChanged();
 }
 
 void AuthorProfileItem::handleAuthorFollowed(const QString& authorId, quint64 followingId)

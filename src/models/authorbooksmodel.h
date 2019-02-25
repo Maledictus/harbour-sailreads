@@ -47,7 +47,6 @@ public:
 public slots:
     virtual void fetchMoreContent() override;
     void loadAuthorBooks();
-private slots:
     void handleGotAuthorBooks(const QString& authorId, const CountedItems<BookPtr>& books);
     void handleBookAddedToShelves(const QString& bookId, const QStringList& shelves,
             const QStringList& oldShelves, const ReviewPtr& review);

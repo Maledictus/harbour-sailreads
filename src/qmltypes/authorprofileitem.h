@@ -27,16 +27,22 @@ THE SOFTWARE.
 #include "../itemrequestcanceler.h"
 #include "../types.h"
 
+class QAbstractItemModel;
+
 namespace Sailreads
 {
+class AuthorBooksModel;
 class AuthorProfileItem: public ItemRequestCanceler
 {
     Q_OBJECT
 
     QString m_AuthorId;
     AuthorPtr m_Author;
+    AuthorBooksModel *m_ShortBooksModel;
+
     Q_PROPERTY(QString authorId READ GetAuthorId WRITE SetAuthorId NOTIFY authorIdChanged)
     Q_PROPERTY(Author* author READ GetAuthor WRITE SetAuthor NOTIFY authorChanged)
+    Q_PROPERTY(AuthorBooksModel* shortBooksModel READ GetShortBooksModel NOTIFY shortBooksModelChanged)
 
 public:
     AuthorProfileItem(QObject *parent = nullptr);
@@ -46,6 +52,7 @@ public:
     void SetAuthor(const AuthorPtr& author);
     Author* GetAuthor() const;
     void SetAuthor(Author *author);
+    AuthorBooksModel* GetShortBooksModel() const;
 
 private slots:
     void handleGotAuthorProfile(const AuthorPtr& author);
@@ -57,5 +64,6 @@ public slots:
 signals:
     void authorIdChanged();
     void authorChanged();
+    void shortBooksModelChanged();
 };
 }

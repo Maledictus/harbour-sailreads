@@ -60,7 +60,6 @@ void AuthorBooksModel::SetAuthorId(const QString& authorId)
 
     m_AuthorId = authorId;
     m_CurrentPage = 1;
-    loadAuthorBooks();
     emit authorIdChanged();
 }
 
