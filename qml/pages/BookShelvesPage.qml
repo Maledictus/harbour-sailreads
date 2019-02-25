@@ -75,11 +75,13 @@ Page {
             busy: bookShelvesPage.busy
             MenuItem {
                 text: qsTr("Search")
-                onClicked: pageStack.push(Qt.resolvedUrl("../pages/SearchBookReviewPage.qml"), { userId: userId })
+                onClicked: pageStack.push(Qt.resolvedUrl("../pages/SearchBookReviewPage.qml"),
+                        { userId: userId })
             }
 
             MenuItem {
                 text: qsTr("Add new shelf or tag")
+                visible: sailreadsManager.authUser && sailreadsManager.authUser.id === userId
                 onClicked: {
                     var dialog = pageStack.push(Qt.resolvedUrl("../dialogs/AddEditShelfDialog.qml"))
                     dialog.accepted.connect (function () {
