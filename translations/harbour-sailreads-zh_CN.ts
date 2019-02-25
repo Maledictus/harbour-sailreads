@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="zh_CN" version="2.1">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="zh_CN">
 <context>
     <name>AboutPage</name>
     <message>
@@ -585,7 +587,9 @@
     <message numerus="yes">
         <location filename="../qml/pages/BookPage.qml" line="194"/>
         <source>%Ln ratings</source>
-        <translation><numerusform>%Ln 评分</numerusform></translation>
+        <translation>
+            <numerusform>%Ln 评分</numerusform>
+        </translation>
     </message>
     <message>
         <location filename="../qml/pages/BookPage.qml" line="479"/>
@@ -823,12 +827,16 @@
     <message numerus="yes">
         <location filename="../qml/components/FriendListItem.qml" line="67"/>
         <source>%Ln books</source>
-        <translation><numerusform>%Ln 书籍</numerusform></translation>
+        <translation>
+            <numerusform>%Ln 书籍</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <location filename="../qml/components/FriendListItem.qml" line="73"/>
         <source>%Ln friends</source>
-        <translation><numerusform>%Ln 朋友</numerusform></translation>
+        <translation>
+            <numerusform>%Ln 朋友</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -1294,8 +1302,8 @@
     <name>MessagesFolder</name>
     <message>
         <location filename="../qml/components/MessagesFolder.qml" line="28"/>
-        <source/>
-        <translation type="unfinished"/>
+        <source></source>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -1534,7 +1542,9 @@
     <message numerus="yes">
         <location filename="../qml/components/RatingComponent.qml" line="55"/>
         <source>%Ln ratings</source>
-        <translation><numerusform>%Ln 评分</numerusform></translation>
+        <translation>
+            <numerusform>%Ln 评分</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -1750,12 +1760,16 @@
     <message numerus="yes">
         <location filename="../qml/pages/SeriesPage.qml" line="148"/>
         <source>%Ln works</source>
-        <translation><numerusform>%Ln 作品</numerusform></translation>
+        <translation>
+            <numerusform>%Ln 作品</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <location filename="../qml/pages/SeriesPage.qml" line="155"/>
         <source>%Ln primary works</source>
-        <translation><numerusform>%Ln 代表作</numerusform></translation>
+        <translation>
+            <numerusform>%Ln 代表作</numerusform>
+        </translation>
     </message>
 </context>
 <context>

@@ -80,10 +80,6 @@ ApplicationWindow {
     Component {
         id: splashScreenComponent
         SplashScreenPage {}
-        //12934309 171430
-        //BookPage { bookId: "41045262" }
-        //UpdateReadingProgressDialog{ bookId: "41045262" }
-        //ProfilePage { userId: "171430" }
     }
 
     Component {
