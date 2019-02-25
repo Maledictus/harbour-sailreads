@@ -49,6 +49,8 @@ public slots:
     void loadAuthorBooks();
 private slots:
     void handleGotAuthorBooks(const QString& authorId, const CountedItems<BookPtr>& books);
+    void handleBookAddedToShelves(const QString& bookId, const QStringList& shelves,
+            const QStringList& oldShelves, const ReviewPtr& review);
 
 signals:
     void authorIdChanged();
