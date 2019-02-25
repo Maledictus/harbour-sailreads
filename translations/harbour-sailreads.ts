@@ -635,22 +635,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookReviewsPage.qml" line="85"/>
+        <location filename="../qml/pages/BookReviewsPage.qml" line="84"/>
         <source>Sort</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookReviewsPage.qml" line="100"/>
+        <location filename="../qml/pages/BookReviewsPage.qml" line="99"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookReviewsPage.qml" line="109"/>
+        <location filename="../qml/pages/BookReviewsPage.qml" line="108"/>
         <source>There are no books reviews</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookReviewsPage.qml" line="110"/>
+        <location filename="../qml/pages/BookReviewsPage.qml" line="109"/>
         <source>Pull down to refresh</source>
         <translation type="unfinished"></translation>
     </message>
@@ -673,22 +673,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookShelvesPage.qml" line="93"/>
+        <location filename="../qml/pages/BookShelvesPage.qml" line="94"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookShelvesPage.qml" line="102"/>
+        <location filename="../qml/pages/BookShelvesPage.qml" line="103"/>
         <source>There are no bookshelves</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookShelvesPage.qml" line="103"/>
+        <location filename="../qml/pages/BookShelvesPage.qml" line="104"/>
         <source>Pull down to refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookShelvesPage.qml" line="126"/>
+        <location filename="../qml/pages/BookShelvesPage.qml" line="127"/>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1465,72 +1465,77 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="145"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="146"/>
+        <source>Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ProfilePage.qml" line="151"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="177"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="183"/>
         <source>Details</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="187"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="193"/>
         <source>Joined</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="194"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="200"/>
         <source>Last active</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="213"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="219"/>
         <source>Interests</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="222"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="228"/>
         <source>Favorite books</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="227"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="233"/>
         <source>Favorite authors</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="251"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="257"/>
         <source>About me</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="265"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="271"/>
         <source>Bookshelves</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="308"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="314"/>
         <source>Friends</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="328"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="334"/>
         <source>Groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="342"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="348"/>
         <source>Inbox</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="354"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="360"/>
         <source>Quotes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="364"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="370"/>
         <source>Recent updates</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1691,12 +1696,12 @@
 <context>
     <name>SearchBookReviewPage</name>
     <message>
-        <location filename="../qml/pages/SearchBookReviewPage.qml" line="52"/>
+        <location filename="../qml/pages/SearchBookReviewPage.qml" line="53"/>
         <source>Search review</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SearchBookReviewPage.qml" line="59"/>
+        <location filename="../qml/pages/SearchBookReviewPage.qml" line="60"/>
         <source>Search</source>
         <translation type="unfinished"></translation>
     </message>
