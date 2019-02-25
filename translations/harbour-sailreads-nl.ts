@@ -1467,7 +1467,7 @@
     <message>
         <location filename="../qml/pages/ProfilePage.qml" line="146"/>
         <source>Search</source>
-        <translation type="unfinished">Zoeken</translation>
+        <translation>Zoeken</translation>
     </message>
     <message>
         <location filename="../qml/pages/ProfilePage.qml" line="151"/>

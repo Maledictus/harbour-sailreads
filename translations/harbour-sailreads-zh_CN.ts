@@ -1464,7 +1464,7 @@
     <message>
         <location filename="../qml/pages/ProfilePage.qml" line="146"/>
         <source>Search</source>
-        <translation type="unfinished">搜索</translation>
+        <translation>搜索</translation>
     </message>
     <message>
         <location filename="../qml/pages/ProfilePage.qml" line="151"/>
