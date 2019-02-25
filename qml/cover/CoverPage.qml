@@ -51,7 +51,7 @@ CoverBackground {
         CoverAction {
             iconSource: "image://theme/icon-cover-search"
             onTriggered: {
-                pageStack.push("../pages/SearchPage.qml", {}, PageStackAction.Immediate);
+                pageStack.push(Qt.resolvedUrl("../pages/SearchPage.qml"), {}, PageStackAction.Immediate);
                 mainWindow.activate()
             }
         }
@@ -62,7 +62,7 @@ CoverBackground {
         CoverAction {
             iconSource: "image://theme/icon-cover-search"
             onTriggered: {
-                pageStack.push("../pages/SearchPage.qml", {}, PageStackAction.Immediate);
+                pageStack.push(Qt.resolvedUrl("../pages/SearchPage.qml"), {}, PageStackAction.Immediate);
                 mainWindow.activate()
             }
         }

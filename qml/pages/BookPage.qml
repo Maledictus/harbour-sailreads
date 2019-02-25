@@ -80,7 +80,7 @@ Page {
                     visible: book
                     text: qsTr("Add to My Books")
                     onClicked: {
-                        pageStack.push("../pages/AddBookToShelvesPage.qml",
+                        pageStack.push(Qt.resolvedUrl("../pages/AddBookToShelvesPage.qml"),
                                 { bookId: bookId, book: book, review: book.review })
                     }
                 }
@@ -232,7 +232,7 @@ Page {
                         anchors.horizontalCenter: parent.horizontalCenter
                         text: qsTr("Write a review")
                         onClicked: {
-                            var editDialog = pageStack.push("../dialogs/AddEditReviewDialog.qml",
+                            var editDialog = pageStack.push(Qt.resolvedUrl("../dialogs/AddEditReviewDialog.qml"),
                                     { mode: "edit", book: book, rating: book.review.rating,
                                         reviewText: book.review.body })
                             editDialog.accepted.connect(function () {

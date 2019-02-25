@@ -79,12 +79,12 @@ Page {
             MenuItem {
                 text: qsTr("Search")
                 visible: sailreadsManager.authUser
-                onClicked: pageStack.push("../pages/SearchBookReviewPage.qml")
+                onClicked: pageStack.push(Qt.resolvedUrl("../pages/SearchBookReviewPage.qml"))
             }
             MenuItem {
                 text: qsTr("Sort")
                 onClicked: {
-                    var dialog = pageStack.push("../dialogs/BooksReviewsSortingDialog.qml",
+                    var dialog = pageStack.push(Qt.resolvedUrl("../dialogs/BooksReviewsSortingDialog.qml"),
                             { order: reviewsPage.sortOrder, field: reviewsPage.sortField })
                     dialog.accepted.connect (function () {
                         reviewsPage.sortOrder = dialog.order

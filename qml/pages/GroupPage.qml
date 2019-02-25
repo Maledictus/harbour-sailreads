@@ -72,7 +72,7 @@ Page {
                     text: qsTr("Add new topic")
                     visible: groupItem.group && groupItem.group.isMember
                     onClicked: {
-                        var dialog = pageStack.push("../dialogs/AddGroupFolderTopicDialog.qml")
+                        var dialog = pageStack.push(Qt.resolvedUrl("../dialogs/AddGroupFolderTopicDialog.qml"))
                         dialog.accepted.connect (function () {
                             sailreadsManager.addNewTopic(dialog.topic, 'Group', groupPage.groupId,
                                     "", dialog.question, dialog.updateFeed,

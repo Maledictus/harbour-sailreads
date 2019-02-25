@@ -76,13 +76,13 @@ Page {
             MenuItem {
                 text: qsTr("Search")
                 visible: sailreadsManager.authUser
-                onClicked: pageStack.push("../pages/SearchBookReviewPage.qml")
+                onClicked: pageStack.push(Qt.resolvedUrl("../pages/SearchBookReviewPage.qml"))
             }
 
             MenuItem {
                 text: qsTr("Add new shelf or tag")
                 onClicked: {
-                    var dialog = pageStack.push("../dialogs/AddEditShelfDialog.qml")
+                    var dialog = pageStack.push(Qt.resolvedUrl("../dialogs/AddEditShelfDialog.qml"))
                     dialog.accepted.connect (function () {
                         sailreadsManager.addBookShelf(dialog.name, dialog.exclusive,
                                 dialog.sortable, dialog.featured, dialog.recommendFor)
@@ -125,7 +125,7 @@ Page {
                 MenuItem {
                     text: qsTr("Edit")
                     onClicked: {
-                        var dialog = pageStack.push("../dialogs/AddEditShelfDialog.qml",
+                        var dialog = pageStack.push(Qt.resolvedUrl("../dialogs/AddEditShelfDialog.qml"),
                             { mode: "edit", name: bookShelfName, exclusive: bookShelfExclusive,
                                 sortable: bookShelfSortable, featured: bookShelfFeatured,
                                 recommendFor: bookShelfRecommendFor })

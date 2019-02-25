@@ -64,7 +64,7 @@ Page {
             MenuItem {
                 text: qsTr("Filter")
                 onClicked: {
-                    var dialog = pageStack.push("../dialogs/UpdatesFilterDialog.qml",
+                    var dialog = pageStack.push(Qt.resolvedUrl("../dialogs/UpdatesFilterDialog.qml"),
                            { items: contentFilter, scope: scopeFilter })
                     dialog.accepted.connect (function () {
                         friendsUpdatesPage.contentFilter = dialog.items

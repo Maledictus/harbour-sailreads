@@ -115,10 +115,10 @@ Page {
                 icon.highlighted: bookBook.review || highlighted || delegate.highlighted
                 onClicked: {
                     if (!bookBook.review) {
-                        sailreadsManager.addBookToShelves(bookId, ["to-read"])
+                        sailreadsManager.addBookToShelves(bookBook.id, ["to-read"])
                     }
                     else {
-                        pageStack.push("AddBookToShelvesPage.qml",
+                        pageStack.push(Qt.resolvedUrl("../pages/AddBookToShelvesPage.qml"),
                                 { bookId: bookBook.id, book: bookBook, review: bookBook.review })
                     }
                 }
@@ -128,7 +128,7 @@ Page {
                 MenuItem {
                     text: qsTr("Add to My Books")
                     onClicked: {
-                        pageStack.push("AddBookToShelvesPage.qml",
+                        pageStack.push(Qt.resolvedUrl("../pages/AddBookToShelvesPage.qml"),
                                 { bookId: bookBook.id, book: bookBook, review: bookBook.review })
                     }
                 }

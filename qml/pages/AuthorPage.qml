@@ -337,10 +337,10 @@ Page {
                         icon.highlighted: modelData.review || highlighted || delegate.highlighted
                         onClicked: {
                             if (!modelData.review) {
-                                sailreadsManager.addBookToShelves(bookId, ["to-read"])
+                                sailreadsManager.addBookToShelves(modelData.id, ["to-read"])
                             }
                             else {
-                                pageStack.push("AddBookToShelvesPage.qml",
+                                pageStack.push(Qt.resolvedUrl("../pages/AddBookToShelvesPage.qml"),
                                         { bookId: modelData.id, book: modelData, review: modelData.review })
                             }
                         }
@@ -350,7 +350,7 @@ Page {
                         MenuItem {
                             text: qsTr("Add to My Books")
                             onClicked: {
-                                pageStack.push("AddBookToShelvesPage.qml",
+                                pageStack.push(Qt.resolvedUrl("../pages/AddBookToShelvesPage.qml"),
                                         { bookId: modelData.id, book: modelData, review: modelData.review })
                             }
                         }

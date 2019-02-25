@@ -111,7 +111,7 @@ Page {
                 MenuItem {
                     text: qsTr("Add new shelf or tag")
                     onClicked: {
-                        var dialog = pageStack.push("../dialogs/AddEditShelfDialog.qml")
+                        var dialog = pageStack.push(Qt.resolvedUrl("../dialogs/AddEditShelfDialog.qml"))
                         dialog.accepted.connect (function () {
                             sailreadsManager.addBookShelf(dialog.name, dialog.exclusive,
                                     dialog.sortable, dialog.featured, dialog.recommendFor)
