@@ -199,7 +199,7 @@ Dialog {
                         }
                         TextField {
                             id: percentField
-                            width: textMetricsLabel.width + 2 * Theme.horizontalPageMargin +
+                            width: textMetricsLabel.width + 4 * Theme.horizontalPageMargin +
                                    Theme.paddingSmall
                             inputMethodHints: Qt.ImhDigitsOnly
                             placeholderText: qsTr("Percent")
