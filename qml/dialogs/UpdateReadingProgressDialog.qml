@@ -106,10 +106,10 @@ Dialog {
                 bookAverageRating: book ? book.averageRating : 0.0
                 bookRatingsCount: book ? book.ratingsCount : 0
 
-                onBookClicked: pageStack.push(Qt.resolvedUrl("BookPage.qml"),
+                onBookClicked: pageStack.push(Qt.resolvedUrl("../pages/BookPage.qml"),
                         { bookId: updateReadingProgressDialog.bookId,
                             book : updateReadingProgressDialog.book })
-                onAuthorLinkActivated: pageStack.push(Qt.resolvedUrl("AuthorPage.qml"),
+                onAuthorLinkActivated: pageStack.push(Qt.resolvedUrl("../pages/AuthorPage.qml"),
                         { authorId : link })
             }
 

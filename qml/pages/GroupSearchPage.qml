@@ -73,7 +73,7 @@ Page {
             usersCount: groupUsersCount
 
             onClicked: {
-                pageStack.push(Qt.resolvedUrl("GroupPage.qml"),
+                pageStack.push(Qt.resolvedUrl("../pages/GroupPage.qml"),
                         { groupId: groupId, groupName: groupName })
             }
         }

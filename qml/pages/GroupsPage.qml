@@ -55,7 +55,7 @@ Page {
             MenuItem {
                 text: qsTr("Search")
                 onClicked: {
-                    pageStack.push(Qt.resolvedUrl("GroupSearchPage.qml"))
+                    pageStack.push(Qt.resolvedUrl("../pages/GroupSearchPage.qml"))
                 }
             }
             MenuItem {
@@ -94,7 +94,7 @@ Page {
             usersCount: groupUsersCount
 
             onClicked: {
-                pageStack.push(Qt.resolvedUrl("GroupPage.qml"),
+                pageStack.push(Qt.resolvedUrl("../pages/GroupPage.qml"),
                         { groupId: groupId, groupName: groupName })
             }
         }

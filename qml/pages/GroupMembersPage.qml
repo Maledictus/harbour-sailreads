@@ -105,7 +105,7 @@ Page {
             }
 
             onClicked: {
-                pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
+                pageStack.push(Qt.resolvedUrl("../pages/ProfilePage.qml"),
                         { userId: groupMemberId })
             }
         }

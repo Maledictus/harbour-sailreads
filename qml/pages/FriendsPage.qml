@@ -49,7 +49,7 @@ Page {
             MenuItem {
                 text: qsTr("Friends updates")
                 visible: sailreadsManager.authUser && sailreadsManager.authUser.id === userId
-                onClicked: pageStack.replace(Qt.resolvedUrl("FriendsUpdatesPage.qml"))
+                onClicked: pageStack.replace(Qt.resolvedUrl("../pages/FriendsUpdatesPage.qml"))
             }
 
             MenuItem {
@@ -123,7 +123,7 @@ Page {
                         id: rootDelegateItem
                         width: friendsView.width
                         onClicked: {
-                            pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
+                            pageStack.push(Qt.resolvedUrl("../pages/ProfilePage.qml"),
                                     { userId: friendId })
                         }
                     }
@@ -176,7 +176,7 @@ Page {
                         }
 
                         onClicked: {
-                            pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
+                            pageStack.push(Qt.resolvedUrl("../pages/ProfilePage.qml"),
                                     { userId: friendId })
                         }
                     }
@@ -214,7 +214,7 @@ Page {
                         width: followersView.width
 
                         onClicked: {
-                            pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
+                            pageStack.push(Qt.resolvedUrl("../pages/ProfilePage.qml"),
                                     { userId: friendId })
                         }
                     }

@@ -39,7 +39,7 @@ Page {
     function attachPage() {
         if (pageStack._currentContainer.attachedContainer === null
                 && sailreadsManager.logged) {
-            pageStack.pushAttached(Qt.resolvedUrl("StatusPage.qml"))
+            pageStack.pushAttached(Qt.resolvedUrl("../pages/StatusPage.qml"))
         }
     }
 
@@ -101,7 +101,7 @@ Page {
                 MenuItem {
                     visible: sailreadsManager.authUser && sailreadsManager.authUser.id === userId
                     text: qsTr("Settings")
-                    onClicked: pageStack.push(Qt.resolvedUrl("SettingsPage.qml"))
+                    onClicked: pageStack.push(Qt.resolvedUrl("../pages/SettingsPage.qml"))
                 }
 
                 MenuItem {
@@ -238,7 +238,7 @@ Page {
                             key + "</font> " +
                             "<style>a:link{color:" + Theme.primaryColor + ";}</style>" +
                             value.replace(/\n/g, '<br>')
-                    onLinkActivated: pageStack.push(Qt.resolvedUrl("AuthorPage.qml"),
+                    onLinkActivated: pageStack.push(Qt.resolvedUrl("../pages/AuthorPage.qml"),
                             { authorId: Number(link).toFixed() })
                 }
 
@@ -268,7 +268,7 @@ Page {
                 busy: profilePage.busy
                 enabled: !busy
                 onClicked: {
-                    pageStack.push(Qt.resolvedUrl("BookShelvesPage.qml"), {
+                    pageStack.push(Qt.resolvedUrl("../pages/BookShelvesPage.qml"), {
                         userId: userProfile.user ? userProfile.user.id : "",
                         userName: userProfile.user ? userProfile.user.userName : "",
                     })
@@ -285,7 +285,7 @@ Page {
                     shelfName: bookShelfName
                     shelfBooksCount: bookShelfBooksCount
                     onClicked: {
-                        pageStack.push(Qt.resolvedUrl("BookReviewsPage.qml"),
+                        pageStack.push(Qt.resolvedUrl("../pages/BookReviewsPage.qml"),
                                 { userId: profilePage.userId, userName: userProfile.user.userName,
                                     bookShelfId: bookShelfId, bookShelf: bookShelfName })
                     }
@@ -313,11 +313,11 @@ Page {
                 onClicked: {
                     if (sailreadsManager.authUser && sailreadsManager.authUser.id === userId &&
                             applicationSettings.showFriendsUpdates) {
-                        pageStack.push(Qt.resolvedUrl("FriendsUpdatesPage.qml"))
+                        pageStack.push(Qt.resolvedUrl("../pages/FriendsUpdatesPage.qml"))
                         return
                     }
 
-                    pageStack.push(Qt.resolvedUrl("FriendsPage.qml"), { userId: profilePage.userId })
+                    pageStack.push(Qt.resolvedUrl("../pages/FriendsPage.qml"), { userId: profilePage.userId })
                 }
             }
 
@@ -331,7 +331,7 @@ Page {
                 busy: profilePage.busy
                 enabled: !busy
                 onClicked: {
-                    pageStack.push(Qt.resolvedUrl("GroupsPage.qml"), { userId: profilePage.userId })
+                    pageStack.push(Qt.resolvedUrl("../pages/GroupsPage.qml"), { userId: profilePage.userId })
                 }
             }
 
@@ -344,7 +344,7 @@ Page {
                 visible: sailreadsManager.authUser && userId === sailreadsManager.authUser.id
                 busy: profilePage.busy
                 enabled: !busy
-                onClicked: pageStack.push(Qt.resolvedUrl("InboxPage.qml"))
+                onClicked: pageStack.push(Qt.resolvedUrl("../pages/InboxPage.qml"))
             }
 
             MoreButton {
@@ -356,7 +356,7 @@ Page {
                 busy: profilePage.busy
                 visible: userProfile.user && !userProfile.user.isPrivate
                 enabled: !busy
-                onClicked: pageStack.push(Qt.resolvedUrl("UserQuotesPage.qml"),
+                onClicked: pageStack.push(Qt.resolvedUrl("../pages/UserQuotesPage.qml"),
                         { userId: userId, userName: userProfile.user.userName })
             }
 

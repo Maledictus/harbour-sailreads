@@ -273,7 +273,7 @@ Page {
                     }
 
                     onClicked: {
-                        pageStack.push(Qt.resolvedUrl("GroupFolderPage.qml"),
+                        pageStack.push(Qt.resolvedUrl("../pages/GroupFolderPage.qml"),
                                 { folderId: groupFolderId, groupId: groupPage.groupId,
                                     folderName: groupFolderName.replace("&amp;", "&") })
                     }
@@ -287,7 +287,7 @@ Page {
                 text: qsTr("Members")
                 busy: groupPage.busy
                 onClicked: {
-                    pageStack.push(Qt.resolvedUrl("GroupMembersPage.qml"),
+                    pageStack.push(Qt.resolvedUrl("../pages/GroupMembersPage.qml"),
                             { groupId: groupPage.groupId })
                 }
             }

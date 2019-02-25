@@ -39,7 +39,7 @@ Page {
     function attachPage() {
         if (pageStack._currentContainer.attachedContainer === null
                 && sailreadsManager.logged) {
-            pageStack.pushAttached(Qt.resolvedUrl("StatusPage.qml"))
+            pageStack.pushAttached(Qt.resolvedUrl("../pages/StatusPage.qml"))
         }
     }
 
@@ -79,7 +79,7 @@ Page {
                     visible: author && author.userId > 0
                     text: qsTr("Open profile")
                     onClicked: {
-                        pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
+                        pageStack.push(Qt.resolvedUrl("../pages/ProfilePage.qml"),
                                 { userId : author.userId })
                     }
                 }
@@ -262,7 +262,7 @@ Page {
                 busy: authorPage.busy
                 enabled: !busy
                 onClicked: {
-                    pageStack.push(Qt.resolvedUrl("AuthorQuotesPage.qml"),
+                    pageStack.push(Qt.resolvedUrl("../pages/AuthorQuotesPage.qml"),
                         { authorId: authorId, authorName: author ? author.name : "" })
                 }
             }
@@ -276,7 +276,7 @@ Page {
                 busy: authorPage.busy
                 enabled: !busy
                 onClicked: {
-                    pageStack.push(Qt.resolvedUrl("AuthorSeriesPage.qml"), {
+                    pageStack.push(Qt.resolvedUrl("../pages/AuthorSeriesPage.qml"), {
                         authorId: author ? author.id : "",
                         authorName: author ? author.name : ""
                     })
@@ -292,7 +292,7 @@ Page {
                 busy: authorPage.busy
                 enabled: !busy
                 onClicked: {
-                    pageStack.push(Qt.resolvedUrl("AuthorBooksPage.qml"), {
+                    pageStack.push(Qt.resolvedUrl("../pages/AuthorBooksPage.qml"), {
                         authorId: author ? author.id : "",
                         authorName: author ? author.name : ""
                     })
@@ -357,7 +357,7 @@ Page {
                     }
 
                     onClicked: {
-                        pageStack.push(Qt.resolvedUrl("BookPage.qml"),
+                        pageStack.push(Qt.resolvedUrl("../pages/BookPage.qml"),
                                 { book: modelData, bookId: modelData.id })
                     }
                 }

@@ -602,27 +602,27 @@
 <context>
     <name>BookQuotesPage</name>
     <message>
-        <location filename="../qml/pages/BookQuotesPage.qml" line="55"/>
+        <location filename="../qml/pages/BookQuotesPage.qml" line="48"/>
         <source>Quotes: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookQuotesPage.qml" line="61"/>
+        <location filename="../qml/pages/BookQuotesPage.qml" line="54"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookQuotesPage.qml" line="68"/>
+        <location filename="../qml/pages/BookQuotesPage.qml" line="61"/>
         <source>There are no quotes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookQuotesPage.qml" line="69"/>
+        <location filename="../qml/pages/BookQuotesPage.qml" line="62"/>
         <source>Pull down to refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/BookQuotesPage.qml" line="118"/>
+        <location filename="../qml/pages/BookQuotesPage.qml" line="111"/>
         <source>Copy to clipboard</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2008,27 +2008,27 @@
 <context>
     <name>UserQuotesPage</name>
     <message>
-        <location filename="../qml/pages/UserQuotesPage.qml" line="55"/>
+        <location filename="../qml/pages/UserQuotesPage.qml" line="48"/>
         <source>Quotes: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/UserQuotesPage.qml" line="61"/>
+        <location filename="../qml/pages/UserQuotesPage.qml" line="54"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/UserQuotesPage.qml" line="68"/>
+        <location filename="../qml/pages/UserQuotesPage.qml" line="61"/>
         <source>There are no quotes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/UserQuotesPage.qml" line="69"/>
+        <location filename="../qml/pages/UserQuotesPage.qml" line="62"/>
         <source>Pull down to refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/UserQuotesPage.qml" line="118"/>
+        <location filename="../qml/pages/UserQuotesPage.qml" line="111"/>
         <source>Copy to clipboard</source>
         <translation type="unfinished"></translation>
     </message>

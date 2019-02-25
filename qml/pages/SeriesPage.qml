@@ -37,7 +37,7 @@ Page {
     function attachPage() {
         if (pageStack._currentContainer.attachedContainer === null
                 && sailreadsManager.logged) {
-            pageStack.pushAttached(Qt.resolvedUrl("StatusPage.qml"))
+            pageStack.pushAttached(Qt.resolvedUrl("../pages/StatusPage.qml"))
         }
     }
 
@@ -97,7 +97,7 @@ Page {
             ratingsCount: modelData.work !== null ? modelData.work.ratingsCount : 0
 
             onClicked: {
-                pageStack.push(Qt.resolvedUrl("BookPage.qml"),
+                pageStack.push(Qt.resolvedUrl("../pages/BookPage.qml"),
                         { bookId: (modelData.work !== null && modelData.work.bestBook !== null ?
                                 modelData.work.bestBook.id : "") })
             }

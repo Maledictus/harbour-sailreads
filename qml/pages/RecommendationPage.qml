@@ -39,7 +39,7 @@ Page {
     function attachPage() {
         if (pageStack._currentContainer.attachedContainer === null
                 && sailreadsManager.logged) {
-            pageStack.pushAttached(Qt.resolvedUrl("StatusPage.qml"))
+            pageStack.pushAttached(Qt.resolvedUrl("../pages/StatusPage.qml"))
         }
     }
 
@@ -120,7 +120,7 @@ Page {
             author: commentAuthor
             body: commentBody
             updateDate: commentUpdateDate
-            onUserClicked: pageStack.push(Qt.resolvedUrl("ProfilePage.qml"), { userId: userId })
+            onUserClicked: pageStack.push(Qt.resolvedUrl("../pages/ProfilePage.qml"), { userId: userId })
             onLinkActivated: mainWindow.openPageFromUrl(link)
         }
         VerticalScrollDecorator{}
@@ -176,7 +176,7 @@ Page {
                         .arg(toUrl)
                 }
                 postDate: recommendation ? Qt.formatDateTime(recommendation.createDate) : ""
-                onUserClicked: pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
+                onUserClicked: pageStack.push(Qt.resolvedUrl("../pages/ProfilePage.qml"),
                         { userId: recommendation && recommendation.fromUser ? recommendation.fromUser.id : "" })
                 onLinkActivated: mainWindow.openPageFromUrl(link)
             }
@@ -190,10 +190,10 @@ Page {
                 bookAverageRating: recommendation && recommendation.book ? recommendation.book.averageRating : 0.0
                 bookRatingsCount: recommendation && recommendation.book ? recommendation.book.ratingsCount : 0
 
-                onBookClicked: pageStack.push(Qt.resolvedUrl("BookPage.qml"),
+                onBookClicked: pageStack.push(Qt.resolvedUrl("../pages/BookPage.qml"),
                         { bookId: recommendation && recommendation.book ? recommendation.book.id : "",
                             book : recommendation ? recommendation.book : null })
-                onAuthorLinkActivated: pageStack.push(Qt.resolvedUrl("AuthorPage.qml"),
+                onAuthorLinkActivated: pageStack.push(Qt.resolvedUrl("../pages/AuthorPage.qml"),
                         { authorId : link })
             }
 

@@ -80,7 +80,7 @@ Page {
             subject: modelData.subject
             isRead: modelData.isRead
 
-            onClicked: pageStack.push(Qt.resolvedUrl("MessagePage.qml"),
+            onClicked: pageStack.push(Qt.resolvedUrl("../pages/MessagePage.qml"),
                     { message: modelData, messageId: modelData.id })
             onLinkActivated: mainWindow.openPageFromUrl(link)
         }
@@ -118,7 +118,7 @@ Page {
                         return
                     }
 
-                    pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
+                    pageStack.push(Qt.resolvedUrl("../pages/ProfilePage.qml"),
                         { userId: message.fromUser.id })
                 }
             }

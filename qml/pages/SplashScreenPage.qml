@@ -79,7 +79,7 @@ Page {
             progress.text = progressMessage
         }
         onGotAuthUserId: {
-            pageStack.replace(Qt.resolvedUrl("ProfilePage.qml"),
+            pageStack.replace(Qt.resolvedUrl("../pages/ProfilePage.qml"),
                     { userId: authUserId })
         }
     }

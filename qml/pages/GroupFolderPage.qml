@@ -162,7 +162,7 @@ Page {
             }
 
             onClicked: {
-                pageStack.push(Qt.resolvedUrl("GroupFolderTopicPage.qml"),
+                pageStack.push(Qt.resolvedUrl("../pages/GroupFolderTopicPage.qml"),
                         { topicId: topicId })
             }
         }

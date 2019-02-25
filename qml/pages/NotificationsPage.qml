@@ -151,16 +151,16 @@ Page {
                     console.log(notificationGroupResourceType)
                     switch (notificationGroupResourceType) {
                     case "Topic":
-                        pageStack.push(Qt.resolvedUrl("GroupFolderTopicPage.qml"),
+                        pageStack.push(Qt.resolvedUrl("../pages/GroupFolderTopicPage.qml"),
                                 { topicId: notificationResourceId })
                         break
                     case "Review":
-                        pageStack.push(Qt.resolvedUrl("ReviewPage.qml"),
+                        pageStack.push(Qt.resolvedUrl("../pages/ReviewPage.qml"),
                                 { reviewId: notificationResourceId })
                         break
                     case "Friend":
                         if (notificationResourceType === "Friend") {
-                            pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
+                            pageStack.push(Qt.resolvedUrl("../pages/ProfilePage.qml"),
                                     { userId: notificationResourceId })
                         }
                         else {

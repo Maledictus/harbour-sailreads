@@ -39,7 +39,7 @@ Page {
     function attachPage() {
         if (pageStack._currentContainer.attachedContainer === null
                 && sailreadsManager.logged) {
-            pageStack.pushAttached(Qt.resolvedUrl("StatusPage.qml"))
+            pageStack.pushAttached(Qt.resolvedUrl("../pages/StatusPage.qml"))
         }
     }
 
@@ -122,7 +122,7 @@ Page {
             author: commentAuthor
             body: commentBody
             updateDate: commentUpdateDate
-            onUserClicked: pageStack.push(Qt.resolvedUrl("ProfilePage.qml"), { userId: userId })
+            onUserClicked: pageStack.push(Qt.resolvedUrl("../pages/ProfilePage.qml"), { userId: userId })
             onLinkActivated: mainWindow.openPageFromUrl(link)
         }
         VerticalScrollDecorator{}
@@ -163,7 +163,7 @@ Page {
                 ratingIconSize: Theme.iconSizeSmall
                 highlighted: false
                 onUserClicked: {
-                    pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
+                    pageStack.push(Qt.resolvedUrl("../pages/ProfilePage.qml"),
                             { userId: userId })
                 }
             }
@@ -177,10 +177,10 @@ Page {
                 bookAverageRating: review && review.book ? review.book.averageRating : 0.0
                 bookRatingsCount: review && review.book ? review.book.ratingsCount : 0
 
-                onBookClicked: pageStack.push(Qt.resolvedUrl("BookPage.qml"),
+                onBookClicked: pageStack.push(Qt.resolvedUrl("../pages/BookPage.qml"),
                         { bookId: review && review.book ? review.book.id : "",
                             book : review ? review.book : null })
-                onAuthorLinkActivated: pageStack.push(Qt.resolvedUrl("AuthorPage.qml"),
+                onAuthorLinkActivated: pageStack.push(Qt.resolvedUrl("../pages/AuthorPage.qml"),
                         { authorId : link })
             }
 

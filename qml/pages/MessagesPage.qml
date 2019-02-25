@@ -78,7 +78,7 @@ Page {
             MenuItem {
                 text: qsTr("Select folder")
                 onClicked: {
-                    pageStack.push(Qt.resolvedUrl("MessagesFolderSelectorPage.qml"),
+                    pageStack.push(Qt.resolvedUrl("../pages/MessagesFolderSelectorPage.qml"),
                             { parentPage: messagesPage, model: messagesFolders })
                 }
             }
@@ -126,7 +126,7 @@ Page {
                 }
             }
 
-            onClicked: pageStack.push(Qt.resolvedUrl("MessagePage.qml"),
+            onClicked: pageStack.push(Qt.resolvedUrl("../pages/MessagePage.qml"),
                     { message: messageMessage, messageId: messageId })
             onLinkActivated: mainWindow.openPageFromUrl(link)
         }

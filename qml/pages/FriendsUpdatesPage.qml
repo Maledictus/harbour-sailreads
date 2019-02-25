@@ -57,7 +57,7 @@ Page {
             MenuItem {
                 text: qsTr("Friends")
                 onClicked: {
-                    pageStack.replace(Qt.resolvedUrl("FriendsPage.qml"),
+                    pageStack.replace(Qt.resolvedUrl("../pages/FriendsPage.qml"),
                         { userId: sailreadsManager.authUser ? sailreadsManager.authUser.id : "" })
                 }
             }

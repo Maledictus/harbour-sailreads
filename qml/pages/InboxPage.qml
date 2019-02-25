@@ -88,7 +88,7 @@ Page {
                 visible: slideshowView.currentIndex === 1
                 text: qsTr("Select folder")
                 onClicked: {
-                    pageStack.push(Qt.resolvedUrl("MessagesFolderSelectorPage.qml"),
+                    pageStack.push(Qt.resolvedUrl("../pages/MessagesFolderSelectorPage.qml"),
                             { parentPage: inboxPage, model: messagesFolders })
                 }
             }

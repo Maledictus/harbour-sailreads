@@ -39,7 +39,7 @@ Page {
     function attachPage() {
         if (pageStack._currentContainer.attachedContainer === null
                 && sailreadsManager.logged) {
-            pageStack.pushAttached(Qt.resolvedUrl("StatusPage.qml"))
+            pageStack.pushAttached(Qt.resolvedUrl("../pages/StatusPage.qml"))
         }
     }
 
@@ -119,7 +119,7 @@ Page {
             author: commentAuthor
             body: commentBody
             updateDate: commentUpdateDate
-            onUserClicked: pageStack.push(Qt.resolvedUrl("ProfilePage.qml"), { userId: userId })
+            onUserClicked: pageStack.push(Qt.resolvedUrl("../pages/ProfilePage.qml"), { userId: userId })
             onLinkActivated: mainWindow.openPageFromUrl(link)
         }
 
@@ -154,7 +154,7 @@ Page {
                         "qrc:/images/gra_small.png"
                 userHeader: readStatus ? readStatus.header : ""
                 postDate: readStatus ? Qt.formatDateTime(readStatus.updateDate) : ""
-                onUserClicked: pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
+                onUserClicked: pageStack.push(Qt.resolvedUrl("../pages/ProfilePage.qml"),
                         { userId: readStatus && readStatus.user ? readStatus.user.id : "" })
                 onLinkActivated: mainWindow.openPageFromUrl(link)
             }
@@ -168,10 +168,10 @@ Page {
                 bookAverageRating: readStatus && readStatus.book ? readStatus.book.averageRating : 0.0
                 bookRatingsCount: readStatus && readStatus.book ? readStatus.book.ratingsCount : 0
 
-                onBookClicked: pageStack.push(Qt.resolvedUrl("BookPage.qml"),
+                onBookClicked: pageStack.push(Qt.resolvedUrl("../pages/BookPage.qml"),
                         { bookId: readStatus && readStatus.book ? readStatus.book.id : "",
                             book : readStatus ? readStatus.book : null })
-                onAuthorLinkActivated: pageStack.push(Qt.resolvedUrl("AuthorPage.qml"),
+                onAuthorLinkActivated: pageStack.push(Qt.resolvedUrl("../pages/AuthorPage.qml"),
                         { authorId : link })
             }
 

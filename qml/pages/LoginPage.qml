@@ -72,14 +72,14 @@ Page {
                 text: qsTr("Facebook/Amazon account")
                 enabled: authServerRunning
                 onClicked: {
-                    pageStack.push(Qt.resolvedUrl("AuthorizationPage.qml"))
+                    pageStack.push(Qt.resolvedUrl("../pages/AuthorizationPage.qml"))
                 }
             }
             Button {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: qsTr("Regular account")
                 onClicked: {
-                    pageStack.push(Qt.resolvedUrl("WebAuthorizationPage.qml"))
+                    pageStack.push(Qt.resolvedUrl("../pages/WebAuthorizationPage.qml"))
                 }
             }
         }

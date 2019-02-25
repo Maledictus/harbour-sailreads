@@ -40,7 +40,7 @@ Page {
     function attachPage() {
         if (pageStack._currentContainer.attachedContainer === null
                 && sailreadsManager.logged) {
-            pageStack.pushAttached(Qt.resolvedUrl("StatusPage.qml"))
+            pageStack.pushAttached(Qt.resolvedUrl("../pages/StatusPage.qml"))
         }
     }
 
@@ -262,7 +262,7 @@ Page {
                             label.text: book && book.review ? book.review.body : ""
                             label.maximumLineCount: 5
                             label.truncationMode: TruncationMode.Fade
-                            onClicked: pageStack.push(Qt.resolvedUrl("ReviewPage.qml"),
+                            onClicked: pageStack.push(Qt.resolvedUrl("../pages/ReviewPage.qml"),
                                     { reviewId: book && book.review ? book.review.id : "" })
                         }
                         Label {
@@ -298,7 +298,7 @@ Page {
                 enabled: !busy
                 visible: book && book.friendReviews.length > 3
                 onClicked: {
-                    pageStack.push(Qt.resolvedUrl("UserReviewsPage.qml"),
+                    pageStack.push(Qt.resolvedUrl("../pages/UserReviewsPage.qml"),
                             { usersReviews: book ? book.friendReviews : [] })
                 }
             }
@@ -323,13 +323,13 @@ Page {
                     withBody: false
 
                     onUserClicked: {
-                        pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
+                        pageStack.push(Qt.resolvedUrl("../pages/ProfilePage.qml"),
                                 { userId: userId })
                     }
                     onLinkActivated: mainWindow.openPageFromUrl(link)
 
                     onClicked: {
-                        pageStack.push(Qt.resolvedUrl("ReviewPage.qml"),
+                        pageStack.push(Qt.resolvedUrl("../pages/ReviewPage.qml"),
                                 { reviewId: modelData.id, review: modelData })
                     }
                 }
@@ -387,7 +387,7 @@ Page {
                             text = result
                         }
                         onLinkActivated: {
-                            pageStack.push(Qt.resolvedUrl("SeriesPage.qml"),
+                            pageStack.push(Qt.resolvedUrl("../pages/SeriesPage.qml"),
                                     { seriesId: link })
                         }
                     }
@@ -438,7 +438,7 @@ Page {
                 enabled: !busy
                 visible: book ? book.reviewsWidgetContent !== "" : false
                 onClicked: {
-                    pageStack.push(Qt.resolvedUrl("CommunitiesReviewsPage.qml"),
+                    pageStack.push(Qt.resolvedUrl("../pages/CommunitiesReviewsPage.qml"),
                             { url: book.reviewsUrl } )
                 }
             }
@@ -451,7 +451,7 @@ Page {
                 busy: bookPage.busy
                 enabled: !busy
                 onClicked: {
-                    pageStack.push(Qt.resolvedUrl("BookQuotesPage.qml"),
+                    pageStack.push(Qt.resolvedUrl("../pages/BookQuotesPage.qml"),
                         { workId: book && book.work ? book.work.id : -1,
                             bookTitle: book ? book.title : "" })
                 }
@@ -465,7 +465,7 @@ Page {
                 busy: bookPage.busy
                 enabled: !busy
                 onClicked: {
-                    pageStack.push(Qt.resolvedUrl("BookEditionsPage.qml"),
+                    pageStack.push(Qt.resolvedUrl("../pages/BookEditionsPage.qml"),
                         { workId: book && book.work ? book.work.id : 0,
                             reviewId: book && book.review ? book.review.id : "",
                             bookId: bookPage.bookId, parentPage: bookPage })
@@ -482,7 +482,7 @@ Page {
                 enabled: !busy
                 visible: book && book.similarBooks.length > 0
                 onClicked: {
-                    pageStack.push(Qt.resolvedUrl("BooksPage.qml"),
+                    pageStack.push(Qt.resolvedUrl("../pages/BooksPage.qml"),
                         { books: book ? book.similarBooks : undefined, title: qsTr("Similar Books") })
                 }
             }
@@ -501,7 +501,7 @@ Page {
                     source: modelData.imageUrl
                     indicator.size: BusyIndicatorSize.Medium
                     onClicked:  {
-                        pageStack.push(Qt.resolvedUrl("BookPage.qml"),
+                        pageStack.push(Qt.resolvedUrl("../pages/BookPage.qml"),
                                 { bookId: book ? book.similarBooks[index].id : "",
                                     book: book ? book.similarBooks[index] : undefined })
                     }

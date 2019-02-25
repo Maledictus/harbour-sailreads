@@ -38,7 +38,7 @@ Page {
     function attachPage() {
         if (pageStack._currentContainer.attachedContainer === null
                 && sailreadsManager.logged) {
-            pageStack.pushAttached(Qt.resolvedUrl("StatusPage.qml"))
+            pageStack.pushAttached(Qt.resolvedUrl("../pages/StatusPage.qml"))
         }
     }
 
@@ -138,7 +138,7 @@ Page {
             }
 
             onClicked: {
-                pageStack.push(Qt.resolvedUrl("BookReviewsPage.qml"),
+                pageStack.push(Qt.resolvedUrl("../pages/BookReviewsPage.qml"),
                         { userId: userId, userName: userName,
                         bookShelfId: bookShelfId, bookShelf: bookShelfName })
             }

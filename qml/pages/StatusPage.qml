@@ -84,7 +84,7 @@ Page {
                 MenuItem {
                     text: qsTr("Show book")
                     onClicked: {
-                        pageStack.push(Qt.resolvedUrl("BookPage.qml"),
+                        pageStack.push(Qt.resolvedUrl("../pages/BookPage.qml"),
                             { bookId: reviewBook.id, book: reviewBook })
                     }
                 }

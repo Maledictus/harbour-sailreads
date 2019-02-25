@@ -36,7 +36,7 @@ Page {
     function attachPage() {
         if (pageStack._currentContainer.attachedContainer === null
                 && sailreadsManager.logged) {
-            pageStack.pushAttached(Qt.resolvedUrl("StatusPage.qml"))
+            pageStack.pushAttached(Qt.resolvedUrl("../pages/StatusPage.qml"))
         }
     }
 
@@ -72,13 +72,13 @@ Page {
             reviewShortDescription: modelData.shortDescription
 
             onUserClicked: {
-                pageStack.push(Qt.resolvedUrl("ProfilePage.qml"),
+                pageStack.push(Qt.resolvedUrl("../pages/ProfilePage.qml"),
                         { userId: userId })
             }
             onLinkActivated: mainWindow.openPageFromUrl(link)
 
             onClicked: {
-                pageStack.push(Qt.resolvedUrl("ReviewPage.qml"),
+                pageStack.push(Qt.resolvedUrl("../pages/ReviewPage.qml"),
                         { reviewId: modelData.id, review: modelData })
             }
 

@@ -95,7 +95,7 @@ Page {
             }
 
             onClicked: {
-                pageStack.push(Qt.resolvedUrl("BookPage.qml"),
+                pageStack.push(Qt.resolvedUrl("../pages/BookPage.qml"),
                         { book: bookBook, bookId: bookId })
             }
 
@@ -103,7 +103,7 @@ Page {
                 MenuItem {
                     text: qsTr("Add to My Books")
                     onClicked: {
-                        pageStack.push("AddBookToShelvesPage.qml",
+                        pageStack.push("../pages/AddBookToShelvesPage.qml",
                                 { bookId: bookBook.id, book: bookBook, review: bookBook.review })
                     }
                 }
