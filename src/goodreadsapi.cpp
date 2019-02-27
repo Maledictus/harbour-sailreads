@@ -871,8 +871,6 @@ QByteArray GoodReadsApi::GetReply(QObject *sender, bool& ok)
         ok = false;
         return data;
     }
-    QVariant fromCache = reply->attribute(QNetworkRequest::SourceIsFromCacheAttribute);
-    qDebug() << "FROM CACHE: " << fromCache.toBool();
     reply->deleteLater();
     m_Requester2Reply.remove(m_Requester2Reply.key(reply));
 
