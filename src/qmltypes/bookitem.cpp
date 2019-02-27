@@ -54,7 +54,7 @@ void BookItem::SetBookId(const QString& bookId)
     }
 
     m_BookId = bookId;
-    loadBook();
+    loadBook(true);
     emit bookIdChanged();
 }
 
@@ -149,11 +149,11 @@ void BookItem::handleBookRemovedFromShelf(const QString& bookId, const QString& 
     emit bookChanged();
 }
 
-void BookItem::loadBook()
+void BookItem::loadBook(bool useCache)
 {
     if (m_BookId.isEmpty()) {
         return;
     }
-    SailreadsManager::Instance()->loadBook(this, m_BookId);
+    SailreadsManager::Instance()->loadBook(this, m_BookId, useCache);
 }
 } // namespace Sailreads

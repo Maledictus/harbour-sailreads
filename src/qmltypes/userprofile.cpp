@@ -59,7 +59,7 @@ void UserProfile::SetUserID(const QString& id)
 {
     if (m_UserId != id) {
         m_UserId = id;
-        loadProfile();
+        loadProfile(true);
         emit userIdChanged();
     }
 }
@@ -146,11 +146,11 @@ void UserProfile::handleFriendRemoved(const QString&)
     emit userChanged();
 }
 
-void UserProfile::loadProfile()
+void UserProfile::loadProfile(bool useCache)
 {
     if (m_UserId.isEmpty()) {
         return;
     }
-    SailreadsManager::Instance()->getUserInfo(this, m_UserId);
+    SailreadsManager::Instance()->getUserInfo(this, m_UserId, useCache);
 }
 } // namespace Sailreads

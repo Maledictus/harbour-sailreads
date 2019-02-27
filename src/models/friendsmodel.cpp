@@ -126,7 +126,8 @@ void FriendsModel::loadUsers()
     if (m_UserId.isEmpty()) {
         return;
     }
-    SailreadsManager::Instance()->loadFriends(this, m_UserId);
+    m_CurrentPage = 1;
+    SailreadsManager::Instance()->loadFriends(this, m_UserId, m_CurrentPage, false);
 }
 
 void FriendsModel::handleGotUserFriends(const QString& userId, const CountedItems<Friend>& friends)

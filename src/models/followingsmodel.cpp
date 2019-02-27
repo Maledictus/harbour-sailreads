@@ -26,6 +26,7 @@ void FollowingsModel::loadUsers()
     if (m_UserId.isEmpty()) {
         return;
     }
-    SailreadsManager::Instance()->loadUserFollowings(this, m_UserId);
+    m_CurrentPage = 1;
+    SailreadsManager::Instance()->loadUserFollowings(this, m_UserId, m_CurrentPage, false);
 }
 } // namespace Sailreads

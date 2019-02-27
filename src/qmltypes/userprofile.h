@@ -65,7 +65,7 @@ private slots:
     void handleFriendAdded(const QString& userId);
     void handleFriendRemoved(const QString& friendId);
 public slots:
-    void loadProfile();
+    void loadProfile(bool useCache = true);
 
 signals:
     void userIdChanged();

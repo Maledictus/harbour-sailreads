@@ -53,7 +53,7 @@ void ReviewItem::SetReviewId(const QString& reviewId)
     }
 
     m_ReviewId = reviewId;
-    loadReview();
+    loadReview(true);
     emit reviewIdChanged();
 }
 
@@ -137,11 +137,11 @@ void ReviewItem::handleLikeRemoved(const QString& resourceId)
     emit reviewChanged();
 }
 
-void ReviewItem::loadReview()
+void ReviewItem::loadReview(bool useCache)
 {
     if (m_ReviewId.isEmpty()) {
         return;
     }
-    SailreadsManager::Instance()->loadReview(this, m_ReviewId);
+    SailreadsManager::Instance()->loadReview(this, m_ReviewId, useCache);
 }
 } // namespace Sailreads

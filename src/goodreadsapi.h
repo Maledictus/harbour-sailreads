@@ -71,9 +71,11 @@ class GoodReadsApi : public QObject
     OAuth1 *m_OAuth1;
 
     QMap<QObject*, QNetworkReply*> m_Requester2Reply;
-
 public:
     explicit GoodReadsApi(QObject *parent = 0);
+    ~GoodReadsApi();
+
+    void ClearCache();
 
     void AbortRequest(QObject *object);
 
@@ -85,19 +87,21 @@ public:
     void RequestAccessToken() const;
 
     void AuthUser();
-    void GetUserInfo(QObject *requester, const QString& id);
+    void GetUserInfo(QObject *requester, const QString& id, bool useCache = true);
     void CompareBooks(const QString& userId);
 
     void GetUpdates(QObject *requester, const QString& scope, const QString& items,
             const QDateTime& updateDt);
     void GetNotifications(QObject *requester, const QString& pageToken);
 
-    void GetMessages(QObject *requester, const QString& folder, int page);
-    void GetMessage(QObject *requester, quint64 messageId);
+    void GetMessages(QObject *requester, const QString& folder, int page, bool useCache = true);
+    void GetMessage(QObject *requester, quint64 messageId, bool useCache = true);
     void MarkMessageAsRead(quint64 messageId);
 
-    void GetBookShelves(QObject *requester, const QString& userId, int page = 1);
-    void GetAllBookShelves(QObject *requester, const QString& userId, int page = 1);
+    void GetBookShelves(QObject *requester, const QString& userId, int page = 1,
+            bool useCache = true);
+    void GetAllBookShelves(QObject *requester, const QString& userId, int page = 1,
+            bool useCache = true);
     void AddBookShelf(const QString& name, bool exclusive, bool sortable, bool featured,
             bool recommendFor);
     void EditBookShelf(quint64 id, const QString& name, bool exclusive, bool sortable, bool featured,
@@ -105,22 +109,23 @@ public:
 
     void GetReviews(QObject *requester, const QString& userId, const QString& bookShelf,
             const QString& sortField = "date_added", Qt::SortOrder order = Qt::DescendingOrder,
-            int page = 1);
-    void GetReview(QObject *requester, const QString& reviewId, int commentsPage);
+            int page = 1, bool useCache = true);
+    void GetReview(QObject *requester, const QString& reviewId, int commentsPage,
+            bool useCache = true);
     void SearchReviews(QObject *requester, const QString& userId, const QString& searchText, int page = 1);
 
     void AddReview(const QString& bookId, int rating, const QString& review);
     void EditReview(const QString& reviewId, int rating, const QString& review, bool finished);
     void DeleteReview(const QString& bookId, const QString& reviewId);
 
-    void GetBook(QObject *requester, const QString& bookId);
-    void GetBookEditions(QObject *requester, quint64 workId, int page);
+    void GetBook(QObject *requester, const QString& bookId, bool useCache = true);
+    void GetBookEditions(QObject *requester, quint64 workId, int page, bool useCache = true);
     void SearchBooks(QObject *requester, const QString& query, const QString& key, int page);
     void SwitchToBookEdition(const QString& reviewId, const QString& bookId);
 
-    void GetSeries(QObject *requester, quint64 seriesId);
-    void GetAuthorSeries(QObject *requester, const QString& authorId);
-    void GetWorkSeries(QObject *requester, quint64 workId);
+    void GetSeries(QObject *requester, quint64 seriesId, bool useCache = true);
+    void GetAuthorSeries(QObject *requester, const QString& authorId, bool useCache = true);
+    void GetWorkSeries(QObject *requester, quint64 workId, bool useCache = true);
 
     void AddBookToShelf(const QString& bookId, const QString& shelfName,
             const QStringList& oldShelves);
@@ -128,18 +133,19 @@ public:
             const QStringList& oldShelves);
     void RemoveBookFromShelf(const QString& bookId, const QString& shelfName);
 
-    void GetAuthor(QObject *requester, const QString& authorId);
-    void GetAuthorBooks(QObject *requester, const QString& authorId, int page = 1);
+    void GetAuthor(QObject *requester, const QString& authorId, bool useCache = true);
+    void GetAuthorBooks(QObject *requester, const QString& authorId, int page = 1,
+            bool useCache = true);
     void FollowAuthor(const QString& authorId);
     void UnfollowAuthor(const QString& authorId, quint64 authorFollowingId);
 
-    void GetGroups(QObject *requester, const QString& userId, int page = 1);
-    void GetGroup(QObject *requester, quint64 groupId);
+    void GetGroups(QObject *requester, const QString& userId, int page = 1, bool useCache = true);
+    void GetGroup(QObject *requester, quint64 groupId, bool useCache = true);
     void JoinGroup(quint64 groupId);
     void SearchGroup(QObject *requester, const QString& text, int page);
-    void GetGroupMembers(QObject *requester, quint64 groupId, int page);
+    void GetGroupMembers(QObject *requester, quint64 groupId, int page, bool useCache = true);
     void GetGroupFolderTopics(QObject *requester, const QString& groupFolderId,
-            quint64 groupId, int page);
+            quint64 groupId, int page, bool useCache = true);
     void GetGroupFolderTopic(QObject *requester, const QString& topicId, int page);
     void AddNewTopic(const QString& topic, const QString& subject, quint64 subjectId,
             const QString& folderId, bool question, bool updateFeed, bool digest,
@@ -149,9 +155,11 @@ public:
             int page = 1);
     void AddNewComment(const QString& type, const QString& resourceId, const QString& comment);
 
-    void GetFriends(QObject *requester, const QString& userId, int page = 1);
-    void GetUserFollowers(QObject *requester, const QString& userId, int page = 1);
-    void GetUserFollowings(QObject *requester, const QString& userId, int page = 1);
+    void GetFriends(QObject *requester, const QString& userId, int page = 1, bool useCache = true);
+    void GetUserFollowers(QObject *requester, const QString& userId, int page = 1,
+        bool useCache = true);
+    void GetUserFollowings(QObject *requester, const QString& userId, int page = 1,
+            bool useCache = true);
     void GetFriendRequests(QObject *requester, int page);
     void ConfirmFriendRequest(quint64 friendRequestId, bool confirm);
     void ConfirmFriendRecommendation(quint64 friendRecommendationId, bool confirm);
@@ -160,21 +168,25 @@ public:
     void FollowUser(const QString& userId);
     void UnfollowUser(const QString& userId);
 
-    void LoadUserQuotes(QObject *requester, const QString& userId, int page = 1);
-    void LoadBookQuotes(QObject *requester, quint64 workId, int page = 1);
-    void LoadAuthorQuotes(QObject *requester, const QString& authorId, int page = 1);
+    void LoadUserQuotes(QObject *requester, const QString& userId, int page = 1,
+            bool useCache = true);
+    void LoadBookQuotes(QObject *requester, quint64 workId, int page = 1, bool useCache = true);
+    void LoadAuthorQuotes(QObject *requester, const QString& authorId, int page = 1,
+            bool useCache = true);
     void AddQuote(const QString& authorName, quint64 authorId, quint64 bookId, const QString& quote,
         const QStringList& tags);
 
-    void GetReadStatus(QObject *requester, const QString& readStatusId, int page = 1);
+    void GetReadStatus(QObject *requester, const QString& readStatusId, int page = 1,
+            bool useCache = true);
 
     void GetRecentUserStatuses(QObject *requester);
-    void GetUserStatus(QObject *requester, const QString& userStatusId, int page = 1);
+    void GetUserStatus(QObject *requester, const QString& userStatusId, int page = 1,
+        bool useCache = true);
     void UpdateReadingProgress(const QString& bookId, const QString& key, int value,
             const QString& comment);
     void DeleteUserStatus(quint64 userStatusId);
 
-    void GetRecommendation(QObject *requester, const QString& id, int page = 1);
+    void GetRecommendation(QObject *requester, const QString& id, int page = 1, bool useCache = true);
 
     void LikeResource(const QString& resourceId, const QString& resourceType);
     void UnlikeResource(const QString& resourceId, quint64 ratingId);

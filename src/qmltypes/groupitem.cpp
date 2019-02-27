@@ -46,7 +46,7 @@ void GroupItem::SetGroupId(quint64 groupId)
     }
 
     m_GroupId = groupId;
-    loadGroup();
+    loadGroup(true);
     emit groupIdChanged();
 }
 
@@ -73,11 +73,11 @@ void GroupItem::handleGotGroup(quint64 inGroupId, const GroupPtr& group)
     SetGroup(group);
 }
 
-void GroupItem::loadGroup()
+void GroupItem::loadGroup(bool useCache)
 {
     if (m_GroupId <= 0) {
         return;
     }
-    SailreadsManager::Instance()->loadGroup(this, m_GroupId);
+    SailreadsManager::Instance()->loadGroup(this, m_GroupId, useCache);
 }
 } // namespace Sailreads

@@ -47,7 +47,7 @@ void UserStatusItem::SetUserStatusId(const QString& userStatusId)
 {
     if(m_UserStatusId != userStatusId) {
         m_UserStatusId = userStatusId;
-        loadUserStatus();
+        loadUserStatus(true);
         emit userStatusIdChanged();
     }
 }
@@ -93,9 +93,9 @@ void UserStatusItem::handleLikeRemoved(const QString& resourceId)
     emit userStatusChanged();
 }
 
-void UserStatusItem::loadUserStatus()
+void UserStatusItem::loadUserStatus(bool useCache)
 {
-    SailreadsManager::Instance(this)->loadUserStatus(this, m_UserStatusId);
+    SailreadsManager::Instance(this)->loadUserStatus(this, m_UserStatusId, 1, useCache);
 }
 
 } // namespace Sailusers

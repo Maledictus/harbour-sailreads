@@ -54,11 +54,6 @@ ApplicationWindow {
         bookShelf: "currently-reading"
         sortField: "date_updated"
         sortOrder: Qt.DescendingOrder
-        onBookShelfIdChanged: {
-            if (sailreadsManager.authUser && sailreadsManager.authUser.id === userId) {
-                loadReviews()
-            }
-        }
     }
 
     Connections {

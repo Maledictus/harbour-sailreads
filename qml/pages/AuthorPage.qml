@@ -104,7 +104,7 @@ Page {
                 MenuItem {
                     text: qsTr("Refresh")
                     onClicked: {
-                        authorProfile.loadAuthorProfile()
+                        authorProfile.loadAuthorProfile(false)
                     }
                 }
             }

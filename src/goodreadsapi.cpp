@@ -25,12 +25,14 @@ THE SOFTWARE.
 #include "goodreadsapi.h"
 
 #include <QNetworkAccessManager>
+#include <QNetworkDiskCache>
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QRegularExpression>
 #include <QUrlQuery>
 #include <QXmlQuery>
 
+#include "application.h"
 #include "objects/book.h"
 #include "objects/group.h"
 #include "objects/review.h"
@@ -50,6 +52,20 @@ GoodReadsApi::GoodReadsApi(QObject *parent)
 , m_NAM(new QNetworkAccessManager(this))
 , m_OAuth1(new OAuth1(m_ConsumerKey, m_ConsumerSecretKey, m_NAM, this))
 {
+    QNetworkDiskCache *cache = new QNetworkDiskCache();
+
+    cache->setCacheDirectory(Application::GetPath(Application::ApplicationDirectory::CacheDirectory));
+    m_NAM->setCache(cache);
+}
+
+GoodReadsApi::~GoodReadsApi()
+{
+    ClearCache();
+}
+
+void GoodReadsApi::ClearCache()
+{
+    m_NAM->cache()->clear();
 }
 
 void GoodReadsApi::AbortRequest(QObject *object)
@@ -97,10 +113,10 @@ void GoodReadsApi::AuthUser()
              this, &GoodReadsApi::handleAuthUser);
 }
 
-void GoodReadsApi::GetUserInfo(QObject *requester, const QString& id)
+void GoodReadsApi::GetUserInfo(QObject *requester, const QString& id, bool useCache)
 {
     QNetworkReply *reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
-            QUrl(m_BaseUrl + QString("/user/show/%1").arg(id)), { { "format", "xml" } } );
+            QUrl(m_BaseUrl + QString("/user/show/%1").arg(id)), { { "format", "xml" } }, useCache);
     m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
              this, &GoodReadsApi::handleGetUserInfo);
@@ -144,21 +160,21 @@ void GoodReadsApi::GetNotifications(QObject *requester, const QString& pageToken
             this, [this]() { handleGetNotifications(); });
 }
 
-void GoodReadsApi::GetMessages(QObject *requester, const QString& folder, int page)
+void GoodReadsApi::GetMessages(QObject *requester, const QString& folder, int page, bool useCache)
 {
     QNetworkReply *reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/message/%1").arg(folder)),
-            { { "format", "xml" }, { "page", page } });
+            { { "format", "xml" }, { "page", page } }, useCache);
     m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this, [this]() { handleGetMessages(); });
 }
 
-void GoodReadsApi::GetMessage(QObject *requester, quint64 messageId)
+void GoodReadsApi::GetMessage(QObject *requester, quint64 messageId, bool useCache)
 {
     QNetworkReply *reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/message/show/%1").arg(messageId)),
-            { { "format", "xml" } });
+            { { "format", "xml" } }, useCache);
     m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this, [this]() { handleGetMessage(); });
@@ -173,21 +189,23 @@ void GoodReadsApi::MarkMessageAsRead(quint64 messageId)
             this, [this]() { handleMarkMessageAsRead(); });
 }
 
-void GoodReadsApi::GetBookShelves(QObject *requester, const QString& userId, int page)
+void GoodReadsApi::GetBookShelves(QObject *requester, const QString& userId, int page,
+        bool useCache)
 {
     QNetworkReply *reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + "/shelf/list"),
-            { { "user_id", userId }, { "page", page }, { "format", "xml" } });
+            { { "user_id", userId }, { "page", page }, { "format", "xml" } }, useCache);
     m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this, [this, userId]() { handleGetBookShelves(userId); });
 }
 
-void GoodReadsApi::GetAllBookShelves(QObject *requester, const QString& userId, int page)
+void GoodReadsApi::GetAllBookShelves(QObject *requester, const QString& userId, int page,
+        bool useCache)
 {
     QNetworkReply *reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + "/shelf/list"),
-            { { "user_id", userId }, { "page", page }, { "format", "xml" } });
+            { { "user_id", userId }, { "page", page }, { "format", "xml" } }, useCache);
     m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this, [this, requester, userId, page]()
@@ -230,7 +248,7 @@ void GoodReadsApi::EditBookShelf(quint64 id, const QString& name, bool exclusive
 }
 
 void GoodReadsApi::GetReviews(QObject *requester, const QString& userId, const QString& bookShelf,
-        const QString& sortField, Qt::SortOrder order, int page)
+        const QString& sortField, Qt::SortOrder order, int page, bool useCache)
 {
     const QVariantMap params = { { "v", 2 }, { "shelf", bookShelf }, { "page", page },
         { "per_page", 50 }, { "sort", sortField },
@@ -238,17 +256,18 @@ void GoodReadsApi::GetReviews(QObject *requester, const QString& userId, const Q
         { "format", "xml" }
     };
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
-            QUrl(m_BaseUrl + QString("/review/list/%1").arg(userId)), params);
+            QUrl(m_BaseUrl + QString("/review/list/%1").arg(userId)), params, useCache);
     m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this, &GoodReadsApi::handleGetReviews);
 }
 
-void GoodReadsApi::GetReview(QObject *requester, const QString& reviewId, int commentsPage)
+void GoodReadsApi::GetReview(QObject *requester, const QString& reviewId, int commentsPage,
+        bool useCache)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + "/review/show"),
-            { { "id", reviewId }, { "page", commentsPage }, { "format", "xml" } });
+            { { "id", reviewId }, { "page", commentsPage }, { "format", "xml" } }, useCache);
     m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this, &GoodReadsApi::handleGetReview);
@@ -308,20 +327,20 @@ void GoodReadsApi::DeleteReview(const QString& bookId, const QString& reviewId)
             this, [this, reviewId]() { handleDeleteReview(reviewId); });
 }
 
-void GoodReadsApi::GetBook(QObject *requester, const QString& bookId)
+void GoodReadsApi::GetBook(QObject *requester, const QString& bookId, bool useCache)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
-            QUrl(m_BaseUrl + "/book/show"), { { "id", bookId }, { "format", "xml" } });
+            QUrl(m_BaseUrl + "/book/show"), { { "id", bookId }, { "format", "xml" } }, useCache);
     m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this, &GoodReadsApi::handleGetBook);
 }
 
-void GoodReadsApi::GetBookEditions(QObject *requester, quint64 workId, int page)
+void GoodReadsApi::GetBookEditions(QObject *requester, quint64 workId, int page, bool useCache)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/work/editions/%1").arg(workId)),
-            { { "format", "xml" }, { "page", page } });
+            { { "format", "xml" }, { "page", page } }, useCache);
     m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this, [this, workId]() { handleGetBookEditions(workId); });
@@ -350,27 +369,27 @@ void GoodReadsApi::SwitchToBookEdition(const QString& reviewId, const QString& b
             { handleSwitchToBookEdition(reviewId, bookId); });
 }
 
-void GoodReadsApi::GetSeries(QObject *requester, quint64 seriesId)
+void GoodReadsApi::GetSeries(QObject *requester, quint64 seriesId, bool useCache)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/series/show/%1").arg(seriesId)),
-            { { "format", "xml" } });
+            { { "format", "xml" } }, useCache);
     m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this, &GoodReadsApi::handleGetSeries);
 }
 
-void GoodReadsApi::GetAuthorSeries(QObject *requester, const QString& authorId)
+void GoodReadsApi::GetAuthorSeries(QObject *requester, const QString& authorId, bool useCache)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/series/list/%1.xml").arg(authorId)),
-            { { "format", "xml" } });
+            { { "format", "xml" } }, useCache);
     m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this, [this, authorId]() { handleGetAuthorSeries(authorId); });
 }
 
-void GoodReadsApi::GetWorkSeries(QObject */*requester*/, quint64 /*workId*/)
+void GoodReadsApi::GetWorkSeries(QObject */*requester*/, quint64 /*workId*/, bool /*useCache*/)
 {
 }
 
@@ -405,20 +424,21 @@ void GoodReadsApi::RemoveBookFromShelf(const QString& bookId, const QString& she
             this, [this, bookId]() { handleRemoveBookFromShelf(bookId); });
 }
 
-void GoodReadsApi::GetAuthor(QObject *requester, const QString& authorId)
+void GoodReadsApi::GetAuthor(QObject *requester, const QString& authorId, bool useCache)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
-            QUrl(m_BaseUrl + "/author/show"), { { "id", authorId }, { "format", "xml" } });
+            QUrl(m_BaseUrl + "/author/show"), { { "id", authorId }, { "format", "xml" } }, useCache);
     m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this, &GoodReadsApi::handleGetAuthor);
 }
 
-void GoodReadsApi::GetAuthorBooks(QObject *requester, const QString& authorId, int page)
+void GoodReadsApi::GetAuthorBooks(QObject *requester, const QString& authorId, int page,
+        bool useCache)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + "/author/list"),
-            { { "id", authorId }, { "page", page }, { "format", "xml" } });
+            { { "id", authorId }, { "page", page }, { "format", "xml" } }, useCache);
     m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this, [this, authorId]() {
@@ -444,21 +464,21 @@ void GoodReadsApi::UnfollowAuthor(const QString& authorId, quint64 authorFollowi
             });
 }
 
-void GoodReadsApi::GetGroups(QObject *requester, const QString& userId, int page)
+void GoodReadsApi::GetGroups(QObject *requester, const QString& userId, int page, bool useCache)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/group/list/%1").arg(userId)),
-            { { "sort", "last_activity" }, { "page", page }, { "format", "xml" } });
+            { { "sort", "last_activity" }, { "page", page }, { "format", "xml" } }, useCache);
     m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this, [this, userId]() { handleGetGroups(userId); });
 }
 
-void GoodReadsApi::GetGroup(QObject *requester, quint64 groupId)
+void GoodReadsApi::GetGroup(QObject *requester, quint64 groupId, bool useCache)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/group/show/%1").arg(groupId)),
-            { { "sort", "updated_at" }, { "format", "xml" } });
+            { { "sort", "updated_at" }, { "format", "xml" } }, useCache);
     m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this, [this, groupId]() { handleGetGroup(groupId); });
@@ -482,29 +502,30 @@ void GoodReadsApi::SearchGroup(QObject *requester, const QString& text, int page
             this, &GoodReadsApi::handleSearchGroup);
 }
 
-void GoodReadsApi::GetGroupMembers(QObject *requester, quint64 groupId, int page)
+void GoodReadsApi::GetGroupMembers(QObject *requester, quint64 groupId, int page, bool useCache)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/group/members/%1").arg(groupId)),
-            { { "page", page }, { "sort", "num_comments" }, { "format", "xml" } });
+            { { "page", page }, { "sort", "num_comments" }, { "format", "xml" } }, useCache);
     m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this, [this, groupId] { handleGetGroupMembers(groupId); });
 }
 
 void GoodReadsApi::GetGroupFolderTopics(QObject *requester, const QString& groupFolderId,
-        quint64 groupId, int page)
+        quint64 groupId, int page, bool useCache)
 {
     QNetworkReply *reply = nullptr;
     const QVariantMap params = { { "format", "xml" }, { "page", page },
             { "sort", "updated_at" }, { "order", "d" }, { "group_id", groupId } };
     if (groupFolderId == GoodReadsApi::UnreadTopicsFolderId) {
         reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
-                QUrl(m_BaseUrl + QString("/topic/unread_group/%1").arg(groupId)), params);
+                QUrl(m_BaseUrl + QString("/topic/unread_group/%1").arg(groupId)), params, useCache);
     }
     else {
         reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
-                QUrl(m_BaseUrl + QString("/topic/group_folder/%1").arg(groupFolderId)), params);
+                QUrl(m_BaseUrl + QString("/topic/group_folder/%1").arg(groupFolderId)), params,
+                useCache);
     }
     m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
@@ -562,31 +583,33 @@ void GoodReadsApi::AddNewComment(const QString& type, const QString& resourceId,
              this, [this, resourceId]() { handleNewCommentAdded(resourceId); });
 }
 
-void GoodReadsApi::GetFriends(QObject *requester, const QString& userId, int page)
+void GoodReadsApi::GetFriends(QObject *requester, const QString& userId, int page, bool useCache)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/friend/user/%1").arg(userId)),
-            { { "format", "xml" }, { "page", page } });
+            { { "format", "xml" }, { "page", page } }, useCache);
     m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
              this, [this, userId]() { handleGetFriends(userId); });
 }
 
-void GoodReadsApi::GetUserFollowers(QObject *requester, const QString& userId, int page)
+void GoodReadsApi::GetUserFollowers(QObject *requester, const QString& userId, int page,
+        bool useCache)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/user/%1/followers").arg(userId)),
-            { { "page", page }, { "format", "xml" } } );
+            { { "page", page }, { "format", "xml" } }, useCache );
     m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
              this, [this, userId]() { handleGetUserFollowers(userId); });
 }
 
-void GoodReadsApi::GetUserFollowings(QObject *requester, const QString& userId, int page)
+void GoodReadsApi::GetUserFollowings(QObject *requester, const QString& userId, int page,
+        bool useCache)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/user/%1/following").arg(userId)),
-            { { "page", page }, { "format", "xml" } } );
+            { { "page", page }, { "format", "xml" } }, useCache );
     m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
              this, [this, userId]() { handleGetUserFollowings(userId); });
@@ -653,31 +676,32 @@ void GoodReadsApi::UnfollowUser(const QString& userId)
             this, [this, userId]() { handleUnfollowUser(userId); });
 }
 
-void GoodReadsApi::LoadUserQuotes(QObject *requester, const QString &userId, int page)
+void GoodReadsApi::LoadUserQuotes(QObject *requester, const QString &userId, int page, bool useCache)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/quotes/list_rss/%1").arg(userId)),
-            { { "page", page } });
+            { { "page", page } }, useCache);
     m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this, [this, userId]() { handleGotUserQuotes(userId); });
 }
 
-void GoodReadsApi::LoadBookQuotes(QObject *requester, quint64 workId, int page)
+void GoodReadsApi::LoadBookQuotes(QObject *requester, quint64 workId, int page, bool useCache)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/work/quotes/%1").arg(workId)),
-            { { "format", "json" }, { "page", page } });
+            { { "format", "json" }, { "page", page } }, useCache);
     m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this, [this, workId]() { handleGotBookQuotes(workId); });
 }
 
-void GoodReadsApi::LoadAuthorQuotes(QObject *requester, const QString& authorId, int page)
+void GoodReadsApi::LoadAuthorQuotes(QObject *requester, const QString& authorId, int page,
+        bool useCache)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/author/quotes/%1").arg(authorId)),
-            { { "format", "json" }, { "page", page } });
+            { { "format", "json" }, { "page", page } }, useCache);
     m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this, [this, authorId]() { handleGotAuthorQuotes(authorId); });
@@ -696,11 +720,12 @@ void GoodReadsApi::AddQuote(const QString&/* authorName*/, quint64/* authorId*/,
 //            this, &GoodReadsApi::handleAddQuote);
 }
 
-void GoodReadsApi::GetReadStatus(QObject *requester, const QString& readStatusId, int page)
+void GoodReadsApi::GetReadStatus(QObject *requester, const QString& readStatusId,
+        int page, bool useCache)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/read_statuses/%1").arg(readStatusId)),
-            { { "format", "xml" }, { "page", page } });
+            { { "format", "xml" }, { "page", page } }, useCache);
     m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this, &GoodReadsApi::handleGetReadStatus);
@@ -715,11 +740,12 @@ void GoodReadsApi::GetRecentUserStatuses(QObject */*requester*/)
 //            this, &GoodReadsApi::handleGetRecentUserStatuses);
 }
 
-void GoodReadsApi::GetUserStatus(QObject *requester, const QString& userStatusId, int page)
+void GoodReadsApi::GetUserStatus(QObject *requester, const QString& userStatusId, int page,
+        bool useCache)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/user_status/show/%1").arg(userStatusId)),
-            { { "format", "xml" }, { "page", page } });
+            { { "format", "xml" }, { "page", page } }, useCache);
     m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this, &GoodReadsApi::handleGetUserStatus);
@@ -747,11 +773,11 @@ void GoodReadsApi::DeleteUserStatus(quint64/* userStatusId*/)
     //             this, &GoodReadsApi::handleDeleteUserStatus);
 }
 
-void GoodReadsApi::GetRecommendation(QObject *requester, const QString& id, int page)
+void GoodReadsApi::GetRecommendation(QObject *requester, const QString& id, int page, bool useCache)
 {
     auto reply = m_OAuth1->Get(m_AccessToken, m_AccessTokenSecret,
             QUrl(m_BaseUrl + QString("/recommendations/%1").arg(id)),
-            { { "format", "xml" }, { "page", page } });
+            { { "format", "xml" }, { "page", page } }, useCache);
     m_Requester2Reply[requester] = reply;
     connect(reply, &QNetworkReply::finished,
             this, &GoodReadsApi::handleGetRecommendation);
@@ -845,6 +871,8 @@ QByteArray GoodReadsApi::GetReply(QObject *sender, bool& ok)
         ok = false;
         return data;
     }
+    QVariant fromCache = reply->attribute(QNetworkRequest::SourceIsFromCacheAttribute);
+    qDebug() << "FROM CACHE: " << fromCache.toBool();
     reply->deleteLater();
     m_Requester2Reply.remove(m_Requester2Reply.key(reply));
 

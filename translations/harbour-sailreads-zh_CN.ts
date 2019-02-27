@@ -1674,17 +1674,17 @@
 <context>
     <name>Sailreads::SailreadsManager</name>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="295"/>
+        <location filename="../src/sailreadsmanager.cpp" line="299"/>
         <source>Authorization user...</source>
         <translation>授权用户……</translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="313"/>
+        <location filename="../src/sailreadsmanager.cpp" line="317"/>
         <source>Authentication user...</source>
         <translation>验证用户……</translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="334"/>
+        <location filename="../src/sailreadsmanager.cpp" line="340"/>
         <source>Getting user profile...</source>
         <translation>获取用户简介……</translation>
     </message>

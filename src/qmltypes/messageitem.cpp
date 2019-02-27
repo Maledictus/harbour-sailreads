@@ -47,7 +47,7 @@ void MessageItem::SetMessageId(quint64 messageId)
     }
 
     m_MessageId = messageId;
-    loadMessage();
+    loadMessage(true);
     emit messageIdChanged();
 }
 
@@ -90,11 +90,11 @@ void MessageItem::handleGotMessage(const MessagePtr& message)
     SetMessage(message);
 }
 
-void MessageItem::loadMessage()
+void MessageItem::loadMessage(bool useCache)
 {
     if (m_MessageId <= 0) {
         return;
     }
-    SailreadsManager::Instance()->loadMessage(this, m_MessageId);
+    SailreadsManager::Instance()->loadMessage(this, m_MessageId, useCache);
 }
 } // namespace Sailreads

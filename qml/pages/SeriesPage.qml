@@ -66,7 +66,7 @@ Page {
         PullDownMenu {
             MenuItem {
                 text: qsTr("Refresh")
-                onClicked: seriesItem.loadSeries()
+                onClicked: seriesItem.loadSeries(false)
             }
         }
 

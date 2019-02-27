@@ -1682,17 +1682,17 @@
 <context>
     <name>Sailreads::SailreadsManager</name>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="295"/>
+        <location filename="../src/sailreadsmanager.cpp" line="299"/>
         <source>Authorization user...</source>
         <translation>Авторизация пользователя</translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="313"/>
+        <location filename="../src/sailreadsmanager.cpp" line="317"/>
         <source>Authentication user...</source>
         <translation>Аутентификация пользователя</translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="334"/>
+        <location filename="../src/sailreadsmanager.cpp" line="340"/>
         <source>Getting user profile...</source>
         <translation>Получение профиля пользователя</translation>
     </message>

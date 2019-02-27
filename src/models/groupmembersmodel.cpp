@@ -135,7 +135,8 @@ void GroupMembersModel::loadGroupMembers()
     if (m_GroupId <= 0) {
         return;
     }
-    SailreadsManager::Instance()->loadGroupMembers(this, m_GroupId);
+    m_CurrentPage = 1;
+    SailreadsManager::Instance()->loadGroupMembers(this, m_GroupId, m_CurrentPage, false);
 }
 } // namespace Sailreads
 

@@ -150,7 +150,7 @@ Page {
                 MenuItem {
                     text: qsTr("Refresh")
                     onClicked: {
-                        userProfile.loadProfile()
+                        userProfile.loadProfile(false)
                     }
                 }
             }

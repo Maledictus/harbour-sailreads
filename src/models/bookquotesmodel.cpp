@@ -75,7 +75,7 @@ void BookQuotesModel::loadBookQuotes()
     Clear();
     m_HasMore = true;
     m_CurrentPage = 1;
-    SailreadsManager::Instance()->loadBookQuotes(this, m_WorkId);
+    SailreadsManager::Instance()->loadBookQuotes(this, m_WorkId, m_CurrentPage, false);
     SetFetching(true);
 }
 

@@ -59,7 +59,7 @@ private slots:
     void handleAuthorFollowed(const QString& authorId, quint64 followingId);
     void handleAuthorUnfollowed(const QString& authorId);
 public slots:
-    void loadAuthorProfile();
+    void loadAuthorProfile(bool useCache);
 
 signals:
     void authorIdChanged();

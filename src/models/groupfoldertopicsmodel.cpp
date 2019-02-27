@@ -147,7 +147,9 @@ void GroupFolderTopicsModel::loadGroupFolderTopics()
     if (m_GroupId <= 0) {
         return;
     }
-    SailreadsManager::Instance()->loadGroupFolderTopics(this, m_GroupFolderId, m_GroupId);
+    m_CurrentPage = 1;
+    SailreadsManager::Instance()->loadGroupFolderTopics(this, m_GroupFolderId, m_GroupId,
+            m_CurrentPage, false);
 }
 
 void GroupFolderTopicsModel::handleGotGroupFolderTopics(const QString& groupdFolderId,

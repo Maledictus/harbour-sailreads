@@ -49,7 +49,7 @@ public:
 private slots:
     void handleGotSeries(const SeriesPtr& series);
 public slots:
-    void loadSeries();
+    void loadSeries(bool useCache);
 
 signals:
     void seriesIdChanged();

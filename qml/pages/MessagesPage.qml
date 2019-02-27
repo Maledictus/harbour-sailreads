@@ -84,7 +84,7 @@ Page {
             }
             MenuItem {
                 text: qsTr("Refresh")
-                onClicked: messagesModel.loadMessages()
+                onClicked: messagesModel.loadMessages(false)
             }
         }
 

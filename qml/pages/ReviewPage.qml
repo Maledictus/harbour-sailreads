@@ -90,7 +90,7 @@ Page {
             }
             MenuItem {
                 text: qsTr("Refresh")
-                onClicked: reviewItem.loadReview()
+                onClicked: reviewItem.loadReview(false)
             }
         }
 

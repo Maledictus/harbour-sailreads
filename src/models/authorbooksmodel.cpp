@@ -73,7 +73,8 @@ void AuthorBooksModel::loadAuthorBooks()
     if (m_AuthorId.isEmpty()) {
         return;
     }
-    SailreadsManager::Instance()->loadAuthorBooks(this, m_AuthorId);
+    m_CurrentPage = 1;
+    SailreadsManager::Instance()->loadAuthorBooks(this, m_AuthorId, m_CurrentPage, false);
 }
 
 void AuthorBooksModel::handleGotAuthorBooks(const QString& authorId, const CountedItems<BookPtr>& books)

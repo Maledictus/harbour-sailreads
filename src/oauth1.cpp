@@ -211,10 +211,13 @@ QString GenerateNonce()
 }
 
 QNetworkReply* OAuth1::Get(const QString& accessToken, const QString& accessTokenSecret,
-        const QUrl& url, const QVariantMap& parameters)
+        const QUrl& url, const QVariantMap& parameters, bool useCache)
 {
     QNetworkRequest request(url);
     request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
+    if (useCache) {
+        request.setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::PreferCache);
+    }
     SignRequest(request, parameters, QNetworkAccessManager::GetOperation,
             accessToken, accessTokenSecret);
     return m_NAM->get(request);

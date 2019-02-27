@@ -54,7 +54,7 @@ private slots:
             const QStringList& oldShelves, const ReviewPtr& review);
     void handleBookRemovedFromShelf(const QString& bookId, const QString& shelfName);
 public slots:
-    void loadBook();
+    void loadBook(bool useCache);
 
 signals:
     void bookIdChanged();

@@ -47,7 +47,7 @@ void SeriesItem::SetSeriesId(quint64 seriesId)
     }
 
     m_SeriesId = seriesId;
-    loadSeries();
+    loadSeries(true);
     emit seriesIdChanged();
 }
 
@@ -74,11 +74,11 @@ void SeriesItem::handleGotSeries(const SeriesPtr& series)
     SetSeries(series);
 }
 
-void SeriesItem::loadSeries()
+void SeriesItem::loadSeries(bool useCache)
 {
     if (m_SeriesId <= 0) {
         return;
     }
-    SailreadsManager::Instance()->loadSeries(this, m_SeriesId);
+    SailreadsManager::Instance()->loadSeries(this, m_SeriesId, useCache);
 }
 } // namespace Sailreads

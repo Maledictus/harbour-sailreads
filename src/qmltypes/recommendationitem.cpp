@@ -47,7 +47,7 @@ void RecommendationItem::SetRecommendationId(const QString& id)
 {
     if (m_RecommendationId != id) {
         m_RecommendationId = id;
-        loadRecommendation();
+        loadRecommendation(true);
         emit recommendationIdChanged();
     }
 }
@@ -95,9 +95,9 @@ void RecommendationItem::handleLikeRemoved(const QString& resourceId)
     emit recommendationChanged();
 }
 
-void RecommendationItem::loadRecommendation()
+void RecommendationItem::loadRecommendation(bool useCache)
 {
-    SailreadsManager::Instance(this)->loadRecommendation(this, m_RecommendationId);
+    SailreadsManager::Instance(this)->loadRecommendation(this, m_RecommendationId, useCache);
 }
 
 } // namespace Sailreads

@@ -145,7 +145,8 @@ void MessagesModel::loadMessages()
         return;
     }
 
-    SailreadsManager::Instance()->loadMessages(this, m_Folder);
+    m_CurrentPage = 1;
+    SailreadsManager::Instance()->loadMessages(this, m_Folder, m_CurrentPage, false);
 }
 
 void MessagesModel::handleGotMessages(const QString& folder, const CountedItems<MessagePtr>& messages)

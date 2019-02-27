@@ -73,7 +73,7 @@ void AuthorQuotesModel::loadAuthorQuotes()
     Clear();
     m_HasMore = true;
     m_CurrentPage = 1;
-    SailreadsManager::Instance()->loadAuthorQuotes(this, m_AuthorId);
+    SailreadsManager::Instance()->loadAuthorQuotes(this, m_AuthorId, m_CurrentPage, false);
     SetFetching(true);
 }
 

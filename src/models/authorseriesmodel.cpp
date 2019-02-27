@@ -81,7 +81,7 @@ void AuthorSeriesModel::SetAuthorId(const QString& id)
 {
     if (m_AuthorId != id) {
         m_AuthorId = id;
-        loadAuthorSeries();
+        loadAuthorSeries(true);
         emit authorIdChanged();
     }
 }
@@ -108,11 +108,11 @@ void AuthorSeriesModel::handleGotAuthorSeries(const QString& authorId, const Ser
     SetItems(series);
 }
 
-void AuthorSeriesModel::loadAuthorSeries()
+void AuthorSeriesModel::loadAuthorSeries(bool useCache)
 {
     if (m_AuthorId.isEmpty()) {
         return;
     }
-    SailreadsManager::Instance()->loadAuthorSeries(this, m_AuthorId);
+    SailreadsManager::Instance()->loadAuthorSeries(this, m_AuthorId, useCache);
 }
 } // namespace Sailreads

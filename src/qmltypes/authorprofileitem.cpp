@@ -58,7 +58,7 @@ void AuthorProfileItem::SetAuthorId(const QString& authorId)
 
     m_AuthorId = authorId;
     m_ShortBooksModel->SetAuthorId(m_AuthorId);
-    loadAuthorProfile();
+    loadAuthorProfile(true);
     emit authorIdChanged();
 }
 
@@ -98,12 +98,12 @@ void AuthorProfileItem::SetAuthor(const AuthorPtr& author)
     emit authorChanged();
 }
 
-void AuthorProfileItem::loadAuthorProfile()
+void AuthorProfileItem::loadAuthorProfile(bool useCache)
 {
     if (m_AuthorId.isEmpty()) {
         return;
     }
-    SailreadsManager::Instance()->loadAuthorProfile(this, m_AuthorId);
+    SailreadsManager::Instance()->loadAuthorProfile(this, m_AuthorId, useCache);
 }
 
 void AuthorProfileItem::handleGotAuthorProfile(const AuthorPtr& author)

@@ -60,7 +60,7 @@ public:
 private slots:
     void handleGotAuthorSeries(const QString& authorId, const Series_t& series);
 public slots:
-    void loadAuthorSeries();
+    void loadAuthorSeries(bool useCache);
 
 signals:
     void authorIdChanged();

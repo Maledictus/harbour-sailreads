@@ -46,7 +46,7 @@ void ReadStatusItem::SetReadStatusId(const QString& readStatusId)
 {
     if(m_ReadStatusId != readStatusId) {
         m_ReadStatusId = readStatusId;
-        loadReadStatus();
+        loadReadStatus(true);
         emit readStatusIdChanged();
     }
 }
@@ -92,9 +92,9 @@ void ReadStatusItem::handleLikeRemoved(const QString& resourceId)
     emit readStatusChanged();
 }
 
-void ReadStatusItem::loadReadStatus()
+void ReadStatusItem::loadReadStatus(bool useCache)
 {
-    SailreadsManager::Instance(this)->loadReadStatus(this, m_ReadStatusId);
+    SailreadsManager::Instance(this)->loadReadStatus(this, m_ReadStatusId, useCache);
 }
 
 } // namespace Sailreads

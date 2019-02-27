@@ -51,7 +51,7 @@ public:
 private slots:
     void handleGotMessage(const MessagePtr& message);
 public slots:
-    void loadMessage();
+    void loadMessage(bool useCache);
 
 signals:
     void messageIdChanged();

@@ -70,7 +70,8 @@ void BookEditionsModel::loadBookEditions()
         return;
     }
     Clear();
-    SailreadsManager::Instance()->loadBookEditions(this, m_WorkId);
+    m_CurrentPage = 1;
+    SailreadsManager::Instance()->loadBookEditions(this, m_WorkId, m_CurrentPage, false);
 }
 
 void BookEditionsModel::handleGotBookEditions(quint64 workId, const CountedItems<BookPtr>& books)

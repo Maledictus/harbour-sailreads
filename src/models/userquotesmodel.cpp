@@ -74,7 +74,7 @@ void UserQuotesModel::loadUserQuotes()
     Clear();
     m_HasMore = true;
     m_CurrentPage = 1;
-    SailreadsManager::Instance()->loadUserQuotes(this, m_UserId);
+    SailreadsManager::Instance()->loadUserQuotes(this, m_UserId, m_CurrentPage, false);
     SetFetching(true);
 }
 

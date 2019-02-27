@@ -142,7 +142,8 @@ void BookShelvesModel::loadBookShelves()
     if (m_UserId.isEmpty()) {
         return;
     }
-    SailreadsManager::Instance()->loadBookShelves(this, m_UserId);
+    m_CurrentPage = 1;
+    SailreadsManager::Instance()->loadBookShelves(this, m_UserId, m_CurrentPage, false);
 }
 
 void BookShelvesModel::loadAllBookShelves()

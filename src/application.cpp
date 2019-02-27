@@ -258,7 +258,7 @@ void Application::start()
 
 void Application::handleAboutToQuit()
 {
-//    LinksBagManager::Instance(this)->saveBookmarks();
+    SailreadsManager::Instance(this)->AboutToQuit();
 }
 } // namespace Sailreads
 

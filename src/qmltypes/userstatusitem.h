@@ -51,7 +51,7 @@ private slots:
     void handleLikeAdded(const QString& resourceId, quint64 ratingId);
     void handleLikeRemoved(const QString& resourceId);
 public slots:
-    void loadUserStatus();
+    void loadUserStatus(bool useCache);
 
 signals:
     void userStatusIdChanged();

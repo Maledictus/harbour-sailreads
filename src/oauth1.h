@@ -65,7 +65,7 @@ public:
             const QUrl& url, const QString& requestToken, const QString& requestTokenSecret);
 
     QNetworkReply* Get(const QString& accessToken, const QString& accessTokenSecret,
-            const QUrl& url, const QVariantMap& parameters = QVariantMap());
+            const QUrl& url, const QVariantMap& parameters = QVariantMap(), bool useCache = false);
     QNetworkReply* Post(const QString& accessToken, const QString& accessTokenSecret,
             const QUrl& url, const QVariantMap& parameters = QVariantMap());
     QNetworkReply* Put(const QString& accessToken, const QString& accessTokenSecret,

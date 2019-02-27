@@ -93,7 +93,7 @@ Page {
 
                 MenuItem {
                     text: qsTr("Refresh")
-                    onClicked: bookItem.loadBook()
+                    onClicked: bookItem.loadBook(false)
                 }
             }
 

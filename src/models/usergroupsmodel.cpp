@@ -75,7 +75,8 @@ void UserGroupsModel::loadGroups()
     if (m_UserId.isEmpty()) {
         return;
     }
-    SailreadsManager::Instance()->loadGroups(this, m_UserId);
+    m_CurrentPage = 1;
+    SailreadsManager::Instance()->loadGroups(this, m_UserId, m_CurrentPage, false);
     SetFetching(true);
 }
 
