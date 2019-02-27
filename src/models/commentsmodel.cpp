@@ -54,7 +54,6 @@ void CommentsModel::SetResourceId(const QString& id)
 {
     if (m_ResourceId != id) {
         m_ResourceId = id;
-        loadComments();
         resourceIdChanged();
     }
 }
