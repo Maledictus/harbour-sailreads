@@ -195,6 +195,9 @@ signals:
     void loggedChanged();
     void authUserChanged();
 
+    void notify(const QString& msg);
+    void error(const QString& error);
+
     void gotAuthUserId(const QString& authUserId);
     void gotUserProfile(const UserPtr& userProfile);
 

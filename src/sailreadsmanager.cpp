@@ -81,6 +81,9 @@ void SailreadsManager::MakeConnections()
     connect(m_Api, &GoodReadsApi::requestFinished,
             this, [=](){ SetBusy(false); });
 
+    connect(m_Api, &GoodReadsApi::error,
+            this, &SailreadsManager::error);
+
     connect(m_Api, &GoodReadsApi::authenticationFailed,
             this, [=](){ SetLogged(false); });
 
@@ -151,9 +154,15 @@ void SailreadsManager::MakeConnections()
     connect(m_Api, &GoodReadsApi::gotUserBookShelves,
             this, &SailreadsManager::gotUserBookShelves);
     connect(m_Api, &GoodReadsApi::bookShelfAdded,
-            this, &SailreadsManager::bookShelfAdded);
+            this, [this](const BookShelf& shelf) {
+                emit bookShelfAdded(shelf);
+                emit notify(QObject::tr("New shelf was added successfully"));
+            });
     connect(m_Api, &GoodReadsApi::bookShelfEdited,
-            this, &SailreadsManager::bookShelfEdited);
+            this, [this](const BookShelf& shelf) {
+                emit bookShelfEdited(shelf);
+                emit notify(QObject::tr("Shelf was edited successfully"));
+            });
 
     connect(m_Api, &GoodReadsApi::gotReviews,
             this, &SailreadsManager::gotReviews);
@@ -171,15 +180,34 @@ void SailreadsManager::MakeConnections()
     connect(m_Api, &GoodReadsApi::gotUserFollowings,
             this, &SailreadsManager::gotUserFollowings);
     connect(m_Api, &GoodReadsApi::friendRequestConfirmed,
-            this, &SailreadsManager::friendRequestConfirmed);
+            this, [this](quint64 friendRequestId, bool confirmed) {
+                emit friendRequestConfirmed(friendRequestId, confirmed);
+                emit notify(QObject::tr("Friend request was %1")
+                        .arg(confirmed ? QObject::tr("confirmed") : QObject::tr("declined")));
+            });
     connect(m_Api, &GoodReadsApi::friendRecommendationConfirmed,
-            this, &SailreadsManager::friendRecommendationConfirmed);
+            this, [this](quint64 friendRecommendationId, bool confirmed) {
+                emit friendRecommendationConfirmed(friendRecommendationId, confirmed);
+                emit notify(QObject::tr("Friend's recommendation was %1")
+                        .arg(confirmed ? QObject::tr("confirmed") : QObject::tr("declined")));
+            });
     connect(m_Api, &GoodReadsApi::userFollowed,
-            this, &SailreadsManager::userFollowed);
+            this, [this](const QString& userId, bool success) {
+                emit userFollowed(userId, success);
+                emit notify(QObject::tr("User was followed %1")
+                        .arg(success ? QObject::tr("successfully") : QObject::tr("unsuccessfully")));
+            });
     connect(m_Api, &GoodReadsApi::userUnfollowed,
-            this, &SailreadsManager::userUnfollowed);
+            this, [this](const QString& userId, bool success) {
+                emit userUnfollowed(userId, success);
+                emit notify(QObject::tr("User was unfollowed %1")
+                        .arg(success ? QObject::tr("successfully") : QObject::tr("unsuccessfully")));
+            });
     connect(m_Api, &GoodReadsApi::friendAdded,
-            this, &SailreadsManager::friendAdded);
+            this, [this](const QString& userId) {
+                emit friendAdded(userId);
+                emit notify(QObject::tr("Friend was added successfully"));
+            });
     connect(m_Api, &GoodReadsApi::friendRemoved,
             this, &SailreadsManager::friendRemoved);
 
@@ -203,8 +231,10 @@ void SailreadsManager::MakeConnections()
     connect(m_Api, &GoodReadsApi::gotFoundBooks,
             this, &SailreadsManager::gotFoundBooks);
     connect(m_Api, &GoodReadsApi::bookEditionSwitched,
-            this, &SailreadsManager::bookEditionSwitched);
-
+            this, [this](const QString& reviewId, const QString& bookId) {
+                emit bookEditionSwitched(reviewId, bookId);
+                emit notify(QObject::tr("Book edition switched successfully"));
+            });
     connect(m_Api, &GoodReadsApi::gotSeries,
             this, &SailreadsManager::gotSeries);
 
@@ -214,14 +244,23 @@ void SailreadsManager::MakeConnections()
     connect(m_Api, &GoodReadsApi::gotComments,
             this, &SailreadsManager::gotComments);
     connect(m_Api, &GoodReadsApi::newCommentAdded,
-            this, &SailreadsManager::newCommentAdded);
+            this, [this](const QString& resourceId, const Comment& comment) {
+                emit newCommentAdded(resourceId, comment);
+                emit notify(QObject::tr("New comment was added successfully"));
+            });
 
     connect(m_Api, &GoodReadsApi::gotAuthorProfile,
             this, &SailreadsManager::gotAuthorProfile);
     connect(m_Api, &GoodReadsApi::authorFollowed,
-            this, &SailreadsManager::authorFollowed);
+            this, [this](const QString& authorId, quint64 followingId) {
+                emit authorFollowed(authorId, followingId);
+                emit notify(QObject::tr("Now you are following author"));
+            });
     connect(m_Api, &GoodReadsApi::authorUnfollowed,
-            this, &SailreadsManager::authorUnfollowed);
+            this, [this](const QString& authorId) {
+                emit authorUnfollowed(authorId);
+                emit notify(QObject::tr("You stop fallowing author"));
+            });
     connect(m_Api, &GoodReadsApi::gotAuthorBooks,
             this, &SailreadsManager::gotAuthorBooks);
     connect(m_Api, &GoodReadsApi::gotAuthorSeries,
@@ -237,12 +276,22 @@ void SailreadsManager::MakeConnections()
             this, &SailreadsManager::gotRecommendation);
 
     connect(m_Api, &GoodReadsApi::likeAdded,
-            this, &SailreadsManager::likeAdded);
+            this, [this](const QString& resourceId, quint64 ratingId) {
+                emit likeAdded(resourceId, ratingId);
+                emit notify(QObject::tr("You rating was added"));
+            });
     connect(m_Api, &GoodReadsApi::likeRemoved,
-            this, &SailreadsManager::likeRemoved);
+            this, [this](const QString& authorId) {
+                emit likeRemoved(authorId);
+                emit notify(QObject::tr("You rating was removed"));
+            });
 
     connect(m_Api, &GoodReadsApi::bookAddedToShelves,
-            this, &SailreadsManager::bookAddedToShelves);
+            this, [this](const QString& bookId, const QStringList& shelves,
+            const QStringList& oldShelves, const ReviewPtr& review) {
+                emit bookAddedToShelves(bookId, shelves, oldShelves, review);
+                emit notify(QObject::tr("Book was added to shelf"));
+            });
     connect(m_Api, &GoodReadsApi::bookAddedToShelves,
             this, [this](const QString& bookId, const QStringList& /*shelves*/,
                     const QStringList& /*oldShelves*/, const ReviewPtr& review)
@@ -250,9 +299,16 @@ void SailreadsManager::MakeConnections()
                 emit reviewUpdated(bookId, review.get());
             });
     connect(m_Api, &GoodReadsApi::bookAddedToShelf,
-            this, &SailreadsManager::bookAddedToShelf);
+            this, [this](const QString& bookId, const QString& shelf,
+            const QStringList& oldShelves, const ReviewPtr& review) {
+                emit bookAddedToShelf(bookId, shelf, oldShelves, review);
+                emit notify(QObject::tr("Book was added to shelf"));
+            });
     connect(m_Api, &GoodReadsApi::bookRemovedFromShelf,
-            this, &SailreadsManager::bookRemovedFromShelf);
+            this, [this](const QString& bookId, const QString& shelfName) {
+                emit bookRemovedFromShelf(bookId, shelfName);
+                emit notify(QObject::tr("Book was removed from shelf"));
+            });
 
     connect(m_Api, &GoodReadsApi::gotUserQuotes,
             this, &SailreadsManager::gotUserQuotes);

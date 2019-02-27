@@ -195,6 +195,9 @@ private:
     QDomDocument GetDocumentFromReply(QObject *sender, bool& ok);
     QJsonDocument GetJsonDocumentFromReply(QObject *sender, bool& ok);
     QByteArray GetReply(QObject *sender, bool& ok);
+    QDomDocument ParseDocument(const QByteArray& data, bool& ok);
+    QJsonDocument ParseJsonDocument(const QByteArray& data, bool& ok);
+
 
 private slots:
     void handleObtainRequestToken();
@@ -284,6 +287,7 @@ private slots:
     void handleUnlikeResource(const QString& resourceId);
 
 signals:
+    void error(const QString& errorText);
     void requestFinished();
 
     void authenticationFailed();

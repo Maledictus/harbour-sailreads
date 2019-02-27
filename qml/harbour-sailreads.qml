@@ -70,6 +70,20 @@ ApplicationWindow {
                 pageStack.push(Qt.resolvedUrl("pages/SplashScreenPage.qml"))
             }
         }
+
+        onNotify: {
+            notification.previewSummary = ""
+            notification.previewBody = msg
+            notification.icon = "image://Theme/icon-system-resources"
+            notification.publish()
+        }
+
+        onError: {
+            notification.previewSummary = ""
+            notification.previewBody = error
+            notification.icon = "image://Theme/icon-system-warning"
+            notification.publish()
+        }
     }
 
     Component {

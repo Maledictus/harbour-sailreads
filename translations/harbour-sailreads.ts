@@ -1541,6 +1541,118 @@
     </message>
 </context>
 <context>
+    <name>QObject</name>
+    <message>
+        <location filename="../src/goodreadsapi.cpp" line="841"/>
+        <source>Reply data is corrupted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/sailreadsmanager.cpp" line="159"/>
+        <source>New shelf was added successfully</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/sailreadsmanager.cpp" line="164"/>
+        <source>Shelf was edited successfully</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/sailreadsmanager.cpp" line="185"/>
+        <source>Friend request was %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/sailreadsmanager.cpp" line="186"/>
+        <location filename="../src/sailreadsmanager.cpp" line="192"/>
+        <source>confirmed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/sailreadsmanager.cpp" line="186"/>
+        <location filename="../src/sailreadsmanager.cpp" line="192"/>
+        <source>declined</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/sailreadsmanager.cpp" line="191"/>
+        <source>Friend&apos;s recommendation was %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/sailreadsmanager.cpp" line="197"/>
+        <source>User was followed %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/sailreadsmanager.cpp" line="198"/>
+        <location filename="../src/sailreadsmanager.cpp" line="204"/>
+        <source>successfully</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/sailreadsmanager.cpp" line="198"/>
+        <location filename="../src/sailreadsmanager.cpp" line="204"/>
+        <source>unsuccessfully</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/sailreadsmanager.cpp" line="203"/>
+        <source>User was unfollowed %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/sailreadsmanager.cpp" line="209"/>
+        <source>Friend was added successfully</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/sailreadsmanager.cpp" line="236"/>
+        <source>Book edition switched successfully</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/sailreadsmanager.cpp" line="249"/>
+        <source>New comment was added successfully</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/sailreadsmanager.cpp" line="257"/>
+        <source>Now you are following author</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/sailreadsmanager.cpp" line="262"/>
+        <source>You stop fallowing author</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/sailreadsmanager.cpp" line="281"/>
+        <source>You rating was added</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/sailreadsmanager.cpp" line="286"/>
+        <source>You rating was removed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/sailreadsmanager.cpp" line="293"/>
+        <source>Book was added to shelves</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/sailreadsmanager.cpp" line="305"/>
+        <source>Book was added to shelf</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/sailreadsmanager.cpp" line="310"/>
+        <source>Book was removed from shelf</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>RatingComponent</name>
     <message>
         <location filename="../qml/components/RatingComponent.qml" line="49"/>
@@ -1648,6 +1760,15 @@
     </message>
 </context>
 <context>
+    <name>Sailreads::GoodReadsApi</name>
+    <message>
+        <location filename="../src/goodreadsapi.cpp" line="884"/>
+        <location filename="../src/goodreadsapi.cpp" line="899"/>
+        <source>Network error: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Sailreads::Review</name>
     <message>
         <location filename="../src/objects/review.cpp" line="290"/>
@@ -1678,17 +1799,17 @@
 <context>
     <name>Sailreads::SailreadsManager</name>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="299"/>
+        <location filename="../src/sailreadsmanager.cpp" line="355"/>
         <source>Authorization user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="317"/>
+        <location filename="../src/sailreadsmanager.cpp" line="373"/>
         <source>Authentication user...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sailreadsmanager.cpp" line="340"/>
+        <location filename="../src/sailreadsmanager.cpp" line="396"/>
         <source>Getting user profile...</source>
         <translation type="unfinished"></translation>
     </message>

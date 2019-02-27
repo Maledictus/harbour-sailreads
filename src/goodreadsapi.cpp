@@ -814,7 +814,16 @@ QString GetQueryResult(QXmlQuery& query, const QString& request)
     return result.trimmed();
 }
 
-QDomDocument ParseDocument(const QByteArray& data, bool& ok)
+QUrl GetRedirectedUrl(const QDomDocument& doc)
+{
+    QXmlQuery query;
+    query.setFocus(doc.toByteArray());
+    const QString url(GetQueryResult(query, "/html/body/a/@href/data(.)"));
+    return QUrl(url);
+}
+}
+
+QDomDocument GoodReadsApi::ParseDocument(const QByteArray& data, bool& ok)
 {
     QDomDocument document;
     QString errorMsg;
@@ -829,6 +838,7 @@ QDomDocument ParseDocument(const QByteArray& data, bool& ok)
                 << "column:"
                 << errorColumn;
         ok = false;
+        emit error(QObject::tr("Reply data is corrupted"));
     }
     else
     {
@@ -837,13 +847,13 @@ QDomDocument ParseDocument(const QByteArray& data, bool& ok)
     return document;
 }
 
-QJsonDocument ParseJsonDocument(const QByteArray& data, bool& ok)
+QJsonDocument GoodReadsApi::ParseJsonDocument(const QByteArray& data, bool& ok)
 {
-    QJsonParseError error;
-    QJsonDocument document = QJsonDocument::fromJson(QString::fromUtf8(data).toUtf8(), &error);
+    QJsonParseError err;
+    QJsonDocument document = QJsonDocument::fromJson(QString::fromUtf8(data).toUtf8(), &err);
     if (document.isNull()) {
         qWarning() << Q_FUNC_INFO
-                << error.errorString();
+                << err.errorString();
         ok = false;
     }
     else
@@ -851,15 +861,6 @@ QJsonDocument ParseJsonDocument(const QByteArray& data, bool& ok)
         ok = true;
     }
     return document;
-}
-
-QUrl GetRedirectedUrl(const QDomDocument& doc)
-{
-    QXmlQuery query;
-    query.setFocus(doc.toByteArray());
-    const QString url(GetQueryResult(query, "/html/body/a/@href/data(.)"));
-    return QUrl(url);
-}
 }
 
 QByteArray GoodReadsApi::GetReply(QObject *sender, bool& ok)
@@ -880,6 +881,7 @@ QByteArray GoodReadsApi::GetReply(QObject *sender, bool& ok)
         qWarning() << Q_FUNC_INFO << "There is network error: "
                 << reply->error() << reply->errorString();
         ok = false;
+        emit error(tr("Network error: %1").arg(reply->errorString()));
         return data;
     }
 
@@ -894,6 +896,7 @@ QByteArray GoodReadsApi::GetReply(QObject *sender, bool& ok)
 
     if (reply->error() == QNetworkReply::AuthenticationRequiredError) {
         ok = false;
+        emit error(tr("Network error: %1").arg(reply->errorString()));
         emit authenticationFailed();
         return data;
     }
