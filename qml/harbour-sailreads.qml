@@ -74,14 +74,14 @@ ApplicationWindow {
         onNotify: {
             notification.previewSummary = ""
             notification.previewBody = msg
-            notification.icon = "image://Theme/icon-system-resources"
+            notification.icon = "image://theme/icon-lock-information"
             notification.publish()
         }
 
         onError: {
             notification.previewSummary = ""
             notification.previewBody = error
-            notification.icon = "image://Theme/icon-system-warning"
+            notification.icon = "image://theme/icon-lock-warning"
             notification.publish()
         }
     }

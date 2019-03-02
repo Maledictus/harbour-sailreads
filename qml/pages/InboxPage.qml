@@ -200,7 +200,7 @@ Page {
 
             NavigationButton {
                 width: parent.width / 4
-                icon.source: "image://Theme/icon-m-region"
+                icon.source: "image://theme/icon-m-region"
                 text: qsTr("Notifications")
                 fontSize: Theme.fontSizeExtraSmall
                 selected: slideshowView.currentIndex == 0
@@ -209,7 +209,7 @@ Page {
 
             NavigationButton {
                 width: parent.width / 4
-                icon.source: "image://Theme/icon-m-mail"
+                icon.source: "image://theme/icon-m-mail"
                 text: qsTr("Messages")
                 fontSize: Theme.fontSizeExtraSmall
                 selected: slideshowView.currentIndex == 1
@@ -218,7 +218,7 @@ Page {
 
             NavigationButton {
                 width: parent.width / 4
-                icon.source: "image://Theme/icon-m-add"
+                icon.source: "image://theme/icon-m-add"
                 text: qsTr("Requests")
                 fontSize: Theme.fontSizeExtraSmall
                 selected: slideshowView.currentIndex == 2
@@ -227,7 +227,7 @@ Page {
 
             NavigationButton {
                 width: parent.width / 4
-                icon.source: "image://Theme/icon-m-like"
+                icon.source: "image://theme/icon-m-like"
                 text: qsTr("Recommendations")
                 fontSize: Theme.fontSizeExtraSmall
                 selected: slideshowView.currentIndex == 3

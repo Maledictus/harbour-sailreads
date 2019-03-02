@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="ru" version="2.1">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="ru">
 <context>
     <name>AboutPage</name>
     <message>
@@ -585,7 +587,11 @@
     <message numerus="yes">
         <location filename="../qml/pages/BookPage.qml" line="194"/>
         <source>%Ln ratings</source>
-        <translation><numerusform>%Ln оценка</numerusform><numerusform>%Ln оценки</numerusform><numerusform>%Ln оценок</numerusform><numerusform>%Ln оценка</numerusform></translation>
+        <translation>
+            <numerusform>%Ln оценка</numerusform>
+            <numerusform>%Ln оценки</numerusform>
+            <numerusform>%Ln оценок</numerusform>
+        </translation>
     </message>
     <message>
         <location filename="../qml/pages/BookPage.qml" line="479"/>
@@ -823,12 +829,20 @@
     <message numerus="yes">
         <location filename="../qml/components/FriendListItem.qml" line="67"/>
         <source>%Ln books</source>
-        <translation><numerusform>%Ln книга</numerusform><numerusform>%Ln книги</numerusform><numerusform>%Ln книг</numerusform><numerusform>%Ln книга</numerusform></translation>
+        <translation>
+            <numerusform>%Ln книга</numerusform>
+            <numerusform>%Ln книги</numerusform>
+            <numerusform>%Ln книг</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <location filename="../qml/components/FriendListItem.qml" line="73"/>
         <source>%Ln friends</source>
-        <translation><numerusform>%Ln друг</numerusform><numerusform>%Ln друга</numerusform><numerusform>%Ln друзей</numerusform><numerusform>%Ln друзей</numerusform></translation>
+        <translation>
+            <numerusform>%Ln друг</numerusform>
+            <numerusform>%Ln друга</numerusform>
+            <numerusform>%Ln друзей</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -1294,8 +1308,8 @@
     <name>MessagesFolder</name>
     <message>
         <location filename="../qml/components/MessagesFolder.qml" line="28"/>
-        <source/>
-        <translation type="unfinished"/>
+        <source></source>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -1627,10 +1641,6 @@
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="293"/>
-        <source>Book was added to shelves</source>
-        <translation>Книга была добавлена на полки</translation>
-    </message>
-    <message>
         <location filename="../src/sailreadsmanager.cpp" line="305"/>
         <source>Book was added to shelf</source>
         <translation>Книга была добавлена на полку</translation>
@@ -1651,7 +1661,11 @@
     <message numerus="yes">
         <location filename="../qml/components/RatingComponent.qml" line="55"/>
         <source>%Ln ratings</source>
-        <translation><numerusform>%Ln оценка</numerusform><numerusform>%Ln оценки</numerusform><numerusform>%Ln оценок</numerusform><numerusform>%Ln оценок</numerusform></translation>
+        <translation>
+            <numerusform>%Ln оценка</numerusform>
+            <numerusform>%Ln оценки</numerusform>
+            <numerusform>%Ln оценок</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -1876,12 +1890,20 @@
     <message numerus="yes">
         <location filename="../qml/pages/SeriesPage.qml" line="148"/>
         <source>%Ln works</source>
-        <translation><numerusform>%Ln работа</numerusform><numerusform>%Ln работы</numerusform><numerusform>%Ln работ</numerusform><numerusform>%Ln работ</numerusform></translation>
+        <translation>
+            <numerusform>%Ln работа</numerusform>
+            <numerusform>%Ln работы</numerusform>
+            <numerusform>%Ln работ</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <location filename="../qml/pages/SeriesPage.qml" line="155"/>
         <source>%Ln primary works</source>
-        <translation><numerusform>%Ln основная работа</numerusform><numerusform>%Ln основные работы</numerusform><numerusform>%Ln основных работ</numerusform><numerusform>%Ln основная работа</numerusform></translation>
+        <translation>
+            <numerusform>%Ln основная работа</numerusform>
+            <numerusform>%Ln основные работы</numerusform>
+            <numerusform>%Ln основных работ</numerusform>
+        </translation>
     </message>
 </context>
 <context>

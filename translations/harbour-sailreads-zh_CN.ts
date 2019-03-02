@@ -1635,10 +1635,6 @@
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="293"/>
-        <source>Book was added to shelves</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/sailreadsmanager.cpp" line="305"/>
         <source>Book was added to shelf</source>
         <translation type="unfinished"></translation>

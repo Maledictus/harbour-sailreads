@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="nl" version="2.1">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="nl">
 <context>
     <name>AboutPage</name>
     <message>
@@ -585,7 +587,10 @@
     <message numerus="yes">
         <location filename="../qml/pages/BookPage.qml" line="194"/>
         <source>%Ln ratings</source>
-        <translation><numerusform>%Ln waardering</numerusform><numerusform>%Ln waarderingen</numerusform></translation>
+        <translation>
+            <numerusform>%Ln waardering</numerusform>
+            <numerusform>%Ln waarderingen</numerusform>
+        </translation>
     </message>
     <message>
         <location filename="../qml/pages/BookPage.qml" line="479"/>
@@ -823,12 +828,18 @@
     <message numerus="yes">
         <location filename="../qml/components/FriendListItem.qml" line="67"/>
         <source>%Ln books</source>
-        <translation><numerusform>%Ln boek</numerusform><numerusform>%Ln boeken</numerusform></translation>
+        <translation>
+            <numerusform>%Ln boek</numerusform>
+            <numerusform>%Ln boeken</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <location filename="../qml/components/FriendListItem.qml" line="73"/>
         <source>%Ln friends</source>
-        <translation><numerusform>%Ln vriend</numerusform><numerusform>%Ln vrienden</numerusform></translation>
+        <translation>
+            <numerusform>%Ln vriend</numerusform>
+            <numerusform>%Ln vrienden</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -1294,8 +1305,8 @@
     <name>MessagesFolder</name>
     <message>
         <location filename="../qml/components/MessagesFolder.qml" line="28"/>
-        <source/>
-        <translation type="unfinished"/>
+        <source></source>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -1627,10 +1638,6 @@
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="293"/>
-        <source>Book was added to shelves</source>
-        <translation>Boek toegevoegd aan planken</translation>
-    </message>
-    <message>
         <location filename="../src/sailreadsmanager.cpp" line="305"/>
         <source>Book was added to shelf</source>
         <translation>Boek toegevoegd aan plank</translation>
@@ -1651,7 +1658,10 @@
     <message numerus="yes">
         <location filename="../qml/components/RatingComponent.qml" line="55"/>
         <source>%Ln ratings</source>
-        <translation><numerusform>%Ln waardering</numerusform><numerusform>%Ln waarderingen</numerusform></translation>
+        <translation>
+            <numerusform>%Ln waardering</numerusform>
+            <numerusform>%Ln waarderingen</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -1876,12 +1886,18 @@
     <message numerus="yes">
         <location filename="../qml/pages/SeriesPage.qml" line="148"/>
         <source>%Ln works</source>
-        <translation><numerusform>%Ln werk</numerusform><numerusform>%Ln werken</numerusform></translation>
+        <translation>
+            <numerusform>%Ln werk</numerusform>
+            <numerusform>%Ln werken</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <location filename="../qml/pages/SeriesPage.qml" line="155"/>
         <source>%Ln primary works</source>
-        <translation><numerusform>%Ln primair werk</numerusform><numerusform>%Ln primaire werken</numerusform></translation>
+        <translation>
+            <numerusform>%Ln primair werk</numerusform>
+            <numerusform>%Ln primaire werken</numerusform>
+        </translation>
     </message>
 </context>
 <context>

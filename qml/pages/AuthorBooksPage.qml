@@ -110,8 +110,8 @@ Page {
                         Theme.highlightColor : Theme.primaryColor
                 label.text: !bookBook.review ? qsTr("Want to Read") :
                         (bookBook.review ? bookBook.review.exclusiveShelf : "")
-                icon.source: !bookBook.review ? "image://Theme/icon-m-add" :
-                        "image://Theme/icon-m-acknowledge"
+                icon.source: !bookBook.review ? "image://theme/icon-m-add" :
+                        "image://theme/icon-m-acknowledge"
                 icon.highlighted: bookBook.review || highlighted || delegate.highlighted
                 onClicked: {
                     if (!bookBook.review) {

@@ -233,7 +233,7 @@ Page {
 
             NavigationButton {
                 width: parent.width / 3
-                icon.source: "image://Theme/icon-m-data-traffic"
+                icon.source: "image://theme/icon-m-data-traffic"
                 text: qsTr("Friends")
                 selected: slideshowView.currentIndex == 0
                 onClicked: {
@@ -243,7 +243,7 @@ Page {
 
             NavigationButton {
                 width: parent.width / 3
-                icon.source: "image://Theme/icon-m-data-upload"
+                icon.source: "image://theme/icon-m-data-upload"
                 text: qsTr("Followings")
                 selected: slideshowView.currentIndex == 1
                 onClicked: {
@@ -253,7 +253,7 @@ Page {
 
             NavigationButton {
                 width: parent.width / 3
-                icon.source: "image://Theme/icon-m-data-download"
+                icon.source: "image://theme/icon-m-data-download"
                 text: qsTr("Followers")
                 selected: slideshowView.currentIndex == 2
                 onClicked: {
