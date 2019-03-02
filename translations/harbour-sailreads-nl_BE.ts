@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="nl_BE">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="nl_BE" version="2.1">
 <context>
     <name>AboutPage</name>
     <message>
@@ -587,10 +585,7 @@
     <message numerus="yes">
         <location filename="../qml/pages/BookPage.qml" line="194"/>
         <source>%Ln ratings</source>
-        <translation>
-            <numerusform>%Ln waardering</numerusform>
-            <numerusform>%Ln waarderingen</numerusform>
-        </translation>
+        <translation><numerusform>%Ln waardering</numerusform><numerusform>%Ln waarderingen</numerusform></translation>
     </message>
     <message>
         <location filename="../qml/pages/BookPage.qml" line="479"/>
@@ -828,18 +823,12 @@
     <message numerus="yes">
         <location filename="../qml/components/FriendListItem.qml" line="67"/>
         <source>%Ln books</source>
-        <translation>
-            <numerusform>%Ln boek</numerusform>
-            <numerusform>%Ln boeken</numerusform>
-        </translation>
+        <translation><numerusform>%Ln boek</numerusform><numerusform>%Ln boeken</numerusform></translation>
     </message>
     <message numerus="yes">
         <location filename="../qml/components/FriendListItem.qml" line="73"/>
         <source>%Ln friends</source>
-        <translation>
-            <numerusform>%Ln vriend</numerusform>
-            <numerusform>%Ln vrienden</numerusform>
-        </translation>
+        <translation><numerusform>%Ln vriend</numerusform><numerusform>%Ln vrienden</numerusform></translation>
     </message>
 </context>
 <context>
@@ -1305,8 +1294,8 @@
     <name>MessagesFolder</name>
     <message>
         <location filename="../qml/components/MessagesFolder.qml" line="28"/>
-        <source></source>
-        <translation></translation>
+        <source/>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1545,111 +1534,111 @@
     <message>
         <location filename="../src/goodreadsapi.cpp" line="841"/>
         <source>Reply data is corrupted</source>
-        <translation type="unfinished"></translation>
+        <translation>Antwoordgegevens zijn beschadigd</translation>
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="159"/>
         <source>New shelf was added successfully</source>
-        <translation type="unfinished"></translation>
+        <translation>Nieuwe plank toegevoegd</translation>
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="164"/>
         <source>Shelf was edited successfully</source>
-        <translation type="unfinished"></translation>
+        <translation>Plank bewerkt</translation>
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="185"/>
         <source>Friend request was %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Vriendschapsverzoek %1</translation>
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="186"/>
         <location filename="../src/sailreadsmanager.cpp" line="192"/>
         <source>confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>aanvaard</translation>
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="186"/>
         <location filename="../src/sailreadsmanager.cpp" line="192"/>
         <source>declined</source>
-        <translation type="unfinished"></translation>
+        <translation>afgewezen</translation>
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="191"/>
         <source>Friend&apos;s recommendation was %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Vriendschapsaanbeveling %1</translation>
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="197"/>
         <source>User was followed %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Gebruiker %1 gevolgd</translation>
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="198"/>
         <location filename="../src/sailreadsmanager.cpp" line="204"/>
         <source>successfully</source>
-        <translation type="unfinished"></translation>
+        <translation>is nu</translation>
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="198"/>
         <location filename="../src/sailreadsmanager.cpp" line="204"/>
         <source>unsuccessfully</source>
-        <translation type="unfinished"></translation>
+        <translation>is niet</translation>
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="203"/>
         <source>User was unfollowed %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Gebruiker %1 ontvolgd</translation>
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="209"/>
         <source>Friend was added successfully</source>
-        <translation type="unfinished"></translation>
+        <translation>Vriend toegevoegd</translation>
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="236"/>
         <source>Book edition switched successfully</source>
-        <translation type="unfinished"></translation>
+        <translation>Boekeditie verwisseld</translation>
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="249"/>
         <source>New comment was added successfully</source>
-        <translation type="unfinished"></translation>
+        <translation>Nieuwe commentaar toegevoegd</translation>
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="257"/>
         <source>Now you are following author</source>
-        <translation type="unfinished"></translation>
+        <translation>Ge volgt nu de auteur</translation>
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="262"/>
         <source>You stop fallowing author</source>
-        <translation type="unfinished"></translation>
+        <translation>Ge volgt deze(n) auteur niet meer</translation>
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="281"/>
         <source>You rating was added</source>
-        <translation type="unfinished"></translation>
+        <translation>Uw waardering is toegevoegd</translation>
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="286"/>
         <source>You rating was removed</source>
-        <translation type="unfinished"></translation>
+        <translation>Uw waardering is verwijderd</translation>
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="293"/>
         <source>Book was added to shelves</source>
-        <translation type="unfinished"></translation>
+        <translation>Boek toegevoegd aan planken</translation>
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="305"/>
         <source>Book was added to shelf</source>
-        <translation type="unfinished"></translation>
+        <translation>Boek toegevoegd aan plank</translation>
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="310"/>
         <source>Book was removed from shelf</source>
-        <translation type="unfinished"></translation>
+        <translation>Boek verwijderd van plank</translation>
     </message>
 </context>
 <context>
@@ -1662,10 +1651,7 @@
     <message numerus="yes">
         <location filename="../qml/components/RatingComponent.qml" line="55"/>
         <source>%Ln ratings</source>
-        <translation>
-            <numerusform>%Ln waardering</numerusform>
-            <numerusform>%Ln waarderingen</numerusform>
-        </translation>
+        <translation><numerusform>%Ln waardering</numerusform><numerusform>%Ln waarderingen</numerusform></translation>
     </message>
 </context>
 <context>
@@ -1765,7 +1751,7 @@
         <location filename="../src/goodreadsapi.cpp" line="884"/>
         <location filename="../src/goodreadsapi.cpp" line="899"/>
         <source>Network error: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Netwerkfout: %1</translation>
     </message>
 </context>
 <context>
@@ -1890,18 +1876,12 @@
     <message numerus="yes">
         <location filename="../qml/pages/SeriesPage.qml" line="148"/>
         <source>%Ln works</source>
-        <translation>
-            <numerusform>%Ln werk</numerusform>
-            <numerusform>%Ln werken</numerusform>
-        </translation>
+        <translation><numerusform>%Ln werk</numerusform><numerusform>%Ln werken</numerusform></translation>
     </message>
     <message numerus="yes">
         <location filename="../qml/pages/SeriesPage.qml" line="155"/>
         <source>%Ln primary works</source>
-        <translation>
-            <numerusform>%Ln primair werk</numerusform>
-            <numerusform>%Ln primaire werken</numerusform>
-        </translation>
+        <translation><numerusform>%Ln primair werk</numerusform><numerusform>%Ln primaire werken</numerusform></translation>
     </message>
 </context>
 <context>

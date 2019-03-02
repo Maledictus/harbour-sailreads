@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="ru">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="ru" version="2.1">
 <context>
     <name>AboutPage</name>
     <message>
@@ -587,11 +585,7 @@
     <message numerus="yes">
         <location filename="../qml/pages/BookPage.qml" line="194"/>
         <source>%Ln ratings</source>
-        <translation>
-            <numerusform>%Ln оценка</numerusform>
-            <numerusform>%Ln оценки</numerusform>
-            <numerusform>%Ln оценок</numerusform>
-        </translation>
+        <translation><numerusform>%Ln оценка</numerusform><numerusform>%Ln оценки</numerusform><numerusform>%Ln оценок</numerusform><numerusform>%Ln оценка</numerusform></translation>
     </message>
     <message>
         <location filename="../qml/pages/BookPage.qml" line="479"/>
@@ -829,20 +823,12 @@
     <message numerus="yes">
         <location filename="../qml/components/FriendListItem.qml" line="67"/>
         <source>%Ln books</source>
-        <translation>
-            <numerusform>%Ln книга</numerusform>
-            <numerusform>%Ln книги</numerusform>
-            <numerusform>%Ln книг</numerusform>
-        </translation>
+        <translation><numerusform>%Ln книга</numerusform><numerusform>%Ln книги</numerusform><numerusform>%Ln книг</numerusform><numerusform>%Ln книга</numerusform></translation>
     </message>
     <message numerus="yes">
         <location filename="../qml/components/FriendListItem.qml" line="73"/>
         <source>%Ln friends</source>
-        <translation>
-            <numerusform>%Ln друг</numerusform>
-            <numerusform>%Ln друга</numerusform>
-            <numerusform>%Ln друзей</numerusform>
-        </translation>
+        <translation><numerusform>%Ln друг</numerusform><numerusform>%Ln друга</numerusform><numerusform>%Ln друзей</numerusform><numerusform>%Ln друзей</numerusform></translation>
     </message>
 </context>
 <context>
@@ -1308,8 +1294,8 @@
     <name>MessagesFolder</name>
     <message>
         <location filename="../qml/components/MessagesFolder.qml" line="28"/>
-        <source></source>
-        <translation></translation>
+        <source/>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1470,7 +1456,7 @@
     <message>
         <location filename="../qml/pages/ProfilePage.qml" line="146"/>
         <source>Search</source>
-        <translation type="unfinished">Поиск</translation>
+        <translation>Поиск</translation>
     </message>
     <message>
         <location filename="../qml/pages/ProfilePage.qml" line="151"/>
@@ -1548,111 +1534,111 @@
     <message>
         <location filename="../src/goodreadsapi.cpp" line="841"/>
         <source>Reply data is corrupted</source>
-        <translation type="unfinished"></translation>
+        <translation>Данные ответа повреждены</translation>
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="159"/>
         <source>New shelf was added successfully</source>
-        <translation type="unfinished"></translation>
+        <translation>Новая полка добавлена успешно</translation>
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="164"/>
         <source>Shelf was edited successfully</source>
-        <translation type="unfinished"></translation>
+        <translation>Полка была успешно отредактирована</translation>
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="185"/>
         <source>Friend request was %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Запрос в друзья был %1</translation>
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="186"/>
         <location filename="../src/sailreadsmanager.cpp" line="192"/>
         <source>confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>подтвержден</translation>
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="186"/>
         <location filename="../src/sailreadsmanager.cpp" line="192"/>
         <source>declined</source>
-        <translation type="unfinished"></translation>
+        <translation>отклонен</translation>
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="191"/>
         <source>Friend&apos;s recommendation was %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Рекомендация друзей была %1</translation>
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="197"/>
         <source>User was followed %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Подписались на пользователя %1</translation>
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="198"/>
         <location filename="../src/sailreadsmanager.cpp" line="204"/>
         <source>successfully</source>
-        <translation type="unfinished"></translation>
+        <translation>успешно</translation>
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="198"/>
         <location filename="../src/sailreadsmanager.cpp" line="204"/>
         <source>unsuccessfully</source>
-        <translation type="unfinished"></translation>
+        <translation>неуспешно</translation>
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="203"/>
         <source>User was unfollowed %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Отписались от пользователя %1</translation>
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="209"/>
         <source>Friend was added successfully</source>
-        <translation type="unfinished"></translation>
+        <translation>Друг был добавлен успешно</translation>
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="236"/>
         <source>Book edition switched successfully</source>
-        <translation type="unfinished"></translation>
+        <translation>Успешно выбрано новое издание книги</translation>
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="249"/>
         <source>New comment was added successfully</source>
-        <translation type="unfinished"></translation>
+        <translation>Новый комментарий успешно добавлен</translation>
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="257"/>
         <source>Now you are following author</source>
-        <translation type="unfinished"></translation>
+        <translation>Теперь вы подписались на автора</translation>
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="262"/>
         <source>You stop fallowing author</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы отписались от автора</translation>
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="281"/>
         <source>You rating was added</source>
-        <translation type="unfinished"></translation>
+        <translation>Рейтинг был добавлен</translation>
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="286"/>
         <source>You rating was removed</source>
-        <translation type="unfinished"></translation>
+        <translation>Рейтинг был удален</translation>
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="293"/>
         <source>Book was added to shelves</source>
-        <translation type="unfinished"></translation>
+        <translation>Книга была добавлена на полки</translation>
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="305"/>
         <source>Book was added to shelf</source>
-        <translation type="unfinished"></translation>
+        <translation>Книга была добавлена на полку</translation>
     </message>
     <message>
         <location filename="../src/sailreadsmanager.cpp" line="310"/>
         <source>Book was removed from shelf</source>
-        <translation type="unfinished"></translation>
+        <translation>Книга была удалена с полки</translation>
     </message>
 </context>
 <context>
@@ -1665,11 +1651,7 @@
     <message numerus="yes">
         <location filename="../qml/components/RatingComponent.qml" line="55"/>
         <source>%Ln ratings</source>
-        <translation>
-            <numerusform>%Ln оценка</numerusform>
-            <numerusform>%Ln оценки</numerusform>
-            <numerusform>%Ln оценок</numerusform>
-        </translation>
+        <translation><numerusform>%Ln оценка</numerusform><numerusform>%Ln оценки</numerusform><numerusform>%Ln оценок</numerusform><numerusform>%Ln оценок</numerusform></translation>
     </message>
 </context>
 <context>
@@ -1769,7 +1751,7 @@
         <location filename="../src/goodreadsapi.cpp" line="884"/>
         <location filename="../src/goodreadsapi.cpp" line="899"/>
         <source>Network error: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Сетевая ошибка: %1</translation>
     </message>
 </context>
 <context>
@@ -1894,20 +1876,12 @@
     <message numerus="yes">
         <location filename="../qml/pages/SeriesPage.qml" line="148"/>
         <source>%Ln works</source>
-        <translation>
-            <numerusform>%Ln работа</numerusform>
-            <numerusform>%Ln работы</numerusform>
-            <numerusform>%Ln работ</numerusform>
-        </translation>
+        <translation><numerusform>%Ln работа</numerusform><numerusform>%Ln работы</numerusform><numerusform>%Ln работ</numerusform><numerusform>%Ln работ</numerusform></translation>
     </message>
     <message numerus="yes">
         <location filename="../qml/pages/SeriesPage.qml" line="155"/>
         <source>%Ln primary works</source>
-        <translation>
-            <numerusform>%Ln основная работа</numerusform>
-            <numerusform>%Ln основные работы</numerusform>
-            <numerusform>%Ln основных работ</numerusform>
-        </translation>
+        <translation><numerusform>%Ln основная работа</numerusform><numerusform>%Ln основные работы</numerusform><numerusform>%Ln основных работ</numerusform><numerusform>%Ln основная работа</numerusform></translation>
     </message>
 </context>
 <context>
