@@ -494,12 +494,12 @@
     <message>
         <location filename="../qml/pages/BookEditionsPage.qml" line="113"/>
         <source>Switch to This Edition</source>
-        <translation>Wisselen naar deze uitgave</translation>
+        <translation>Wisselen naar deze editie</translation>
     </message>
     <message>
         <location filename="../qml/pages/BookEditionsPage.qml" line="114"/>
         <source>Selected Edition</source>
-        <translation>Geselecteerde uitgave</translation>
+        <translation>Geselecteerde editie</translation>
     </message>
 </context>
 <context>
