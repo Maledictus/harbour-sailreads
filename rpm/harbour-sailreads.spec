@@ -13,7 +13,7 @@ Name:       harbour-sailreads
 %{!?qtc_make:%define qtc_make make}
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 Summary:    Sailread - this is a goodreads.com client for readers and book recommendations.
-Version:    1.1.0
+Version:    1.1.1
 Release:    1
 Group:      Applications/Internet
 License:    The MIT License (MIT)

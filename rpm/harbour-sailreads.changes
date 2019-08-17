@@ -12,6 +12,10 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
+* Sat Aug 17 2019 Oleg Linkin <maledictusdemagog@gmail.com> 1.1.1
+- Move api keys to .qmake.conf
+- Update build to last SailfishOS version
+
 * Sat Mar 02 2019 Oleg Linkin <maledictusdemagog@gmail.com> 1.1.0
 - Add network requests cache
 - Add simple notifications
