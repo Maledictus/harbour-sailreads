@@ -40,14 +40,15 @@ THE SOFTWARE.
 #include "oauth1.h"
 #include "rpcutils.h"
 
+
 namespace Sailreads
 {
 const QString GoodReadsApi::UnreadTopicsFolderId = QString("unread");
 
 GoodReadsApi::GoodReadsApi(QObject *parent)
 : QObject(parent)
-, m_ConsumerKey("YzXuHShjEIJ9VR0viEw7MQ")
-, m_ConsumerSecretKey("q9T9p1EMdQD1ldgMlNF6dVF3S3hYikBWcj5O2yeGHA")
+, m_ConsumerKey(CONSUMER_KEY)
+, m_ConsumerSecretKey(CONSUMER_SECRET_KEY)
 , m_BaseUrl("https://www.goodreads.com")
 , m_NAM(new QNetworkAccessManager(this))
 , m_OAuth1(new OAuth1(m_ConsumerKey, m_ConsumerSecretKey, m_NAM, this))

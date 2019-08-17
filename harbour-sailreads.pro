@@ -8,7 +8,9 @@ CONFIG += sailfishapp c++11 sailfishapp_i18n
 
 PKGCONFIG += mlite5
 
-DEFINES += APP_VERSION=\\\"$$VERSION\\\"
+#setup CONSUMER_KEY and CONSUMER_SECRET_KEY in .qmake.conf file
+DEFINES += APP_VERSION=\\\"$$VERSION\\\" CONSUMER_KEY=\\\"$$CONSUMER_KEY\\\" \
+    CONSUMER_SECRET_KEY=\\\"$$CONSUMER_SECRET_KEY\\\"
 
 SOURCES += src/harbour-sailreads.cpp \
     src/application.cpp \
